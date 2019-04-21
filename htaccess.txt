@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+        # Hey-ho let's go!
+        RewriteEngine On
+        # Base is the URL path of the home directory
+        RewriteBase /
+        # Base goes to WordPress
+        RewriteRule ^$ /core/index.php [L]
+        # Skip real files and directories
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        # Otherwise send it to WordPress
+        RewriteRule .* /core/index.php [L]
+</IfModule>

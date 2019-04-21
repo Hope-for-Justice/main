@@ -1,0 +1,35 @@
+*~
+.DS_Store
+.svn
+.cvs
+*.bak
+*.swp
+Thumbs.db
+
+# Ignore node module to avoid clutter in the git repo
+# Use npm install to get local copies of all required packages
+/node_modules/
+
+# Ignore local .htaccess files
+**/.htaccess
+
+# Don't put live config into git
+production-config.php
+
+# Don't check in Wordpress itself
+/core/
+
+# Ignore grunt rendered output and other content related stuff
+build/
+*.sass-cache
+*.sass-cache/*
+
+
+# Ignore project and local dev file
+hfj.sublime-workspace
+**/debug.log
+.ftppass
+.vscode
+sftpcache-staging.json
+sftpcache.json
+local-config.php
