@@ -1,7 +1,7 @@
 {
   "name": "hfj2",
   "version": "1.0.0",
-  "description": "",
+  "description": "Another Hope for Justice website",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,11 +10,12 @@
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/jamesholt95/hfj2.git"
   },
-  "author": "",
+  "author": "James Holt",
   "license": "ISC",
   "homepage": "https://bitbucket.org/jamesholt95/hfj2#readme",
   "dependencies": {},
   "devDependencies": {
+    "bootstrap": "^4.3.1",
     "grunt": "^1.0.4"
   }
 }
