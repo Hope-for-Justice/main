@@ -1,28 +1,11 @@
 module.exports = function (distTheme, devTheme, jsDir) {
 	var uglifyFilesObject = {};
-	uglifyFilesObject[distTheme + jsDir + 'header.js'] = [
-		devTheme + jsDir + 'libs/modernizr.min.js'
-	];
+
 	uglifyFilesObject[distTheme + jsDir + 'footer.js'] = [
-		// objects
-		devTheme + jsDir + 'objects/videoRespond.js',	
-
 		// plugins
-		//devTheme + jsDir + 'plugins/bootstrap.modal.js',
-		devTheme + jsDir + 'plugins/fitvids.js',
-		devTheme + jsDir + 'plugins/flexslider.js',
-		devTheme + jsDir + 'plugins/headroom.js',
-		devTheme + jsDir + 'plugins/hoverintent.js',
-		devTheme + jsDir + 'plugins/jquery.headroom.js',
-		devTheme + jsDir + 'plugins/matchheight.js',
-		devTheme + jsDir + 'plugins/pushy.js',		
-		devTheme + jsDir + 'plugins/smartresize.js',
-		devTheme + jsDir + 'plugins/ticker.js',
-		devTheme + jsDir + 'plugins/jquery-validate.js',
-		devTheme + jsDir + 'plugins/jquery.steps.min.js',
+		devTheme + jsDir + 'plugins/bootstrap.modal.js',
+		devTheme + jsDir + 'plugins/utm-tracking.js',
 		devTheme + jsDir + 'scripts.js',
-		
-
 	];
 
 	uglifyFilesObject[distTheme + jsDir + 'handlebars.js'] = [

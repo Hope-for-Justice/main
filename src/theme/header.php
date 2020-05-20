@@ -16,6 +16,7 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<link href="https://fonts.googleapis.com/css2?family=Inconsolata&family=Open+Sans:wght@400;700&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
 
 	<?php wp_head(); ?>
 </head>
@@ -24,35 +25,25 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'hope-for-justice-2019' ); ?></a>
 
-	<header id="masthead" class="site-header">
-		<div class="site-branding">
-			<?php
-			the_custom_logo();
-			if ( is_front_page() && is_home() ) :
-				?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<?php
-			else :
-				?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-				<?php
-			endif;
-			$hope_for_justice_2019_description = get_bloginfo( 'description', 'display' );
-			if ( $hope_for_justice_2019_description || is_customize_preview() ) :
-				?>
-				<p class="site-description"><?php echo $hope_for_justice_2019_description; /* WPCS: xss ok. */ ?></p>
-			<?php endif; ?>
+	<header id="masthead" class="site-header header">
+		<div class="site-branding header__branding">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.91 122.91"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#d21220;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><circle class="cls-1" cx="61.45" cy="61.45" r="61"/><path class="cls-2" d="M61.45,0A61.46,61.46,0,1,1,0,61.45,61.46,61.46,0,0,1,61.45,0Zm44.78,50.12a13.14,13.14,0,0,0,1.9-.45c0-.09-.54-.28-.68-.33-1.07-.36-3.71-1.45-4-1.57a2.33,2.33,0,0,1-1.25-1.14c-.19-.47-.39-.93-.55-1.4a10,10,0,0,0-2-3.49,10.11,10.11,0,0,0-5.11-3.16,11.1,11.1,0,0,0-3.72-.2,7.42,7.42,0,0,0-2.47.66A11,11,0,0,0,85,41.26l-7,7a8.74,8.74,0,0,1-.92.81,2.86,2.86,0,0,1-2.62.37c-1.22-.33-2.4-.78-3.62-1.12a31.23,31.23,0,0,0-4.7-.92c-1.2-.14-2.39-.38-3.59-.4a46.57,46.57,0,0,0-5.54.06c-1.07.1-2.14.17-3.21.35L50,48.07c-1,.16-1.9.34-2.85.48-.66.1-1.33.17-2,.24a18.19,18.19,0,0,1-1.94.19,50.14,50.14,0,0,1-7.75-.3c-1.38-.2-2.76-.39-4.11-.72s-2.6-.66-3.87-1.08-2.59-.94-3.85-1.49S21.15,44.22,20,43.54a42.39,42.39,0,0,1-5.07-3.36c-.14-.1-.43-.3-.51-.28a1,1,0,0,0,.06.43,41.84,41.84,0,0,0,10,18.36A43,43,0,0,0,53.76,72.56S45.6,80.69,39.34,87l-3.91,3.9c-.9.9-1.85,1.74-2.74,2.64s-1.92,2-2.87,3c-.18.18-.53.56-.53.67s.32,0,.42,0c.44-.1.89-.19,1.33-.3a43.13,43.13,0,0,0,6.42-2.13,45.16,45.16,0,0,0,6.11-3.14,45.12,45.12,0,0,0,7.88-6.3c.39-.38.74-.79,1.1-1.2s.72-.8,1.07-1.21c0,0,.11-.12.09-.16s-.11,0-.12,0a42.39,42.39,0,0,0-6.77,2,50.22,50.22,0,0,0-6,2.78c-.07,0-.11,0-.11,0s0,0,.09-.08A39.16,39.16,0,0,1,52.62,81.9a42.82,42.82,0,0,1,20.8-.58,40.67,40.67,0,0,1,8.3,2.77l1.12.54L68.18,99.29s0,0,0,.08c2.48,2.48,6.57,6.72,6.73,6.72A35.84,35.84,0,0,0,78,102.92c0-.1-4-3.94-4-4a19.49,19.49,0,0,1,2.12-2.14c.1,0,4.05,4.07,4.17,4.07a31.15,31.15,0,0,0,3-3c0-.15-4-4.07-4.1-4.08S88.9,84,93.37,79.51a6.58,6.58,0,0,0,6.29-.06,6.09,6.09,0,0,0,2.39-2.22,6.52,6.52,0,0,0-.64-8,6.6,6.6,0,0,0-8.12-1.38A6.25,6.25,0,0,0,90.41,71a6.51,6.51,0,0,0,.24,5.81L84.5,83h0l-.68-.42c-.68-.42-1.35-.84-2-1.23-.88-.49-1.78-.94-2.69-1.38A3.22,3.22,0,0,1,77.19,78a2.82,2.82,0,0,1-.06-1.7,2.9,2.9,0,0,1,1.21-1.69,49.41,49.41,0,0,0,4.39-3.08,36.07,36.07,0,0,0,3.36-2.94c.81-.83,1.6-1.67,2.4-2.51.31-.34.62-.69.91-1,.57-.74,1.14-1.47,1.69-2.23s1.1-1.54,1.61-2.34c.38-.62.71-1.27,1.07-1.9.24-.42.45-.86.72-1.26a17.08,17.08,0,0,1,2.18-2.55,16.07,16.07,0,0,1,3.93-2.82A22.11,22.11,0,0,1,106.23,50.12ZM76.6,47.36a2.33,2.33,0,0,0,.34-.31,4.88,4.88,0,0,0-.52-.4L74.2,45.31a32.62,32.62,0,0,0-3.73-1.89,62.33,62.33,0,0,0-6.36-2.23,62.91,62.91,0,0,1-9-2.77,50.83,50.83,0,0,1-5.91-3.17,41.29,41.29,0,0,1-3.86-2.85,46.41,46.41,0,0,1-5.73-5.67c-.89-1.16-1.75-2.34-2.61-3.52-.14-.19-.4-.54-.5-.5s-.09.52-.09.68a32.4,32.4,0,0,0,.26,4.51c.1.76.13,1.52.26,2.27.3,1.68.64,3.35,1.1,5a43.83,43.83,0,0,0,2.69,7.14,38.29,38.29,0,0,0,2.87,5,3,3,0,0,1,.17.28c5.51-.67,10-2.06,14.07-2.18A45.54,45.54,0,0,1,73.7,47.65,3.37,3.37,0,0,0,76.6,47.36Z"/><path class="cls-2" d="M96.43,70.62a3.14,3.14,0,0,1,3,3,3,3,0,0,1-2.92,3,3.16,3.16,0,0,1-3-3A3.07,3.07,0,0,1,96.43,70.62Z"/></g></g></svg>
 		</div><!-- .site-branding -->
 
-		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'hope-for-justice-2019' ); ?></button>
-			<?php
-			wp_nav_menu( array(
-				'theme_location' => 'menu-1',
-				'menu_id'        => 'primary-menu',
-			) );
-			?>
-		</nav><!-- #site-navigation -->
+		<div class="header__title type__small">Hope for Justice</div>
+
+		<div>
+			<div class="button button--hollow ">
+				Donate
+			</div>
+			<div class="header__burger">
+				
+			</div>
+		</div>
 	</header><!-- #masthead -->
+
+	<nav id="site-navigation" class="main-navigation">
+
+	</nav><!-- #site-navigation -->
 
 	<div id="content" class="site-content">
