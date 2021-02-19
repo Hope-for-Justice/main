@@ -10,9 +10,9 @@ jQuery(document).ready(function($) {
         $(".dropdown").not(this).find(".answer").slideUp();
     });
 
-    // Bootstrap modal url hashing
+    // Bootstrap modal
     $(".modal").on("shown.bs.modal", function()  { // any time a modal is shown
-        $(this).find(".modal__dialog").addClass("animate__animated animate__fadeInDown").fadeIn();
+        $(this).find(".modal__content").addClass("animate__animated animate__fadeInDown").fadeIn(); //animate in
         var urlReplace = "#" + $(this).attr('id'); // make the hash the id of the modal shown
         history.pushState(null, null, urlReplace); // push state that hash into the url
     });
@@ -21,6 +21,9 @@ jQuery(document).ready(function($) {
     $(window).on('popstate', function() { 
         $(".modal").modal('hide');
      });
+
+    //News ticker
+    $("#newsTicker").eocjsNewsticker();
 
     // Burger menu
     $('#burger-menu').click(function(){
@@ -52,10 +55,9 @@ jQuery(document).ready(function($) {
 
 
     //modal (spash)
-    $('#splash-modal').delay( 400 ).modal('show');
+    $('#splash-modal').modal('show');
 
-    //News ticker
-    $("#newsTicker").eocjsNewsticker();
+
 
     //Homepage
 

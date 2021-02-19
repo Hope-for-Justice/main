@@ -87,11 +87,11 @@ add_action( 'after_setup_theme', 'hope_for_justice_2020_setup' );
  * Enqueue scripts and styles.
  */
 function hope_for_justice_2020_scripts() {
-	wp_enqueue_style( 'hope-for-justice-2020-style', get_stylesheet_uri(), array(), '202102' );
+	wp_enqueue_style( 'hope-for-justice-2020-style', get_stylesheet_uri(), array(), '202104' );
 
 	wp_enqueue_script('jquery'); 
 
-    wp_enqueue_script( 'hopeforjustice-2014-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202102', true );
+    wp_enqueue_script( 'hopeforjustice-2014-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202104', true );
 
 }
 

@@ -5,6 +5,8 @@
  *
  * Copyright (c) 2020 Animate.css
  */
+
+ @include mq($from: tablet){ //Only animate from tablet up
 :root {
   --animate-duration: 0.4s;
   --animate-delay: 0.25s;
@@ -4113,4 +4115,5 @@
 .animate__slideOutUp {
   -webkit-animation-name: slideOutUp;
   animation-name: slideOutUp;
+}
 }

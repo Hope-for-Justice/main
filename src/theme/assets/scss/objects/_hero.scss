@@ -24,7 +24,6 @@
 	margin-top:50vh;
 	grid-column: 1 / span 12;
 	position:relative;
-	display:none;
 }
 
 .hero__sub-header{
@@ -137,7 +136,10 @@
 	max-height: 65vw;
 }
 
-.hero--home .hero__content {grid-column: 7 / span 6;}
+.hero--home .hero__content {
+	grid-column: 7 / span 6;
+	display: none;
+}
 
 .hero--home .hero__header {font-size:12vw;}
 
