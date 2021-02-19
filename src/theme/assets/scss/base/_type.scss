@@ -7,6 +7,7 @@
 
 body {
 	font-family: apercu-reg, sans-serif;
+	color: $black;
 }
 
 .font-fk {
@@ -18,7 +19,9 @@ body {
 	font-family: apercu-bold, sans-serif;
 }
 
-p {font-size: 16px;}
+p {
+	font-size: 16px;
+}
 
 // desktop
 ///////////////////////////////////////////////////////////////////////////

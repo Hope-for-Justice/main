@@ -11,6 +11,9 @@
 .giving-widget__amount {
 	margin-bottom: 7px;
 	display:none;
+	input {
+		width:100%;
+	}
 }
 
 .giving-widget__rangeslider {
