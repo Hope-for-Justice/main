@@ -1,0 +1,42 @@
+/*
+*
+* _FORMS.SCSS
+*
+*/
+
+input[type="text"], input[type="email"], 
+input[type="url"], input[type="password"], 
+input[type="search"], input[type="number"], 
+input[type="tel"], input[type="range"], 
+input[type="date"], input[type="month"], 
+input[type="week"], input[type="time"], 
+input[type="datetime"], input[type="datetime-local"], 
+input[type="color"], textarea  {
+	border-radius: 77px;
+	padding:10px 20px 10px 20px;
+	font-size:21px;
+	color: #D0D0D0;
+	border:none;
+	font-family: 'apercu-bold';
+}
+
+// input extras 
+.input--pre-pound, .input--pre-dollar {
+  position: relative;
+  font-family: 'apercu-bold';
+  input[type="text"], input[type="number"] {
+    padding-left: 50px;    
+  }
+  &:before {
+    content: '£';
+    position: absolute;
+    top: 10px;
+    left: 24px;
+    color: #D0D0D0;
+    font-size: 21px;
+    font-weight: bold;
+  } 
+}
+.input--pre-dollar:before {
+  content: 'US$';
+}

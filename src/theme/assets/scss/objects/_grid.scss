@@ -1,0 +1,40 @@
+/*
+*
+* _GRID.SCSS
+*
+*/
+
+.grid {
+	display:grid;
+	grid-template-columns: repeat(12, 1fr);
+	grid-gap: 20px;
+	margin: 0 20px;
+	height:100%;
+}
+
+
+// tablet
+/////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.grid {
+	margin: 0 40px;
+}
+
+}
+
+// desktop
+/////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.grid {
+	margin: 0 130px;
+}
+
+}
+
+
+
+

@@ -1,0 +1,215 @@
+/*
+*
+* _HERO.SCSS
+*
+*/
+
+// thin 280
+///////////////////////////////////////////////////////////////////////////
+
+.hero {
+	width:100%;
+	height:100vh;
+	background-size: cover;
+	background-position:center;
+	background-repeat: no-repeat;
+}
+
+.hero--home {background-position:top left -70vw;}
+
+.hero--home .hero__inner {padding:30px;}
+
+.hero--home .hero__content {
+	background-color: $white;
+	margin-top:50vh;
+	grid-column: 1 / span 12;
+	position:relative;
+	display:none;
+}
+
+.hero__sub-header{
+	color: $red;
+	letter-spacing: 1.5px;
+	font-size: 16px;
+	margin:-3px 0 0 0;
+}
+
+.hero__header {
+	line-height: 0.8;
+	color:$black;
+	margin:20px 0 0 0;
+}
+
+.hero--home .hero__header {font-size:29vw;}
+
+.hero--home .hero__body-text {margin-top: 28px;}
+
+.hero--home .hero__button {
+	position:absolute;
+	top:12%;
+	right:-12%;
+	transform: rotate(-4deg)scale(0.8);
+}
+
+// mobile 320
+///////////////////////////////////////////////////////////////////////////
+
+
+@include mq($from: mobile) {
+
+.hero--home {background-position:top left -50vw;}
+
+.hero--home .hero__inner {padding:40px;}
+
+.hero--home .hero__button {right:-2%;}
+
+}
+
+// mobile medium
+///////////////////////////////////////////////////////////////////////////
+
+
+@include mq($from: mobileMedium) {
+
+.hero--home .hero__button {
+	transform: rotate(-4deg) scale(1.0);
+	right: auto;
+	top:21vw;
+	left:36vw;
+}
+
+}
+
+// mobile large
+///////////////////////////////////////////////////////////////////////////
+
+
+@include mq($from: mobileLarge) {
+
+.hero--home {background-position:top left -28vw;}
+
+.hero--home .hero__header {font-size:140px;}
+
+.hero--home .hero__button {
+	right: auto;
+	top:100px;
+	left:170px;
+}
+
+
+}
+
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+
+@include mq($from: tablet) {
+
+.hero--home {
+	background-position:top left -19vw;
+	max-height: 80vw;
+}
+
+.hero--home .hero__content {
+	margin-top:0;
+	grid-column: 6 / span 6;
+}
+
+.hero--home .hero__header {font-size:14vw;}
+
+.hero--home .hero__button {
+	top:10vw;
+	left:17vw;
+}
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.hero__sub-header{font-size: 18px;}
+
+.hero--home {
+	background-position:center;
+	max-height: 65vw;
+}
+
+.hero--home .hero__content {grid-column: 7 / span 6;}
+
+.hero--home .hero__header {font-size:12vw;}
+
+.hero--home .hero__button {
+	top:9vw;
+	left:15vw;
+}
+
+}
+
+// desktopLarge
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+
+.hero--home {max-height: 55vw;}
+
+.hero--home .hero__content {grid-column: 7 / span 5;}
+
+.hero--home .hero__inner {padding:60px;}
+
+.hero--home .hero__header {font-size:130px;}
+
+.hero--home .hero__button {
+	top:108px;
+	left:174px;
+}
+
+}
+
+
+// desktopXLarge
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopXLarge) {
+
+.hero__sub-header{font-size: 21px;}
+
+.hero--home .hero__header {font-size:11vw;}
+
+.hero--home .hero__inner {padding:70px;}
+
+.hero--home .hero__body-text {max-width:80%;}
+
+.hero--home .hero__button {
+	top:9vw;
+	left:15vw;
+	transform: rotate(-4deg) scale(1.2);
+}
+
+
+}
+
+// wide
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: wide) {
+
+.hero--home .hero__inner {padding:5vw 3.5vw 3.5vw 3.5vw;}
+
+.hero--home .hero__content {grid-column: 8 / span 4;}
+
+.hero--home .hero__header {font-size:9vw;}
+
+.hero__sub-header{font-size: 1.2vw;}
+
+.hero--home .hero__button {
+	top:9.8vw;
+	left:14vw;
+	transform: rotate(-4deg) scale(1.4);
+}
+
+
+
+}

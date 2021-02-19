@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WP Engine GeoTarget
- * Version: 1.2.7
+ * Version: 1.2.8
  * Description: Create a personalized user experienced based on location.
  * Author: WP Engine
  * Author URI: http://wpengine.com
@@ -245,7 +245,7 @@ class GeoIp {
 
 		$continent = '';
 
-		if ( empty( $country ) ) {
+		if ( empty( $country ) && ! empty( $this->geos['countrycode'] ) ) {
 			$country = $this->geos['countrycode'];
 		}
 
@@ -510,7 +510,7 @@ class GeoIp {
 			$negate        = 0;
 			$inline_negate = 0;
 
-			// Check to see if the attribute has "not" in it.
+			// Check to see if the attribute has "not-" or "not_" in it.
 			$negate = preg_match( '/not?[-_]?(.*)/', $label, $matches );
 
 			// WordPress doesn't like a dash in shortcode parameter labels.

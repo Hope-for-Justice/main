@@ -1,8 +1,8 @@
 <?php
 /**
- * Hope for Justice 2019 Theme Customizer
+ * Hope for Justice 2020 Theme Customizer
  *
- * @package Hope_for_Justice_2019
+ * @package Hope_for_Justice_2020
  */
 
 /**

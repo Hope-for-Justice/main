@@ -4,7 +4,7 @@
  *
  * @link https://codex.wordpress.org/Creating_an_Error_404_Page
  *
- * @package Hope_for_Justice_2019
+ * @package Hope_for_Justice_2020
  */
 
 get_header();

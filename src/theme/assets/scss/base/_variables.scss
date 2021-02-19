@@ -1,0 +1,53 @@
+/*
+*  
+* $_VARIABLES.SCSS
+*
+*/
+
+
+// Sizes
+///////////////////////////////////////////////////////////////////////////////
+
+$base-font-size: 14;
+$em-base: 14px;
+
+// Responsive Breakpoints
+///////////////////////////////////////////////////////////////////////////////
+
+$mq-breakpoints: (
+	thin: 280px,
+    mobile:  320px,
+    mobileMedium:375px,
+    mobileLarge: 480px,
+    tablet:  768px,
+    desktop: 1024px,
+    desktopLarge: 1200px,
+    desktopXLarge: 1440px,
+    wide:1800px,
+    extraWide:2400px,
+) !default;
+
+// Show breakpoints for dev on one line to easily comment out
+$mq-show-breakpoints: (mobile, mobileMedium, mobileLarge, tablet, desktop, desktopLarge, desktopXLarge, wide);
+
+// Colors
+///////////////////////////////////////////////////////////////////////////////
+
+//brand 
+$red: #D6001C;
+$red-tint: #FACCD2;
+$white: #ffffff;
+$black: #212322;
+$light-grey: #FAFAFA;
+$green: #5CAA7F;
+
+//z-index
+///////////////////////////////////////////////////////////////////////////////
+$z-modals: 900;
+$z-header: 800;
+$z-helper: 700;
+
+//others maybe needed
+
+$z-body:600;
+

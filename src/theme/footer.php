@@ -6,11 +6,14 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
- * @package Hope_for_Justice_2019
+ * @package Hope_for_Justice_2020
  */
 
 ?>
-
+		<!-- #newsTicker -->
+		<div class="newsticker">
+			<div id="newsTicker"><a href="#" class="newsticker__item">40.3 Million victims of modern slavery rescued by Hope for Justice</a></div>
+		</div>
 	</div><!-- #content -->
 
 	<footer id="colophon" class="site-footer">

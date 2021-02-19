@@ -1,0 +1,39 @@
+/*
+*
+* _GIVING-WIDGET.SCSS
+*
+*/
+
+.giving-widget{
+
+}
+
+.giving-widget__amount {
+	margin-bottom: 7px;
+	display:none;
+}
+
+.giving-widget__rangeslider {
+	margin: 60px 0;
+}
+
+.giving-widget__feedback {
+	font-size: 14px;
+	margin-top:20px;
+}
+
+// desktop
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.giving-widget__feedback {
+	font-size: 16px;
+	margin-top:20px;
+}
+
+.giving-widget__rangeslider {
+	margin: 60px 0;
+}
+
+}

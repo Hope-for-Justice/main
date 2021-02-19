@@ -7,7 +7,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package Hope_for_Justice_2019
+ * @package Hope_for_Justice_2020
  */
 
 /*

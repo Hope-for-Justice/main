@@ -4,7 +4,7 @@
  *
  * Eventually, some of the functionality here could be replaced by core features.
  *
- * @package Hope_for_Justice_2019
+ * @package Hope_for_Justice_2020
  */
 
 if ( ! function_exists( 'hope_for_justice_2019_posted_on' ) ) :

@@ -5,6 +5,8 @@ module.exports = function (distTheme, devTheme, jsDir) {
 		// plugins
 		devTheme + jsDir + 'plugins/bootstrap.modal.js',
 		devTheme + jsDir + 'plugins/utm-tracking.js',
+		devTheme + jsDir + 'plugins/newsticker.js',
+		devTheme + jsDir + 'plugins/rangeslider.js',
 		devTheme + jsDir + 'scripts.js',
 	];
 

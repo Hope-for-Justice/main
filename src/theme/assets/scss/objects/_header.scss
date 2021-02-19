@@ -4,26 +4,73 @@
 *
 */
 
+// thin 280
+///////////////////////////////////////////////////////////////////////////
 
 .header {
-	width:100%;
-	padding:20px;
-	display: flex;
+	padding:15px 10px;
+	display:flex;
+	align-items: center;
 	justify-content: space-between;
-	align-items:flex-start;
-	background: rgb(0,0,0);
-	color:white;
-	background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 60%, rgba(0,0,0,0) 100%);
-	&::before {display:none;}
-	&::after {display:none;}
+	z-index: $z-header;
+	position: fixed;
+	top:0;
+	width:100%;
+	background-color: $white;
+	@include box-shadow;
 }
 
-.header__branding {
-	width:40px;
-	height:40px;
+.header__logo {width:43vw;}
+
+.header__navigation {
+	display: flex;
+	align-items: center;
 }
 
-.header__title {
-	font-size: 14px;
-	letter-spacing: 2px;
+.header__burger {
+	padding: 12px 19px 8px 13px;
+	border-radius: 0 77px 77px 0;
+	background-color: $light-grey;
+	@include box-shadow;
+}
+
+// mobile
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: mobile) {
+
+.header__logo {width:46vw;}
+
+}
+
+
+// mobile medium
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: mobileMedium) {
+
+.header {padding:20px;}
+
+.header__logo {
+	width:185px;
+	margin-top: -2px;
+}
+
+}
+
+// tablet
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.header__burger {
+	box-shadow:none;
+	background-color:transparent;
+}
+
+.header__logo {
+	width:235px;
+	margin-left:10px;
+}
+
 }

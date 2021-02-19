@@ -1,13 +1,42 @@
 /*
 *
-* _TYPOGRAPHY.SCSS
+* _TYPE.SCSS
 *
 */
 
+
 body {
-	font-family: 'Open Sans', sans-serif;
+	font-family: apercu-reg, sans-serif;
 }
 
-.type__small {
-	font-family: 'Inconsolata', monospace;
+.font-fk {
+	font-family: fk-screamer, sans-serif;
+	text-transform: uppercase;
+}
+
+.bold {
+	font-family: apercu-bold, sans-serif;
+}
+
+p {font-size: 16px;}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+
+@include mq($from: desktop) {
+
+p {font-size: 18px;}
+
+}
+
+
+// wide
+///////////////////////////////////////////////////////////////////////////
+
+
+@include mq($from: wide) {
+
+p {font-size: 21px;}
+
 }

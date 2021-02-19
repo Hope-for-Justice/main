@@ -7,7 +7,7 @@ module.exports = function (deployBase, themeName) {
 	return {
 	  	'production': {
 			auth: {
-			host: 'hopeforjustice.sftp.wpengine.com',
+			host: 'hfj2.sftp.wpengine.com',
 			port: 2222,
 			authKey: 'production'
 		},
@@ -22,7 +22,7 @@ module.exports = function (deployBase, themeName) {
 
 		'staging': {
 			auth: {
-			host: 'hopeforjustice.sftp.wpengine.com',
+			host: 'hfj2.sftp.wpengine.com',
 			port: 2222,
 			authKey: 'staging'
 		},
