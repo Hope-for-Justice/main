@@ -11,6 +11,7 @@ module.exports = function (distTheme, devTheme, jsDir) {
 		devTheme + jsDir + 'plugins/waypoint.js',
 		devTheme + jsDir + 'plugins/gsap.js',
 		devTheme + jsDir + 'plugins/draggable.js',
+		devTheme + jsDir + 'plugins/headroom.js',
 		devTheme + jsDir + 'scripts.js',
 	];
 

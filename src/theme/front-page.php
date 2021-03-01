@@ -167,7 +167,7 @@ get_header();
 	<!-- 
 	-- 
 	-- modal (Splash screen)
-	-- --> 
+	-- 
 	
 	<div class="modal" id="splash-modal" tabindex="-1" role="dialog" aria-hidden="false">
 		<div class="modal__dialog">
@@ -195,7 +195,7 @@ get_header();
 	        	<a id="splash-close" href="#" data-dismiss="splash-modal" class="gi-close modal__close"><span class="accessibility">Close</span></a>
 	        </div>
     	</div>
-	</div>
+	</div>--> 
 
 
 

@@ -9,9 +9,6 @@
 
 .header {
 	padding:15px 10px;
-	display:flex;
-	align-items: center;
-	justify-content: space-between;
 	z-index: $z-header;
 	position: fixed;
 	top:0;
@@ -20,6 +17,18 @@
 	margin: 0 auto;
 	background-color: $white;
 	@include box-shadow;
+	min-height: 0;
+	transition: all 0.4s ease;
+}
+
+.header--open {
+	min-height: 100vh;
+}
+
+.header__inner {
+	display:flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .header__logo {width:43vw;}
@@ -34,6 +43,28 @@
 	border-radius: 0 77px 77px 0;
 	background-color: $light-grey;
 	@include box-shadow;
+}
+
+@keyframes headerSlideUp {
+  	from {transform: translateY(0);}
+  	to {transform: translateY(-92px);}
+}
+
+@keyframes headerSlideDown {
+  	from {transform: translateY(-92px);}
+  	to {transform: translateY(0px);}
+}
+
+.header--slideDown {
+	animation-name: headerSlideDown;
+	animation-duration: 0.4s;
+	animation-fill-mode: forwards;
+}
+
+.header--slideUp {
+	animation-name: headerSlideUp;
+	animation-duration: 0.4s;
+	animation-fill-mode: forwards;
 }
 
 // mobile

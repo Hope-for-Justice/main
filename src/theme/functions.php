@@ -44,7 +44,8 @@ if ( ! function_exists( 'hope_for_justice_2020_setup' ) ) :
 
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
-			'menu-1' => esc_html__( 'Primary', 'hope-for-justice-2020' ),
+			'uk-primary' => esc_html__( 'uk-primary', 'hope-for-justice-2020' ),
+			'uk-secondary' => esc_html__( 'uk-secondary', 'hope-for-justice-2020' ),
 		) );
 
 		/*

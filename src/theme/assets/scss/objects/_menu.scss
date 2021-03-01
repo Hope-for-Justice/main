@@ -1,0 +1,144 @@
+/*
+*
+* _MENU.SCSS
+*
+*/
+
+.menu {
+	display:none;
+	width:100%;
+	margin-top: 20px;
+	height: calc(100vh - 80px);
+	overflow-y: scroll;
+	scrollbar-width: none; /* Firefox */
+  	-ms-overflow-style: none;  /* IE 10+ */
+	&::-webkit-scrollbar { /* WebKit */
+	  width: 0px;
+	}
+}
+
+.menu__inner {
+	width:100%;
+	display: block;
+}
+
+.menu__primary {
+	font-family: fk-screamer;
+	text-transform: uppercase;
+	font-size: 36px;
+	margin: 0;
+	list-style: none;
+	padding: 0 20px 20px 20px;
+	a {color: $black;}
+	li {
+		border-bottom: 1px solid #CBCBCB;
+	}
+}
+
+.menu__secondary {
+	margin: 0;
+	margin-bottom: 100px;
+	list-style: none;
+	padding: 0 20px 20px 20px;
+	a {color: $black;}
+	li {
+		padding-top: 10px;
+	}
+}
+
+.menu__footer {
+	display: none;
+	width:100%;
+	border-top: 1px solid $black;
+	margin-top: 50px;
+	padding-top: 30px;
+	p {
+		margin-top: 0;
+		line-height: 1.2;
+	}
+}
+
+// tablet
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.menu__inner {
+	width:100%;
+	display: flex;
+	flex-wrap: wrap;
+	padding: 50px;
+}
+
+.menu__secondary {
+	padding: 0 0 0 80px;
+}
+
+.menu__primary {
+	padding:0;
+}
+
+.menu__footer {display: block;}
+
+}
+
+// desktop
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.menu__inner {
+	width: calc(100% - 120px);
+	margin: 0 auto;
+}
+
+}
+
+// desktopLarge
+//////////////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopLarge) {
+
+.menu__primary {font-size: 48px;}
+
+.menu__secondary {
+	font-size: 20px;
+	li {
+		padding-top: 20px;
+	}
+}
+
+}
+
+// desktopXLarge
+//////////////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopXLarge) {
+
+.menu__inner {
+	width: calc(100% - 250px);
+	padding:100px;
+}
+
+}
+
+// wide
+//////////////////////////////////////////////////////////////////////////////////
+@include mq($from: wide) {
+
+.menu__primary {font-size: 58px;}
+
+.menu__inner {
+	width: calc(100% - 350px);
+	padding:150px;
+}
+
+.menu__footer {margin-top: 100px;}
+
+}
+
+
+
+
+
+
+
+

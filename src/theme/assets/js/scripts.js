@@ -26,8 +26,21 @@ jQuery(document).ready(function($) {
     $("#newsTicker").eocjsNewsticker();
 
     // Burger menu
+    let isOpen = false;
     $('#burger-menu').click(function(){
-        $(this).toggleClass('open');
+        if (isOpen == false) {
+            $(this).toggleClass('open');
+            $('#site-header').toggleClass('header--open');
+            $('#menu').delay(400).fadeIn(200);
+            isOpen = true;
+        } else {
+            $(this).toggleClass('open');
+            $('#menu').fadeOut(200);
+            window.setTimeout(function() {
+                $('#site-header').toggleClass('header--open');
+            }, 300);
+            isOpen = false;
+        }
     });
 
     //rangeslider
@@ -52,17 +65,28 @@ jQuery(document).ready(function($) {
 
 	jQuery(window).on('load', function() {
 
-
+    // Headroom
+    var elem = document.querySelector("header");
+    var headroom  = new Headroom(elem, {
+          "offset": 205,
+          "tolerance": 5,
+          "classes": {
+            "pinned": "header--slideDown",
+            "unpinned": "header--slideUp"
+    }
+    });
+    // initialise
+    headroom.init();
 
     //modal (spash)
-    $('#splash-modal').delay(3000).modal('show');
+    $('#splash-modal').modal('show');
 
 
 
     //Homepage
 
         if(!$(".modal").length){
-            $(".hero__content").addClass("animate__animated animate__fadeInDown animate__delay-2s").css('opacity','1');
+            $(".hero__content").addClass("animate__animated animate__fadeInDown").css('opacity','1');
         } 
 
         $('.modal').on('hidden.bs.modal', function () {

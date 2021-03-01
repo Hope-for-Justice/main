@@ -16,9 +16,10 @@
 	min-width:180px;
 	text-align: center;
 	@include box-shadow;
-	transition: all 0.5s ease;
+	transition: all 0.4s ease;
 	&:hover {
 		cursor: pointer;
+		box-shadow:none;
 	} 
 }
 
