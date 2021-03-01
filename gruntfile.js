@@ -74,7 +74,7 @@ module.exports = function(grunt) {
   grunt.registerTask('fonts_changed',     ['clean:fonts','copy:fonts']);
   grunt.registerTask('img_changed',       ['clean:img','copy:img']);
   grunt.registerTask('scss_changed',      ['clean:css','sass']);
-  grunt.registerTask('js_changed',        ['clean:js','copy:tmpl', 'uglify']);
+  grunt.registerTask('js_changed',        ['clean:js','copy:tmpl','uglify']);
 
   // install Wordpress latest
   grunt.registerTask('wp-install',          ['clean:wpTmp', 'curl', 'unzip', 'clean:install', 'copy:install', 'clean:wpTmp']);

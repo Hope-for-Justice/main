@@ -7,6 +7,10 @@ module.exports = function (distTheme, devTheme, jsDir) {
 		devTheme + jsDir + 'plugins/utm-tracking.js',
 		devTheme + jsDir + 'plugins/newsticker.js',
 		devTheme + jsDir + 'plugins/rangeslider.js',
+		devTheme + jsDir + 'plugins/lottie.js',
+		devTheme + jsDir + 'plugins/waypoint.js',
+		devTheme + jsDir + 'plugins/gsap.js',
+		devTheme + jsDir + 'plugins/draggable.js',
 		devTheme + jsDir + 'scripts.js',
 	];
 

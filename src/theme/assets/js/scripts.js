@@ -55,18 +55,18 @@ jQuery(document).ready(function($) {
 
 
     //modal (spash)
-    $('#splash-modal').modal('show');
+    $('#splash-modal').delay(3000).modal('show');
 
 
 
     //Homepage
 
         if(!$(".modal").length){
-            $(".hero__content").addClass("animate__animated animate__fadeInDown animate__delay-2s").fadeIn();
+            $(".hero__content").addClass("animate__animated animate__fadeInDown animate__delay-2s").css('opacity','1');
         } 
 
         $('.modal').on('hidden.bs.modal', function () {
-            $(".hero__content").addClass("animate__animated animate__fadeInDown").fadeIn();
+            $(".hero__content").addClass("animate__animated animate__fadeInDown").css('opacity','1');
         });
         
         // giving widget 
@@ -76,6 +76,38 @@ jQuery(document).ready(function($) {
             $('.giving-widget__feedback').fadeOut(400);
             $('.giving-widget__amount').fadeIn(400);
         });
+
+        // lottie
+        var getInvolved;
+        var elem = document.getElementById('getInvolved')
+        var animData = {
+            container: elem,
+            renderer: 'svg',
+            loop: false,
+            autoplay: false,  
+            rendererSettings: {
+                progressiveLoad:false
+            },
+            path: '/build/themes/hope-for-justice-2020/assets/img/getinvolved.json',
+            ///wp-content/themes/hope-for-justice-2020/assets/img/getinvolved.json
+        };
+        getInvolved = bodymovin.loadAnimation(animData);
+
+        var waypoint = new Waypoint({
+        element: document.getElementById('waypoint'),
+          handler: function(direction) {
+            getInvolved.play();
+          },
+          offset: 200
+        });
+
+        //cards
+        Draggable.create(".cards__inner", {
+            bounds:".cards",
+            allowNativeTouchScrolling:false,
+            type:"x"
+        }
+        )
 
 
 	}); /* end of as page load scripts */

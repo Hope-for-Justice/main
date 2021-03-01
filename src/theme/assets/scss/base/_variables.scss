@@ -19,16 +19,18 @@ $mq-breakpoints: (
     mobile:  320px,
     mobileMedium:375px,
     mobileLarge: 480px,
+    phablet: 600px,
     tablet:  768px,
     desktop: 1024px,
-    desktopLarge: 1200px,
+    desktopLarge: 1300px,
     desktopXLarge: 1440px,
     wide:1800px,
-    extraWide:2400px,
+    extraWide:2560px,
+
 ) !default;
 
-// Show breakpoints for dev on one line to easily comment out
-$mq-show-breakpoints: (mobile, mobileMedium, mobileLarge, tablet, desktop, desktopLarge, desktopXLarge, wide);
+// Show breakpoints 
+$mq-show-breakpoints: (mobile, mobileMedium, mobileLarge, phablet, tablet, desktop, desktopLarge, desktopXLarge, wide, extraWide);
 
 // Colors
 ///////////////////////////////////////////////////////////////////////////////
@@ -40,6 +42,8 @@ $white: #ffffff;
 $black: #212322;
 $light-grey: #FAFAFA;
 $green: #5CAA7F;
+$blue: #8BBEE8;
+$yellow: #FFC845;
 
 //z-index
 ///////////////////////////////////////////////////////////////////////////////

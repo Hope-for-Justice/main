@@ -9,19 +9,21 @@
 
 .hero {
 	width:100%;
-	height:100vh;
 	background-size: cover;
 	background-position:center;
 	background-repeat: no-repeat;
 }
 
-.hero--home {background-position:top left -70vw;}
+.hero--home {
+	background-position:top -20vw left -70vw;
+	background-size:330%;
+}
 
 .hero--home .hero__inner {padding:30px;}
 
 .hero--home .hero__content {
 	background-color: $white;
-	margin-top:50vh;
+	margin-top:35vh;
 	grid-column: 1 / span 12;
 	position:relative;
 }
@@ -41,7 +43,10 @@
 
 .hero--home .hero__header {font-size:29vw;}
 
-.hero--home .hero__body-text {margin-top: 28px;}
+.hero--home .hero__body-text {
+	margin-top: 28px;
+	margin-bottom: 10px;
+}
 
 .hero--home .hero__button {
 	position:absolute;
@@ -56,11 +61,13 @@
 
 @include mq($from: mobile) {
 
-.hero--home {background-position:top left -50vw;}
+.hero--home {background-position:top -20vw left -50vw;}
 
-.hero--home .hero__inner {padding:40px;}
-
-.hero--home .hero__button {right:-2%;}
+.hero--home .hero__button {
+	top: 21vw;
+    right: auto;
+    left: 28vw;
+}
 
 }
 
@@ -70,10 +77,12 @@
 
 @include mq($from: mobileMedium) {
 
+.hero--home .hero__inner {padding:40px;}
+
 .hero--home .hero__button {
 	transform: rotate(-4deg) scale(1.0);
 	right: auto;
-	top:21vw;
+	top:22vw;
 	left:36vw;
 }
 
@@ -85,7 +94,10 @@
 
 @include mq($from: mobileLarge) {
 
-.hero--home {background-position:top left -28vw;}
+.hero--home {
+	background-position:top -10vw left -28vw;
+	background-size:250%; 	
+}
 
 .hero--home .hero__header {font-size:140px;}
 
@@ -99,15 +111,18 @@
 }
 
 
-// tablet
+
+// phablet
 ///////////////////////////////////////////////////////////////////////////
 
 
-@include mq($from: tablet) {
+@include mq($from: phablet) {
 
 .hero--home {
+	background-size:cover;
 	background-position:top left -19vw;
-	max-height: 80vw;
+	max-height: 90vw;
+	height:auto;
 }
 
 .hero--home .hero__content {
@@ -115,11 +130,30 @@
 	grid-column: 6 / span 6;
 }
 
+.hero--home .hero__inner {padding:30px;}
+
 .hero--home .hero__header {font-size:14vw;}
 
 .hero--home .hero__button {
 	top:10vw;
-	left:17vw;
+	left:13.5vw;
+	transform: rotate(-4deg) scale(0.8);
+}
+
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+
+@include mq($from: tablet) {
+
+.hero--home .hero__inner {padding:45px;}
+
+.hero--home .hero__button {
+	top:11vw;
+	left:17.3vw;
+	transform: rotate(-4deg) scale(0.9);
 }
 
 }
@@ -133,12 +167,11 @@
 
 .hero--home {
 	background-position:center;
-	max-height: 65vw;
 }
 
 .hero--home .hero__content {
 	grid-column: 7 / span 6;
-	display: none;
+	opacity: 0;
 }
 
 .hero--home .hero__header {font-size:12vw;}
@@ -146,6 +179,7 @@
 .hero--home .hero__button {
 	top:9vw;
 	left:15vw;
+	transform: rotate(-4deg) scale(1.0);
 }
 
 }
@@ -154,8 +188,6 @@
 ///////////////////////////////////////////////////////////////////////////
 
 @include mq($from: desktopLarge) {
-
-.hero--home {max-height: 55vw;}
 
 .hero--home .hero__content {grid-column: 7 / span 5;}
 
@@ -176,9 +208,10 @@
 
 @include mq($from: desktopXLarge) {
 
+
 .hero__sub-header{font-size: 21px;}
 
-.hero--home .hero__header {font-size:11vw;}
+.hero--home .hero__header {font-size:10.4vw;}
 
 .hero--home .hero__inner {padding:70px;}
 
@@ -186,7 +219,7 @@
 
 .hero--home .hero__button {
 	top:9vw;
-	left:15vw;
+	left:16vw;
 	transform: rotate(-4deg) scale(1.2);
 }
 
@@ -198,20 +231,39 @@
 
 @include mq($from: wide) {
 
-.hero--home .hero__inner {padding:5vw 3.5vw 3.5vw 3.5vw;}
+.hero--home .hero__inner {padding:4vw 3.5vw 3.5vw 4vw;}
 
-.hero--home .hero__content {grid-column: 8 / span 4;}
+.hero--home .hero__content {
+	grid-column: 8 / span 4; 
+	min-height:90vh;
+}
 
 .hero--home .hero__header {font-size:9vw;}
 
 .hero__sub-header{font-size: 1.2vw;}
 
 .hero--home .hero__button {
-	top:9.8vw;
+	top:8vw;
 	left:14vw;
 	transform: rotate(-4deg) scale(1.4);
 }
 
 
+
+}
+
+// extraWide
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: extraWide) {
+
+.hero--home .hero__inner {padding:100px 90px 90px 100px;}
+
+.hero--home .hero__header {font-size:230.4px;}
+
+.hero--home .hero__button {
+	top: 220px;
+    left: 360px;
+}
 
 }

@@ -22,6 +22,12 @@
 	} 
 }
 
+.button--center {
+	width:100%;
+	display: flex;
+	justify-content: center;
+}
+
 .button__inner {
 	display:flex;
 	justify-content: space-between;
@@ -47,7 +53,23 @@
 
 .button--green {background-color: $green;}
 
+.button--grey {
+	background-color: $light-grey;
+	.button__link {color: $black;}
+}
+
+.button--black {
+	background-color: $black;
+	.button__link {color: $white;}
+}
+
+.button--yellow {background-color: $yellow;}
+
+.button--blue {background-color: $blue;}
+
 .button--one-line {min-width: 0;}
+
+.button--left-align {text-align: left;}
 
 .button--nav {
 	min-width:0px;
@@ -62,6 +84,11 @@
 	width:18px;
 	margin-left: -5px;
 	margin-right: 15px;
+}
+
+.button__mail-symbol {
+	width:25px;
+	margin-right: 18px;
 }
 
 // tablet
