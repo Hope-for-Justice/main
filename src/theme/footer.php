@@ -16,8 +16,12 @@
 		</div>
 	</div><!-- #content -->
 
-	<footer id="colophon" class="site-footer">
-
+	<footer class="footer">
+		<div class="grid">
+			<div class="footer__content">
+				
+			</div>
+		</div>
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 

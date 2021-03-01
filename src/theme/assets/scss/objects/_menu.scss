@@ -19,7 +19,6 @@
 
 .menu__inner {
 	width:100%;
-	display: block;
 }
 
 .menu__primary {
@@ -48,14 +47,23 @@
 
 .menu__footer {
 	display: none;
+	position: relative;
 	width:100%;
 	border-top: 1px solid $black;
 	margin-top: 50px;
+	margin-bottom: 200px;
 	padding-top: 30px;
 	p {
 		margin-top: 0;
 		line-height: 1.2;
 	}
+}
+
+.menu__button {
+	position: absolute;
+	top:0;
+	right:0;
+	transform: translate(-10%, -150%);
 }
 
 // tablet
@@ -88,8 +96,8 @@
 @include mq($from: desktop) {
 
 .menu__inner {
-	width: calc(100% - 120px);
-	margin: 0 auto;
+	max-width: 1300px;
+	margin: auto;
 }
 
 }
@@ -113,10 +121,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 @include mq($from: desktopXLarge) {
 
-.menu__inner {
-	width: calc(100% - 250px);
-	padding:100px;
-}
+.menu__inner {width: calc(100% - 250px);}
 
 }
 
@@ -126,17 +131,20 @@
 
 .menu__primary {font-size: 58px;}
 
-.menu__inner {
-	width: calc(100% - 350px);
-	padding:150px;
-}
-
-.menu__footer {margin-top: 100px;}
+.menu__footer {margin-top: 80px;}
 
 }
 
 
+// wide
+//////////////////////////////////////////////////////////////////////////////////
+@include mq($from: extraWide) {
 
+.menu__inner {max-width: 1600px; }
+.menu__primary {font-size: 68px;}
+.menu {margin-top: 100px;}
+
+}
 
 
 
