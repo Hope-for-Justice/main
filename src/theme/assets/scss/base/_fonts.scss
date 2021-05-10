@@ -116,5 +116,15 @@ html:hover [class^="gi-"]{-ms-zoom: 1;}
     font-style: normal;
 }
 
+/* fk-screamer-legacy */
 
+@font-face {
+    font-family: 'canela-medium';
+    src: url('assets/fonts/canela-medium.woff2');
+    src: url('assets/fonts/canela-medium.woff2') format('woff2'),
+         url('assets/fonts/canela-medium.woff') format('woff'),
+         url('assets/fonts/canela-medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
