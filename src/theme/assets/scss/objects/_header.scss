@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////
 
 .header {
-	padding:15px 10px;
+	padding:0.8em;
 	z-index: $z-header;
 	position: fixed;
 	top:0;
@@ -19,31 +19,44 @@
 	@include box-shadow;
 	min-height: 0;
 	transition: all 0.4s ease;
+
+	&--open {
+		min-height: 100vh;
+	}
+
+	&--slideDown {
+		animation-name: headerSlideDown;
+		animation-duration: 0.4s;
+		animation-fill-mode: forwards;
+	}
+
+	&--slideUp {
+		animation-name: headerSlideUp;
+		animation-duration: 0.4s;
+		animation-fill-mode: forwards;
+	}
+
+	&__inner {
+		display:flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&__logo {width:43vw;}
+
+	&__navigation {
+		display: flex;
+		align-items: center;
+	}
+
+	&__burger {
+		padding: 1.2em 1.9em 1em 1.3em;
+		border-radius: 0 77px 77px 0;
+		background-color: $light-grey;
+		@include box-shadow;
+	}
 }
 
-.header--open {
-	min-height: 100vh;
-}
-
-.header__inner {
-	display:flex;
-	align-items: center;
-	justify-content: space-between;
-}
-
-.header__logo {width:43vw;}
-
-.header__navigation {
-	display: flex;
-	align-items: center;
-}
-
-.header__burger {
-	padding: 12px 19px 8px 13px;
-	border-radius: 0 77px 77px 0;
-	background-color: $light-grey;
-	@include box-shadow;
-}
 
 @keyframes headerSlideUp {
   	from {transform: translateY(0);}
@@ -55,24 +68,17 @@
   	to {transform: translateY(0px);}
 }
 
-.header--slideDown {
-	animation-name: headerSlideDown;
-	animation-duration: 0.4s;
-	animation-fill-mode: forwards;
-}
-
-.header--slideUp {
-	animation-name: headerSlideUp;
-	animation-duration: 0.4s;
-	animation-fill-mode: forwards;
-}
 
 // mobile
 //////////////////////////////////////////////////////////////////////////////////
 
 @include mq($from: mobile) {
 
-.header__logo {width:46vw;}
+.header {
+	padding:0.8em 1.2em 1em 0.8em;
+
+	&__logo {width:48vw;}
+}
 
 }
 
@@ -82,11 +88,8 @@
 
 @include mq($from: mobileMedium) {
 
-.header {padding:20px;}
-
-.header__logo {
-	width:185px;
-	margin-top: -2px;
+.header{
+	&__logo {width:195px;}
 }
 
 }
@@ -96,14 +99,40 @@
 
 @include mq($from: tablet) {
 
-.header__burger {
-	box-shadow:none;
-	background-color:transparent;
+.header{
+	padding:1em;
+	&__burger {
+		box-shadow:none;
+		background-color:transparent;
+	}
+	&__logo {
+		width:235px;
+	}
 }
 
-.header__logo {
-	width:235px;
-	margin-left:10px;
 }
 
+// desktop
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.header{
+	padding:1.2em;
+	&__burger {
+		box-shadow:none;
+		background-color:transparent;
+	}
+	&__logo {
+		width:255px;
+	}
 }
+
+
+}
+
+
+
+
+
+

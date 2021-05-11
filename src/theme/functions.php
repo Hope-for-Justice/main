@@ -117,9 +117,9 @@ function page_scripts() {
 
     $themeVars = array( 'template_directory_uri' => get_template_directory_uri() );
 
-        //if (is_page_template('templates/page-give-the-gift.php')) {
-            //wp_enqueue_script('givethegift-uk');
-        //}    
+        // if (is_page('1379')) {
+        // 	wp_enqueue_script('handlebars');
+        // }
 }
 
 /**
