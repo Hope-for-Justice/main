@@ -4,63 +4,6 @@
 *
 */
 
-/* font face for icons */
-
-@font-face {
-    font-family: 'glyphonomiconregular';
-    src: url('assets/fonts/glyphonomicon-regular.eot');
-    src: url('assets/fonts/glyphonomicon-regular.eot?#iefix') format('embedded-opentype'),
-         url('assets/fonts/glyphonomicon-regular.woff2') format('woff2'),    
-         url('assets/fonts/glyphonomicon-regular.woff') format('woff'),
-         url('assets/fonts/glyphonomicon-regular.ttf') format('truetype'),
-         url('assets/fonts/glyphonomicon-regular.svg#glyphonomiconregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-/* This triggers a redraw in IE to Fix IE8's :before content rendering. */
-html:hover [class^="gi-"]{-ms-zoom: 1;}
-
-[class^="gi-"]:before, [class*=" gi-"]:before,
-[class^="gi-"].right:after, [class*=" gi-"].right:after {
-  font-family: "glyphonomiconregular";
-  font-style: normal;
-  font-weight: normal;
-  text-decoration: none;
-  text-rendering: optimizeLegibility;
-  white-space: nowrap;
-  /*-webkit-font-feature-settings: "liga"; Currently broken in Chrome >= v22. Falls back to text-rendering. Safari is unaffected. */
-  -moz-font-feature-settings: "liga=1";
-  -moz-font-feature-settings: "liga";
-  -ms-font-feature-settings: "liga" 1;
-  -o-font-feature-settings: "liga";
-  font-feature-settings: "liga";
-  -webkit-font-smoothing: antialiased;
-}
-
-[class^="gi-"].right:before,
-[class*=" gi-"].right:before{display:none;content:'';}
-
-.gi-menu:before,.gi-menu.right:after{content:'\E600';}
-.gi-close:before, .gi-close.right:after {content: '\E601';}
-.gi-expand:before, .gi-expand.right:after {content: '\E602';}
-.gi-navleft:before, .gi-navleft.right:after {content: '\E603';}
-.gi-navright:before, .gi-navright.right:after {content: '\E604';}
-.gi-plus:before, .gi-plus.right:after {content: '\E605';}
-.gi-minus:before, .gi-minus.right:after {content: '\E606';}
-
-.gi-play:before, .gi-play.right:after {content: '\E610';}
-.gi-padlock:before, .gi-padlock.right:after {content: '\E611'}
-.gi-twitter:before, .gi-twitter.right:after {content: '\E700';}
-.gi-facebook:before, .gi-facebook.right:after {content: '\E701';}
-.gi-instagram:before, .gi-instagram.right:after {content: '\E702';}
-.gi-linkedin:before, .gi-linkedin.right:after {content: '\E703';}
-.gi-vine:before, .gi-vine.right:after {content: '\E704';}
-.gi-youtube:before, .gi-youtube.right:after {content: '\E705';}
-
-.gi-hfj:before, .gi-hfj.right:after {content: '\E800';  }
-
 
 /* apercu-regular-pro */
 
