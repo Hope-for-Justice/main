@@ -24,10 +24,17 @@ get_header();
 
 	<!-- 
 	-- 
-	-- hero
-	--  
+	-- hero split
+	-- 
+	--> 
 	
-	<div class="hero hero--home" style="background-image: url('<?php echo $thumbnail[0]; ?>');"></div>-->
+	<div class="hero-split">
+		<div class="hero-split__img" style="background-image: url('<?php echo $thumbnail[0]; ?>');">
+		</div>
+		<div class="hero-split__content">
+			
+		</div>
+	</div>
 
 
 	<?php endwhile; // end of the loop. ?>

@@ -62,6 +62,13 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- 
+		-- 
+		-- menu
+		-- 
+		--> 
+
 		<nav id="menu" class="menu">
 			<div class="menu__inner">
 				<?php wp_nav_menu( array( 'theme_location' => 'uk-primary', 'container' => false, 'menu_class' => 'menu__primary') ); ?>
