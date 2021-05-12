@@ -6,30 +6,26 @@
 
 // thin 280
 ///////////////////////////////////////////////////////////////////////////
-
-.inner {padding: 30px;}
-
-.site-content {margin-top: 66px;}
+.site-content {margin-top: 5.59em;}
 
 
 
 
-// mobile medium
+// mobile
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: mobile) {
+
+.site-content {margin-top: 6.4em;}
+
+}
+
+// mobileMedium
 ///////////////////////////////////////////////////////////////////////////
 
 @include mq($from: mobileMedium) {
 
-.site-content {margin-top: 76px;}
-.inner {padding: 40px;}
-
-}
-
-// phablet
-///////////////////////////////////////////////////////////////////////////
-
-@include mq($from: phablet) {
-
-.inner {padding: 30px;}
+.site-content {margin-top: 7.642em;}
 
 }
 
@@ -39,26 +35,16 @@
 
 @include mq($from: tablet) {
 
-.site-content {margin-top: 92px;}
-.inner {padding: 45px;}
+.site-content {margin-top: 9.04em;}
 
 }
 
-// desktop large
+// desktop 
 //////////////////////////////////////////////////////////////////////////////////
 
-@include mq($from: desktopLarge) {
+@include mq($from: desktop) {
 
-.inner {padding: 60px;}	
-
-}
-
-// wide 1920
-//////////////////////////////////////////////////////////////////////////////////
-
-@include mq($from: wide) {
-
-.inner {padding: 70px;}	
+.site-content {margin-top: 10.04em;}
 
 }
 
@@ -67,7 +53,7 @@
 
 @include mq($from: extraWide) {
 
-.page {
+.site {
 	max-width: 2560px;
 	margin: 0 auto;
 }
