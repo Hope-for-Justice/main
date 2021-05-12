@@ -20,10 +20,6 @@
 	min-height: 0;
 	transition: all 0.4s ease;
 
-	&--open {
-		min-height: 100vh;
-	}
-
 	&--slideDown {
 		animation-name: headerSlideDown;
 		animation-duration: 0.4s;

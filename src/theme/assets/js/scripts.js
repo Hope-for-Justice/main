@@ -30,15 +30,13 @@ jQuery(document).ready(function($) {
     $('#burger-menu').click(function(){
         if (isOpen == false) {
             $(this).toggleClass('open');
-            $('#site-header').toggleClass('header--open');
-            $('#menu').delay(400).fadeIn(200);
+            $('#menu').toggleClass('menu--open');
+            $(".menu__inner").css("opacity", "1");  
             isOpen = true;
         } else {
             $(this).toggleClass('open');
-            $('#menu').fadeOut(200);
-            window.setTimeout(function() {
-                $('#site-header').toggleClass('header--open');
-            }, 300);
+            $(".menu__inner").css("opacity", "0");
+            $('#menu').toggleClass('menu--open');
             isOpen = false;
         }
     });

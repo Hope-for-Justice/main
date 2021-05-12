@@ -5,30 +5,40 @@
 */
 
 .menu {
-	display:none;
 	width:100%;
-	padding-top: 2em;
-	margin-top: 1em;
 	height: calc(100vh - 80px);
 	overflow-y: scroll;
+	max-height: 0;
+	transition: all 0.4s ease;
 	/* no scrollbar */ 
 	scrollbar-width: none; /* Firefox */
   	-ms-overflow-style: none;  /* IE 10+ */
 	&::-webkit-scrollbar { /* WebKit */
-	  width: 0px;
+		width: 0px;
+	}
+	
+	&--open {
+		padding-top: 2em;
+		margin-top: 1em;
+		max-height: 200vh;
 	}
 
 	&__inner {
+		transition: all 0.4s ease;
+		opacity: 0;
 		width:100%;
+		padding: 0 3em;
 	}
 
 	&__primary {
 		font-family: fk-screamer;
 		text-transform: uppercase;
-		margin: 0;
+		margin: 0 0 2em 0;
+		padding:0;
 		list-style: none;
-		padding: 0 2em 2em 2em;
 		line-height: 1.3;
+		width:100%;
+
 		a {color: $black;}
 		ul {margin:0; padding:0;}
 		li {
@@ -39,11 +49,12 @@
 	}
 
 	&__secondary {
-		margin: 0;
-		margin-bottom: 1.5em;
+		margin: 0 0 3em 0;
+		padding:0;
 		list-style: none;
-		padding: 0 2em 2em 2em;
 		line-height: 1.3;
+		width:100%;
+
 		a {color: $black;}
 		ul {margin:0; padding:0;}
 		li {
@@ -52,24 +63,26 @@
 			font-size: 1.6em;
 		}
 	}
+
 	&__line{
 		height: 1px;
 		background-color:$lines;
 		width: 100%;
 		margin-bottom: 3em;
 	}
+
+	&__button {
+		display: flex;
+		width:100%;
+		justify-content: flex-start;
+		margin-bottom: 3em;
+	}
+
 	&__footer {
 		position: relative;
 		width:100%;
 		margin-top: .5em;
 		margin-bottom: 4em;
-		padding: 0 2em 2em 2em;
-	}
-	&__button {
-		display: flex;
-		width:100%;
-		justify-content: center;
-		margin-bottom: 3em;
 	}
 }
 
@@ -90,21 +103,25 @@
 
 .menu {
 	&__inner {
-		width:100%;
 		display: flex;
 		flex-wrap: wrap;
-		padding: 5em;
+		padding:2em 16em 10em 16em;
+		justify-content: center;
 	}
-	&__secondary {
-		padding: 0 0 0 8em;
-	}
+
 	&__primary {
-		padding:0;
-		//line-height: 1.3;
-		li {
-			font-size: 6em;
-		}
+		li {font-size: 6em;}
 	}
+
+	&__secondary {
+		margin: 0 0 4em 0;
+		li {font-size: 2em;}
+	}
+
+	&__button {
+		justify-content: flex-start;
+	}
+
 	&__footer {display: block;}
 	}
 
@@ -113,58 +130,81 @@
 // desktop
 //////////////////////////////////////////////////////////////////////////////////
 
-// @include mq($from: desktop) {
+@include mq($from: desktop) {
 
-// .menu__inner {
-// 	max-width: 1300px;
-// 	margin: auto;
-// }
+.menu {
+	&__inner {padding:2em 25em 10em 25em;}
+}
 
-// }
+}
 
 // desktopLarge
 //////////////////////////////////////////////////////////////////////////////////
-// @include mq($from: desktopLarge) {
+@include mq($from: desktopLarge) {
 
-// .menu__primary {font-size: 48px;}
+.menu {
+	display:flex;
+	align-items:center;
+	&__inner {
+		padding: 4em 20em 10em 20em;
+	}
+	&__primary {
+		width:40%;
+	}
+	&__secondary {
+		width:60%;
+		padding-left:10%;
+		line-height: 1.1;
+	}
+	&__button {
+		justify-content: flex-end;
+		margin-top: -6em;
+	}
 
-// .menu__secondary {
-// 	font-size: 20px;
-// 	li {
-// 		padding-top: 20px;
-// 	}
-// }
+}
 
-// }
 
-// desktopXLarge
+}
+
+// wide 1920
 //////////////////////////////////////////////////////////////////////////////////
-// @include mq($from: desktopXLarge) {
+@include mq($from: wide) {
 
-// .menu__inner {width: calc(100% - 250px);}
+.menu {
+	&__inner {
+		padding: 4em 35em 10em 35em;
+	}
+}
 
-// }
 
-// wide
+}
+
+
+// extra wide
 //////////////////////////////////////////////////////////////////////////////////
-// @include mq($from: wide) {
+@include mq($from: extraWide) {
 
-// .menu__primary {font-size: 58px;}
+.menu {
+	&__inner {
+		padding: 4em 50em 10em 50em;
+	}
+	&__primary {
+		li {font-size: 7.6em;}
+	}
 
-// .menu__footer {margin-top: 80px;}
+	&__secondary {
+		li {font-size: 2.4em;}
+	}
+	&__footer {
+		small{font-size: 1.6em;}
+	}
+	&__button {
+		margin-bottom: 6em;
+	}
 
-// }
+}
 
-
-// wide
-//////////////////////////////////////////////////////////////////////////////////
-// @include mq($from: extraWide) {
-
-// .menu__inner {max-width: 1600px; }
-// .menu__primary {font-size: 68px;}
-// .menu {margin-top: 100px;}
-
-// }
+}
 
 
 

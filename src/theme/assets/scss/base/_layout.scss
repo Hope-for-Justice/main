@@ -53,10 +53,10 @@
 
 }
 
-// desktop xl
+// wide 1920
 //////////////////////////////////////////////////////////////////////////////////
 
-@include mq($from: desktopXLarge) {
+@include mq($from: wide) {
 
 .inner {padding: 70px;}	
 

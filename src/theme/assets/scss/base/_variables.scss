@@ -16,21 +16,20 @@ $em-base: 14px;
 
 $mq-breakpoints: (
 	thin: 280px,
-    mobile:  320px,
-    mobileMedium:375px,
+    mobile: 320px,
+    mobileMedium: 375px,
     mobileLarge: 480px,
     phablet: 600px,
     tablet:  768px,
     desktop: 1024px,
-    desktopLarge: 1300px,
-    desktopXLarge: 1440px,
-    wide:1800px,
-    extraWide:2560px,
+    desktopLarge: 1680px,
+    wide: 1920px,
+    extraWide: 2560px,
 
 ) !default;
 
 // Show breakpoints 
-//$mq-show-breakpoints: (mobile, mobileMedium, mobileLarge, phablet, tablet, desktop, desktopLarge, desktopXLarge, wide, extraWide);
+$mq-show-breakpoints: (mobile, mobileMedium, mobileLarge, phablet, tablet, desktop, desktopLarge, wide, extraWide);
 
 // Colors
 ///////////////////////////////////////////////////////////////////////////////
@@ -51,7 +50,7 @@ $yellow: #FFC845;
 ///////////////////////////////////////////////////////////////////////////////
 $z-modals: 900;
 $z-header: 800;
-$z-helper: 700;
+$z-ticker: 700;
 
 //others maybe needed
 
