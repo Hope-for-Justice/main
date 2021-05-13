@@ -1,0 +1,65 @@
+/*
+*
+* _HERO-SPLIT.SCSS
+*
+*/
+
+// thin 280
+///////////////////////////////////////////////////////////////////////////
+
+.hero-split {
+	grid-column: col1 / col12-end;
+	&__img {
+		width: 100%;
+		min-height: 20em;
+		background-size: 150%;
+		background-position: top right 2%;
+	}
+	&__content {
+		width:100%;
+		height:200vh;
+		background-color: $white;
+		padding:3em;
+	}
+	&__sub-heading {
+		font-size: 1.4em;
+		text-transform: uppercase;
+		margin-bottom: 1.4em;
+		letter-spacing: 2px;
+	}
+	&__main-heading {
+		font-size: 3.6em;
+		font-family: canela-medium;
+		line-height: 1.2;
+		margin-bottom: 0.5em;
+	}
+}
+
+// mobile 320
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: mobile) {
+
+.hero-split {
+	&__main-heading {
+		font-size: 4.2em;
+	}
+}
+
+}
+
+// mobile medium 375
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: mobileMedium) {
+
+.hero-split {
+	&__content {
+		padding:4em;
+	}
+	&__main-heading {
+		font-size: 4.7em;
+	}
+}
+
+}

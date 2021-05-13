@@ -6,9 +6,21 @@
 
 .grid {
 	display:grid;
-	grid-template-columns: repeat(12, 1fr);
-	grid-gap: 20px;
-	margin: 0 20px;
+	grid-template-columns: 
+	[col1] 1fr
+	[col2] 1fr
+	[col3] 1fr
+	[col4] 1fr
+	[col5] 1fr
+	[col6] 1fr
+	[col7] 1fr
+	[col8] 1fr
+	[col9] 1fr
+	[col10] 1fr
+	[col11] 1fr
+	[col12] 1fr;
+	grid-gap: 0px;
+	width:100%;
 	height:100%;
 }
 
@@ -39,9 +51,7 @@
 
 @include mq($from: tablet) {
 
-.grid {
-	margin: 0 40px;
-}
+
 
 }
 
@@ -50,9 +60,7 @@
 
 @include mq($from: desktop) {
 
-.grid {
-	margin: 0 130px;
-}
+
 
 }
 

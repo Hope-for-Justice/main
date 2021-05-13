@@ -21,7 +21,8 @@ get_header();
 	if ($post_thumbnail_id) {
 		$thumbnail = wp_get_attachment_image_src($post_thumbnail_id, '', false, '');
 	} ?>
-
+	
+	<div class="grid">
 	<!-- 
 	-- 
 	-- hero split
@@ -32,10 +33,27 @@ get_header();
 		<div class="hero-split__img" style="background-image: url('<?php echo $thumbnail[0]; ?>');">
 		</div>
 		<div class="hero-split__content">
-			
+			<h3 class="hero-split__sub-heading">
+				Our Mission
+			</h3>
+			<h1 class="hero-split__main-heading">
+				End Slavery.<br>
+				Change Lives.
+			</h1>
+			<p class="hero-split__desc">
+				We exist to bring an end to modern slavery by preventing exploitation, rescuing victims, restoring lives and reforming society.
+			</p>
+			<div class="hero-spit__button">
+				<div class="button button--green">
+					<div class="button__inner">
+						<img class="button__play-symbol" src="img/play.svg">
+						<a class="button__link bold" href="#">Get our<br>email updates</a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-
+	</div>
 
 	<?php endwhile; // end of the loop. ?>
 
