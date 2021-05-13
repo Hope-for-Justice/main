@@ -13,34 +13,22 @@
 	text-align: center;
 	letter-spacing: 1px;
 	display: inline-block;
-
-	&__inner {
-		display: flex;
-	}
-
-	&__link {
-		color: inherit;
-	}
-
+	&__inner {display: flex;}
+	&__text {color: inherit;}
 	&__play-symbol {
 		width:1.15em;
 		display: inline-block;
 		margin-left: -0.6em;
 		margin-right: 1em;
 	}
-
-	&--red {
-		background-color:$red;
-	}
-
-	&--green{
-		background-color:$green;
-	}
-
-	&--white{
+	&--red {background-color:$red;}
+	&--green {background-color:$green;}
+	&--white {color: $black;}
+	&--blue {background-color: $blue;}
+	&--grey {
+		background-color: $light-grey;
 		color: $black;
 	}
-
 	&--nav {
 		border-radius: 7.7em 0 0 7.7em;
 		font-size: 1.2em;

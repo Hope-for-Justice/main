@@ -10,6 +10,7 @@
   width:100%;
   z-index: $z-ticker;
   max-width: 2560px;
+  @include box-shadow-reverse;
 }
 
 .newsticker__item{

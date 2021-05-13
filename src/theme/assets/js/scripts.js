@@ -66,7 +66,7 @@ jQuery(document).ready(function($) {
     // Headroom
     var elem = document.querySelector("header");
     var headroom  = new Headroom(elem, {
-          "offset": 205,
+          "offset": 150,
           "tolerance": 5,
           "classes": {
             "pinned": "header--slideDown",
@@ -110,7 +110,7 @@ jQuery(document).ready(function($) {
             rendererSettings: {
                 progressiveLoad:false
             },
-            path: '/wp-content/themes/hope-for-justice-2020/assets/img/getinvolved.json',
+            path: '/build/themes/hope-for-justice-2020/assets/img/getinvolved.json',
             ///wp-content/themes/hope-for-justice-2020/assets/img/getinvolved.json
             ///build/themes/hope-for-justice-2020/assets/img/getinvolved.json
         };

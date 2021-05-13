@@ -75,7 +75,7 @@
 				<div class="menu__button">
 					<a href="#" class="button button--red">
 						<div class="button__inner">
-							<div class="button__link bold">
+							<div class="button__text bold">
 								Get our<br>email updates
 							</div>
 						</div>

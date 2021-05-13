@@ -4,3 +4,392 @@
 *
 */
 
+// thin 280
+///////////////////////////////////////////////////////////////////////////
+.get-involved {
+	background-color: $light-grey; 
+	grid-column: col1 / col12-end;
+	&__text {
+		padding: 3em;
+	}
+	&__heading {
+		font-family: canela-medium, serif;
+		font-size: 3.6em;
+		line-height: 1.3;
+		max-width: 80%;
+		margin-bottom: 0.7em;
+		margin-top: -0.1em;
+	}
+	&__grid {
+		display:flex;
+		flex-direction: column;
+		position:relative;
+	}
+	&__guardian-logo {
+		position:absolute;
+		top:10%;
+		left:4%;
+		width:12em;
+	}
+	&__item {
+	 	height:0;
+		background-size: cover;
+		background-repeat: no-repeat;
+		position:relative;
+		width:100%;
+	  	padding-top:60%;
+	  	.button {position:absolute;}
+	  	//items
+	  	&--a {	
+			order: 2;
+			.button {
+				top:50%; 
+				right:5%;
+				left:auto;
+			}
+		}
+		&--b {display:none;}
+		&--c {	
+			order: 3;
+			.button {
+				top:50%; 
+				left:4%;
+			}
+		}
+		&--d {	
+			order: 1;
+			.button {
+				top:50%; 
+				left:4%;
+			}
+		}
+	
+	} //__item
+	&__more-button {
+		position: absolute;
+		bottom:0px;
+		left:50%;
+		transform: translate(-50%, 100%);
+		border-radius: 0px 0px 27px 27px;
+		min-width:0;
+	}
+}
+
+
+
+// mobile medium
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: mobileMedium) {
+
+.get-involved {
+	&__text {padding: 4em;}
+	&__heading {font-size: 4em;}
+	&__guardian-logo {
+		top:12%;
+		left:6%;
+		width:13em;
+	}
+	&__item {
+  	padding-top:60%;
+  		//items
+	  	&--a .button {
+			top:auto; 
+			bottom:12%;
+			right:7%;
+			left:auto;
+		}
+		&--c .button {
+			top:auto;
+			bottom:12%; 
+			left:7%;
+		}
+		&--d .button {
+			top:auto;
+			bottom:12%; 
+			left:7%;
+		}
+	} //__item
+}
+
+
+}
+
+// mobile medium
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: mobileLarge) {
+
+.get-involved {
+	&__guardian-logo {
+		top:12%;
+		left:8%;
+		width:15em;
+	}
+}
+
+
+}
+
+// phablet
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: phablet) {
+
+}
+
+
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: tablet) {
+
+.get-involved {
+	&__text {padding: 8em;}
+	&__heading {
+		font-size: 5.2em;
+		max-width: 100%;
+	}
+	&__guardian-logo {
+		top:12%;
+		left:6%;
+		width:24em;
+	}
+	&__item {
+  	padding-top:50%;
+  		//items
+	  	&--a .button {
+			top:auto; 
+			bottom:12%;
+			right:7%;
+			left:auto;
+		}
+		&--c .button {
+			top:auto;
+			bottom:12%; 
+			left:7%;
+		}
+		&--d .button {
+			top:auto;
+			bottom:12%; 
+			left:7%;
+		}
+	} //__item
+}
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktop) {
+
+
+
+.get-involved {
+	&__text {text-align: center;}
+	&__grid {
+		display:grid;
+		width:auto;
+		margin-left: 0;
+		margin-right: 0;
+	  	grid-gap:0px;
+	  	grid-template-columns: repeat(4, 1fr);
+	  	padding:0 8em 8em 8em;
+	}
+	&__item {
+		//items
+		&--a {
+		  	grid-area: 1 / 1 / 2 / 3;
+		 	padding-top:50%;
+		 	 	.button {
+		 	 	//top: 46%;
+		    	right: -5%;
+		 	}
+		}
+		&--b {
+			padding-top:0;
+		  	grid-area: 2 / 1 / 3 / 2;
+		  	min-height: 100%;
+		  	max-height: 100%;
+		  	display:block;
+		  	background-color: #f2f2f2;
+		}
+		&--c {
+		  	grid-area: 2 / 2 / 3 / 3;
+		  	padding-top:calc(100% - 1px);
+		  	background-position: top right;
+		  		.button {
+				//top:48%; 
+				left:auto;
+				right:-52%;
+				z-index: 1;
+			}
+		}
+		&--d {
+		  	grid-area: 1 / 3 / 5 / 5;
+		  	padding-top:100%;
+		  	background-position: top left 40%;
+		  	  .button {
+				//top:33%; 
+				left:-1%;
+			}
+		}
+	} //item
+}
+
+
+
+
+
+
+
+
+
+
+.get-involved .get-involved__more {
+	position: absolute;
+	bottom:5%;
+	left:auto;
+	right:-1.7%;
+	transform: translate(0%, 0%);
+	border-radius: 77px 0px 0px 77px;
+	min-width:0;
+}
+
+// .get-involved__item 
+// .button, .get-involved 
+// .get-involved__more  {transform: scale(1.0);}
+
+// .get-involved 
+// .get-involved__more {
+// 	right:0%;
+// 	bottom:10%;
+// }
+
+// .get-involved__grid {
+// 	margin-bottom: 60px;
+// }
+
+// .get-involved__a 
+// .button {
+//  	top: 48%;
+// 	right: 7%;
+// }
+
+
+// .get-involved__c 
+// .button {
+// 	top:48%; 
+// 	right:-40px;
+// }
+
+
+// .get-involved__d 
+// .button {
+// 	top:26%; 
+// 	left:5%;
+// }
+
+}
+
+// desktopLarge
+///////////////////////////////////////////////////////////////////////////
+// @include mq($from: desktopLarge) {
+
+// .get-involved__inner {
+// 	margin: 30px 0;
+// }
+
+// .get-involved__title {
+// 	font-size: 80px;
+// 	span {font-size: 90px;}
+// }
+
+// .get-involved__grid {
+// 	margin-bottom: 100px;
+// }
+
+// .get-involved__guardian-logo {
+// 	width:170px;
+// }
+
+// .get-involved__a 
+// .button {
+//  	top: auto;
+//     right: 7%;
+//     bottom: 13%;
+// }
+
+
+// .get-involved__c 
+// .button {
+//     top: auto;
+//     left: 7%;
+//     bottom: 10%;
+//     right: auto;
+// }
+
+
+// .get-involved__d 
+// .button {
+// 	top:26%; 
+// 	left:5%;
+// }
+
+
+// }
+
+// desktopLarge
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopLarge) {
+
+.get-involved__item 
+.button {transform: scale(1.2);}
+
+.get-involved__guardian-logo {width:210px;}
+
+.get-involved__a 
+.button {
+ 	top: auto;
+    right: 7%;
+    bottom: 13%;
+}
+
+
+.get-involved__c 
+.button {
+    top: auto;
+    left: 12%;
+    bottom: 10%;
+    right: auto;
+}
+
+
+.get-involved__d 
+.button {
+	top:26%; 
+	left:10%;
+}
+
+
+}
+
+// wide
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: wide) {
+
+.get-involved__title {
+	font-size: 90px;
+	span {font-size: 110px;}
+}
+
+.get-involved__grid {
+	grid-column: 2 / span 10;
+}
+
+.get-involved__guardian-logo {width:250px;}
+
+.get-involved__d 
+.button {
+	top:220px; 
+	left:8%;
+}
+
+}
