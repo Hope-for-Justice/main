@@ -19,6 +19,9 @@
 	&--red {
 		background-color:$red;
 	}
+	&--green{
+		background-color:$green;
+	}
 	&--nav {
 		border-radius: 7.7em 0 0 7.7em;
 		font-size: 1.2em;
@@ -33,9 +36,9 @@
 
 .button {
 	&--nav {
-	border-radius: 7.7em;
-	font-size: 1.6em;
-	margin-right: 0.7em;
+		border-radius: 7.7em;
+		font-size: 1.6em;
+		margin-right: 0.7em;
 	}
 }
 
@@ -49,9 +52,9 @@
 .button {
 	font-size: 2.2em;
 	&--nav {
-	border-radius: 7.7em;
-	font-size: 1.8em;
-	margin-right: 0.7em;
+		border-radius: 7.7em;
+		font-size: 1.8em;
+		margin-right: 0.7em;
 	}
 }
 
