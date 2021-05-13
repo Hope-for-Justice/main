@@ -64,6 +64,11 @@
 
 @include mq($from: tablet) {
 
-.newsticker__item{font-size: 2em;}
+.newsticker__item{font-size: 1.8em;}
+
+.eocjs-newsticker {
+  padding: 1em 0 0.8em 0;
+  background-color: #f2f2f2;
+}
 
 }

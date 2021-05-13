@@ -4,7 +4,7 @@
 *
 */
 
-// thin 280
+// thin 
 ///////////////////////////////////////////////////////////////////////////
 
 .hero-split {
@@ -17,7 +17,6 @@
 	}
 	&__content {
 		width:100%;
-		height:200vh;
 		background-color: $white;
 		padding:3em;
 	}
@@ -33,9 +32,12 @@
 		line-height: 1.2;
 		margin-bottom: 0.5em;
 	}
+	&__desc {
+		margin-bottom: 2em;
+	}
 }
 
-// mobile 320
+// mobile 
 ///////////////////////////////////////////////////////////////////////////
 
 @include mq($from: mobile) {
@@ -48,7 +50,7 @@
 
 }
 
-// mobile medium 375
+// mobile medium 
 ///////////////////////////////////////////////////////////////////////////
 
 @include mq($from: mobileMedium) {
@@ -57,8 +59,139 @@
 	&__content {
 		padding:4em;
 	}
+	&__sub-heading {
+		font-size: 1.8em;
+		margin-bottom: 2em;
+	}
 	&__main-heading {
 		font-size: 4.7em;
+	}
+	&__desc {
+		font-size: 1.8em;
+	}
+}
+
+}
+
+// tablet 
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.hero-split {
+	&__img {
+		min-height: 30em;
+	}
+	&__content {
+		padding:6.7em 18em;
+		text-align: center;
+	}
+	&__sub-heading {
+		font-size: 2em;
+		margin-bottom: 2em;
+	}
+	&__main-heading {
+		font-size: 6.8em;
+	}
+	&__desc {
+		font-size: 2em;
+		margin-bottom: 2.5em;
+	}
+}
+
+}
+
+// desktop 
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+
+.hero-split {
+	&__img {
+		min-height: 40em;
+	}
+	&__content {
+		padding:6.7em 29em;
+		
+	}
+	&__main-heading {
+		font-size: 6.8em;
+	}
+}
+
+
+}
+
+// desktop 
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+
+.hero-split {
+	display: flex;
+	&__img {
+		min-height: calc(100vh - 100px);
+		background-size: cover;
+		width:50%;
+	}
+	&__content {
+		padding:6em;
+		width:50%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	&__content-inner {
+		max-width: 80%;
+		margin-top: -4em;
+	}
+	&__main-heading {
+		font-size: 7.8em;
+	}
+	&__desc {
+		padding: 0 3em;
+	}
+}
+
+}
+
+// wide
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: wide) {
+
+.hero-split {
+	&__sub-heading {
+		font-size: 2.4em;
+	}
+	&__main-heading {
+		font-size: 9em;
+	}
+	&__desc {
+		font-size: 2.4em;
+		padding: 0 3em;
+	}
+}
+
+}
+
+// wide
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: extraWide) {
+
+.hero-split {
+	&__sub-heading {
+		font-size: 3em;
+	}
+	&__main-heading {
+		font-size: 12em;
+	}
+	&__desc {
+		font-size: 3em;
+		padding: 0 4em;
 	}
 }
 

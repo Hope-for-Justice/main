@@ -4,7 +4,7 @@
 *
 */
 
-// thin 280
+// thin 
 ///////////////////////////////////////////////////////////////////////////
 
 .header {
@@ -56,11 +56,11 @@
 
 @keyframes headerSlideUp {
   	from {transform: translateY(0);}
-  	to {transform: translateY(-92px);}
+  	to {transform: translateY(-110px);}
 }
 
 @keyframes headerSlideDown {
-  	from {transform: translateY(-92px);}
+  	from {transform: translateY(-110px);}
   	to {transform: translateY(0px);}
 }
 

@@ -68,17 +68,18 @@
 		-- menu
 		-- 
 		--> 
-
 		<nav id="menu" class="menu">
 			<div class="menu__inner">
 				<?php wp_nav_menu( array( 'theme_location' => 'uk-primary', 'container' => false, 'menu_class' => 'menu__primary') ); ?>
 				<?php wp_nav_menu( array( 'theme_location' => 'uk-secondary', 'container' => false, 'menu_class' => 'menu__secondary') ); ?>
 				<div class="menu__button">
-					<div class="button button--red">
+					<a href="#" class="button button--red">
 						<div class="button__inner">
-							<a class="button__link bold" href="#">Get our<br>email updates</a>
+							<div class="button__link bold">
+								Get our<br>email updates
+							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 				<div class="menu__footer">
 					<div class="menu__line"></div>
@@ -86,6 +87,7 @@
 				</div>
 			</div>
 		</nav>
+
 	</header><!-- #masthead -->
 
 
