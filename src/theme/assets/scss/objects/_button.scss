@@ -22,6 +22,9 @@
 	&--green{
 		background-color:$green;
 	}
+	&--white{
+		color: $black;
+	}
 	&--nav {
 		border-radius: 7.7em 0 0 7.7em;
 		font-size: 1.2em;
