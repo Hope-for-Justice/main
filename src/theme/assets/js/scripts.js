@@ -111,8 +111,8 @@ jQuery(document).ready(function($) {
                 progressiveLoad:false
             },
             path: '/build/themes/hope-for-justice-2020/assets/img/getinvolved.json',
-            ///wp-content/themes/hope-for-justice-2020/assets/img/getinvolved.json
-            ///build/themes/hope-for-justice-2020/assets/img/getinvolved.json
+            //on wp-engine /wp-content/themes/hope-for-justice-2020/assets/img/getinvolved.json
+            //on local setup /build/themes/hope-for-justice-2020/assets/img/getinvolved.json
         };
         getInvolved = bodymovin.loadAnimation(animData);
 
