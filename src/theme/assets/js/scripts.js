@@ -29,12 +29,12 @@ jQuery(document).ready(function($) {
     let isOpen = false;
     $('#burger-menu').click(function(){
         if (isOpen == false) {
-            $(this).toggleClass('open');
+            $(this).find('.burger').toggleClass('open');
             $('#menu').toggleClass('menu--open');
             $(".menu__inner").css("opacity", "1");  
             isOpen = true;
         } else {
-            $(this).toggleClass('open');
+            $(this).find('.burger').toggleClass('open');
             $(".menu__inner").css("opacity", "0");
             $('#menu').toggleClass('menu--open');
             isOpen = false;
@@ -110,7 +110,7 @@ jQuery(document).ready(function($) {
             rendererSettings: {
                 progressiveLoad:false
             },
-            path: '/build/themes/hope-for-justice-2020/assets/img/getinvolved.json',
+            path: '/wp-content/themes/hope-for-justice-2020/assets/img/getinvolved.json',
             //on wp-engine /wp-content/themes/hope-for-justice-2020/assets/img/getinvolved.json
             //on local setup /build/themes/hope-for-justice-2020/assets/img/getinvolved.json
         };
@@ -125,10 +125,13 @@ jQuery(document).ready(function($) {
         });
 
         //cards
-        Draggable.create(".cards__inner", {
-            bounds:".cards",
+        Draggable.create(".drag-cards__inner", {
             allowNativeTouchScrolling:false,
-            type:"x"
+            type:"x",
+            bounds: {maxX:0}, //keeps it left drag only
+            onRelease:function() {
+                TweenLite.set(this.target, {zIndex:0});
+            }
         }
         )
 

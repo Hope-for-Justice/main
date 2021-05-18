@@ -1,0 +1,17 @@
+/*
+*
+* _COLOR-BLOCK.SCSS
+*
+* for when you need a block of 
+* colour bur still want the grid
+* .sub-grid goes inside
+*
+*/
+
+
+.color-block {
+	grid-column: col1 / col12-end;
+	&--grey {
+		background-color: $light-grey;
+	}
+}

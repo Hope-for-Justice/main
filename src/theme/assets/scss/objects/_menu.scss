@@ -163,7 +163,8 @@
 
 .menu {
 	&__inner {
-		padding: 4em 35em 10em 35em;
+		max-width: 180em;
+		margin: 0 auto;
 	}
 }
 
@@ -177,7 +178,7 @@
 
 .menu {
 	&__inner {
-		padding: 4em 50em 10em 50em;
+
 	}
 	&__primary {
 		li {font-size: 7.6em;}

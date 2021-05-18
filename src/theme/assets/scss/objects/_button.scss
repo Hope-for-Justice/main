@@ -29,6 +29,7 @@
 		background-color: $light-grey;
 		color: $black;
 	}
+	&--black {background-color: $black;}
 	&--nav {
 		border-radius: 7.7em 0 0 7.7em;
 		font-size: 1.2em;
@@ -43,11 +44,12 @@
 @include mq($from: tablet) {
 
 .button {
-	font-size: 2.2em;
+	font-size: 1.8em;
 	&--nav {
 		border-radius: 7.7em;
 		font-size: 1.6em;
 		margin-right: 0.7em;
+		padding: 1em 1.6em 0.8em 1.6em;
 	}
 }
 
@@ -60,24 +62,36 @@
 
 .button {
 	&--nav {
-		border-radius: 7.7em;
 		font-size: 1.8em;
-		margin-right: 0.7em;
 	}
 }
 
 }
 
-// extra wide
+// desktop
 ///////////////////////////////////////////////////////////////////////////////
 
-@include mq($from: extraWide) {
+@include mq($from: desktopLarge) {
 
 .button {
-	font-size: 3em;
+	font-size: 2.4em;
 	&--nav {
 		font-size: 1.8em;
 	}
 }
 
 }
+
+// // extra wide
+// ///////////////////////////////////////////////////////////////////////////////
+
+// @include mq($from: extraWide) {
+
+// .button {
+// 	font-size: 3em;
+// 	&--nav {
+// 		font-size: 1.8em;
+// 	}
+// }
+
+// }

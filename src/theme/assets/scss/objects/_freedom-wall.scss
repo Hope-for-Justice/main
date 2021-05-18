@@ -3,3 +3,115 @@
 * _FREEDOM-WALL.SCSS
 *
 */
+
+.freedom-wall {
+	grid-column: col1 / col12-end;
+	&__heading{
+		font-size: 2.6em;
+		text-align: center;
+		padding: 0 0.5em;
+		margin-bottom: 1em;
+		br {display:none;}
+	}
+	&__button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 2.6em; 
+	}
+	&__image {
+		background-image: url("https://hopeforjustice.org/wp-content/uploads/2021/02/freedom-wall-optimised.jpg");
+		background-size: cover;
+		background-position: center;
+		width: 100%;
+		padding-top: 56%;
+		margin-bottom: 2.6em;
+	}
+}
+
+// phablet
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: phablet) {
+
+.freedom-wall {
+	&__heading{
+		margin-top: 1em;
+		font-size: 3.6em;
+		br {display:block;}
+	}
+	&__button {
+		margin-bottom: 6.5em; 
+	}
+}
+
+}
+
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: tablet) {
+
+.freedom-wall {
+	padding: 0 5em 5em 5em;
+	&__heading{
+		margin-top: 1em;
+		font-size: 5em;
+		br {display: none;}
+	}
+	&__button {
+		margin-bottom: 6.5em; 
+	}
+	&__image {
+		border-radius: 26px;
+	}
+}
+
+}
+
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktop) {
+
+.freedom-wall {
+	padding: 0;
+	grid-column: col2 / col12;
+	&__heading{
+		margin-top: 2em;
+		font-size: 5em;
+		br {display: block;}
+	}
+	&__button {
+		margin-bottom: 8em; 
+	}
+	&__image {
+		border-radius: 26px;
+		margin-bottom: 8.3vw;
+	}
+}
+
+}
+
+
+
+// desktop large
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopLarge) {
+
+.freedom-wall {
+	&__heading{
+		font-size: 6.2em;
+	}
+}
+
+}
+
+// extra wide
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: extraWide) {
+
+.freedom-wall {
+	grid-column: col3 / col11;
+}
+
+}

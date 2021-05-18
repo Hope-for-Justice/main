@@ -106,28 +106,6 @@
 
 @include mq($from: desktop) {
 
-
-.hero-split {
-	&__img {
-		min-height: 40em;
-	}
-	&__content {
-		padding:6.7em 29em;
-		
-	}
-	&__main-heading {
-		font-size: 6.8em;
-	}
-}
-
-
-}
-
-// desktop 
-///////////////////////////////////////////////////////////////////////////
-
-@include mq($from: desktopLarge) {
-
 .hero-split {
 	display: flex;
 	&__img {
@@ -144,14 +122,45 @@
 		align-items: center;
 	}
 	&__content-inner {
-		max-width: 80%;
 		margin-top: -4em;
 	}
 	&__main-heading {
-		font-size: 7.8em;
+		font-size: 6.2em;
 	}
 	&__desc {
-		padding: 0 3em;
+		padding: 0 1em;
+	}
+}
+
+}
+
+// desktop large
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+
+.hero-split {
+	&__main-heading {
+		font-size: 6.8em;
+	}
+	&__desc {
+		max-width: 25em;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+}
+
+
+// desktop large
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopExtraLarge) {
+
+.hero-split {
+	&__main-heading {
+		font-size: 7.8em;
 	}
 }
 
@@ -171,28 +180,27 @@
 	}
 	&__desc {
 		font-size: 2.4em;
-		padding: 0 3em;
 	}
 }
 
 }
 
-// wide
-///////////////////////////////////////////////////////////////////////////
+// // extra wide
+// ///////////////////////////////////////////////////////////////////////////
 
-@include mq($from: extraWide) {
+// @include mq($from: extraWide) {
 
-.hero-split {
-	&__sub-heading {
-		font-size: 3em;
-	}
-	&__main-heading {
-		font-size: 12em;
-	}
-	&__desc {
-		font-size: 3em;
-		padding: 0 4em;
-	}
-}
+// .hero-split {
+// 	&__sub-heading {
+// 		font-size: 3em;
+// 	}
+// 	&__main-heading {
+// 		font-size: 12em;
+// 	}
+// 	&__desc {
+// 		font-size: 3em;
+// 		padding: 0 4em;
+// 	}
+// }
 
-}
+// }

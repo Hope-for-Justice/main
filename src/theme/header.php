@@ -50,14 +50,12 @@
 			</svg>
 			<div class="header__navigation">
 				<a class="button button--red button--nav bold" href="#">DONATE</a>
-				<div class="header__burger">
+				<div id="burger-menu" class="header__burger">
 					<div class="burger">
-					<div id="burger-menu" class="burger">
 					  <span></span>
 					  <span></span>
 					  <span></span>
 					  <span></span>
-					</div>
 					</div>
 				</div>
 			</div>
