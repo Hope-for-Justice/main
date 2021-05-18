@@ -1,0 +1,18 @@
+/*
+*
+* _DONATE.SCSS
+*
+*/
+
+.donate {
+	grid-column: col2 / col12;
+	padding-top: 8.33vw;
+	&__text{
+		display: flex;
+		flex-wrap: wrap;
+	}
+	&__heading {
+		font-size: 5.2em;
+		margin-top: 0.2em;
+	}
+}

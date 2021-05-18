@@ -25,7 +25,8 @@
 
 	<header id="site-header" class="header">
 		<div class="header__inner">
-			<svg class="header__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 173.806 52.08">
+			<a style="margin-bottom: -5px" href="/"><!-- inline style - remove space from the bottom of the logo -->
+				<svg class="header__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 173.806 52.08">
 			  <g id="Group_6902" data-name="Group 6902" transform="translate(-131.194 -13.459)">
 			    <g id="Group_4" data-name="Group 4" transform="translate(184.492 30.51)">
 			      <path id="Path_32" data-name="Path 32" d="M344.869,566.7v7.213h-1.421V566.7h-3.17v17.487h3.17v-7.432h1.421v7.432h3.17V566.7Z" transform="translate(-340.278 -566.429)" fill="#212322"/>
@@ -47,7 +48,8 @@
 			      <path id="Path_17052" data-name="Path 17052" d="M53.584,24.112a.04.04,0,0,0-.04-.017c-1.011.119-2.2.25-2.2.25a5.573,5.573,0,0,0-4.389-.259,5.945,5.945,0,0,0-3.193,2.647l-.532-.179.376-3.11a5.494,5.494,0,0,0-2.481-5.155L27.94,9.9c-.28.634-1.958,8.555,5.541,12.248a51.314,51.314,0,0,1,4.731,2.4.672.672,0,0,1,.265.409s-6.942-2.3-8.834-2.958C23.4,19.851,12.487,16.12,7.316,14.4c0,0,1.8,13.942,18.34,19.674,5.226,1.853,9.47,3.35,9.47,3.35a2.41,2.41,0,0,1,1.346,1,2.2,2.2,0,0,1,.038,2.035c-2.436,4.612-10.9,20.649-11.36,21.515a9.288,9.288,0,0,0,3.489-2.432c1.141-1.31,2.02-2.39,4.058-4.758,2.493-2.9,5.168-6,5.168-6l.684,6.786a5.945,5.945,0,0,0,1.592-3.506c.209-1.775.836-6.894.836-6.894s4.526-5.307,8.37-9.778a10.464,10.464,0,0,0,2.628-9.06s1.286-1.732,1.606-2.173A.045.045,0,0,0,53.584,24.112Zm-4.211,2.9a.926.926,0,1,1,.225-1.292A.924.924,0,0,1,49.373,27.008Z" transform="translate(-7.316 -9.896)" fill="#d6001c"/>
 			    </g>
 			  </g>
-			</svg>
+				</svg>
+			</a>
 			<div class="header__navigation">
 				<a class="button button--red button--nav bold" href="#">DONATE</a>
 				<div id="burger-menu" class="header__burger">
