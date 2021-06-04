@@ -41,22 +41,63 @@ jQuery(document).ready(function($) {
         }
     });
 
-    //rangeslider
-    $('input[type="range"]').rangeslider({
-        polyfill:false,
-        onInit : function() {
-            this.output = $('.rangeslider__handle').html( "£" + this.$element.val() );
-            $('#preAmount').val(this.$element.val());
-        },
-        onSlide : function( position, value ) {
-            this.output.html( "£" + value );
-            $('#preAmount').val(this.$element.val());
-        }
-    });
-
 
 }); /* end of as page load scripts */
 
+
+//Address search
+
+jQuery(document).on('gform_post_render', function(event, form_id, current_page){
+
+    //modify field name to 'search' on gravity forms if class exists
+    jQuery(".address-search input").attr("name","search");
+
+    //show address fields on click
+    jQuery(".address-link").on('click', function(){
+        jQuery(".address-fields").show();
+    });
+
+    //remove html in search input on click
+    jQuery(".address-search input").on("click", function(){
+        jQuery(this).val("");
+    });
+
+    //global postcode anywhere with regex matching
+    var e = {
+        key: "DN97-JG93-ZJ46-EW48" //PCA API key
+    },
+    d = [{
+        element: "search", // use the field named 'search' to search
+        field: "",
+        mode: pca.fieldMode.SEARCH
+    }, {
+        element: "^input_[0-9]{1,}_[0-9]{1,}_1$",
+        field: "Line1",
+        mode: pca.fieldMode.POPULATE
+    }, {
+        element: "^input_[0-9]{1,}_[0-9]{1,}_2$",
+        field: "Line2",
+        mode: pca.fieldMode.POPULATE
+    }, {
+        element: "^input_[0-9]{1,}_[0-9]{1,}_3$",
+        field: "City",
+        mode: pca.fieldMode.POPULATE
+    }, {
+        element: "^input_[0-9]{1,}_[0-9]{1,}_4$",
+        field: "Province",
+        mode: pca.fieldMode.POPULATE
+    }, {
+        element: "^input_[0-9]{1,}_[0-9]{1,}_5$",
+        field: "PostalCode",
+        mode: pca.fieldMode.POPULATE
+    }],
+    o = new pca.Address(d, e);
+    o.listen("populate", function() {
+    //alert("yes");
+    jQuery(".address-search input").val(jQuery(".address_line_1 input").val() + "...");
+    }), o.load()
+
+});
 
 /* Window load scripts */
 (function($) {
@@ -79,25 +120,16 @@ jQuery(document).ready(function($) {
     //modal (spash)
     $('#splash-modal').modal('show');
 
-
-
     //Homepage
 
-        if(!$(".modal").length){
-            $(".hero__content").addClass("animate__animated animate__fadeInDown").css('opacity','1');
-        } 
+        // if(!$(".modal").length){
+        //     $(".hero__content").addClass("animate__animated animate__fadeInDown").css('opacity','1');
+        // } 
 
-        $('.modal').on('hidden.bs.modal', function () {
-            $(".hero__content").addClass("animate__animated animate__fadeInDown").css('opacity','1');
-        });
+        // $('.modal').on('hidden.bs.modal', function () {
+        //     $(".hero__content").addClass("animate__animated animate__fadeInDown").css('opacity','1');
+        // });
         
-        // giving widget 
-        $('#custom-amount').click(function() { 
-            $(this).fadeOut(400);
-            $('.giving-widget__rangeslider').fadeOut(400);
-            $('.giving-widget__feedback').fadeOut(400);
-            $('.giving-widget__amount').fadeIn(400);
-        });
 
         // lottie
         var getInvolved;
@@ -106,23 +138,25 @@ jQuery(document).ready(function($) {
             container: elem,
             renderer: 'svg',
             loop: false,
-            autoplay: false,  
+            autoplay: true, //change to false when using with scroll trigger gsap 
             rendererSettings: {
                 progressiveLoad:false
             },
-            path: '/wp-content/themes/hope-for-justice-2020/assets/img/getinvolved.json',
+            path: '/build/themes/hope-for-justice-2020/assets/img/getinvolved.json',
             //on wp-engine /wp-content/themes/hope-for-justice-2020/assets/img/getinvolved.json
             //on local setup /build/themes/hope-for-justice-2020/assets/img/getinvolved.json
         };
         getInvolved = bodymovin.loadAnimation(animData);
 
-        var waypoint = new Waypoint({
-        element: document.getElementById('waypoint'),
-          handler: function(direction) {
-            getInvolved.play();
-          },
-          offset: 200
-        });
+
+
+        // var waypoint = new Waypoint({
+        // element: document.getElementById('waypoint'),
+        //   handler: function(direction) {
+        //     getInvolved.play();
+        //   },
+        //   offset: 200
+        // }); /////////////////// replace with scroll trigger gsap
 
         //cards
         Draggable.create(".drag-cards__inner", {
@@ -132,8 +166,8 @@ jQuery(document).ready(function($) {
             onRelease:function() {
                 TweenLite.set(this.target, {zIndex:0});
             }
-        }
-        )
+        });
+
 
 
 	}); /* end of as page load scripts */

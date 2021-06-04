@@ -432,7 +432,7 @@ class GFStripe extends GFPaymentAddOn {
 	 */
 	public function get_menu_icon() {
 
-		return file_get_contents( $this->get_base_path() . '/images/menu-icon.svg' );
+		return $this->is_gravityforms_supported( '2.5-beta-4' ) ? 'gform-icon--stripe' : 'dashicons-admin-generic';
 
 	}
 
@@ -924,15 +924,22 @@ class GFStripe extends GFPaymentAddOn {
 
 		// Get authentication URL.
 		$license_key = GFCommon::get_key();
+		$nonce       = wp_create_nonce( $this->get_authentication_state_action() );
 		$auth_url    = add_query_arg(
 			array(
 				'mode'        => $api_mode,
 				'redirect_to' => rawurlencode( $this->get_settings_page_url() ),
 				'license'     => $license_key,
-				'state'       => wp_create_nonce( $this->get_authentication_state_action() ),
+				'state'       => $nonce,
 			),
 			$this->get_gravity_api_url( '/auth/stripe' )
 		);
+
+		if ( get_transient( 'gravityapi_request_gravityformsstripe' ) ) {
+			delete_transient( 'gravityapi_request_gravityformsstripe' );
+		}
+
+		set_transient( 'gravityapi_request_gravityformsstripe', $nonce, 10 * MINUTE_IN_SECONDS );
 
 		// Create connect button markup.
 		$connect_button = sprintf(
@@ -980,7 +987,7 @@ class GFStripe extends GFPaymentAddOn {
 				$html .= '</p>';
 
 				// Display the deauth options.
-				$html .= '<div class="alert_red deauth_scope" style="margin-top: 10px;padding:20px; padding-top:5px;">';
+				$html .= '<div class="deauth_scope" style="margin-top: 10px;padding:20px; padding-top:5px;">';
 				$html .= '<p><label for="' . $api_mode . '_deauth_scope0"><input type="radio" name="deauth_scope" value="site" id="' . $api_mode . '_deauth_scope0" checked="checked">';
 
 				$target = $this->is_detail_page() ? 'feed' : 'site';
@@ -1127,6 +1134,39 @@ class GFStripe extends GFPaymentAddOn {
 	}
 
 	/**
+	 * Get the authorization payload data.
+	 *
+	 * Returns the auth POST request if it's present, otherwise attempts to return a recent transient cache.
+	 *
+	 * @since 3.10
+	 *
+	 * @return array
+	 */
+	private function get_oauth_payload() {
+		$payload = array_filter(
+			array(
+				'auth_payload' => rgpost( 'auth_payload' ),
+				'auth_error'   => rgpost( 'auth_error' ),
+				'state'        => rgpost( 'state' ),
+			)
+		);
+
+		if ( count( $payload ) === 2 || isset( $payload['auth_error'] ) ) {
+			return $payload;
+		}
+
+		$payload = get_transient( "gravityapi_response_{$this->_slug}" );
+
+		if ( rgar( $payload, 'state' ) !== get_transient( "gravityapi_request_{$this->_slug}" ) ) {
+			return array();
+		}
+
+		delete_transient( "gravityapi_response_{$this->_slug}" );
+
+		return is_array( $payload ) ? $payload : array();
+	}
+
+	/**
 	 * Store auth tokens when we get auth payload from Stripe Connect.
 	 *
 	 * @since 2.8
@@ -1137,62 +1177,64 @@ class GFStripe extends GFPaymentAddOn {
 			return;
 		}
 
+		$payload = $this->get_oauth_payload();
+
+		if ( ! $payload ) {
+			return;
+		}
+
 		// If access token is provided, save it.
-		if ( rgpost( 'auth_payload' ) ) {
-			$auth_payload = json_decode( base64_decode( rgpost( 'auth_payload' ) ), true );
+		$auth_payload = json_decode( base64_decode( rgar( $payload, 'auth_payload' ) ), true );
 
-			// If state does not match, do not save.
-			if ( ! wp_verify_nonce( rgpost( 'state' ), $this->get_authentication_state_action() ) ) {
+		// If state does not match, do not save.
+		if ( rgpost( 'state' ) && ! wp_verify_nonce( rgar( $payload, 'state' ), $this->get_authentication_state_action() ) ) {
+			// Add error message.
+			GFCommon::add_error_message( esc_html__( 'Unable to connect to Stripe due to mismatched state.', 'gravityformsstripe' ) );
 
-				// Add error message.
-				GFCommon::add_error_message( esc_html__( 'Unable to connect to Stripe due to mismatched state.', 'gravityformsstripe' ) );
+			return;
+		}
 
-				return;
+		// Get access token.
+		$access_token = rgar( $auth_payload, 'access_token' );
 
-			}
+		$is_feed_settings = $this->is_detail_page() ? true : false;
 
-			// Get access token.
-			$access_token = rgar( $auth_payload, 'access_token' );
+		if ( $is_feed_settings ) {
+			$settings = $this->get_current_feed();
+			$settings = $settings['meta'];
+		} else {
+			$settings = (array) $this->get_plugin_settings();
+		}
 
-			$is_feed_settings = $this->is_detail_page() ? true : false;
+		$settings['api_mode'] = ( rgar( $auth_payload, 'livemode' ) === true ) ? 'live' : 'test';
+		$auth_token           = $this->get_auth_token( $settings, $settings['api_mode'] );
 
+		if ( empty( $auth_token ) || rgar( $settings, $settings['api_mode'] . '_secret_key' ) !== $access_token ) {
+			// Add auth info to plugin settings.
+			$settings[ $settings['api_mode'] . '_auth_token' ]               = array(
+				'stripe_user_id' => rgar( $auth_payload, 'stripe_user_id' ),
+				'refresh_token'  => rgar( $auth_payload, 'refresh_token' ),
+				'date_created'   => time(),
+			);
+			$settings[ $settings['api_mode'] . '_secret_key' ]               = $access_token;
+			$settings[ $settings['api_mode'] . '_secret_key_is_valid' ]      = '1';
+			$settings[ $settings['api_mode'] . '_publishable_key' ]          = rgar( $auth_payload, 'stripe_publishable_key' );
+			$settings[ $settings['api_mode'] . '_publishable_key_is_valid' ] = '1';
+
+			// Save settings.
 			if ( $is_feed_settings ) {
-				$settings = $this->get_current_feed();
-				$settings = $settings['meta'];
+				$this->save_feed_settings( $this->get_current_feed_id(), rgget( 'id' ), $settings );
 			} else {
-				$settings = (array) $this->get_plugin_settings();
+				$this->update_plugin_settings( $settings );
 			}
 
-			$settings['api_mode'] = ( rgar( $auth_payload, 'livemode' ) === true ) ? 'live' : 'test';
-			$auth_token           = $this->get_auth_token( $settings, $settings['api_mode'] );
-
-			if ( empty( $auth_token ) || rgar( $settings, $settings['api_mode'] . '_secret_key' ) !== $access_token ) {
-				// Add auth info to plugin settings.
-				$settings[ $settings['api_mode'] . '_auth_token' ]               = array(
-					'stripe_user_id' => rgar( $auth_payload, 'stripe_user_id' ),
-					'refresh_token'  => rgar( $auth_payload, 'refresh_token' ),
-					'date_created'   => time(),
-				);
-				$settings[ $settings['api_mode'] . '_secret_key' ]               = $access_token;
-				$settings[ $settings['api_mode'] . '_secret_key_is_valid' ]      = '1';
-				$settings[ $settings['api_mode'] . '_publishable_key' ]          = rgar( $auth_payload, 'stripe_publishable_key' );
-				$settings[ $settings['api_mode'] . '_publishable_key_is_valid' ] = '1';
-
-				// Save settings.
-				if ( $is_feed_settings ) {
-					$this->save_feed_settings( $this->get_current_feed_id(), rgget( 'id' ), $settings );
-				} else {
-					$this->update_plugin_settings( $settings );
-				}
-
-				// Reload page to load saved settings.
-				wp_redirect( $this->get_settings_page_url() );
-				exit();
-			}
+			// Reload page to load saved settings.
+			wp_redirect( $this->get_settings_page_url() );
+			exit();
 		}
 
 		// If error is provided, display message.
-		if ( rgpost( 'auth_error' ) ) {
+		if ( rgpost( 'auth_error' ) || isset( $payload['auth_error'] ) ) {
 			// Add error message.
 			GFCommon::add_error_message( esc_html__( 'Unable to authenticate with Stripe.', 'gravityformsstripe' ) );
 		}

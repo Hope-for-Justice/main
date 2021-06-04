@@ -2,7 +2,7 @@
 /**
  * The homepage template
  *
- * @package Hope_for_Justice_2020
+ * @package Hope_for_Justice_2021
  */
 
 get_header();

@@ -4,7 +4,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
- * @package Hope_for_Justice_2019
+ * @package Hope_for_Justice_2021
  */
 
 if ( ! is_active_sidebar( 'sidebar-1' ) ) {

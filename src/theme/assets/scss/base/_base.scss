@@ -7,13 +7,13 @@ Description: Description
 Version: 1.0.0
 License: GNU General Public License v2 or later
 License URI: LICENSE
-Text Domain: hope-for-justice-2019
+Text Domain: hope-for-justice-2021
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 
 This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
 
-Hope for Justice 2019 is based on Underscores https://underscores.me/, (C) 2012-2017 Automattic, Inc.
+Hope for Justice 2021 is based on Underscores https://underscores.me/, (C) 2012-2017 Automattic, Inc.
 Underscores is distributed under the terms of the GNU GPL v2 or later.
 
 Normalizing styles have been helped along thanks to the fine work of
@@ -997,5 +997,9 @@ body {z-index: $z-body;}
 /* No link decoration */
 a {text-decoration: none;}
 
-.accessibility {display:none;}
+.plain-link {
+	text-decoration: underline;
+	color: $red;
+}
 
+.accessibility {display:none;}

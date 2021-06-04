@@ -1,0 +1,14 @@
+/*
+*
+* _DEFAULT-PAGE.SCSS
+*
+*/
+
+.default-page {
+	grid-column: col2 / col12;
+}
+
+
+@include mq($from: desktop) {
+	grid-column: col4 / col8-end;
+}

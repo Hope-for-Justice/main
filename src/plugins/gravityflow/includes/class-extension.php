@@ -88,6 +88,19 @@ abstract class Gravity_Flow_Extension extends GFAddOn {
 	}
 
 	/**
+	 * Returns the extension short title.
+	 *
+	 * @since unknown
+	 * @since 2.7.3 Updated to return Gravity Flow appended with the short title for Uninstall Page
+	 * 
+	 * @return string
+	 */
+	public function get_short_title() {
+		$is_gravityforms_uninstall = rgget( 'page' ) == 'gf_settings' && rgget( 'subview' ) == 'uninstall';
+		return $is_gravityforms_uninstall ? 'Gravity Flow ' . $this->_short_title : $this->_short_title;
+	}
+		
+	/**
 	 * Add the extension capabilities to the Gravity Flow group in Members.
 	 *
 	 * Override to provide human readable labels.
@@ -223,6 +236,45 @@ abstract class Gravity_Flow_Extension extends GFAddOn {
 		<?php
 	}
 
+	/**
+	 * Render the uninstall button on Gravity Forms uninstall page to correctly point for Gravity Flow Extensions
+	 *
+	 * @since 2.7.3
+	 */
+	public function render_settings_button() {
+
+		if ( ! $this->current_user_can_uninstall() ) {
+			return;
+		}
+
+		if ( rgget( 'page' ) == 'gf_settings' ) {
+			GFAddOn::render_uninstall();
+			return;
+		}
+
+		$icon        = array( 'icon' => $this->get_menu_icon() );
+		$icon_markup = GFCommon::get_icon_markup( $icon, 'dashicon-admin-generic' );
+		$url         = add_query_arg( array( 'view' => $this->get_slug() ), admin_url( 'admin.php?page=gravityflow_settings' ) );
+		?>
+		<form action="" method="post" class="gform-settings-panel gform-settings-panel__addon-uninstall">
+			<?php wp_nonce_field( 'uninstall', 'gf_addon_uninstall' ); ?>
+			<div class="gform-settings-panel__content">
+				<div class="addon-logo dashicons"><?php echo $icon_markup; ?></div>
+				<div class="addon-uninstall-text">
+					<h4 class="gform-settings-panel__title"><?php printf( esc_html__( '%s', 'gravityforms' ), $this->get_short_title() ) ?></h4>
+					<div><?php esc_attr_e( 'To continue uninstalling this add-on click the settings button.', 'gravityforms' ) ?></div>
+				</div>
+				<div class="addon-uninstall-button">
+					<a href="<?php echo esc_url( $url ); ?>" aria-label="<?php echo 'Visit ' . $this->get_short_title() . ' Settings page'; ?>" class="button addon-settings">
+						<i class="dashicons dashicons-admin-generic"></i>
+						<?php esc_attr_e( 'Settings', 'gravityforms' ); ?>
+					</a>
+				</div>
+			</div>
+		</form>
+		<?php
+	}
+	
 	/**
 	 * Get the settings for the app settings tab.
 	 *
@@ -492,7 +544,7 @@ abstract class Gravity_Flow_Extension extends GFAddOn {
 
 			$primary_button_link = admin_url( 'admin.php?page=gravityflow_settings&view=' . $this->get_slug() );
 
-			$message = sprintf( '<img src="%s" style="vertical-align:text-bottom;margin-right:5px;"/>', GFCommon::get_base_url() . '/images/exclamation.png' );
+			$message = '';
 
 			switch ( $license_status ) {
 				case 'expired':

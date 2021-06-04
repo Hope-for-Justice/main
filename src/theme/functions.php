@@ -1,13 +1,13 @@
 <?php
 /**
- * Hope for Justice 2020 functions and definitions
+ * Hope for Justice 2021 functions and definitions
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
- * @package Hope_for_Justice_2020
+ * @package Hope_for_Justice_2021
  */
 
-if ( ! function_exists( 'hope_for_justice_2020_setup' ) ) :
+if ( ! function_exists( 'hope_for_justice_2021_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
 	 *
@@ -15,14 +15,14 @@ if ( ! function_exists( 'hope_for_justice_2020_setup' ) ) :
 	 * runs before the init hook. The init hook is too late for some features, such
 	 * as indicating support for post thumbnails.
 	 */
-	function hope_for_justice_2020_setup() {
+	function hope_for_justice_2021_setup() {
 		/*
 		 * Make theme available for translation.
 		 * Translations can be filed in the /languages/ directory.
 		 * If you're building a theme based on Hope for Justice 2020, use a find and replace
 		 * to change 'hope-for-justice-2020' to the name of your theme in all the template files.
 		 */
-		load_theme_textdomain( 'hope-for-justice-2020', get_template_directory() . '/languages' );
+		load_theme_textdomain( 'hope-for-justice-2021', get_template_directory() . '/languages' );
 
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );
@@ -44,8 +44,8 @@ if ( ! function_exists( 'hope_for_justice_2020_setup' ) ) :
 
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
-			'uk-primary' => esc_html__( 'uk-primary', 'hope-for-justice-2020' ),
-			'uk-secondary' => esc_html__( 'uk-secondary', 'hope-for-justice-2020' ),
+			'uk-primary' => esc_html__( 'uk-primary', 'hope-for-justice-2021' ),
+			'uk-secondary' => esc_html__( 'uk-secondary', 'hope-for-justice-2021' ),
 		) );
 
 		/*
@@ -61,7 +61,7 @@ if ( ! function_exists( 'hope_for_justice_2020_setup' ) ) :
 		) );
 
 		// Set up the WordPress core custom background feature.
-		add_theme_support( 'custom-background', apply_filters( 'hope_for_justice_2020_custom_background_args', array(
+		add_theme_support( 'custom-background', apply_filters( 'hope_for_justice_2021_custom_background_args', array(
 			'default-color' => 'ffffff',
 			'default-image' => '',
 		) ) );
@@ -82,45 +82,53 @@ if ( ! function_exists( 'hope_for_justice_2020_setup' ) ) :
 		) );
 	}
 endif;
-add_action( 'after_setup_theme', 'hope_for_justice_2020_setup' );
+add_action( 'after_setup_theme', 'hope_for_justice_2021_setup' );
 
 /**
  * Enqueue scripts and styles.
  */
-function hope_for_justice_2020_scripts() {
-	wp_enqueue_style( 'hope-for-justice-2020-style', get_stylesheet_uri(), array(), '202107' );
+function hope_for_justice_2021_scripts() {
+	global $wp_styles;
+
+	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202107' );
 
 	wp_enqueue_script('jquery'); 
 
-    wp_enqueue_script( 'hopeforjustice-2014-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202107', true );
+    wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202107', true );
 
 }
 
 /**
  * Remove admin bumb
- */
+
 add_action('get_header', 'my_filter_head');
 
 function my_filter_head() {
 remove_action('wp_head', '_admin_bar_bump_cb');
 }
+ */
 
-
-add_action( 'wp_enqueue_scripts', 'hope_for_justice_2020_scripts' );
+add_action( 'wp_enqueue_scripts', 'hope_for_justice_2021_scripts', 1 );
 
 /**
  * Enqueue page specific scripts in a centrally maintained location
  */
 function page_scripts() {
     global $post;
-    //wp_register_script( 'handlebars', get_template_directory_uri() . '/assets/js/handlebars.js', '', '202035', true);
+
+    wp_register_script( 'donate-uk', get_template_directory_uri() . '/assets/js/pages/donate-uk.js', array('jquery'), '202107', true);
 
     $themeVars = array( 'template_directory_uri' => get_template_directory_uri() );
 
-        // if (is_page('1379')) {
-        // 	wp_enqueue_script('handlebars');
-        // }
+    	//donate uk
+        if (is_page('donate')) {
+         	wp_enqueue_script('donate-uk');
+        }
+
+
 }
+
+add_action('wp_enqueue_scripts', 'page_scripts',1);
 
 /**
  * Implement the Custom Header feature.
@@ -149,3 +157,69 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+/**
+ * Gravity Wiz // Gravity Forms Unrequire Required Fields for Testing
+ *
+ * When bugs pop up on your forms, it can be really annoying to have to fill out all the required fields for every test
+ * submission. This snippet saves you that hassle by unrequiring all required fields so you don't have to fill them out.
+ *
+ * @version	  1.0
+ * @author    David Smith <david@gravitywiz.com>
+ * @license   GPL-2.0+
+ * @link      http://gravitywiz.com/speed-up-gravity-forms-testing-unrequire-required-fields/
+ * @copyright 2013 Gravity Wiz
+ *
+ * @wordpress-plugin
+ * Plugin Name:       Gravity Forms Unrequire
+ * Plugin URI:        http://gravitywiz.com/speed-up-gravity-forms-testing-unrequire-required-fields/
+ * Description:       When bugs pop up on your forms, it can be really annoying to have to fill out all the required fields for every test submission. This snippet saves you that hassle by unrequiring all required fields so you don't have to fill them out.
+ * Version:           1.0
+ * Author:            Gravity Wiz
+ * Author URI:        http://gravitywiz.com/
+ * License:           GPL-2.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain:       gwu
+ */
+
+class GWUnrequire {
+    
+    var $_args = null;
+    
+    public function __construct( $args = array() ) {
+        
+        $this->_args = wp_parse_args( $args, array(
+            'admins_only' => true,
+            'require_query_param' => true
+        ) );
+        
+        add_filter( 'gform_pre_validation', array( $this, 'unrequire_fields' ) );
+        
+    }
+    
+    function unrequire_fields( $form ) {
+
+        // if( $this->_args['admins_only'] && ! current_user_can( 'activate_plugins' ) )
+        //     return $form;
+
+        if( $this->_args['require_query_param'] && ! isset( $_GET['gwunrequire'] ) )
+            return $form;
+        
+        foreach( $form['fields'] as &$field ) {
+            $field['isRequired'] = false;
+        }
+        
+        return $form;
+    }
+        
+}
+
+# Basic Usage
+#   requires that the user be logged in as an administrator and that a 'gwunrequire' parameter be added to the query string
+#   http://youurl.com/your-form-page/?gwunrequire=1
+
+new GWUnrequire();
+
+/**
+ * Remove stripe error rate limit on Gravity Forms
+ */
+add_filter( 'gform_stripe_enable_rate_limits', '__return_false' );

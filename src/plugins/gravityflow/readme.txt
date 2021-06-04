@@ -2,7 +2,7 @@
 Contributors: stevehenty
 Tags: workflow, approvals, gravity forms
 Requires at least: 5.2
-Tested up to: 5.6
+Tested up to: 5.7.1
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,7 +33,7 @@ Twitter: [Gravity Flow](https://twitter.com/GravityFlow_io)
 
 1. [Purchase and install Gravity Forms](https://gravityflow.io/out/gravityforms)
 2. Wordpress 4.2+
-3. Gravity Forms 2.3+
+3. Gravity Forms 2.4+
 
 
 = Support =
@@ -55,6 +55,35 @@ Gravity Flow will work with any license of [Gravity Forms](https://gravityflow.i
 
 == ChangeLog ==
 
+= 2.7.3 =
+- Added the Form setting to the Zapier step enabling multiple forms to use the same Zap.
+- Added the gravityflow_note_valid filter to customize note validation for Approval and User Input steps.
+- Fixed Font Awesome not loading for shortcodes which causes the quick actions for inbox to not be visible.
+- Fixed an issue where a blank note could be submitted with whitespaces, even if it is required.
+- Fixed an issue where uninstall for extensions on Gravity Forms Settings is not loading the correct page.
+
+
+= 2.7.2 =
+- Fixed deprecation warnings when saving steps on Gravity Forms 2.5.
+- Fixed an issue that causes Gravity Forms OAuth1 connected apps to fail verification.
+- Fixed an issue where the File Upload field generates a validation error when progress is saved on the User Input Step.
+- Fixed an issue when the filter gravityflow_form_ids_status in use with the filter gravityflow_status_filter fetches invalid counters for the Status Page.
+
+
+= 2.7.1 =
+- Added action gravityflow_step_start for custom logic to perform when any step starts.
+- Fixed an issue with step ordering that causes a conflict with other add-ons that support feed ordering.
+- Fixed an issue that prevents the use of gravityflow_status_filter with an 'any' mode selection from being applied correctly.
+- Fixed an issue that causes Icons in the Timeline View to display at the wrong size in Gravity Forms 2.5.
+- Fixed an issue that causes Order Summary to display on Complete Step even when the setting was disabled.
+- Fixed the entry filter setting to support the filters being passed in the field config which improves Form Connector extension remote site scenarios.
+- Fixed an issue with HTML fields conditional logic that affected their display on Workflow Detail page for completed workflows.
+- Fixed the background on Workflow Labels Settings page with Gravity Forms 2.5.
+- Fixed an issue with the display of the Update button on the Workflow Labels Settings page with Gravity Forms 2.5.
+- Updated the Status Page to use a CSS Loading Spinner to replace the deprecated Spinner Gif from Gravity Forms Core.
+- Updated the Assignee Email Message Textarea to improve support for the TinyMCE Editor from Gravity Forms 2.5
+
+
 = 2.7 =
 - Added support for Gravity Forms 2.5-beta-3.
 - Added filter gravityflow_entry_url_status_table to allow the url in status page to be customized.
@@ -62,12 +91,11 @@ Gravity Flow will work with any license of [Gravity Forms](https://gravityflow.i
 - Added filter gravityflow_sort_criteria_status to allow initial sort order on status page load to be defined.
 - Added a setting to enable the Workflow Inbox count in the WordPress admin menu.
 - Updated the Workflow Inbox Count to be disabled by default; it can be enabled with the advanced setting on the plugin settings page.
-- Fixed an issue where the front-end workflow was showing stuck on same step for email based assignee.
+- Fixed an issue where the workflow was showing as stuck on same step for email assignees in the front-end.
 - Fixed an issue with Step Assignees on User Input Step causing a Fatal Error.
-- Fixed an issue with the print button on workflow details page and front-end pages.
-- Fixed JS errors with multiple status shortcodes on the same page.
+- Fixed an issue with the print button on the workflow details page and front-end pages.
 - Fixed an issue where workflow steps are processed for entry revisions created by GravityView Entry Revisions.
-- Fixed an issue with Step Condition on Form Submission Step. The entry meta of child form was fetched to process the condition, instead of parent form.
+- Fixed an issue with the Step Condition setting on the Form Submission Step where the entry meta of child form is fetched to process the condition, instead of the parent form.
 - Fixed an issue with step reassignment when the assignee policy has changed.
 
 = 2.6 =

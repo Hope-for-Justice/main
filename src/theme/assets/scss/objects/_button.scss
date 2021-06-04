@@ -6,8 +6,11 @@
 
 .button {
 	color:white;
+	background-color:$red;
 	@include box-shadow;
 	border-radius: 7.7em;
+	border:none;
+	font-family: apercu-bold;
 	padding: 1em 2.6em 1em 2.6em;
 	font-size: 1.6em;
 	text-align: center;
@@ -35,8 +38,19 @@
 		font-size: 1.2em;
 		padding: 1em 1.6em 0.8em 1.8em;
 	}
+	&:hover {
+		cursor: pointer;
+	}
 
 }
+
+// gravity forms buttons
+input[type="button"], input[type="submit"] {
+	@extend .button;
+	padding: 1.25em 2.6em 1.25em 2.6em;
+}
+
+
 
 // Tablet
 ///////////////////////////////////////////////////////////////////////////////
@@ -81,6 +95,8 @@
 }
 
 }
+
+
 
 // // extra wide
 // ///////////////////////////////////////////////////////////////////////////////

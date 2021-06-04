@@ -1,0 +1,74 @@
+/*
+*
+* _TOGGLE.SCSS
+*
+*/
+
+.toggle {
+	font-size: 0.8em; //made slightly smaller for iphone SE
+	color:white;
+	@include box-shadow;
+	border-radius: 7.7em;
+	padding: 2.2em 2.6em;
+	display:flex;
+	position: relative;
+	width:100%;
+	max-width: 36em;
+	&__option {
+		width:50%;
+		text-decoration: underline;
+		font-weight: bold;
+		text-align: center;
+		font-size: 1.4em;
+		opacity: 0.52;
+		&:nth-child(1) {
+			
+		}
+		&:nth-child(2) {
+			margin-left: 3em;
+		}
+	}
+	&__slider {
+		font-weight: bold;
+		color: $black;
+		text-align: center;
+		font-size: 1.4em;
+		background: $white;
+		padding:1.2em 2em;
+		position: absolute;
+		right:.35em;
+		top:.35em;
+		left:calc(50% - 0.35em);
+		border-radius: 7.7em;
+		min-width: 50%;
+		transition: all 0.2s;
+		white-space: nowrap;
+		&:after {
+			content: 'monthly'; // default text to say monthly
+		}
+		&--left {
+		right:calc(50% - 0.35em);
+		top:.35em;
+		left:.35em;
+			&:after {
+				content: 'once'; // override with once
+			}
+		}
+	}
+	&--black{
+		background-color: $black;
+	}
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+// mobile medium
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: mobileMedium) {
+
+.toggle {
+	font-size: 1em;
+}
+
+}

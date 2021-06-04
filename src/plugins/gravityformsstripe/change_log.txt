@@ -1,11 +1,21 @@
-## 3.9 | 2020-12-16
+### 4.0 | 2021-04-21
 - Added a warning notice when deprecated credit card field is still being used.
+- Added right-to-left language support to the Credit Card field in the form editor in Gravity Forms 2.5.
+- Updated styling on disconnect UI to look less like an error.
+- Fixed an issue where the add-on icon is missing on the Form Settings page for Gravity Forms 2.5.
+- Fixed an issue where the cardholder name sub-label setting is not correctly toggling in Gravity Forms 2.5.
+- Fixed an issue where HTML is output incorrectly when Stripe has not yet been set up.
+- Fixed an issue where authentication may not complete after attempting a connection with Stripe.
+
+
+### 3.9 | 2020-12-16
 - Added support for the [gform_ip_address](https://docs.gravityforms.com/gform_ip_address/) filter.
 - Fixed an issue with the plugin settings where the default API mode is not set. Default is set to "test".
 - Fixed an issue where card details for the Stripe Card field is not rendered when the form also contains the default credit card field.
 - Fixed an issue where multiple feed specific callbacks can be processed for an entry at the same time.
 - Fixed an issue where an empty validation error can be applied to the Stripe Card field when some Stripe API errors occur.
 - Fixed an issue with the Stripe card field preview in the form editor.
+
 
 
 ### 3.8 | 2020-09-28

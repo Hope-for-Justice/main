@@ -6,7 +6,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
- * @package Hope_for_Justice_2020
+ * @package Hope_for_Justice_2021
  */
 
 ?>

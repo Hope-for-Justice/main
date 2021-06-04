@@ -13,6 +13,9 @@
   		height: 0.7em;
   		border-radius: 100%;
   		background-color: $lines;
+      &--active {
+        background-color: $black;
+      }
   	}
 }
 
