@@ -30,7 +30,7 @@
 	<header id="site-header" class="header">
 		<div class="header__inner">
 			<a style="margin-bottom: -5px" href="/"><!-- inline style - remove space from the bottom of the logo -->
-				<svg class="header__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 173.806 52.08">
+			<svg class="header__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 173.806 52.08">
 			  <g id="Group_6902" data-name="Group 6902" transform="translate(-131.194 -13.459)">
 			    <g id="Group_4" data-name="Group 4" transform="translate(184.492 30.51)">
 			      <path id="Path_32" data-name="Path 32" d="M344.869,566.7v7.213h-1.421V566.7h-3.17v17.487h3.17v-7.432h1.421v7.432h3.17V566.7Z" transform="translate(-340.278 -566.429)" fill="#212322"/>
@@ -55,7 +55,7 @@
 				</svg>
 			</a>
 			<div class="header__navigation">
-				<a class="button button--red button--nav bold" href="#">DONATE</a>
+				<a class="button button--red button--nav bold" href="/donate">DONATE</a>
 				<div id="burger-menu" class="header__burger">
 					<div class="burger">
 					  <span></span>

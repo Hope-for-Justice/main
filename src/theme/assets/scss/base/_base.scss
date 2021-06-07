@@ -995,7 +995,7 @@ object {
 body {z-index: $z-body;}
 
 /* No link decoration */
-a {text-decoration: none;}
+a {text-decoration: none; cursor:pointer;}
 
 .plain-link {
 	text-decoration: underline;

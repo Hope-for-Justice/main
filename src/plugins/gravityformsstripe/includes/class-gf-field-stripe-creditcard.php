@@ -283,11 +283,9 @@ class GF_Field_Stripe_CreditCard extends GF_Field {
 
 		$card_error = '';
 
-		// Display the no Publishable Key error.
+		// Display the no API connection error.
 		if ( empty( $api_key ) ) {
-			/* translators: 1. Open div tag 2. Close div tag */
-			$api_key_error        = esc_html__( '%1$sPlease check your Stripe API Settings. Your Publishable Key is empty.%2$s' );
-			$card_error           = $this->get_card_error_message( $api_key_error );
+			$card_error           = $this->get_card_error_message( $this->get_api_error_message() );
 			$hide_cardholder_name = true;
 		} elseif ( gf_stripe()->is_stripe_checkout_enabled() ) {
 			// Display the Stripe Checkout error.
@@ -368,12 +366,9 @@ class GF_Field_Stripe_CreditCard extends GF_Field {
 			admin_url( 'admin.php' )
 		);
 
-		// Display the no Publishable Key error.
+		// Display errors if there is no API key.
 		if ( empty( $api_key ) ) {
-			/* translators: 1. Open div tag 2. Close div tag 3. Open link tag 4. Close link tag */
-			$api_key_error = esc_html__( '%1$sPlease check your %3$sStripe API Settings%4$s. Your Publishable Key is empty.%2$s' );
-
-			return $this->get_card_error_message( $api_key_error, $settings_url );
+			return $this->get_card_error_message( $this->get_api_error_message(), $settings_url );
 		}
 
 		// Display the Stripe Checkout error.
@@ -620,7 +615,26 @@ class GF_Field_Stripe_CreditCard extends GF_Field {
 			return sprintf( $message, '<div class="gform_stripe_card_error">', '</div>', '<a href="' . esc_attr( $url ) . '" target="_blank">', '</a>' );
 		}
 
-		return sprintf( $message, '<div class="gfield_description validation_message">', '</div>' );
+		return sprintf( $message, '<div class="gfield_description validation_message">', '</div>', '', '' );
+	}
+
+	/**
+	 * Get an error message based on the type of authentication used.
+	 *
+	 * @since 4.1
+	 *
+	 * @return string
+	 */
+	private function get_api_error_message() {
+		if ( gf_stripe()->is_stripe_connect_enabled() ) {
+			/* translators: 1. Open div tag 2. Close div tag 3. Open link tag 4. Close link tag */
+			$api_key_error = esc_html__( '%1$sPlease check your %3$sStripe API Settings%4$s. Click the "Connect with Stripe" button to use Stripe.%2$s' );
+		} else {
+			/* translators: 1. Open div tag 2. Close div tag 3. Open link tag 4. Close link tag */
+			$api_key_error = esc_html__( '%1$sPlease check your %3$sStripe API Settings%4$s. Your Publishable Key is empty.%2$s' );
+		}
+
+		return $api_key_error;
 	}
 
 }

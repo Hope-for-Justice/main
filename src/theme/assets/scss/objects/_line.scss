@@ -9,4 +9,7 @@
 	height: 1px;
 	background-color: $lines;
 	margin: 3em 0;
+	&--double-margin-bottom {
+		margin-bottom: 6em;
+	}
 }

@@ -1,0 +1,123 @@
+/*
+*  _BOOTSTRAP-MODAL.SCSS
+*/
+
+.modal-open {
+  overflow: hidden;
+}
+.modal {
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-modals;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  // &.fade .modal-dialog {
+  //   @include transform(translate3d(0,-25%,0));
+  //   @include transition-property (transform);
+  //   @include transition-duration(0.3s);
+  //   @include transition-timing-function(ease-out);
+  // }
+  // &.in .modal-dialog {
+  //   @include transform(translate3d(0,0,0));
+  // }
+
+}
+.modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.modal-dialog {
+  position: relative;
+  width: auto;
+  margin: em(10px);
+}
+.modal-content {
+  position: relative;
+  background-color: white;
+  border: 1px solid ;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  // border-radius: ;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  background-clip: padding-box;
+  outline: 0;
+}
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-modals - 1;
+  background-color: #000;
+  &.fade {
+    opacity: 0;
+    filter: alpha(opacity=0);    
+  }
+  &.in {
+    opacity: 0.5;
+    filter: alpha(opacity=50);    
+  }
+}
+
+.modal-header {
+  padding: em(15px);
+  border-bottom: 1px solid;
+  min-height: em(22px);
+  overflow: hidden;
+  .modal__close {
+    margin-top: -2px;
+    float: right;
+    // color: $lighter-gray;
+    // &:hover {
+    //   color: $light-gray;
+    // }
+  }
+}
+
+.modal-title {
+  margin: 0;
+  line-height: 1.42857143;
+}
+.modal-body {
+  position: relative;
+  padding: em(15px);
+}
+.modal-footer {
+  padding: em(15px);
+  text-align: right;
+  // border-top: 1px solid $lighter-gray;
+  overflow: hidden;
+  .btn + .btn {
+    margin-left: em(5px);
+    margin-bottom: 0;
+  }
+  .btn-group .btn + .btn {
+    margin-left: -1px;
+  }
+  .btn-block + .btn-block {
+    margin-left: 0;
+  }
+  .modal-scrollbar-measure {
+    position: absolute;
+    top: -9999px;
+    width: em(50px);
+    height: (50px);
+    overflow: scroll;
+  }  
+}
+@include mq($from: tablet) {
+  .modal-dialog {
+    width: em(600px);
+    margin: em(30px) auto;
+  }
+  .modal-content {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+}
