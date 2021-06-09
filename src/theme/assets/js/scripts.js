@@ -45,8 +45,9 @@ jQuery(document).ready(function($) {
 }); /* end of as page load scripts */
 
 
-//Address search
+//gravity forms on render
 
+//Address search
 jQuery(document).on('gform_post_render', function(event, form_id, current_page){
 
     //modify field name to 'search' on gravity forms if class exists
@@ -98,6 +99,8 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
     }), o.load()
 
 });
+
+
 
 /* Window load scripts */
 (function($) {
@@ -168,9 +171,21 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
             }
         });
 
+        //flexslider
+        $('.flexslider').flexslider({
+            animation: "slide",
+            slideshow: true,
+            animationLoop: true,
+            directionNav: false,
+            controlNav: false,
+            video: false,
+            pauseOnHover: false,
+            slideshowSpeed: 2000,
+            animationSpeed: 600, 
+        });
 
 
-	}); /* end of as page load scripts */
+	}); /* end of on widow load*/
 
 })(jQuery);
 

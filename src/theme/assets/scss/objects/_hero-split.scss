@@ -130,6 +130,9 @@
 	&__desc {
 		padding: 0 1em;
 	}
+	&--reverse {
+		flex-direction: row-reverse;
+	}
 }
 
 }
