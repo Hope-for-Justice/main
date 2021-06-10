@@ -34,6 +34,10 @@ body {
 	text-align: center;
 }
 
+// .break-from-tablet {
+// 	display:none;
+// }
+
 h1,h2,h3,h4,h5 {
 	margin:0;
 	font-weight: 100;
@@ -44,13 +48,29 @@ p {
 	margin:0;
 }
 
-// desktop
+// tablet
 ///////////////////////////////////////////////////////////////////////////
 
+@include mq($from: tablet) {
+
+// .break-from-tablet {
+// 	display:block;
+// }
+
+}
+
+
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
 
 @include mq($from: desktop) {
 
 p {font-size: 1.8em;}
+
+// .desktop-break {
+// 	display:block;
+// }
 
 }
 

@@ -42,11 +42,11 @@ get_header();
 						End Slavery.<br>
 						Change Lives.
 					</h1>
-					<p class="hero-split__desc">
+					<p class="hero-split__desc hero-split__desc--thinner">
 						We exist to bring an end to modern slavery by preventing exploitation, rescuing victims, restoring lives and reforming society.
 					</p>
-					<div class="hero-spit__button">
-						<a href="#" class="button button--green">
+					<div>
+						<a data-toggle="modal" data-target="#video-modal" data-src="https://player.vimeo.com/video/561295870" class="button button--green video-trigger">
 							<div class="button__inner">
 								<svg class="button__play-symbol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.771 18.228">
 									<g>
@@ -190,9 +190,23 @@ get_header();
 			<div class="freedom-wall__image"></div>
 		</div>
 
-
-
 	</div> <!-- /grid -->
+
+	<!-- 
+	-- 
+	-- modal
+	-- 
+	--> 
+	<div class="modal modal--video fade" id="video-modal" tabindex="-1" role="dialog" aria-hidden="false">
+		  <div class="modal__dialog modal__dialog--video">
+			    <div class="modal__content modal__content--video video-container">
+					<iframe class="video" src="" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+
+			        <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--video">&times;<span class="accessibility">Close</span></a>
+
+			    </div>
+		 </div>
+	</div>
 
 	<?php endwhile; // end of the loop. ?>
 

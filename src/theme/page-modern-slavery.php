@@ -30,7 +30,7 @@ get_header();
 		--> 
 		<div class="hero-split hero-split--reverse">
 
-			<div class="hero-split__img" style="background-image: url('<?php echo $thumbnail[0]; ?>');">
+			<div class="hero-split__img hero-split__img--bottom-center" style="background-image: url('<?php echo $thumbnail[0]; ?>');">
 			</div>
 
 			<div class="hero-split__content">
@@ -39,7 +39,7 @@ get_header();
 						Modern Slavery
 					</h3>
 					<h1 class="hero-split__main-heading">
-						What is<br>Modern Slavery?
+						What is <br class="break-from-tablet">Modern Slavery?
 					</h1>
 					<p class="hero-split__desc">
 						Modern slavery is where one person controls another for profit by exploiting a vulnerability. Usually the victim is forced to work or is sexually exploited, and the trafficker keeps all or nearly all of the money. The control can be physical, financial or psychological.
@@ -65,11 +65,37 @@ get_header();
 
 		<!-- 
 		-- 
-		-- fact-slider
+		-- text-slider flexslider
 		--  
 		-->
 		<div class="color-block color-block--grey">
-			<div></div>
+			<div class="text-slider">
+				<h3 class="text-slider__heading">
+					Modern Slavery Facts
+				</h3>
+				<div class="text-slider__slider">
+					<div class="flexslider-text">
+						<ul class="slides">
+							<li><p>$150 billion made each year from forced labour, that’s over $4,750&nbsp;a&nbsp;second</p></li>
+							<li><p>7 in every 10 victims worldwide are women&nbsp;and&nbsp;girls</p></li>
+							<li><p>There were 10,613 potential cases reported in the UK&nbsp;last&nbsp;year</p></li>
+						</ul>
+					
+					</div>
+					<a class="text-slider__prev" href="prev"></a>
+					<a class="text-slider__next" href="next"></a>
+				</div>
+				<div>
+					<a href="#" class="button button--blue">
+						<div class="button__inner">
+							<div class="button__text bold">
+								Resources and<br>
+								Statistics
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
 		</div>
 
 		<!-- 
@@ -77,28 +103,33 @@ get_header();
 		-- drag-cards
 		--  
 		-->
-		<div class="drag-cards" id="dragCards">
+		<div class="drag-cards drag-cards--no-margin-top" id="dragCards">
 			<h2 class="drag-cards__heading font-canela">Types of exploitation</h2>
 			<div class="drag-cards__inner">
 				<div class="drag-cards__card">
 					<p class="drag-cards__card-number font-canela">01</p>
-					<h3 class="drag-cards__card-title font-fk">Preventing<br>Exploitation</h3>
-					<p class="drag-cards__card-desc">Through education and community empowerment, we help families and vulnerable people protect themselves against traffickers and the deceptive methods they use to control others.</p>
+					<h3 class="drag-cards__card-title font-fk">Sexual<br>Exploitation</h3>
+					<p class="drag-cards__card-desc">Vulnerable people, overwhelmingly women and girls, are tricked or forced into the sex trade. It often begins with a promise of good work in hospitality or modelling, or a 'boyfriend' is responsible.</p>
 				</div>
 				<div class="drag-cards__card">
 					<p class="drag-cards__card-number font-canela">02</p>
-					<h3 class="drag-cards__card-title font-fk">Rescuing<br>Victims</h3>
-					<p class="drag-cards__card-desc">Our investigators and outreach teams work with police and other agencies to identify victims of modern slavery, build bridges of trust with them and get them safely out of exploitation.</p>
+					<h3 class="drag-cards__card-title font-fk">FORCED<br>LABOUR</h3>
+					<p class="drag-cards__card-desc">This is when a person has no choice or control over their work, with the money they earn taken by someone else, who often also controls where they live and even who they can speak with.</p>
 				</div>
 				<div class="drag-cards__card">
 					<p class="drag-cards__card-number font-canela">03</p>
-					<h3 class="drag-cards__card-title font-fk">Restoring<br>Lives</h3>
-					<p class="drag-cards__card-desc">We provide world-class survivor aftercare, both residential and non-residential. Our legal advocacy and support ensures needs are met and gives the best chance for justice to be done.</p>
+					<h3 class="drag-cards__card-title font-fk">DOMESTIC<br>SERVITUDE</h3>
+					<p class="drag-cards__card-desc">A less common type of modern slavery, when a person is forced to cook, clean or do childcare for little or no pay, often living in the home with the 'employer' and not allowed to live their own life.  </p>
 				</div>
 				<div class="drag-cards__card">
 					<p class="drag-cards__card-number font-canela">04</p>
-					<h3 class="drag-cards__card-title font-fk">Reforming<br>Society</h3>
-					<p class="drag-cards__card-desc">We train others on the front line – police, NHS, charities and many more – to spot the signs of modern slavery and to respond effectively. We work with governments and businesses to make change happen.</p>
+					<h3 class="drag-cards__card-title font-fk">CRIMINAL<br>EXPLOITATION</h3>
+					<p class="drag-cards__card-desc">Victims are forced to grow or transport drugs, made to shoplift or pickpocket, are forced to beg on the streets, or used for fraud. The threat of being reported becomes another method of control. </p>
+				</div>
+				<div class="drag-cards__card">
+					<p class="drag-cards__card-number font-canela">05</p>
+					<h3 class="drag-cards__card-title font-fk">FORCED<br>MARRIAGE</h3>
+					<p class="drag-cards__card-desc">More than 15 million people are thought to have been forced into a marriage without consent, nearly all of them women and girls, often to an older man in another region or country.</p>
 				</div>
 			</div>
 			<div class="drag-cards__dots dots">
@@ -107,33 +138,7 @@ get_header();
 				<div class="dots__dot"></div>
 				<div class="dots__dot"></div>
 			</div>
-
-			<div class="drag-cards__button">
-			    <a href="#" class="button button--green">
-					<div class="button__inner">
-						<div class="button__text bold">Learn more about<br>how we help</div>
-					</div>
-				</a>
-			</div>
 		</div>
-
-		<!-- 
-		-- 
-		-- freedom-wall
-		--  
-		-->
-		<div class="freedom-wall">
-			<h2 class="freedom-wall__heading font-canela">Every lock on our Freedom Wall<br> represents a real life changed</h2>
-			<div class="freedom-wall__button">
-			    <a href="#" class="button button--black">
-					<div class="button__inner">
-						<div class="button__text bold">See how we <br>change lives</div>
-					</div>
-				</a>
-			</div>
-			<div class="freedom-wall__image"></div>
-		</div>
-
 
 
 	</div> <!-- /grid -->

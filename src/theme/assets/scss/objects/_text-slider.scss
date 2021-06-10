@@ -1,0 +1,93 @@
+/*
+*
+* _TEXT-SLIDER.SCSS
+*
+*/
+
+.text-slider {
+	background-color: transparent;
+	text-align: center;
+	padding:4em;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	max-width: 55em;
+	margin: 0 auto;
+	&__heading {
+		font-size: 1.6em;
+		margin-bottom:1.5em;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+	}
+	&__slider {
+		position: relative;
+		margin-bottom: 3em;
+	}
+	&__prev, &__next {
+		width: 0px;
+	    height: 0px;
+	    border-top: 10px solid transparent;
+	    border-bottom: 10px solid transparent;
+	    border-right: 10px solid $battleship-grey;
+	   	position: absolute;
+	    top:50%;
+	    left:-2.5em;
+	    opacity: 0.5;
+	    transform: translateY(-100%);
+	}
+	&__next {
+		border-right: none;
+	    border-left: 10px solid $battleship-grey;
+	    right:-2.5em;
+	    left: auto;
+	}
+	p {
+		font-weight: bold;
+		font-family: 'apercu-bold', sans-serif;
+		font-size: 2.4em;
+	}
+	.flexslider-text, .slides, .slides > li{
+		background: transparent;
+	}
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: tablet) {
+
+.text-slider {
+	padding:6.7em;
+	&__heading {
+		font-size: 1.8em;
+	}
+	&__prev {
+		left:-4.5em;
+	}
+	&__next {
+		right:-4.5em;
+	}
+	p {
+		font-size: 3em;
+	}
+}
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktop) {
+
+.text-slider {
+	padding:10em;
+	max-width: 70em;
+	&__slider {
+		margin-bottom: 5em;
+	}
+	p {
+		font-size: 3.8em;
+	}
+}
+
+}
+
+

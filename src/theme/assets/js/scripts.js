@@ -2,8 +2,6 @@
 
 jQuery(document).ready(function($) {
 
-
-
     //Drop down questions
     $('.dropdown').click(function() {
         $(this).find(".answer").slideDown();
@@ -40,6 +38,20 @@ jQuery(document).ready(function($) {
             isOpen = false;
         }
     });
+
+    // autoplay bootstrap modal video
+    var $videoSrc;
+    var $frame = $(".video");
+    $('.video-trigger').click(function() {
+        $videoSrc = $(this).data( "src" );
+        console.log($videoSrc);
+        $frame.attr('src', $videoSrc + "?autoplay=1");
+    });
+
+    $('.modal').on('hidden.bs.modal', function(e) {
+        // sets the source to nothing, stopping the video
+        $frame.attr('src', '');
+    })
 
 
 }); /* end of as page load scripts */
@@ -172,17 +184,27 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
         });
 
         //flexslider
-        $('.flexslider').flexslider({
-            animation: "slide",
-            slideshow: true,
+        $('.flexslider-text').flexslider({
+            animation: "fade",
+            //slideshow: true,
             animationLoop: true,
             directionNav: false,
             controlNav: false,
             video: false,
-            pauseOnHover: false,
-            slideshowSpeed: 2000,
-            animationSpeed: 600, 
+            pauseOnHover: true,
+            slideshowSpeed: 6000,
+            animationSpeed: 300, 
+            //smoothHeight: true,
         });
+
+        //custom next/prev 
+        /* will need to be more specific if
+        multiple sliders are on one page */
+        $('.text-slider__prev, .text-slider__next').on('click', function(){
+            var href = $(this).attr('href');
+            $('.flexslider-text').flexslider(href)
+            return false;
+        })
 
 
 	}); /* end of on widow load*/

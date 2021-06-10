@@ -108,7 +108,11 @@ get_header();
 		</div><!-- /color block -->
 	</div><!-- /grid -->
 	
-	<!-- modal-->
+	<!-- 
+	-- 
+	-- modal
+	-- 
+	--> 
 	<div class="modal fade" id="currency-modal" tabindex="-1" role="dialog" aria-hidden="false">
 		  <div class="modal__dialog">
 			    <div class="modal__content">
