@@ -194,7 +194,7 @@ get_header();
 
 	<!-- 
 	-- 
-	-- modal
+	-- video modal
 	-- 
 	--> 
 	<div class="modal modal--video fade" id="video-modal" tabindex="-1" role="dialog" aria-hidden="false">
