@@ -13,6 +13,7 @@ module.exports = function (distTheme, devTheme, jsDir) {
 		devTheme + jsDir + 'plugins/headroom.js',
 		devTheme + jsDir + 'plugins/pca.js',
 		devTheme + jsDir + 'scripts.js',
+
 	];
 
 
@@ -22,6 +23,12 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 
 	];		
+	uglifyFilesObject[distTheme + jsDir + 'custom.js'] = [
+
+		devTheme + jsDir + 'custom.js',
+
+
+	];
 
 
 

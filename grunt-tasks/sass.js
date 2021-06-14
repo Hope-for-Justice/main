@@ -7,7 +7,8 @@ module.exports = function (distTheme, devTheme, scssDir) {
       },        
       files: [
         { src: devTheme + scssDir + 'style.scss',dest: distTheme  + '/style.css'},
-        { src: devTheme + scssDir + 'old-ie.scss',dest: distTheme  + '/old-ie.css'}
+        { src: devTheme + scssDir + 'old-ie.scss',dest: distTheme  + '/old-ie.css'},
+        { src: devTheme + scssDir + 'custom.scss',dest: distTheme  + '/assets/css/custom.css'}
       ]
     }
   }

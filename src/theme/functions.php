@@ -223,3 +223,86 @@ new GWUnrequire();
  * Remove stripe error rate limit on Gravity Forms
  */
 add_filter( 'gform_stripe_enable_rate_limits', '__return_false' );
+
+
+
+
+function news_page_scripts() {
+	global $wp_styles;
+	if (is_page(48) || is_category(4) || is_category(5) || is_category(7) || is_single()){
+		wp_enqueue_style( 'bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css' );
+		
+		wp_enqueue_style( 'owl-css', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css', );
+		wp_enqueue_script( 'popper-js', 'https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js', ['jquery-core'], true, true );
+		wp_enqueue_script( 'bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js', ['jquery-core'], true, true );
+
+
+		wp_enqueue_style( 'owl-default', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css', );
+		wp_enqueue_style( 'custom-css', get_template_directory_uri() . '/assets/css/custom.css', );
+		wp_enqueue_script( 'owl-js', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js', ['jquery-core'], true, true );
+		
+		wp_enqueue_script( 'custom-js', get_template_directory_uri() . '/assets/js/custom.js', ['jquery-core','owl-js'], true, true );
+		wp_localize_script('custom-js', 'ajax_object', array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+		) );
+	}
+	
+
+}
+
+
+
+add_action( 'wp_enqueue_scripts', 'news_page_scripts', 1 );
+
+
+
+
+function custom_excerpt_length( $length ) {
+    return 23;
+}
+add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+
+add_action( 'wp_ajax_nopriv_ajax_news_video',  'ajax_news_video' );
+add_action( 'wp_ajax_ajax_news_video','ajax_news_video' );
+function ajax_news_video()
+{
+    if(!isset($_POST['id']) || !$_POST['id'] || !is_numeric($_POST['id'])):
+        echo 'no_id';
+        wp_die();
+    endif;
+
+    $id = $_POST['id'];
+  
+	$iframe = get_field('upload_video',$id);
+
+	// Use preg_match to find iframe src.
+	preg_match('/src="(.+?)"/', $iframe, $matches);
+	$src = $matches[1];
+
+	// Add extra parameters to src and replcae HTML.
+	$params = [
+		'controls'    => 0,
+		'hd'        => 0,
+		'fs'        => 1,
+		'rel'        => 0,
+		'modestbranding' => 1,
+		'autoplay' => 1
+	];
+	$new_src = add_query_arg($params, $src);
+	$iframe = str_replace($src, $new_src, $iframe);
+
+	// Add extra attributes to iframe HTML.
+	$attributes = 'frameborder="0"';
+	$iframe = str_replace('></iframe>', ' ' . $attributes . '></iframe>', $iframe);
+
+    if(!$iframe):
+        echo 'no_video';
+    else:
+        echo '<div class="ajax-loaded-video">'.$iframe.'</div>';
+    endif;
+
+    wp_die(); //always end with wp_die when using ajax
+}
+
+
+
