@@ -34,13 +34,25 @@ body {
 	text-align: center;
 }
 
-// .break-from-tablet {
-// 	display:none;
-// }
+.plain-text {
+	grid-column: col1 / col12-end;
+	padding:0 40px;
+	&--in-color-block {
+		padding:40px;
+	}
+}
+
+
 
 h1,h2,h3,h4,h5 {
 	margin:0;
 	font-weight: 100;
+}
+
+h2 {
+	font-size: 3.2em;
+	font-family: canela-medium, serif;
+	margin-bottom: 0.5em;
 }
 
 p {
@@ -53,9 +65,7 @@ p {
 
 @include mq($from: tablet) {
 
-// .break-from-tablet {
-// 	display:block;
-// }
+
 
 }
 

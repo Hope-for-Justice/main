@@ -1,0 +1,23 @@
+/*
+*
+* _NUMBER-STATS.SCSS
+*
+*/
+
+.number-stats {
+	grid-column: col1 / col12-end;
+	padding:0 4em;
+	margin-top: 4em;
+	&__heading {
+		font-size: 4em;
+		font-family: 'apercu-bold', sans-serif;
+	}
+	&__stat {
+		margin-bottom: 2em;
+		padding-bottom: 2em;
+		border-bottom: 1px solid $lines;
+		&:nth-last-child(1) {
+			border-bottom: none;
+		}
+	}
+}

@@ -117,7 +117,7 @@ get_header();
 		  <div class="modal__dialog">
 			    <div class="modal__content">
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt deserunt veritatis tempore alias quasi totam consectetur enim, at ea obcaecati velit pariatur amet distinctio culpa perferendis saepe suscipit illo! Pariatur.</p>
-			        <a href="#" data-dismiss="currency-modal" class="gi-close modal__close">&times;<span class="accessibility">Close</span></a>
+			        <a href="#" data-dismiss="modal" class="gi-close modal__close">&times;<span class="accessibility">Close</span></a>
 			    </div>
 		 </div>
 	</div>

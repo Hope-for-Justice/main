@@ -1,6 +1,6 @@
 <?php
 /**
- * The homepage template
+ * Modern Slavery
  *
  * @package Hope_for_Justice_2021
  */
@@ -25,7 +25,7 @@ get_header();
 	<div class="grid">
 		<!-- 
 		-- 
-		-- hero split ---reverse
+		-- hero split --reverse
 		-- 
 		--> 
 		<div class="hero-split hero-split--reverse">
@@ -39,13 +39,13 @@ get_header();
 						Modern Slavery
 					</h3>
 					<h1 class="hero-split__main-heading">
-						What is <br class="break-from-tablet">Modern Slavery?
+						What is <br>Modern Slavery?
 					</h1>
 					<p class="hero-split__desc">
 						Modern slavery is where one person controls another for profit by exploiting a vulnerability. Usually the victim is forced to work or is sexually exploited, and the trafficker keeps all or nearly all of the money. The control can be physical, financial or psychological.
 					</p>
-					<div class="hero-spit__button">
-						<a href="#" class="button button--green">
+					<div>
+						<a data-toggle="modal" data-target="#video-modal" data-src="https://player.vimeo.com/video/561295870" class="button button--green video-trigger">
 							<div class="button__inner">
 								<svg class="button__play-symbol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.771 18.228">
 									<g>
@@ -103,7 +103,7 @@ get_header();
 		-- drag-cards
 		--  
 		-->
-		<div class="drag-cards drag-cards--no-margin-top" id="dragCards">
+		<div class="drag-cards drag-cards--no-margin-top drag-cards--no-margin-bottom" id="dragCards">
 			<h2 class="drag-cards__heading font-canela">Types of exploitation</h2>
 			<div class="drag-cards__inner">
 				<div class="drag-cards__card">
@@ -139,9 +139,94 @@ get_header();
 				<div class="dots__dot"></div>
 			</div>
 		</div>
+		
+		<!-- 
+		-- 
+		-- plain-text
+		--  
+		-->
+		<div class="plain-text">
+			<h2>How many people are in modern slavery?</h2>
+			<p>The number of people living in modern slavery is estimated at <b>40.3 million</b>, made up of: 
+				<span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span>
+			</p>
+		</div>
 
+		<!-- 
+		-- 
+		-- number-stats
+		--  
+		-->
+		<div class="number-stats">
+			<div class="number-stats__stat">
+				<div class="number-stats__heading">16.3m</div>
+				<p>In some form of forced labour or criminal exploitation</p>
+			</div>
+			<div class="number-stats__stat">
+				<div class="number-stats__heading">15.4m</div>
+				<p>In forced marriage to which they had not consented</p>
+			</div>
+			<div class="number-stats__stat">
+				<div class="number-stats__heading">16.3m</div>
+				<p>In forced sexual exploitation (including 1 million children)</p>
+			</div>
+			<div class="number-stats__stat">
+				<div class="number-stats__heading">3.8m</div>
+				<p>In domestic servitude and private homes</p>
+			</div>
+		</div>
+
+		<!-- 
+		-- 
+		-- color block - plain-text
+		--  
+		-->
+		<div class="color-block color-block--grey">
+			<div class="sub-grid">
+				<div class="plain-text plain-text--in-color-block">
+					<h2>How do traffickers keep their victims under control?</h2>
+					<p>People are tricked or forced into exploitation and kept there through violence, fraud or coercion, and often end up living and working in abominable conditions. 
+					<br><br>
+					Some are beaten and abused; others have threats made against their families in their home countries. Many are forced into fraudulent ‘debt bondage’, with their wages kept by a trafficker to pay non-existent bills for their travel, accommodation or food. They are told they will be deported if they go to the authorities. 
+					<br><br>
+					Often, the trafficker takes control of a victim’s identity documents (e.g. passport). They accompany them to open a bank account, then take control of its associated bank card and correspondence (this functions both as a simple way for the trafficker to control the victim’s earnings, and a way for them to exert dominance and control by offering occasional small sums of money from what should be the victim’s own wages). 
+					<br><br>
+					Traffickers usually focus on those easiest to exploit, which tends to be people with fewer resources or existing vulnerabilities. </p>
+				</div>
+			</div>
+		</div>
 
 	</div> <!-- /grid -->
+
+	<!-- 
+	-- 
+	-- reference modal
+	-- 
+	--> 
+	<?php get_template_part(
+	    'partials/content',
+	    'modal',
+	    array(
+	        'type' => 'reference',
+	        'id' => 'reference-modal'
+	    )
+	); ?>
+
+	<!-- 
+	-- 
+	-- video modal
+	-- 
+	--> 
+	<?php get_template_part(
+	    'partials/content',
+	    'modal',
+	    array(
+	        'type' => 'video',
+	        'id' => 'video-modal'
+	    )
+	); ?>
+
+
 
 	<?php endwhile; // end of the loop. ?>
 

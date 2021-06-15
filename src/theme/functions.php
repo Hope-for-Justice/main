@@ -223,3 +223,11 @@ new GWUnrequire();
  * Remove stripe error rate limit on Gravity Forms
  */
 add_filter( 'gform_stripe_enable_rate_limits', '__return_false' );
+
+
+/**
+ * Gravity Forms scroll top
+ */
+add_filter( 'gform_confirmation_anchor', function() {
+    return 0;
+} );

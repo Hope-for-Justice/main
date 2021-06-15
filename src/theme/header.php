@@ -77,7 +77,7 @@
 				<?php wp_nav_menu( array( 'theme_location' => 'uk-primary', 'container' => false, 'menu_class' => 'menu__primary') ); ?>
 				<?php wp_nav_menu( array( 'theme_location' => 'uk-secondary', 'container' => false, 'menu_class' => 'menu__secondary') ); ?>
 				<div class="menu__button">
-					<a href="#" class="button button--red">
+					<a href="/email-sign-up" class="button button--red">
 						<div class="button__inner">
 							<div class="button__text bold">
 								Get our<br>email updates

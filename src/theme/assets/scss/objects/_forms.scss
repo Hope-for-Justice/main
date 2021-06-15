@@ -43,8 +43,11 @@ fieldset {
   &__heading {
     font-size: 5.2em;
     margin-top: 0.2em;
+    line-height: 1;
   }
 }
+
+.form__heading--no-margin {margin:0;}
 
 .gfield_label, .gfield_description {
   display: block;
@@ -103,6 +106,7 @@ fieldset {
 .gfield_html p{
   font-size: 1.2em;
   margin-left: 1.7em;
+  margin-right: 1.7em;
 }
 
 //hide amount

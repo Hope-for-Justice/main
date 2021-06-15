@@ -58,9 +58,8 @@ jQuery(document).ready(function($) {
 
 
 //gravity forms on render
-
-//Address search
 jQuery(document).on('gform_post_render', function(event, form_id, current_page){
+
 
     //modify field name to 'search' on gravity forms if class exists
     jQuery(".address-search input").attr("name","search");
@@ -75,7 +74,7 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
         jQuery(this).val("");
     });
 
-    //global postcode anywhere with regex matching
+    //postcode anywhere with regex matching
     var e = {
         key: "DN97-JG93-ZJ46-EW48" //PCA API key
     },
@@ -106,8 +105,7 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
     }],
     o = new pca.Address(d, e);
     o.listen("populate", function() {
-    //alert("yes");
-    jQuery(".address-search input").val(jQuery(".address_line_1 input").val() + "...");
+        jQuery(".address-search input").val(jQuery(".address_line_1 input").val() + "...");
     }), o.load()
 
 });
