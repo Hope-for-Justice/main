@@ -20,34 +20,44 @@ $category_name = $categories[0]->name;
 
 ?>
 
-<div class="container">
+<div class="container news-page">
 	<div class="row align-items-center" >
-		<div class="col-md-4 mt-5 mb-3">
+		<div class="col-md-4 mt-5 mb-3 col-news">
 			<h1 class="archive_example title_category_<?php echo $category_id; ?>" >
 				ARCHIVE EXAMPLE
 			</h1>
 		</div>
-		<div class="col-md-4 mt-5 mb-3">
-			<select class="custom-category" onchange="location = this.value;">
+		<div class="col-md-4 mt-5 mb-3 col-news">
+			<select class="custom-category">
 
 				<option value="">Select Category</option>
 				<?php
 				$categories = get_categories();
 				foreach($categories as $category) {
-					if($category->slug != 'in_the_headlines') {
-						echo '<option value="'.home_url().'/category/'.$category->slug.'">'.$category->name.'</option>';
+					$selected = '';
+					if($category_id == $category->term_id) {
+						$selected = 'selected';
 					}
+						echo '<option value="'.$category->term_id.'" '.$selected.'>'.$category->name.'</option>';
+					
+					
 				}
 				?>
 		</select>
 		<span class="icons">&#9660;</span>
 		</div>
-		<div class="col-md-4 mt-5 mb-3">
-			<input type="text" name="" class="form-control search-posts" placeholder="Search...">
+		<div class="col-md-4 mt-5 mb-3 col-news">
+			<form action="" method="POST" >
+				<input type="text" name="search-posts" class="form-control search-posts " placeholder="Search...">
+				<input type="hidden" name="action" value="news_search"/>
+				<input type="hidden" name="category" value="" class="scategory_id" />
+				<input type="hidden" name="news_nonce" value="<?php echo wp_create_nonce('news-search-nonce')?>"/>
+				 <input type="hidden" name="redirect" value="<?php echo home_url().'/search-news-results/'; ?>"/>
+			</form>
 		</div>
 	</div>
 	<div class="row">
-	<div class="col-md-12">
+	<div class="col-md-12 col-news">
 		<div class="pagination mb-5">
 			<?php 
 
@@ -82,7 +92,7 @@ $category_name = $categories[0]->name;
     		<?php 
 
       while ($query->have_posts()) : $query->the_post(); ?>
-			<div class="col-lg-4 col-md-6 mb-5 category_<?php echo $category_id; ?>" >
+			<div class="col-lg-4 col-news col-md-6 mb-5 category_<?php echo $category_id; ?>" >
 				<div class="card" >
 				
 				  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid">
@@ -92,7 +102,7 @@ $category_name = $categories[0]->name;
 				    	
 				    	
 						<p class="date-text"><?php echo get_the_date(); ?></p>
-						<h3><a href="<?php the_permalink() ?>" ><?php the_title(); ?></a></h3>
+						<h3><a href="<?php the_permalink() ?>" class="stretched-link"><?php the_title(); ?></a></h3>
 				    	<p class="text-para"><?php echo get_the_excerpt(); ?></p>
 				  
 				    </div>
@@ -108,7 +118,7 @@ $category_name = $categories[0]->name;
        <?php
       endwhile;
       ?>
-      <div class="col-md-12">
+      <div class="col-md-12 col-news">
       	<div class="pagination">
       		<?php 
 

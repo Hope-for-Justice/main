@@ -224,33 +224,26 @@ new GWUnrequire();
  */
 add_filter( 'gform_stripe_enable_rate_limits', '__return_false' );
 
-
-
-
 function news_page_scripts() {
 	global $wp_styles;
-	if (is_page(48) || is_category(4) || is_category(5) || is_category(7) || is_single()){
-		wp_enqueue_style( 'bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css' );
+	if (is_page_template('category-news-template.php') || is_category('blogs_and_opinion_editorials') || is_category('top_news') || is_category('videos') || is_single() || is_category('in_the_headlines') || is_page('search-news-results')){
+		// style files
+		wp_enqueue_style( 'bootstrap-css', get_template_directory_uri() . '/assets/css/bootstrap.css' );
 		
-		wp_enqueue_style( 'owl-css', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css', );
-		wp_enqueue_script( 'popper-js', 'https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js', ['jquery-core'], true, true );
-		wp_enqueue_script( 'bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js', ['jquery-core'], true, true );
-
-
-		wp_enqueue_style( 'owl-default', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css', );
-		wp_enqueue_style( 'custom-css', get_template_directory_uri() . '/assets/css/custom.css', );
-		wp_enqueue_script( 'owl-js', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js', ['jquery-core'], true, true );
 		
-		wp_enqueue_script( 'custom-js', get_template_directory_uri() . '/assets/js/custom.js', ['jquery-core','owl-js'], true, true );
-		wp_localize_script('custom-js', 'ajax_object', array(
+		
+	
+		wp_enqueue_style( 'news-page-css', get_template_directory_uri() . '/assets/css/news-page.css', );
+		// js files
+		wp_enqueue_script( 'popper-js', get_template_directory_uri() . '/assets/js/popper.min.js', ['jquery-core'], true, true );
+		wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/assets/js/bootstrap.min.js', ['jquery-core'], true, true );
+		
+		wp_enqueue_script( 'news-page-js', get_template_directory_uri() . '/assets/js/news-page.js', ['jquery-core'], true, true );
+		wp_localize_script('news-page-js', 'ajax_object', array(
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 		) );
 	}
-	
-
 }
-
-
 
 add_action( 'wp_enqueue_scripts', 'news_page_scripts', 1 );
 
@@ -266,6 +259,7 @@ add_action( 'wp_ajax_nopriv_ajax_news_video',  'ajax_news_video' );
 add_action( 'wp_ajax_ajax_news_video','ajax_news_video' );
 function ajax_news_video()
 {
+
     if(!isset($_POST['id']) || !$_POST['id'] || !is_numeric($_POST['id'])):
         echo 'no_id';
         wp_die();
@@ -303,6 +297,80 @@ function ajax_news_video()
 
     wp_die(); //always end with wp_die when using ajax
 }
+if( function_exists('acf_add_local_field_group') ):
+
+	acf_add_local_field_group(array(
+		'key' => 'group_60bf926dc01e0',
+		'title' => 'News Post',
+		'fields' => array(
+			array(
+				'key' => 'field_60bf928245fd0',
+				'label' => 'Enter Vimeo Link',
+				'name' => 'upload_video',
+				'type' => 'oembed',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'width' => '',
+				'height' => '',
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param' => 'post_category',
+					'operator' => '==',
+					'value' => 'category:videos',
+				),
+			),
+		),
+		'menu_order' => 0,
+		'position' => 'normal',
+		'style' => 'default',
+		'label_placement' => 'top',
+		'instruction_placement' => 'label',
+		'hide_on_screen' => '',
+		'active' => true,
+		'description' => '',
+	));
+
+endif;
 
 
 
+function process_news_form() {
+    if(isset($_POST['action']) && $_POST['action'] == 'news_search' && wp_verify_nonce($_POST['news_nonce'], 'news-search-nonce')) {
+    	$redirect = add_query_arg(array('search' => $_POST['search-posts'],'category' => $_POST['category']), $_POST['redirect'] );
+    	wp_redirect($redirect); exit;
+       
+    }
+}
+add_action( 'init', 'process_news_form' );
+
+
+function title_filter($where, $wp_query) {
+
+    global $wpdb;
+
+    if ($search_term = $wp_query->get('search_news_title')) {
+        $where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'%' . esc_sql($wpdb->esc_like($search_term)) . '%\'';
+    }
+    return $where;
+}
+add_filter( 'single_template', function ( $single_template ) {
+
+    $parent     = '6'; //Change to your category ID
+    $categories = get_categories( 'child_of=' . $parent );
+    $cat_names  = wp_list_pluck( $categories, 'name' );
+
+    if ( has_category( 'videos' )) {
+        $single_template = dirname( __FILE__ ) . '/single-videos.php';
+    }
+    return $single_template;
+     
+}, PHP_INT_MAX, 2 );

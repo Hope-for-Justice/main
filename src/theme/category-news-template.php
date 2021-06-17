@@ -7,9 +7,9 @@ get_header();
 
 ?>
 
-<div class="container" id="news-page">
+<div class="container news-page" id="news-page">
 	<div class="row align-items-center">
-		<div class="col-sm-12">
+		<div class="col-sm-12 col-news">
 		<ul class="social-custm-icons text-right social-custm-icons-small">
 			<li><a href="#"><img src="<?php echo get_template_directory_uri().'/assets/img/linkedin.svg'; ?>" alt=""></a></li>
 			<li><a href="#"><img src="<?php echo get_template_directory_uri().'/assets/img/instagram.svg'; ?>" alt=""></a></li>
@@ -17,11 +17,11 @@ get_header();
 			<li><a href="#"><img src="<?php echo get_template_directory_uri().'/assets/img/fb.svg'; ?>" alt=""></a></li>
 		</ul>
 	</div>
-		<div class="col-md-6 col-sm-12">
+		<div class="col-md-6 col-sm-12 col-news">
 			<h1 class="news-page-title"><?php echo strtoupper(get_the_title()); ?></h1>
 
 		</div>
-		<div class="col-md-6 col-sm-12">
+		<div class="col-md-6 col-sm-12 col-news">
 		<ul class="social-custm-icons social-custm-icons-hide text-right">
 			<li><a href="#"><img src="<?php echo get_template_directory_uri().'/assets/img/linkedin.svg'; ?>" alt=""></a></li>
 			<li><a href="#"><img src="<?php echo get_template_directory_uri().'/assets/img/instagram.svg'; ?>" alt=""></a></li>
@@ -49,7 +49,7 @@ get_header();
     if( $query->have_posts() ) {
     	?>
     	<div class="row" >
-    		<div class="col-md-12  mb-3 first-one">
+    		<div class="col-md-12  mb-3 first-one col-news">
     			<h2 class="category-titles title_category_<?php echo $top_category->term_id; ?>" >
     				<?php echo $top_category->name; ?>
     			</h2>
@@ -59,7 +59,8 @@ get_header();
 	<?php 
 
       while ($query->have_posts()) : $query->the_post(); ?>
-	<div class="col-lg-4 col-md-6 mb-5 category_<?php echo $top_category->term_id; ?>" >
+	<div class="col-lg-4 col-md-6 mb-5 col-news category_<?php echo $top_category->term_id; ?>" >
+
 		<div class="card" >
 		
 		  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid">
@@ -71,7 +72,7 @@ get_header();
 				<p class="date-text"><?php echo get_the_date(); ?></p>
 				<h3><a href="javascript:void(0)" class="no-links"><?php the_title(); ?></a></h3>
 		    	<p class="text-para"><?php echo get_the_excerpt(); ?></p>
-		    
+		     <a href="<?php the_permalink() ?>" class="stretched-link"></a>
 		    </div>
 		  </div>
 		</div>
@@ -88,11 +89,17 @@ get_header();
     } ?>
 	</div>
     	<div class="row">
-    	<div class="col-md-12 text-center">
+    	<div class="col-md-12 text-center col-news">
     		
-    		<button  type="button" class="more_posts btn btn btn-light btn-lg " data-term="<?php echo $top_category->term_id; ?>">See more</button>
-    		<a href="<?php echo home_url().'/category/top_news/';?>" class="btn btn btn-light btn-lg more_posts_top more_posts " style="display: none;">See more</a>
     		
+				<div class="drag-cards__button">
+					<a href="javascript:void(0)" class="button button--white more_posts" data-term="<?php echo $top_category->term_id; ?>" data-href="<?php echo home_url().'/category/top_news/';?>">
+						<div class="button__inner">
+							<div class="button__text bold">See more</div>
+						</div>
+					</a>
+				</div>
+
     	
     	</div>
     	</div>
@@ -117,7 +124,7 @@ wp_reset_query();  // Restore global post data stomped by the_post().
     if( $query->have_posts() ) {
     	?>
     	<div class="row" >
-    		<div class="col-md-12 mt-5 mb-3">
+    		<div class="col-md-12 mt-5 mb-3 col-news">
     			<h2 class="category-titles title_category_<?php echo $video_category->term_id; ?>" >
     				<?php echo $video_category->name; ?>
     			</h2>
@@ -127,11 +134,11 @@ wp_reset_query();  // Restore global post data stomped by the_post().
 	<?php 
 
       while ($query->have_posts()) : $query->the_post(); ?>
-	<div class="col-lg-4 col-md-6 mb-5 category_<?php echo $video_category->term_id; ?>" >
+	<div class="col-lg-4 col-md-6 mb-5 col-news category_<?php echo $video_category->term_id; ?>" >
 		<div class="card" >
 		<img src="<?php echo get_template_directory_uri() . '/assets/img/play.svg'; ?>"  class="play-button-news" data-id="<?php echo get_the_id(); ?>">
 		
-		  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid">
+		  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid play-button-newss" data-id="<?php echo get_the_id(); ?>">
 		
 		  <div class="card-body">
 		    <div class="card-text"> 
@@ -140,6 +147,7 @@ wp_reset_query();  // Restore global post data stomped by the_post().
 				<p class="date-text"><?php echo get_the_date(); ?></p>
 				<h3><a href="javascript:void(0)" class="no-links"><?php the_title(); ?></a></h3>
 		    	<p class="text-para"><?php echo get_the_excerpt(); ?></p>
+		    	  
 		    
 		    </div>
 		  </div>
@@ -157,10 +165,15 @@ wp_reset_query();  // Restore global post data stomped by the_post().
     } ?>
 	</div>
     	<div class="row">
-    	<div class="col-md-12 text-center">
+    	<div class="col-md-12 text-center col-news">
     		
-    			<button  type="button" class="more_posts btn btn btn-light btn-lg " data-term="<?php echo $video_category->term_id; ?>">See more</button>
-    		<a href="<?php echo home_url().'/category/videos/';?>" class="btn btn btn-light btn-lg more_posts_video more_posts " style="display: none;">See more</a>
+    		<div class="drag-cards__button">
+						<a href="javascript:void(0)" class="button button--white more_posts" data-term="<?php echo $video_category->term_id; ?>" data-href="<?php echo home_url().'/category/videos/';?>">
+						<div class="button__inner">
+							<div class="button__text bold">See more</div>
+						</div>
+					</a>
+				</div>
     		
     	
     	</div>
@@ -186,34 +199,35 @@ wp_reset_query();  // Restore global post data stomped by the_post().
     if( $query->have_posts() ) {
     	?>
     	<div class="row" >
-    		<div class="col-md-12 mt-5 mb-3">
+    		<div class="col-md-12 mt-5 mb-3 col-news">
     			<h2 class="category-titles title_category_<?php echo $headline_category->term_id; ?>" >
     				<?php echo $headline_category->name; ?>
     			</h2>
     		</div>
     	</div>
     	<div class="row" id="term_slug_<?php echo $headline_category->term_id; ?>">
-	 <div class="owl-carousel owl-theme col-md-12">
+	
 	<?php 
 
       while ($query->have_posts()) : $query->the_post(); ?>
-	<div class="mb-5 category_<?php echo $headline_category->term_id; ?>" >
-		<div class="card" >
-		
-		  <div class="card-body">
-		    <div class="card-text"> 
-		    	
-		    	
-				<p class="date-text"><?php echo get_the_date(); ?></p>
-				<h3><a href="javascript:void(0)" class="no-links"><?php the_title(); ?></a></h3>
-		    	<p class="text-para"><?php echo get_the_excerpt(); ?></p>
-		    
-		    </div>
-		  </div>
-		</div>
-	</div>
+      	<div class="col-lg-4 col-md-6 mb-5 col-news category_<?php echo $headline_category->term_id; ?>" >
+					<div class="mb-5 category_<?php echo $headline_category->term_id; ?>" >
+						<div class="card" >
+						
+						  <div class="card-body">
+						    <div class="card-text"> 
+						    	
+						    	
+								<p class="date-text"><?php echo get_the_date(); ?></p>
+								<h3><a href="javascript:void(0)" class="no-links"><?php the_title(); ?></a></h3>
+						    	<p class="text-para"><?php echo get_the_excerpt(); ?></p>
+						      <a href="<?php the_permalink() ?>" class="stretched-link"></a>
+						    </div>
+						  </div>
+						</div>
+					</div>
 
-      	
+      	</div>
        
        
       
@@ -222,8 +236,23 @@ wp_reset_query();  // Restore global post data stomped by the_post().
       endwhile;
       wp_reset_postdata();
     } ?>
-</div>
+
 	</div>
+
+	   	<div class="row">
+    	<div class="col-md-12 text-center col-news">
+    		
+    		<div class="drag-cards__button">
+					<a href="javascript:void(0)" class="button button--white more_posts" data-term="<?php echo $headline_category->term_id; ?>" data-href="<?php echo home_url().'/category/in_the_headlines/';?>">
+						<div class="button__inner">
+							<div class="button__text bold">See more</div>
+						</div>
+					</a>
+				</div>
+    		
+    	
+    	</div>
+    	</div>
     	
 
 
@@ -246,7 +275,7 @@ wp_reset_query();  // Restore global post data stomped by the_post().
     if( $query->have_posts() ) {
     	?>
     	<div class="row" >
-    		<div class="col-md-12 mt-5 mb-3">
+    		<div class="col-md-12 mt-5 mb-3 col-news">
     			<h2 class="category-titles title_category_<?php echo $blog_category->term_id; ?>" >
     				<?php echo $blog_category->name; ?>
     			</h2>
@@ -256,7 +285,7 @@ wp_reset_query();  // Restore global post data stomped by the_post().
 	<?php 
 
       while ($query->have_posts()) : $query->the_post(); ?>
-	<div class="col-lg-4 col-md-6 mb-5 category_<?php echo $blog_category->term_id; ?>" >
+	<div class="col-lg-4 col-md-6 col-news mb-5 category_<?php echo $blog_category->term_id; ?>" >
 		<div class="card" >
 		
 		  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid">
@@ -268,7 +297,7 @@ wp_reset_query();  // Restore global post data stomped by the_post().
 
 				<h3><a href="javascript:void(0)" class="no-links"><?php the_title(); ?></a></h3>
 				<p class="date-text"><?php echo get_the_date(); ?></p>
-		  
+		    <a href="<?php the_permalink() ?>" class="stretched-link"></a>
 		    </div>
 		  </div>
 		</div>
@@ -285,10 +314,15 @@ wp_reset_query();  // Restore global post data stomped by the_post().
     } ?>
 	</div>
     	<div class="row">
-    	<div class="col-md-12 text-center">
+    	<div class="col-md-12 text-center col-news">
     		
-    			<button  type="button" class="more_posts btn btn btn-light btn-lg " data-term="<?php echo $blog_category->term_id; ?>">See more</button>
-    		<a href="<?php echo home_url().'/category/blogs_and_opinion_editorials/';?>" class="btn btn btn-light btn-lg more_posts_blogs more_posts " style="display: none;">See more</a>
+    		<div class="drag-cards__button">
+						<a href="javascript:void(0)" class="button button--white more_posts" data-term="<?php echo $headline_category->term_id; ?>" data-href="<?php echo home_url().'/category/blogs_and_opinion_editorials/';?>">
+						<div class="button__inner">
+							<div class="button__text bold">See more</div>
+						</div>
+					</a>
+				</div>
     		
     	
     	</div>
