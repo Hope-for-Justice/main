@@ -41,7 +41,7 @@ get_header();
 								<div class="toggle__option">Give monthly</div>
 								<div class="toggle__slider">Giving </div>
 							</div>
-							<a class="donate__currency">Donation in British Pounds. Change currency?</a>
+							<a data-toggle="modal" data-target="#currency-modal" class="donate__currency-message">Donation in British Pounds. Change currency?</a>
 						</div>
 						
 						<div class="donate__buttons">
@@ -84,7 +84,7 @@ get_header();
 					</div><!--/ donate widget -->
 
 					<div class="donate__widget-footer">
-						<div class="line"></div>
+						<div class="line line--double-margin-bottom"></div>
 						<a id="donateNext" class="button button--red">
 							<div class="button__inner">
 								<div class="button__text bold">
@@ -108,6 +108,19 @@ get_header();
 		</div><!-- /color block -->
 	</div><!-- /grid -->
 	
+	<!-- 
+	-- 
+	-- modal
+	-- 
+	--> 
+	<div class="modal fade" id="currency-modal" tabindex="-1" role="dialog" aria-hidden="false">
+		  <div class="modal__dialog">
+			    <div class="modal__content">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt deserunt veritatis tempore alias quasi totam consectetur enim, at ea obcaecati velit pariatur amet distinctio culpa perferendis saepe suscipit illo! Pariatur.</p>
+			        <a href="#" data-dismiss="modal" class="gi-close modal__close">&times;<span class="accessibility">Close</span></a>
+			    </div>
+		 </div>
+	</div>
 
 </main><!-- /#main -->
 

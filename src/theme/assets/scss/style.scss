@@ -3,10 +3,16 @@
 @import "base/_base.scss";
 @import "base/_mixins.scss";
 @import "base/_fonts.scss";
+
+
+//lib
 @import "lib/_mq.scss";
-@import "base/_forms.scss";
 @import "lib/_newsticker.scss";
 @import "lib/_pca.scss";
+@import "lib/_bootstrap-modal.scss";
+@import "lib/_animate.scss";
+@import "lib/_flexslider.scss";
+
 
 // typography
 @import "base/_type.scss";
@@ -16,6 +22,7 @@
 
 
 // objects
+@import "objects/_forms.scss";
 @import "objects/_menu.scss";
 @import "objects/_footer.scss";
 @import "objects/_grid.scss";
@@ -33,8 +40,16 @@
 @import "objects/_drag-cards.scss";
 @import "objects/_donate.scss";
 @import "objects/_line.scss";
+@import "objects/_text-slider.scss";
+@import "objects/_reference.scss";
+@import "objects/_number-stats.scss";
+@import "objects/_plain-text.scss";
 
 // pages
 @import "pages/_default-page.scss";
+<<<<<<< HEAD
 
 
+=======
+@import "pages/_form-page.scss";
+>>>>>>> main

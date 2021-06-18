@@ -485,7 +485,7 @@ window.GFStripe = null;
 		};
 
 		this.displayStripeCardError = function (event) {
-			if (!this.GFCCField.next('.validation_message').length) {
+			if (event.error && !this.GFCCField.next('.validation_message').length) {
 				this.GFCCField.after('<div class="gfield_description validation_message"></div>');
 			}
 
@@ -500,7 +500,7 @@ window.GFStripe = null;
 					$('#gform_ajax_spinner_' + this.formId).remove();
 				}
 			} else {
-				cardErrors.html('');
+				cardErrors.remove();
 			}
 		};
 

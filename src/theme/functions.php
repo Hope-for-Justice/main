@@ -224,6 +224,7 @@ new GWUnrequire();
  */
 add_filter( 'gform_stripe_enable_rate_limits', '__return_false' );
 
+<<<<<<< HEAD
 function news_page_scripts() {
 	global $wp_styles;
 	if (is_page_template('category-news-template.php') || is_category('blogs_and_opinion_editorials') || is_category('top_news') || is_category('videos') || is_single() || is_category('in_the_headlines') || is_page('search-news-results')){
@@ -374,3 +375,12 @@ add_filter( 'single_template', function ( $single_template ) {
     return $single_template;
      
 }, PHP_INT_MAX, 2 );
+=======
+
+/**
+ * Gravity Forms scroll top
+ */
+add_filter( 'gform_confirmation_anchor', function() {
+    return 0;
+} );
+>>>>>>> main

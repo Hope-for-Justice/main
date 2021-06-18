@@ -4,6 +4,8 @@
 *
 */
 
+// thin 
+///////////////////////////////////////////////////////////////////////////
 
 body {
 	font-family: apercu-reg, sans-serif;
@@ -39,21 +41,87 @@ h1,h2,h3,h4,h5 {
 	font-weight: 100;
 }
 
+h1 {
+	font-size: 3.6em;
+	margin-bottom: 0.5em;
+	line-height: 1.2;
+}
+
+h2 {
+	font-size: 3.2em;
+	margin-bottom: 0.5em;
+}
+
+h3 {
+	//font-size: 1.4em;
+	text-transform: uppercase;
+	margin-bottom: 1.4em;
+	letter-spacing: 2px;
+	font-weight: 100;
+}
+
 p {
 	font-size: 1.6em;
 	margin:0;
 }
 
-// desktop
+// mobile medium 
 ///////////////////////////////////////////////////////////////////////////
 
+@include mq($from: mobileMedium) {
 
-@include mq($from: desktop) {
+}
+
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+
+h2 {
+	font-size: 4em; 
+	margin-bottom: 1em;
+}
 
 p {font-size: 1.8em;}
 
 }
 
+
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+h2 {
+	font-size: 4em; 
+}
+
+
+// .desktop-break {
+// 	display:block;
+// }
+
+}
+
+
+// desktop extra large
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopExtraLarge) {
+
+h2 {
+	font-size: 5em; 
+}
+
+
+// .desktop-break {
+// 	display:block;
+// }
+
+}
 
 // wide
 ///////////////////////////////////////////////////////////////////////////

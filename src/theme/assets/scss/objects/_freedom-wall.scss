@@ -7,7 +7,7 @@
 .freedom-wall {
 	grid-column: col1 / col12-end;
 	&__heading{
-		font-size: 2.6em;
+		//font-size: 2.6em;
 		text-align: center;
 		padding: 0 0.5em;
 		margin-bottom: 1em;
@@ -36,7 +36,7 @@
 .freedom-wall {
 	&__heading{
 		margin-top: 1em;
-		font-size: 3.6em;
+		//font-size: 3.6em;
 		br {display:block;}
 	}
 	&__button {
@@ -55,7 +55,7 @@
 	padding: 0 5em 5em 5em;
 	&__heading{
 		margin-top: 1em;
-		font-size: 5em;
+		//font-size: 5em;
 		br {display: none;}
 	}
 	&__button {
@@ -78,7 +78,7 @@
 	grid-column: col2 / col12;
 	&__heading{
 		margin-top: 2em;
-		font-size: 5em;
+		//font-size: 5em;
 		br {display: block;}
 	}
 	&__button {
@@ -100,7 +100,7 @@
 
 .freedom-wall {
 	&__heading{
-		font-size: 6.2em;
+		//font-size: 6.2em;
 	}
 }
 

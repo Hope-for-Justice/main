@@ -36,7 +36,7 @@
 		background: $white;
 		padding:1.2em 2em;
 		position: absolute;
-		right:.35em;
+		right:.45em;
 		top:.35em;
 		left:calc(50% - 0.35em);
 		border-radius: 7.7em;
@@ -47,9 +47,9 @@
 			content: 'monthly'; // default text to say monthly
 		}
 		&--left {
-		right:calc(50% - 0.35em);
+		right:calc(50% - 0.45em);
 		top:.35em;
-		left:.35em;
+		left:.45em;
 			&:after {
 				content: 'once'; // override with once
 			}

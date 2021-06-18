@@ -173,9 +173,6 @@ jQuery(document).on('gform_page_loaded', function(event, form_id, current_page){
 
 jQuery(document).on('gform_post_render', function(event, form_id, current_page){
 
-    //scroll top
-    jQuery(window).scrollTop(0);
-
     //default amount
     jQuery('.ginput_amount').val(donateAmount);
     jQuery('.donate__amount-preview-number').html(donateAmount);
