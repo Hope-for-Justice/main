@@ -22,7 +22,7 @@ $args = wp_parse_args(
     <div class="modal fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
           <div class="modal__dialog">
                 <div class="modal__content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt deserunt veritatis tempore alias quasi totam consectetur enim, at ea obcaecati velit pariatur amet distinctio culpa perferendis saepe suscipit illo! Pariatur.</p>
+                    <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt deserunt veritatis tempore alias quasi totam consectetur enim, at ea obcaecati velit pariatur amet distinctio culpa perferendis saepe suscipit illo! Pariatur.</p>
                     <a href="#" data-dismiss="modal" class="gi-close modal__close">&times;<span class="accessibility">Close</span></a>
                 </div>
          </div>
@@ -38,7 +38,7 @@ $args = wp_parse_args(
     <div class="modal fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
           <div class="modal__dialog">
                 <div class="modal__content modal__content--yellow">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                     <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--yellow">&times;<span class="accessibility">Close</span></a>
                 </div>
          </div>

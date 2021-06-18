@@ -13,7 +13,8 @@
 		width: 100%;
 		min-height: 20em;
 		background-size: 150%;
-		background-position: top right 2%; //position of homepage img
+		background-position: top right 2%; 
+		//^position of homepage img^
 		&--bottom-center {
 			background-position: bottom center;
 		}
@@ -25,19 +26,7 @@
 		width:100%;
 		background-color: $white;
 		padding:3em;
-	}
-	&__sub-heading {
-		font-size: 1.4em;
-		text-transform: uppercase;
-		margin-bottom: 1.4em;
-		letter-spacing: 2px;
-		font-weight: 100;
-	}
-	&__main-heading {
-		font-size: 3.6em;
-		font-family: canela-medium;
-		line-height: 1.2;
-		margin-bottom: 0.5em;
+		&--grey {background-color: $light-grey;}
 	}
 	&__desc {
 		margin-bottom: 2em;
@@ -54,14 +43,14 @@
 		padding:4em;
 	}
 	&__sub-heading {
-		font-size: 1.8em;
+		//font-size: 1.8em;
 		margin-bottom: 2em;
 	}
 	&__main-heading {
-		font-size: 4.1em;
+		//font-size: 4.1em;
 	}
 	&__desc {
-		font-size: 1.8em;
+		//font-size: 1.8em;
 	}
 }
 
@@ -75,7 +64,7 @@
 
 .hero-split {
 	&__main-heading {
-		font-size: 4.8em;
+		//font-size: 4.8em;
 	}
 }
 
@@ -98,7 +87,7 @@
 		margin-bottom: 2em;
 	}
 	&__main-heading {
-		font-size: 5.4em;
+		//font-size: 5.4em;
 	}
 	&__desc {
 		margin-bottom: 2.5em;
@@ -153,7 +142,11 @@
 
 .hero-split {
 	&__main-heading {
-		font-size: 6.8em;
+		//font-size: 6.8em;
+	}
+	&__smaller-main-heading {
+		max-width:80%;
+		margin:0 auto 1.5em;
 	}
 }
 
@@ -167,7 +160,7 @@
 
 .hero-split {
 	&__main-heading {
-		font-size: 7em;
+		//font-size: 7em;
 	}
 }
 
@@ -193,13 +186,13 @@
 
 .hero-split {
 	&__sub-heading {
-		font-size: 2.4em;
+		//font-size: 2.4em;
 	}
 	&__main-heading {
-		font-size: 9em;
+		//font-size: 9em;
 	}
 	&__desc {
-		font-size: 2.4em;
+		//font-size: 2.4em;
 	}
 }
 

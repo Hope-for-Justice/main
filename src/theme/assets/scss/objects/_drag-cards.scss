@@ -13,7 +13,7 @@
 	&--no-margin-top {margin-top: 0;}
 	&--no-margin-bottom {margin-bottom: 0;}
 	&__heading {
-		font-size: 3.6em;
+		//font-size: 3.6em;
 		line-height: 1.3;
 		margin-bottom: 0.7em;
 		margin-top: 0.5em;
@@ -77,8 +77,8 @@
 
 .drag-cards{
 	&__heading {
-		font-size: 5em;
-		padding: 0 3em;
+		//font-size: 5em;
+		text-align: center;
 		margin-bottom: 1em;
 		br {display: none;}
 	}
@@ -151,11 +151,6 @@
 ///////////////////////////////////////////////////////////////////////////
 @include mq($from: desktopLarge) {
 
-.drag-cards{
-	&__heading{
-	 	font-size: 6.2em;
-	}
-}
 
 
 

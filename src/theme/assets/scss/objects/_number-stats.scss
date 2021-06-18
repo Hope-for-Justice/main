@@ -21,3 +21,53 @@
 		}
 	}
 }
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.number-stats {
+	display:flex;
+	flex-wrap: wrap;
+	max-width: 58em;
+	margin: 0 auto;
+	&__heading {
+		text-align: center;
+	}
+	&__stat {
+		margin-bottom: 0;
+		margin: 5em 0;
+		max-width: 25em;
+		padding: 0 3em;
+		text-align: center;
+		border:none;
+		&:nth-child(even) {
+			border-bottom: none;
+			border-left: 1px solid $lines;
+		}
+	}
+}
+
+}
+
+// desktop large
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+
+.number-stats {
+	max-width: 116em;
+	&__stat {
+		border-left: 1px solid $lines;
+		margin: 10em 0;
+		&:nth-child(1) {
+			border: none;
+		}
+	}
+}
+
+
+}
+
+

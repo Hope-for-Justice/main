@@ -54,6 +54,13 @@ jQuery(document).ready(function($) {
     })
 
 
+    //reference modal text 
+    var $text;
+    $('.reference__symbol').click(function() {
+        $text = $(this).data( "text" );
+        $(".modal__text").html($text);
+    });
+
 }); /* end of as page load scripts */
 
 

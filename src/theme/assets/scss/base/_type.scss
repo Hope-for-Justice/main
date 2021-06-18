@@ -4,6 +4,8 @@
 *
 */
 
+// thin 
+///////////////////////////////////////////////////////////////////////////
 
 body {
 	font-family: apercu-reg, sans-serif;
@@ -34,25 +36,28 @@ body {
 	text-align: center;
 }
 
-.plain-text {
-	grid-column: col1 / col12-end;
-	padding:0 40px;
-	&--in-color-block {
-		padding:40px;
-	}
-}
-
-
-
 h1,h2,h3,h4,h5 {
 	margin:0;
 	font-weight: 100;
 }
 
+h1 {
+	font-size: 3.6em;
+	margin-bottom: 0.5em;
+	line-height: 1.2;
+}
+
 h2 {
 	font-size: 3.2em;
-	font-family: canela-medium, serif;
 	margin-bottom: 0.5em;
+}
+
+h3 {
+	//font-size: 1.4em;
+	text-transform: uppercase;
+	margin-bottom: 1.4em;
+	letter-spacing: 2px;
+	font-weight: 100;
 }
 
 p {
@@ -60,12 +65,26 @@ p {
 	margin:0;
 }
 
+// mobile medium 
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: mobileMedium) {
+
+}
+
+
 // tablet
 ///////////////////////////////////////////////////////////////////////////
 
 @include mq($from: tablet) {
 
 
+h2 {
+	font-size: 4em; 
+	margin-bottom: 1em;
+}
+
+p {font-size: 1.8em;}
 
 }
 
@@ -76,7 +95,10 @@ p {
 
 @include mq($from: desktop) {
 
-p {font-size: 1.8em;}
+h2 {
+	font-size: 4em; 
+}
+
 
 // .desktop-break {
 // 	display:block;
@@ -84,6 +106,22 @@ p {font-size: 1.8em;}
 
 }
 
+
+// desktop extra large
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopExtraLarge) {
+
+h2 {
+	font-size: 5em; 
+}
+
+
+// .desktop-break {
+// 	display:block;
+// }
+
+}
 
 // wide
 ///////////////////////////////////////////////////////////////////////////
