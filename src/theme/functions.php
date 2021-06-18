@@ -233,7 +233,7 @@ function news_page_scripts() {
 		
 		
 	
-		wp_enqueue_style( 'news-page-css', get_template_directory_uri() . '/assets/css/news-page.css', );
+		wp_enqueue_style( 'news-page-css', get_template_directory_uri() . '/assets/css/news-page.css' );
 		// js files
 		wp_enqueue_script( 'popper-js', get_template_directory_uri() . '/assets/js/popper.min.js', ['jquery-core'], true, true );
 		wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/assets/js/bootstrap.min.js', ['jquery-core'], true, true );
