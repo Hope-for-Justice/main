@@ -26,11 +26,7 @@
 </div><!-- #page -->
 
 <?php wp_footer(); ?>
-<<<<<<< HEAD
-<!-- <script>jQuery(function () {init.forEach(function (f) {f();});});</script> -->
-=======
 
->>>>>>> main
 
 </body>
 </html>
