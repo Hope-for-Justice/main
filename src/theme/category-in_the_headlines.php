@@ -29,17 +29,18 @@ $query = new WP_Query($args);
 			</h1>
 		</div>
 		<div class="col-md-4 mt-5 mb-3 col-news">
-			<select class="custom-category">
+			<select class="custom-category" onchange="location = this.value;">
 
-				<option value="">Select Category</option>
+				<option disabled="disabled">Select Category</option>
 				<?php
 				$categories = get_categories();
 				foreach($categories as $category) {
-				$selected = '';
+					$selected = '';
 					if($category_id == $category->term_id) {
 						$selected = 'selected';
 					}
-						echo '<option value="'.$category->term_id.'" '.$selected.'>'.$category->name.'</option>';
+						echo '<option data-value="'.$category->term_id.'" value="'.home_url().'/category/'.$category->slug.'" '.$selected.'>'.$category->name.'</option>';
+					
 					
 				}
 				?>
@@ -89,6 +90,7 @@ $query = new WP_Query($args);
 	<?php 
 
 	while ($query->have_posts()) : $query->the_post(); ?>
+		<?php $external_link = get_field('external_news_link'); ?>
 		<div class="col-lg-4 col-md-6 mb-5 col-news category_<?php echo $category_id; ?>" >
 			<div class="mb-5 category_<?php echo $category_id; ?>" >
 				<div class="card" >
@@ -100,7 +102,7 @@ $query = new WP_Query($args);
 							<p class="date-text"><?php echo get_the_date(); ?></p>
 							<h3><a href="javascript:void(0)" class="no-links"><?php the_title(); ?></a></h3>
 							<p class="text-para"><?php echo get_the_excerpt(); ?></p>
-							<a href="<?php the_permalink() ?>" class="stretched-link"></a>
+							<a href="<?php echo $external_link; ?>" class="stretched-link" target="_blank"></a>
 						</div>
 					</div>
 				</div>

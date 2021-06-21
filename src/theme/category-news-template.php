@@ -197,6 +197,7 @@ wp_reset_query();  // Restore global post data stomped by the_post().
     $query = null;
     $query = new WP_Query($args);
     if( $query->have_posts() ) {
+
     	?>
     	<div class="row" >
     		<div class="col-md-12 mt-5 mb-3 col-news">
@@ -210,6 +211,7 @@ wp_reset_query();  // Restore global post data stomped by the_post().
 	<?php 
 
       while ($query->have_posts()) : $query->the_post(); ?>
+      	<?php  $external_link = get_field('external_news_link',get_the_ID()); ?>
       	<div class="col-lg-4 col-md-6 mb-5 col-news category_<?php echo $headline_category->term_id; ?>" >
 					<div class="mb-5 category_<?php echo $headline_category->term_id; ?>" >
 						<div class="card" >
@@ -221,7 +223,7 @@ wp_reset_query();  // Restore global post data stomped by the_post().
 								<p class="date-text"><?php echo get_the_date(); ?></p>
 								<h3><a href="javascript:void(0)" class="no-links"><?php the_title(); ?></a></h3>
 						    	<p class="text-para"><?php echo get_the_excerpt(); ?></p>
-						      <a href="<?php the_permalink() ?>" class="stretched-link"></a>
+						      <a href="<?php echo  $external_link;  ?>" class="stretched-link" target="_blank"></a>
 						    </div>
 						  </div>
 						</div>

@@ -3,7 +3,7 @@
 $categories = get_the_category();
 $category_id = $categories[0]->cat_ID;
 $category_name = $categories[0]->name;
-	
+$category_slug = $categories[0]->slug;	
 
 ?>
 			<?php if (have_posts()) : while (have_posts()) : the_post(); 
@@ -57,7 +57,7 @@ $category_name = $categories[0]->name;
 				<h2 class="single-post-head"><?php the_title(); ?><h2>
 				<?php the_content(); ?>
 				<?php  echo $iframe; ?>
-				<div class="row  flex-column-reverse flex-sm-row video-margin">
+				<div class="row  flex-column-reverse flex-sm-row video-margin align-items-center">
 				<div class="col-md-6">
 					<div class="header__navigation">
 						<a class="button button--red button--nav bold" href="<?php echo home_url().'/news-media/';?>">Back To main <br> News Page</a>
@@ -88,7 +88,7 @@ $category_name = $categories[0]->name;
 			 	<div class="col-lg-4 col-lg-4-custom col-md-6   mt-5 scategory_<?php echo $category_id; ?>" >
 			 	<h2 class="category-titles"><?php echo $category_name; ?></h2>
 			<?php while ($query->have_posts()) : $query->the_post(); ?>
-			<?php if($category_id != 6 && $category_id != 7) { ?>
+			
 				<div class="card mt-5" >
 				
 				  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid">
@@ -104,52 +104,26 @@ $category_name = $categories[0]->name;
 				    </div>
 				  </div>
 				</div>
-			<?php } elseif($category_id == 6) { ?>
-			
-			<div class="card mt-5" >
+			<?php endwhile;?>
+			<div class="row mb-5">
+				<div class="col-md-12 text-center col-news">
 
-				<div class="card-body">
-					<div class="card-text"> 
-
-
-						<p class="date-text"><?php echo get_the_date(); ?></p>
-						<h3><a href="javascript:void(0)" class="no-links"><?php the_title(); ?></a></h3>
-						<p class="text-para"><?php echo get_the_excerpt(); ?></p>
-						<a href="<?php the_permalink() ?>" class="stretched-link"></a>
+					<div class="drag-cards__button">
+						<a href="javascript:void(0)" class="button button--white more_posts" data-term="<?php echo $category_id; ?>" data-href="<?php echo home_url().'/category/'.$category_slug.'/';?>">
+							<div class="button__inner">
+								<div class="button__text bold">See more</div>
+							</div>
+						</a>
 					</div>
+
+
 				</div>
 			</div>
-
-			
-	<?php } elseif($category_id == 7) {  ?>
-			<div class="card" >
-		
-		  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid">
-		
-		  <div class="card-body">
-			<div class="card-text"> 
-				
-				
-				<h3><a href="<?php the_permalink() ?>" class="stretched-link"><?php the_title(); ?></a></h3>
-				<p class="date-text"><?php echo get_the_date(); ?></p>
-		  
-			</div>
-		  </div>
-		</div>
-      	
-       
-       
-      
-     
-       <?php
- }
-      endwhile;
-      ?>
       		</div>
-<?php } 
+      	<?php } 
       ?>
 
 			
 		
-<?php get_sidebar(); ?>
+
 <?php get_footer(); ?>

@@ -28,9 +28,9 @@ $category_name = $categories[0]->name;
 			</h1>
 		</div>
 		<div class="col-md-4 mt-5 mb-3 col-news">
-			<select class="custom-category">
+			<select class="custom-category" onchange="location = this.value;">
 
-				<option value="">Select Category</option>
+				<option disabled="disabled">Select Category</option>
 				<?php
 				$categories = get_categories();
 				foreach($categories as $category) {
@@ -38,7 +38,7 @@ $category_name = $categories[0]->name;
 					if($category_id == $category->term_id) {
 						$selected = 'selected';
 					}
-						echo '<option value="'.$category->term_id.'" '.$selected.'>'.$category->name.'</option>';
+						echo '<option data-value="'.$category->term_id.'" value="'.home_url().'/category/'.$category->slug.'" '.$selected.'>'.$category->name.'</option>';
 					
 					
 				}

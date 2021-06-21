@@ -29,9 +29,9 @@ $query = new WP_Query($args);
 			</h1>
 		</div>
 		<div class="col-md-4 mt-5 mb-3 col-news">
-			<select class="custom-category">
+			<select class="custom-category" onchange="location = this.value;">
 
-				<option value="">Select Category</option>
+				<option disabled="disabled">Select Category</option>
 				<?php
 				$categories = get_categories();
 				foreach($categories as $category) {
@@ -39,7 +39,8 @@ $query = new WP_Query($args);
 					if($category_id == $category->term_id) {
 						$selected = 'selected';
 					}
-						echo '<option value="'.$category->term_id.'" '.$selected.'>'.$category->name.'</option>';
+						echo '<option data-value="'.$category->term_id.'" value="'.home_url().'/category/'.$category->slug.'" '.$selected.'>'.$category->name.'</option>';
+					
 					
 				}
 				?>
