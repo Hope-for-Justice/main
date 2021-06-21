@@ -15,10 +15,10 @@ jQuery(document).ready(function($) {
       let visible_col_news = $('.category_'+term_id+':visible').length;
       if(total_col_news > 6) {
         if(visible_col_news > 6) {
-          // window.location.href = term_href; 
+          window.location.href = term_href; 
         }
       } else if (total_col_news < 6) {
-        // window.location.href = term_href; 
+        window.location.href = term_href; 
       }
       x = (x+3 <= total_col_news) ? x+3 : total_col_news;
         $('.category_'+term_id+':lt('+x+')').show();
@@ -27,7 +27,8 @@ jQuery(document).ready(function($) {
     $('.scategory_5 .card:lt('+y+')').css('display','flex');
     $('.scategory_7 .card:lt('+y+')').css('display','flex');
     $('.scategory_6 .card:lt('+y+')').css('display','flex');
-    $(document).on('click','.more_posts', function () {
+    $(document).on('click','.more_postss', function () {
+     
       let term_id = $(this).data('term');
       let term_href = $(this).data('href');
       let total_col_news = $('.scategory_'+term_id+' .card').length;

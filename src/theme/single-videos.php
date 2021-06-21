@@ -109,7 +109,7 @@ $category_slug = $categories[0]->slug;
 				<div class="col-md-12 text-center col-news">
 
 					<div class="drag-cards__button">
-						<a href="javascript:void(0)" class="button button--white more_posts" data-term="<?php echo $category_id; ?>" data-href="<?php echo home_url().'/category/'.$category_slug.'/';?>">
+						<a href="javascript:void(0)" class="button button--white more_postss" data-term="<?php echo $category_id; ?>" data-href="<?php echo home_url().'/category/'.$category_slug.'/';?>">
 							<div class="button__inner">
 								<div class="button__text bold">See more</div>
 							</div>
