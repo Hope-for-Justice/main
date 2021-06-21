@@ -14,4 +14,27 @@
 	&--grey {
 		background-color: $light-grey;
 	}
+	&--red {
+		background-color: $red;
+		color:white;
+	}
+	&--background-img {
+		background-size: 100%;
+		background-repeat: no-repeat;
+		background-position: bottom center;
+		padding-bottom: 10em;
+	}
+}
+
+// desktop 
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.color-block {
+	&--background-img {
+		padding-bottom:35em;
+	}
+}
+
 }

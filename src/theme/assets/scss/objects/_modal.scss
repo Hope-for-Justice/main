@@ -4,7 +4,94 @@
 *
 */
 
+//default modal for little messages
+.modal {
+	background-color: rgba(0, 0, 0, 0.2);
+	&__dialog {
+		margin:auto;
+		//overflow: hidden;
+		position: absolute;
+		top:50%;
+		left:50%;
+		transform: translate(-50%, -50%);
+		width:100%;
+		max-width: 53em;
+	}
+	&__content {
+		padding:35px;
+		padding-top:40px;
+		background-color:#f2f2f2;
+		border-radius: 20px;
+		position:relative;
+		&--video{
+			height:0;
+			padding-bottom: 56.25%;
+			background-color: transparent;
+			.video {
+			    height: 100%;
+			    width: 100%;
+			    position: absolute;
+			    top:0;
+			    left:0;
+			    background-color: #000;
+			}
+		}
+		&--yellow {background-color: $yellow;}
+	}
+	&__close {
+	// width:50px;
+	// height: 50px;
+	// text-align: center;
+	//padding: 1em;
+	color:$black; 
+    position: absolute;
+    top: 0.3em;
+    right: 0.7em;
+    font-size: 3em;
+    background-color: #f2f2f2;
+    &--yellow {background-color: $yellow;}
+		&:hover {
+			cursor: pointer;
+		}
+		&--video {
+		    border-radius: 100%;
+		    width: 1.5em;
+		    height: 1.5em;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    top:0;
+		    right:0;
+		    transform: translate(-50%, -150%);
+		}
+	    // &::before {
+	    // 	opacity: 0.5;
+	    // 	font-size:12px;
+	    // }
+
+	}
+}
 
 
+
+
+
+@include mq($from: desktop) {
+
+.modal {
+	&__dialog {
+		&--video {
+			width: 60%;
+			max-width: 1500px;
+		}
+	}
+	&__close {
+		&--video {
+			transform: translate(120%, -120%);
+		}
+	}
+}
+
+}
 
 

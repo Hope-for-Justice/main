@@ -2568,6 +2568,76 @@ class GFStripe extends GFPaymentAddOn {
 	}
 
 	/**
+	 * Returns validation error message markup.
+	 *
+	 * @since 4.1
+	 *
+	 * @param string $validation_message  The validation message to add to the markup.
+	 * @param array  $form                The submitted form data.
+	 *
+	 * @return false|string
+	 */
+	private function get_validation_error_markup( $validation_message, $form ) {
+		$error_classes = $this->get_validation_error_css_classes( $form );
+		ob_start();
+
+		if ( ! $this->is_gravityforms_supported( '2.5' ) ) {
+			?>
+			<div class="<?php echo esc_attr( $error_classes ); ?>"><?php echo esc_html( $validation_message ); ?></div>
+			<?php
+			return ob_get_clean();
+		}
+		?>
+		<h2 class="<?php echo esc_attr( $error_classes ); ?>">
+			<span class="gform-icon gform-icon--close"></span>
+			<?php echo esc_html( $validation_message ); ?>
+		</h2>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 * Get the CSS classes for the validation markup.
+	 *
+	 * @since 4.1
+	 *
+	 * @param array $form The submitted form data.
+	 */
+	private function get_validation_error_css_classes( $form ) {
+		$container_css   = $this->is_gravityforms_supported( '2.5' ) ? 'gform_submission_error' : 'validation_error';
+		$field           = $this->get_stripe_card_field( $form );
+		$field_error_css = $field ? "field_{$form['id']}_{$field->id}-error" : '';
+
+		if ( rgar( $this->authorization, 'requires_action' ) ) {
+			$container_css .= ' gform_stripe_requires_action';
+		}
+
+		return "{$container_css} hide_summary {$field_error_css}";
+	}
+
+	/**
+	 * Handler for validation messages.
+	 *
+	 * @since 4.1
+	 *
+	 * @param string $error_type The type of error.
+	 */
+	protected function filter_validation_message( $error_type = '' ) {
+		switch ( $error_type ) {
+			case 'stripe_checkout':
+				$callback = array( $this, 'stripe_checkout_error_message' );
+				break;
+			case 'stripe_elements':
+				$callback = array( $this, 'stripe_elements_requires_action_message' );
+				break;
+			default:
+				$callback = array( $this, 'stripe_general_validation_error_message' );
+		}
+
+		add_filter( 'gform_validation_message', $callback, 10, 2 );
+	}
+
+	/**
 	 * Validate if the card type is supported.
 	 *
 	 * @deprecated 3.0
@@ -2616,23 +2686,23 @@ class GFStripe extends GFPaymentAddOn {
 	 *
 	 * @deprecated 3.0
 	 *
-	 * @since 2.6.0
+	 * @since      2.6.0
 	 *
-	 * @param string $message HTML message string.
-	 * @param array  $form Form object.
+	 * @param string $validation_message The original validation message from the gform_validation_message filter.
+	 * @param array  $form               Form object.
 	 *
 	 * @return string
 	 */
-	public function card_type_validation_message( $message, $form ) {
-
+	public function card_type_validation_message( $validation_message, $form ) {
 		$card_type = rgpost( 'stripe_credit_card_type' );
 		if ( ! $card_type || 'false' === $card_type ) {
 			$card_type = __( 'Unknown', 'gravityformsstripe' );
 		}
 
-		$message .= "<div class='validation_error'>" . sprintf( esc_html__( 'Card type (%s) is not supported. Please enter one of the supported credit cards.', 'gravityformsstripe' ), $card_type ) . '</div>';
+		// Translators: 1. Type of credit card.
+		$message = sprintf( esc_html__( 'Card type (%1$s) is not supported. Please enter one of the supported credit cards.', 'gravityformsstripe' ), $card_type );
 
-		return $message;
+		return $validation_message .= $this->get_validation_error_markup( $message, $form );
 	}
 
 	/**
@@ -2641,14 +2711,16 @@ class GFStripe extends GFPaymentAddOn {
 	 * @since 2.6.1
 	 * @since 3.0   Changed for display a single validation message containing the Checkout error.
 	 *
+	 * @param string $validation_message The original validation message from the gform_validation_message filter.
+	 * @param array  $form               The submitted form data.
+	 *
 	 * @return string
 	 */
-	public function stripe_checkout_error_message() {
-		$authorization_result = $this->authorization;
-
-		$message = "<div class='validation_error'>" . esc_html__( 'There was a problem with your submission.', 'gravityformsstripe' ) . ' ' . $authorization_result['error_message'] . '</div>';
-
-		return $message;
+	public function stripe_checkout_error_message( $validation_message = '', $form = array() ) {
+		return $this->get_validation_error_markup(
+			esc_html__( 'There was a problem with your submission.', 'gravityformsstripe' ) . ' ' . $this->get_authorization_error_message(),
+			$form
+		);
 	}
 
 	/**
@@ -2656,14 +2728,41 @@ class GFStripe extends GFPaymentAddOn {
 	 *
 	 * @since 3.3
 	 *
+	 * @param string $validation_message The original validation message from the gform_validation_message filter.
+	 * @param array  $form               The submitted form data.
+	 *
 	 * @return string
 	 */
-	public function stripe_elements_requires_action_message() {
-		$authorization_result = $this->authorization;
+	public function stripe_elements_requires_action_message( $validation_message = '', $form = array() ) {
+		return $this->get_validation_error_markup(
+			esc_html__( 'There was a problem with your submission:', 'gravityformsstripe' ) . ' ' .  $this->get_authorization_error_message(),
+			$form
+		);
+	}
 
-		$message = "<div class='gform_stripe_requires_action'>" . $authorization_result['error_message'] . '</div>';
+	/**
+	 * Return the markup for general errors from Stripe.
+	 *
+	 * Callback to `gform_validation_message`.
+	 *
+	 * @since 4.1
+	 *
+	 * @param string $validation_message The validation message.
+	 * @param array  $form               The form data.
+	 *
+	 * @return string
+	 */
+	public function stripe_general_validation_error_message( $validation_message = '', $form = array() ) {
+		$message = $this->get_authorization_error_message();
 
-		return $message;
+		if ( ! $message ) {
+			return esc_html__( 'There was a problem with your submission. Please try again later.', 'gravityformsstripe' );
+		}
+
+		return $this->get_validation_error_markup(
+			esc_html__( 'There was a problem with your submission:', 'gravityformsstripe' ) . ' ' . $message,
+			$form
+		);
 	}
 
 	// # STRIPE TRANSACTIONS -------------------------------------------------------------------------------------------
@@ -2774,16 +2873,16 @@ class GFStripe extends GFPaymentAddOn {
 			if ( is_wp_error( $result ) ) {
 				$this->log_error( __METHOD__ . '(): ' . $result->get_error_message() );
 
-				return $this->authorization_error( '<span class="requires_payment_method">' . $result->get_error_message() . '</span>' );
+				return $this->authorization_error( $result->get_error_message() );
 			}
 
 			// if status = requires_action, return validation error so we can do dynamic authentication on the front end.
 			if ( $result->status === 'requires_action' ) {
-				$error = $this->authorization_error( '<span class="requires_action">' . esc_html__( '3D Secure authentication is required for this payment. Following the instructions on the page to move forward.', 'gravityformsstripe' ) . '</span>' );
+				$error = $this->authorization_error( esc_html__( '3D Secure authentication is required for this payment. Following the instructions on the page to move forward.', 'gravityformsstripe' ) );
 
 				return array_merge( $error, array( 'requires_action' => true ) );
 			} elseif ( $result->status === 'requires_payment_method' ) {
-				return $this->authorization_error( '<span class="requires_payment_method">' . esc_html__( 'Your payment attempt has failed. Please enter your card details and try again.', 'gravityformsstripe' ) . '</span>' );
+				return $this->authorization_error( esc_html__( 'Your payment attempt has failed. Please enter your card details and try again.', 'gravityformsstripe' ) );
 			} elseif ( $result->status === 'canceled' ) {
 				return $this->authorization_error( esc_html__( 'The payment has been canceled', 'gravityformsstripe' ) );
 			} else {
@@ -2852,6 +2951,17 @@ class GFStripe extends GFPaymentAddOn {
 		}
 
 		return array( 'error_message' => $error_message, 'is_success' => false, 'is_authorized' => false );
+	}
+
+	/**
+	 * Get the authorization error message from the authorization array.
+	 *
+	 * @since 4.1
+	 *
+	 * @return string
+	 */
+	protected function get_authorization_error_message() {
+		return rgar( $this->authorization, 'error_message', '' );
 	}
 
 	/**
@@ -3159,34 +3269,159 @@ class GFStripe extends GFPaymentAddOn {
 			return parent::get_validation_result( $validation_result, $authorization_result );
 		}
 
-		$credit_card_page   = 0;
-		$has_error_cc_field = false;
-		foreach ( $validation_result['form']['fields'] as &$field ) {
-			if ( $field->type === 'creditcard' || $field->type === 'stripe_creditcard' ) {
-				if ( $field->type === 'stripe_creditcard' && ( rgar( $authorization_result, 'requires_action' ) || rgars( $authorization_result, 'subscription/requires_action' ) ) ) {
-					$has_error_cc_field = true;
-					$credit_card_page   = ( GFCommon::has_pages( $validation_result['form'] ) ) ? GFFormDisplay::get_max_page_number( $validation_result['form'] ) : $field->pageNumber;
-					// Add SCA requires extra action message.
-					add_filter( 'gform_validation_message', array( $this, 'stripe_elements_requires_action_message' ) );
-				} else {
-					$has_error_cc_field        = true;
-					$field->failed_validation  = true;
-					$field->validation_message = $authorization_result['error_message'];
-					$credit_card_page          = $field->pageNumber;
-				}
-				break;
+		$credit_card_field = array_filter(
+			rgars( $validation_result, 'form/fields' ),
+			function( $field ) {
+				return in_array( $field->type, array( 'creditcard', 'stripe_creditcard' ), true );
 			}
+		);
+
+		if ( $this->is_stripe_checkout_enabled() && empty( $credit_card_field ) ) {
+			return $this->get_stripe_checkout_validation_result( $validation_result );
 		}
 
-		if ( ! $has_error_cc_field && $this->is_stripe_checkout_enabled() ) {
-			$credit_card_page = GFFormDisplay::get_max_page_number( $validation_result['form'] );
-			add_filter( 'gform_validation_message', array( $this, 'stripe_checkout_error_message' ) );
-		}
+		$field_index = $this->get_first_array_key( $credit_card_field );
 
-		$validation_result['credit_card_page'] = $credit_card_page;
-		$validation_result['is_valid']         = false;
+		return $this->get_credit_card_field_validation_result(
+			rgar( $credit_card_field, $field_index ),
+			$field_index,
+			$validation_result
+		);
+	}
+
+	/**
+	 * Gets the first key from an array.
+	 *
+	 * The reset method updates the pointer to the first element, and key fetches the index element in the first position.
+	 *
+	 * Once PHP 7+ is the minimum version, we can replace any calls of this method with array_key_first.
+	 *
+	 * @see https://www.php.net/manual/en/function.reset.php
+	 *
+	 * @param array $array The array we'd like the first key from.
+	 *
+	 * @return int|string|null
+	 */
+	private function get_first_array_key( array $array ) {
+		reset( $array );
+
+		return key( $array );
+	}
+
+	/**
+	 * Updates the validation result with the changes made to the field following validation.
+	 *
+	 * @param GF_Field   $field             The modified field.
+	 * @param string|int $field_index       The array index of the field within the form array.
+	 * @param array      $validation_result The result of the validation.
+	 *
+	 * @return array
+	 */
+	private function apply_field_validation_changes_to_result( $field, $field_index, $validation_result ) {
+		$validation_result['form']['fields'][ $field_index ] = $field;
 
 		return $validation_result;
+	}
+
+	/**
+	 * Determines whether the authorization requires action.
+	 *
+	 * @since 4.1
+	 *
+	 * @param GF_Field_Stripe_CreditCard $field                The Stripe credit card field.
+	 * @param array                      $authorization_result The authorization result.
+	 *
+	 * @return bool
+	 */
+	private function stripe_authorization_requires_action( $field, $authorization_result ) {
+		return (
+			$field->type === 'stripe_creditcard'
+			&& ( rgar( $authorization_result, 'requires_action' ) || rgars( $authorization_result, 'subscription/requires_action' ) )
+		);
+	}
+
+	/**
+	 * Get the validation result for Stripe Checkout.
+	 *
+	 * @since 4.1
+	 *
+	 * @see   GFStripe::get_validation_result()
+	 *
+	 * @param array $validation_result The validation result data.
+	 *
+	 * @return array
+	 */
+	private function get_stripe_checkout_validation_result( $validation_result ) {
+		$this->filter_validation_message( 'stripe_checkout' );
+
+		return array_merge(
+			$validation_result,
+			array(
+				'is_valid'         => false,
+				'credit_card_page' => GFFormDisplay::get_max_page_number( $validation_result['form'] ),
+			)
+		);
+	}
+
+	/**
+	 * Get the validation result when the validation is for a credit card field for Stripe.
+	 *
+	 * @since 4.1
+	 *
+	 * @see   GFStripe::get_validation_result()
+	 *
+	 * @param GF_Field   $credit_card_field The credit card field.
+	 * @param string|int $field_index       The index of the field in the form array.
+	 * @param array      $validation_result The validation result.
+	 *
+	 * @return array
+	 */
+	private function get_credit_card_field_validation_result( $credit_card_field, $field_index, $validation_result ) {
+		if ( $this->stripe_authorization_requires_action( $credit_card_field, $this->authorization ) ) {
+			return $this->get_credit_card_requires_action_result( $credit_card_field, $field_index, $validation_result );
+		}
+
+		$credit_card_field->failed_validation  = true;
+		$credit_card_field->validation_message = $this->get_authorization_error_message();
+		$credit_card_page                      = $credit_card_field->pageNumber;
+
+		$this->filter_validation_message();
+
+		return array_merge(
+			$this->apply_field_validation_changes_to_result( $credit_card_field, $field_index, $validation_result ),
+			array(
+				'is_valid'         => false,
+				'credit_card_page' => $credit_card_page,
+			)
+		);
+	}
+
+	/**
+	 * Gets the validation result when Stripe authorization requires action.
+	 *
+	 * @since 4.1
+	 *
+	 * @param GF_Field_Stripe_CreditCard $credit_card_field The Stripe credit card field.
+	 * @param string|int                 $field_index       The index of the field in the form array.
+	 * @param array                      $validation_result The validation result.
+	 *
+	 * @return array
+	 */
+	private function get_credit_card_requires_action_result( $credit_card_field, $field_index, $validation_result ) {
+		$credit_card_page = ( GFCommon::has_pages( rgar( $validation_result, 'form' ) ) )
+			? GFFormDisplay::get_max_page_number( $validation_result['form'] )
+			: $credit_card_field->pageNumber;
+
+		// Add SCA requires extra action message.
+		$this->filter_validation_message( 'stripe_elements' );
+
+		return array_merge(
+			$this->apply_field_validation_changes_to_result( $credit_card_field, $field_index, $validation_result ),
+			array(
+				'is_valid'         => false,
+				'credit_card_page' => $credit_card_page,
+			)
+		);
 	}
 
 	/**
@@ -3587,7 +3822,7 @@ class GFStripe extends GFPaymentAddOn {
 
 						return $this->authorization_error( $result->get_error_message() );
 					} else {
-						return $this->authorization_error( '<span class="requires_payment_method">' . esc_html__( 'Your payment attempt has failed. Please enter your card details and try again.', 'gravityformsstripe' ) . '</span>' );
+						return $this->authorization_error( esc_html__( 'Your payment attempt has failed. Please enter your card details and try again.', 'gravityformsstripe' ) );
 					}
 				}
 			}
@@ -4108,6 +4343,7 @@ class GFStripe extends GFPaymentAddOn {
 	 * Compares stripe plan object properties with feed properties to make sure this is the correct plan for this feed.
 	 *
 	 * @since 3.7.2
+	 * @since 4.1   Updated to validate the plan and parent product are active.
 	 *
 	 * @param \Stripe\Plan  $plan              The retrieved stripe plan object.
 	 * @param array         $feed              The feed object currently being processed.
@@ -4118,7 +4354,9 @@ class GFStripe extends GFPaymentAddOn {
 	 */
 	public function is_plan_for_feed( $plan, $feed, $payment_amount, $currency ) {
 		return (
-			$plan->amount === $this->get_amount_export( $payment_amount, $currency )
+			$plan->active
+			&& $plan->product->active
+			&& $plan->amount === $this->get_amount_export( $payment_amount, $currency )
 			&& strtolower( $plan->currency ) === strtolower( $currency )
 			&& $plan->interval === $feed['meta']['billingCycle_unit']
 			&& $plan->interval_count === intval( $feed['meta']['billingCycle_length'] )
@@ -4290,7 +4528,7 @@ class GFStripe extends GFPaymentAddOn {
 			$stripe_response = $this->get_stripe_js_response();
 
 			if ( rgar( $payment_intent, 'status' ) === 'requires_payment_method' ) {
-				return $this->authorization_error( '<span class="requires_payment_method">' . esc_html__( 'Your payment attempt has failed. Please enter your card details and try again.', 'gravityformsstripe' ) . '</span>' );
+				return $this->authorization_error( esc_html__( 'Your payment attempt has failed. Please enter your card details and try again.', 'gravityformsstripe' ) );
 			} elseif ( rgar( $payment_intent, 'status' ) === 'requires_action' ) {
 				$_POST['stripe_response'] = json_encode(
 					array(
@@ -4301,7 +4539,7 @@ class GFStripe extends GFPaymentAddOn {
 					)
 				);
 
-				$error = $this->authorization_error( '<span class="requires_action">' . esc_html__( '3D Secure authentication is required for this payment. Following the instructions on the page to move forward.', 'gravityformsstripe' ) . '</span>' );
+				$error = $this->authorization_error( esc_html__( '3D Secure authentication is required for this payment. Following the instructions on the page to move forward.', 'gravityformsstripe' ) );
 
 				return array_merge( $error, array( 'requires_action' => true ) );
 			}

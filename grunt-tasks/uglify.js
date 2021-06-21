@@ -12,6 +12,7 @@ module.exports = function (distTheme, devTheme, jsDir) {
 		devTheme + jsDir + 'plugins/draggable.js',
 		devTheme + jsDir + 'plugins/headroom.js',
 		devTheme + jsDir + 'plugins/pca.js',
+		devTheme + jsDir + 'plugins/flexslider.js',
 		devTheme + jsDir + 'scripts.js',
 
 	];
@@ -42,10 +43,6 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 
 	];
-
-
-
-
 
 
 

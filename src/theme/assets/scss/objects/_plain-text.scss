@@ -1,0 +1,70 @@
+/*
+*
+* _PLAIN-TEXT.SCSS
+*
+*/
+
+.plain-text {
+	grid-column: col1 / col12-end;
+	padding:0 40px;
+	&--in-color-block {
+		padding:40px;
+	}
+	&--margin-bottom {
+		margin-bottom: 5em;
+	}
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.plain-text {
+	text-align: center;
+	grid-column: col3 / col11;
+	padding: 0;
+	&__thinner {
+		max-width: 25em;
+		margin:0 auto;
+	}
+	&--in-color-block {
+		padding: 6em 0;	
+	}
+}
+
+}
+
+// desktop large
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+
+.plain-text {
+	&--in-color-block {
+		padding: 6em;	
+	}
+	&--margin-bottom {
+		margin-bottom: 10em;
+	}
+}
+
+}
+
+
+// desktop large
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopExtraLarge) {
+
+.plain-text {
+	grid-column: col4 / col10;
+	&--in-color-block {
+		padding: 6em;	
+	}
+	&--margin-bottom {
+		margin-bottom: 10em;
+	}
+}
+
+}

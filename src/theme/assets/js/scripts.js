@@ -2,8 +2,6 @@
 
 jQuery(document).ready(function($) {
 
-
-
     //Drop down questions
     $('.dropdown').click(function() {
         $(this).find(".answer").slideDown();
@@ -41,13 +39,34 @@ jQuery(document).ready(function($) {
         }
     });
 
+    // autoplay bootstrap modal video
+    var $videoSrc;
+    var $frame = $(".video");
+    $('.video-trigger').click(function() {
+        $videoSrc = $(this).data( "src" );
+        console.log($videoSrc);
+        $frame.attr('src', $videoSrc + "?autoplay=1");
+    });
+
+    $('.modal').on('hidden.bs.modal', function(e) {
+        // sets the source to nothing, stopping the video
+        $frame.attr('src', '');
+    })
+
+
+    //reference modal text 
+    var $text;
+    $('.reference__symbol').click(function() {
+        $text = $(this).data( "text" );
+        $(".modal__text").html($text);
+    });
 
 }); /* end of as page load scripts */
 
 
-//Address search
-
+//gravity forms on render
 jQuery(document).on('gform_post_render', function(event, form_id, current_page){
+
 
     //modify field name to 'search' on gravity forms if class exists
     jQuery(".address-search input").attr("name","search");
@@ -62,7 +81,7 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
         jQuery(this).val("");
     });
 
-    //global postcode anywhere with regex matching
+    //postcode anywhere with regex matching
     var e = {
         key: "DN97-JG93-ZJ46-EW48" //PCA API key
     },
@@ -93,11 +112,12 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
     }],
     o = new pca.Address(d, e);
     o.listen("populate", function() {
-    //alert("yes");
-    jQuery(".address-search input").val(jQuery(".address_line_1 input").val() + "...");
+        jQuery(".address-search input").val(jQuery(".address_line_1 input").val() + "...");
     }), o.load()
 
 });
+
+
 
 /* Window load scripts */
 (function($) {
@@ -168,9 +188,31 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
             }
         });
 
+        //flexslider
+        $('.flexslider-text').flexslider({
+            animation: "fade",
+            //slideshow: true,
+            animationLoop: true,
+            directionNav: false,
+            controlNav: false,
+            video: false,
+            pauseOnHover: true,
+            slideshowSpeed: 6000,
+            animationSpeed: 300, 
+            //smoothHeight: true,
+        });
+
+        //custom next/prev 
+        /* will need to be more specific if
+        multiple sliders are on one page */
+        $('.text-slider__prev, .text-slider__next').on('click', function(){
+            var href = $(this).attr('href');
+            $('.flexslider-text').flexslider(href)
+            return false;
+        })
 
 
-	}); /* end of as page load scripts */
+	}); /* end of on widow load*/
 
 })(jQuery);
 

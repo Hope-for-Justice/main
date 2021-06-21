@@ -179,7 +179,7 @@ class GF_Stripe_API {
 	 */
 	public function get_plan( $id ) {
 		try {
-			return \Stripe\Plan::retrieve( $id );
+			return \Stripe\Plan::retrieve( array( 'id' => $id, 'expand' => array( 'product' ) ) );
 		} catch ( \Exception $e ) {
 			/**
 			 * There is no error type specific to failing to retrieve a subscription when an invalid plan ID is passed. We assume here

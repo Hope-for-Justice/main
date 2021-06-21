@@ -1,0 +1,53 @@
+/*
+*
+* _FORM-PAGE.SCSS
+*
+*/
+
+.form-page{
+	&__header {
+		grid-column: col2 / col12;
+		padding: 2em 0;
+	}
+	&__title {
+		font-size: 2.8em;
+	}
+	&__content {
+		margin-top: 3em;
+		margin-bottom: 5em;
+		grid-column: col2/ col12;
+	}
+}
+
+// desktop 
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.form-page{
+	&__header {
+		padding: 4em 0;
+	}
+	&__content {
+		grid-column: col2/ col8;
+		margin-top: 5em;
+		margin-bottom: 8em;
+	}
+}
+
+
+}
+
+// wide
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: wide) {
+
+.form-page{
+	&__content {
+		grid-column: col2/ col6;
+	}
+}
+
+
+}

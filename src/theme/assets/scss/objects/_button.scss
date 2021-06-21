@@ -82,13 +82,12 @@ input[type="button"], input[type="submit"] {
 
 }
 
-// desktop
+// desktop Large
 ///////////////////////////////////////////////////////////////////////////////
 
 @include mq($from: desktopLarge) {
 
 .button {
-	font-size: 2.4em;
 	&--nav {
 		font-size: 1.8em;
 	}
@@ -98,16 +97,16 @@ input[type="button"], input[type="submit"] {
 
 
 
-// // extra wide
+// wide
 // ///////////////////////////////////////////////////////////////////////////////
 
-// @include mq($from: extraWide) {
+@include mq($from: wide) {
 
-// .button {
-// 	font-size: 3em;
-// 	&--nav {
-// 		font-size: 1.8em;
-// 	}
-// }
+.button {
+	font-size: 2.2em;
+	&--nav {
+		font-size: 1.8em;
+	}
+}
 
-// }
+}

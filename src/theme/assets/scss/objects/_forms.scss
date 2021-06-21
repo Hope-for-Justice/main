@@ -15,11 +15,11 @@ input[type="color"], textarea, select {
 	border-radius: 77px;
 	padding: 1em 1.5em;
 	font-size:1.6em;
-	border:none;
+	border:1px solid $fields-border;
 	font-family: 'apercu-bold';
   width:100%;
   color: $battleship-grey;
-  background-color: white;
+  background-color: $white;
   &::-webkit-input-placeholder {
     color: $battleship-grey;
     opacity: 0.5;
@@ -43,8 +43,11 @@ fieldset {
   &__heading {
     font-size: 5.2em;
     margin-top: 0.2em;
+    line-height: 1;
   }
 }
+
+.form__heading--no-margin {margin:0;}
 
 .gfield_label, .gfield_description {
   display: block;
@@ -66,7 +69,7 @@ fieldset {
 }
 
 .gfield_visibility_hidden, .hidden_label label,
-.hidden_label legend, .gf_amount, .admin-hidden-markup, .gform_validation_container {
+.hidden_label legend, .admin-hidden-markup, .gform_validation_container {
   display:none;
 }
 
@@ -103,7 +106,13 @@ fieldset {
 .gfield_html p{
   font-size: 1.2em;
   margin-left: 1.7em;
+  margin-right: 1.7em;
 }
+
+//hide amount
+ .gf-hidden-amount 
+ {visibility:hidden; height:0;} //using display:none breaks stripe
+
 
 // input extras 
 .input--pre-pound, .input--pre-dollar {
@@ -177,7 +186,7 @@ fieldset {
     font-size: 8.2em;
   }
   &__desc {
-    max-width: 60%;
+    max-width: 28em;
   }
   &__text {
     align-items: center;
@@ -201,6 +210,18 @@ fieldset {
 
 .gfield_html p{
   max-width: 70%;
+}
+
+}
+
+// desktop xl
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopExtraLarge) {
+
+.form {
+  &__heading {
+    font-size: 10em;
+  }
 }
 
 }

@@ -1,0 +1,22 @@
+/*
+*
+* _REFERENCE.SCSS
+*
+*/
+
+.reference__symbol {
+	font-family: canela-medium;
+    background-color: #FFC845;
+    border-radius: 100%;
+    color: white;
+    width: 20px;
+    height: 20px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 3px;
+    padding-left: 1px;
+    display: inline-flex;
+    font-size: 16px;
+    font-weight: 300;
+    &:hover {cursor:pointer;}
+}
