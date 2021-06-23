@@ -136,9 +136,16 @@ wp_reset_query();  // Restore global post data stomped by the_post().
       while ($query->have_posts()) : $query->the_post(); ?>
 	<div class="col-lg-4 col-md-6 mb-5 col-news category_<?php echo $video_category->term_id; ?>" >
 		<div class="card" >
-		<img src="<?php echo get_template_directory_uri() . '/assets/img/play.svg'; ?>"  class="play-button-news" data-id="<?php echo get_the_id(); ?>">
+			<?php 
+			$iframe = get_field('upload_video',false, false);
+
+			$vimeo = explode('/',$iframe);
+			$viemo_id = end($vimeo);
+			
+			?>
+		<img src="<?php echo get_template_directory_uri() . '/assets/img/play.svg'; ?>"  class="play-button-news" data-src="https://player.vimeo.com/video/<?php echo @$viemo_id;?>" data-id="#video-modal-<?php echo get_the_id(); ?>">
 		
-		  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid play-button-newss" data-id="<?php echo get_the_id(); ?>">
+		  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid play-button-newss" data-src="https://player.vimeo.com/video/<?php echo @$viemo_id;?>" data-id="#video-modal-<?php echo get_the_id(); ?>">
 		
 		  <div class="card-body">
 		    <div class="card-text"> 
