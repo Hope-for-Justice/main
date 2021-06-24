@@ -21,6 +21,9 @@
 		&--center-center {
 			background-position: center center;
 		}
+		&--top-center {
+			background-position: top center;
+		}
 	}
 	&__content {
 		width:100%;
@@ -42,13 +45,6 @@
 	&__content {
 		padding:4em;
 	}
-	&__sub-heading {
-		//font-size: 1.8em;
-		margin-bottom: 2em;
-	}
-	&__main-heading {
-		//font-size: 4.1em;
-	}
 	&__desc {
 		//font-size: 1.8em;
 	}
@@ -62,11 +58,7 @@
 
 @include mq($from: mobileLarge) {
 
-.hero-split {
-	&__main-heading {
-		//font-size: 4.8em;
-	}
-}
+
 
 }
 
@@ -82,12 +74,6 @@
 	&__content {
 		padding:6.7em 12em;
 		text-align: center;
-	}
-	&__sub-heading {
-		margin-bottom: 2em;
-	}
-	&__main-heading {
-		//font-size: 5.4em;
 	}
 	&__desc {
 		margin-bottom: 2.5em;
@@ -141,9 +127,6 @@
 @include mq($from: desktopLarge) {
 
 .hero-split {
-	&__main-heading {
-		//font-size: 6.8em;
-	}
 	&__smaller-main-heading {
 		max-width:80%;
 		margin:0 auto 1.5em;
@@ -158,11 +141,7 @@
 
 @include mq($from: desktopExtraLarge) {
 
-.hero-split {
-	&__main-heading {
-		//font-size: 7em;
-	}
-}
+
 
 }
 
@@ -171,11 +150,7 @@
 
 @include mq($from: wide) {
 
-// .hero-split {
-// 	&__main-heading {
-// 		font-size: 7em;
-// 	}
-// }
+
 
 }
 
@@ -184,16 +159,6 @@
 
 @include mq($from: extraWide) {
 
-.hero-split {
-	&__sub-heading {
-		//font-size: 2.4em;
-	}
-	&__main-heading {
-		//font-size: 9em;
-	}
-	&__desc {
-		//font-size: 2.4em;
-	}
-}
+
 
 }

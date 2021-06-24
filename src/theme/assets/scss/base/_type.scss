@@ -53,7 +53,7 @@ h2 {
 }
 
 h3 {
-	//font-size: 1.4em;
+	font-size: 1.4em;
 	text-transform: uppercase;
 	margin-bottom: 1.4em;
 	letter-spacing: 2px;
@@ -70,14 +70,31 @@ p {
 
 @include mq($from: mobileMedium) {
 
+h1 {
+	font-size: 4.1em;
 }
 
+}
+
+// mobile large
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: mobileLarge) {
+
+h1 {
+	font-size: 4.8em;
+}
+
+}
 
 // tablet
 ///////////////////////////////////////////////////////////////////////////
 
 @include mq($from: tablet) {
 
+h1 {
+	font-size: 5.4em;
+}
 
 h2 {
 	font-size: 4em; 
@@ -99,11 +116,6 @@ h2 {
 	font-size: 4em; 
 }
 
-
-// .desktop-break {
-// 	display:block;
-// }
-
 }
 
 
@@ -112,10 +124,18 @@ h2 {
 
 @include mq($from: desktopExtraLarge) {
 
+h1 {
+	font-size: 6.8em;
+	margin-bottom: 0.3em;
+}
+
 h2 {
 	font-size: 5em; 
 }
 
+h3 {
+	font-size: 1.6em;
+}
 
 // .desktop-break {
 // 	display:block;

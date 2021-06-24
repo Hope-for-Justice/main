@@ -35,10 +35,10 @@ get_header();
 
 			<div class="hero-split__content">
 				<div class="hero-split__content-inner">
-					<h3 class="hero-split__sub-heading">
+					<h3>
 						Our Mission
 					</h3>
-					<h1 class="hero-split__main-heading">
+					<h1 class="font-canela">
 						End Slavery.<br>
 						Change Lives.
 					</h1>
