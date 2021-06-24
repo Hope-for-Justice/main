@@ -93,7 +93,7 @@ function hope_for_justice_2021_scripts() {
 	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202107' );
 
 	wp_enqueue_script('jquery'); 
-	wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202107', true );
+	// wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202107', true );
 
 
     wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202107', true );
@@ -229,7 +229,7 @@ function news_page_scripts() {
 	global $wp_styles;
 	if (is_page_template('category-news-template.php') || is_category('blogs_and_opinion_editorials') || is_category('top_news') || is_category('videos') || is_single() || is_category('in_the_headlines') || is_page('search-news-results')){
 		// style files
-		wp_deregister_script('justice-bootstrap');
+		//wp_deregister_script('justice-bootstrap');
 		wp_enqueue_style( 'bootstrap-css', get_template_directory_uri() . '/assets/css/bootstrap.css' );
 		
 		
@@ -237,8 +237,8 @@ function news_page_scripts() {
 	
 		wp_enqueue_style( 'news-page-css', get_template_directory_uri() . '/assets/css/news-page.css' );
 		// js files
-		wp_enqueue_script( 'popper-js', get_template_directory_uri() . '/assets/js/popper.min.js', ['jquery-core'] );
-		wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/assets/js/bootstrap.min.js', ['jquery-core'] );
+		// wp_enqueue_script( 'popper-js', get_template_directory_uri() . '/assets/js/popper.min.js', ['jquery-core'] );
+		// wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/assets/js/bootstrap.min.js', ['jquery-core'] );
 		
 		wp_enqueue_script( 'news-page-js', get_template_directory_uri() . '/assets/js/news-page.js', ['jquery-core'] );
 		wp_localize_script('news-page-js', 'ajax_object', array(
@@ -353,16 +353,16 @@ add_filter( 'gform_confirmation_anchor', function() {
 } );
 
 
-function modal_function_show() {
-    echo '<div class="modal modal--video fade" id="" tabindex="-1" role="dialog" aria-hidden="false">
-          <div class="modal__dialog modal__dialog--video">
-                <div class="modal__content modal__content--video video-container">
-                    <iframe class="video" src="" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+// function modal_function_show() {
+//     echo '<div class="modal modal--video fade" id="" tabindex="-1" role="dialog" aria-hidden="false">
+//           <div class="modal__dialog modal__dialog--video">
+//                 <div class="modal__content modal__content--video video-container">
+//                     <iframe class="video" src="" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
 
-                    <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--video">&times;<span class="accessibility">Close</span></a>
+//                     <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--video">&times;<span class="accessibility">Close</span></a>
 
-                </div>
-         </div>
-    </div>';
-}
-add_action( 'wp_footer', 'modal_function_show' );
+//                 </div>
+//          </div>
+//     </div>';
+// }
+// add_action( 'wp_footer', 'modal_function_show' );

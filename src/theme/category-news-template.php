@@ -143,9 +143,9 @@ wp_reset_query();  // Restore global post data stomped by the_post().
 			$viemo_id = end($vimeo);
 			
 			?>
-		<img src="<?php echo get_template_directory_uri() . '/assets/img/play.svg'; ?>"  class="play-button-news" data-src="https://player.vimeo.com/video/<?php echo @$viemo_id;?>" data-id="#video-modal-<?php echo get_the_id(); ?>">
+		<img src="<?php echo get_template_directory_uri() . '/assets/img/play.svg'; ?>"  class="play-button-news video-trigger" data-src="https://player.vimeo.com/video/<?php echo @$viemo_id;?>" data-toggle="modal" data-target="#video-modal">
 		
-		  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid play-button-newss" data-src="https://player.vimeo.com/video/<?php echo @$viemo_id;?>" data-id="#video-modal-<?php echo get_the_id(); ?>">
+		  <img src="<?php echo get_the_post_thumbnail_url(); ?>">
 		
 		  <div class="card-body">
 		    <div class="card-text"> 
@@ -160,9 +160,7 @@ wp_reset_query();  // Restore global post data stomped by the_post().
 		  </div>
 		</div>
 	</div>
-
-      	
-       
+      
        
       
      
@@ -342,5 +340,20 @@ wp_reset_query();  // Restore global post data stomped by the_post().
 wp_reset_query();  // Restore global post data stomped by the_post().
 ?>
 </div>
+
+<!-- 
+-- 
+-- video modal
+-- 
+--> 
+<?php get_template_part(
+    'partials/content',
+    'modal',
+    array(
+        'type' => 'video',
+        'id' => 'video-modal'
+    )
+); ?> 
+
 <?php
 get_footer();

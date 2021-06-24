@@ -60,29 +60,29 @@ jQuery(document).ready(function($) {
 
   // });
 
-  var $videoSrc;
-  var $frame = $(".video");
-  var target;
-   $(document).on('click','.play-button-news, .play-button-newss',function() {
+  // var $videoSrc;
+  // var $frame = $(".video");
+  // var target;
+  //  $(document).on('click','.play-button-news, .play-button-newss',function() {
 
-    target = $(this).data('id');
+  //   target = $(this).data('id');
    
-    $videoSrc = $(this).data( "src" );
-    $frame = $(".video");
-    $('.modal--video').attr('id',target.substring(1));
-    $frame.attr('src', $videoSrc + "?autoplay=1");
-    $(target).css('display','block');
-    $(target).modal('show');
-    $(".modal-backdrop.show").show();
+  //   $videoSrc = $(this).data( "src" );
+  //   $frame = $(".video");
+  //   $('.modal--video').attr('id',target.substring(1));
+  //   $frame.attr('src', $videoSrc + "?autoplay=1");
+  //   $(target).css('display','block');
+  //   $(target).modal('show');
+  //   $(".modal-backdrop.show").show();
 
-  });
-  $(document).on('click','.modal__close',function() {
+  // });
+  // $(document).on('click','.modal__close',function() {
    
-    $(target).modal('hide');
-    $(target).css('display','none');
-    $frame.attr('src', '');
-     $(".modal-backdrop.show").hide();
-  });
+  //   $(target).modal('hide');
+  //   $(target).css('display','none');
+  //   $frame.attr('src', '');
+  //    $(".modal-backdrop.show").hide();
+  // });
 
  
   $(document).on('keypress','',function(e){
@@ -102,36 +102,36 @@ jQuery(document).ready(function($) {
  
 });
 
-function modal(header, body, footer, size, center, callback,classes) {
-  header = header !== undefined ? header : 'Modal header';
-  body = body !== undefined ? body : 'Modal body';
-  footer = footer !== undefined ? footer : 'Modal footer';
-  center = center !== undefined ? 'modal-dialog-centered' : '';
-  size = size !== undefined ? size : '';
-  classes = classes !== undefined ? classes : '';
-  let closeBtn = `<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>`;
-  let $modalId = new Date().getSeconds();
-  let $modal = `<div class="modal fade ${classes}" tabindex="-1" role="dialog" id="modal-${$modalId}">
-    <div class="modal-dialog ${center} ${size}" role="document">
-      <div class="modal-content border-orange">
-        <div class="custom_modal modal-header">
-          ${header}${closeBtn}
-        </div>
-        <div class="custom_modal modal-body">
-          ${body}
-        </div>
+// function modal(header, body, footer, size, center, callback,classes) {
+//   header = header !== undefined ? header : 'Modal header';
+//   body = body !== undefined ? body : 'Modal body';
+//   footer = footer !== undefined ? footer : 'Modal footer';
+//   center = center !== undefined ? 'modal-dialog-centered' : '';
+//   size = size !== undefined ? size : '';
+//   classes = classes !== undefined ? classes : '';
+//   let closeBtn = `<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>`;
+//   let $modalId = new Date().getSeconds();
+//   let $modal = `<div class="modal fade ${classes}" tabindex="-1" role="dialog" id="modal-${$modalId}">
+//     <div class="modal-dialog ${center} ${size}" role="document">
+//       <div class="modal-content border-orange">
+//         <div class="custom_modal modal-header">
+//           ${header}${closeBtn}
+//         </div>
+//         <div class="custom_modal modal-body">
+//           ${body}
+//         </div>
        
-      </div>
-    </div>
-  </div>`;
+//       </div>
+//     </div>
+//   </div>`;
 
-  jQuery(document.body).append($modal);
-  jQuery('#modal-'+$modalId).modal('show');
+//   jQuery(document.body).append($modal);
+//   jQuery('#modal-'+$modalId).modal('show');
 
-  jQuery(document).on('hidden.bs.modal', '#modal-'+$modalId, function(e) {
-    jQuery('#modal-'+$modalId).remove();
-  });
-  if (callback !== undefined && typeof callback == 'function') {
-    return callback('modal-'+$modalId);
-  }
-}
+//   jQuery(document).on('hidden.bs.modal', '#modal-'+$modalId, function(e) {
+//     jQuery('#modal-'+$modalId).remove();
+//   });
+//   if (callback !== undefined && typeof callback == 'function') {
+//     return callback('modal-'+$modalId);
+//   }
+// }

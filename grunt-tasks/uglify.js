@@ -2,16 +2,16 @@ module.exports = function (distTheme, devTheme, jsDir) {
 	var uglifyFilesObject = {};
 
 
-	uglifyFilesObject[distTheme + jsDir + 'bootstrap.modal.js'] = [
+	// uglifyFilesObject[distTheme + jsDir + 'bootstrap.modal.js'] = [
 
-		devTheme + jsDir + 'plugins/bootstrap.modal.js',
+		
 
 
-	];
+	// ];
 
 	uglifyFilesObject[distTheme + jsDir + 'footer.js'] = [
 		// plugins
-		
+		devTheme + jsDir + 'plugins/bootstrap.modal.js',
 		devTheme + jsDir + 'plugins/utm-tracking.js',
 		devTheme + jsDir + 'plugins/newsticker.js',
 		devTheme + jsDir + 'plugins/lottie.js',
