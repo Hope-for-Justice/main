@@ -1,12 +1,14 @@
 <?php
+
+/**
+ * Template Name: All Categories
+ */
+
 get_header();
-$categories = get_the_category();
-$category_id = $categories[0]->cat_ID;
-$category_name = $categories[0]->name;
+
   $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 
   $args= [
-    "cat" => $category_id,
     'post_type' => 'post',
     'post_status' => 'publish',
     'posts_per_page' => 9,
@@ -23,7 +25,7 @@ $category_name = $categories[0]->name;
 <div class="container news-page">
 	<div class="row align-items-center" >
 		<div class="col-md-4 mt-5 mb-3 col-news">
-			<h1 class="archive_example title_category_<?php echo $category_id; ?>" >
+			<h1 class="archive_example title_category_4>" >
 				ARCHIVE EXAMPLE
 			</h1>
 		</div>
@@ -93,6 +95,12 @@ $category_name = $categories[0]->name;
     		<?php 
 
       while ($query->have_posts()) : $query->the_post(); ?>
+      	<?php 
+      	$categories = get_the_terms( $query->ID, 'category',true );
+
+
+      	$category_id = $categories[0]->term_id; ?>
+      	<?php if($category_id != 6 && $category_id != 7) {?>
 			<div class="col-lg-4 col-news col-md-6 mb-5 category_<?php echo $category_id; ?>" >
 				<div class="card" >
 				
@@ -110,10 +118,47 @@ $category_name = $categories[0]->name;
 				  </div>
 				</div>
 			</div>
+		<?php } elseif($category_id == 6) { ?>	
+			<div class="col-lg-4 col-md-6 mb-5 col-news category_<?php echo $category_id; ?>" >
+					<div class="mb-5 category_<?php echo $category_id; ?>" >
+						<div class="card" >
+						
+						  <div class="card-body">
+						    <div class="card-text"> 
+						    	
+						    	
+								<p class="date-text"><?php echo get_the_date(); ?></p>
+								<h3><a href="javascript:void(0)" class="no-links"><?php the_title(); ?></a></h3>
+						    	<p class="text-para"><?php echo get_the_excerpt(); ?></p>
+						      <a href="<?php echo  $external_link;  ?>" class="stretched-link" target="_blank"></a>
+						    </div>
+						  </div>
+						</div>
+					</div>
 
-      	
-       
-       
+      	</div>
+
+		<?php } elseif($category_id == 7) {?>
+       	<div class="col-lg-4 col-md-6 col-news mb-5 category_<?php echo $category_id; ?>" >
+		<a href="<?php the_permalink() ?>">
+		<div class="card" >
+		
+		  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid">
+	
+		  <div class="card-body">
+		    <div class="card-text"> 
+		    	
+		    	
+
+				<h3><span  class="no-links"><?php the_title(); ?></span></h3>
+				<p class="date-text"><?php echo get_the_date(); ?></p>
+		   
+		    </div>
+		  </div>
+		</div>
+		</a>
+	</div>
+       <?php } ?>
       
      
        <?php

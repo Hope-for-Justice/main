@@ -2,11 +2,16 @@
 
 get_header();
 	$category_id = $_GET['category'];
+	if(isset($category_id) && !empty($category_id)) {
+		$args = [
+  	"cat" => $category_id
+  	];
+	}
 	
   $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 
   $args= [
-  	"cat" => $category_id,
+  	
     'post_type' => 'post',
    	
     'post_status' => 'publish',
@@ -69,6 +74,11 @@ get_header();
     		<?php 
 
       while ($query->have_posts()) : $query->the_post(); ?>
+      		<?php 
+      	$categories = get_the_terms( $query->ID, 'category',true );
+
+
+      	$category_id = $categories[0]->term_id; ?>
       	<?php if($category_id  == '4') {?>
 				<div class="col-lg-4 col-news col-md-6 mb-5 category_<?php echo $category_id; ?>" >
 					<div class="card" >

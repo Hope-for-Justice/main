@@ -25,57 +25,78 @@ jQuery(document).ready(function($) {
        
 
     });
-    // $(document).on('click','.play-button-news',function() {
-    //     let id = $(this).data('id');;
-    //    console.log(id);
-    //     modal('','loading','','modal-lg',false,function(modal_Id){
-    //         $.post(ajax_object.ajax_url, {action: 'ajax_news_video', id: id}).done(response => {
-    //             $('#'+modal_Id).find('.modal-body').html(response);
+    $('.owl-carousel').owlCarousel({
+    	loop:true,
+    	margin:10,
+    	responsiveClass:true,
+    	dots:true,
+    	responsive:{
+    		0:{
+    			items:1,
+    			
+    		},
+    		600:{
+    			items:2,
+    			
+    		},
+    		1000:{
+    			items:3,
+    		
+    			loop:true
+    		}
+    	}
+    })
+    $(document).on('click','.play-button-news',function() {
+        let id = $(this).data('id');;
+       console.log(id);
+        modal('','loading','','modal-lg',false,function(modal_Id){
+            $.post(ajax_object.ajax_url, {action: 'ajax_news_video', id: id}).done(response => {
+                $('#'+modal_Id).find('.modal-body').html(response);
 
-    //         });
+            });
             
-    //     },'modal_video_class');
+        },'modal_video_class');
 
 
-    // });
+    });
    
 });
 
-// function modal(header, body, footer, size, center, callback,classes) {
-//     header = header !== undefined ? header : 'Modal header';
-//     body = body !== undefined ? body : 'Modal body';
-//     footer = footer !== undefined ? footer : 'Modal footer';
-//     center = center !== undefined ? 'modal-dialog-centered' : '';
-//     size = size !== undefined ? size : '';
-//     classes = classes !== undefined ? classes : '';
+function modal(header, body, footer, size, center, callback,classes) {
+    header = header !== undefined ? header : 'Modal header';
+    body = body !== undefined ? body : 'Modal body';
+    footer = footer !== undefined ? footer : 'Modal footer';
+    center = center !== undefined ? 'modal-dialog-centered' : '';
+    size = size !== undefined ? size : '';
+    classes = classes !== undefined ? classes : '';
 
 
-//     let closeBtn = `<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>`;
+    let closeBtn = `<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>`;
 
-//     let $modalId = new Date().getSeconds();
-//     let $modal = `<div class="modal fade ${classes}" tabindex="-1" role="dialog" id="modal-${$modalId}">
-//       <div class="modal-dialog ${center} ${size}" role="document">
-//         <div class="modal-content border-orange">
-//           <div class="custom_modal modal-header">
-//             ${header}${closeBtn}
-//           </div>
-//           <div class="custom_modal modal-body">
-//             ${body}
-//           </div>
+    let $modalId = new Date().getSeconds();
+    let $modal = `<div class="modal fade ${classes}" tabindex="-1" role="dialog" id="modal-${$modalId}">
+      <div class="modal-dialog ${center} ${size}" role="document">
+        <div class="modal-content border-orange">
+          <div class="custom_modal modal-header">
+            ${header}${closeBtn}
+          </div>
+          <div class="custom_modal modal-body">
+            ${body}
+          </div>
          
-//         </div>
-//       </div>
-//     </div>`;
+        </div>
+      </div>
+    </div>`;
 
-//     jQuery(document.body).append($modal);
-//     jQuery('#modal-'+$modalId).modal('show');
+    jQuery(document.body).append($modal);
+    jQuery('#modal-'+$modalId).modal('show');
 
-//     jQuery(document).on('hidden.bs.modal', '#modal-'+$modalId, function(e) {
-//       jQuery('#modal-'+$modalId).remove();
-//     });
-//     if (callback !== undefined && typeof callback == 'function') {
-//       return callback('modal-'+$modalId);
-//     }
-// }
+    jQuery(document).on('hidden.bs.modal', '#modal-'+$modalId, function(e) {
+      jQuery('#modal-'+$modalId).remove();
+    });
+    if (callback !== undefined && typeof callback == 'function') {
+      return callback('modal-'+$modalId);
+    }
+}
 
 

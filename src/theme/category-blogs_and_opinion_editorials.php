@@ -34,6 +34,7 @@ $category_name = $categories[0]->name;
 	<select class="custom-category" onchange="location = this.value;">
 
 				<option disabled="disabled">Select Category</option>
+				<option value="<?php echo home_url().'/all-categories' ?>">All Categories</option>
 				<?php
 				$categories = get_categories();
 				foreach($categories as $category) {

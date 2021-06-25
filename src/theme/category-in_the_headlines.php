@@ -31,7 +31,9 @@ $query = new WP_Query($args);
 		<div class="col-md-4 mt-5 mb-3 col-news">
 			<select class="custom-category" onchange="location = this.value;">
 
+
 				<option disabled="disabled">Select Category</option>
+				<option value="<?php echo home_url().'/all-categories' ?>">All Categories</option>
 				<?php
 				$categories = get_categories();
 				foreach($categories as $category) {

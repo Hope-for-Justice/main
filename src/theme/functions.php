@@ -227,7 +227,7 @@ add_filter( 'gform_stripe_enable_rate_limits', '__return_false' );
 
 function news_page_scripts() {
 	global $wp_styles;
-	if (is_page_template('category-news-template.php') || is_category('blogs_and_opinion_editorials') || is_category('top_news') || is_category('videos') || is_single() || is_category('in_the_headlines') || is_page('search-news-results')){
+	if (is_page_template('category-news-template.php') || is_page_template('all-categories.php') || is_category('blogs_and_opinion_editorials') || is_category('top_news') || is_category('videos') || is_single() || is_category('in_the_headlines') || is_page('search-news-results')){
 		// style files
 		//wp_deregister_script('justice-bootstrap');
 		wp_enqueue_style( 'bootstrap-css', get_template_directory_uri() . '/assets/css/bootstrap.css' );
@@ -313,6 +313,7 @@ endif;
 
 
 function process_news_form() {
+	// die(print_r($_POST));
     if(isset($_POST['action']) && $_POST['action'] == 'news_search' && wp_verify_nonce($_POST['news_nonce'], 'news-search-nonce')) {
     	$redirect = add_query_arg(array('search' => $_POST['search-posts'],'category' => $_POST['category']), $_POST['redirect'] );
     	wp_redirect($redirect); exit;

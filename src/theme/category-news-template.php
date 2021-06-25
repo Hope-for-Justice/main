@@ -60,7 +60,7 @@ get_header();
 
       while ($query->have_posts()) : $query->the_post(); ?>
 	<div class="col-lg-4 col-md-6 mb-5 col-news category_<?php echo $top_category->term_id; ?>" >
-
+		<a href="<?php the_permalink() ?>" >
 		<div class="card" >
 		
 		  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid">
@@ -70,12 +70,13 @@ get_header();
 		    	
 		    	
 				<p class="date-text"><?php echo get_the_date(); ?></p>
-				<h3><a href="javascript:void(0)" class="no-links"><?php the_title(); ?></a></h3>
+				<h3><span href="javascript:void(0)" class="no-links"><?php the_title(); ?></span></h3>
 		    	<p class="text-para"><?php echo get_the_excerpt(); ?></p>
-		     <a href="<?php the_permalink() ?>" class="stretched-link"></a>
+		     
 		    </div>
 		  </div>
 		</div>
+		</a>
 	</div>
 
       	
@@ -134,16 +135,18 @@ wp_reset_query();  // Restore global post data stomped by the_post().
 	<?php 
 
       while ($query->have_posts()) : $query->the_post(); ?>
-	<div class="col-lg-4 col-md-6 mb-5 col-news category_<?php echo $video_category->term_id; ?>" >
-		<div class="card" >
-			<?php 
+		<?php 
 			$iframe = get_field('upload_video',false, false);
 
 			$vimeo = explode('/',$iframe);
 			$viemo_id = end($vimeo);
-			
-			?>
-		<img src="<?php echo get_template_directory_uri() . '/assets/img/play.svg'; ?>"  class="play-button-news video-trigger" data-src="https://player.vimeo.com/video/<?php echo @$viemo_id;?>" data-toggle="modal" data-target="#video-modal">
+
+		?>
+	<div class="col-lg-4 col-md-6 mb-5 col-news category_<?php echo $video_category->term_id; ?>" >
+		<a class="video-trigger" data-src="https://player.vimeo.com/video/<?php echo @$viemo_id;?>" data-toggle="modal" data-target="#video-modal">
+		<div class="card" >
+		
+		<img src="<?php echo get_template_directory_uri() . '/assets/img/play.svg'; ?>"  class="play-button-news video-trigger" >
 		
 		  <img src="<?php echo get_the_post_thumbnail_url(); ?>">
 		
@@ -152,13 +155,14 @@ wp_reset_query();  // Restore global post data stomped by the_post().
 		    	
 		    	
 				<p class="date-text"><?php echo get_the_date(); ?></p>
-				<h3><a href="javascript:void(0)" class="no-links"><?php the_title(); ?></a></h3>
+				<h3><span  class="no-links"><?php the_title(); ?></span></h3>
 		    	<p class="text-para"><?php echo get_the_excerpt(); ?></p>
 		    	  
 		    
 		    </div>
 		  </div>
 		</div>
+	</a>
 	</div>
       
        
@@ -293,6 +297,7 @@ wp_reset_query();  // Restore global post data stomped by the_post().
 
       while ($query->have_posts()) : $query->the_post(); ?>
 	<div class="col-lg-4 col-md-6 col-news mb-5 category_<?php echo $blog_category->term_id; ?>" >
+		<a href="<?php the_permalink() ?>">
 		<div class="card" >
 		
 		  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid">
@@ -302,12 +307,13 @@ wp_reset_query();  // Restore global post data stomped by the_post().
 		    	
 		    	
 
-				<h3><a href="javascript:void(0)" class="no-links"><?php the_title(); ?></a></h3>
+				<h3><span  class="no-links"><?php the_title(); ?></span></h3>
 				<p class="date-text"><?php echo get_the_date(); ?></p>
-		    <a href="<?php the_permalink() ?>" class="stretched-link"></a>
+		   
 		    </div>
 		  </div>
 		</div>
+		</a>
 	</div>
 
       	
