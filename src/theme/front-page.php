@@ -206,6 +206,20 @@ get_header();
 	    )
 	); ?>
 
+	<!-- 
+	-- 
+	-- splash modal
+	-- 
+	--> 
+	<?php get_template_part(
+	    'partials/content',
+	    'modal',
+	    array(
+	        'type' => 'splash',
+	        'id' => 'splash-modal'
+	    )
+	); ?>
+
 	<?php endwhile; // end of the loop. ?>
 
 </main>

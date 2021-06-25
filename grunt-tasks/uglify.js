@@ -21,7 +21,6 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 		devTheme + jsDir + 'pages/donate-uk.js',
 
-
 	];		
 
 
