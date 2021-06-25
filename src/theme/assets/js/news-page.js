@@ -7,6 +7,7 @@ jQuery(document).ready(function($) {
   $('.category_5:lt('+x+')').show();
   $('.category_7:lt('+x+')').show();
   $('.category_6:lt('+x+')').show();
+
   $(document).on('click','.more_posts', function () {
     let term_id = $(this).data('term');
     let term_href = $(this).data('href');
@@ -23,10 +24,12 @@ jQuery(document).ready(function($) {
     x = (x+3 <= total_col_news) ? x+3 : total_col_news;
       $('.category_'+term_id+':lt('+x+')').show();
   });
+
   $('.scategory_4 .card:lt('+y+')').css('display','flex');
   $('.scategory_5 .card:lt('+y+')').css('display','flex');
   $('.scategory_7 .card:lt('+y+')').css('display','flex');
   $('.scategory_6 .card:lt('+y+')').css('display','flex');
+  
   $(document).on('click','.more_postss', function () {
    
     let term_id = $(this).data('term');
