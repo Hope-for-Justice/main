@@ -92,6 +92,7 @@ $query = new WP_Query($args);
 
 	  while ($query->have_posts()) : $query->the_post(); ?>
 	<div class="col-lg-4 col-news col-md-6 mb-5 category_<?php echo $category_id; ?>" >
+			<a href="<?php the_permalink() ?>">
 		<div class="card" >
 		<img src="<?php echo get_template_directory_uri() . '/assets/img/play.svg'; ?>"  class="play-button">
 		  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid">
@@ -101,12 +102,13 @@ $query = new WP_Query($args);
 				
 				
 				<p class="date-text"><?php echo get_the_date(); ?></p>
-				<h3><a href="<?php the_permalink() ?>" class="stretched-link"><?php the_title(); ?></a></h3>
+				<h3><span><?php the_title(); ?></span></h3>
 				<p class="text-para"><?php echo get_the_excerpt(); ?></p>
 		  
 			</div>
 		  </div>
 		</div>
+	</a>
 	</div>
 
 		

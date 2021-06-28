@@ -9,6 +9,7 @@ get_header();
   $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 
   $args= [
+  	'category__not_in' => array( 6 ),
     'post_type' => 'post',
     'post_status' => 'publish',
     'posts_per_page' => 9,
@@ -37,12 +38,13 @@ get_header();
 				<?php
 				$categories = get_categories();
 				foreach($categories as $category) {
+					if($category->term_id != '6') {
 					$selected = '';
 					if($category_id == $category->term_id) {
 						$selected = 'selected';
 					}
 						echo '<option data-value="'.$category->term_id.'" value="'.home_url().'/category/'.$category->slug.'" '.$selected.'>'.$category->name.'</option>';
-					
+					}
 					
 				}
 				?>
@@ -91,7 +93,7 @@ get_header();
     	?>
     	
     
-    	<div class="row" id="term_slug_<?php echo $category_id; ?>">
+    	<div class="row" id="term_slug_4 ">
     		<?php 
 
       while ($query->have_posts()) : $query->the_post(); ?>
@@ -100,65 +102,27 @@ get_header();
 
 
       	$category_id = $categories[0]->term_id; ?>
-      	<?php if($category_id != 6 && $category_id != 7) {?>
-			<div class="col-lg-4 col-news col-md-6 mb-5 category_<?php echo $category_id; ?>" >
-				<div class="card" >
-				
-				  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid">
-				
-				  <div class="card-body">
-				    <div class="card-text"> 
-				    	
-				    	
-						<p class="date-text"><?php echo get_the_date(); ?></p>
-						<h3><a href="<?php the_permalink() ?>" class="stretched-link"><?php the_title(); ?></a></h3>
-				    	<p class="text-para"><?php echo get_the_excerpt(); ?></p>
-				  
-				    </div>
-				  </div>
-				</div>
-			</div>
-		<?php } elseif($category_id == 6) { ?>	
-			<div class="col-lg-4 col-md-6 mb-5 col-news category_<?php echo $category_id; ?>" >
-					<div class="mb-5 category_<?php echo $category_id; ?>" >
-						<div class="card" >
-						
-						  <div class="card-body">
-						    <div class="card-text"> 
-						    	
-						    	
-								<p class="date-text"><?php echo get_the_date(); ?></p>
-								<h3><a href="javascript:void(0)" class="no-links"><?php the_title(); ?></a></h3>
-						    	<p class="text-para"><?php echo get_the_excerpt(); ?></p>
-						      <a href="<?php echo  $external_link;  ?>" class="stretched-link" target="_blank"></a>
-						    </div>
-						  </div>
-						</div>
+      
+			<div class="col-lg-4 col-news col-md-6 mb-5 category_4 category_all4" >
+				<a href="<?php the_permalink() ?>">
+					<div class="card" >
+					
+					  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid">
+					
+					  <div class="card-body">
+					    <div class="card-text"> 
+					    	
+					    	
+							<p class="date-text"><?php echo get_the_date(); ?></p>
+							<h3><span ><?php the_title(); ?></span></h3>
+					    	<p class="text-para"><?php echo get_the_excerpt(); ?></p>
+					  
+					    </div>
+					  </div>
 					</div>
+				</a>
+			</div>
 
-      	</div>
-
-		<?php } elseif($category_id == 7) {?>
-       	<div class="col-lg-4 col-md-6 col-news mb-5 category_<?php echo $category_id; ?>" >
-		<a href="<?php the_permalink() ?>">
-		<div class="card" >
-		
-		  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid">
-	
-		  <div class="card-body">
-		    <div class="card-text"> 
-		    	
-		    	
-
-				<h3><span  class="no-links"><?php the_title(); ?></span></h3>
-				<p class="date-text"><?php echo get_the_date(); ?></p>
-		   
-		    </div>
-		  </div>
-		</div>
-		</a>
-	</div>
-       <?php } ?>
       
      
        <?php

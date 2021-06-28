@@ -94,6 +94,7 @@ $category_name = $categories[0]->name;
 
       while ($query->have_posts()) : $query->the_post(); ?>
 			<div class="col-lg-4 col-news col-md-6 mb-5 category_<?php echo $category_id; ?>" >
+				<a href="<?php the_permalink() ?>" class="stretched-link">
 				<div class="card" >
 				
 				  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid">
@@ -103,12 +104,13 @@ $category_name = $categories[0]->name;
 				    	
 				    	
 						<p class="date-text"><?php echo get_the_date(); ?></p>
-						<h3><a href="<?php the_permalink() ?>" class="stretched-link"><?php the_title(); ?></a></h3>
+						<h3><span ><?php the_title(); ?></span></h3>
 				    	<p class="text-para"><?php echo get_the_excerpt(); ?></p>
 				  
 				    </div>
 				  </div>
 				</div>
+			</a>
 			</div>
 
       	

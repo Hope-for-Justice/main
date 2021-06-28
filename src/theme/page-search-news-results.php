@@ -1,10 +1,11 @@
 <?php
 
 get_header();
-	$category_id = $_GET['category'];
-	if(isset($category_id) && !empty($category_id)) {
+	$category_idd = $_GET['category'];
+	$extra_cat = '';
+	if(isset($category_idd) && !empty($category_idd)) {
 		$args = [
-  	"cat" => $category_id
+  	"cat" => $category_idd
   	];
 	}
 	
@@ -76,11 +77,17 @@ get_header();
       while ($query->have_posts()) : $query->the_post(); ?>
       		<?php 
       	$categories = get_the_terms( $query->ID, 'category',true );
+      	 if(isset($category_idd) && !empty($category_idd)) {
+      	 	$cattt = $categories[0]->term_id;
+      	} else {
+      		$cattt = 4;
+      		$extra_cat = 'category_all4';
+      	}?>
 
-
-      	$category_id = $categories[0]->term_id; ?>
+      	<?php $category_id = $categories[0]->term_id; ?>
+      	
       	<?php if($category_id  == '4') {?>
-				<div class="col-lg-4 col-news col-md-6 mb-5 category_<?php echo $category_id; ?>" >
+				<div class="col-lg-4 col-news col-md-6 mb-5 category_<?php echo $cattt; ?> <?php echo $extra_cat; ?>" >
 					<div class="card" >
 					
 					  <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid">
@@ -99,7 +106,7 @@ get_header();
 				</div>
 			<?php } elseif($category_id  == '5') {?>
 
-				<div class="col-lg-4 col-news col-md-6 mb-5 category_<?php echo $category_id; ?>" >
+				<div class="col-lg-4 col-news col-md-6 mb-5 category_<?php echo $cattt; ?> <?php echo $extra_cat; ?>" >
 					<div class="card" >
 						<img src="<?php echo get_template_directory_uri() . '/assets/img/play.svg'; ?>"  class="play-button">
 						<img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid">
@@ -119,8 +126,10 @@ get_header();
        
        
       
-     <?php } elseif($category_id  == '6') { ?>
+     <?php } 
 
+     elseif($category_id  == '6') { ?>
+     	<?php  if(isset($category_idd) && !empty($category_idd)) { ?>
      	<div class="col-lg-4 col-md-6 mb-5 col-news category_<?php echo $category_id; ?>" >
 			<div class="mb-5 category_<?php echo $category_id; ?>" >
 				<div class="card" >
@@ -140,9 +149,9 @@ get_header();
 
 		</div>
 
-
+<?php } ?>
      	 <?php } elseif($category_id  == '7') { ?>
-     	 	<div class="col-lg-4 col-news col-md-6 mb-5 category_<?php echo $category_id; ?>" >
+     	 	<div class="col-lg-4 col-news col-md-6 mb-5 category_<?php echo $cattt; ?> <?php echo $extra_cat; ?>" >
      	 		<div class="card" >
 
      	 			<img src="<?php echo get_the_post_thumbnail_url(); ?>" class="img-fluid">

@@ -95,6 +95,7 @@ $query = new WP_Query($args);
 		<?php $external_link = get_field('external_news_link'); ?>
 		<div class="col-lg-4 col-md-6 mb-5 col-news category_<?php echo $category_id; ?>" >
 			<div class="mb-5 category_<?php echo $category_id; ?>" >
+				<a href="<?php echo $external_link; ?>" class="stretched-link" target="_blank">
 				<div class="card" >
 
 					<div class="card-body">
@@ -102,12 +103,13 @@ $query = new WP_Query($args);
 
 
 							<p class="date-text"><?php echo get_the_date(); ?></p>
-							<h3><a href="javascript:void(0)" class="no-links"><?php the_title(); ?></a></h3>
+							<h3><span  class="no-links"><?php the_title(); ?></span></h3>
 							<p class="text-para"><?php echo get_the_excerpt(); ?></p>
-							<a href="<?php echo $external_link; ?>" class="stretched-link" target="_blank"></a>
+							
 						</div>
 					</div>
 				</div>
+			</a>
 			</div>
 
 		</div>
