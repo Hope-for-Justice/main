@@ -1,0 +1,108 @@
+/*
+*
+* _NEWS-PAGE.SCSS
+*
+* Certain css unique to the news page
+*
+*/
+
+/* Hide all posts - shown with news-page.js */
+#term_slug_4 .category_4, 
+#term_slug_5 .category_5, 
+#term_slug_7 .category_7{ 
+	display:none;
+}
+
+.news-header {
+	display: flex;
+	flex-direction: column;
+	margin-top: 2em;
+	&__press {
+		font-size: 1.4em;
+		margin-bottom: 1em;
+		span {color: $red;}
+		a {
+			text-decoration: underline;
+			color: $black;
+		}
+	}
+	&__title {
+		font-size: 6.8em;
+		margin-bottom: 0;
+	}
+	&__social-icons {
+		display: flex;
+	}
+	&__social-icon {
+		margin-right: 1em;
+		&:last-child{margin: 0;}
+		img {height:2.5em;}
+	}
+}
+
+.news-page {
+	padding-bottom: 10em;
+	&__content {
+		grid-column: col1 / col12-end;
+		padding:0 3em;
+	}
+	&__title {
+		font-size: 2.8em;
+		margin-bottom: 0.5em;
+	}
+	&__grid {
+		max-width: 1340px;
+		margin: 0 auto;
+	}
+	&__button {
+		width:100%;
+		text-align: center;
+		padding: 4em 0;
+	}
+}
+
+// phablet
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: tablet) {
+
+.news-header {
+	flex-direction: row;
+	margin-top: 3em;
+	justify-content: space-between;
+	margin-bottom: 4em;
+	&__press {
+		font-size: 1.6em;
+	}
+	&__title {
+		font-size: 8em;
+	}
+	&__links {
+		display: flex;
+		flex-direction: column-reverse;
+		align-items: flex-end;
+		.line{display: none;}
+	}
+}
+
+
+}
+
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopExtraLarge) {
+
+.news-header {
+	&__title {
+		font-size: 10em;
+	}
+}
+
+.news-page {
+	&__title {
+		font-size: 4em;
+	}
+}
+
+}
+

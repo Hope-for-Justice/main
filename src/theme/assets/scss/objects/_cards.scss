@@ -1,0 +1,172 @@
+/*
+*
+* _CARDS.SCSS
+*
+*/
+
+.cards{
+	height:auto;
+	gap:2em;
+	&__card {
+		grid-column: col1 / col12-end;
+		border-radius: 20px;
+		overflow: hidden;
+		@include box-shadow;
+		&--blog {
+			position:relative;
+			height:0;
+			padding-top:100%;
+			&::after {
+				display: block;
+				content: "";
+				width:100%;
+				padding-top:100%;
+				background: black;
+				opacity: 0.3;
+				position: absolute;
+				top:0;
+				z-index: 0;
+			}
+		}
+	}
+	&__info {
+		padding:2em;
+		color: $black;
+		&--blog {
+			position: absolute;
+			bottom:0;
+			color: white;
+			z-index: 1;
+		}
+	}
+	&__img-container {
+		width:100%;
+		max-height: 17em;
+		overflow: hidden;
+		position:relative;
+	}
+	&__img {
+		width:100%;
+		&--blog {
+			height:100%;
+			object-fit: cover;
+			position: absolute;
+			top:0;
+		}
+	}
+	&__play-symbol {
+		position:absolute;
+		top:1em;
+		left:1em;
+		width:50px;
+	}
+	&__date {
+		font-size: 1.2em;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		margin-bottom: 1.5em;
+		&--blog {
+			margin-bottom: 0;
+		}
+	}
+	&__title {
+		font-size: 2.1em;
+		text-transform: none;
+		letter-spacing: 0;
+		line-height: 1.2;
+		margin-bottom: 1em;
+		&--headlines {
+			margin-bottom: 0;
+		}
+		&--headlines-fk {
+			font-size: 3.2em;
+		}
+		&--blog {
+			font-size: 3.6em;
+		}
+	}
+	&__excerpt {
+		line-height: 1.2;
+	}
+}
+
+// mobile medium
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: mobileMedium) {
+
+.cards {
+	&__info {
+		padding:3em;
+		padding-bottom:3.5em;
+	}
+	&__title {
+		&--blog {
+			font-size: 3em;
+		}
+	}
+}
+
+}
+
+// phablet
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: phablet) {
+
+.cards {
+	&__card {
+		grid-column: span 6;
+	}
+}
+
+
+}
+
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktop) {
+
+.cards {
+	&__card {
+		grid-column: span 4;
+	}
+	&__info {
+		padding:3.5em 4em 4.5em 4em;
+	}
+	&__img-container {
+		max-height: 24em;
+	}
+	&__title {
+		font-size: 2.6em;
+		&--headlines-fk {
+			font-size: 4em;
+		}
+		&--blog {
+			font-size: 3.5em;
+		}
+	}
+	&__date {
+		font-size: 1.4em;
+	}
+}
+
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopExtraLarge) {
+
+.cards {
+	&__title {
+		&--blog {
+			font-size: 4.5em;
+		}
+	}
+}
+
+}
+
+
+
+
