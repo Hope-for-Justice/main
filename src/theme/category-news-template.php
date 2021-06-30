@@ -309,23 +309,21 @@ get_header();
 				
 				<?php while ($query->have_posts()) : $query->the_post(); ?>
 					
-					<div class="cards__card cards__card--blog category_<?php echo $blog_category->term_id; ?>" >
-						<a href="<?php the_permalink() ?>">
-							<div class="cards__content cards__content--blog" >
-								<img src="<?php echo get_the_post_thumbnail_url(); ?>" class="cards__img cards__img--blog">
-								<div class="cards__info cards__info--blog">
-									<div class=""> 
-										<h3 class="cards__title cards__title--blog font-fk">
-											<?php the_title(); ?>
-										</h3>
-										<p class="cards__date cards__date--blog">
-											<?php echo get_the_date(); ?>
-										</p>
-									</div>
+					<a href="<?php the_permalink() ?>" class="cards__card cards__card--blog category_<?php echo $blog_category->term_id; ?>" >	
+						<div class="cards__content cards__content--blog" >
+							<img src="<?php echo get_the_post_thumbnail_url(); ?>" class="cards__img cards__img--blog">
+							<div class="cards__info cards__info--blog">
+								<div class=""> 
+									<h3 class="cards__title cards__title--blog font-fk">
+										<?php the_title(); ?>
+									</h3>
+									<p class="cards__date cards__date--blog">
+										<?php echo get_the_date(); ?>
+									</p>
 								</div>
 							</div>
-						</a>
-					</div>
+						</div>	
+					</a>
 
 		       <?php endwhile; wp_reset_postdata(); } ?>
 

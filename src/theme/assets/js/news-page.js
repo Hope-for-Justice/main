@@ -25,16 +25,16 @@ jQuery(document).ready(function($) {
     x = (x+3 <= total_col_news) ? x+3 : total_col_news;
       $('.category_'+term_id+':lt('+x+')').show();
 
-    $(".cards__title").each(function(){ 
+    $(".threeLines").each(function(){ 
       checkTitles(this); 
     });
   });
 
   //shows 6 posts 
-  $('.scategory_4 .card:lt('+y+')').css('display','flex');
-  $('.scategory_5 .card:lt('+y+')').css('display','flex');
-  $('.scategory_7 .card:lt('+y+')').css('display','flex');
-  $('.scategory_6 .card:lt('+y+')').css('display','flex');
+  $('.scategory_4 .cards__card:lt('+y+')').show();
+  $('.scategory_5 .cards__card:lt('+y+')').show();
+  $('.scategory_7 .cards__card:lt('+y+')').show();
+  $('.scategory_6 .cards__card:lt('+y+')').show();
   
   //shows 3 more or goes to archive
   $(document).on('click','.more_postss', function () {
@@ -53,7 +53,7 @@ jQuery(document).ready(function($) {
       window.location.href = term_href; 
     }
     y = (y+3 <= total_col_news) ? y+3 : total_col_news;
-    $('.scategory_'+term_id+' .card:lt('+y+')').css('display','flex');
+    $('.scategory_'+term_id+' .card:lt('+y+')').show();
     
   });
 

@@ -2,7 +2,6 @@
 *
 * _NEWS-PAGE.SCSS
 *
-* Certain css unique to the news page
 *
 */
 
@@ -61,7 +60,7 @@
 	}
 }
 
-// phablet
+// tablet
 ///////////////////////////////////////////////////////////////////////////
 @include mq($from: tablet) {
 

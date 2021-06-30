@@ -47,12 +47,15 @@ h1 {
 	line-height: 1.2;
 }
 
-h2 {
+h2, .b-title {
 	font-size: 3.2em;
 	margin-bottom: 0.5em;
+	&--smaller {
+		font-size: 2em;
+	}
 }
 
-h3 {
+h3, .c-title {
 	//font-size: 1.4em;
 	text-transform: uppercase;
 	margin-bottom: 1.4em;
@@ -79,9 +82,12 @@ p {
 @include mq($from: tablet) {
 
 
-h2 {
+h2, .b-title {
 	font-size: 4em; 
 	margin-bottom: 1em;
+	&--smaller {
+		font-size: 3em;
+	}
 }
 
 p {font-size: 1.8em;}
@@ -95,9 +101,7 @@ p {font-size: 1.8em;}
 
 @include mq($from: desktop) {
 
-h2 {
-	font-size: 4em; 
-}
+
 
 
 // .desktop-break {
@@ -112,8 +116,11 @@ h2 {
 
 @include mq($from: desktopExtraLarge) {
 
-h2 {
+h2, .b-title {
 	font-size: 5em; 
+	&--smaller {
+		font-size: 3.5em;
+	}
 }
 
 
