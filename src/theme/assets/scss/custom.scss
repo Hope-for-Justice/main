@@ -1,0 +1,328 @@
+// /*
+// *  
+// * $_CUSTOM.SCSS
+// *
+// */
+
+// $main-color-raw: rgba(0,0,0,.64);
+
+
+// .news-page-title {
+// 	font-size: 52px;
+// 	font-weight: 700;
+// }
+// body {
+// 	font-family: Canela-Medium, sans-serif;
+//     color: #212322;
+//     text-rendering: optimizeLegibility;
+//     -webkit-font-smoothing: antialiased;
+//     overflow-x: hidden;
+// }
+// h1 {
+// 	font-family: 'fk-screamer';
+// }
+// .card {
+// 	border-radius: 20px;
+// }
+// .card img {
+// 	border-top-right-radius: 20px;
+// 	border-top-left-radius: 20px;
+// }
+// .card .card-text {
+// 	padding: 10px;
+// }
+// a {
+// 	color: #000;
+// 	text-decoration: none;
+	
+// 	line-height: 1.6;
+// 	margin-top: 10px;
+// }
+// .date-text {
+// 		font-family: 'apercu-reg';
+// 		font-size: 12px;
+// }
+// .text-para {
+// 	font-size: 12px;
+// 	font-family: 'apercu-reg';
+// }
+// .category_6 h3{
+// 	font-family: 'fk-screamer';
+// 	font-size: 40px;
+// }
+
+// .category_6 .text-para {
+// 	font-size: 16px;
+// }
+// .category_7 {
+// 	color: #fff;
+// }
+// .category_7 .card {
+// 	position: relative;
+// }
+// .category_7 img {
+// 	border-bottom-right-radius: 20px;
+// 	border-bottom-left-radius: 20px;
+// 	min-height: 250px;
+// }
+// .category_7 .card-body {
+// 	position: absolute;
+// 	top: 50px;
+// }
+// .category_7 a {
+// 	color: #fff;
+// }
+// .category_7 h3 {
+// 	text-transform: capitalize;
+// 	font-family: 'fk-screamer';
+// }
+// .category_7 p {
+// 	display: block;
+// 	margin-top: 30px;
+// }
+
+// /*funct*/
+// #term_slug_4 .category_4, #term_slug_5 .category_5, #term_slug_7 .category_7{ 
+// 	display:none;
+// }
+
+// .more_posts {
+//     padding: 15px 35px;
+//     border-radius: 20px;
+//     font-size: 12px;
+//     background: #fff;
+//     font-family: 'apercu-bold';
+//     font-weight: 700;
+// box-shadow: 2px 2px 7px -2px $main-color-raw;
+// -webkit-box-shadow: 2px 2px 7px -2px $main-color-raw;
+// -moz-box-shadow: 2px 2px 7px -2px $main-color-raw;
+// border: 0;
+// margin-top: 0;
+// }
+
+
+// img.play-button, .play-button-news {
+//     width: 10%;
+//     position: absolute;
+//     top: 15px;
+//     left: 15px;
+// }
+// #news-page {
+// 	margin-top: 5em;
+// }
+// .site-content {
+
+// 	margin-bottom: 10em;
+// }
+
+// .archive_example {
+// 	font-size: 52px;
+// 	font-weight: 900;
+// }
+
+// .page-numbers {
+// 	list-style: none;
+// 	margin: 0;
+// 	padding-left: 0;
+
+// }
+
+// .page-numbers li {
+// 	display: inline-block;
+// 	padding-right: 3px;
+// 	font-size: 14px;
+// 	font-family: 'apercu-bold';
+
+// }
+
+// .page-numbers li a {
+// 	color: #c2c2c2;
+
+// }
+// .search-posts, select {
+// 	padding: 15px 35px;
+//     border-radius: 20px;
+//     font-size: 14px;
+//     background: #fff;
+
+//     font-weight: 700;
+//     box-shadow: 2px 2px 7px -2px $main-color-raw;
+//     -webkit-box-shadow: 2px 2px 7px -2px $main-color-raw;
+//     -moz-box-shadow: 2px 2px 7px -2px $main-color-raw;
+//     border: 0;
+//     margin-top: 0;
+//     font-family: 'apercu-bold';
+//     color: #d6d6d6;
+// }
+// .search-posts {
+// 	height: auto;
+// }
+// .category-titles {
+// 	font-size: 25px;
+// }
+// .img-features img{
+// 	width: 97%;
+// }
+// .single-post-head {
+// 	font-size: 40px;
+// }
+
+// .single-post-info p {
+// 	font-size: 14px;
+// 	margin: 30px 0;
+// 	line-height: 1.4;
+// }
+// .date_get {
+// 	font-family: 'apercu-bold';
+// }
+
+// .single-post-info .button{
+// font-size: 14px;
+// padding: 1em 3.6em 0.8em 3.6em;
+// }
+// .inner-row {
+// 	width: 80%;
+// 	margin: 0 auto;
+// }
+// .col-lg-4-custom {
+// 	height: 577px;
+// 	overflow-y: scroll;
+// }
+// .col-lg-4-custom .card {
+// 	max-width: 85%;
+// }
+// .custom_modal {
+// 	background: #909190;
+// 	border: 0;
+// 	padding-bottom: 25px;
+// 	padding-top: 0;
+
+
+// }
+// .modal-content {
+// 	width: 90%;
+// 	margin: 0 auto;
+// 	text-align: center;
+// }
+// .custom_modal .close {
+// 	padding: auto;
+// 	padding: 4px 10px;
+//     background: #fff;
+  
+//     border-radius: 20px;
+//     opacity: 1;
+//     font-size: 20px;
+//     margin-top: 10px;
+//     margin-right: 10px;
+// }
+// .first-one {
+// 	margin-top: 5rem;
+// }
+// .no-links {
+// 	text-decoration: none;
+// 	pointer-events: none;
+
+// }
+// .category_7 h3{
+//  font-size: 3rem;
+// }
+// .category_7 .date-text {
+// margin-top: 30px;
+// }
+// .category_6 .text-para {
+// 	font-size: 2.5rem;
+// 	font-family: Canela-Medium, sans-serif;
+// }
+// @media screen and (max-width: 991px) {
+// 	.single-post .img-features img {
+// 		width: 100%;
+// 	}
+// 	.single-post .col-lg-4-custom {
+// 		display: none;
+// 	}
+// 	.inner-row {
+// 		width: 100%;
+// 	}
+// }
+// .custom-category {
+// 	position: relative;
+//     /*background-color: blue;*/
+//     -webkit-appearance: none;
+//     -moz-appearance: none;
+// }
+
+// .icons {
+//     position: absolute;
+//     top: 20px;
+//     right: 28px;
+//     color: #d6d6d6;
+// }
+// .social-custm-icons {
+// 	list-style: none;
+
+// }
+// .social-custm-icons li {
+// 	display: inline-block;
+// } 
+// .social-custm-icons li a img{
+// 	width: 70%;
+// } 
+// .contact-press {
+// 	font-size: 14px;
+// }
+// .contact-press span {
+// 	color: red;
+// }
+// @media screen and (min-width: 768px) {
+// 	.social-custm-icons-small {
+// 		display: none;
+// 	}
+// 	.social-custm-icons-hide {
+// 		display: block;
+// 	}
+// }
+// @media screen and (max-width: 767px) {
+// 	.news-page-title, .social-custm-icons, .contact-press  {
+// 		text-align: center !important;
+// 	}
+// 	.social-custm-icons {
+// 		padding: 0;
+// 		margin-left: 0;
+// 	}
+// 	.social-custm-icons-hide {
+// 		display: none;
+// 	}
+// 	.social-custm-icons-small {
+// 		display: block;
+// 	}
+	
+// }
+// .single-post-info .header__navigation{
+// margin: 0;
+// }
+// .social-custm-iconss {
+// 	padding: 0;
+// 	margin-left: 0;
+	
+// }
+// .share-post {
+// 	margin: 0 !important;
+	
+// }
+// @media screen and (max-width: 320px) { 
+// 	.single-post .img-features {
+// 		text-align: left!important;
+// 	}
+// 	.single-post .img-features img {
+// 		width: 50%;
+// 	}
+// 	.social-custm-iconss {
+// 		text-align: left!important;
+// 	}
+// }
+// @media screen and (max-width: 767px) { 
+// 	.single-post-info .button{
+// 	border-radius: 7.7em !important;
+// 	font-size: 12px;
+// 	}
+// }

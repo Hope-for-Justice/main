@@ -93,6 +93,8 @@ function hope_for_justice_2021_scripts() {
 	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202107' );
 
 	wp_enqueue_script('jquery'); 
+	// wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202107', true );
+
 
     wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202107', true );
 
@@ -100,9 +102,7 @@ function hope_for_justice_2021_scripts() {
 
 /**
  * Remove admin bumb
-
 add_action('get_header', 'my_filter_head');
-
 function my_filter_head() {
 remove_action('wp_head', '_admin_bar_bump_cb');
 }
@@ -225,6 +225,127 @@ new GWUnrequire();
 add_filter( 'gform_stripe_enable_rate_limits', '__return_false' );
 
 
+function news_page_scripts() {
+	global $wp_styles;
+	if (is_page_template('category-news-template.php') || is_page_template('all-categories.php') || is_category('blogs_and_opinion_editorials') || is_category('top_news') || is_category('videos') || is_single() || is_category('in_the_headlines') || is_page('search-news-results')){
+		// style files
+		//wp_deregister_script('justice-bootstrap');
+		wp_enqueue_style( 'bootstrap-css', get_template_directory_uri() . '/assets/css/bootstrap.css' );
+		
+		
+		
+	
+		wp_enqueue_style( 'news-page-css', get_template_directory_uri() . '/assets/css/news-page.css' );
+		// js files
+		// wp_enqueue_script( 'popper-js', get_template_directory_uri() . '/assets/js/popper.min.js', ['jquery-core'] );
+		// wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/assets/js/bootstrap.min.js', ['jquery-core'] );
+		
+		wp_enqueue_script( 'news-page-js', get_template_directory_uri() . '/assets/js/news-page.js', ['jquery-core'] );
+		wp_localize_script('news-page-js', 'ajax_object', array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+		) );
+	}
+}
+
+add_action( 'wp_enqueue_scripts', 'news_page_scripts', 1 );
+
+
+
+
+function custom_excerpt_length( $length ) {
+    return 14;
+}
+add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+
+// add_action( 'wp_ajax_nopriv_ajax_news_video',  'ajax_news_video' );
+// add_action( 'wp_ajax_ajax_news_video','ajax_news_video' );
+// function ajax_news_video() {
+// 	$src = $_POST['src'];
+// 	$iframe = '<iframe class="video" src="'.$src.'?autoplay=1"  width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+	
+// 	echo $iframe;
+//     exit();
+// }
+if( function_exists('acf_add_local_field_group') ):
+
+	acf_add_local_field_group(array(
+		'key' => 'group_60bf926dc01e0',
+		'title' => 'News Post',
+		'fields' => array(
+			array(
+				'key' => 'field_60bf928245fd0',
+				'label' => 'Enter Vimeo Link',
+				'name' => 'upload_video',
+				'type' => 'oembed',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'width' => '',
+				'height' => '',
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param' => 'post_category',
+					'operator' => '==',
+					'value' => 'category:videos',
+				),
+			),
+		),
+		'menu_order' => 0,
+		'position' => 'normal',
+		'style' => 'default',
+		'label_placement' => 'top',
+		'instruction_placement' => 'label',
+		'hide_on_screen' => '',
+		'active' => true,
+		'description' => '',
+	));
+
+endif;
+
+
+
+function process_news_form() {
+	// die(print_r($_POST));
+    if(isset($_POST['action']) && $_POST['action'] == 'news_search' && wp_verify_nonce($_POST['news_nonce'], 'news-search-nonce')) {
+    	$redirect = add_query_arg(array('search' => $_POST['search-posts'],'category' => $_POST['category']), $_POST['redirect'] );
+    	wp_redirect($redirect); exit;
+       
+    }
+}
+add_action( 'init', 'process_news_form' );
+
+
+function title_filter($where, $wp_query) {
+
+    global $wpdb;
+
+    if ($search_term = $wp_query->get('search_news_title')) {
+        $where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'%' . esc_sql($wpdb->esc_like($search_term)) . '%\'';
+    }
+    return $where;
+}
+add_filter( 'single_template', function ( $single_template ) {
+
+    $parent     = '6'; //Change to your category ID
+    $categories = get_categories( 'child_of=' . $parent );
+    $cat_names  = wp_list_pluck( $categories, 'name' );
+
+    if ( has_category( 'videos' )) {
+        $single_template = dirname( __FILE__ ) . '/single-videos.php';
+    }
+    return $single_template;
+     
+}, PHP_INT_MAX, 2 );
+
+
 /**
  * Gravity Forms scroll top
  */
@@ -232,42 +353,24 @@ add_filter( 'gform_confirmation_anchor', function() {
     return 0;
 } );
 
-
 /**
- * Hide default WYSWIG for ACF pages
+ * better excerpt ending
  */
-add_action( 'admin_init', 'hide_editor' );
-
-function hide_editor() {
-  	global $pagenow;
-  	if( !( 'post.php' == $pagenow ) ) return;
-
-	global $post;
-	// Get the Post ID.
-	$post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
-	if( !isset( $post_id ) ) return;
-
-	// Hide the editor on the page titled 'Homepage'
-	$homepgname = get_the_title($post_id);
-	if($homepgname == 'Homepage'){ 
-	remove_post_type_support('page', 'editor');
-	}
-
-	// Hide the editor on a page with a specific page template
-	// Get the name of the Page Template file.
-	$template_file = get_post_meta($post_id, '_wp_page_template', true);
-
-	if($template_file !== 'default'){ // the filename of the page 
-		remove_post_type_support('page', 'editor');
-	}
+function new_excerpt_more( $more ) {
+    return '...';
 }
+add_filter('excerpt_more', 'new_excerpt_more');
 
+// function modal_function_show() {
+//     echo '<div class="modal modal--video fade" id="" tabindex="-1" role="dialog" aria-hidden="false">
+//           <div class="modal__dialog modal__dialog--video">
+//                 <div class="modal__content modal__content--video video-container">
+//                     <iframe class="video" src="" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
 
+//                     <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--video">&times;<span class="accessibility">Close</span></a>
 
-
-
-
-
-
-
-
+//                 </div>
+//          </div>
+//     </div>';
+// }
+// add_action( 'wp_footer', 'modal_function_show' );
