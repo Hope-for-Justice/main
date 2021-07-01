@@ -1,0 +1,58 @@
+/*
+*
+* _ARCHIVE-PAGE.SCSS
+*
+*/
+
+.archive-page {
+	padding: 3em;
+	&__header {
+		grid-column: col1 / col12-end;
+	}
+	&__title {
+		font-size: 6em;
+	}
+	&__select {
+		margin-bottom:2em;
+		height:4em;
+	}
+	&__search {
+		.search-posts {
+			height:4em;
+		}
+	}
+	&__numbers {
+		font-size: 2em;
+		width:100%;
+		grid-column: col1 / col12-end;
+		text-decoration: underline;
+		margin:1em 0;
+		.page-numbers{
+			display: flex;
+			li {
+				margin-right: 0.3em;
+			}
+		}
+	}/*/numbers*/
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: tablet) {
+
+.archive-page {
+	&__header {
+		display: flex;
+		justify-content: space-between;
+	}
+	&__search {
+		width:20em;
+	}
+	&__select {
+		width:15em;
+		margin: 0 2em 0 auto;
+	}
+}
+
+
+}
