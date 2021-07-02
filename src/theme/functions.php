@@ -227,7 +227,7 @@ add_filter( 'gform_stripe_enable_rate_limits', '__return_false' );
 
 function news_page_scripts() {
 	global $wp_styles;
-	if (is_page_template('category-news-template.php') || is_page_template('all-categories.php') || is_category('blogs_and_opinion_editorials') || is_category('top_news') || is_category('videos') || is_single() || is_category('in_the_headlines') || is_page('search-news-results') || is_page('careers')){
+	if (is_page_template('category-news-template.php') || is_page_template('all-categories.php') || is_category('blogs_and_opinion_editorials') || is_category('top_news') || is_category('videos') || is_single() || is_category('in_the_headlines') || is_page('search-news-results') || is_page('careers') || is_page('governance-policies-funding')){
 		// style files
 		//wp_deregister_script('justice-bootstrap');
 		wp_enqueue_style( 'bootstrap-css', get_template_directory_uri() . '/assets/css/bootstrap.css' );
@@ -236,6 +236,7 @@ function news_page_scripts() {
 		
 	
 		wp_enqueue_style( 'news-page-css', get_template_directory_uri() . '/assets/css/news-page.css' );
+		wp_enqueue_style( 'gov-pol-fund-css', get_template_directory_uri() . '/assets/css/gov-pol-fund.css' );
 		// js files
 		// wp_enqueue_script( 'popper-js', get_template_directory_uri() . '/assets/js/popper.min.js', ['jquery-core'] );
 		// wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/assets/js/bootstrap.min.js', ['jquery-core'] );
@@ -354,16 +355,79 @@ add_filter( 'gform_confirmation_anchor', function() {
 } );
 
 
-// function modal_function_show() {
-//     echo '<div class="modal modal--video fade" id="" tabindex="-1" role="dialog" aria-hidden="false">
-//           <div class="modal__dialog modal__dialog--video">
-//                 <div class="modal__content modal__content--video video-container">
-//                     <iframe class="video" src="" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+function gpf_create_post_type() {
 
-//                     <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--video">&times;<span class="accessibility">Close</span></a>
+  register_post_type( 'gov_pol_fund',
+    array(
+      'labels' => array(
+        'name' => __( 'GPF Modules' ),
+        'singular_name' => __( 'GPF Module' )
+      ),
+      'public' => true,
+      'has_archive' => true,
+      'rewrite' => array('slug' => 'gov_pol_fund'),
+      'show_in_rest' => true,
+      'menu_icon' => 'dashicons-text-page',
+      'supports' => array( 'thumbnail','title','editor' )
 
-//                 </div>
-//          </div>
-//     </div>';
-// }
-// add_action( 'wp_footer', 'modal_function_show' );
+    )
+  );
+}
+add_action( 'init', 'gpf_create_post_type' );
+
+function add_custom_taxonomies() {
+
+
+
+  register_taxonomy('categories', 'gov_pol_fund', array(
+
+
+
+    'hierarchical' => true,
+
+
+    'labels' => array(
+
+      'name' => _x( 'Categories', 'taxonomy general name' ),
+
+      'singular_name' => _x( 'Category', 'taxonomy singular name' ),
+
+      'search_items' =>  __( 'Search Category' ),
+
+      'all_items' => __( 'All Categories' ),
+
+      'parent_item' => __( 'Parent' ),
+
+      'parent_item_colon' => __( 'Parent:' ),
+
+      'edit_item' => __( 'Edit Category' ),
+
+      'update_item' => __( 'Update Category' ),
+
+      'add_new_item' => __( 'Add New Category' ),
+
+      'new_item_name' => __( 'New Category' ),
+
+      'menu_name' => __( 'Category' ),
+
+    ),
+
+    'show_in_nav_menus' => false,
+
+    // Control the slugs used for this taxonomy
+
+    'rewrite' => array(
+
+    'slug' => 'gpf_category', // This controls the base slug that will display before each term
+
+    'with_front' => false, // Don't display the category base before "/locations/"
+
+    'hierarchical' => true // This will allow URL's like "/locations/boston/cambridge/"
+
+    ),
+
+  ));
+
+}
+
+add_action( 'init', 'add_custom_taxonomies', 0 );
