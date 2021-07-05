@@ -97,6 +97,44 @@ get_header();
 		    <?php $categories = get_the_terms( $query->ID, 'category',true );
 				$category_id = $categories[0]->term_id; ?>
 				
+				<!-- Videos -->
+				<?php if($category_id  == '5') {?>
+
+				<!-- variables -->
+				<?php 
+					$iframe = get_field('upload_video',false, false);
+					$vimeo = explode('/',$iframe);
+					$viemo_id = end($vimeo);
+				?>
+
+				<div class="cards__card">
+					<a class="video-trigger" data-src="https://player.vimeo.com/video/<?php echo @$viemo_id;?>" data-toggle="modal" data-target="#video-modal">
+						<div class="cards__content">
+							<div class="cards__img-container">
+								<img class="cards__play-symbol" src="<?php echo get_template_directory_uri() . '/assets/img/play.svg'; ?>">
+							  	<img class="cards__img" src="<?php echo get_the_post_thumbnail_url(); ?>">
+						  	</div>
+						
+						  	<div class="cards__info">
+						    	<div class="cards__text">
+									<p class="cards__date">
+										<?php echo get_the_date(); ?>
+									</p>
+									<h3 class="cards__title threeLines font-canela">
+										<span class="no-links"><?php the_title(); ?></span>
+									</h3>
+							    	<p class="cards__excerpt">
+							    		<?php echo get_the_excerpt(); ?>
+							    	</p>
+						    	</div>
+							</div>
+						</div>
+					</a>
+				</div>
+
+
+				<!-- Other post types -->
+				<?php } else { ?>
 				<div class="cards__card" >
 					<a href="<?php the_permalink() ?>" >
 						<div class="cards__content" >
@@ -120,7 +158,7 @@ get_header();
 					</a>
 				</div>
 
-		    <?php endwhile;?>
+		    <?php } endwhile;?>
 
 		    
 		    <!-- pagination -->
