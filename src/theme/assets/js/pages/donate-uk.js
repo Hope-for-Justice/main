@@ -117,7 +117,12 @@ jQuery(document).ready(function($) {
 
         $('.donate__message-amount').hide();
         $('.donate__message-text').text(donateMessage);
-        donateAmount = "custom";
+        //donateAmount = "custom";
+
+        var value = $('#customAmount').val();
+        $('.ginput_amount').val(value);
+        donateAmount = value;
+        $('.donate__amount-preview-number').html(donateAmount);
         //alert(donateAmount);
     });
 

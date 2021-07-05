@@ -58,7 +58,7 @@
 	&__custom {
     	flex: 3;
     	min-width: 60%; 
-    	&-input {
+    	&-input, input[type="number"] {
     		font-size: 1em;
     		outline:none;
     		border: none;
