@@ -39,11 +39,14 @@ $category_name = $categories[0]->name;
 				<?php
 				$categories = get_categories();
 				foreach($categories as $category) {
+					if($category->term_id != '6') {
 					$selected = '';
 					if($category_id == $category->term_id) {
 						$selected = 'selected';
 					}
 						echo '<option data-value="'.$category->term_id.'" value="'.home_url().'/category/'.$category->slug.'" '.$selected.'>'.$category->name.'</option>';
+					}
+					
 				}
 				?>
 			</select>
