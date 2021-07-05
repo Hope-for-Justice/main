@@ -1,0 +1,156 @@
+
+.gov_pol_fun {
+	text-align:left;
+	margin-bottom:0;
+	padding-bottom:0;
+}
+.gov_pol_fun .drag-cards__card-title {
+	font-size: 3.5em;
+	line-height:1.1;
+	letter-spacing: 0px;
+}
+.gov_pol_fun .drag-cards__card {
+	position:relative;
+	min-height: 25em;
+	background-color: #fdfdfd;
+
+
+}
+
+.gov_pol_fun .freedom-wall__button {
+	justify-content: left;
+	margin-bottom:0;
+	position: absolute;
+    bottom: 35px;
+}
+.gov_pol_fun .freedom-wall__button .button--black{
+	font-size: 1em;
+}
+.gov_pol_fun .card_tag_line {
+	color: #c3c4c3;
+    font-family: 'apercu-reg';
+    font-size:1.2em;
+}
+.custom_content p:not(:first-child) {
+ 	font-family: 'apercu-reg';
+ 	font-size:1.5em;
+}
+.custom_content p:nth-child(3) {
+ 	margin:15px 0;
+}
+.custom_content .link_next {
+	font-family: 'apercu-reg';
+	text-decoration:underline;
+	 font-size:1.2em;
+	 width:60%;
+	 
+
+}
+.custom_content .custom_image {
+	width:70%;
+}
+.custom_content.drag-cards__card {
+	padding: 0;
+	padding-bottom:30px;
+}
+.custom_content p, .custom_content .link_next {
+	padding:1rem 5rem;
+}
+
+.custom_content p:first-child {
+	padding-top:0;
+}
+h2.custom_heading_text {
+	font-size: 3em;
+}
+.custom_heading_text {
+	margin-top:60px;
+}
+.the_content_post p {
+	font-family: 'apercu-reg';
+	
+	 font-size:1.5em;
+	 width:45%;
+}
+
+.gpf_main_heading {
+	font-size: 5.6em;
+
+	font-family: 'fk-screamer';
+}
+.drag-cards__inner.pdocument_0{
+	    grid-template-columns: repeat(3, 36em);
+}
+.gov_pol_fun .drag-cards__dots.dots {
+	margin-bottom:0;
+}
+
+@media screen and (max-width: 425px) { 
+	.gpf_main_heading {
+		font-size: 3.6em;
+		text-align:center;
+	}
+	.the_content_post p {
+		width:100%;
+	}
+	.drag-cards__inner.pdocument_0 {
+		grid-template-columns: repeat(1, 39.5em);
+	}
+	.gov_pol_fun {
+		margin-top:0;
+		margin-bottom:0;
+	}
+}
+@media screen and (max-width: 375px) { 
+	
+	.drag-cards__inner.pdocument_0 {
+		grid-template-columns: repeat(1, 34em);
+	}
+	.gov_pol_fun .drag-cards__card-title {
+		font-size: 3em;
+	}
+	h2.custom_heading_text {
+		font-size:2.5em;
+	}
+	.custom_content p, .custom_content .link_next {
+    	padding: 1rem 3rem;
+	}
+	.custom_content .link_next {
+		font-size: 1em;
+		width: 100%;
+	}
+}
+@media screen and (max-width: 320px) { 
+	
+	.drag-cards__inner.pdocument_0 {
+		grid-template-columns: repeat(1, 30em);
+	}
+}
+.custom-container {
+	padding-left: 8.33vw;
+}
+@media (min-width: 23.4375em) {
+	.custom-container {
+	   
+	    padding-left: 1.5em;
+	}
+}
+@media (min-width: 48em) {
+.custom-container {
+ 
+    padding-left: 4em;
+}
+}
+@media (min-width: 64em) {
+	.custom-container {
+		padding-left: 8.33vw;
+	}
+}
+
+
+.custom_image:after {
+    content: '';
+    display: block;
+    border-bottom: 1px solid #e1e1e1;
+    width: 70%;
+}
