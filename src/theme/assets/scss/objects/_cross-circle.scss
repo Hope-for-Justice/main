@@ -1,0 +1,35 @@
+/*
+*
+* _CROSS-CIRCLE.SCSS
+*
+*/
+
+// thin 
+///////////////////////////////////////////////////////////////////////////
+
+.cross-circle {
+	font-size: 1.6em;
+	background-color: $white;
+	color: $black;
+	@include box-shadow;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 2em;
+    min-height: 2em;
+	border-radius: 100%;
+	&__plus {
+		transform: rotate(135deg);
+		transition: all 0.4s ease;
+		&--open {transform: rotate(180deg);}
+	}
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.cross-circle {font-size: 2em;}
+
+}

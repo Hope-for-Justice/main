@@ -1,6 +1,6 @@
 <?php
 /**
- * Modern Slavery
+ * Template Name: Modern Slavery
  *
  * @package Hope_for_Justice_2021
  */
@@ -35,10 +35,10 @@ get_header();
 
 			<div class="hero-split__content">
 				<div class="hero-split__content-inner">
-					<h3 class="hero-split__sub-heading">
+					<h3>
 						Modern Slavery
 					</h3>
-					<h1 class="hero-split__main-heading">
+					<h1 class="font-canela">
 						What is <br>Modern Slavery?
 					</h1>
 					<p class="hero-split__desc">
@@ -70,7 +70,7 @@ get_header();
 		-->
 		<div class="color-block color-block--grey">
 			<div class="text-slider">
-				<h3 class="text-slider__heading">
+				<h3>
 					Modern Slavery Facts
 				</h3>
 				<div class="text-slider__slider">
@@ -104,7 +104,9 @@ get_header();
 		--  
 		-->
 		<div class="drag-cards drag-cards--no-margin-top drag-cards--no-margin-bottom" id="dragCards">
-			<h2 class="drag-cards__heading font-canela">Types of exploitation  <span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span></h2>
+			<h2 class="font-canela center">Types of exploitation 
+				<span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span>
+			</h2>
 			<div class="drag-cards__inner">
 				<div class="drag-cards__card">
 					<p class="drag-cards__card-number font-canela">01</p>
@@ -146,7 +148,7 @@ get_header();
 		--  
 		-->
 		<div class="plain-text">
-			<h2>How many people are in modern slavery?</h2>
+			<h2 class="font-canela">How many people are in modern slavery?</h2>
 			<p class="plain-text__thinner">The number of people living in modern slavery is estimated at <b>40.3 million</b>, made up of: 
 				<span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span>
 			</p>
@@ -195,7 +197,7 @@ get_header();
 		<div class="color-block color-block--grey">
 			<div class="sub-grid">
 				<div class="plain-text plain-text--in-color-block">
-					<h2>How do traffickers keep their victims under control?<span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span></h2>
+					<h2 class="font-canela">How do traffickers keep their victims under control?<span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span></h2>
 					<p>People are tricked or forced into exploitation and kept there through violence, fraud or coercion, and often end up living and working in abominable conditions. 
 					<br><br>
 					Some are beaten and abused; others have threats made against their families in their home countries. Many are forced into fraudulent ‘debt bondage’, with their wages kept by a trafficker to pay non-existent bills for their travel, accommodation or food. They are told they will be deported if they go to the authorities. 
@@ -215,7 +217,9 @@ get_header();
 		<div class="color-block color-block--background-img" style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2021/06/man-in-black-shirt-and-gray-denim-pants-sitting-on-gray-1134204.jpg');">
 			<div class="sub-grid">
 				<div class="plain-text plain-text--in-color-block">
-					<h2>Risk factors for trafficking <span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span></h2>
+					<h2 class="font-canela">Risk factors for trafficking 
+						<span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span>
+					</h2>
 					<p>Anyone from any walk of life can be targeted and can end up as a victim of modern slavery. But people experiencing any of the following things can be at particular risk:
 					<br><br>
 					Homelessness
@@ -248,7 +252,9 @@ get_header();
 		<div class="color-block">
 			<div class="sub-grid">
 				<div class="plain-text plain-text--in-color-block">
-					<h2>Why don’t victims run away?<span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span></h2>
+					<h2 class="font-canela">Why don’t victims run away?
+						<span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span>
+					</h2>
 					<p>The relationship between someone experiencing modern slavery and the person or group controlling them is complex. It is rare for the control to be based on physical confinement like locked doors or shackles. Instead, victims are exploited through manipulation, fear, dependency, threats or debt bondage. 
 					<br><br>
 					This means that during the time they are actually in exploitation, few people think of themselves as being a 'victim'. They often describe feeling hopeless or having no options, or even feel a sense of obligation towards those who trafficked them. They do not understand their situation as being one that they could run away from or escape from. 
@@ -265,15 +271,15 @@ get_header();
 		--> 
 		<div class="hero-split hero-split--reverse">
 
-			<div class="hero-split__img hero-split__img--center-center" style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2021/06/men-smile.jpg');">
+			<div class="hero-split__img hero-split__img--top-center" style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2021/06/men-smile.jpg');">
 			</div>
 
 			<div class="hero-split__content hero-split__content--grey">
 				<div class="hero-split__content-inner">
-					<h3 class="hero-split__sub-heading">
+					<h3>
 						Help make a difference
 					</h3>
-					<h2 class="hero-split__smaller-main-heading">
+					<h2 class="font-canela hero-split__smaller-main-heading">
 						Together we can help more of those who are trapped and alone
 					</h2>
 					<div>

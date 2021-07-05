@@ -8,6 +8,13 @@ jQuery(document).ready(function($) {
         $(".dropdown").not(this).find(".answer").slideUp();
     });
 
+    //Drop cards
+    $('.drop-card__header').click(function() {
+        $(this).parent().toggleClass('drop-card--open');
+        $(this).find('.cross-circle').find('.cross-circle__plus')
+        .toggleClass('cross-circle__plus--open');
+    });
+
     // Bootstrap modal
     $(".modal").on("shown.bs.modal", function()  { // any time a modal is shown
         $(this).find(".modal__content").addClass("animate__animated animate__fadeInDown").fadeIn(); //animate in

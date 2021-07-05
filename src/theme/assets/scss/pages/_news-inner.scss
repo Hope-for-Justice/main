@@ -1,0 +1,160 @@
+/*
+*
+* _NEWS-INNER.SCSS
+*
+*/
+
+//hide posts initially 
+.scategory_4 .cards__card,
+.scategory_5 .cards__card,
+.scategory_7 .cards__card{ 
+	display:none;
+}
+
+.news-inner {
+	&__post {
+		grid-column: col1 / col12-end;
+	}
+	&__cards {
+		display: none;
+	}
+	&__img-container {
+		width:100%;
+		max-height: 45em;
+		overflow: hidden;
+	}
+	&__hero-img {
+		width:100%;
+		object-fit: fill;
+		object-position: center;
+	}
+	&__content {
+		padding:3em;
+		max-width: 76.8em;
+		margin:0 auto;
+	}
+	&__post-content {
+		margin-bottom: 3em;
+	}
+	&__date {
+		font-size:1.4em;
+	}
+	&__footer {
+		margin-top: 4em;
+	}
+	&__share {
+		margin-top: 3em;
+		&-text {
+			margin-bottom: 1em;
+		}
+	}
+	&__socials {
+		display: flex;
+	}
+	&__social-icon {
+		height: 38px;
+		margin-right: 2em;
+	}
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: tablet) {
+
+.news-inner {
+	&__content {
+		padding:6.5em;
+		margin-bottom: 5em;
+	}
+	&__date {
+		font-size:1.8em;
+	}
+	&__footer {
+		margin-top: 6em;
+		display: flex;
+		align-items: center;
+	}
+	&__share {
+		margin-top: 0;
+		margin-left: 5em;
+	}
+	&__socials {
+		padding:0;
+	}
+}
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktop) {
+.news-inner {
+	&__post {
+		grid-column: col1 / col8;
+	}
+	&__cards {
+		@include box-shadow;
+		position:sticky;
+		top:0;
+		display: block;
+		height: 100vh;
+		overflow-y: scroll;
+		padding:5em;
+		grid-column: col8 / col12-end;
+		.cards__card {
+			margin-bottom: 5em;
+		}
+		&-button {
+			margin-bottom: 20em;
+			text-align: center;
+		}
+	}
+}
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopLarge) {
+
+.news-inner {
+	&__post {
+		grid-column: col1 / col9;
+	}
+	&__cards {
+		grid-column: col9 / col12-end;
+	}
+	&__content{
+		padding:6.5em 0 6.5em;
+	}
+}
+
+}
+
+// desktop xl
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopExtraLarge) {
+
+.news-inner {
+	&__cards {
+		padding:8em;
+		padding-top: 4em;
+	}
+}
+
+}
+
+// wide
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: wide) {
+
+.news-inner {
+	&__post {
+		grid-column: col1 / col10;
+	}
+	&__cards {
+		grid-column: col10 / col12-end;
+	}
+}
+
+}

@@ -64,4 +64,28 @@ $args = wp_parse_args(
          </div>
     </div>
 
+<?php } else if ( ( $args['type'] ) == "splash") { ?>
+    
+    <!--
+    --
+    --  splash
+    --
+    -->
+    <div class="modal modal--splash fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
+          <div class="modal__dialog modal__dialog--splash">
+                <div class="modal__content modal__content--splash">
+                    <h3>Our new brand</h3>
+                    <h2 class="font-fk modal__title modal__title--splash">New look<br> <span class="text-red">Same mission</span></h2>
+                    <p class="modal__text modal__text--splash">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi possimus, provident ea ipsam temporibus consequuntur quidem.</p>
+                    <a href="#" data-dismiss="modal" class="button button--red">
+                        <div class="button__inner">
+                            <div class="button__text bold">Continue<br>to website</div>
+                        </div>
+                    </a>
+                    <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close">&times;<span class="accessibility">Close</span></a>
+
+                </div>
+         </div>
+    </div>
+
 <?php } ?>

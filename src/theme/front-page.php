@@ -35,10 +35,10 @@ get_header();
 
 			<div class="hero-split__content">
 				<div class="hero-split__content-inner">
-					<h3 class="hero-split__sub-heading">
+					<h3>
 						Our Mission
 					</h3>
-					<h1 class="hero-split__main-heading">
+					<h1 class="font-canela">
 						End Slavery.<br>
 						Change Lives.
 					</h1>
@@ -203,6 +203,20 @@ get_header();
 	    array(
 	        'type' => 'video',
 	        'id' => 'video-modal'
+	    )
+	); ?>
+
+	<!-- 
+	-- 
+	-- splash modal
+	-- 
+	--> 
+	<?php get_template_part(
+	    'partials/content',
+	    'modal',
+	    array(
+	        'type' => 'splash',
+	        'id' => 'splash-modal'
 	    )
 	); ?>
 
