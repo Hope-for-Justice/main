@@ -31,7 +31,9 @@ module.exports = function (distTheme, devTheme, jsDir) {
 		devTheme + jsDir + 'pages/donate-uk.js',
 
 
-	];
+	];		
+
+
 	uglifyFilesObject[distTheme + jsDir + 'popper.min.js'] = [
 
 		devTheme + jsDir + 'plugins/popper.min.js',
@@ -51,7 +53,6 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 
 	];
-
 
 
 	return {

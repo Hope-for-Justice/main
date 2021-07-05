@@ -4,7 +4,9 @@
 *
 */
 
-//default modal for little messages
+// thin 
+///////////////////////////////////////////////////////////////////////////
+
 .modal {
 	background-color: rgba(0, 0, 0, 0.2);
 	&__dialog {
@@ -38,6 +40,21 @@
 		}
 		&--yellow {background-color: $yellow;}
 	}
+	&__title{
+		// set default here
+		// currently not needed
+		&--splash {
+			font-size: 6em;
+			line-height: 0.9;
+		}
+	}
+	&__text {
+		// set default here 
+		// currently not needed
+		&--splash {
+			margin-bottom: 2em;
+		}
+	}
 	&__close {
 	// width:50px;
 	// height: 50px;
@@ -49,10 +66,11 @@
     right: 0.7em;
     font-size: 3em;
     background-color: #f2f2f2;
-    &--yellow {background-color: $yellow;}
-		&:hover {
-			cursor: pointer;
-		}
+    
+	    &--yellow {background-color: $yellow;}
+		
+		&:hover {cursor: pointer;}
+		
 		&--video {
 		    border-radius: 100%;
 		    width: 1.5em;
@@ -64,17 +82,45 @@
 		    right:0;
 		    transform: translate(-50%, -150%);
 		}
-	    // &::before {
-	    // 	opacity: 0.5;
-	    // 	font-size:12px;
-	    // }
+
+	} //.close
+
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.modal {
+	&__dialog {
 
 	}
+	&__content {
+		&--splash {
+			padding:5.5em;
+		}
+	}
+	&__title{
+		&--splash {
+			font-size: 8em;
+			line-height: 0.9;
+			margin-bottom: 0.4em;
+		}
+	}
+	&__text {
+		&--splash {
+			margin-bottom: 2em;
+		}
+	}
+
+}
+
 }
 
 
-
-
+// desktop
+///////////////////////////////////////////////////////////////////////////
 
 @include mq($from: desktop) {
 

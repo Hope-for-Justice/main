@@ -1,0 +1,131 @@
+/*
+*
+* _DROP-CARDS.SCSS
+*
+*/
+
+// thin 
+///////////////////////////////////////////////////////////////////////////
+
+.drop-cards {
+	grid-column: col2 / col12;
+	margin: 2em 0 4em 0;
+}
+
+.drop-card {
+	background-color: $light-grey;
+	border-radius: 20px;
+	@include box-shadow;
+	padding: 2.5em;
+	margin-top: 2em;
+	overflow: hidden;
+	max-height: 8em;
+	transition: all 0.3s ease-out;
+	&--open {max-height: 500em;}
+	&__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		&:hover {cursor:pointer;}
+	}
+	&__title {
+		margin:-2em 0;
+		line-height: 1;
+	}
+	&__sub-title {
+		text-transform: none;
+		font-weight: bold;
+		letter-spacing: 0;
+		font-size: 1.6em;
+	}
+	&__content {
+		margin-top: 2.3em;
+		border-top: 1px solid $lines;
+		padding-top:2.3em;
+		margin-bottom: 2.3em;
+	}
+	&__desc {
+		margin-bottom: 2em;
+	}
+	&__list {
+		font-size: 1.4em;
+		list-style: disc;
+		padding-left:1em;
+		margin-bottom:2.5em;
+		&-item {
+			margin-bottom: 1em;
+			&::marker {
+				color: $red;
+			}
+		}
+	} //__list end
+	&__cross {
+		margin-right: -0.4em;
+    	margin-top: -0.1em;
+    	margin-bottom: 0.1em;
+	}
+}
+
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.drop-cards {
+	margin-top: 2.7em;
+}
+
+.drop-card {
+	margin-top: 4em;
+	max-height: 12em;
+	padding: 4em;
+	&--open {max-height: 500em;}
+	&__title {
+		font-size: 4.7em;
+	}
+	&__sub-title {
+		font-size: 2em;
+	}
+	&__content {
+		margin-top:4.2em;
+		padding-top:2.2em;
+	}
+	&__desc {
+		margin-bottom: 3em;
+	}
+	&__list {
+		font-size: 1.8em;
+		
+	}
+}
+
+}
+
+// desktopLarge
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+
+.drop-cards {
+	margin: 4em 0 8em 0;
+	grid-column: col3 / col11;
+}
+
+.drop-card {
+	&__title {
+		font-size: 7em;
+	}
+	&__content {
+		margin-top:6.2em;
+		padding-top:4.2em;
+	}
+	&__list {
+		font-size: 1.8em;
+		columns: 2;
+		column-gap: 4em;
+	}
+}
+
+}
+

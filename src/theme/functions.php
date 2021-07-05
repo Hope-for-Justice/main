@@ -254,7 +254,7 @@ add_action( 'wp_enqueue_scripts', 'news_page_scripts', 1 );
 
 
 function custom_excerpt_length( $length ) {
-    return 23;
+    return 14;
 }
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
 
@@ -354,6 +354,13 @@ add_filter( 'gform_confirmation_anchor', function() {
     return 0;
 } );
 
+/**
+ * better excerpt ending
+ */
+function new_excerpt_more( $more ) {
+    return '...';
+}
+add_filter('excerpt_more', 'new_excerpt_more');
 
 function gpf_create_post_type() {
 

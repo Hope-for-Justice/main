@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for /donate
+ * Template Name: Donate
  *
  *
  * @package Hope_for_Justice_2021
