@@ -227,7 +227,7 @@ add_filter( 'gform_stripe_enable_rate_limits', '__return_false' );
 
 function news_page_scripts() {
 	global $wp_styles;
-	if (is_page_template('category-news-template.php') || is_page_template('all-categories.php') || is_category('blogs_and_opinion_editorials') || is_category('top_news') || is_category('videos') || is_single() || is_category('in_the_headlines') || is_page('search-news-results') || is_page('careers') || is_page('governance-policies-funding')){
+	if (is_page_template('category-news-template.php') || is_page_template('all-categories.php') || is_category('blogs_and_opinion_editorials') || is_category('top_news') || is_category('videos') || is_single() || is_category('in_the_headlines') || is_page('search-news-results') || is_page('careers') || is_page('governance-policies-funding') || is_page('resources-template')){
 		// style files
 		//wp_deregister_script('justice-bootstrap');
 		wp_enqueue_style( 'bootstrap-css', get_template_directory_uri() . '/assets/css/bootstrap.css' );
@@ -237,6 +237,7 @@ function news_page_scripts() {
 	
 		wp_enqueue_style( 'news-page-css', get_template_directory_uri() . '/assets/css/news-page.css' );
 		wp_enqueue_style( 'gov-pol-fund-css', get_template_directory_uri() . '/assets/css/gov-pol-fund.css' );
+		wp_enqueue_style( 'resources-template-css', get_template_directory_uri() . '/assets/css/resources-template.css' );
 		// js files
 		// wp_enqueue_script( 'popper-js', get_template_directory_uri() . '/assets/js/popper.min.js', ['jquery-core'] );
 		// wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/assets/js/bootstrap.min.js', ['jquery-core'] );
@@ -379,6 +380,21 @@ function gpf_create_post_type() {
 
     )
   );
+  register_post_type( 'resources_template',
+    array(
+      'labels' => array(
+        'name' => __( 'Resources ' ),
+        'singular_name' => __( 'Resources ' )
+      ),
+      'public' => true,
+      'has_archive' => true,
+      'rewrite' => array('slug' => 'resources'),
+      'show_in_rest' => true,
+      'menu_icon' => 'dashicons-admin-tools',
+      'supports' => array( 'thumbnail','title','editor' )
+
+    )
+  );
 }
 add_action( 'init', 'gpf_create_post_type' );
 
@@ -438,3 +454,5 @@ function add_custom_taxonomies() {
 }
 
 add_action( 'init', 'add_custom_taxonomies', 0 );
+
+
