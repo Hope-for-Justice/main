@@ -73,7 +73,15 @@ global $post;
 				<div class="drag-cards__inner pdocument_<?php echo $index;?>">
 				<?php 
 				foreach($posts_arr as $arr) {
+					if(get_field('choose_between_field',$arr->ID) == 'updf') {
+
+						$field = get_field('upload_pdf',$arr->ID); 
+					} elseif(get_field('choose_between_field',$arr->ID) == 'elink') { 
+						$field = get_field('external_link',$arr->ID); 
+					}
+					
 				?>
+
 					<?php if($term->slug == 'policies-documents') { ?>
 
 						<div class="drag-cards__card">
@@ -83,7 +91,7 @@ global $post;
 					
 							<h3 class="drag-cards__card-title font-fk"><?php echo $arr->post_title; ?></h3>
 							<div class="freedom-wall__button">
-								<a href="<?php echo get_field('upload_pdf',$arr->ID); ?>" class="button button--black" target="_blank">
+								<a href="<?php echo @$field; ?>" class="button button--black" target="_blank">
 									<div class="button__inner">
 										<div class="button__text bold">VIEW DOCUMENT</div>
 									</div>
@@ -129,7 +137,7 @@ global $post;
 					
 							<h3 class="drag-cards__card-title font-fk"><?php echo $arr->post_title; ?></h3>
 							<div class="freedom-wall__button">
-								<a href="<?php echo get_field('upload_pdf',$arr->ID); ?>" class="button button--black" target="_blank">
+								<a href="<?php echo @$field; ?>" class="button button--black" target="_blank">
 									<div class="button__inner">
 										<div class="button__text bold">VIEW REPORT</div>
 									</div>
@@ -146,7 +154,7 @@ global $post;
 					
 							<h3 class="drag-cards__card-title font-fk"><?php echo $arr->post_title; ?></h3>
 							<div class="freedom-wall__button">
-								<a href="<?php echo get_field('upload_pdf',$arr->ID); ?>" class="button button--black" target="_blank">
+								<a href="<?php echo @$field; ?>" class="button button--black" target="_blank">
 									<div class="button__inner">
 										<div class="button__text bold">VIEW REPORT</div>
 									</div>
