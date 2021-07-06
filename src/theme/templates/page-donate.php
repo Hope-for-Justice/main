@@ -20,6 +20,7 @@ get_header();
 				-- 
 				--> 
 				<div class="donate">
+					<div class="donate__nav-header"></div>
 					<div class="dots">
 						<div class="dots__dot dots__dot--active"></div>
 						<div class="dots__dot"></div>

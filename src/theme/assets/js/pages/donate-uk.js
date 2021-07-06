@@ -139,12 +139,12 @@ jQuery(document).ready(function($) {
         $('.donate__widget').hide();
         $('.donate__widget-footer').hide();
         $('.form__text--first').hide();
-        $('.donate__form').show()
+        $('.donate__form').show();
         $(window).scrollTop(0);
         $('.dots__dot--active').removeClass('dots__dot--active');
         $('.dots__dot:nth-of-type(2)').addClass('dots__dot--active');
+        $('.dots').show();
     });
-
 
 });
 
@@ -182,6 +182,15 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
     jQuery('.ginput_amount').val(donateAmount);
     jQuery('.donate__amount-preview-number').html(donateAmount);
     jQuery('.donate__amount-preview-occurrence').html(donateOccurrence);
+
+    jQuery('.donate__amount-preview').click(function() {
+        jQuery('.donate__widget').show();
+        jQuery('.donate__widget-footer').show();
+        jQuery('.donate__form').hide();
+        jQuery(window).scrollTop(0);
+        jQuery('.form__text--first').show();
+        jQuery('.dots').hide();
+    });
 
     //modify ID of firstname to stop conflict with postcode anywhere address regex
     // could remove this if we dont use a complex field on gravity forms

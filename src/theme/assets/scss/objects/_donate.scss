@@ -7,6 +7,9 @@
 .donate {
 	grid-column: col2 / col12;
 	padding-top: 8.33vw;
+	&__nav-header {
+		display: none;
+	}
 	&__widget {
 		font-size: 1em;
 	}
@@ -105,8 +108,9 @@
 		font-weight: bold;
 		opacity: 0.5;
 		width:100%;
-		//text-decoration: underline;
+		text-decoration: underline;
 		color: $red;
+		&:hover {cursor: pointer;}
 		&-number--uk:before {
 			content: "£";
 		}
