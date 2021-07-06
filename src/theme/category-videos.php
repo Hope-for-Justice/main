@@ -39,7 +39,7 @@ $category_name = $categories[0]->name;
 				<?php
 				$categories = get_categories();
 				foreach($categories as $category) {
-					if($category->term_id != '6') {
+					if($category->term_id != '6' && $category->term_id != '1') {
 					$selected = '';
 					if($category_id == $category->term_id) {
 						$selected = 'selected';
