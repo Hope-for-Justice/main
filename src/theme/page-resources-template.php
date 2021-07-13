@@ -11,11 +11,11 @@ get_header();
 
 	<div class="grid">
 		
-		<div class="news-page__content custom-container">
+		<div class="news-page__content resource-container">
 			<!-- Header and social icons -->	
 			
 
-				<h1 class="resource-header__title">
+				<h1 class="resource-header__title  ">
 					<!-- Show the title -->
 					<?php echo get_the_title(); ?>
 				</h1>
@@ -68,14 +68,14 @@ get_header();
 							    	<div class="cards__text">
 										
 										
-							    		<p class="cards__excerpt">
-							    			<?php echo get_the_excerpt(); ?>
-							    		</p>
-							    		<span class="icon_image">
+								    		<span class="cards__excerpt">
+								    			<?php echo get_the_excerpt(); ?>
+								    		</span>
+							    	
 							    			
-							    				<img src="<?php echo get_template_directory_uri().'/assets/img/download.svg'; ?>" alt="">
+					    				<img src="<?php echo get_template_directory_uri().'/assets/img/download.svg'; ?>" alt="">
 							    			
-							    		</span>
+							    		
 							    	</div>
 							  	</div>
 							</div>

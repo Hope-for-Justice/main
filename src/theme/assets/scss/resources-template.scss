@@ -1,3 +1,8 @@
+.resource-container {
+	padding: 0 9vw;
+}
+
+
 .resource-header__title {
 	font-family: fangsong;
 	font-weight: 600;
@@ -5,7 +10,7 @@
 }
 @media (min-width: 64em) {
 	.resource__template .cards__info {
-		padding: 3em;
+		padding: 2em 3em;
 	}
 }
 
@@ -21,6 +26,14 @@
     width: 25%;
 }
 .resource__template .cards__excerpt {
-	font-size:1.5em;
+	font-size:1.2em;
 }
+
+
+.resource__template .cards__text img{
+	flex-grow:0;
+	flex-shrink:0;
+}
+
+
 

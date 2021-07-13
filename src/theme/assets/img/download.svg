@@ -1,3 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="53" height="50" viewBox="0 0 53 50">
-  <rect id="Rectangle_1789" data-name="Rectangle 1789" width="53" height="50" rx="7" fill="#5caa7f"/>
+  <g id="Group_6785" data-name="Group 6785" transform="translate(-522 -816)">
+    <rect id="Rectangle_1787" data-name="Rectangle 1787" width="53" height="50" rx="7" transform="translate(522 816)" fill="#5caa7f"/>
+    <rect id="Rectangle_1786" data-name="Rectangle 1786" width="3" height="21" transform="translate(559 849) rotate(90)" fill="#fff"/>
+    <rect id="Rectangle_1788" data-name="Rectangle 1788" width="3" height="13" transform="translate(550 844) rotate(180)" fill="#fff"/>
+    <path id="Polygon_49" data-name="Polygon 49" d="M5.5,0,11,8H0Z" transform="translate(554 846) rotate(180)" fill="#fff"/>
+  </g>
 </svg>

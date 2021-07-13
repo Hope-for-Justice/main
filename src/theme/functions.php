@@ -227,10 +227,12 @@ add_filter( 'gform_stripe_enable_rate_limits', '__return_false' );
 
 function news_page_scripts() {
 	global $wp_styles;
-	if (is_page_template('category-news-template.php') || is_page_template('all-categories.php') || is_category('blogs_and_opinion_editorials') || is_category('top_news') || is_category('videos') || is_single() || is_category('in_the_headlines') || is_page('search-news-results') || is_page('careers') || is_page('governance-policies-funding') || is_page('resources-template')){
+	if (is_page_template('category-news-template.php') || is_page_template('all-categories.php') || is_category('blogs_and_opinion_editorials') || is_category('top_news') || is_category('videos') || is_single() || is_category('in_the_headlines') || is_page('search-news-results') || is_page('careers') || is_page('governance-policies-funding') || is_page('resources-template') || is_page('volunteering-opportunities') || is_page('events') || is_singular('events')){
 		// style files
 		//wp_deregister_script('justice-bootstrap');
-		wp_enqueue_style( 'bootstrap-css', get_template_directory_uri() . '/assets/css/bootstrap.css' );
+		if(is_page('volunteering-opportunities') || is_page('events') || is_singular('events')) {
+			wp_enqueue_style( 'bootstrap-css', get_template_directory_uri() . '/assets/css/bootstrap.css' );
+		}
 		
 		
 		
@@ -238,6 +240,8 @@ function news_page_scripts() {
 		wp_enqueue_style( 'news-page-css', get_template_directory_uri() . '/assets/css/news-page.css' );
 		wp_enqueue_style( 'gov-pol-fund-css', get_template_directory_uri() . '/assets/css/gov-pol-fund.css' );
 		wp_enqueue_style( 'resources-template-css', get_template_directory_uri() . '/assets/css/resources-template.css' );
+		wp_enqueue_style( 'volunteering-opportunities-css', get_template_directory_uri() . '/assets/css/volunteering-opportunities.css' );
+		wp_enqueue_style( 'events-css', get_template_directory_uri() . '/assets/css/events.css' );
 		// js files
 		// wp_enqueue_script( 'popper-js', get_template_directory_uri() . '/assets/js/popper.min.js', ['jquery-core'] );
 		// wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/assets/js/bootstrap.min.js', ['jquery-core'] );
@@ -390,8 +394,38 @@ function gpf_create_post_type() {
       'has_archive' => true,
       'rewrite' => array('slug' => 'resources'),
       'show_in_rest' => true,
-      'menu_icon' => 'dashicons-admin-tools',
+      'menu_icon' => 'dashicons-media-text',
       'supports' => array( 'thumbnail','title','editor' )
+
+    )
+  );
+  register_post_type( 'vol_opp',
+    array(
+      'labels' => array(
+        'name' => __( 'Volunteering Opportunities ' ),
+        'singular_name' => __( 'Volunteering Opportunity ' )
+      ),
+      'public' => true,
+      'has_archive' => true,
+      'rewrite' => array('slug' => 'vol_opp'),
+      'show_in_rest' => true,
+      'menu_icon' => 'dashicons-media-document',
+      'supports' => array('title')
+
+    )
+  );
+  register_post_type( 'events',
+    array(
+      'labels' => array(
+        'name' => __( 'Events' ),
+        'singular_name' => __( 'Event' )
+      ),
+      'public' => true,
+      'has_archive' => true,
+      'rewrite' => array('slug' => 'event'),
+      'show_in_rest' => true,
+      'menu_icon' => 'dashicons-groups',
+      'supports' => array('thumbnail','title','editor')
 
     )
   );
@@ -456,3 +490,27 @@ function add_custom_taxonomies() {
 add_action( 'init', 'add_custom_taxonomies', 0 );
 
 
+function update_featured_events() {
+
+  global $posts;
+  global $post;
+  
+  // Get other post marked as featured
+  $posts = get_posts([
+  // Array of posts to check  
+  'post_type' => ['events'],
+  'meta_key' => 'pin_event',
+  'meta_value' => 1,
+  'post__not_in' => [$post->ID]
+  ]);
+
+  // Remove previous featured posts
+  if ( get_field( 'pin_event' ) ) {
+  	foreach( $posts as $p ) {
+
+  		update_field('pin_event', 0, $p->ID);
+    }
+  } return;
+
+}
+add_action('acf/save_post', 'update_featured_events', 20);
