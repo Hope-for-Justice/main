@@ -1,0 +1,39 @@
+.resource-container {
+	padding: 0 9vw;
+}
+
+
+.resource-header__title {
+	font-family: fangsong;
+	font-weight: 600;
+	margin:5% 0;
+}
+@media (min-width: 64em) {
+	.resource__template .cards__info {
+		padding: 2em 3em;
+	}
+}
+
+.resource__template .cards__img-container {
+	padding-top: 75%;
+}
+
+.resource__template .cards__text {
+	display:flex;
+	align-items:center;
+}
+.resource__template .icon_image {
+    width: 25%;
+}
+.resource__template .cards__excerpt {
+	font-size:1.2em;
+}
+
+
+.resource__template .cards__text img{
+	flex-grow:0;
+	flex-shrink:0;
+}
+
+
+

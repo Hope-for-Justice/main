@@ -2,16 +2,16 @@ module.exports = function (distTheme, devTheme, jsDir) {
 	var uglifyFilesObject = {};
 
 
-	// uglifyFilesObject[distTheme + jsDir + 'bootstrap.modal.js'] = [
+	uglifyFilesObject[distTheme + jsDir + 'bootstrap.modal.js'] = [
 
-		
+		devTheme + jsDir + 'plugins/bootstrap.modal.js',
 
 
-	// ];
+	];
 
 	uglifyFilesObject[distTheme + jsDir + 'footer.js'] = [
 		// plugins
-		devTheme + jsDir + 'plugins/bootstrap.modal.js',
+		
 		devTheme + jsDir + 'plugins/utm-tracking.js',
 		devTheme + jsDir + 'plugins/newsticker.js',
 		devTheme + jsDir + 'plugins/lottie.js',
@@ -31,9 +31,7 @@ module.exports = function (distTheme, devTheme, jsDir) {
 		devTheme + jsDir + 'pages/donate-uk.js',
 
 
-	];		
-
-
+	];
 	uglifyFilesObject[distTheme + jsDir + 'popper.min.js'] = [
 
 		devTheme + jsDir + 'plugins/popper.min.js',
@@ -53,6 +51,7 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 
 	];
+
 
 
 	return {
