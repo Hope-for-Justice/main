@@ -100,7 +100,7 @@ get_header();
 					-- 
 					--> 
 					<div class="donate__form form">
-					<?php echo do_shortcode("[gravityform id=\"4\" title=\"false\" description=\"false\" ajax=\"true\"]"); ?>
+					<?php echo do_shortcode("[gravityform id=\"4\" title=\"false\" description=\"false\" ajax=\"false\"]"); ?>
 					</div>
 
 				</div><!-- /donate -->
