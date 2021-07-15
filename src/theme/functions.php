@@ -227,7 +227,7 @@ add_filter( 'gform_stripe_enable_rate_limits', '__return_false' );
 
 function news_page_scripts() {
 	global $wp_styles;
-	if (is_page_template('category-news-template.php') || is_page_template('all-categories.php') || is_category('blogs_and_opinion_editorials') || is_category('top_news') || is_category('videos') || is_single() || is_category('in_the_headlines') || is_page('search-news-results') || is_page('careers') || is_page('governance-policies-funding') || is_page('resources-template') || is_page('volunteering-opportunities') || is_page('events') || is_singular('events')){
+	if (is_page_template('category-news-template.php') || is_page_template('all-categories.php') || is_category('blogs_and_opinion_editorials') || is_category('top_news') || is_category('videos') || is_single() || is_category('in_the_headlines') || is_page('search-news-results') || is_page('careers') || is_page('governance-policies-funding') || is_page('resources-template') || is_page('volunteering-opportunities') || is_page('events') || is_singular('events') || is_page('stories-and-case-studies') || is_singular('stories-and-case-studies')){
 		// style files
 		//wp_deregister_script('justice-bootstrap');
 		if(is_page('volunteering-opportunities') || is_page('events') || is_singular('events')) {
@@ -242,6 +242,7 @@ function news_page_scripts() {
 		wp_enqueue_style( 'resources-template-css', get_template_directory_uri() . '/assets/css/resources-template.css' );
 		wp_enqueue_style( 'volunteering-opportunities-css', get_template_directory_uri() . '/assets/css/volunteering-opportunities.css' );
 		wp_enqueue_style( 'events-css', get_template_directory_uri() . '/assets/css/events.css' );
+        wp_enqueue_style( 'case-studies-css', get_template_directory_uri() . '/assets/css/case-studies.css' );
 		// js files
 		// wp_enqueue_script( 'popper-js', get_template_directory_uri() . '/assets/js/popper.min.js', ['jquery-core'] );
 		// wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/assets/js/bootstrap.min.js', ['jquery-core'] );
@@ -425,6 +426,21 @@ function gpf_create_post_type() {
       'rewrite' => array('slug' => 'event'),
       'show_in_rest' => true,
       'menu_icon' => 'dashicons-groups',
+      'supports' => array('thumbnail','title','editor')
+
+    )
+  );
+  register_post_type( 'stories_case_studies',
+    array(
+      'labels' => array(
+        'name' => __( 'Stories and Case Studies' ),
+        'singular_name' => __( 'Story and Case Study' )
+      ),
+      'public' => true,
+      'has_archive' => true,
+      'rewrite' => array('slug' => 'stories_case_studies'),
+      'show_in_rest' => true,
+      'menu_icon' => 'dashicons-clipboard',
       'supports' => array('thumbnail','title','editor')
 
     )
