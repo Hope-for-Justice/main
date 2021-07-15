@@ -27,7 +27,9 @@ get_header();
 
 			
 			<?php
-
+			$select_resources_template = get_field('select_resources_template');
+			// echo "<pre>";
+			// die(print_r($select_resources_template));
 			// query arguments
 		    $args=array(
 		      'post_type' => 'resources_template',
@@ -38,9 +40,10 @@ get_header();
 		      );
 		    $query = null;
 		    $query = new WP_Query($args);
+		    $resources_template = get_field('select_resources_template');
 
 		    // if have posts show the category title
-		    if( $query->have_posts() ) { ?>
+		    if( $select_resources_template ) { ?>
 		    	
 			
 
@@ -48,12 +51,12 @@ get_header();
 		    <div class="cards sub-grid resource__template">
 
 			    <!-- while there is posts display them -->
-				<?php while ($query->have_posts()) : $query->the_post(); ?>
+				 <?php foreach( $resources_template as $rpost ): ?>
 					<?php 
-					if(get_field('choose_between') == 'pdf') {
-						$field = get_field('upload_pdf',$query->ID); 
-					} elseif(get_field('choose_between') == 'link') { 
-						$field = get_field('link',$query->ID); 
+					if(get_field('choose_between', $rpost->ID) == 'pdf') {
+						$field = get_field('upload_pdf',$rpost->ID); 
+					} elseif(get_field('choose_between', $rpost->ID) == 'link') { 
+						$field = get_field('link',$rpost->ID); 
 					}
 					
 
@@ -62,14 +65,14 @@ get_header();
 						<a href="<?php echo $field; ?>" >
 							<div class="cards__content" >
 								<div class="cards__img-container">
-									<img src="<?php echo get_the_post_thumbnail_url(); ?>" class="cards__img">
+									<img src="<?php echo get_the_post_thumbnail_url($rpost->ID); ?>" class="cards__img">
 								</div>
 							  	<div class="cards__info">
 							    	<div class="cards__text">
 										
 										
 								    		<span class="cards__excerpt">
-								    			<?php echo get_the_excerpt(); ?>
+								    			<?php echo get_the_excerpt($rpost->ID); ?>
 								    		</span>
 							    	
 							    			
@@ -82,7 +85,7 @@ get_header();
 						</a>
 					</div>
 
-			    <?php endwhile; wp_reset_postdata(); } ?>
+			    <?php endforeach; } ?>
 
 			</div><!-- /posts container-->	
 
