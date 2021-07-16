@@ -1,0 +1,131 @@
+.stories_case_studies__page .freedom-wall{
+	
+	position:relative;
+}
+.stories_case_studies__page .freedom-wall{
+	
+	position:relative;
+}
+.stories_case_studies__page .stories_case_title_heading {
+	position: absolute;
+    bottom: 0;
+    left: 0px;
+    right: 0px;
+    color: #fff;
+    font-size: 17rem;
+    text-transform: uppercase;
+    font-family: 'fk-screamer';
+    text-align:center;
+}
+.stories_case_studies__page .case_transparent-title {
+color: transparent;
+
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: white;
+    }
+.stories_case_studies__page .freedom-wall__image{
+	border-radius:0;
+	margin-bottom:0;
+
+}
+.scs__section {
+    grid-column: col1 / col12-end;
+}
+
+.stories_case__paragraph {
+	grid-column: col1 / col12-end;
+}
+@media (min-width: 64em) {
+	.stories_case__paragraph {
+	    grid-column: col2 / col12;
+	    margin-bottom: 8.3vw;
+	}
+}
+.scs__section .get-involved__text {
+	padding:5em 0;
+}
+.scs__section .get-involved {
+    background-color: #fff;
+}
+h3.scs_cards__title {
+	font-weight:600;
+}
+.scs__section .cards__excerpt {
+	font-size: 1.5em;
+}
+.stories_case_studies_inner .custom-hr {
+	padding-top:5em;
+	width:60%;
+}
+.sidebar-news-inner__button {
+
+font-size: 0.8rem;
+margin-top:20px;
+}
+.stories_case_studies__page .cards__info {
+    padding: 3em 3em 3.5em 3em;
+}
+.stories_case_studies_inner .cards__info {
+     padding: 3em 3em 3.5em 3em;
+}
+
+.stories_case_studies_inner .news-inner__footer {
+	    align-items: start;
+
+}
+.stories_case_studies_inner .news-inner__share-text {
+	margin-left:1em;
+}
+.news-inner__post-heading_content {
+	font-family: 'canela-medium';
+    font-size: 4rem;
+}
+.stories_case_studies_inner .news-inner__img-container {
+	position: relative;
+}
+.stories_case_studies_inner .single_title_stories {
+	position: absolute;
+    top: 100px;
+    left: 230px;
+    font-size: 10rem;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: 'fk-screamer';
+    width: 58%;
+    line-height: 0.9;
+    text-align:center;
+}
+
+@media only screen and (max-width: 425px) {
+	.stories_case_studies__page .stories_case_title_heading {
+	   
+	   
+	    font-size: 5rem;
+	 
+	}
+	.stories_case_studies_inner .single_title_stories {
+	top: 90px;
+	left: 10px;
+	font-size: 5rem;
+
+	width: 100%; 
+
+	}
+	.stories_case_studies_inner .custom-hr {
+    padding-top: 0; 
+   	border-top: none !important;
+	}
+	.scs__section .get-involved__text {
+		padding:3em ;
+	}
+}
+
+@media only screen and (max-width: 375px) {
+	.stories_case_studies__page .stories_case_title_heading {
+	    
+	    font-size: 4rem;
+	}
+}
+.stories_case_studies__page .news-page__content {
+	margin-bottom:30px;
+}
