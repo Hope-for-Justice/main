@@ -148,13 +148,13 @@
 ///////////////////////////////////////////////////////////////////////////
 @include mq($from: wide) {
 
-.news-inner {
-	&__post {
-		grid-column: col1 / col10;
-	}
-	&__cards {
-		grid-column: col10 / col12-end;
-	}
-}
+// .news-inner {
+// 	&__post {
+// 		grid-column: col1 / col10;
+// 	}
+// 	&__cards {
+// 		grid-column: col10 / col12-end;
+// 	}
+// }
 
 }

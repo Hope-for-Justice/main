@@ -82,7 +82,80 @@ $args = wp_parse_args(
                             <div class="button__text bold">Continue<br>to website</div>
                         </div>
                     </a>
-                    <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close">&times;<span class="accessibility">Close</span></a>
+                    <a href="#" data-dismiss="modal" class="gi-close modal__close">&times;<span class="accessibility">Close</span></a>
+
+                </div>
+         </div>
+    </div>
+
+<?php } else if ( ( $args['type'] ) == "payment-once") { ?>
+    
+    <!--
+    --
+    --  payment once
+    --
+    -->
+    <div class="modal modal--payment fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
+          <div class="modal__dialog modal__dialog--payment">
+                <div class="modal__content modal__content--payment">
+                    <?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){ ?>
+
+                        <!-- usa form -->
+                        <div id="usaForm"><?php echo do_shortcode("[give_form id=\"328\"]"); ?></div>
+
+                    <?php } else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])){ ?>
+
+                        <!-- norway form -->
+                        <div id="norwayForm"><?php echo do_shortcode("[give_form id=\"332\"]"); ?></div>
+                        
+                    <?php } else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['aus'])){ ?> 
+                        
+                        <!-- aus form -->
+                        <div id="ausForm"><?php echo do_shortcode("[give_form id=\"333\"]"); ?></div>
+
+                    <?php } else { ?>
+
+                        <!-- uk form --> 
+                        <div id="ukForm"><?php echo do_shortcode("[give_form id=\"314\"]"); ?></div>
+
+                    <?php } ?> 
+                    <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--payment">&times;<span class="accessibility">Close</span></a>
+
+                </div>
+         </div>
+    </div>
+
+<?php } else if ( ( $args['type'] ) == "payment-regular") { ?>
+
+    <!--
+    --
+    --  payment regular
+    --
+    -->
+    <div class="modal modal--payment fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
+          <div class="modal__dialog modal__dialog--payment">
+                <div class="modal__content modal__content--payment">
+                    <?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['uk'])){ ?>
+
+                        <!-- uk form reg -->
+                        <?php echo do_shortcode("[give_form id=\"334\"]"); ?>
+
+                    <?php } else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])){ ?>
+
+                        <!-- norway form redirect to solidus -->
+                        
+                    <?php } else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['aus'])){ ?> 
+                        
+                        <!-- aus form -->
+                        <?php echo do_shortcode("[give_form id=\"336\"]"); ?>
+
+                    <?php } else { ?>
+
+                        <!-- usa form --> 
+                        <?php echo do_shortcode("[give_form id=\"335\"]"); ?> 
+
+                    <?php } ?> 
+                    <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--payment">&times;<span class="accessibility">Close</span></a>
 
                 </div>
          </div>

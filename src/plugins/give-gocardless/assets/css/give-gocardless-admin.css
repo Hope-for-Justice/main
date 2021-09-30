@@ -1,0 +1,11 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+.gocardless-auth{
+	float: left;
+}
+.give-donation-status.status-processing>span {
+	background-color: #73a724 ;
+}

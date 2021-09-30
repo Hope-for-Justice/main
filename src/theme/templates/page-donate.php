@@ -35,7 +35,7 @@ get_header();
 						<div class="line"></div>
 					</div>
 					
-					<div class="donate__widget">
+					<div id="donateWidget" class="donate__widget" style="display: none;">
 						<div class="donate__toggle-and-currency">
 							<div class="donate__toggle toggle toggle--black">
 								<div class="toggle__option">Give once</div>

@@ -218,7 +218,7 @@ get_header();
 	        'type' => 'splash',
 	        'id' => 'splash-modal'
 	    )
-	); ?>
+	); ?> 
 
 	<?php endwhile; // end of the loop. ?>
 

@@ -1,0 +1,72 @@
+/*
+*
+* _INLINE-GIVING.SCSS
+*
+*/
+
+.inline-giving {
+	width:100%;
+	grid-column: col1 / col12-end;
+	margin: 0 auto;
+	&__title {
+		font-size: 5.3em;
+		line-height: 1;
+	}
+	&__info {
+		grid-column: col1 / col12-end;
+		color: white;
+		padding: 0 8.3vw;
+		margin: 3em 0em 6em 0em;
+	}
+	&__form {
+		width:100%;
+	}
+}
+
+// phablet
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: phablet) {
+
+.inline-giving {
+	&__title {
+		font-size: 7em;
+		line-height: 1;
+		margin-bottom: 0.5em;
+	}
+	&__info {
+		max-width: 50em;
+		text-align: center;
+		padding: 0;
+		margin: 6em auto;
+	}
+}
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktop) {
+
+.inline-giving {
+	grid-column: col2 / col7;
+	&__title {
+		font-size: 9em;
+	}
+	&__form {
+		width:100%;
+	}
+	&__info {
+		grid-column: col8 / col12;
+		text-align: left;
+		padding: 0;
+		margin: 12em 0 0 0;
+	}
+}
+}
+
+// desktop large
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopLarge) {
+
+
+}
+

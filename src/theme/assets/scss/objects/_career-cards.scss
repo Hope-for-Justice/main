@@ -1,0 +1,107 @@
+/*
+*
+* _CAREER-CARDS.SCSS
+*
+*/
+
+.career-cards {
+	grid-column: 2 / 12;
+	gap:2em;
+	//padding: 5em 0;
+	&__card {
+		grid-column: span 12;
+		@include box-shadow;
+		border-radius: 20px;
+		background-color: $light-grey;
+		padding:2em;
+		position: relative;
+		min-height: 13em;
+	}
+	&__inner {
+		display: flex;
+    	flex-direction: column;
+    	justify-content: space-between;
+    	height: 100%;
+	}
+	&__title {
+		font-size: 2.5em;
+		line-height: 1;
+		color: $black;
+		letter-spacing: 0;
+		max-width: 90%;
+		margin: 0;
+	}
+	&__arrow {
+		position: absolute;
+		top: 50%;
+		right:2em;
+		img {height:30px;}
+		transform: translateY(-50%);
+	}
+	&__location {
+		display: flex;
+		color: $black;
+		margin-top: auto;
+		align-items: center;
+		p{font-size: 1.2em;}
+		img{
+			height:2em;
+			margin-right: 1em;
+		}
+	}
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.career-cards {
+	&__card {
+		font-size: 1.5em;
+		padding: 3em;
+	}
+}
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.career-cards {
+	&__card {
+		min-height: 16em;
+		grid-column: span 6;
+	}
+}
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+
+.career-cards {
+	grid-column: 3 / 11;
+	&__card {
+		min-height: 20em;
+	}
+	&__title {
+		font-size: 3.2em;
+	}
+}
+
+}
+
+
+
+
+
+
+
+
+
+

@@ -19,7 +19,24 @@
 	<!-- Loqate script -->
 <!-- 	<script>(function(n,t,i,r){var u,f;n[i]=n[i]||{},n[i].initial={accountCode:"HOPEF11114",host:"HOPEF11114.pcapredict.com"},n[i].on=n[i].on||function(){(n[i].onq=n[i].onq||[]).push(arguments)},u=t.createElement("script"),u.async=!0,u.src=r,f=t.getElementsByTagName("script")[0],f.parentNode.insertBefore(u,f)})(window,document,"pca","//HOPEF11114.pcapredict.com/js/sensor.js")</script> -->
 
-	<?php wp_head(); ?>
+<!-- Global GeoIP lookup -->
+<?php
+	// Antigua and Barbuda(AG),Argentina(AR),Bahamas(BS),Barbados(BB),Belize(BZ),Bolivia(BO),Brazil (BR),Cambodia(KH),Canada(CA),Chile(CL),Colombia(CO),Costa Rica(CR),Dominica(DM),Dominican Republic(DM),Ecuador(EC),El Salvador(SV),French Guiana(GF),Grenada(GD),Guadeloupe(GP),Guatamala(GT),Guyana(GY),Haiti(HT),Honduras(HN),Jamaica(JM),Martinique(MQ),Mexico(MX),Nicaragua(NI),Panama(PA),Paraguay(PY),Peru(PE),Puerto Rico(PR),Saint Lucia(LC),Saint Vincent and the Grenadines(VC),Suriname(SR),Trinidad & Tobago(TT),United States(US),Uruguay(UY),Venezuela (VE), Virgin Islands U.S.(VI)
+	$GLOBALS['usa'] = array('AG','AR','BB','BS','BO','BR','BZ','CA','CL','CO','CR','DO','DM','EC','KH','LC','GD','GF','GP','GT','GY','HN','HT','JM','MQ','MX','NI','PA','PE','PR','PY','SR','SV','TT','US','UM','UY','VC','VE','VI');
+
+	// Norwegian countries - I've put this into an array because we'll no doubt add other Scandinavian countries at some point
+	$GLOBALS['norway'] = array('NO');
+
+	$GLOBALS['uk'] = array('GB');
+
+	$GLOBALS['aus'] = array('AU');
+	
+	// lookup country code of IP
+	$GLOBALS['geo'] = Wpengine\Geoip::instance();
+    $GLOBALS['userInfo'] = $GLOBALS['geo']->country(); 
+?>
+
+<?php wp_head(); ?>
 
 </head>
 
@@ -55,7 +72,7 @@
 				</svg>
 			</a>
 			<div class="header__navigation">
-				<a class="button button--red button--nav bold" href="/donate">DONATE</a>
+				<a data-toggle="modal" data-target="#payment-modal-once" class="button button--red button--nav bold" href="/donate">DONATE</a>
 				<div id="burger-menu" class="header__burger">
 					<div class="burger">
 					  <span></span>

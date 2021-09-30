@@ -277,7 +277,7 @@ if ( ! class_exists( 'GFResults' ) ) {
 
 										foreach ( $filter_ui as $name => $filter ) {
 											?>
-												<label class='gform-settings-label'><?php echo $filter['label'] ?><?php gform_tooltip( rgar( $filter, 'tooltip' ), 'tooltip_bottomleft' ) ?></label>
+											<div class="gform-settings-field__header"><label class='gform-settings-label'><?php echo $filter['label'] ?><?php gform_tooltip( rgar( $filter, 'tooltip' ), 'tooltip_bottomleft' ) ?></label></div>
 											<?php
 											echo $filter['markup'];
 										}
@@ -297,7 +297,7 @@ if ( ! class_exists( 'GFResults' ) ) {
 
 											<div class="gresults-filter-loading"
 											     style="display:none; float:right; margin-top:5px;">
-												<i class='gficon-gravityforms-spinner-icon gficon-spin'></i>
+												<i class='gform-spinner'></i>
 											</div>
 										</div>
 									</form>
@@ -306,7 +306,7 @@ if ( ! class_exists( 'GFResults' ) ) {
 						</div>
 					</div>
 					<div class="gresults-filter-loading" style="display:none;margin:0 5px 10px 0;">
-						<i class='gficon-gravityforms-spinner-icon gficon-spin'></i>&nbsp;
+						<i class='gform-spinner'></i>&nbsp;
 						<a href="javascript:void(0);" onclick="javascript:gresultsAjaxRequest.abort()" onkeypress="javascript:gresultsAjaxRequest.abort()"><?php esc_html_e( 'Cancel', 'gravityforms' ); ?></a>
 					</div>
 
@@ -515,11 +515,12 @@ if ( ! class_exists( 'GFResults' ) ) {
 					}
 
 					$bar_height        = 40;
-					$chart_area_height = ( count( $choices ) * $bar_height );
+					$chart_area_height = ( count( $choices ) * ( $bar_height + 20 ) );
 
 					$chart_options = array(
 						'isStacked' => true,
 						'height'    => ( $chart_area_height + $bar_height ),
+						'fontSize'  => 14,
 						'chartArea' => array(
 							'top'    => 0,
 							'left'   => 200,
@@ -530,7 +531,7 @@ if ( ! class_exists( 'GFResults' ) ) {
 							'0' => array(
 								'color'           => 'silver',
 								'visibleInLegend' => 'false',
-							)
+							),
 						),
 						'hAxis'     => array(
 							'viewWindowMode' => 'explicit',

@@ -16,6 +16,7 @@
 		margin-top: 3em;
 		margin-bottom: 5em;
 		grid-column: col2/ col12;
+		min-height: 20vh;
 	}
 }
 
@@ -31,7 +32,7 @@
 	&__content {
 		grid-column: col2/ col8;
 		margin-top: 5em;
-		margin-bottom: 8em;
+		margin-bottom: 14em;
 	}
 }
 

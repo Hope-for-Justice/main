@@ -1,0 +1,45 @@
+/*
+*
+* _CAREERS.SCSS
+*
+*/
+
+.careers .hero-split__img {
+	background-size:100%;
+}
+
+.careers .plain-text {
+	margin: 4em 0;
+	h2 {margin-bottom: 0.5em;}
+	p {margin-bottom: 2em;}
+}
+
+.volunteering .career-cards {
+	padding-bottom: 8em;
+}
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.careers .plain-text {
+	margin: 8em 0;
+}
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.careers .hero-split__img {
+	background-size:cover;
+}
+
+.careers .plain-text {
+	grid-column: col4 / col10;
+	margin: 8em 0;
+}
+
+}

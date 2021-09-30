@@ -1,0 +1,98 @@
+/*
+*
+* _404.SCSS
+*
+*/
+
+.page-404 {
+	min-height: 80vh;
+	&__info, &__image {
+		margin: 8.6vw 0 17.2vw 0;
+		grid-column: col2 / col12;
+		h1 {
+			font-size: 12em;
+			line-height: 1;
+			margin-bottom: 10px;
+		}
+		p {
+			margin-bottom: 20px;
+		}
+	}
+	&__image {
+		margin-top: 0;
+		display: flex;
+		justify-content: flex-end;
+		margin-bottom: 8.6vw;
+		svg {
+			width:100%;
+			max-width: 500px;
+			height:auto;
+		}
+	}
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktop) {
+
+.page-404 {
+	&__info{
+		grid-column: col2 / col6;
+		h1 {
+			font-size: 20em;
+		}
+		p {
+			font-size: 2em;
+			margin-bottom: 40px;
+		}
+	}
+	&__image {
+		grid-column: col7 / col12;
+		margin-top: 8.6vw;
+	}
+}
+
+}
+
+// desktop Large
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopLarge) {
+
+.page-404 {
+	&__info{
+		grid-column: col3 / col6;
+		h1 {
+			font-size: 20em;
+		}
+		p {
+			font-size: 2em;
+			margin-bottom: 40px;
+		}
+	}
+	&__image {
+		margin-top: 4vw;
+		grid-column: col7 / col11;
+		svg {
+			max-width: none;
+		}
+	}
+}
+
+}
+
+// desktop Large
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopExtraLarge) {
+
+.page-404 {
+	&__info{
+		h1 {
+			font-size: 23em;
+		}
+		p {
+			font-size: 2.4em;
+		}
+	}
+}
+
+}

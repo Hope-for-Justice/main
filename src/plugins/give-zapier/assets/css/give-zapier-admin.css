@@ -1,0 +1,89 @@
+/**
+ * Give - Zapier Admin CSS
+ */
+#zapier-intro {
+	max-width: 1100px;
+}
+
+.cmb-type-give-zapier-button {
+	float: left;
+	width: auto;
+}
+
+form#zapier .give-submit-wrap {
+	display: none;
+}
+
+.give-zapier-headline th {
+	display: none !important;
+}
+
+/* Introduction */
+.form-table .give-zapier-intro-p {
+	font-size: 1.2em;
+	padding: 30px 0 0;
+	margin: 0;
+}
+
+.give-zapier-content {
+	margin-left: 235px;
+}
+
+.give-zapier-logo {
+	float: left;
+	width: 200px;
+}
+
+#zapier-intro ul {
+	list-style-type: disc;
+	margin: 15px 0 0 30px;
+}
+
+#zapier-intro li {
+	margin: 0;
+	padding: 0 0 12px;
+}
+
+.give-zapier-step-wrap {
+	overflow: hidden;
+	clear: both;
+	margin: 30px 0 0;
+}
+
+td.give-zapier-intro-td {
+	padding-bottom: 0;
+}
+
+.give-zapier-steps {
+	margin-bottom: 0;
+}
+
+.give-zapier-col {
+	float: left;
+	width: 49%;
+	padding: 15px 20px 10px;
+	background: #f9f9f9;
+	box-sizing: border-box;
+}
+
+.give-zapier-left {
+	margin-right: 2%;
+}
+
+#give-mainform .give-zapier-title {
+	font-weight: bold;
+	font-size: 1.1em;
+}
+
+.give-zapier-trigger-btn-wrap {
+	margin: 20px 0 0;
+}
+
+.give-zapier-triggers {
+	max-width: 1100px;
+}
+
+.give-zapier-trigger-btn-wrap li{
+	display: inline-block;
+	margin: 0 15px 15px 0;
+}

@@ -6,11 +6,67 @@
 get_header();
 ?>
 
-<main id="main" class="site-main">
+<main id="main" class="site-main careers volunteering">
 
-	<div class="container">
-		<div class="row">
-			<?php
+		<?php while ( have_posts() ) : the_post(); ?>		
+
+	<?php $thumbnail = '';
+
+	// Get the ID of the post_thumbnail (if it exists)
+	$post_thumbnail_id = get_post_thumbnail_id($post->ID);
+
+	// if it exists
+	if ($post_thumbnail_id) {
+		$thumbnail = wp_get_attachment_image_src($post_thumbnail_id, '', false, '');
+	} ?>
+
+		<div class="grid">
+		
+		<!-- 
+		-- 
+		-- hero split
+		-- 
+		--> 
+		<div class="hero-split">
+
+			<div class="hero-split__img hero-split__img--center-center " style="background-image: url('<?php echo $thumbnail[0]; ?>');">
+			</div>
+
+			<div class="hero-split__content hero-split__content--grey">
+				<div class="hero-split__content-inner">
+					<h3>
+						#TeamHopeforJustice
+					</h3>
+					<h1 class="font-canela">
+						Volunteering<br>
+						Opportunities
+					</h1>
+					<p class="hero-split__desc hero-split__desc--thinner">
+						Volunteers are the heartbeat of our movement to end slavery. By joining the team at Hope for Justice (wherever you are in the world) you can be part of making huge change happen in virtually every continent.
+					</p>
+				</div>
+			</div>
+		</div><!-- /hero-split -->
+		
+		<!-- 
+		-- 
+		-- plain-text
+		--  
+		-->
+		<div class="plain-text">
+			<h2 class="font-canela">Current opportunities</h2>
+			<p>Do you want to be part of something incredible? At Hope for Justice, we’re proud to work with a community of amazing volunteers – and we’d love you to join us!
+			</p>
+		</div><!-- /plain-text -->
+
+
+		<!-- 
+		-- 
+		-- career-cards
+		-- 
+		-->
+		<div class="sub-grid career-cards">
+				<?php
 				$args=array(
 				'post_type' => 'vol_opp',
 				'post_status' => 'publish',
@@ -31,29 +87,36 @@ get_header();
 				 		$location = get_field('location',$query->ID); 
 				 		$country = get_field('country',$query->ID); 
 				 		?>
+					
+					<div class="career-cards__card">
+						<a class="career-cards__inner" href="<?php echo $field; ?>">
+							<!-- Card title -->
+							<h3 class="career-cards__title font-fk">
+								<?php echo get_the_title(); ?>
+							</h3>
 
-				 		<div class="col-md-6">
-						<a href="<?php echo $field; ?>" class="career_card_links">
-						<div class="drag-cards career_drag-cards" id="dragCards">
-							<div class=" drag-cards__inner_career" >
-								<div class="drag-cards__card drag-cards__card_career">
-
-									<h3 class="drag-cards__card-title font-fk"><?php echo get_the_title(); ?></h3>
-									<div class="img-icons"><img src="<?php echo get_template_directory_uri().'/assets/img/arrow.svg'; ?>" /></div>
-									<p class="drag-cards__card-desc align-items-center"><span class="img-icon">
-										<img src="<?php echo get_template_directory_uri().'/assets/img/balloon.svg'; ?>" /></span>
-										<span class="card-location"> <?php echo $location; ?>,&nbsp;<?php echo $country; ?></span></p>
-								</div>
+							<!-- Arrow -->
+							<div class="career-cards__arrow">
+								<img src="<?php echo get_template_directory_uri().'/assets/img/arrow.svg'; ?>" />
 							</div>
-						</div>
+
+							<!-- location -->
+							<div class="career-cards__location">
+								<img src="<?php echo get_template_directory_uri().'/assets/img/balloon.svg'; ?>" />
+								<p>
+									<?php echo $location; ?>,&nbsp;<?php echo $country; ?>	
+								</p>
+							</div>	
 						</a>
+					</div>	
 
-					</div>
-			<?php endwhile; wp_reset_postdata();   } ?>
-		</div>
-	</div>
+				<?php endwhile; wp_reset_postdata();   } ?>
+		</div><!-- /career-cards -->
 
 
+		</div><!-- /grid -->
+
+	<?php endwhile ?>
 
 </main><!-- /#main -->
 

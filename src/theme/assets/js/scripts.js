@@ -60,7 +60,6 @@ jQuery(document).ready(function($) {
         $frame.attr('src', '');
     })
 
-
     //reference modal text 
     var $text;
     $('.reference__symbol').click(function() {
@@ -143,12 +142,48 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
     });
     // initialise
     headroom.init();
-
+ 
     //modal (spash)
     $('#splash-modal').modal('show');
 
-    //Homepage
 
+    //give wp
+    $("#usaForm").find('iframe').contents().find(".currency--before").html('$');
+    $("#ausForm").find('iframe').contents().find(".currency--before").html('$');
+    $("#norwayForm").find('iframe').contents().find(".currency--before").html('Kr.');
+    
+    const selectOption = $(".give-embed-form-wrapper").find('iframe').contents().find(".preferencesQuestion").find('select');
+    const options = $(".give-embed-form-wrapper").find('iframe').contents().find(".preference"); 
+    const preferenceText = $(".give-embed-form-wrapper").find('iframe').contents().find(".preferenceText");
+
+    let selectedValue = selectOption.val();
+        
+    function preferenceQuestions(){
+        let selectedValue = selectOption.val();
+        if (selectedValue !== "Yes, keep my settings as they are") {
+            $(options).each(function(i) {
+                $(this).show();
+                $(this).find('select').children('option:nth-child(4)').prop('hidden','true');
+                $(this).find('select').children('option:nth-child(1)').prop('selected','selected');
+                $(preferenceText).parent().show();
+            });
+        } else {
+            $(options).each(function(i) {
+                $(this).hide();
+                $(this).find('select').children('option:nth-child(4)').prop('hidden','true');
+                $(this).find('select').children('option:nth-child(4)').prop('selected','selected');
+                $(preferenceText).parent().hide();
+            });
+        }  
+    }
+
+    preferenceQuestions();
+
+    selectOption.change(function (){
+        preferenceQuestions();
+    });
+
+    //Homepage
         // if(!$(".modal").length){
         //     $(".hero__content").addClass("animate__animated animate__fadeInDown").css('opacity','1');
         // } 

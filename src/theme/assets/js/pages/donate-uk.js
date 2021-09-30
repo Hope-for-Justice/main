@@ -10,6 +10,26 @@ let donateOccurrence = "monthly";
 
 jQuery(document).ready(function($) {
     
+    if (sessionStorage.getItem('widget') !== null && window.location.hash == '') {
+        //alert("state set");
+        let state = sessionStorage.getItem('widget');
+        $('#donateWidget').replaceWith(JSON.parse(state));
+        $('#donateWidget').show();
+    } 
+
+    if(window.location.hash != '') {
+        $('.donate__widget').hide();
+        $('.donate__widget-footer').hide();
+        $('.form__text--first').hide();
+        $('.donate__form').show();
+    } else {
+        $('.donate__widget').show();
+        $('.donate__widget-footer').show();
+        $('.form__text--first').show();
+        $('.donate__form').hide();
+    }
+
+
     //set data value to match text
     $('[data-valuemonthly]').each(function(i) {
         $(this).text($(this).data("valuemonthly"));
@@ -144,7 +164,24 @@ jQuery(document).ready(function($) {
         $('.dots__dot--active').removeClass('dots__dot--active');
         $('.dots__dot:nth-of-type(2)').addClass('dots__dot--active');
         $('.dots').show();
+        let widgetState = $('#donateWidget')[0].outerHTML;
+        sessionStorage.setItem('widget', JSON.stringify(widgetState));
+        window.location.hash = 'gf1' //add hash to url 
     });
+
+    window.onhashchange = function() {
+        if(window.location.hash != '') {
+            $('.donate__widget').hide();
+            $('.donate__widget-footer').hide();
+            $('.form__text--first').hide();
+            $('.donate__form').show();
+        } else {
+            $('.donate__widget').show();
+            $('.donate__widget-footer').show();
+            $('.form__text--first').show();
+            $('.donate__form').hide();
+        }
+    }
 
 });
 

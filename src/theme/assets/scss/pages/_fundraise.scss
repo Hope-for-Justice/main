@@ -1,0 +1,43 @@
+/*
+*
+* _FUNDRAISE.SCSS
+*
+*/
+
+.fundraise {
+	.plain-text {
+		h2 {margin-bottom: 0.5em;}
+		.margin-bottom {
+			margin-bottom: 2em;
+		}
+	}
+	.hero-split {
+		&__img {
+			background-position: 50% 20%;
+		}
+	}
+	.fundraise-facebook-image {
+		max-width: 150px;
+		margin-bottom: 3em;
+	}
+	.fundraise-jg-image {
+		max-width: 150px;
+		margin-bottom: 3em;
+	}
+	.fundraise-top {
+		margin-bottom: 0;
+	}
+} //fundraise
+
+
+// desktop Large
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+	.fundraise {
+		.plain-text {
+			grid-column: col3 / col11;
+			margin: 4em 0;
+		}
+	} //fundraise
+}

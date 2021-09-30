@@ -45,6 +45,11 @@
 @include mq($from: desktop) {
 
 .site-content {margin-top: 10.04em;}
+	
+.site{ 
+	max-width: 1920px;
+	margin: 0 auto;
+}
 
 }
 
@@ -53,9 +58,5 @@
 
 @include mq($from: extraWide) {
 
-.site {
-	max-width: 2560px;
-	margin: 0 auto;
-}
 
 }

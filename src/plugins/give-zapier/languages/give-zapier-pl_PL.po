@@ -1,0 +1,152 @@
+# Copyright (C) 2016 Give - Zapier
+# This file is distributed under the same license as the Give - Zapier package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Give - Zapier\n"
+"Report-Msgid-Bugs-To: https://github.com/WordImpress/Give-Zapier/issues/new\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-01-11 20:12+0000\n"
+"Language-Team: WordImpress <info@wordimpress.com>\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"POT-Creation-Date: \n"
+"X-Generator: Poedit 1.8.11\n"
+"Last-Translator: \n"
+"Language: pl_PL\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: give-zapier.php:152
+msgid "Used for storing Give Zapier subscriptions"
+msgstr "Używane do przechowywania subskrypcji Give Zapier"
+
+#: includes/give-zapier-activation.php:69, includes/give-zapier-settings.php:25
+msgid "Zapier"
+msgstr "Zapier"
+
+#: includes/give-zapier-activation.php:92
+msgid ""
+"<strong>Activation Error:</strong> You must have the <a href=\"https://"
+"givewp.com/\" target=\"_blank\">Give</a> plugin installed and activated for "
+"the Zapier add-on to activate."
+msgstr ""
+"<strong> Błąd aktywacji: </strong> Musisz mieć zainstalowaną i aktywowaną "
+"wtyczkę <a href=\"https://givewp.com/\" target=\"_blank\">Give</a> aby "
+"aktywować dodatek Zapier."
+
+#: includes/give-zapier-activation.php:101
+msgid ""
+"<strong>Activation Error:</strong> You must have <a href=\"%s\" target="
+"\"_blank\">Give</a> version %s+ for the Zapier add-on to activate."
+msgstr ""
+"<strong> Błąd Aktywacji: </strong> Musisz posiadać wersję %s+ wtyczki <a "
+"href=\"%s\" target=\"_blank\">Give</a> aby aktywować dodatek Zapier."
+
+#: includes/give-zapier-activation.php:121
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: includes/give-zapier-activation.php:155
+msgid "Documentation"
+msgstr "Dokumentacja"
+
+#: includes/give-zapier-activation.php:165
+msgid "Add-ons"
+msgstr "Dodatki"
+
+#: includes/give-zapier-settings.php:54, includes/give-zapier-settings.php:58
+msgid "Zapier Settings"
+msgstr "Ustawienia Zapier"
+
+#: includes/give-zapier-settings.php:64
+msgid "New Donor"
+msgstr "Nowy Darczyńca"
+
+#: includes/give-zapier-settings.php:69
+msgid "Updated Donor"
+msgstr "Zaktualizowany Darczyńca"
+
+#: includes/give-zapier-settings.php:74
+msgid "New Donation"
+msgstr "Nowa Dotacja"
+
+#: includes/give-zapier-settings.php:79
+msgid "Deleted Donation"
+msgstr "Usunięte Dotacje"
+
+#: includes/give-zapier-settings.php:84
+msgid "Revoked Donation"
+msgstr "Odwołana Dotacja"
+
+#: includes/give-zapier-settings.php:89
+msgid "Refunded Donation"
+msgstr "Zrefundowana Dotacja"
+
+#: includes/give-zapier-settings.php:94
+msgid "Failed Donation"
+msgstr "Dotacja nie powiodła się"
+
+#: includes/give-zapier-settings.php:99
+msgid "Pending Donation"
+msgstr "Oczekująca Dotacja"
+
+#: includes/give-zapier-settings.php:149
+msgid ""
+"Welcome to the Zapier Add-on for Give. This powerful Add-on lets you connect "
+"Give to more than 400+ third-party web services."
+msgstr ""
+"Witaj w dodatku Zapier dla wtyczki Give. Dodatek ten pozwala na połączenie "
+"Give do ponad 400+ serwisów internetowych innych firm."
+
+#: includes/give-zapier-settings.php:157
+msgid "Create a Give API Key"
+msgstr "Utwórz klucz API dla Give"
+
+#: includes/give-zapier-settings.php:158
+msgid "this allows Give to communicate with Zapier."
+msgstr "pozwala to na komunikację Give z Zapierem."
+
+#: includes/give-zapier-settings.php:161
+msgid "Connect to the Zapier Give App"
+msgstr "Połącz z Zapier Give App"
+
+#: includes/give-zapier-settings.php:162
+msgid "this connects Zapier to your Website"
+msgstr "podłączy to Zapier do twojej strony."
+
+#: includes/give-zapier-settings.php:167
+msgid "Help and Support:"
+msgstr "Pomoc i obsługa techniczna"
+
+#: includes/give-zapier-settings.php:170
+msgid "Give Zapier Add-on Documentation"
+msgstr "Dokumentacja dodatku Give Zapier"
+
+#: includes/give-zapier-settings.php:173
+msgid "Give API Documentation"
+msgstr "Dokumentacja API Give"
+
+#: includes/give-zapier-settings.php:175
+msgid "Zapier Add-on Support"
+msgstr "Obsługa techniczna dodatku Zapier"
+
+#: includes/give-zapier-settings.php:183
+msgid "Testing Triggers:"
+msgstr "Testowanie wyzwalaczy (triggers) "
+
+#: includes/give-zapier-settings.php:184
+msgid ""
+"Once you have setup triggers in Zapier you can use the buttons below to test "
+"their functionality. Click the buttons that corresponds with your triggers "
+"below to test:"
+msgstr ""
+"Jak tylko ustawisz wyzwalacze (triggers) w Zapierze możesz użyć guzików "
+"poniżej aby przetestować ich funkcjonalność. Kliknij na guziki poniżej, "
+"które są powiązane z twoimi wyzwalaczami (triggers) aby przetestować:"

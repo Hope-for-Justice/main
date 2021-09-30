@@ -172,31 +172,31 @@
 }
 
 
-// extra wide 2560 imac 27
-//////////////////////////////////////////////////////////////////////////////////
-@include mq($from: extraWide) {
+// // extra wide 2560 imac 27
+// //////////////////////////////////////////////////////////////////////////////////
+// @include mq($from: extraWide) {
 
-.menu {
-	&__inner {
+// .menu {
+// 	&__inner {
 
-	}
-	&__primary {
-		li {font-size: 7.6em;}
-	}
+// 	}
+// 	&__primary {
+// 		li {font-size: 7.6em;}
+// 	}
 
-	&__secondary {
-		li {font-size: 2.4em;}
-	}
-	&__footer {
-		small{font-size: 1.6em;}
-	}
-	&__button {
-		margin-bottom: 6em;
-	}
+// 	&__secondary {
+// 		li {font-size: 2.4em;}
+// 	}
+// 	&__footer {
+// 		small{font-size: 1.6em;}
+// 	}
+// 	&__button {
+// 		margin-bottom: 6em;
+// 	}
 
-}
+// }
 
-}
+// }
 
 
 

@@ -185,35 +185,35 @@
 
 }
 
-// extra wide
-///////////////////////////////////////////////////////////////////////////
-@include mq($from: extraWide) {
+// // extra wide
+// ///////////////////////////////////////////////////////////////////////////
+// @include mq($from: extraWide) {
 
-.drag-cards{
-	margin-top: 10em;
-	&__inner{
-	 	grid-template-columns: repeat(10, 65em);
-	 	padding-left: 16.66vw;
-	}
-  	&__card {
-	    padding:6.5em;
-	    min-height: 40em;
-	    display: flex;
-    	flex-direction: column;
-    	&-number {
-	    	font-size: 3.3em;
-			margin-bottom: 0.7em;
-	    }
-	    &-title {
-			font-size: 9em;
-			margin-bottom: 0.4em;
-	    }
-  	}
-}
+// .drag-cards{
+// 	margin-top: 10em;
+// 	&__inner{
+// 	 	grid-template-columns: repeat(10, 65em);
+// 	 	padding-left: 16.66vw;
+// 	}
+//   	&__card {
+// 	    padding:6.5em;
+// 	    min-height: 40em;
+// 	    display: flex;
+//     	flex-direction: column;
+//     	&-number {
+// 	    	font-size: 3.3em;
+// 			margin-bottom: 0.7em;
+// 	    }
+// 	    &-title {
+// 			font-size: 9em;
+// 			margin-bottom: 0.4em;
+// 	    }
+//   	}
+// }
 
 
 
-}
+// }
 
 
 

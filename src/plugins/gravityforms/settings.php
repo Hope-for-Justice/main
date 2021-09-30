@@ -292,32 +292,33 @@ class GFSettings {
 	}
 
 	/**
-	 * Returns an array of installed addons and handles uninstallation from the settings page.
+	 * Handles the uninstallation process for addons from the settings page.
 	 *
 	 * @since  2.5
-	 * @return array
-	 *
 	 */
 	private static function uninstall_addons() {
+		$uninstallable_addons = GFAddOn::get_registered_addons( true );
 
-		$installed_addons = GFAddOn::get_registered_addons();
-
-		// Uninstall the addon and remove it from the list of installed addons on page reload.
-		if ( rgpost( 'uninstall_addon' ) ) {
-			check_admin_referer( 'uninstall', 'gf_addon_uninstall' );
-			foreach ( $installed_addons as $key => $addon ) {
-				$addon = call_user_func( array( $addon, 'get_instance' ) );
-				$title  = $addon->get_short_title();
-				if ( $_POST['addon'] == $title ) {
-					unset( $installed_addons[ $key ] );
-					$addon->uninstall_addon();
-					return GFAddOn::addons_for_uninstall( $installed_addons );
-				}
-			}
+		// Display the complete list of addons to install.
+		if ( ! rgpost( 'uninstall_addon' ) ) {
+			GFAddOn::addons_for_uninstall( $uninstallable_addons );
+			return;
 		}
 
-		GFAddOn::addons_for_uninstall( $installed_addons );
+		// Uninstall the addon and remove it from the list of installed addons on page reload.
+		check_admin_referer( 'uninstall', 'gf_addon_uninstall' );
 
+		foreach ( $uninstallable_addons as $key => $addon ) {
+			if ( rgpost( 'addon' ) !== $addon->get_short_title() ) {
+				continue;
+			}
+
+			unset( $uninstallable_addons[ $key ] );
+			$addon->uninstall_addon();
+			break;
+		}
+
+		GFAddOn::addons_for_uninstall( array_values( $uninstallable_addons ) );
 	}
 
 	/**
@@ -625,7 +626,7 @@ class GFSettings {
 			'license_key'               => GFCommon::get_key(),
 			'currency'                  => GFCommon::get_currency(),
 			'disable_css'               => ! (bool) get_option( 'rg_gforms_disable_css' ),
-			'enable_html5'              => (bool) get_option( 'rg_gforms_enable_html5', true ),
+			'enable_html5'              => (bool) get_option( 'rg_gforms_enable_html5', false ),
 			'enable_noconflict'         => (bool) get_option( 'gform_enable_noconflict' ),
 			'enable_akismet'            => (bool) get_option( 'rg_gforms_enable_akismet', true ),
 			'enable_background_updates' => (bool) get_option( 'gform_enable_background_updates' ),

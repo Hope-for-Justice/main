@@ -58,6 +58,11 @@
 
 @include mq($from: mobileLarge) {
 
+.hero-split {
+	&__img {
+		min-height: 30em;
+	}
+}
 
 
 }
@@ -69,7 +74,7 @@
 
 .hero-split {
 	&__img {
-		min-height: 30em;
+		min-height: 45em;
 	}
 	&__content {
 		padding:6.7em 12em;
@@ -154,11 +159,11 @@
 
 }
 
-// extra wide
-///////////////////////////////////////////////////////////////////////////
+// // extra wide
+// ///////////////////////////////////////////////////////////////////////////
 
-@include mq($from: extraWide) {
+// @include mq($from: extraWide) {
 
 
 
-}
+// }

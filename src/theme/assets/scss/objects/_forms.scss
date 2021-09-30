@@ -11,7 +11,7 @@ input[type="tel"], input[type="range"],
 input[type="date"], input[type="month"], 
 input[type="week"], input[type="time"], 
 input[type="datetime"], input[type="datetime-local"], 
-input[type="color"], textarea, select {
+input[type="color"], textarea, select, .gchoice {
 	border-radius: 77px;
 	padding: 1em 1.5em;
 	font-size:1.6em;
@@ -27,6 +27,23 @@ input[type="color"], textarea, select {
   &:active, &:focus, &:focus-visible {
     outline:none;
   }
+}
+
+.gchoice {
+  background: none;
+  border: none;
+  padding:0.5em 0;
+  margin-right: 1em;
+  width:auto;
+}
+
+.gfield_radio {
+  display: flex;
+  margin-left: 1.8em;
+}
+
+.gform_confirmation_message {
+  font-size: 2em;
 }
 
 fieldset {
@@ -53,7 +70,7 @@ fieldset {
   display: block;
   margin-bottom: 0.5em;
   font-size: 1.4em;
-  margin-left: 1.5em;
+  margin-left: 1.4em;
   font-weight: bold;
   opacity: 0.6;
   color: $black;
@@ -77,8 +94,27 @@ fieldset {
   margin-bottom: 1em;
 }
 
-.ginput_container select {appearance: none;}
+.gfield_required_text {
+ margin-left: 0.3em;
+}
 
+.ginput_container select {
+  appearance: none;
+  position: relative;
+}
+
+  .ginput_container_select{
+    position: relative;  
+    &:after {
+    content: '▾';
+    font-size: 1.6em;
+    position: absolute;
+    right: 1.5em;
+    top: 50%;
+    transform: translateY(calc(-50% - 0.4em));
+    opacity: 0.5;
+    }
+  }
 
 .address-link {
   color: $battleship-grey;
@@ -107,6 +143,10 @@ fieldset {
   font-size: 1.2em;
   margin-left: 1.7em;
   margin-right: 1.7em;
+}
+
+.gform_footer {
+  margin-top: 3em;
 }
 
 //hide amount

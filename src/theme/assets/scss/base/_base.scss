@@ -991,8 +991,13 @@ object {
 # CUSTOM BASE STYLES
 --------------------------------------------------------------*/
 
-/* Set body z-index */
-body {z-index: $z-body;}
+
+body {
+	z-index: $z-body; 
+	background-color: #E4E4E4;
+}
+
+.site {background-color: $white;}
 
 /* No link decoration */
 a {text-decoration: none; color:$red; cursor:pointer;}
