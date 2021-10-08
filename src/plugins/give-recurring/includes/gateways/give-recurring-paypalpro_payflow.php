@@ -21,7 +21,7 @@ class Give_Recurring_PayPal_Pro_Payflow extends Give_Recurring_Gateway {
 	/**
 	 * Main gateway class object.
 	 *
-	 * @var $give_payflow Give_PayPal_Pro_Payflow
+	 * @var Give_PayPal_Pro_Payflow $give_payflow
 	 */
 	protected $give_payflow;
 

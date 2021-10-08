@@ -92,19 +92,6 @@ function give_stripe_plugin_row_meta( $plugin_meta, $plugin_file ) {
 add_filter( 'plugin_row_meta', 'give_stripe_plugin_row_meta', 10, 2 );
 
 /**
- * This function will change the connect banner text when manual API keys used.
- *
- * @return string
- * @since 2.2.0
- *
- */
-function give_stripe_premium_change_connect_banner_text() {
-	return __( 'GiveWP has implemented a more secure way to connect with Stripe.', 'give-stripe' );
-}
-
-add_filter( 'give_stripe_change_connect_banner_text', 'give_stripe_premium_change_connect_banner_text' );
-
-/**
  * Add this filter when the `give_stripe_link_transaction_id` function exists.
  *
  * @since 2.2.6

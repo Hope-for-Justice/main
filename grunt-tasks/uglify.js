@@ -14,6 +14,7 @@ module.exports = function (distTheme, devTheme, jsDir) {
 		devTheme + jsDir + 'plugins/headroom.js',
 		devTheme + jsDir + 'plugins/pca.js',
 		devTheme + jsDir + 'plugins/flexslider.js',
+		devTheme + jsDir + 'plugins/fitvids.js',
 		devTheme + jsDir + 'scripts.js',
 
 	];

@@ -671,7 +671,7 @@ class Give_GoCardless_Gateway {
 				case 'subscriptions':
 					// Check if Give Recurring class is exists or not.
 					if ( class_exists( 'Give_Recurring' ) ) {
-						if ( in_array( 'gocardless', array_keys( Give_Recurring::$gateways ) ) ) {
+						if ( array_key_exists( 'gocardless', Give_Recurring::$gateways ) ) {
 
 							// Get the instance of the GoCardless recurring class.
 							$gocardless_recurring = new Give_GoCardless_Recurring();
@@ -729,12 +729,6 @@ class Give_GoCardless_Gateway {
 	 * @return  bool
 	 */
 	public function webhook_payment_process( $event ) {
-
-		// Request must not be subscription.
-		if ( isset( $event['links']['subscription'] ) ) {
-			return false;
-		}
-
 		// Get payment post through resource event and key.
 		$donation_payment = $this->get_payment_from_resoureces( 'payment', 'id', $event['links']['payment'] );
 
@@ -761,6 +755,11 @@ class Give_GoCardless_Gateway {
 			case 'paid_out':
 			case 'confirmed':
 				$payment_new_status = 'publish';
+
+				// Do not change status for renewal payment.
+				if( $donation_payment->status === 'give_subscription' ) {
+					$payment_new_status =  'give_subscription';
+				}
 				break;
 			case 'failed':
 				$payment_new_status = 'failed';
@@ -807,9 +806,9 @@ class Give_GoCardless_Gateway {
 	public function payment_complete_with_note( $payment_id, $payment_status, $txn_id, $reason ) {
 
 		// GoCardless available status.
-		$available_status = array( 'publish', 'failed', 'cancelled', 'refunded', 'processing' );
+		$available_status = give_get_payment_status_keys();
 
-		if ( in_array( $payment_status, $available_status ) ) {
+		if ( in_array( $payment_status, $available_status, true ) ) {
 
 			give_insert_payment_note( $payment_id, sprintf( __( 'GoCardless Payment ID: %1$s - %2$s', 'give-gocardless' ), $txn_id, $reason ) );
 			give_update_payment_status( $payment_id, $payment_status );

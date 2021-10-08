@@ -7,14 +7,17 @@
  * @author     GiveWP <info@givewp.com>
  */
 
+use GiveCurrencySwitcher\ExchangeRates\Repositories\ExchangeRates;
+
 /**
  * Build the setting array of the currency switcher for
  * global and per form as well.
  *
- * @param bool   $global         These settings are global or not.
+ * @since 1.0
+ *
  * @param string $active_section Get the active tab ID.
  *
- * @since 1.0
+ * @param bool   $global These settings are global or not.
  *
  * @return array $settings
  */
@@ -32,185 +35,125 @@ function cs_get_setting_fields( $global, $active_section = 'general-settings' ) 
 			// Add initial state option for the currency switcher add-on.
 			if ( ! $global ) {
 				$options = [
-					'global'   => __( 'Global Option', 'give-currency-switcher' ),
-					'enabled'  => __( 'Customize', 'give-currency-switcher' ),
-					'disabled' => __( 'Disabled', 'give-currency-switcher' ),
+						'global' => __( 'Global Option', 'give-currency-switcher' ),
+						'enabled' => __( 'Customize', 'give-currency-switcher' ),
+						'disabled' => __( 'Disabled', 'give-currency-switcher' ),
 				];
 			} else {
 				$options = [
-					'enabled'  => __( 'Enabled', 'give-currency-switcher' ),
-					'disabled' => __( 'Disabled', 'give-currency-switcher' ),
+						'enabled' => __( 'Enabled', 'give-currency-switcher' ),
+						'disabled' => __( 'Disabled', 'give-currency-switcher' ),
 				];
 			}
 
 			// Enable/Disable Currency Switcher option.
 			$settings[] = [
-				'name'          => __( 'Currency Switcher', 'give-currency-switcher' ),
-				'desc'          => $global ? __( 'This enables the Give Currency Switcher for all your website\'s donation forms. Note: You can disable the global options and enable and customize options per form as well.', 'give-currency-switcher' ) : __( 'This allows you to customize the Currency Switcher settings for just this donation form. You can disable Currency Switcher for just this form as well or simply use the global settings.', 'give-currency-switcher' ),
-				'id'            => 'cs_status',
-				'wrapper_class' => 'cs_status',
-				'type'          => 'radio_inline',
-				'default'       => ( ! $global ) ? 'global' : 'disabled',
-				'options'       => $options,
+					'name' => __( 'Currency Switcher', 'give-currency-switcher' ),
+					'desc' => $global ? __( 'This enables the Give Currency Switcher for all your website\'s donation forms. Note: You can disable the global options and enable and customize options per form as well.', 'give-currency-switcher' ) : __( 'This allows you to customize the Currency Switcher settings for just this donation form. You can disable Currency Switcher for just this form as well or simply use the global settings.', 'give-currency-switcher' ),
+					'id' => 'cs_status',
+					'wrapper_class' => 'cs_status',
+					'type' => 'radio_inline',
+					'default' => ( ! $global ) ? 'global' : 'disabled',
+					'options' => $options,
 			];
 
 			// Whether to show Currency Acronym or not.
 			$settings[] = [
-				'name'          => __( 'Display Currency Acronym', 'give-currency-switcher' ),
-				'desc'          => __( 'This option will add the currency acronym (USD, EUR, GBP) before the currency symbol on the donation form display to make it easier for donors to recognize currencies. This is helpful when you have multiple currencies sharing the same symbol. For example, MXN and USD share "$" as a symbol. With this option enabled the donation form would display "MXN $" when that currency was selected within the dropdown.', 'give-currency-switcher' ),
-				'id'            => 'cs_currency_acronym',
-				'wrapper_class' => 'cs_general_fields cs_currency_acronym give-hidden',
-				'type'          => 'radio_inline',
-				'default'       => 'disabled',
-				'options'       => [
-					'enabled'  => __( 'Enabled', 'give-currency-switcher' ),
-					'disabled' => __( 'Disabled', 'give-currency-switcher' ),
-				],
+					'name' => __( 'Display Currency Acronym', 'give-currency-switcher' ),
+					'desc' => __( 'This option will add the currency acronym (USD, EUR, GBP) before the currency symbol on the donation form display to make it easier for donors to recognize currencies. This is helpful when you have multiple currencies sharing the same symbol. For example, MXN and USD share "$" as a symbol. With this option enabled the donation form would display "MXN $" when that currency was selected within the dropdown.', 'give-currency-switcher' ),
+					'id' => 'cs_currency_acronym',
+					'wrapper_class' => 'cs_general_fields cs_currency_acronym give-hidden',
+					'type' => 'radio_inline',
+					'default' => 'disabled',
+					'options' => [
+							'enabled' => __( 'Enabled', 'give-currency-switcher' ),
+							'disabled' => __( 'Disabled', 'give-currency-switcher' ),
+					],
 			];
 
 			// Whether to automatically switch currency or not.
 			$settings[] = [
-				'name'          => __( 'Auto-Switch Currency', 'give-currency-switcher' ),
-				'desc'          => __( 'Enabling this will automatically switch the currency to the donor\'s currency from their latest donation.', 'give-currency-switcher' ),
-				'id'            => 'cs_currency_autoswitcher',
-				'wrapper_class' => 'cs_general_fields cs_currency_autoswitcher give-hidden',
-				'type'          => 'radio_inline',
-				'default'       => 'enabled',
-				'options'       => [
-					'enabled'  => __( 'Enabled', 'give-currency-switcher' ),
-					'disabled' => __( 'Disabled', 'give-currency-switcher' ),
-				],
+					'name' => __( 'Auto-Switch Currency', 'give-currency-switcher' ),
+					'desc' => __( 'Enabling this will automatically switch the currency to the donor\'s currency from their latest donation.', 'give-currency-switcher' ),
+					'id' => 'cs_currency_autoswitcher',
+					'wrapper_class' => 'cs_general_fields cs_currency_autoswitcher give-hidden',
+					'type' => 'radio_inline',
+					'default' => 'enabled',
+					'options' => [
+							'enabled' => __( 'Enabled', 'give-currency-switcher' ),
+							'disabled' => __( 'Disabled', 'give-currency-switcher' ),
+					],
 			];
 
 			// Show donor differences between the base currency and new currency.
 			$settings[] = [
-				'id'            => 'cs_message',
-				'name'          => __( 'Currency Switcher Message', 'give-currency-switcher' ),
-				'type'          => 'text',
-				'default'       => give_cs_get_localized_string( 'cs_message' ),
-				'wrapper_class' => 'cs_general_fields cs_message give-hidden',
-				'description'   => __( 'Displays to the donor the difference between the base currency amount and the new currency amount.', 'give-currency-switcher' ),
-				'attributes'    => [
-					'placeholder' => give_cs_get_localized_string( 'cs_message' ),
-				],
+					'id' => 'cs_message',
+					'name' => __( 'Currency Switcher Message', 'give-currency-switcher' ),
+					'type' => 'text',
+					'default' => give_cs_get_localized_string( 'cs_message' ),
+					'wrapper_class' => 'cs_general_fields cs_message give-hidden',
+					'description' => __( 'Displays to the donor the difference between the base currency amount and the new currency amount.', 'give-currency-switcher' ),
+					'attributes' => [
+							'placeholder' => give_cs_get_localized_string( 'cs_message' ),
+					],
 			];
 
 			// Get the currencies and list them as checkbox.
 			$settings[] = [
-				'id'            => 'cs_supported_currency',
-				'name'          => __( 'Supported Currencies', 'give-currency-switcher' ),
-				'desc'          => __( 'Select the currencies you would like to support. Note: the Give Base Currency (USD) will be enabled automatically.', 'give-currency-switcher' ),
-				'type'          => 'cs_support_currency_list',
-				'wrapper_class' => 'cs_general_fields cs_supported_currency give-hidden',
-				'default'       => give_get_currency(),
-				'multiple'      => true,
-				'options'       => give_get_currencies( 'all' ),
+					'id' => 'cs_supported_currency',
+					'name' => __( 'Supported Currencies', 'give-currency-switcher' ),
+					'desc' => __( 'Select the currencies you would like to support. Note: the Give Base Currency (USD) will be enabled automatically.', 'give-currency-switcher' ),
+					'type' => 'cs_support_currency_list',
+					'wrapper_class' => 'cs_general_fields cs_supported_currency give-hidden',
+					'default' => give_get_currency(),
+					'multiple' => true,
+					'options' => give_get_currencies( 'all' ),
 			];
 
 			// Get the currencies and list them as checkbox.
 			$settings[] = [
-				'id'            => 'cs_exchange_rates',
-				'name'          => __( 'Exchange Rates', 'give-currency-switcher' ),
-				'wrapper_class' => 'cs_general_fields cs_exchange_rates give-hidden',
-				'desc'          => sprintf( __( 'In this section you can manually enter the exchange rates to convert donations from your base currency to or you can enable automatic exchange rate updates through the <a href="%1$s">Exchange Rate APIs</a> screen (recommended). Exchange Rates will be fetched on a regular basis from the Provider of your choice. If you wish to lock an exchange rate to a specific value, and not have it updated automatically, simply tick the corresponding box in the set manually column.', 'give-currency-switcher' ), admin_url( 'edit.php?post_type=give_forms&page=give-settings&tab=currency-switcher&section=exchange-rates-api' ) ),
-				'type'          => 'exchange_rates',
-				'multiple'      => true,
+					'id' => 'cs_exchange_rates',
+					'name' => __( 'Exchange Rates', 'give-currency-switcher' ),
+					'wrapper_class' => 'cs_general_fields cs_exchange_rates give-hidden',
+					'desc' => sprintf( __( 'In this section you can manually enter the exchange rates to convert donations from your base currency to or you can enable automatic exchange rate updates through the <a href="%1$s">Exchange Rate APIs</a> screen (recommended). Exchange Rates will be fetched on a regular basis from the Provider of your choice. If you wish to lock an exchange rate to a specific value, and not have it updated automatically, simply tick the corresponding box in the set manually column.', 'give-currency-switcher' ), admin_url( 'edit.php?post_type=give_forms&page=give-settings&tab=currency-switcher&section=exchange-rates-api' ) ),
+					'type' => 'exchange_rates',
+					'multiple' => true,
 			];
 			break;
 		case 'geolocation':
 			// Geo-location enable/disable radio option.
 			$settings[] = [
-				'name'          => __( 'Geolocation', 'give-currency-switcher' ),
-				'desc'          => sprintf( __( 'Enable automatic selection of Currency depending on Visitors\' location. This feature uses GeoLite data created by <a href="%1$s" target="_blank">MaxMind</a>.', 'give-currency-switcher' ), 'http://www.maxmind.com' ),
-				'id'            => 'cs_geolocation_state',
-				'wrapper_class' => 'cs_geolocation_state',
-				'type'          => 'radio_inline',
-				'default'       => 'disabled',
-				'options'       => [
-					'enabled'  => __( 'Enabled', 'give-currency-switcher' ),
-					'disabled' => __( 'Disabled', 'give-currency-switcher' ),
-				],
+					'name' => __( 'Geolocation', 'give-currency-switcher' ),
+					'desc' => sprintf( __( 'Enable automatic selection of Currency depending on Visitors\' location. This feature uses GeoLite data created by <a href="%1$s" target="_blank">MaxMind</a>.', 'give-currency-switcher' ), 'http://www.maxmind.com' ),
+					'id' => 'cs_geolocation_state',
+					'wrapper_class' => 'cs_geolocation_state',
+					'type' => 'radio_inline',
+					'default' => 'disabled',
+					'options' => [
+							'enabled' => __( 'Enabled', 'give-currency-switcher' ),
+							'disabled' => __( 'Disabled', 'give-currency-switcher' ),
+					],
 			];
 
 			// Set Base currency, In case Geo-location fails.
 			$settings[] = [
-				'name'          => __( 'Base Currency (if fails)', 'give-currency-switcher' ),
-				'desc'          => __( 'Select the currency to use by default when a visitor comes from a country whose currency is not supported by your site, or when geolocation resolution fails.', 'give-currency-switcher' ),
-				'id'            => 'cs_geo_base_currency',
-				'wrapper_class' => 'cs_geo_location_fields cs_geo_base_currency give-hidden',
-				'type'          => 'select',
-				'default'       => 'USD',
-				'options'       => give_get_currencies(),
+					'name' => __( 'Base Currency (if fails)', 'give-currency-switcher' ),
+					'desc' => __( 'Select the currency to use by default when a visitor comes from a country whose currency is not supported by your site, or when geolocation resolution fails.', 'give-currency-switcher' ),
+					'id' => 'cs_geo_base_currency',
+					'wrapper_class' => 'cs_geo_location_fields cs_geo_base_currency give-hidden',
+					'type' => 'select',
+					'default' => 'USD',
+					'options' => give_get_currencies(),
 			];
 
-			break;
-		case 'exchange-rates-api':
-			/** @var \Give_CS_Rates_API $exchange_rates */
-			$exchange_rates = new Give_CS_Rates_API();
-			$providers      = $exchange_rates->get_exchange_rates_api();
-
-			// Prepend the start section.
-			array_unshift( $providers, __( 'Please Select', 'give-currency-switcher' ) );
-
-			// Exchange rates services provider. "Open Exchange Rates" or "WebServiceX".
-			$settings[] = [
-				'id'            => 'cs_exchange_rates_providers',
-				'name'          => __( 'Exchange Rates Provider', 'give-currency-switcher' ),
-				'type'          => 'select',
-				'wrapper_class' => 'cs_general_fields cs_exchange_rates_providers',
-				'default'       => 'xe',
-				'options'       => $providers,
-				'description'   => __( 'Select the provider you would like the exchange rates fetched from.', 'give-currency-switcher' ),
-			];
-
-			// Enter APP ID for the "Open Exchange Rates".
-			$settings[] = [
-				'id'            => 'cs_open_exchange_app_id',
-				'name'          => __( 'Open Exchange Rates API Key', 'give-currency-switcher' ),
-				'type'          => 'text',
-				'wrapper_class' => 'cs_general_fields cs_open_exchanges_app_id give-hidden',
-				'description'   => __( 'If you do not have an API Key, please visit <code>https://openexchangerates.org/</code> to register and get one.', 'give-currency-switcher' ),
-			];
-			// Enter Access Key for the "Fixer.io".
-			$settings[] = [
-				'id'            => 'cs_fixer_access_key',
-				'name'          => __( 'API Access Key', 'give-currency-switcher' ),
-				'type'          => 'text',
-				'wrapper_class' => 'cs_general_fields cs_fixer_access_key give-hidden',
-				'description'   => __( 'If you do not have an API Key, please visit <code>https://fixer.io/</code> to register and get one.', 'give-currency-switcher' ),
-			];
-			// Enable/Disable automatic update of exchange rates.
-			$settings[] = [
-				'name'          => __( 'Automatic update', 'give-currency-switcher' ),
-				'desc'          => $global ? __( 'This enables automatic exchange rates updating for all the donation forms on this website.', 'give-currency-switcher' ) : __( 'This enables automatic exchange rates for just this donation form. You can disable if for just this form or use the global settings.', 'give-currency-switcher' ),
-				'id'            => 'cs_exchange_rates_update',
-				'wrapper_class' => 'cs_general_fields cs_exchange_rates_update give-hidden',
-				'type'          => 'radio_inline',
-				'default'       => 'disabled',
-				'options'       => [
-					'enabled'  => __( 'Enabled', 'give-currency-switcher' ),
-					'disabled' => __( 'Disabled', 'give-currency-switcher' ),
-				],
-			];
-
-			// Exchange rates interval. for eg. hourly, twicedaily, daily and weekly.
-			$settings[] = [
-				'id'            => 'cs_exchange_rates_interval',
-				'name'          => __( 'Update Interval', 'give-currency-switcher' ),
-				'type'          => 'select',
-				'wrapper_class' => 'cs_general_fields cs_exchange_rates_fields cs_exchange_rates_interval give-hidden',
-				'default'       => 'daily',
-				'options'       => Give_CS_Cron::get_schedules(),
-				'description'   => __( 'Select how often you would like to update the exchange rates.', 'give-currency-switcher' ),
-			];
 			break;
 		case 'payment-gateway':
 			// Currency Switcher payment field.
 			$settings[] = [
-				'id'   => 'cs_payment_gateway',
-				'name' => __( 'Payment Gateways', 'give-currency-switcher' ),
-				'desc' => __( 'Set the payment gateways available when paying in each currency.', 'give-currency-switcher' ),
-				'type' => 'cs_gateway',
+					'id' => 'cs_payment_gateway',
+					'name' => __( 'Payment Gateways', 'give-currency-switcher' ),
+					'desc' => __( 'Set the payment gateways available when paying in each currency.', 'give-currency-switcher' ),
+					'type' => 'cs_gateway',
 			];
 
 			break;
@@ -218,28 +161,28 @@ function cs_get_setting_fields( $global, $active_section = 'general-settings' ) 
 
 	// Help doc URL.
 	$settings[] = [
-		'name'  => __( 'Give - Currency Switcher Settings Docs Link', 'give-currency-switcher' ),
-		'id'    => 'give_currency_switcher',
-		'url'   => esc_url( 'http://docs.givewp.com/addon-currency-switcher' ),
-		'title' => __( 'Give - Currency Switcher Settings', 'give-currency-switcher' ),
-		'type'  => $global ? 'give_docs_link' : 'docs_link',
+			'name' => __( 'Give - Currency Switcher Settings Docs Link', 'give-currency-switcher' ),
+			'id' => 'give_currency_switcher',
+			'url' => esc_url( 'http://docs.givewp.com/addon-currency-switcher' ),
+			'title' => __( 'Give - Currency Switcher Settings', 'give-currency-switcher' ),
+			'type' => $global ? 'give_docs_link' : 'docs_link',
 	];
 
 	if ( $global ) {
 
 		// Prepend the start section.
 		array_unshift(
-			$settings,
-			[
-				'type' => 'title',
-				'id'   => 'cs_settings',
-			]
+				$settings,
+				[
+						'type' => 'title',
+						'id' => 'cs_settings',
+				]
 		);
 
 		// End the section.
 		$settings[] = [
-			'type' => 'sectionend',
-			'id'   => 'cs_settings',
+				'type' => 'sectionend',
+				'id' => 'cs_settings',
 		];
 	}
 
@@ -251,9 +194,9 @@ function cs_get_setting_fields( $global, $active_section = 'general-settings' ) 
  *
  * @since 1.0
  *
- * @param array  $field   Array of field option.
+ * @param array  $field Array of field option.
  * @param string $options Saved values.
- * @param string $type    Field type.
+ * @param string $type Field type.
  *
  * @return bool
  */
@@ -267,16 +210,16 @@ function give_cs_render_global_option( $field, $options, $type = '' ) {
 		return false;
 	}
 
-	$field['style']         = isset( $field['style'] ) ? $field['style'] : '';
+	$field['style'] = isset( $field['style'] ) ? $field['style'] : '';
 	$field['wrapper_class'] = isset( $field['wrapper_class'] ) ? $field['wrapper_class'] : '';
-	$field['name']          = isset( $field['name'] ) ? $field['name'] : $field['id'];
+	$field['name'] = isset( $field['name'] ) ? $field['name'] : $field['id'];
 	?>
 	<tr valign="top" id="<?php echo esc_attr( $field['id'] ); ?>_field"
 		class="<?php echo esc_attr( $field['wrapper_class'] ); ?>">
 		<?php if ( ! empty( $field['name'] ) && '&nbsp;' !== $field['name'] ) : ?>
 			<th scope="row" class="titledesc">
 				<label
-					for="<?php echo esc_attr( $field['name'] ); ?>"><?php echo esc_html( $field['title'] ); ?></label>
+						for="<?php echo esc_attr( $field['name'] ); ?>"><?php echo esc_html( $field['title'] ); ?></label>
 			</th>
 		<?php endif; ?>
 		<td class="give-forminp">
@@ -314,10 +257,10 @@ function cs_render_metabox_field( $field ) {
 	// Donation Form ID.
 	$thepostid = empty( $thepostid ) ? $post->ID : $thepostid;
 
-	$field['style']             = isset( $field['style'] ) ? $field['style'] : '';
-	$field['wrapper_class']     = isset( $field['wrapper_class'] ) ? $field['wrapper_class'] : '';
-	$field['value']             = give_get_field_value( $field, $thepostid );
-	$field['name']              = isset( $field['name'] ) ? $field['name'] : $field['id'];
+	$field['style'] = isset( $field['style'] ) ? $field['style'] : '';
+	$field['wrapper_class'] = isset( $field['wrapper_class'] ) ? $field['wrapper_class'] : '';
+	$field['value'] = give_get_field_value( $field, $thepostid );
+	$field['name'] = isset( $field['name'] ) ? $field['name'] : $field['id'];
 	$field['custom_attributes'] = [];
 
 	if ( ! empty( $field['attributes'] ) && is_array( $field['attributes'] ) ) {
@@ -332,7 +275,7 @@ function cs_render_metabox_field( $field ) {
 	<div class="give-field-wrap <?php echo esc_attr( $field['wrapper_class'] ); ?>"
 		 id="<?php echo esc_attr( $field['id'] ); ?>_field">
 		<label
-			for="<?php echo esc_attr( give_get_field_name( $field ) ); ?>"><?php echo wp_kses_post( $field['name'] ); ?></label>
+				for="<?php echo esc_attr( give_get_field_name( $field ) ); ?>"><?php echo wp_kses_post( $field['name'] ); ?></label>
 		<div class="cs-metabox-field <?php echo ( 'cs_custom_prices' === $field['type'] ) ? 'give-grid-row' : ''; ?>">
 			<?php
 			// Render the field options.
@@ -415,19 +358,19 @@ function give_cs_support_currency_list( $field ) {
  *
  * @since 1.0
  *
- * @param integer $post_id    Donation Form ID.
+ * @param integer $post_id Donation Form ID.
  * @param bool    $force_form Force if we want to collect data from form forcefully.
  *
  * @return array
  */
 function give_cs_get_active_currencies( $post_id, $force_form = false ) {
-	$cs_currencies   = [];
+	$cs_currencies = [];
 	$give_currencies = give_get_currencies();
 
 	// Get supported currencies.
 	$currencies = isset( $post_id )
-		? give_cs_get_option( 'cs_supported_currency', $post_id, '', $force_form )
-		: give_cs_get_option( 'cs_supported_currency' );
+			? give_cs_get_option( 'cs_supported_currency', $post_id, '', $force_form )
+			: give_cs_get_option( 'cs_supported_currency' );
 
 	if ( ! empty( $currencies ) ) {
 		// Storing currencies.
@@ -449,7 +392,7 @@ function give_cs_get_active_currencies( $post_id, $force_form = false ) {
  *
  * @since 1.0
  *
- * @param array  $field       Field array.
+ * @param array  $field Field array.
  * @param string $saved_value Saved Value.
  *
  * @return string
@@ -458,7 +401,7 @@ function cs_render_exchange_rates_field( $field, $saved_value ) {
 	global $post, $pagenow;
 
 	// Get the post ID.
-	$post_id    = isset( $post->ID ) && ! isset( $_GET['page'] ) ? $post->ID : 0;
+	$post_id = isset( $post->ID ) && ! isset( $_GET['page'] ) ? $post->ID : 0;
 	$force_form = false;
 
 	if ( ( isset( $_GET['give_tab'] ) || 'post-new.php' === $pagenow ) && ! empty( $post_id ) ) {
@@ -470,11 +413,11 @@ function cs_render_exchange_rates_field( $field, $saved_value ) {
 
 	// Wp table columns.
 	$table_cols = [
-		'currency'       => __( 'Currency', 'give-currency-switcher' ),
-		'exchange_rates' => __( 'Exchange Rate', 'give-currency-switcher' ),
-		'set_manually'   => __( 'Set Manually', 'give-currency-switcher' ),
-		'number_decimal' => __( 'Decimal Number', 'give-currency-switcher' ),
-		'rate_markup'    => __( 'Rate Markup', 'give-currency-switcher' ),
+			'currency' => __( 'Currency', 'give-currency-switcher' ),
+			'exchange_rates' => __( 'Exchange Rate', 'give-currency-switcher' ),
+			'set_manually' => __( 'Set Manually', 'give-currency-switcher' ),
+			'number_decimal' => __( 'Decimal Number', 'give-currency-switcher' ),
+			'rate_markup' => __( 'Rate Markup', 'give-currency-switcher' ),
 	];
 
 	// Store exchange rates.
@@ -493,10 +436,10 @@ function cs_render_exchange_rates_field( $field, $saved_value ) {
 
 			// Exchange rate fields.
 			$exchanges_field_values = [
-				'exchange_rates' => '',
-				'set_manually'   => '',
-				'number_decimal' => 2,
-				'rate_markup'    => '',
+					'exchange_rates' => '',
+					'set_manually' => '',
+					'number_decimal' => 2,
+					'rate_markup' => '',
 			];
 
 			// Get values from the saved values.
@@ -522,44 +465,44 @@ function cs_render_exchange_rates_field( $field, $saved_value ) {
 			}
 
 			// Get supported currencies.
-			$cs_currency_acronym      = give_cs_get_option( 'cs_currency_acronym', $post_id, 'disabled', $force_form );
-			$currency_label           = give_get_currency_name( $key );
+			$cs_currency_acronym = give_cs_get_option( 'cs_currency_acronym', $post_id, 'disabled', $force_form );
+			$currency_label = give_get_currency_name( $key );
 			$give_cs_currency_acronym = give_is_setting_enabled( $cs_currency_acronym );
 
 			$currency_acronym = ( $give_cs_currency_acronym
-				? $key . ' ' . give_currency_symbol( $key )
-				: give_currency_symbol( $key )
+					? $key . ' ' . give_currency_symbol( $key )
+					: give_currency_symbol( $key )
 			);
 
 			// Get the currency label.
-			$currency_label = "{$currency_label} ({$currency_acronym})";
+			$currency_label = "$currency_label ($currency_acronym)";
 
 			$exchange_rates_data[] = [
-				'currency'       => [
-					'value'        => $currency_label,
-					'currency_key' => $key,
-				],
-				'exchange_rates' => [
-					'value'       => $exchanges_field_values['exchange_rates'],
-					'name'        => $field['id'] . '[' . $key . '][exchange_rate]',
-					'class'       => 'exchange_rate',
-					'placeholder' => __( 'Enter exchange rate', 'give-currency-switcher' ),
-				],
-				'set_manually'   => [
-					'value' => $exchanges_field_values['set_manually'],
-					'name'  => $field['id'] . '[' . $key . '][set_manually]',
-					'class' => 'set_manually',
-				],
-				'number_decimal' => [
-					'value' => isset( $exchanges_field_values['number_decimal'] ) ? $exchanges_field_values['number_decimal'] : '',
-					'name'  => $field['id'] . '[' . $key . '][number_decimal]',
-					'class' => 'number_decimal',
-				],
-				'rate_markup'    => [
-					'value' => $exchanges_field_values['rate_markup'],
-					'name'  => $field['id'] . '[' . $key . '][rate_markup]',
-					'class' => 'rate_markup',
-				],
+					'currency' => [
+							'value' => $currency_label,
+							'currency_key' => $key,
+					],
+					'exchange_rates' => [
+							'value' => $exchanges_field_values['exchange_rates'],
+							'name' => $field['id'] . '[' . $key . '][exchange_rate]',
+							'class' => 'exchange_rate',
+							'placeholder' => __( 'Enter exchange rate', 'give-currency-switcher' ),
+					],
+					'set_manually' => [
+							'value' => $exchanges_field_values['set_manually'],
+							'name' => $field['id'] . '[' . $key . '][set_manually]',
+							'class' => 'set_manually',
+					],
+					'number_decimal' => [
+							'value' => isset( $exchanges_field_values['number_decimal'] ) ? $exchanges_field_values['number_decimal'] : '',
+							'name' => $field['id'] . '[' . $key . '][number_decimal]',
+							'class' => 'number_decimal',
+					],
+					'rate_markup' => [
+							'value' => $exchanges_field_values['rate_markup'],
+							'name' => $field['id'] . '[' . $key . '][rate_markup]',
+							'class' => 'rate_markup',
+					],
 			];
 		} // End foreach().
 	} // End if().
@@ -574,45 +517,17 @@ function cs_render_exchange_rates_field( $field, $saved_value ) {
 		cs_render_wp_table_field( $table_cols, $exchange_rates_data, $field['id'] );
 
 		if ( ! empty( $selected_currencies ) ) {
-
-			// Flag for "Fetch Exchange Rate" button.
-			$is_disabled = false;
-
-			// Exchange Rates option is enabled/disabled.
-			$exchange_provider = give_cs_get_option( 'cs_exchange_rates_providers', 0, 'xe' );
-
-			if ( 'open-exchange-rates' === $exchange_provider ) {
-				// Get Exchange rate APP ID.
-				$exchange_app_id = give_cs_get_option( 'cs_open_exchange_app_id' );
-
-				// If OpenExchangeAPI app id is missing, disable the fetch exchange button.
-				if ( empty( $exchange_app_id ) ) {
-					$is_disabled     = true;
-					$tooltip_message = __( 'No App ID provided. Please sign up at https://openexchangerates.org/signup', 'give-currency-switcher' );
-				}
-			}
-
-			// If exchange provider is not set disable the button.
-			if ( empty( $exchange_provider ) ) {
-				$is_disabled     = true;
-				$tooltip_message = __( 'Please select Exchange Rate Provider first Setting > Currency Switcher > Exchange Rates APIs.', 'give-currency-switcher' );
-			}
 			?>
 			<div class="give-cs-exchange-rate-table-bottom">
 				<button
-					class="button <?php echo ( $is_disabled ) ? 'disabled' : ''; ?>"
-					data-tooltip="<?php echo ( $is_disabled && isset( $tooltip_message ) ) ? esc_html( $tooltip_message ) : ''; ?>"
-					id="cs-update-exchange-rates"
-					data-type="<?php echo ( ! $post && ! isset( $post_id ) ) ? 'global' : 'per_form'; ?>"
-					data-formid="<?php echo ( $post && isset( $post_id ) ) ? absint( $post_id ) : ''; ?>"
-					<?php echo empty( $exchange_rates_data ) ? 'disabled' : ''; ?>
+						class="button"
+						id="cs-update-exchange-rates"
+						data-type="<?php echo ( ! $post && ! isset( $post_id ) ) ? 'global' : 'per_form'; ?>"
+						data-formid="<?php echo ( $post && isset( $post_id ) ) ? absint( $post_id ) : ''; ?>"
+						<?php echo empty( $exchange_rates_data ) ? 'disabled' : ''; ?>
 				>
 					<?php
-					$rates_api = new Give_CS_Rates_API();
-					$api_list  = $rates_api->get_exchange_rates_api();
-					$provider  = isset( $api_list[ $exchange_provider ] ) ? give_clean( $api_list[ $exchange_provider ] ) : __( 'none', 'give-currency-switcher' );
-
-					echo sprintf( __( 'Fetch Exchange Rates (%s)', 'give-currency-switcher' ), $provider );
+					echo __( 'Fetch Exchange Rates', 'give-currency-switcher' );
 					?>
 				</button>
 				<span class="give-cs-loading-animation give-hidden"></span>
@@ -631,7 +546,7 @@ function cs_render_exchange_rates_field( $field, $saved_value ) {
  *
  * @since 1.0
  *
- * @param array  $field       Field option array.
+ * @param array  $field Field option array.
  * @param string $saved_value Field saved option values.
  *
  * @return mixed|string
@@ -639,8 +554,8 @@ function cs_render_exchange_rates_field( $field, $saved_value ) {
 function cs_render_cs_support_currency_list_field( $field, $saved_value ) {
 
 	if (
-		! isset( $field['options'] )
-		&& ! is_array( $field['options'] )
+			! isset( $field['options'] )
+			&& ! is_array( $field['options'] )
 	) {
 		return false;
 	}
@@ -658,7 +573,7 @@ function cs_render_cs_support_currency_list_field( $field, $saved_value ) {
  *
  * @since 1.0
  *
- * @param array  $field        Field option array.
+ * @param array  $field Field option array.
  * @param string $option_value Field saved option values.
  *
  * @return string
@@ -671,13 +586,13 @@ function cs_render_cs_gateway_field( $field, $option_value ) {
 
 	// Table columns.
 	$table_cols = [
-		'currency_key'    => __( 'Currency', 'give-currency-switcher' ),
-		'enabled_gateway' => __( 'Enabled Gateways', 'give-currency-switcher' ),
+			'currency_key' => __( 'Currency', 'give-currency-switcher' ),
+			'enabled_gateway' => __( 'Enabled Gateways', 'give-currency-switcher' ),
 	];
 
 	// Table data.
 	$table_data = [];
-	$post_id    = ! empty( $post->ID ) && ! isset( $_GET['page'] ) ? $post->ID : 0;
+	$post_id = ! empty( $post->ID ) && ! isset( $_GET['page'] ) ? $post->ID : 0;
 	$force_form = true;
 
 	if ( isset( $_GET['tab'], $_GET['section'] ) && 'payment-gateway' === $_GET['section'] && 'currency-switcher' === $_GET['tab'] ) {
@@ -696,11 +611,11 @@ function cs_render_cs_gateway_field( $field, $option_value ) {
 			$payment_gateways = give_get_ordered_payment_gateways( give_get_enabled_payment_gateways() );
 
 			$table_data[ $key ] = [
-				'currency_key'            => $key,
-				'currency_field_name'     => $field['id'],
-				'currency_label'          => $currency,
-				'currency_gateways'       => $payment_gateways,
-				'currency_saved_gateways' => isset( $option_value[ $key ] ) ? $option_value[ $key ] : [],
+					'currency_key' => $key,
+					'currency_field_name' => $field['id'],
+					'currency_label' => $currency,
+					'currency_gateways' => $payment_gateways,
+					'currency_saved_gateways' => isset( $option_value[ $key ] ) ? $option_value[ $key ] : [],
 			];
 		}
 	}
@@ -740,8 +655,8 @@ function give_cs_is_per_form_customized( $form_id ) {
  * @since 1.0
  *
  * @param string  $option_key Currency Switcher setting field key.
- * @param integer $form_id    Form ID.
- * @param string  $default    Default value.
+ * @param integer $form_id Form ID.
+ * @param string  $default Default value.
  * @param bool    $force_form Get the data from form even if the form is not per form customizable.
  *
  * @return bool|mixed
@@ -757,8 +672,8 @@ function give_cs_get_option( $option_key, $form_id = 0, $default = '', $force_fo
 
 		// if the form setting is per form based.
 		if (
-			$is_per_form_customizable
-			|| true === $force_form
+				$is_per_form_customizable
+				|| true === $force_form
 		) {
 			$option_value = give_get_meta( $form_id, $option_key, true );
 		}
@@ -775,9 +690,9 @@ function give_cs_get_option( $option_key, $form_id = 0, $default = '', $force_fo
 	 * @since 1.0
 	 *
 	 * @param mixed   $option_value Setting output value.
-	 * @param string  $option_key   Setting key.
-	 * @param integer $form_id      Donation Form ID.
-	 * @param string  $default      Setting default value.
+	 * @param string  $option_key Setting key.
+	 * @param integer $form_id Donation Form ID.
+	 * @param string  $default Setting default value.
 	 */
 	return apply_filters( 'give_cs_get_option', $option_value, $option_key, $form_id, $default );
 }
@@ -834,15 +749,15 @@ function give_cs_get_active_currencies_with_gateways( $form_id ) {
 		return $currency_lists;
 	}
 
-	$currencies     = give_cs_get_active_currencies( $form_id );
+	$currencies = give_cs_get_active_currencies( $form_id );
 	$exchange_rates = give_cs_get_form_exchange_rates( $form_id );
 
 	// Check each of the payment getaway.
 	foreach ( $payment_gateways as $currency => $gateway_list ) {
 		if (
-			in_array( give_get_default_gateway( $form_id ), $gateway_list, true )
-			&& array_key_exists( $currency, $currencies )
-			&& ! empty( $exchange_rates[ $currency ]['exchange_rate'] )
+				in_array( give_get_default_gateway( $form_id ), $gateway_list, true )
+				&& array_key_exists( $currency, $currencies )
+				&& ! empty( $exchange_rates[ $currency ]['exchange_rate'] )
 		) {
 			$currency_lists[] = $currency;
 		}
@@ -857,8 +772,8 @@ function give_cs_get_active_currencies_with_gateways( $form_id ) {
  *
  * @since 1.0
  *
- * @param array  $columns     Table Columns.
- * @param array  $data        Table row data.
+ * @param array  $columns Table Columns.
+ * @param array  $data Table row data.
  * @param string $setting_key Setting field name.
  */
 function cs_render_wp_table_field( $columns, $data, $setting_key ) {
@@ -925,8 +840,8 @@ function give_cs_get_donor_currency( $form_id = 0 ) {
 
 			if ( ! empty( $donor_currency ) ) {
 				return [
-					'currency'  => $donor_currency,
-					'came_from' => 'meta',
+						'currency' => $donor_currency,
+						'came_from' => 'meta',
 				];
 			}
 		}
@@ -955,7 +870,7 @@ function give_cs_get_donor_currency( $form_id = 0 ) {
 			// Get the instance of the Give_Geo_location.
 			/** @var Give_Geo_location $give_geo_location */
 			$give_geo_location = new Give_Geo_location( $form_id );
-			$api_errors        = $give_geo_location->get_errors();
+			$api_errors = $give_geo_location->get_errors();
 
 			if ( ! $api_errors ) {
 
@@ -965,9 +880,9 @@ function give_cs_get_donor_currency( $form_id = 0 ) {
 
 				// Get the currency code based on the donor's country code.
 				return [
-					'currency'     => $give_geo_location->get_currency_by_country( $country_code ),
-					'came_from'    => 'geo_location',
-					'country_name' => $country_name,
+						'currency' => $give_geo_location->get_currency_by_country( $country_code ),
+						'came_from' => 'geo_location',
+						'country_name' => $country_name,
 				];
 			}
 		}
@@ -982,8 +897,8 @@ function give_cs_get_donor_currency( $form_id = 0 ) {
  * @since 1.0
  *
  * @param string  $payment_gateway Payment Gateway.
- * @param string  $currency        Currency Code.
- * @param integer $form_id         Donation Form ID.
+ * @param string  $currency Currency Code.
+ * @param integer $form_id Donation Form ID.
  *
  * @return bool
  */
@@ -1004,57 +919,30 @@ function give_cs_is_support_currency( $payment_gateway, $currency, $form_id = 0 
  *
  * @since 1.0
  *
- * @param integer $form_id       Donation Form ID.
+ * @param integer $form_id Donation Form ID.
  * @param string  $base_currency Base currency.
  *
  * @return array
  */
 function cs_fetch_exchange_rates_from_api( $form_id = 0, $base_currency = '' ) {
-	// Get exchange provider.
-	$provider = give_cs_get_option( 'cs_exchange_rates_providers', $form_id, 'xe' );
+	$base_currency = $base_currency ?: give_get_currency( $form_id );
+	$support_currencies = give_cs_get_option( 'cs_supported_currency', $form_id );
 
-	// Get exchange rates from "Open Exchange Rates".
-	if ( 'open-exchange-rates' === $provider ) {
+	$rates = give( ExchangeRates::class )->getRates( $base_currency, $support_currencies );
 
-		/**
-		 * It needs an API Key to fetch the exchange rates If you do not have an API Key,
-		 * Please visit https://openexchangerates.org/ to register and get one.
-		 */
-		$exchange_api_key = give_cs_get_option( 'cs_open_exchange_app_id' );
-
-		// Call Open Exchange API.
-		/** @var Give_OpenExchange_API $open_exchange Open exchange rate */
-		$open_exchange  = new Give_OpenExchange_API( $exchange_api_key, $base_currency );
-		$response_array = $open_exchange->get_rates();
-
-	} elseif ( 'fixer' === $provider ) {
-		/** @var Give_CS_Rates_API $cs_exchange_rate */
-		$fixer_io = new Give_CS_Fixer_API();
-		$fixer_io->setBaseCurrency( $base_currency );
-		$response_array = $fixer_io->get_rates();
-	} else {
-		/** @var Give_CS_Rates_API $cs_exchange_rate */
-		$cs_exchange_rate = new Give_CS_Rates_API( $base_currency );
-		$response_array   = (array) $cs_exchange_rate->fetch_rates( $provider, $form_id );
-	}
-
-	// Get the list of missed rates.
-	$missed_rates = [];
-
-	// Get the list of currency missed currency rate.
-	if ( ! empty( $response_array['rates'] ) && false !== $response_array['rates'] ) {
-		foreach ( $response_array['rates'] as $currency_code => $currency_rate ) {
-			if ( false === $currency_rate || empty( $currency_rate ) ) {
-				$missed_rates[] = $currency_code;
-			}
-		}
-	}
-
-	// Store the provider.
-	$response_array['exchange_provider'] = $provider;
-	$response_array['missed_currency']   = $missed_rates;
-
-	return $response_array;
+	return empty( $rates )
+			? [
+					'rates' => false,
+					'missed_currency' => $support_currencies,
+					'success' => false,
+					'error_message' => __( 'Failed to retrieve exchange rates. Please contact admin and view Log', 'give-currency-switcher' ),
+			]
+			: [
+					'rates' => $rates,
+					'missed_currency' => [],
+					'success' => true,
+					'error_message' => '',
+			];
 }
 
 /**
@@ -1063,7 +951,7 @@ function cs_fetch_exchange_rates_from_api( $form_id = 0, $base_currency = '' ) {
  * @since 1.0
  *
  * @param double  $default_amount Default donation amount.
- * @param integer $form_id        Donation Form ID.
+ * @param integer $form_id Donation Form ID.
  * @param array   $cs_geolocation Pass donor's currency.
  *
  * @return double
@@ -1100,7 +988,7 @@ function give_cs_convert_donation_amount( $default_amount, $form_id, $cs_geoloca
 
 		// Calculate the amount with exchange rate + rate markup.
 		$default_amount *= $currency_rate;
-		$custom_prices   = give_cs_get_donation_custom_price( $form_id, $default_currency );
+		$custom_prices = give_cs_get_donation_custom_price( $form_id, $default_currency );
 
 		if ( false !== $custom_prices ) {
 			$default_amount = give_maybe_sanitize_amount( $custom_prices['raw_amount'], [ 'currency' => $default_currency ] );
@@ -1116,8 +1004,8 @@ function give_cs_convert_donation_amount( $default_amount, $form_id, $cs_geoloca
  *
  * @since 1.0
  *
- * @param array   $prices         Variable prices.
- * @param integer $form_id        Donation Form ID.
+ * @param array   $prices Variable prices.
+ * @param integer $form_id Donation Form ID.
  * @param string  $donor_currency Donor's currency.
  *
  * @return mixed
@@ -1140,8 +1028,8 @@ function give_cs_convert_variable_prices( $prices, $form_id, $donor_currency = '
 
 	// Convert all of the variable prices into the new currencies.
 	foreach ( $prices as $key => $price_data ) {
-		$amount        = $price_data['_give_amount'] * $exchange_rates;
-		$price_id      = (int) $price_data['_give_id']['level_id'];
+		$amount = $price_data['_give_amount'] * $exchange_rates;
+		$price_id = (int) $price_data['_give_id']['level_id'];
 		$custom_prices = give_cs_get_donation_custom_price( $form_id, $donor_currency, $price_id );
 
 		if ( false !== $custom_prices ) {
@@ -1152,8 +1040,8 @@ function give_cs_convert_variable_prices( $prices, $form_id, $donor_currency = '
 
 		// Sanitizing the amount.
 		$prices[ $key ]['_give_amount'] = give_sanitize_amount_for_db(
-			$amount,
-			[ 'currency' => $donor_currency ]
+				$amount,
+				[ 'currency' => $donor_currency ]
 		);
 	}
 
@@ -1166,7 +1054,7 @@ function give_cs_convert_variable_prices( $prices, $form_id, $donor_currency = '
  * @since 1.0
  *
  * @param double|int|string $min_or_max_amount Donation custom minimum amount.
- * @param integer           $form_id           Donation Form ID.
+ * @param integer           $form_id Donation Form ID.
  *
  * @return int|mixed
  */
@@ -1231,25 +1119,6 @@ function give_cs_set_donor_currency( $set = true ) {
 }
 
 /**
- * Cron schedule hook to update the exchange rates.
- *
- * @since 1.0
- *
- * @param string $interval CRON Interval it can be
- *                         hourly, daily, twicedaily or weekly.
- */
-function cs_update_exchange_rate_cron_callback( $interval ) {
-
-	// If the interval arg is not blank.
-	if ( ! empty( $interval[0] ) ) {
-
-		/** @var \Give_CS_Cron $cs_cron */
-		$cs_cron = new Give_CS_Cron();
-		$cs_cron->auto_update_exchange_rate( $interval );
-	}
-}
-
-/**
  * Change currency according to the donor's currency.
  *
  * NOTE: This filter will work only if the post type is give_forms.
@@ -1257,7 +1126,7 @@ function cs_update_exchange_rate_cron_callback( $interval ) {
  * @since 1.0
  *
  * @param string  $currency Currency code.
- * @param integer $form_id  Donation Form or Payment ID.
+ * @param integer $form_id Donation Form or Payment ID.
  *
  * @return mixed
  */
@@ -1267,16 +1136,16 @@ function give_cs_replace_currency( $currency, $form_id ) {
 		return $currency;
 	}
 
-	$default_currency     = give_get_meta( $form_id, 'give_cs_default_currency', true );
+	$default_currency = give_get_meta( $form_id, 'give_cs_default_currency', true );
 	$has_default_currency = '0' !== $default_currency && ! empty( $default_currency );
 
 	if ( $form_id ) {
-		$is_geo_location         = give_is_setting_enabled( give_cs_get_option( 'cs_geolocation_state', $form_id, 'disabled' ) );
+		$is_geo_location = give_is_setting_enabled( give_cs_get_option( 'cs_geolocation_state', $form_id, 'disabled' ) );
 		$is_auto_currency_switch = give_is_setting_enabled( give_cs_get_option( 'cs_currency_autoswitcher', $form_id, 'disabled' ) );
 
 		$is_load_form_default_currency = is_user_logged_in()
-			? ( ! $is_auto_currency_switch && ! $is_geo_location )
-			: ! $is_geo_location;
+				? ( ! $is_auto_currency_switch && ! $is_geo_location )
+				: ! $is_geo_location;
 
 		if ( $is_load_form_default_currency && $has_default_currency ) {
 			return $default_currency;
@@ -1289,10 +1158,10 @@ function give_cs_replace_currency( $currency, $form_id ) {
 
 	// Get the Form ID.
 	if (
-		( ! is_admin() || wp_doing_ajax() ) // It should not be admin.
-		&& 'give_forms' === get_post_type( $form_id ) // Check post type.
-		&& $form_id > 0 // Form ID must not be empty.
-		&& null !== $form_id // Form ID must not be null.
+			( ! is_admin() || wp_doing_ajax() ) // It should not be admin.
+			&& 'give_forms' === get_post_type( $form_id ) // Check post type.
+			&& $form_id > 0 // Form ID must not be empty.
+			&& null !== $form_id // Form ID must not be null.
 	) {
 		// Get donor currency.
 		$donor_currency = give_cs_get_donor_currency( $form_id );
@@ -1307,8 +1176,8 @@ function give_cs_replace_currency( $currency, $form_id ) {
 
 			// Does donor's currency supported by this donation form ?
 			if (
-				! empty( $form_currencies )
-				&& array_key_exists( $new_currency, $form_currencies )
+					! empty( $form_currencies )
+					&& array_key_exists( $new_currency, $form_currencies )
 			) {
 				// Get the exchange rates.
 				$currency_rate = give_cs_get_form_exchange_rates( $form_id, $new_currency );
@@ -1361,9 +1230,9 @@ function give_cs_custom_prices( $field ) {
  *
  * @since 1.0
  *
- * @param array  $field        Field array.
+ * @param array  $field Field array.
  * @param string $option_value Option value.
- * @param string $type         Field type.
+ * @param string $type Field type.
  *
  * @return bool
  */
@@ -1373,7 +1242,7 @@ function cs_render_cs_custom_prices_field( $field, $option_value, $type = '' ) {
 	$form_id = isset( $post->ID ) ? $post->ID : 0;
 
 	// Get supported currency.
-	$currencies    = give_cs_get_active_currencies( $form_id );
+	$currencies = give_cs_get_active_currencies( $form_id );
 	$base_currency = give_get_currency();
 
 	// Remove base currency.
@@ -1407,36 +1276,36 @@ function cs_render_cs_custom_prices_field( $field, $option_value, $type = '' ) {
 						// Make it as processed.
 						$is_processed = true;
 
-						$currency_symbol   = give_currency_symbol( $currency_key );
-						$amount_val        = isset( $option_value ) && isset( $option_value[ $currency_key ] ) ? give_clean( $option_value[ $currency_key ] ) : '';
-						$tooltip           = give_get_currency_name( $currency_key );
+						$currency_symbol = give_currency_symbol( $currency_key );
+						$amount_val = isset( $option_value ) && isset( $option_value[ $currency_key ] ) ? give_clean( $option_value[ $currency_key ] ) : '';
+						$tooltip = give_get_currency_name( $currency_key );
 						$currency_position = give_get_option( 'currency_position', 'before' );
 						?>
 						<li class="cs-custom-amount">
 							<?php
 							echo( ! empty( $field['before_field'] )
-								? $field['before_field']
-								: ( $currency_position === 'before'
-									? '<span class="give-money-symbol give-money-symbol-before" data-tooltip="' . $tooltip . '">' . $currency_symbol . '</span>'
-									: ''
-								)
+									? $field['before_field']
+									: ( $currency_position === 'before'
+											? '<span class="give-money-symbol give-money-symbol-before" data-tooltip="' . $tooltip . '">' . $currency_symbol . '</span>'
+											: ''
+									)
 							);
 							?>
 							<input
-								type="text"
-								name="<?php echo isset( $field['repeat'] ) ? $field['repeatable_field_id'] : '_give_cs_custom_prices'; ?>[<?php echo $currency_key; ?>]"
-								id="cs_custom_prices cs_currency_<?php echo $currency_key; ?>"
-								class="give-field give-text_small give-money-field"
-								value="<?php echo ! empty( $amount_val ) ? give_format_decimal( esc_attr( $amount_val ) ) : ''; ?>"
-								placeholder="<?php echo give_format_decimal( '0.00' ); ?>"
+									type="text"
+									name="<?php echo isset( $field['repeat'] ) ? $field['repeatable_field_id'] : '_give_cs_custom_prices'; ?>[<?php echo $currency_key; ?>]"
+									id="cs_custom_prices cs_currency_<?php echo $currency_key; ?>"
+									class="give-field give-text_small give-money-field"
+									value="<?php echo ! empty( $amount_val ) ? give_format_decimal( esc_attr( $amount_val ) ) : ''; ?>"
+									placeholder="<?php echo give_format_decimal( '0.00' ); ?>"
 							/>
 							<?php
 							echo( ! empty( $field['after_field'] )
-								? $field['after_field']
-								: ( $currency_position === 'after'
-									? '<span class="give-money-symbol give-money-symbol-after" data-tooltip="' . $tooltip . '">' . $currency_symbol . '</span>'
-									: ''
-								)
+									? $field['after_field']
+									: ( $currency_position === 'after'
+											? '<span class="give-money-symbol give-money-symbol-after" data-tooltip="' . $tooltip . '">' . $currency_symbol . '</span>'
+											: ''
+									)
 							);
 							?>
 						</li>
@@ -1460,7 +1329,7 @@ function cs_render_cs_custom_prices_field( $field, $option_value, $type = '' ) {
  *
  * @since 1.0
  *
- * @param integer $form_id  Donation Form ID.
+ * @param integer $form_id Donation Form ID.
  * @param string  $currency Currency Code.
  * @param integer $price_id Variable price level id.
  *
@@ -1487,13 +1356,13 @@ function give_cs_get_donation_custom_price( $form_id, $currency = '', $price_id 
 
 			// Get the custom price.
 			$custom_amount = $price_data['_give_cs_custom_prices'][ $currency ];
-			$level_id      = (int) $price_data['_give_id']['level_id'];
+			$level_id = (int) $price_data['_give_id']['level_id'];
 
 			if ( ! empty( $custom_amount ) && absint( $price_id ) === $level_id ) {
 				if ( isset( $price_data['_give_currency_price'] ) ) {
 					if ( give_is_setting_enabled( $price_data['_give_currency_price'] ) ) {
-						$formatted_amount            = give_format_amount( $custom_amount, [ 'currency' => $currency ] );
-						$custom_prices['amount']     = give_currency_filter( $formatted_amount, [ 'currency_code' => $currency ] );
+						$formatted_amount = give_format_amount( $custom_amount, [ 'currency' => $currency ] );
+						$custom_prices['amount'] = give_currency_filter( $formatted_amount, [ 'currency_code' => $currency ] );
 						$custom_prices['raw_amount'] = $custom_amount;
 					}
 				}
@@ -1510,8 +1379,8 @@ function give_cs_get_donation_custom_price( $form_id, $currency = '', $price_id 
 			if ( ! empty( $custom_price_option ) && ! empty( $donation_prices ) ) {
 				// Check if the custom price is set.
 				if ( array_key_exists( $currency, $donation_prices ) && ! empty( $donation_prices[ $currency ] ) ) {
-					$formatted_amount            = give_format_amount( $donation_prices[ $currency ], [ 'currency' => $currency ] );
-					$custom_prices['amount']     = give_currency_filter( $formatted_amount, [ 'currency_code' => $currency ] );
+					$formatted_amount = give_format_amount( $donation_prices[ $currency ], [ 'currency' => $currency ] );
+					$custom_prices['amount'] = give_currency_filter( $formatted_amount, [ 'currency_code' => $currency ] );
 					$custom_prices['raw_amount'] = $donation_prices[ $currency ];
 				}
 			}
@@ -1527,10 +1396,10 @@ function give_cs_get_donation_custom_price( $form_id, $currency = '', $price_id 
  *
  * @since 1.0
  *
- * @param integer            $form_id         Donation Form ID.
+ * @param integer            $form_id Donation Form ID.
  * @param string             $target_currency Target currency.
- * @param string|double|bool $amount          Minimum,Maximum amount.
- * @param string|double      $type            Amount type.
+ * @param string|double|bool $amount Minimum,Maximum amount.
+ * @param string|double      $type Amount type.
  *
  * @return int|mixed
  */
@@ -1556,8 +1425,8 @@ function give_cs_convert_min_max_amount( $form_id, $target_currency, $amount, $t
 	// Get the donation form minimum amount.
 	if ( empty( $amount ) ) {
 		$amount = 'min' === $type
-			? give_get_form_minimum_price( $form_id )
-			: give_get_form_maximum_price( $form_id );
+				? give_get_form_minimum_price( $form_id )
+				: give_get_form_maximum_price( $form_id );
 	}
 
 	// Get the currency formatting.
@@ -1578,12 +1447,12 @@ function give_cs_convert_min_max_amount( $form_id, $target_currency, $amount, $t
 	$custom_prices = give_cs_get_donation_custom_price( $form_id, $target_currency, $price_id );
 
 	if (
-		false !== $custom_prices
-		&& isset( $final_amount )
-		&& (
-			( 'min' === $type && $custom_prices['raw_amount'] <= $final_amount ) ||
-			( 'max' === $type && $custom_prices['raw_amount'] >= $final_amount )
-		)
+			false !== $custom_prices
+			&& isset( $final_amount )
+			&& (
+					( 'min' === $type && $custom_prices['raw_amount'] <= $final_amount ) ||
+					( 'max' === $type && $custom_prices['raw_amount'] >= $final_amount )
+			)
 	) {
 		// Set custom price as minimum amount.
 		$final_amount = $custom_prices['raw_amount'];
@@ -1602,18 +1471,18 @@ function give_cs_convert_min_max_amount( $form_id, $target_currency, $amount, $t
  * @since 1.0
  *
  * @param integer $form_id Donation Form ID.
- * @param array   $args    Payment Query Arguments.
+ * @param array   $args Payment Query Arguments.
  *
  * @return array
  */
 function give_cs_get_donation_amounts( $form_id, $args = [] ) {
 	global $wpdb;
 
-	$paymentmeta_table        = Give()->payment_meta->table_name;
+	$paymentmeta_table = Give()->payment_meta->table_name;
 	$donationmeta_primary_key = Give()->payment_meta->get_meta_type() . '_id';
 
 	$query = $wpdb->prepare(
-		"SELECT * FROM $wpdb->donationmeta pm
+			"SELECT * FROM $wpdb->donationmeta pm
 			   WHERE EXISTS
 				(
 					SELECT ID, post_status, post_type, {$donationmeta_primary_key}, meta_key, meta_value
@@ -1625,7 +1494,7 @@ function give_cs_get_donation_amounts( $form_id, $args = [] ) {
 			    	AND pm2.meta_key= '_give_payment_form_id'
 			    	AND pm2.meta_value=%d
 			   )",
-		$form_id
+			$form_id
 	);
 
 	$donation_amounts = [];
@@ -1644,20 +1513,20 @@ function give_cs_get_donation_amounts( $form_id, $args = [] ) {
 
 		foreach ( $donation_data as $donation_id => $donation_meta ) {
 			$amount_array = wp_parse_args(
-				$donation_meta,
-				[
-					'_give_cs_base_amount'   => '',
-					'_give_cs_base_currency' => '',
-					'_give_cs_exchange_rate' => '',
-				]
+					$donation_meta,
+					[
+							'_give_cs_base_amount' => '',
+							'_give_cs_base_currency' => '',
+							'_give_cs_exchange_rate' => '',
+					]
 			);
 
 			// Get and store the payment amount.
 			$donation_amounts[ $donation_id ] = [
-				'payment_currency' => $amount_array['_give_payment_currency'],
-				'base_amount'      => give_maybe_sanitize_amount( $amount_array['_give_cs_base_amount'], [ 'currency' => $amount_array['_give_cs_base_currency'] ] ),
-				'exchange_rate'    => $amount_array['_give_cs_exchange_rate'],
-				'amount'           => $amount_array['_give_payment_total'],
+					'payment_currency' => $amount_array['_give_payment_currency'],
+					'base_amount' => give_maybe_sanitize_amount( $amount_array['_give_cs_base_amount'], [ 'currency' => $amount_array['_give_cs_base_currency'] ] ),
+					'exchange_rate' => $amount_array['_give_cs_exchange_rate'],
+					'amount' => $amount_array['_give_payment_total'],
 			];
 		}
 	}
@@ -1678,14 +1547,14 @@ function give_cs_get_donation_amounts( $form_id, $args = [] ) {
 function give_cs_calculate_goal_income( $form_id ) {
 	// Get the donation totals.
 	$donation_totals = give_cs_get_donation_amounts( $form_id );
-	$total_earning   = 0;
+	$total_earning = 0;
 
 	if ( empty( $donation_totals ) ) {
 		return $total_earning;
 	}
 
 	// Base amounts.
-	$base_amounts       = [];
+	$base_amounts = [];
 	$give_base_currency = give_get_currency();
 
 	foreach ( $donation_totals as $donation_id => $donation_data ) {
@@ -1694,7 +1563,7 @@ function give_cs_calculate_goal_income( $form_id ) {
 
 		// If currency was changed then get the base amount otherwise, donation's actual amount.
 		$donation_income_amount = ! empty( $donation_data['base_amount'] ) ? give_cs_clean_amount( $donation_data['base_amount'] ) : $donation_data['amount'];
-		$donation_total         = give_maybe_sanitize_amount( $donation_income_amount, [ 'currency' => $give_donation_base_currency ] );
+		$donation_total = give_maybe_sanitize_amount( $donation_income_amount, [ 'currency' => $give_donation_base_currency ] );
 
 		// Sanitize the amount as per the give base currency.
 		$base_amounts[] = give_maybe_sanitize_amount( $donation_total, [ 'currency' => $give_base_currency ] );
@@ -1721,14 +1590,14 @@ function give_cs_calculate_goal_income( $form_id ) {
  *
  * @since 1.0
  *
- * @param string|integer $form_id       Donation Form ID.
+ * @param string|integer $form_id Donation Form ID.
  * @param string|bool    $currency_code Currency Code.
  *
  * @return array|int|string
  */
 function give_cs_get_form_exchange_rates( $form_id = '', $currency_code = false ) {
 	// Get exchange rates.
-	$currency_rates     = give_cs_get_option( 'cs_exchange_rates', $form_id );
+	$currency_rates = give_cs_get_option( 'cs_exchange_rates', $form_id );
 	$support_currencies = give_cs_get_active_currencies( $form_id );
 
 	$rates = [];
@@ -1748,9 +1617,9 @@ function give_cs_get_form_exchange_rates( $form_id = '', $currency_code = false 
 	}
 
 	if (
-		! empty( $currency_code )
-		&& ! empty( $rates )
-		&& isset( $rates[ $currency_code ]['exchange_rate'] )
+			! empty( $currency_code )
+			&& ! empty( $rates )
+			&& isset( $rates[ $currency_code ]['exchange_rate'] )
 	) {
 		// Get the exchange rate.
 		$currency_rate = give_cs_clean_amount( $rates[ $currency_code ]['exchange_rate'] );
@@ -1767,8 +1636,8 @@ function give_cs_get_form_exchange_rates( $form_id = '', $currency_code = false 
 /**
  * Display the number fo the exchange rate.
  *
- * @param string|integer $form_id       Donation Form ID.
- * @param  string        $currency_code Currency code.
+ * @param string|integer $form_id Donation Form ID.
+ * @param string         $currency_code Currency code.
  *
  * @return array|integer
  */
@@ -1814,15 +1683,15 @@ function give_cs_clean_amount( $amount_value ) {
  *
  * @since 1.0
  *
- * @param    array        $field        Field setting array.
- * @param    array|string $option_value Supported currencies array.
- * @param    string       $type         Global or per form?
+ * @param array        $field Field setting array.
+ * @param array|string $option_value Supported currencies array.
+ * @param string       $type Global or per form?
  */
 function give_cs_render_active_currency_list( $field, $option_value, $type = 'global' ) {
 	global $post, $pagenow;
 
 	// Get the post ID.
-	$post_id    = isset( $post->ID ) ? $post->ID : 0;
+	$post_id = isset( $post->ID ) ? $post->ID : 0;
 	$force_form = false;
 
 	if ( ( isset( $_GET['give_tab'] ) || 'post-new.php' === $pagenow ) && ! empty( $post_id ) ) {
@@ -1844,7 +1713,7 @@ function give_cs_render_active_currency_list( $field, $option_value, $type = 'gl
 	?>
 	<div class="cs_currencies give-grid-row">
 		<?php
-		$count    = 0;
+		$count = 0;
 		$per_list = ceil( count( $field['options'] ) / 3 );
 
 		// Create chunk list.
@@ -1859,32 +1728,32 @@ function give_cs_render_active_currency_list( $field, $option_value, $type = 'gl
 					<li>
 						<label>
 							<input
-								name="<?php echo esc_attr( $field['id'] ); ?>[]"
-								value="<?php echo esc_attr( $currency_code ); ?>"
-								type="checkbox"
-								<?php
-								if ( isset( $field['custom_attributes'] ) ) {
-									foreach ( $field['custom_attributes'] as $attribute ) {
-										echo $attribute;
+									name="<?php echo esc_attr( $field['id'] ); ?>[]"
+									value="<?php echo esc_attr( $currency_code ); ?>"
+									type="checkbox"
+									<?php
+									if ( isset( $field['custom_attributes'] ) ) {
+										foreach ( $field['custom_attributes'] as $attribute ) {
+											echo $attribute;
+										}
 									}
-								}
-								$checked_value = ( 'global' === $type ) ? $option_value : $field['value'];
-								echo ( give_get_currency() === $currency_code ) ? 'checked' : ( is_array( $checked_value ) ? checked( in_array( $currency_code, $checked_value ) ) : '' );
-								?>
+									$checked_value = ( 'global' === $type ) ? $option_value : $field['value'];
+									echo ( give_get_currency() === $currency_code ) ? 'checked' : ( is_array( $checked_value ) ? checked( in_array( $currency_code, $checked_value ) ) : '' );
+									?>
 							/>
 							<?php
 
 							// Get supported currencies.
 							$cs_currency_acronym = give_cs_get_option( 'cs_currency_acronym', $post_id, 'disabled', $force_form );
 
-							$currency_label           = give_get_currency_name( $currency_code );
+							$currency_label = give_get_currency_name( $currency_code );
 							$give_cs_currency_acronym = give_is_setting_enabled( $cs_currency_acronym );
 
 							printf(
-								' %s (%s)',
-								$currency_label,
-								( $give_cs_currency_acronym ? $currency_code . ' ' . give_currency_symbol( $currency_code ) :
-								give_currency_symbol( $currency_code ) )
+									' %s (%s)',
+									$currency_label,
+									( $give_cs_currency_acronym ? $currency_code . ' ' . give_currency_symbol( $currency_code ) :
+											give_currency_symbol( $currency_code ) )
 							);
 							?>
 						</label>
@@ -1917,7 +1786,7 @@ function give_cs_render_active_currency_list( $field, $option_value, $type = 'gl
  * @since 1.0
  *
  * @param string  $string_key Setting key
- * @param integer $form_id    Donation Form ID.
+ * @param integer $form_id Donation Form ID.
  *
  * @return mixed
  */
@@ -1937,41 +1806,18 @@ function give_cs_get_localized_string( $string_key = '', $form_id = 0 ) {
 	 * @since 1.0
 	 *
 	 * @param mixed   $setting_string Setting String.
-	 * @param integer $form_id        Donation Form ID.
+	 * @param integer $form_id Donation Form ID.
 	 */
 	return apply_filters( "give_cs_localize_string_{$string_key}", $setting_string, $form_id );
 }
-
-/**
- * Backward compatibility for Google Finance API.
- * Set default exchange rate provider.
- *
- * @since 1.0.4
- */
-function give_cs_set_default_provider() {
-	// Get the exchange rate provider.
-	$exchange_provider = give_cs_get_option( 'cs_exchange_rates_providers' );
-
-	/**
-	 * Since, Google Finance API was deprecated, so if Google finance API were selected as
-	 * the Exchange Provider then override it to the XE rate provider.
-	 */
-	if ( 'google_finance' === $exchange_provider ) {
-		// Update provider.
-		give_update_option( 'cs_exchange_rates_providers', 'xe' );
-	}
-}
-
-// Set default exchange rate provider.
-add_action( 'init', 'give_cs_set_default_provider' );
 
 /**
  * Update Give cs earning amount when increase/decrease event happened.
  *
  * @since 1.1
  *
- * @param float $amount     Donation amount.
- * @param int   $form_id    Donation Form ID.
+ * @param float $amount Donation amount.
+ * @param int   $form_id Donation Form ID.
  * @param int   $payment_id Donation ID.
  *
  * @return float $amount
@@ -2009,8 +1855,8 @@ function give_cs_recheck_min_max_amount( $stat, $amount_range, $form_id ) {
 	}
 
 	$selected_currency = give_clean( $_REQUEST['give-cs-form-currency'] );
-	$posted_amount     = isset( $_REQUEST['give-amount'] ) ? give_clean( $_REQUEST['give-amount'] ) : 0;
-	$price_id          = isset( $_REQUEST['give-price-id'] ) ? give_clean( $_REQUEST['give-price-id'] ) : null;
+	$posted_amount = isset( $_REQUEST['give-amount'] ) ? give_clean( $_REQUEST['give-amount'] ) : 0;
+	$price_id = isset( $_REQUEST['give-price-id'] ) ? give_clean( $_REQUEST['give-price-id'] ) : null;
 
 	// Sanitized amount.
 	$amount = give_maybe_sanitize_amount( $posted_amount, [ 'currency' => $selected_currency ] );
@@ -2051,7 +1897,7 @@ add_filter( 'give_verify_minimum_maximum_price', 'give_cs_recheck_min_max_amount
  * @since 1.2
  *
  * @param string  $message Recurring message.
- * @param array   $price   Price level.
+ * @param array   $price Price level.
  * @param integer $form_id Donation Form ID.
  *
  * @return string
@@ -2059,8 +1905,8 @@ add_filter( 'give_verify_minimum_maximum_price', 'give_cs_recheck_min_max_amount
 function give_cs_multi_levels_message( $message, $price, $form_id ) {
 	// Get the form currency.
 	$form_currency = isset( $_POST['currency'] )
-		? give_clean( $_POST['currency'] )
-		: give_get_currency( $form_id );
+			? give_clean( $_POST['currency'] )
+			: give_get_currency( $form_id );
 
 	if ( $form_currency !== give_get_currency() ) {
 		// Get exchange rates.
@@ -2072,16 +1918,16 @@ function give_cs_multi_levels_message( $message, $price, $form_id ) {
 
 		// Get the amount.
 		$amount = sprintf(
-			'<span class="amount">%1$s</span>',
-			give_currency_filter(
-				give_format_amount(
-					$price['_give_amount'],
-					[
-						'sanitize' => false,
-					]
-				),
-				[ 'currency_code' => $form_currency ]
-			)
+				'<span class="amount">%1$s</span>',
+				give_currency_filter(
+						give_format_amount(
+								$price['_give_amount'],
+								[
+										'sanitize' => false,
+								]
+						),
+						[ 'currency_code' => $form_currency ]
+				)
 		);
 
 		$message = preg_replace( "#<\s*?span class=\"amount\">(.*?)</span\b[^>]*>#s", $amount, $message );
@@ -2100,8 +1946,8 @@ add_filter( 'give_recurring_multi_levels_notification_message', 'give_cs_multi_l
  * @since 1.0
  *
  * @param string  $price_text Level text.
- * @param integer $form_id    Donation Form ID.
- * @param array   $price      Level array.
+ * @param integer $form_id Donation Form ID.
+ * @param array   $price Level array.
  *
  * @return mixed|string
  */
@@ -2111,11 +1957,11 @@ function give_cs_give_form_level_text( $price_text, $form_id, $price ) {
 
 	if ( ! empty( $price_text ) && empty( $price['_give_text'] ) ) {
 		$formatted_amount = give_format_amount(
-			$price['_give_amount'],
-			[
-				'sanitize' => false,
-				'currency' => $form_currency,
-			]
+				$price['_give_amount'],
+				[
+						'sanitize' => false,
+						'currency' => $form_currency,
+				]
 		);
 
 		// Get the price text.
@@ -2132,9 +1978,9 @@ add_filter( 'give_form_level_text', 'give_cs_give_form_level_text', 10, 3 );
  *
  * @since 1.3.1
  *
- * @param integer $form_id  Donation Form ID.
+ * @param integer $form_id Donation Form ID.
  * @param string  $currency Currency Currency.
- * @param string  $gateway  Gateway Gateway.
+ * @param string  $gateway Gateway Gateway.
  *
  * @return bool
  */

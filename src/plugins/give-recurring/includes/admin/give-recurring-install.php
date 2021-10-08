@@ -2,6 +2,7 @@
 
 use GiveRecurring\Logs\Migrations\MigrateEmailLogs;
 use GiveRecurring\Logs\Migrations\MigrateLogs;
+use GiveRecurring\Subscriptions\Migrations\UpdateRenewalsWithPaymentMode;
 
 /**
  * Give Recurring - Install Functions
@@ -134,7 +135,8 @@ function give_recurring_install() {
 			'give_recurring_v172_renewal_payment_level',
 			'give_recurring_v182_alter_amount_column_type',
 			MigrateLogs::id(),
-			MigrateEmailLogs::id()
+			MigrateEmailLogs::id(),
+			UpdateRenewalsWithPaymentMode::id()
 		];
 
 		foreach ( $updates as $update ) {

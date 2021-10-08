@@ -76,10 +76,6 @@ div.give-recurring-login-required p {
 	float: left;
 	clear: both;
 	padding-left: 162px;
-	color: #aaaaaa;
-	font-size: 12px;
-	line-height: 18px;
-	font-style: italic;
 }
 .give-metabox-panel-wrap fieldset.give_recurring_all_options, .give-metabox-panel-wrap  fieldset.give_custom_recurring_all_options  {
 	padding: 1em 20px 1em 0;

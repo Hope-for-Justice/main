@@ -89,7 +89,7 @@ class Give_Recurring_PayPal extends Give_Recurring_Gateway {
 		// Manual cancellation action.
 		add_action( 'give_recurring_cancel_' . $this->id . '_subscription', array(
 			$this,
-			'cancel_paypal_standard',
+			'cancel',
 		), 10, 2 );
 
 		/**
@@ -601,12 +601,14 @@ class Give_Recurring_PayPal extends Give_Recurring_Gateway {
 	 * Although the PayPal Standard API provides no facility for cancelling a subscription,
 	 * the PayPal; Express Checkout NVP API can be used.
 	 *
-	 * @param $subscription
+	 * @since 1.12.6 rename function from cancel_subscription to cancel
+	 *
+	 * @param Give_Subscription $subscription
 	 * @param $valid
 	 *
 	 * @return bool
 	 */
-	public function cancel_paypal_standard( $subscription, $valid ) {
+	public function cancel( $subscription, $valid ) {
 
 		if ( empty( $valid ) ) {
 			return false;

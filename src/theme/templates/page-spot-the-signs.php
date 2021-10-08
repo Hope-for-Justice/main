@@ -45,7 +45,7 @@ get_header();
 						Modern slavery is happening in our communities - being able to spot the signs and know what to do could make a life-changing difference. You might walk past or speak to someone who needs help without you even realising it. Help spread the word about the signs to look out for.  
 					</p>
 					<div class="hero-spit__button">
-						<a href="#" class="button button--red">
+						<a href="/spot-the-signs-resources" class="button button--red">
 							<div class="button__inner">
 								<div class="button__text bold">
 									Downloadable<br>

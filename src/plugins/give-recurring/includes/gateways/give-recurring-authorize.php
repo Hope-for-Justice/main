@@ -51,6 +51,11 @@ class Give_Recurring_Authorize extends Give_Recurring_Gateway {
 	var $sandbox_webhooks_setup;
 
 	/**
+	 * @var bool
+	 */
+	public $offsite = true;
+
+	/**
 	 * Get Authorize started
 	 */
 	public function init() {
@@ -64,29 +69,7 @@ class Give_Recurring_Authorize extends Give_Recurring_Gateway {
 		$this->define_authorize_values();
 
 		// Cancellation support.
-		add_action( 'give_recurring_cancel_authorize_subscription', array( $this, 'cancel_subscription' ), 10, 2 );
-
-		// Webhook support.
-		add_action( 'give_authorize_event_net.authorize.customer.subscription.cancelled', array(
-			$this,
-			'process_webhook_cancel'
-		), 10, 2 );
-		add_action( 'give_authorize_event_net.authorize.payment.authcapture.created', array(
-			$this,
-			'process_webhook_renewal'
-		), 1, 2 );
-		add_action( 'give_authorize_event_net.authorize.customer.subscription.suspended', array(
-			$this,
-			'process_webhook_subscription_suspended'
-		), 10, 2 );
-		add_action( 'give_authorize_event_net.authorize.customer.subscription.terminated', array(
-			$this,
-			'process_webhook_subscription_terminated'
-		), 10, 2 );
-		add_action( 'give_authorize_event_net.authorize.customer.subscription.expiring', array(
-			$this,
-			'process_webhook_subscription_expiring'
-		), 10, 2 );
+		add_action( 'give_recurring_cancel_authorize_subscription', array( $this, 'cancel' ), 10, 2 );
 
 		// Require last name.
 		add_filter( 'give_donation_form_before_personal_info', array( $this, 'maybe_require_last_name' ) );
@@ -537,17 +520,16 @@ class Give_Recurring_Authorize extends Give_Recurring_Gateway {
 	 * @param  Give_Subscription $subscription
 	 * @param  bool              $valid
 	 *
-	 * @return bool|AuthnetXML
+	 * @return bool
+	 * @since 1.12.6 rename function from cancel_subscription to cancel
 	 */
-	public function cancel_subscription( $subscription, $valid ) {
+	public function cancel( $subscription, $valid ) {
 
 		if ( empty( $valid ) ) {
 			return false;
 		}
 
-		$response = $this->cancel_authorize_net_subscription( $subscription->profile_id );
-
-		return $response;
+		return $this->cancel_authorize_net_subscription( $subscription->profile_id );
 	}
 
 	/**
@@ -566,270 +548,6 @@ class Give_Recurring_Authorize extends Give_Recurring_Gateway {
 		) );
 
 		return $authnet_xml->isSuccessful();
-	}
-
-	/**
-	 * Process the subscription terminated webhook.
-	 *
-	 * Processes the net.authorize.payment.authcapture.subscription.terminated webhook for subscription termination.
-	 *
-	 * @since 1.9.0
-	 *
-	 * @param object $event_json Webhook data sent over from Authorize.net
-	 *
-	 * @return bool|\Give_Subscription
-	 */
-	public function process_webhook_subscription_terminated( $event_json ) {
-
-		// Must be using latest Authorize with webhook support.
-		if ( ! method_exists( Give_Authorize()->payments, 'setup_api_request' ) ) {
-			give_record_gateway_error( 'Authorize.net Webhook Error', __( 'You are using an outdated version of the Authorize.net gateway. Please update to accept subscription terminated webhooks.', 'give-recurring' ) );
-
-			return false;
-		}
-
-		$transaction_id = isset( $event_json->payload->id ) ? $event_json->payload->id : '';
-		
-		// Must have the transaction id.
-		if ( empty( $transaction_id ) ) {
-			return false;
-		}
-
-		$subscription = new Give_Subscription( $transaction_id, true );
-
-		// Check for subscription ID.
-		if ( 0 === $subscription->id ) {
-			return false;
-		}
-		
-		// Set subscription status to cancelled.
-		$subscription->cancel();
-	}
-
-	/**
-	 * Process the subscription suspended webhook.
-	 *
-	 * Processes the net.authorize.payment.authcapture.subscription.suspended webhook for subscription suspension.
-	 *
-	 * @since 1.9.0
-	 *
-	 * @param object $event_json Webhook data sent over from Authorize.net
-	 *
-	 * @return bool|\Give_Subscription
-	 */
-	public function process_webhook_subscription_suspended( $event_json ) {
-
-		// Must be using latest Authorize with webhook support.
-		if ( ! method_exists( Give_Authorize()->payments, 'setup_api_request' ) ) {
-			give_record_gateway_error( 'Authorize.net Webhook Error', __( 'You are using an outdated version of the Authorize.net gateway. Please update to accept subscription suspended webhooks.', 'give-recurring' ) );
-
-			return false;
-		}
-		
-		$transaction_id = isset( $event_json->payload->id ) ? $event_json->payload->id : '';
-		
-		// Must have the transaction id.
-		if ( empty( $transaction_id ) ) {
-			return false;
-		}
-
-		$subscription = new Give_Subscription( $transaction_id, true );
-
-		// Check for subscription ID.
-		if ( 0 === $subscription->id ) {
-			return false;
-		}
-		
-		// Set subscription status to suspended.
-		$subscription->update( array(
-			'status' => 'suspended',
-		) );
-	}
-
-	/**
-	 * Process the subscription expiring webhook.
-	 *
-	 * Processes the net.authorize.payment.authcapture.subscription.expiring webhook for subscription expiration.
-	 *
-	 * @since 1.9.0
-	 *
-	 * @param object $event_json Webhook data sent over from Authorize.net
-	 *
-	 * @return bool|\Give_Subscription
-	 */
-	public function process_webhook_subscription_expiring( $event_json ) {
-
-		// Must be using latest Authorize with webhook support.
-		if ( ! method_exists( Give_Authorize()->payments, 'setup_api_request' ) ) {
-			give_record_gateway_error( 'Authorize.net Webhook Error', __( 'You are using an outdated version of the Authorize.net gateway. Please update to accept subscription suspended webhooks.', 'give-recurring' ) );
-
-			return false;
-		}
-		
-		$transaction_id = isset( $event_json->payload->id ) ? $event_json->payload->id : '';
-		
-		// Must have the transaction id.
-		if ( empty( $transaction_id ) ) {
-			return false;
-		}
-
-		$subscription = new Give_Subscription( $transaction_id, true );
-
-		// Check for subscription ID.
-		if ( 0 === $subscription->id ) {
-			return false;
-		}
-		
-		// Set subscription status to expired.
-		$subscription->update( array(
-			'status' => 'expired',
-		) );
-	}
-
-	/**
-	 * Process the renewal webhook.
-	 *
-	 * Processes the net.authorize.payment.authcapture.created webhook for subscription renewals.
-	 *
-	 * @since 1.3
-	 *
-	 * @param object $event_json Webhook data sent over from Authorize.net
-	 *
-	 * @return bool|\Give_Subscription
-	 */
-	public function process_webhook_renewal( $event_json ) {
-
-		// Must be using latest Authorize with webhook support.
-		if ( ! method_exists( Give_Authorize()->payments, 'setup_api_request' ) ) {
-			give_record_gateway_error( 'Authorize.net Webhook Error', __( 'You are using an outdated version of the Authorize.net gateway. Please update to accept renewal webhooks.', 'give-recurring' ) );
-
-			return false;
-		}
-
-		$transaction_id = isset( $event_json->payload->id ) ? $event_json->payload->id : '';
-
-		// Must have the transaction id.
-		if ( empty( $transaction_id ) ) {
-			return false;
-		}
-
-		// Is this payment already recorded?
-		if ( give_get_purchase_id_by_transaction_id( $transaction_id ) ) {
-
-			// Payment already recorded.
-			give_record_gateway_error(
-				'Authorize.net Webhook Error',
-				sprintf(
-					__( 'The Authorize.net webhook attempted to add a payment that has already been recorded. <strong>Webhook:</strong> <br><br> %s', 'give-recurring' ),
-					json_encode( $event_json )
-				)
-			);
-
-			return false;
-
-		}
-
-		// Ok setup API request.
-		$request = Give_Authorize()->payments->setup_api_request();
-
-		// Get transaction details from API.
-		$response = $request->getTransactionDetailsRequest( array(
-			'transId' => $transaction_id,
-		) );
-
-		$subscription_profile_id = isset( $response->transaction->subscription->id ) ? $response->transaction->subscription->id : '';
-
-		// Must have subscription id to continue.
-		if ( empty( $subscription_profile_id ) ) {
-			give_record_gateway_error( 'Authorize.net Webhook Error', sprintf( __( 'The Recurring Authorize.net gateway could not find the subscription profile ID from the webhook data. <br><br> %1$s <br><br> <strong>Response:</strong> <br><br> %2$s', 'give-recurring' ), json_encode( $event_json ), json_encode( $response->transaction ) ) );
-
-			return false;
-		}
-
-		$subscription = new Give_Subscription( $subscription_profile_id, true );
-
-		// Check for subscription ID.
-		if ( 0 === $subscription->id ) {
-
-			give_record_gateway_error( 'Authorize.net Webhook Error', sprintf( __( 'Give could not find the donor\'s subscription within the database from the response provided by the Authorize.net webhook. <br><br> %1$s <br><br> <strong>Response:</strong> <br><br> %2$s', 'give-recurring' ), json_encode( $event_json ), json_encode( $response->transaction ) ) );
-
-			return false;
-		}
-
-		// Need the subscription payment number.
-		if ( ! isset( $response->transaction->subscription->payNum ) ) {
-			give_record_gateway_error( 'Authorize.net Webhook Error', sprintf( __( 'The Recurring Authorize.net gateway could not find the subscription payment number from the webhook data provided. <br><br> <strong>Response:</strong> <br><br> %s.', 'give-recurring' ), json_encode( $response->transaction ) ) );
-
-			return false;
-		}
-
-		$payment_number = intval( $response->transaction->subscription->payNum );
-
-		// Is this the first payment for this subscription? If so, update the transaction ID.
-		if ( 1 === $payment_number ) {
-
-			$subscription->set_transaction_id( $transaction_id );
-
-		} elseif ( $payment_number > 1 ) {
-
-			// This is a renewal.
-			$args = array(
-				'amount'         => $response->transaction->authAmount,
-				'transaction_id' => $transaction_id,
-				'gateway'        => $subscription->gateway,
-			);
-
-			// We have a renewal.
-			$subscription->add_payment( $args );
-			$subscription->renew();
-
-		}
-
-		return $subscription;
-
-	}
-
-	/**
-	 * Process the subscription cancelled webhook.
-	 *
-	 * Processes the net.authorize.customer.subscription.cancelled webhook for subscription cancellations.
-	 *
-	 * @since 1.3
-	 *
-	 * @param object $event_json Webhook data sent over from Authorize.net
-	 *
-	 * @return bool|\Give_Subscription
-	 */
-	public function process_webhook_cancel( $event_json ) {
-
-		// Must be using latest Authorize with webhook support.
-		if ( ! method_exists( Give_Authorize()->payments, 'setup_api_request' ) ) {
-			return false;
-		}
-
-		$subscription_profile_id = isset( $event_json->payload->id ) ? $event_json->payload->id : '';
-
-		// Must have subscription id to continue.
-		if ( empty( $subscription_profile_id ) ) {
-			return false;
-		}
-
-		$subscription = new Give_Subscription( $subscription_profile_id, true );
-
-		// Check for subscription ID.
-		if ( 0 === $subscription->id ) {
-			return false;
-		}
-
-		$times_billed = $subscription->get_total_payments();
-
-		// Is the subscription completed? Complete subscription if applicable.
-		if ( $subscription->bill_times > 0 && $times_billed >= $subscription->bill_times ) {
-			return false;
-		}
-
-		$subscription->cancel();
-
 	}
 
 	/**

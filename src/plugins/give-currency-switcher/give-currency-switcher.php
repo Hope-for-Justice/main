@@ -3,7 +3,7 @@
  * Plugin Name:       Give - Currency Switcher
  * Plugin URI:        https://givewp.com/addons/currency-switcher/
  * Description:       Provide your donors with the ability to give using currency of their choice.
- * Version:           1.4.0
+ * Version:           1.5.0
  * Author:            GiveWP
  * Author URI:        https://givewp.com/
  * License:           GPL-2.0+
@@ -13,6 +13,7 @@
  */
 
 // If this file is called directly, abort.
+use GiveCurrencySwitcher\ExchangeRates\ExchangeRatesServiceProvider;
 use GiveCurrencySwitcher\Infrastructure\Environment;
 use GiveCurrencySwitcher\Revenue\RevenueServiceProvider;
 
@@ -21,7 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! defined( 'GIVE_CURRENCY_SWITCHER_VERSION' ) ) {
-	define( 'GIVE_CURRENCY_SWITCHER_VERSION', '1.4.0' );
+	define( 'GIVE_CURRENCY_SWITCHER_VERSION', '1.5.0' );
 }
 if ( ! defined( 'GIVE_CURRENCY_SWITCHER_MIN_GIVE_VER' ) ) {
 	define( 'GIVE_CURRENCY_SWITCHER_MIN_GIVE_VER', '2.11.0' );
@@ -108,18 +109,18 @@ if ( ! class_exists( 'Give_Currency_Switcher' ) ) :
 		 * Get the instance and store the class inside it. This plugin utilises
 		 * the PHP singleton design pattern.
 		 *
+		 * @see       Give_Currency_Switcher();
+		 *
 		 * @since     1.0.0
 		 * @static
 		 * @staticvar array $instance
 		 * @access    public
 		 *
-		 * @see       Give_Currency_Switcher();
-		 *
-		 * @uses      Give_Currency_Switcher::hooks() Setup hooks and actions.
+		 * @return object self::$instance Instance
 		 * @uses      Give_Currency_Switcher::includes() Loads all the classes.
 		 * @uses      Give_Currency_Switcher::licensing() Add Give - Currency Switcher License.
 		 *
-		 * @return object self::$instance Instance
+		 * @uses      Give_Currency_Switcher::hooks() Setup hooks and actions.
 		 */
 		public static function get_instance() {
 
@@ -150,10 +151,9 @@ if ( ! class_exists( 'Give_Currency_Switcher' ) ) :
 
 			// Define the sections for various currency switcher settings.
 			self::$section_tab = [
-				'general-settings'   => __( 'General', 'give-currency-switcher' ),
-				'geolocation'        => __( 'Geolocation', 'give-currency-switcher' ),
-				'payment-gateway'    => __( 'Payment Gateways', 'give-currency-switcher' ),
-				'exchange-rates-api' => __( 'Exchange Rates APIs', 'give-currency-switcher' ),
+				'general-settings' => __( 'General', 'give-currency-switcher' ),
+				'geolocation'      => __( 'Geolocation', 'give-currency-switcher' ),
+				'payment-gateway'  => __( 'Payment Gateways', 'give-currency-switcher' ),
 			];
 
 			if ( is_admin() ) {
@@ -258,22 +258,6 @@ if ( ! class_exists( 'Give_Currency_Switcher' ) ) :
 		 * @access private
 		 */
 		private function includes() {
-
-			/**
-			 * Give - Currency Switcher OpenExchange API.
-			 */
-			require_once GIVE_CURRENCY_SWITCHER_PLUGIN_DIR . '/lib/class-give-openexchange-api.php';
-
-			/**
-			 * Give - Currency Switcher OpenExchange API.
-			 */
-			require_once GIVE_CURRENCY_SWITCHER_PLUGIN_DIR . '/lib/class-give-cs-fixer-api.php';
-
-			/**
-			 * Give - Currency Switcher Exchange Rates API - Google Finance, Fixer.io.
-			 */
-			require_once GIVE_CURRENCY_SWITCHER_PLUGIN_DIR . '/lib/class-give-cs-rates-api.php';
-
 			/**
 			 * Give - GeoLocation Class.
 			 */
@@ -291,11 +275,6 @@ if ( ! class_exists( 'Give_Currency_Switcher' ) ) :
 			require_once GIVE_CURRENCY_SWITCHER_PLUGIN_DIR . '/includes/frontend/class-give-currency-switcher-frontend.php';
 
 			/**
-			 * CRON schedule class for updating the exchange rates.
-			 */
-			require_once GIVE_CURRENCY_SWITCHER_PLUGIN_DIR . '/lib/class-give-cs-cron.php';
-
-			/**
 			 * Give - Currency Switcher helper functions.
 			 */
 			require_once GIVE_CURRENCY_SWITCHER_PLUGIN_DIR . '/includes/give-currency-switcher-helpers.php';
@@ -307,9 +286,6 @@ if ( ! class_exists( 'Give_Currency_Switcher' ) ) :
 
 			self::$instance->plugin_admin  = new Give_Currency_Switcher_Admin();
 			self::$instance->plugin_public = new Give_Currency_Switcher_Frontend();
-
-			// Register cron to get exchange rates.
-			add_action( 'init', [ $this, 'register_schedule_for_exchange_rates' ] );
 		}
 
 		/**
@@ -321,7 +297,6 @@ if ( ! class_exists( 'Give_Currency_Switcher' ) ) :
 		private function hooks() {
 			add_action( 'init', [ $this, 'load_textdomain' ] );
 			add_action( 'admin_init', [ $this, 'activation_banner' ] );
-			add_action( 'admin_init', [ __CLASS__, 'maybe_schedule_cron' ] );
 			add_filter( 'plugin_action_links_' . GIVE_CURRENCY_SWITCHER_BASENAME, [ $this, 'action_links' ], 10, 2 );
 			add_filter( 'plugin_row_meta', [ $this, 'plugin_row_meta' ], 10, 2 );
 		}
@@ -372,24 +347,6 @@ if ( ! class_exists( 'Give_Currency_Switcher' ) ) :
 		}
 
 		/**
-		 * Register CRON for updating exchange rates.
-		 *
-		 * @since 1.0
-		 */
-		public function register_schedule_for_exchange_rates() {
-
-			/**
-			 * Update Exchange Rate Hook CRON schedules.
-			 *
-			 * @since 1.0
-			 */
-			add_action( 'cs_exchange_rate_weekly_task', 'cs_update_exchange_rate_cron_callback', 10, 1 );
-			add_action( 'cs_exchange_rate_daily_task', 'cs_update_exchange_rate_cron_callback', 10, 1 );
-			add_action( 'cs_exchange_rate_twicedaily_task', 'cs_update_exchange_rate_cron_callback', 10, 1 );
-			add_action( 'cs_exchange_rate_hourly_task', 'cs_update_exchange_rate_cron_callback', 10, 1 );
-		}
-
-		/**
 		 * Activation banner.
 		 *
 		 * Uses Give's core activation banners.
@@ -433,7 +390,7 @@ if ( ! class_exists( 'Give_Currency_Switcher' ) ) :
 		 * @since   1.0.0
 		 * @access  public
 		 *
-		 * @param   array $actions get all actions.
+		 * @param array $actions get all actions.
 		 *
 		 * @return  array       return new action array
 		 */
@@ -456,8 +413,8 @@ if ( ! class_exists( 'Give_Currency_Switcher' ) ) :
 		 * @since   1.0.0
 		 * @access  public
 		 *
-		 * @param   array  $plugin_meta An array of the plugin's metadata.
-		 * @param   string $plugin_file Path to the plugin file, relative to the plugins directory.
+		 * @param array  $plugin_meta An array of the plugin's metadata.
+		 * @param string $plugin_file Path to the plugin file, relative to the plugins directory.
 		 *
 		 * @return  array  return meta links for plugin.
 		 */
@@ -550,50 +507,6 @@ if ( ! class_exists( 'Give_Currency_Switcher' ) ) :
 		}
 
 		/**
-		 * Maybe schedule CRON.
-		 *
-		 * Determines if automatic exchange rate updating via a cron job should be scheduled.
-		 *
-		 * @since 1.2.2
-		 */
-		public static function maybe_schedule_cron() {
-			if (
-				Give_Admin_Settings::is_setting_page( 'currency-switcher', 'exchange-rates-api' )
-				&& Give_Admin_Settings::is_saving_settings()
-			) {
-				$auto_update = isset( $_POST['cs_exchange_rates_update'] )
-					? give_clean( $_POST['cs_exchange_rates_update'] )
-					: give_get_option( 'cs_exchange_rates_update', 'disabled' );
-
-				$interval = isset( $_POST['cs_exchange_rates_interval'] )
-					? give_clean( $_POST['cs_exchange_rates_interval'] )
-					: give_get_option( 'cs_exchange_rates_interval', 'daily' );
-
-			} else {
-				$auto_update = give_get_option( 'cs_exchange_rates_update', 'disabled' );
-				$interval    = give_get_option( 'cs_exchange_rates_interval', 'daily' );
-			}
-
-			// Delete existing cron to generate fresh cron job.
-			$intervals = array_keys( Give_CS_Cron::get_schedules() );
-
-			foreach ( $intervals as $item ) {
-				$schedule_hook = "cs_exchange_rate_{$item}_task";
-				wp_clear_scheduled_hook( $schedule_hook, (array) $item );
-			}
-
-			// Only enable if auto update setting is enabled.
-			if ( ! give_is_setting_enabled( $auto_update ) ) {
-				return false;
-			}
-
-			// Register schedule hooks.
-			/** @var Give_CS_Cron $cs_give_cron */
-			$cs_give_cron = new Give_CS_Cron();
-			$cs_give_cron->register_schedule_hook( [ 'interval' => $interval ] );
-		}
-
-		/**
 		 * Allow this class and other classes to add notices.
 		 *
 		 * @param $slug
@@ -645,10 +558,11 @@ require_once GIVE_CURRENCY_SWITCHER_PLUGIN_DIR . 'vendor/autoload.php';
 // Register the add-on service provider with the GiveWP core.
 add_action(
 	'before_give_init',
-	function() {
+	function () {
 		// Check Give min required version.
 		if ( Environment::giveMinRequiredVersionCheck() ) {
-			give()->registerServiceProvider(RevenueServiceProvider::class );
+			give()->registerServiceProvider( RevenueServiceProvider::class );
+			give()->registerServiceProvider( ExchangeRatesServiceProvider::class );
 		}
 	}
 );

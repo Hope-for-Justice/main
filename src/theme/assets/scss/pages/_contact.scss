@@ -5,5 +5,29 @@
 */
 
 .contact {
+	&__grid {
+		grid-column: col2 / col12;
+		gap: 3em;
+		padding: 3em 0;
+		padding-bottom: 5em;
+	}
+	&__block {
+		grid-column: col1 / col12-end;
+	}
+}
 
+
+// desktopLarge
+//////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+	.contact {
+		&__grid {
+			gap: 8em;
+			padding: 8em 0;
+		}
+		&__block {
+			grid-column: span 4;
+		}
+	}
 }

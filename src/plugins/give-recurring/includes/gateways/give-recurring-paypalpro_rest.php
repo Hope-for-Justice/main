@@ -49,7 +49,7 @@ if ( class_exists( 'Give_Recurring_Gateway' ) ) {
 	class Give_Recurring_PayPal_Pro_REST extends Give_Recurring_Gateway {
 
 		/**
-		 * @var $give_pp_rest Give_PayPal_Pro_Rest
+		 * @var Give_PayPal_Pro_Rest $give_pp_rest
 		 */
 		protected $give_pp_rest;
 

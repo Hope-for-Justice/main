@@ -2,7 +2,7 @@
 /**
  * Give - Stripe Premium | Admin Settings
  *
- * @since 2.2.0
+ * @since      2.2.0
  *
  * @package    Give
  * @subpackage Stripe Premium
@@ -56,10 +56,10 @@ if ( ! class_exists( 'Give_Stripe_Premium_Settings' ) ) {
 		/**
 		 * Get single instance of class object.
 		 *
+		 * @return Give_Stripe_Premium_Settings
 		 * @since  1.0.0
 		 * @access public
 		 *
-		 * @return Give_Stripe_Premium_Settings
 		 */
 		public static function get_instance() {
 			if ( null === static::$instance ) {
@@ -72,10 +72,10 @@ if ( ! class_exists( 'Give_Stripe_Premium_Settings' ) ) {
 		/**
 		 * Setup hooks.
 		 *
+		 * @return void
 		 * @since  1.0.0
 		 * @access public
 		 *
-		 * @return void
 		 */
 		public function setup_hooks() {
 
@@ -96,10 +96,10 @@ if ( ! class_exists( 'Give_Stripe_Premium_Settings' ) ) {
 		 *
 		 * @param array $groups List of groups which will create vertical tabs navigation.
 		 *
+		 * @return array
 		 * @since  2.6.0
 		 * @access public
 		 *
-		 * @return array
 		 */
 		public function register_groups( $groups ) {
 
@@ -114,117 +114,23 @@ if ( ! class_exists( 'Give_Stripe_Premium_Settings' ) ) {
 		 *
 		 * @param array $accounts All Stripe Accounts.
 		 *
+		 * @return void
 		 * @since  2.2.6
 		 * @access public
 		 *
-		 * @return void
 		 */
 		public function add_manual_api_key_fields( $accounts ) {
 			?>
-			<tr valign="top" class="stripe-cc-field-format-settings">
-				<th scope="row" class="titledesc">
-					<label for="stripe_cc_fields_format">
-						<?php echo __( 'Connection Type', 'give-stripe' ); ?>
-					</label>
-				</th>
-
-				<td class="give-forminp give-forminp-radio_inline give-radio-inline">
-					<fieldset>
-						<ul>
-							<li>
-								<label>
-									<input name="stripe_connection_type" value="connect" checked="checked" type="radio">
-									<?php echo __( 'Stripe Connect', 'give-stripe' ); ?>
-								</label>
-							</li>
-							<li>
-								<label>
-									<input name="stripe_connection_type" value="manual" type="radio">
-									<?php echo __( 'API Keys', 'give-stripe' ); ?>
-								</label>
-							</li>
-							<div class="give-field-description">
-								<?php echo __( 'Please select the connection type using which you want to connect Stripe account.', 'give-stripe' ); ?>
-							</div>
-						</ul>
-					</fieldset>
-				</td>
-			</tr>
-			<tr valign="top" class="give-stripe-account-type-manual give-hidden">
-				<th scope="row" class="titledesc">
-					<label for="stripe_account_type_manual">
-						<?php echo __( 'Live Secret Key', 'give-stripe' ); ?>
-					</label>
-				</th>
-				<td class="give-forminp">
-					<fieldset>
-						<input type="text" placeholder="sk_live_xxxxxxxx" name="live_secret_key" value="" />
-						<div class="give-field-description">
-							<?php echo __( 'Enter your live secret key, found in your Stripe Account Settings.', 'give-stripe' ); ?>
-						</div>
-					</fieldset>
-				</td>
-			</tr>
-			<tr valign="top" class="give-stripe-account-type-manual give-hidden">
-				<th scope="row" class="titledesc">
-					<label for="stripe_live_publishable_key">
-						<?php echo __( 'Live Publishable Key', 'give-stripe' ); ?>
-					</label>
-				</th>
-				<td class="give-forminp">
-					<fieldset>
-						<input type="text" placeholder="pk_live_xxxxxxxx" name="live_publishable_key" value="" />
-						<div class="give-field-description">
-							<?php echo __( 'Enter your live publishable key, found in your Stripe Account Settings.', 'give-stripe' ); ?>
-						</div>
-					</fieldset>
-				</td>
-			</tr>
-			<tr valign="top" class="give-stripe-account-type-manual give-hidden">
-				<th scope="row" class="titledesc">
-					<label for="stripe_test_secret_key">
-						<?php echo __( 'Test Secret Key', 'give-stripe' ); ?>
-					</label>
-				</th>
-				<td class="give-forminp">
-					<fieldset>
-						<input type="text" placeholder="sk_test_xxxxxxxx" name="test_secret_key" value="" />
-						<div class="give-field-description">
-							<?php echo __( 'Enter your test secret key, found in your Stripe Account Settings.', 'give-stripe' ); ?>
-						</div>
-					</fieldset>
-				</td>
-			</tr>
-			<tr valign="top" class="give-stripe-account-type-manual give-hidden">
-				<th scope="row" class="titledesc">
-					<label for="stripe_test_publishable_key">
-						<?php echo __( 'Test Publishable Key', 'give-stripe' ); ?>
-					</label>
-				</th>
-				<td class="give-forminp">
-					<fieldset>
-						<input type="text" placeholder="pk_test_xxxxxxxx" name="test_publishable_key" value="" />
-						<div class="give-field-description">
-							<?php echo __( 'Enter your test publishable key, found in your Stripe Account Settings.', 'give-stripe' ); ?>
-						</div>
-					</fieldset>
-				</td>
-			</tr>
-			<tr valign="top" class="give-stripe-account-type-manual give-hidden">
-				<th scope="row" class="titledesc">
-					<input
-						id="give-stripe-add-new-account"
-						class="button button-primary"
+			<div class="give-stripe-pro-api-key-button-wrap">
+				<span class="give-stripe-pro-or-separator">
+					<?php esc_html_e( 'OR', 'give' ); ?>
+				</span>
+				<button
+						class="js-add-new-stripe-account button-secondary"
+						data-value="manual"
 						type="button"
-						name="submit_manual"
-						value="<?php echo __( 'Add New Account', 'give-stripe' );?>"
-						data-account="<?php echo give_stripe_get_unique_account_slug( $accounts ); ?>"
-						data-url="<?php echo give_stripe_get_admin_settings_page_url(); ?>"
-						data-error="<?php echo __( 'Please enter the test as well as live secret and publishable keys to add a Stripe account.', 'give-stripe' ); ?>"
-					/>
-					<span class="give-stripe-spinner spinner"></span>
-				</th>
-			</tr>
+				><?php esc_html_e( 'Enter API Keys', 'give-stripe' ); ?></button>
+			</div>
 			<?php
 		}
 
@@ -233,103 +139,104 @@ if ( ! class_exists( 'Give_Stripe_Premium_Settings' ) ) {
 		 *
 		 * @param array $settings List of admin setting fields.
 		 *
+		 * @return array
 		 * @since  2.2.0
 		 * @access public
 		 *
-		 * @return array
 		 */
 		public function add_additional_group_fields( $settings ) {
 
 			// Payment Request.
 			$settings['payment_request'][] = array(
-				'id'   => 'give_title_stripe_payment_request',
-				'type' => 'title',
+					'id'   => 'give_title_stripe_payment_request',
+					'type' => 'title',
 			);
 
 			$settings['payment_request'][] = array(
-				'name'          => __( 'Configure Apple Pay', 'give-stripe' ),
-				'desc'          => 'This option will help you configure Apple Pay with Stripe with just a single click.',
-				'wrapper_class' => 'give-stripe-configure-apple-pay give-stripe-account-manager-wrap',
-				'id'            => 'stripe_configure_apple_pay',
-				'type'          => 'stripe_configure_apple_pay',
+					'name'          => __( 'Configure Apple Pay', 'give-stripe' ),
+					'desc'          => 'This option will help you configure Apple Pay with Stripe with just a single click.',
+					'wrapper_class' => 'give-stripe-configure-apple-pay give-stripe-account-manager-wrap',
+					'id'            => 'stripe_configure_apple_pay',
+					'type'          => 'stripe_configure_apple_pay',
 			);
 
 			$settings['payment_request'][] = array(
-				'name'          => __( 'Button Appearance', 'give-stripe' ),
-				'desc'          => __( 'Adjust the appearance of the button style for Google and Apple Pay.', 'give-stripe' ),
-				'id'            => 'stripe_payment_request_button_style',
-				'wrapper_class' => 'stripe-payment-request-button-style-wrap',
-				'type'          => 'radio_inline',
-				'default'       => 'dark',
-				'options'       => array(
-					'light'         => __( 'Light', 'give-stripe' ),
-					'light-outline' => __( 'Light Outline', 'give-stripe' ),
-					'dark'          => __( 'Dark', 'give-stripe' ),
-				),
+					'name'          => __( 'Button Appearance', 'give-stripe' ),
+					'desc'          => __( 'Adjust the appearance of the button style for Google and Apple Pay.', 'give-stripe' ),
+					'id'            => 'stripe_payment_request_button_style',
+					'wrapper_class' => 'stripe-payment-request-button-style-wrap',
+					'type'          => 'radio_inline',
+					'default'       => 'dark',
+					'options'       => array(
+							'light'         => __( 'Light', 'give-stripe' ),
+							'light-outline' => __( 'Light Outline', 'give-stripe' ),
+							'dark'          => __( 'Dark', 'give-stripe' ),
+					),
 			);
 
 			$settings['payment_request'][] = array(
-				'name'  => __( 'Stripe Gateway Documentation', 'give-stripe' ),
-				'id'    => 'display_settings_payment_request_docs_link',
-				'url'   => esc_url( 'http://docs.givewp.com/addon-stripe' ),
-				'title' => __( 'Stripe Gateway Documentation', 'give-stripe' ),
-				'type'  => 'give_docs_link',
+					'name'  => __( 'Stripe Gateway Documentation', 'give-stripe' ),
+					'id'    => 'display_settings_payment_request_docs_link',
+					'url'   => esc_url( 'http://docs.givewp.com/addon-stripe' ),
+					'title' => __( 'Stripe Gateway Documentation', 'give-stripe' ),
+					'type'  => 'give_docs_link',
 			);
 
 			$settings['payment_request'][] = array(
-				'id'   => 'give_title_stripe_payment_request',
-				'type' => 'sectionend',
+					'id'   => 'give_title_stripe_payment_request',
+					'type' => 'sectionend',
 			);
 
 			// Plaid ( ACH ).
 			$settings['plaid'][] = array(
-				'id'   => 'give_title_stripe_plaid',
-				'type' => 'title',
+					'id'   => 'give_title_stripe_plaid',
+					'type' => 'title',
 			);
 
 			$settings['plaid'][] = array(
-				'name'    => __( 'API Mode', 'give-stripe' ),
-				'desc'    => sprintf(
-				/* translators: %s Plaid API Host Documentation URL */
-					__( 'Plaid has several API modes for testing and live transactions. "Test" mode allows you to test with a single sample bank account. "Development" mode allows you to accept up to 100 live donations without paying. "Live" mode allows for unlimited donations. Read the <a target="_blank" title="Plaid API Docs" href="%1$s">Plaid API docs</a> for more information.', 'give-stripe' ),
-					esc_url( 'https://plaid.com/docs/api/#api-host' )
-				),
-				'id'      => 'plaid_api_mode',
-				'type'    => 'radio_inline',
-				'default' => 'sandbox',
-				'options' => array(
-					'sandbox'     => __( 'Test', 'give-stripe' ),
-					'development' => __( 'Development', 'give-stripe' ),
-					'production'  => __( 'Live', 'give-stripe' ),
-				),
+					'name'    => __( 'API Mode', 'give-stripe' ),
+					'desc'    => sprintf(
+					/* translators: %s Plaid API Host Documentation URL */
+							__( 'Plaid has several API modes for testing and live transactions. "Test" mode allows you to test with a single sample bank account. "Development" mode allows you to accept up to 100 live donations without paying. "Live" mode allows for unlimited donations. Read the <a target="_blank" title="Plaid API Docs" href="%1$s">Plaid API docs</a> for more information.',
+									'give-stripe' ),
+							esc_url( 'https://plaid.com/docs/api/#api-host' )
+					),
+					'id'      => 'plaid_api_mode',
+					'type'    => 'radio_inline',
+					'default' => 'sandbox',
+					'options' => array(
+							'sandbox'     => __( 'Test', 'give-stripe' ),
+							'development' => __( 'Development', 'give-stripe' ),
+							'production'  => __( 'Live', 'give-stripe' ),
+					),
 			);
 
 			$settings['plaid'][] = array(
-				'name' => __( 'Plaid Client ID', 'give-stripe' ),
-				'desc' => __( 'Enter your Plaid Client ID, found in your Plaid account dashboard.', 'give-stripe' ),
-				'id'   => 'plaid_client_id',
-				'type' => 'text',
+					'name' => __( 'Plaid Client ID', 'give-stripe' ),
+					'desc' => __( 'Enter your Plaid Client ID, found in your Plaid account dashboard.', 'give-stripe' ),
+					'id'   => 'plaid_client_id',
+					'type' => 'text',
 			);
 
 			$settings['plaid'][] = array(
-				'name' => __( 'Plaid Secret Key', 'give-stripe' ),
-				'desc' => __( 'Enter your Plaid secret key, found in your Plaid account dashboard.', 'give-stripe' ),
-				'id'   => 'plaid_secret_key',
-				'type' => 'api_key',
+					'name' => __( 'Plaid Secret Key', 'give-stripe' ),
+					'desc' => __( 'Enter your Plaid secret key, found in your Plaid account dashboard.', 'give-stripe' ),
+					'id'   => 'plaid_secret_key',
+					'type' => 'api_key',
 			);
 
 			$settings['plaid'][] = array(
-				'name'  => __( 'Stripe Gateway Documentation', 'give-stripe' ),
-				'id'    => 'display_settings_plaid_docs_link',
-				'url'   => esc_url( 'http://docs.givewp.com/addon-stripe' ),
-				'title' => __( 'Stripe Gateway Documentation', 'give-stripe' ),
-				'type'  => 'give_docs_link',
+					'name'  => __( 'Stripe Gateway Documentation', 'give-stripe' ),
+					'id'    => 'display_settings_plaid_docs_link',
+					'url'   => esc_url( 'http://docs.givewp.com/addon-stripe' ),
+					'title' => __( 'Stripe Gateway Documentation', 'give-stripe' ),
+					'type'  => 'give_docs_link',
 			);
 
 
 			$settings['plaid'][] = array(
-				'id'   => 'give_title_stripe_plaid',
-				'type' => 'sectionend',
+					'id'   => 'give_title_stripe_plaid',
+					'type' => 'sectionend',
 			);
 
 			return $settings;
@@ -340,17 +247,17 @@ if ( ! class_exists( 'Give_Stripe_Premium_Settings' ) ) {
 		 *
 		 * @param string $status Status - Enabled or Disabled.
 		 *
+		 * @return string
 		 * @since  1.6
 		 * @access public
 		 *
-		 * @return string
 		 */
 		public function stripe_modal_checkout_status( $status = 'enabled' ) {
 			$stripe_checkout = give_is_setting_enabled( give_get_option( 'stripe_checkout_enabled', 'disabled' ) );
 
 			if (
-				( $stripe_checkout && 'disabled' === $status ) ||
-				( ! $stripe_checkout && 'enabled' === $status )
+					( $stripe_checkout && 'disabled' === $status ) ||
+					( ! $stripe_checkout && 'enabled' === $status )
 			) {
 				return 'give-hidden';
 			}
@@ -369,69 +276,78 @@ if ( ! class_exists( 'Give_Stripe_Premium_Settings' ) ) {
 		public function stripe_configure_apple_pay_field( $value, $option_value ) {
 			$accounts = give_stripe_get_all_accounts();
 			?>
-			<tr valign="top" <?php echo ! empty( $value['wrapper_class'] ) ? 'class="' . esc_attr( $value['wrapper_class'] ) . '"' : ''; ?>>
+			<tr <?php echo ! empty( $value['wrapper_class'] ) ? 'class="' . esc_attr( $value['wrapper_class'] ) . '"' : ''; ?>>
 				<th scope="row" class="titledesc">
 					<label for="configure_apple_pay">
 						<?php esc_attr_e( 'Configure Apple Pay', 'give-stripe' ); ?>
 					</label>
 				</th>
 				<td class="give-forminp give-forminp-api_key">
+					<?php if ( is_multisite() && ! is_main_site() && ! is_subdomain_install() ) : ?>
+						<div class="give-notice notice notice-error inline">
+							<p>
+								<?php esc_html_e( 'Error: Apple Pay can not be registered for a subdirectory site within a WordPress multisite environment due to Apple restrictions.',
+										'give-stripe' ); ?>
+							</p>
+						</div>
+					<?php endif; ?>
 					<div class="give-stripe-account-manager-container">
-						<?php
-						if ( $accounts ) {
-							?>
+						<?php if ( $accounts ) : ?>
 							<div class="give-stripe-account-manager-list">
-								<?php
-								foreach ( $accounts as $name => $details ) {
-									$account_name      = $details['account_name'];
-									$account_email     = $details['account_email'];
-									$is_registered     = isset( $details['register_apple_pay'] ) && $details['register_apple_pay'];
+								<?php foreach ( $accounts as $name => $details ) :
+									$account_name = $details['account_name'];
+									$is_registered = isset( $details['register_apple_pay'] ) && $details['register_apple_pay'];
 									$stripe_account_id = $details['account_id'];
 									?>
-									<div class="give-stripe-account-manager-list-item">
-										<span class="give-stripe-account-name">
+									<div class="give-stripe-account-manager-list-item give-stripe-boxshadow-option-wrap">
+										<span class="give-stripe-label"><?php esc_html_e( 'Account name', 'give-stripe' ); ?>:</span>
+										<span class="give-stripe-account-name give-stripe-connect-data-field">
 											<?php echo $account_name; ?>
 										</span>
-										<span class="give-field-description give-stripe-account-email">
-											<?php echo $account_email; ?>
-										</span>
-										<span class="give-stripe-account-badge <?php echo ! $is_registered ? 'give-hidden' : ''; ?>">
-											<?php echo esc_html__( 'Registered', 'give-stripe' );?>
-										</span>
+										<?php if ( $stripe_account_id ) : ?>
+											<span class="give-stripe-label"><?php esc_html_e( 'Account ID', 'give-tripe' ); ?>:</span>
+											<span class="give-stripe-account-id give-stripe-connect-data-field">
+												<?php echo $stripe_account_id; ?>
+											</span>
+										<?php elseif ( 'manual' === $details['type'] ): ?>
+											<span class="give-stripe-label"><?php esc_html_e( 'Connection Method', 'give-tripe' ); ?>:</span>
+											<span class="give-stripe-account-id give-stripe-connect-data-field">
+												<?php esc_html_e( 'API Keys', 'give-stripe' ); ?>
+											</span>
+										<?php endif; ?>
+
 										<span class="give-stripe-account-register <?php echo $is_registered ? 'give-hidden' : ''; ?>">
-											<a
-												class="give-stripe-register-domain"
-												href="#"
+											<button
+												class="give-stripe-register-domain button button-primary"
 												data-account="<?php echo $name; ?>"
-												data-secret-key="<?php echo $details['live_secret_key']; ?>"
-												data-account-id="<?php echo $stripe_account_id; ?>"
-												data-type="<?php echo $details['type']; ?>"
 											>
-												<?php echo esc_html__( 'Register domain', 'give-stripe' );?>
-											</a>
+												<?php esc_html_e( 'Register domain', 'give-stripe' ); ?>
+											</button>
 										</span>
-										<span class="give-stripe-account-actions">
+										<span class="give-stripe-account-actions <?php echo ! $is_registered ? 'give-hidden' : ''; ?>">
+											<span class="give-stripe-account-badge">
+												<span class="dashicons dashicons-yes"></span>
+												<?php esc_html_e( 'Registered', 'give-stripe' ); ?>
+											</span>
 											<span class="give-stripe-account-reset">
-												<a
-													class="give-stripe-reset-domain"
-													href="#"
-													data-account="<?php echo $name; ?>"
-												>
-													<?php echo esc_html__( 'Reset', 'give-stripe' ); ?>
-												</a>
+												<button class="give-stripe-reset-domain button button-small"
+												   data-account="<?php echo $name; ?>">
+													<?php esc_html_e( 'Reset', 'give-stripe' ); ?>
+												</button>
 											</span>
 										</span>
 									</div>
-									<?php
-								}
-								?>
+								<?php endforeach; ?>
 							</div>
-							<?php
-						}
-						?>
+						<?php endif; ?>
 					</div>
 					<p class="give-field-description">
-						<?php esc_attr_e( 'This option will help you register your domain to support Apple Pay for each of these Stripe accounts.', 'give-stripe' ); ?>
+						<?php
+						echo sprintf(
+						/* translators: 1. Stripe Apple settings page. */
+								__( 'This option will help you <a href="%1$s" target="_blank">register your domain</a> to support Apple Pay for each of your Stripe accounts.', 'give-stripe' ),
+								esc_url_raw( 'https://dashboard.stripe.com/settings/payments/apple_pay' )
+						); ?>
 					</p>
 				</td>
 			</tr>

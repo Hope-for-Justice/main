@@ -12,7 +12,7 @@ input[type="date"], input[type="month"],
 input[type="week"], input[type="time"], 
 input[type="datetime"], input[type="datetime-local"], 
 input[type="color"], textarea, select, .gchoice {
-	border-radius: 77px;
+	border-radius: 2em;
 	padding: 1em 1.5em;
 	font-size:1.6em;
 	border:1px solid $fields-border;
@@ -29,6 +29,10 @@ input[type="color"], textarea, select, .gchoice {
   }
 }
 
+textarea {
+  margin-bottom: 1em;
+}
+
 .gchoice {
   background: none;
   border: none;
@@ -40,6 +44,12 @@ input[type="color"], textarea, select, .gchoice {
 .gfield_radio {
   display: flex;
   margin-left: 1.8em;
+}
+
+.gfield_html {
+  //font-size: 1.6em;
+  margin-bottom: 2em;
+  margin-left: 1em;
 }
 
 .gform_confirmation_message {
@@ -139,11 +149,11 @@ fieldset {
   justify-content: space-between;
 }
 
-.gfield_html p{
-  font-size: 1.2em;
-  margin-left: 1.7em;
-  margin-right: 1.7em;
-}
+// .gfield_html p{
+//   font-size: 1.2em;
+//   margin-left: 1.7em;
+//   margin-right: 1.7em;
+// }
 
 .gform_footer {
   margin-top: 3em;
@@ -239,6 +249,10 @@ fieldset {
 
 .gfield {
   font-size: 1.2em;
+}
+
+.gfield_html {
+  //font-size: 1.6em;
 }
 
 .gfield_html--header {

@@ -1,0 +1,250 @@
+/*
+*
+* _GPF.SCSS
+*
+*/
+
+.gpf{
+	padding-bottom:5em;
+	&__header {
+		grid-column: col2 / col12;
+		margin-top:2em;
+		h1 {
+			font-size: 4.2em;
+		}
+	}
+	&__cards {
+		grid-column: col2 / col12;
+		&-title{
+			font-size: 3em;
+		}
+		&-category {
+			font-size: 1.2em;
+			margin-bottom: 1em;
+		}
+		&-inner {
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+		}
+		&-button-container{
+			margin-top: auto;
+		}
+		.button {
+			font-size: 1.2em;
+		}
+		.cards__card {
+			padding: 2.5em;
+			min-height: 23em;
+		}
+	}
+
+	.drag-cards{
+		margin: 0;
+		padding:0;
+		&__dots {
+			margin-bottom: 0;
+		}
+	}
+
+	&__drag-cards {
+		min-height: 23em;
+		padding:2.5em;
+		.button {
+			font-size: 1.2em;
+		}
+	}
+
+	&__accred-card {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		.line {width:50%;}
+		.gpf__accred-img {
+			max-height: 6em;
+			img{
+				object-fit: contain;
+				height:100%;
+			}
+		}
+		p,a{font-size: 1.6em;}
+		a{text-decoration: underline;}
+		p{margin-bottom: 1em;}
+	}
+
+	&__accred-content {
+		margin-bottom: auto;
+	}
+
+	.gpf-category-title {
+		grid-column: col2 / col12;
+		font-size: 2.4em;
+		margin: 1.5em 0 1em 0;
+	}
+}
+
+// mobile medium
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: mobileMedium) {
+
+.gpf{
+	&__header {
+		margin-top:2.5em;
+		h1 {
+			font-size: 4.8em;
+		}
+	}
+	&__cards {
+		&-title{
+			font-size: 3.5em;
+		}
+		&-category {
+			font-size: 1.4em;
+		}
+		.cards__card {
+			padding: 3em;
+			min-height: 25em;
+		}
+	}
+
+	&__drag-cards {
+		min-height: 25em;
+		padding:3em;
+	}
+
+	&__accred-card {
+		padding:3em;
+	}
+
+}
+
+}
+
+// phablet
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: phablet) {
+
+.gpf{
+	&__header {
+		margin-top:4.5em;
+	}
+	.drag-cards__inner {
+    	grid-template-columns: repeat(10, 50vw);
+    	grid-gap: 2em;
+    	padding-left: 8.5vw;
+	}
+}
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktop) {
+
+.gpf{
+	padding-bottom:10em;
+	&__header {
+		margin-top:4.5em;
+		h1{font-size: 6em;}
+	}
+	.drag-cards__inner {
+    	grid-template-columns: repeat(10, 30vw);
+    	grid-gap: 2em;
+    	padding-left: 8.5vw;
+	}
+	&__accred-card {
+		.gpf__accred-img {
+			max-height: 8em;
+		}
+	}
+}
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopLarge) {
+
+.gpf{
+	&__header {
+		margin-top:8em;
+		h1{font-size: 8em;}
+		p{max-width: 50%;}
+	}
+	.gpf-category-title {
+		font-size: 3.4em;
+	}
+	&__cards {
+		&-title{
+			font-size: 4em;
+		}
+		&-category {
+			font-size: 1.6em;
+			margin-bottom: 1em;
+		}
+		// &-inner {
+		// 	display: flex;
+		// 	flex-direction: column;
+		// 	height: 100%;
+		// }
+		// &-button-container{
+		// 	margin-top: auto;
+		// }
+		.button {
+			font-size: 1.6em;
+		}
+		.cards__card {
+			padding:4em;
+			min-height: 30em;
+		}
+	}
+	&__drag-cards {
+		min-height: 30em;
+		padding:4em;
+		.button {
+			font-size: 1.6em;
+		}
+	}
+	&__accred-card {
+		padding:4em;
+	}
+}
+
+}
+
+// desktop XL
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopExtraLarge) {
+
+.gpf{
+	&__cards {
+		&-title{
+			font-size: 5em;
+		}
+		&-category {
+			margin-bottom: 1.5em;
+		}
+		.cards__card {
+			padding:4.5em;
+			min-height: 35em;
+		}
+	}
+	&__drag-cards {
+		min-height: 35em;
+		padding:4.5em;
+		.button {
+			font-size: 1.6em;
+		}
+	}
+	&__accred-card {
+		padding:4.5em;
+	}
+}
+
+}
+
+
+
+
+
+

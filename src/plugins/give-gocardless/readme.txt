@@ -2,8 +2,8 @@
 Contributors: givewp
 Tags: donations, donation, ecommerce, e-commerce, fundraising, fundraiser, gocardless, gateway
 Requires at least: 4.8
-Tested up to: 5.7
-Stable tag: 1.3.7
+Tested up to: 5.8
+Stable tag: 1.3.8
 Requires Give: 2.6.0
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
@@ -38,6 +38,9 @@ The manual installation method involves downloading our donation plugin and uplo
 Automatic updates should work like a charm; as always though, ensure you backup your site just in case.
 
 == Changelog ==
+= 1.3.8: July 27th, 2021 =
+* Fix: Subscriptions no longer mark, sometimes falsely, as complete. Now they go into pending until confirmed by webhook.
+
 = 1.3.7: May 19th, 2021 =
 * Fix: Notice no longer shows up when using GiveWP 2.10+ and Give Recurring 1.12+
 

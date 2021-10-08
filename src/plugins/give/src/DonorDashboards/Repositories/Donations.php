@@ -1,10 +1,11 @@
 <?php
 namespace Give\DonorDashboards\Repositories;
 
+use Give\Receipt\LineItem;
 use Give\ValueObjects\Money;
 use Give\Framework\Database\DB;
 use Give\Receipt\DonationReceipt;
-use InvalidArgumentException;
+use Give_Payment;
 
 /**
  * @since 2.10.0
@@ -69,7 +70,7 @@ class Donations {
 					INNER JOIN {$wpdb->prefix}give_donationmeta as donationmeta ON revenue.donation_id = donationmeta.donation_id
 				WHERE donationmeta.meta_key = '_give_payment_donor_id'
 					AND donationmeta.meta_value = %d
-					AND posts.post_status IN ( 'publish', 'give_subscription' )
+					AND posts.post_status IN ( 'publish', 'give_subscription', 'pending' )
 			",
 				$donorId
 			)
@@ -109,15 +110,18 @@ class Donations {
 	/**
 	 * Get all donations by donor ID
 	 *
-	 * @param int $donorId
+	 * @since 2.12.2 return null if donation ids is empty
 	 * @since 2.10.0
+	 *
+	 * @param int $donorId
+	 *
 	 * @return array Donations
 	 */
 	public function getDonations( $donorId ) {
 
 		$ids = $this->getDonationIds( $donorId );
 
-		if ( $ids === null ) {
+		if ( empty( $ids ) ) {
 			return null;
 		}
 

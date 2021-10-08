@@ -29,40 +29,6 @@ add_action( 'admin_init', 'give_cs_do_automatic_upgrades' );
 add_action( 'give_upgrades', 'give_cs_do_automatic_upgrades' );
 
 /**
- * Db updates for version 1.2.2
- *
- * @since 1.2.2
- */
-function give_cs_v122_upgrades() {
-	/**
-	 * Update 1
-	 *
-	 * Remove existing currency exchange rate API crons
-	 */
-	$changed = false;
-	$crons   = _get_cron_array();
-
-	foreach ( $crons as $timestamp => $cron_hook ) {
-		foreach ( $cron_hook as $hook => $callbacks ) {
-			if ( false !== strpos( $hook, 'cs_exchange_rate_' ) ) {
-				unset( $crons[ $timestamp ][ $hook ] );
-
-				if ( empty( $crons[ $timestamp ] ) ) {
-					unset( $crons[ $timestamp ] );
-				}
-
-				$changed = true;
-			}
-		}
-	}
-
-	if ( $changed ) {
-		_set_cron_array( $crons );
-		Give_Currency_Switcher::maybe_schedule_cron();
-	}
-}
-
-/**
  * Display Upgrade Notices.
  *
  * @since 1.1 Update the form earning base on the base amount.

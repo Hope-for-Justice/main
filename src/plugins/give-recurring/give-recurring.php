@@ -3,7 +3,7 @@
  * Plugin Name: Give - Recurring Donations
  * Plugin URI:  https://givewp.com/addons/recurring-donations/
  * Description: Adds support for recurring (subscription) donations to the GiveWP donation plugin.
- * Version:     1.12.5
+ * Version:     1.12.6
  * Author:      GiveWP
  * Author URI:  https://givewp.com
  * Text Domain: give-recurring
@@ -17,6 +17,8 @@ use GiveRecurring\Revenue\RevenueServiceProvider;
 use GiveRecurring\Tracking\TrackingServiceProvider;
 use GiveRecurring\Logs\LogsServiceProvider;
 use GiveRecurring\DonorDashboard\ServiceProvider as DonorDashboardServiceProvider;
+use GiveRecurring\Webhooks\ServiceProvider as WebhooksServiceProvider;
+use GiveRecurring\Subscriptions\ServiceProvider as SubscriptionsServiceProvider;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,10 +27,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Plugin constants.
 if ( ! defined( 'GIVE_RECURRING_VERSION' ) ) {
-	define( 'GIVE_RECURRING_VERSION', '1.12.5' );
+	define( 'GIVE_RECURRING_VERSION', '1.12.6' );
 }
 if ( ! defined( 'GIVE_RECURRING_MIN_GIVE_VERSION' ) ) {
-	define( 'GIVE_RECURRING_MIN_GIVE_VERSION', '2.12.0' );
+	define( 'GIVE_RECURRING_MIN_GIVE_VERSION', '2.12.3' );
 }
 if ( ! defined( 'GIVE_RECURRING_PLUGIN_FILE' ) ) {
 	define( 'GIVE_RECURRING_PLUGIN_FILE', __FILE__ );
@@ -322,8 +324,6 @@ final class Give_Recurring {
 
 		// Load Stripe files for recurring support.
 		require_once GIVE_RECURRING_PLUGIN_DIR . 'includes/gateways/stripe/give-recurring-stripe-helpers.php';
-		require_once GIVE_RECURRING_PLUGIN_DIR . 'includes/gateways/stripe/class-give-recurring-stripe-gateway.php';
-		require_once GIVE_RECURRING_PLUGIN_DIR . 'includes/gateways/stripe/class-give-recurring-stripe-webhooks.php';
 		require_once GIVE_RECURRING_PLUGIN_DIR . 'includes/gateways/stripe/class-give-recurring-stripe-subscription.php';
 
 		require_once GIVE_RECURRING_PLUGIN_DIR . 'includes/gateways/give-recurring-stripe.php';
@@ -1844,7 +1844,7 @@ register_activation_hook( GIVE_RECURRING_PLUGIN_DIR, [ Activation::class, 'activ
  *
  * @unreleased
  */
-add_action( 'before_give_init', function(){
+add_action( 'before_give_init', function () {
 	// Check Give min required version.
 	if ( GiveRecurring\Infrastructure\Environment::giveMinRequiredVersionCheck() ) {
 		$service_providers = [
@@ -1853,11 +1853,13 @@ add_action( 'before_give_init', function(){
 			TrackingServiceProvider::class,
 			EmailServiceProvider::class,
 			DonorDashboardServiceProvider::class,
-			LogsServiceProvider::class
+			LogsServiceProvider::class,
+			WebhooksServiceProvider::class,
+      SubscriptionsServiceProvider::class,
 		];
 
-		foreach($service_providers as $service_provider) {
-			give()->registerServiceProvider($service_provider);
-        }
+		foreach ( $service_providers as $service_provider ) {
+			give()->registerServiceProvider( $service_provider );
+		}
 	}
 } );

@@ -415,7 +415,7 @@ function give_recurring_get_pretty_subscription_status( $status ) {
  *
  * @return bool|string
  */
-function give_recurring_generate_subscription_name( $form_id, $price_id = 0 ) {
+function give_recurring_generate_subscription_name( $form_id, $price_id = null ) {
 
 	if ( empty( $form_id ) ) {
 		return false;

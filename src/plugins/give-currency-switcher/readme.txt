@@ -2,8 +2,8 @@
 Contributors: givewp
 Tags: donations, donation, ecommerce, e-commerce, fundraising, fundraiser, gateway, currency, currency switcher
 Requires at least: 4.9
-Tested up to: 5.7
-Stable tag: 1.4.0
+Tested up to: 5.8
+Stable tag: 1.5.0
 Requires Give: 2.11.0
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
@@ -32,6 +32,10 @@ The manual installation method involves downloading our donation plugin and uplo
 Automatic updates should work like a charm; as always though, ensure you backup your site just in case.
 
 == Changelog ==
+
+= 1.5.0: July 27th, 2021 =
+* New: Exchange services have been removed for one, simple, free API compliments of GiveWP
+* New: Exchange rates now automatically update every day (unless they are manually set)
 
 = 1.4.0: May 20th, 2021 =
 * New: Decimals now look great and are better handled using the new Multi-Step template decimal option introduced in GiveWP 2.11.0

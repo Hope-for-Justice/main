@@ -1,0 +1,38 @@
+.pfconfs-notice {
+    display: inline-block;
+    padding: 1rem;
+    max-width: 400px;
+}
+
+p.pfc4givewp-review {
+    position: relative;
+    padding: 2px 0 3px 38px;
+    
+}
+p.pfc4givewp-review i.dashicons-heart {
+    color: white;
+    background: #66BB6A;
+    position: absolute;
+    left: -15px;
+    padding: 10px 9px;
+    top: -7px;
+}
+
+p.pfc4givewp-review strong {
+    color: #66BB6A;
+}
+p.pfc4givewp-review a.dismiss {
+    float: right;
+    text-decoration: none;
+    color: #66BB6A;
+}
+
+p.pfconfs-disabled {
+    margin: 25px;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-left-color: #ffb900;
+    border-left-width: 4px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}

@@ -15,20 +15,16 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: give-currency-switcher.php:153
+#: give-currency-switcher.php:154
 msgid "General"
 msgstr ""
 
-#: give-currency-switcher.php:154, includes/admin/class-give-currency-switcher-admin.php:275, includes/give-currency-switcher-helpers.php:123
+#: give-currency-switcher.php:155, includes/admin/class-give-currency-switcher-admin.php:275, includes/give-currency-switcher-helpers.php:126
 msgid "Geolocation"
 msgstr ""
 
-#: give-currency-switcher.php:155, includes/give-currency-switcher-helpers.php:211
+#: give-currency-switcher.php:156, includes/give-currency-switcher-helpers.php:154
 msgid "Payment Gateways"
-msgstr ""
-
-#: give-currency-switcher.php:156
-msgid "Exchange Rates APIs"
 msgstr ""
 
 #: give-currency-switcher.php:186
@@ -43,19 +39,19 @@ msgstr ""
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: give-currency-switcher.php:417, includes/admin/class-give-currency-switcher-admin.php:269, includes/admin/class-give-currency-switcher-settings.php:30, includes/give-currency-switcher-helpers.php:48
+#: give-currency-switcher.php:374, includes/admin/class-give-currency-switcher-admin.php:269, includes/admin/class-give-currency-switcher-settings.php:30, includes/give-currency-switcher-helpers.php:51
 msgid "Currency Switcher"
 msgstr ""
 
-#: give-currency-switcher.php:446
+#: give-currency-switcher.php:403
 msgid "Settings"
 msgstr ""
 
-#: give-currency-switcher.php:484
+#: give-currency-switcher.php:441
 msgid "Documentation"
 msgstr ""
 
-#: give-currency-switcher.php:498
+#: give-currency-switcher.php:455
 msgid "Add-ons"
 msgstr ""
 
@@ -123,11 +119,11 @@ msgstr ""
 msgid "Add price for each currency."
 msgstr ""
 
-#: includes/admin/class-give-currency-switcher-admin.php:629, includes/give-currency-switcher-helpers.php:41, includes/give-currency-switcher-helpers.php:66, includes/give-currency-switcher-helpers.php:80, includes/give-currency-switcher-helpers.php:130, includes/give-currency-switcher-helpers.php:191
+#: includes/admin/class-give-currency-switcher-admin.php:629, includes/give-currency-switcher-helpers.php:44, includes/give-currency-switcher-helpers.php:69, includes/give-currency-switcher-helpers.php:83, includes/give-currency-switcher-helpers.php:133
 msgid "Enabled"
 msgstr ""
 
-#: includes/admin/class-give-currency-switcher-admin.php:630, includes/give-currency-switcher-helpers.php:37, includes/give-currency-switcher-helpers.php:42, includes/give-currency-switcher-helpers.php:67, includes/give-currency-switcher-helpers.php:81, includes/give-currency-switcher-helpers.php:131, includes/give-currency-switcher-helpers.php:192
+#: includes/admin/class-give-currency-switcher-admin.php:630, includes/give-currency-switcher-helpers.php:40, includes/give-currency-switcher-helpers.php:45, includes/give-currency-switcher-helpers.php:70, includes/give-currency-switcher-helpers.php:84, includes/give-currency-switcher-helpers.php:134
 msgid "Disabled"
 msgstr ""
 
@@ -151,7 +147,7 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-#: includes/admin/class-give-currency-switcher-admin.php:677, includes/give-currency-switcher-helpers.php:474
+#: includes/admin/class-give-currency-switcher-admin.php:677, includes/give-currency-switcher-helpers.php:417
 msgid "Exchange Rate"
 msgstr ""
 
@@ -207,224 +203,128 @@ msgstr ""
 msgid "gateway. Please choose other gateway"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:35
+#: includes/give-currency-switcher-helpers.php:38
 msgid "Global Option"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:36
+#: includes/give-currency-switcher-helpers.php:39
 msgid "Customize"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:49
+#: includes/give-currency-switcher-helpers.php:52
 msgid "This enables the Give Currency Switcher for all your website's donation forms. Note: You can disable the global options and enable and customize options per form as well."
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:49
+#: includes/give-currency-switcher-helpers.php:52
 msgid "This allows you to customize the Currency Switcher settings for just this donation form. You can disable Currency Switcher for just this form as well or simply use the global settings."
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:59
+#: includes/give-currency-switcher-helpers.php:62
 msgid "Display Currency Acronym"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:60
+#: includes/give-currency-switcher-helpers.php:63
 msgid "This option will add the currency acronym (USD, EUR, GBP) before the currency symbol on the donation form display to make it easier for donors to recognize currencies. This is helpful when you have multiple currencies sharing the same symbol. For example, MXN and USD share \"$\" as a symbol. With this option enabled the donation form would display \"MXN $\" when that currency was selected within the dropdown."
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:73
+#: includes/give-currency-switcher-helpers.php:76
 msgid "Auto-Switch Currency"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:74
+#: includes/give-currency-switcher-helpers.php:77
 msgid "Enabling this will automatically switch the currency to the donor's currency from their latest donation."
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:88
+#: includes/give-currency-switcher-helpers.php:91
 msgid "Currency Switcher Message"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:92
+#: includes/give-currency-switcher-helpers.php:95
 msgid "Displays to the donor the difference between the base currency amount and the new currency amount."
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:101
+#: includes/give-currency-switcher-helpers.php:104
 msgid "Supported Currencies"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:102
+#: includes/give-currency-switcher-helpers.php:105
 msgid "Select the currencies you would like to support. Note: the Give Base Currency (USD) will be enabled automatically."
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:113
+#: includes/give-currency-switcher-helpers.php:116
 msgid "Exchange Rates"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:115
+#: includes/give-currency-switcher-helpers.php:118
 msgid "In this section you can manually enter the exchange rates to convert donations from your base currency to or you can enable automatic exchange rate updates through the <a href=\"%1$s\">Exchange Rate APIs</a> screen (recommended). Exchange Rates will be fetched on a regular basis from the Provider of your choice. If you wish to lock an exchange rate to a specific value, and not have it updated automatically, simply tick the corresponding box in the set manually column."
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:124
+#: includes/give-currency-switcher-helpers.php:127
 msgid "Enable automatic selection of Currency depending on Visitors' location. This feature uses GeoLite data created by <a href=\"%1$s\" target=\"_blank\">MaxMind</a>."
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:137
+#: includes/give-currency-switcher-helpers.php:140
 msgid "Base Currency (if fails)"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:138
+#: includes/give-currency-switcher-helpers.php:141
 msgid "Select the currency to use by default when a visitor comes from a country whose currency is not supported by your site, or when geolocation resolution fails."
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:153
-msgid "Please Select"
-msgstr ""
-
-#: includes/give-currency-switcher-helpers.php:158
-msgid "Exchange Rates Provider"
-msgstr ""
-
-#: includes/give-currency-switcher-helpers.php:163
-msgid "Select the provider you would like the exchange rates fetched from."
-msgstr ""
-
-#: includes/give-currency-switcher-helpers.php:169
-msgid "Open Exchange Rates API Key"
-msgstr ""
-
-#: includes/give-currency-switcher-helpers.php:172
-msgid "If you do not have an API Key, please visit <code>https://openexchangerates.org/</code> to register and get one."
-msgstr ""
-
-#: includes/give-currency-switcher-helpers.php:177
-msgid "API Access Key"
-msgstr ""
-
-#: includes/give-currency-switcher-helpers.php:180
-msgid "If you do not have an API Key, please visit <code>https://fixer.io/</code> to register and get one."
-msgstr ""
-
-#: includes/give-currency-switcher-helpers.php:184
-msgid "Automatic update"
-msgstr ""
-
-#: includes/give-currency-switcher-helpers.php:185
-msgid "This enables automatic exchange rates updating for all the donation forms on this website."
-msgstr ""
-
-#: includes/give-currency-switcher-helpers.php:185
-msgid "This enables automatic exchange rates for just this donation form. You can disable if for just this form or use the global settings."
-msgstr ""
-
-#: includes/give-currency-switcher-helpers.php:199
-msgid "Update Interval"
-msgstr ""
-
-#: includes/give-currency-switcher-helpers.php:204
-msgid "Select how often you would like to update the exchange rates."
-msgstr ""
-
-#: includes/give-currency-switcher-helpers.php:212
+#: includes/give-currency-switcher-helpers.php:155
 msgid "Set the payment gateways available when paying in each currency."
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:221
+#: includes/give-currency-switcher-helpers.php:164
 msgid "Give - Currency Switcher Settings Docs Link"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:224
+#: includes/give-currency-switcher-helpers.php:167
 msgid "Give - Currency Switcher Settings"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:473, includes/give-currency-switcher-helpers.php:674
+#: includes/give-currency-switcher-helpers.php:416, includes/give-currency-switcher-helpers.php:589
 msgid "Currency"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:475
+#: includes/give-currency-switcher-helpers.php:418
 msgid "Set Manually"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:476
+#: includes/give-currency-switcher-helpers.php:419
 msgid "Decimal Number"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:477
+#: includes/give-currency-switcher-helpers.php:420
 msgid "Rate Markup"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:546
+#: includes/give-currency-switcher-helpers.php:489
 msgid "Enter exchange rate"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:591
-msgid "No App ID provided. Please sign up at https://openexchangerates.org/signup"
+#: includes/give-currency-switcher-helpers.php:530
+msgid "Fetch Exchange Rates"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:598
-msgid "Please select Exchange Rate Provider first Setting > Currency Switcher > Exchange Rates APIs."
-msgstr ""
-
-#: includes/give-currency-switcher-helpers.php:613
-msgid "none"
-msgstr ""
-
-#: includes/give-currency-switcher-helpers.php:615
-msgid "Fetch Exchange Rates (%s)"
-msgstr ""
-
-#: includes/give-currency-switcher-helpers.php:675
+#: includes/give-currency-switcher-helpers.php:590
 msgid "Enabled Gateways"
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:1451
+#: includes/give-currency-switcher-helpers.php:938
+msgid "Failed to retrieve exchange rates. Please contact admin and view Log"
+msgstr ""
+
+#: includes/give-currency-switcher-helpers.php:1320
 msgid "Please set currency's exchange rate first."
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:1454
+#: includes/give-currency-switcher-helpers.php:1323
 msgid "Only base Give currency is enabled, please choose few currencies first."
 msgstr ""
 
-#: includes/give-currency-switcher-helpers.php:1928
+#: includes/give-currency-switcher-helpers.php:1797
 msgid "The current exchange rate is 1.00 %1$s equals %2$s %3$s."
-msgstr ""
-
-#: lib/class-give-cs-cron.php:168
-msgid "Once Hourly"
-msgstr ""
-
-#: lib/class-give-cs-cron.php:169
-msgid "Twice Daily"
-msgstr ""
-
-#: lib/class-give-cs-cron.php:170
-msgid "Once Daily"
-msgstr ""
-
-#: lib/class-give-cs-cron.php:171
-msgid "Once Weekly"
-msgstr ""
-
-#: lib/class-give-cs-fixer-api.php:121
-msgid "Your fixer.io account supports EUR as base currency only. Visit http://fixer.io for more information."
-msgstr ""
-
-#: lib/class-give-cs-fixer-api.php:125
-msgid "Something went wrong! couldn't fetch the exchange rates."
-msgstr ""
-
-#: lib/class-give-cs-rates-api.php:67
-msgid "Xe.com"
-msgstr ""
-
-#: lib/class-give-cs-rates-api.php:68
-msgid "European Central Bank"
-msgstr ""
-
-#: lib/class-give-cs-rates-api.php:69
-msgid "Fixer.io"
-msgstr ""
-
-#: lib/class-give-cs-rates-api.php:70
-msgid "Open Exchange Rates"
 msgstr ""
 
 #: lib/class-give-geo-location.php:187

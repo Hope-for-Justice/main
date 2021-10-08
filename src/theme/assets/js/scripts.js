@@ -2,6 +2,32 @@
 
 jQuery(document).ready(function($) {
 
+    //url param function
+    var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    };
+
+    //if donate=true show donate form
+    var donate = getUrlParameter('donate');
+    if(donate == "true") {
+        //modal (spash)
+        $('#payment-modal-once').modal('show');
+    } else if(donate == "monthly")   {
+        //modal (spash)
+        $('#payment-modal-regular').modal('show');
+    }
+
     //Drop down questions
     $('.dropdown').click(function() {
         $(this).find(".answer").slideDown();
@@ -67,7 +93,42 @@ jQuery(document).ready(function($) {
         $(".modal__text").html($text);
     });
 
+    //flexslider
+    $('.flexslider-text').flexslider({
+        animation: "fade",
+        //slideshow: true,
+        animationLoop: true,
+        directionNav: false,
+        controlNav: false,
+        video: false,
+        pauseOnHover: false,
+        slideshowSpeed: 6000,
+        animationSpeed: 300, 
+        //smoothHeight: true,
+    });
+
+    //custom next/prev 
+    /* will need to be more specific if
+    multiple sliders are on one page */
+    $('.text-slider__prev, .text-slider__next').on('click', function(){
+        var href = $(this).attr('href');
+        $('.flexslider-text').flexslider(href)
+        return false;
+    })
+
+    // responsive resizing videos
+    $(".page").fitVids();
+    $(".single").fitVids();
+
+
 }); /* end of as page load scripts */
+
+
+
+
+
+
+
 
 
 //gravity forms on render
@@ -142,10 +203,28 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
     });
     // initialise
     headroom.init();
- 
-    //modal (spash)
-    $('#splash-modal').modal('show');
 
+    //url param function
+    var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    };
+
+    //if no donate url param show splash
+    var donate = getUrlParameter('donate');
+    if(donate != "true" && donate != "monthly") {
+        $('#splash-modal').modal('show');
+    }
 
     //give wp
     $("#usaForm").find('iframe').contents().find(".currency--before").html('$');
@@ -229,29 +308,6 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
                 TweenLite.set(this.target, {zIndex:0});
             }
         });
-
-        //flexslider
-        $('.flexslider-text').flexslider({
-            animation: "fade",
-            //slideshow: true,
-            animationLoop: true,
-            directionNav: false,
-            controlNav: false,
-            video: false,
-            pauseOnHover: true,
-            slideshowSpeed: 6000,
-            animationSpeed: 300, 
-            //smoothHeight: true,
-        });
-
-        //custom next/prev 
-        /* will need to be more specific if
-        multiple sliders are on one page */
-        $('.text-slider__prev, .text-slider__next').on('click', function(){
-            var href = $(this).attr('href');
-            $('.flexslider-text').flexslider(href)
-            return false;
-        })
 
 
 	}); /* end of on widow load*/

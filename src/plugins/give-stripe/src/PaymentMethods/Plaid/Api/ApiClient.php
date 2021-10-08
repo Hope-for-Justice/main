@@ -2,7 +2,7 @@
 
 namespace GiveStripe\PaymentMethods\Plaid\Api;
 
-use GiveStripe\Framework\Log;
+use GiveStripe\Infrastructure\Log;
 use GiveStripe\PaymentMethods\Plaid\Api\Exceptions\ApiRequestException;
 use GiveStripe\PaymentMethods\Plaid\Api\Exceptions\RequestException;
 use WP_Error;

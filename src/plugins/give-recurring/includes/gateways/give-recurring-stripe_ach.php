@@ -7,7 +7,13 @@
  * @license   https://opensource.org/licenses/gpl-license GNU Public License
  * @since     1.6
  */
+
+use Give\ValueObjects\Money;
 use GiveRecurring\Infrastructure\Log;
+use GiveRecurring\PaymentGateways\DataTransferObjects\SubscriptionDto;
+use GiveRecurring\PaymentGateways\Stripe\Actions\RetrieveOrCreatePlan;
+use GiveRecurring\PaymentGateways\Stripe\Actions\UpdateSubscriptionAmount;
+use Stripe\Subscription;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,7 +28,6 @@ global $give_recurring_stripe_ach;
  * @since 1.6
  */
 class Give_Recurring_Stripe_ACH extends Give_Recurring_Gateway {
-
 	/**
 	 * Array of API keys.
 	 *
@@ -94,7 +99,7 @@ class Give_Recurring_Stripe_ACH extends Give_Recurring_Gateway {
 			// Must have a Stripe customer ID.
 			if ( ! empty( $stripe_customer_id ) ) {
 
-				$subscription = \Stripe\Subscription::retrieve( $subscription->profile_id );
+				$subscription = Subscription::retrieve( $subscription->profile_id );
 				$subscription->cancel();
 
 				return true;
@@ -132,19 +137,32 @@ class Give_Recurring_Stripe_ACH extends Give_Recurring_Gateway {
 	 *
 	 * @return bool
 	 */
-	public function can_update_subscription( $ret, $subscription ) {
+	public function can_update( $ret, $subscription ) {
 
 		if (
 			'stripe_ach' === $subscription->gateway
 			&& ! empty( $subscription->profile_id )
 			&& in_array( $subscription->status, array(
 				'active',
+				'failing'
 			), true )
 		) {
 			return true;
 		}
 
 		return $ret;
+	}
+
+	/**
+	 * @since 1.12.6
+	 *
+	 * @param bool $ret
+	 * @param Give_Subscription $subscription
+	 *
+	 * @return bool
+	 */
+	public function can_update_subscription( $ret, $subscription ) {
+		return $this->can_update( $ret, $subscription );
 	}
 
 	/**
@@ -267,9 +285,9 @@ class Give_Recurring_Stripe_ACH extends Give_Recurring_Gateway {
 	 * Setup customers and plans in Stripe for the sign up.
 	 *
 	 * @since  1.6
-	 * @access public
+	 * @since 1.12.6 Implement createOrRetrieveStripePlan function
 	 *
-	 * @return bool|\Stripe\Subscription
+	 * @access public
 	 */
 	public function create_payment_profiles() {
 
@@ -296,16 +314,39 @@ class Give_Recurring_Stripe_ACH extends Give_Recurring_Gateway {
 
 		$email     = $this->purchase_data['user_email'];
 
-		// Create a new plan or fetch the existing plan.
-		$plan_id = $this->get_or_create_stripe_plan( $this->subscriptions );
+		try {
+			$currencyCode = give_get_currency( $this->subscriptions['form_id'] );
+			$stripePlan = give( RetrieveOrCreatePlan::class )->handle( SubscriptionDto::fromArray(
+				[
+					'formId' => $this->subscriptions['form_id'],
+					'priceId' => $this->subscriptions['price_id'],
+					'recurringDonationAmount' => Money::of( $this->subscriptions['recurring_amount'], $currencyCode ),
+					'period' => $this->subscriptions['period'],
+					'frequency' => $this->subscriptions['frequency'],
+					'currencyCode' => $currencyCode,
+				]
+			)  );
+
+		} catch ( Exception $e ) {
+			Log::error(
+				'Stripe Error',
+				[
+					'Description' => $e->getMessage(),
+					'Subscription Data' => $this->subscriptions
+				]
+			);
+			give_set_error(
+				'give_recurring_stripe_create_subscription',
+				esc_html__( 'An error occurred while processing the donation. Please try again.', 'give-recurring' )
+			);
+			give_send_back_to_checkout( '?payment-mode=stripe' );
+		}
 
 		// Create a new customer or fetch the existing customer.
 		$give_stripe_customer = new Give_Stripe_Customer( $email, $source );
 		$stripe_customer      = $give_stripe_customer->customer_data;
 
-		// Subscribe Customer to Plan.
-		return $this->subscribe_customer_to_plan( $stripe_customer, $source, $plan_id );
-
+		$this->subscribe_customer_to_plan( $stripe_customer, $source, $stripePlan->id );
 	}
 
 	/**
@@ -315,11 +356,11 @@ class Give_Recurring_Stripe_ACH extends Give_Recurring_Gateway {
 	 * @param  string|array     $source          Source ID.
 	 * @param  string           $plan_id         Plan ID.
 	 *
-	 * @since  1.6
-	 * @since 1.12.5 Add `default_payment_method` param to Stripe subscription cretation request
+	 * @return bool|Subscription
+	 *@since 1.12.5 Add `default_payment_method` param to Stripe subscription cretation request
 	 * @access public
 	 *
-	 * @return bool|\Stripe\Subscription
+	 * @since  1.6
 	 */
 	public function subscribe_customer_to_plan( $stripe_customer, $source, $plan_id ) {
 
@@ -821,113 +862,39 @@ class Give_Recurring_Stripe_ACH extends Give_Recurring_Gateway {
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @since 1.12.6 implement updateSubscriptionAmountOnStripe function
 	 */
 	public function update_subscription( $subscriber, $subscription, $data = null ) {
-
 		if ( $data === null ) {
+			$data = give_clean( $_POST ); // WPCS: input var ok, sanitization ok, CSRF ok.
+		}
+		$renewalAmount = $this->getNewRenewalAmount( $data );
 
-			// Sanitize the values submitted with donation form.
-			$post_data = give_clean( $_POST ); // WPCS: input var ok, sanitization ok, CSRF ok.
-
-			// Get update renewal amount.
-			$renewal_amount = $this->getNewRenewalAmount();
-
-		} else {
-
-			$post_data = $data;
-
-			// Get update renewal amount.
-			$renewal_amount = $this->getNewRenewalAmount( $data );
-
+		if ( give_get_errors() ) {
+			return;
 		}
 
-		// Is errors?
-		$errors = give_get_errors();
-
-		if ( empty( $errors ) ) {
-			$this->update_subscription_plan( $subscription, $renewal_amount );
-		}
-	}
-
-	/**
-	 * Update Stripe Subscription plan.
-	 *
-	 * @since 1.8
-	 *
-	 * @param \Give_Subscription $subscription
-	 * @param int $renewal_amount
-	 */
-	private function update_subscription_plan( $subscription, $renewal_amount ) {
-		$stripe_plan_name = give_recurring_generate_subscription_name( $subscription->form_id, $subscription->price_id );
-		$stripe_plan_id   = $this->generate_stripe_plan_id( $stripe_plan_name, $renewal_amount, $subscription->period, $subscription->frequency );
-
-		try {
-
-			// The plan does not exist, please create a new plan.
-			$args = array(
-				'amount'         => give_stripe_dollars_to_cents( $renewal_amount ),
-				'interval'       => $subscription->period,
-				'interval_count' => $subscription->frequency,
-				'currency'       => give_get_payment_currency_code( $subscription->parent_payment_id ),
-				'id'             => $stripe_plan_id,
+		try{
+			give( UpdateSubscriptionAmount::class )->handle( $subscription, $renewalAmount  );
+		} catch ( Exception $e ) {
+			give_set_error(
+				'give_recurring_stripe_update_subscription',
+				esc_html__(
+					'The Stripe gateway returned an error while updating the subscription.',
+					'give-recurring'
+				)
 			);
 
-			// Create a Subscription Product Object and Pass plan parameters as per the latest version of stripe api.
-			$args['product'] = \Stripe\Product::create( array(
-				'name'                 => $stripe_plan_name,
-				'statement_descriptor' => give_stripe_get_statement_descriptor( $subscription ),
-				'type'                 => 'service',
-			) );
-
-			$stripe_plan = false;
-
-			try {
-
-				$stripe_plan = \Stripe\Plan::create( $args );
-
-			} catch ( \Stripe\Error\Base $e ) {
-
-				$body = $e->getJsonBody();
-				$err  = $body['error'];
-
-				if ( isset( $err['message'] ) ) {
-					give_set_error( 'stripe_error', $err['message'] );
-				} else {
-					give_set_error( 'stripe_error', __( 'There was an issue creating the Stripe plan.' , 'give-recurring' ) );
-				}
-
-			} catch ( Exception $e ) {
-
-				// Something went wrong outside of Stripe.
-				give_set_error( 'Stripe Error', __( 'An error occurred while processing the donation. Please try again.', 'give-recurring' ) );
-			}
-
-			if ( isset( $stripe_plan ) && is_object( $stripe_plan ) ) {
-				// get stripe subscription.
-				$stripe_subscription = \Stripe\Subscription::retrieve( $subscription->profile_id );
-
-				if (
-					isset( $stripe_subscription->items->data[0]->id )
-					&& isset( $stripe_plan->id )
-				) {
-					$stripe_subscription->update( $subscription->profile_id, array(
-							'items' => array(
-								array(
-									'id' => $stripe_subscription->items->data[0]->id,
-									'plan' => $stripe_plan->id
-								)
-							),
-							'prorate' => false,
-						)
-					);
-
-					$stripe_subscription->save();
-				} else {
-					give_set_error( 'give_recurring_stripe_subscription_update', __( 'Problem in Stripe subscription update.', 'give-recurring' ) );
-				}
-			}
-		} catch ( Exception $e ) {
-			give_set_error( 'give_recurring_update_subscription_amount', __( 'Problem in update subscription amount.', 'give-recurring' ) );
+			Log::error(
+				'Stripe Subscription Update Error',
+				[
+					'Description' => $e->getMessage(),
+					'Subscription Data' => $subscription,
+					'Renewal Amount' => $renewalAmount,
+					'Subscriber' => $subscriber
+				]
+			);
 		}
 	}
 
@@ -1043,7 +1010,7 @@ class Give_Recurring_Stripe_ACH extends Give_Recurring_Gateway {
 	 */
 	public function get_stripe_subscription( $stripe_subscription_id ) {
 
-		$stripe_subscription = \Stripe\Subscription::retrieve( $stripe_subscription_id );
+		$stripe_subscription = Subscription::retrieve( $stripe_subscription_id );
 
 		return $stripe_subscription;
 

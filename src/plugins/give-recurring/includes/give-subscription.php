@@ -488,6 +488,7 @@ class Give_Subscription {
 		$payment->status         = 'give_subscription';
 		$payment->transaction_id = $args['transaction_id'];
 		$payment->key            = $parent->key;
+		$payment->mode           = $parent->mode;
 
 		$donor    = new Give_Donor( $payment->customer_id );
 		$price_id = give_get_price_id( $parent->form_id, $args['amount'] );

@@ -3,7 +3,7 @@
  * Plugin Name:       Give - GoCardless Gateway
  * Plugin URI:        https://givewp.com/addons/gocardless-gateway/
  * Description:       Adds the GoCardless payment gateway to the available Give payment methods.
- * Version:           1.3.7
+ * Version:           1.3.8
  * Author:            GiveWP
  * Author URI:        https://givewp.com
  * License:           GPL-2.0+
@@ -199,7 +199,7 @@ if ( ! class_exists( 'Give_Gocardless' ) ) :
 			 * @since    1.0.0
 			 */
 			if ( ! defined( 'GIVE_GOCARDLESS_VERSION' ) ) {
-				define( 'GIVE_GOCARDLESS_VERSION', '1.3.7' );
+				define( 'GIVE_GOCARDLESS_VERSION', '1.3.8' );
 			}
 			if ( ! defined( 'GIVE_GOCARDLESS_GATEWAY_SLUG' ) ) {
 				define( 'GIVE_GOCARDLESS_GATEWAY_SLUG', 'gocardless' );

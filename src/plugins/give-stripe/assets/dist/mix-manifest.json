@@ -5,5 +5,6 @@
     "/js/give-stripe-payment-request.js": "/js/give-stripe-payment-request.js",
     "/images/apple-pay.svg": "/images/apple-pay.svg",
     "/images/credit-card.svg": "/images/credit-card.svg",
-    "/images/google-pay.svg": "/images/google-pay.svg"
+    "/images/google-pay.svg": "/images/google-pay.svg",
+    "/images/stripe-s.svg": "/images/stripe-s.svg"
 }

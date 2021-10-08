@@ -1,0 +1,64 @@
+/*
+*
+* _RESOURCES.SCSS
+*
+*/
+
+.resources {
+	padding:8.6vw 0 12vw 0;
+	&__content {
+		grid-column: col2 / col12;
+	}
+	&__download {
+		width:4em;
+		margin-left: auto;
+	}
+	.cards{
+		&__info {
+			padding:1em 2em;
+		}
+		&__img-container {
+			padding-top:80%;
+		}
+		&__text {
+			display: flex;
+			align-items: center;
+		}
+		&__excerpt {
+			font-size: 1.4em;
+			margin-right: 0.5em;
+		}
+	}
+}
+
+
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: tablet) {
+
+.resources {
+	padding:5em 0 10em 0;
+	.cards{
+		&__info {
+			padding:2em 2.5em;
+		}
+		&__excerpt {
+			margin-right: 2em;
+		}
+	}
+}
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopExtraLarge) {
+
+.resources {
+	&__content {
+		grid-column: col3 / col11;
+	}
+}
+
+}

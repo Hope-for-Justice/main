@@ -1,5 +1,7 @@
 <?php get_header(); ?>
 
+<!-- social sharing -->
+<?php $postUrl = 'http' . ( isset( $_SERVER['HTTPS'] ) ? 's' : '' ) . '://' . "{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}"; ?>
 
 <?php 
 $categories = get_the_category();
@@ -60,29 +62,23 @@ $query = new WP_Query($args);
 						<div class="news-inner__button">
 							<a class="button button--red" href="<?php echo home_url().'/news-media/';?>">Back To main <br> News Page</a>
 						</div>
-						<div class="news-inner__share">
-							<!-- social icons -->
-							<p class="news-inner__share-text">Share this post:</p>
-							<ul class="news-inner__socials">
-								<li>
-									<a href="#">
-										<img class="news-inner__social-icon" src="<?php echo get_template_directory_uri().'/assets/img/linkedin.svg'; ?>" alt="">
-									</a>
-								</li>
+							<div class="news-inner__share">
+								<!-- social icons -->
+								<p class="news-inner__share-text">Share this post:</p>
+								<ul class="news-inner__socials">
+									<li>
+										<a href="https://twitter.com/intent/tweet?url=<?php echo $postUrl; ?>&text=<?php echo the_title(); ?>&via=<?php the_author_meta( 'twitter' ); ?>">
+											<img class="news-inner__social-icon" src="<?php echo get_template_directory_uri().'/assets/img/twitter-seeklogo.com.svg'; ?>" alt="">
+										</a>
+									</li>
+									<li>
+										<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $postUrl; ?>">
+											<img class="news-inner__social-icon" src="<?php echo get_template_directory_uri().'/assets/img/fb.svg'; ?>" alt="">
+										</a>
+									</li>
+								</ul>
 								
-								<li>
-									<a href="#">
-										<img class="news-inner__social-icon" src="<?php echo get_template_directory_uri().'/assets/img/twitter-seeklogo.com.svg'; ?>" alt="">
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img class="news-inner__social-icon" src="<?php echo get_template_directory_uri().'/assets/img/fb.svg'; ?>" alt="">
-									</a>
-								</li>
-							</ul>
-							
-						</div>
+							</div>
 					</div>
 			</div><!-- /row -->
 		</div><!-- /container -->

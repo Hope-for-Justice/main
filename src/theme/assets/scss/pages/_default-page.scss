@@ -7,9 +7,30 @@
 
 .default-page {
 	grid-column: col2 / col12;
+	margin: 3em 0;
+	h2, h1{
+		font-family: 'canela-medium', serif;
+		margin-bottom: 0.5em;
+	}
+	h1{margin-bottom: 1em;}
+	h2{font-size: 2.4em;}
+	p{
+		margin-bottom: 0;
+	}
 }
 
 
 @include mq($from: desktop) {
-	// grid-column: col4 / col8-end;
+	.default-page {
+		grid-column: col3 / col11;
+		margin: 5em 0;
+		h2{font-size: 3.4em;}
+	}
+}
+
+@include mq($from: desktopExtraLarge) {
+	.default-page {
+		grid-column: col3 / col10;
+		margin: 8em 0;
+	}
 }

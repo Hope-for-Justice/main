@@ -3,8 +3,8 @@ Contributors: givewp
 Tags: donations, donation, ecommerce, e-commerce, fundraising, fundraiser, paymill, gateway
 Requires at least: 4.9
 Tested up to: 5.8
-Stable tag: 1.12.5
-Requires Give: 2.12.0
+Stable tag: 1.12.6
+Requires Give: 2.12.3
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -38,6 +38,12 @@ The manual installation method involves downloading our donation plugin and uplo
 Automatic updates should work like a charm; as always though, ensure you backup your site just in case.
 
 == Changelog ==
+
+= 1.12.6: August 12th, 2021 =
+* Fix: Stripe subscriptions properly honor donor currency
+* Fix: Resolve issue where some donors did not see link to manage subscription from Donor Dashboard
+* Fix: Canceling Authorize.net subscriptions from Donor Dashboard cancels on Authorize.net
+* Fix: Prevent database updates prompt from displaying on a fresh install
 
 = 1.12.5: July 21st, 2021 =
 * Fix: Activating on a fresh install no longer prompts a database update

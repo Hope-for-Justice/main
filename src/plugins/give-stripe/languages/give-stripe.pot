@@ -16,67 +16,71 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. translators: 1. GiveWP account login page, 2. GiveWP Account downloads page
-#: give-stripe.php:271
+#: give-stripe.php:275
 msgid "<strong>Attention:</strong> The Stripe Premium plugin requires the latest version of the Recurring donations add-on to process donations properly. Please update to the latest version of Recurring donations plugin to resolve this issue. If your license is active you should see the update available in WordPress. Otherwise, you can access the latest version by <a href=\"%1$s\" target=\"_blank\">logging into your account</a> and visiting <a href=\"%2$s\" target=\"_blank\">your downloads</a> page on the GiveWP website."
 msgstr ""
 
-#: give-stripe.php:307
+#: give-stripe.php:311
 msgid "Stripe + Plaid"
 msgstr ""
 
-#: give-stripe.php:308
+#: give-stripe.php:312
 msgid "Bank Account"
 msgstr ""
 
-#: give-stripe.php:313
+#: give-stripe.php:317
 msgid "Stripe iDEAL"
 msgstr ""
 
-#: give-stripe.php:314
+#: give-stripe.php:318
 msgid "iDEAL"
 msgstr ""
 
-#: give-stripe.php:319
+#: give-stripe.php:323
 msgid "Stripe - Apple Pay"
 msgstr ""
 
-#: give-stripe.php:320
+#: give-stripe.php:324
 msgid "If enabled, donors will be able to make donations using Apple Pay on desktops or iPhones using the Safari browser."
 msgstr ""
 
-#: give-stripe.php:321
+#: give-stripe.php:325
 msgid "Apple Pay"
 msgstr ""
 
-#: give-stripe.php:327
+#: give-stripe.php:331
 msgid "Stripe - Google Pay"
 msgstr ""
 
-#: give-stripe.php:328
+#: give-stripe.php:332
 msgid "If enabled, donors will be able to make donations using Google Pay on desktops or Android devices using the Chrome browser."
 msgstr ""
 
-#: give-stripe.php:329
+#: give-stripe.php:333
 msgid "Google Pay"
 msgstr ""
 
-#: give-stripe.php:368
+#. translators: %s: GiveWP Website Link.
+#: give-stripe.php:377
 msgid "<strong>Activation Error:</strong> You must have the <a href=\"%s\" target=\"_blank\">Give</a> plugin installed and activated for GiveWP - Stripe to activate."
 msgstr ""
 
-#: give-stripe.php:395
-msgid "<strong>Activation Error:</strong> You must have the <a href=\"%s\" target=\"_blank\">Give</a> core version %s for the GiveWP - Stripe add-on to activate."
+#. translators: 1: GiveWP Website Link, 2: GiveWP Version
+#: give-stripe.php:412
+msgid "<strong>Activation Error:</strong> You must have the <a href=\"%1$s\" target=\"_blank\">Give</a> core version %2$s for the GiveWP - Stripe add-on to activate."
 msgstr ""
 
-#: give-stripe.php:401
-msgid "<strong>Activation Error:</strong> You must have the <a href=\"%s\" target=\"_blank\">PHP</a> version %s or above for the GiveWP - Stripe gateway add-on to activate."
+#. translators: 1: GiveWP Website Link, 2: GiveWP Version
+#: give-stripe.php:427
+msgid "<strong>Activation Error:</strong> You must have the <a href=\"%1$s\" target=\"_blank\">PHP</a> version %2$s or above for the GiveWP - Stripe gateway add-on to activate."
 msgstr ""
 
-#: give-stripe.php:407
+#. translators: %s: GiveWP Documentation URL
+#: give-stripe.php:442
 msgid "<strong>Activation Error:</strong> You must have the <a href=\"%s\" target=\"_blank\">cURL</a> installed for the GiveWP - Stripe gateway add-on to activate."
 msgstr ""
 
-#: give-stripe.php:438
+#: give-stripe.php:476
 msgid "Stripe Gateway"
 msgstr ""
 
@@ -183,19 +187,6 @@ msgstr ""
 msgid "You have successfully registered your site domain. You can now begin accepting donations using Apple Pay via Stripe."
 msgstr ""
 
-#: includes/admin/admin-actions.php:342, includes/admin/admin-actions.php:410
-msgid "Unauthorized access."
-msgstr ""
-
-#. translators: %s Exception Message Body
-#: includes/admin/admin-actions.php:383
-msgid "Unable to register domain association with Apple Pay. Details: %s"
-msgstr ""
-
-#: includes/admin/admin-actions.php:389
-msgid "Apple Pay Registration - Error"
-msgstr ""
-
 #: includes/admin/admin-filters.php:32
 msgid "Settings"
 msgstr ""
@@ -208,15 +199,11 @@ msgstr ""
 msgid "Add-ons"
 msgstr ""
 
-#: includes/admin/admin-filters.php:102
-msgid "GiveWP has implemented a more secure way to connect with Stripe."
-msgstr ""
-
-#: includes/admin/class-give-stripe-apple-pay-registration.php:105, includes/payment-methods/class-give-stripe-ach.php:305, includes/payment-methods/class-give-stripe-ach.php:355, includes/payment-methods/class-give-stripe-ach.php:367, includes/payment-methods/class-give-stripe-ideal.php:193, includes/payment-methods/class-give-stripe-ideal.php:358
+#: includes/admin/class-give-stripe-apple-pay-registration.php:102, includes/payment-methods/class-give-stripe-ach.php:305, includes/payment-methods/class-give-stripe-ach.php:355, includes/payment-methods/class-give-stripe-ach.php:367, includes/payment-methods/class-give-stripe-ideal.php:193, includes/payment-methods/class-give-stripe-ideal.php:358
 msgid "Stripe Error"
 msgstr ""
 
-#: includes/admin/class-give-stripe-apple-pay-registration.php:106
+#: includes/admin/class-give-stripe-apple-pay-registration.php:103
 msgid "We can not access the Apple Developer Merchant ID domain association file. Please contact the support team to fix this issue."
 msgstr ""
 
@@ -232,141 +219,102 @@ msgstr ""
 msgid "Google/Apple Pay"
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:127
-msgid "Connection Type"
+#: includes/admin/give-stripe-settings.php:132
+msgid "Enter API Keys"
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:137
-msgid "Stripe Connect"
-msgstr ""
-
-#: includes/admin/give-stripe-settings.php:143
-msgid "API Keys"
-msgstr ""
-
-#: includes/admin/give-stripe-settings.php:147
-msgid "Please select the connection type using which you want to connect Stripe account."
-msgstr ""
-
-#: includes/admin/give-stripe-settings.php:156
-msgid "Live Secret Key"
-msgstr ""
-
-#: includes/admin/give-stripe-settings.php:163
-msgid "Enter your live secret key, found in your Stripe Account Settings."
-msgstr ""
-
-#: includes/admin/give-stripe-settings.php:171
-msgid "Live Publishable Key"
-msgstr ""
-
-#: includes/admin/give-stripe-settings.php:178
-msgid "Enter your live publishable key, found in your Stripe Account Settings."
-msgstr ""
-
-#: includes/admin/give-stripe-settings.php:186
-msgid "Test Secret Key"
-msgstr ""
-
-#: includes/admin/give-stripe-settings.php:193
-msgid "Enter your test secret key, found in your Stripe Account Settings."
-msgstr ""
-
-#: includes/admin/give-stripe-settings.php:201
-msgid "Test Publishable Key"
-msgstr ""
-
-#: includes/admin/give-stripe-settings.php:208
-msgid "Enter your test publishable key, found in your Stripe Account Settings."
-msgstr ""
-
-#: includes/admin/give-stripe-settings.php:220
-msgid "Add New Account"
-msgstr ""
-
-#: includes/admin/give-stripe-settings.php:223
-msgid "Please enter the test as well as live secret and publishable keys to add a Stripe account."
-msgstr ""
-
-#: includes/admin/give-stripe-settings.php:250, includes/admin/give-stripe-settings.php:375
+#: includes/admin/give-stripe-settings.php:156, includes/admin/give-stripe-settings.php:282
 msgid "Configure Apple Pay"
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:258
+#: includes/admin/give-stripe-settings.php:164
 msgid "Button Appearance"
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:259
+#: includes/admin/give-stripe-settings.php:165
 msgid "Adjust the appearance of the button style for Google and Apple Pay."
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:265
+#: includes/admin/give-stripe-settings.php:171
 msgid "Light"
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:266
+#: includes/admin/give-stripe-settings.php:172
 msgid "Light Outline"
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:267
+#: includes/admin/give-stripe-settings.php:173
 msgid "Dark"
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:272, includes/admin/give-stripe-settings.php:275, includes/admin/give-stripe-settings.php:322, includes/admin/give-stripe-settings.php:325
+#: includes/admin/give-stripe-settings.php:178, includes/admin/give-stripe-settings.php:181, includes/admin/give-stripe-settings.php:229, includes/admin/give-stripe-settings.php:232
 msgid "Stripe Gateway Documentation"
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:291
+#: includes/admin/give-stripe-settings.php:197
 msgid "API Mode"
 msgstr ""
 
 #. translators: %s Plaid API Host Documentation URL
-#: includes/admin/give-stripe-settings.php:294
+#: includes/admin/give-stripe-settings.php:200
 msgid "Plaid has several API modes for testing and live transactions. \"Test\" mode allows you to test with a single sample bank account. \"Development\" mode allows you to accept up to 100 live donations without paying. \"Live\" mode allows for unlimited donations. Read the <a target=\"_blank\" title=\"Plaid API Docs\" href=\"%1$s\">Plaid API docs</a> for more information."
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:301
+#: includes/admin/give-stripe-settings.php:208
 msgid "Test"
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:302
+#: includes/admin/give-stripe-settings.php:209
 msgid "Development"
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:303
+#: includes/admin/give-stripe-settings.php:210
 msgid "Live"
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:308
+#: includes/admin/give-stripe-settings.php:215
 msgid "Plaid Client ID"
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:309
+#: includes/admin/give-stripe-settings.php:216
 msgid "Enter your Plaid Client ID, found in your Plaid account dashboard."
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:315
+#: includes/admin/give-stripe-settings.php:222
 msgid "Plaid Secret Key"
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:316
+#: includes/admin/give-stripe-settings.php:223
 msgid "Enter your Plaid secret key, found in your Plaid account dashboard."
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:399
-msgid "Registered"
+#: includes/admin/give-stripe-settings.php:289
+msgid "Error: Apple Pay can not be registered for a subdirectory site within a WordPress multisite environment due to Apple restrictions."
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:410
+#: includes/admin/give-stripe-settings.php:303
+msgid "Account name"
+msgstr ""
+
+#: includes/admin/give-stripe-settings.php:315
+msgid "API Keys"
+msgstr ""
+
+#: includes/admin/give-stripe-settings.php:324
 msgid "Register domain"
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:420
+#: includes/admin/give-stripe-settings.php:330
+msgid "Registered"
+msgstr ""
+
+#: includes/admin/give-stripe-settings.php:335
 msgid "Reset"
 msgstr ""
 
-#: includes/admin/give-stripe-settings.php:434
-msgid "This option will help you register your domain to support Apple Pay for each of these Stripe accounts."
+#. translators: 1. Stripe Apple settings page.
+#: includes/admin/give-stripe-settings.php:348
+msgid "This option will help you <a href=\"%1$s\" target=\"_blank\">register your domain</a> to support Apple Pay for each of your Stripe accounts."
 msgstr ""
 
 #: includes/payment-methods/class-give-stripe-ach.php:93
@@ -517,8 +465,90 @@ msgstr ""
 msgid "The Plaid API Keys should not be empty in <a href=\"%s\">Stripe + Plaid Settings</a> in order to use the Stripe + Plaid payment gateway."
 msgstr ""
 
+#: src/Settings/AdminAssets.php:38
+msgid "Add"
+msgstr ""
+
+#: src/Settings/AdminAssets.php:39
+msgid "Adding"
+msgstr ""
+
+#: src/Settings/AdminAssets.php:40
+msgid "Added"
+msgstr ""
+
+#: src/Settings/StripeApiKeysAccountEditActions.php:34
+msgid "Edit"
+msgstr ""
+
 #: src/Donors/Views/DonorProfilePlaidSection.php:25
 msgid "Plaid Client User ID"
+msgstr ""
+
+#: src/resources/views/stripe-api-key-registration-form.php:6
+msgid "Account Name"
+msgstr ""
+
+#: src/resources/views/stripe-api-key-registration-form.php:10
+msgid "Enter your account name. It will help you to identify Stripe account."
+msgstr ""
+
+#: src/resources/views/stripe-api-key-registration-form.php:15
+msgid "Live Secret Key"
+msgstr ""
+
+#: src/resources/views/stripe-api-key-registration-form.php:19
+msgid "Enter your live secret key, found in your Stripe Account Settings."
+msgstr ""
+
+#: src/resources/views/stripe-api-key-registration-form.php:24
+msgid "Live Publishable Key"
+msgstr ""
+
+#: src/resources/views/stripe-api-key-registration-form.php:28
+msgid "Enter your live publishable key, found in your Stripe Account Settings."
+msgstr ""
+
+#: src/resources/views/stripe-api-key-registration-form.php:33
+msgid "Test Secret Key"
+msgstr ""
+
+#: src/resources/views/stripe-api-key-registration-form.php:37
+msgid "Enter your test secret key, found in your Stripe Account Settings."
+msgstr ""
+
+#: src/resources/views/stripe-api-key-registration-form.php:42
+msgid "Test Publishable Key"
+msgstr ""
+
+#: src/resources/views/stripe-api-key-registration-form.php:46
+msgid "Enter your test publishable key, found in your Stripe Account Settings."
+msgstr ""
+
+#: src/Settings/Controllers/AddStripeAccountApiKeysController.php:32
+msgid "You are adding already connected account. Please use new Stripe api keys to connected new account."
+msgstr ""
+
+#: src/Settings/Controllers/AddStripeAccountApiKeysController.php:36
+msgid "Stripe account already exist with same name. Please use different account name."
+msgstr ""
+
+#. translators: %s Exception Message Body
+#: src/PaymentMethods/ApplePay/Controllers/RegisterApplePayDomainController.php:75
+msgid "Unable to register domain association with Apple Pay. Details: %s"
+msgstr ""
+
+#: src/PaymentMethods/ApplePay/Controllers/RegisterApplePayDomainController.php:87, src/PaymentMethods/ApplePay/Controllers/ResetRegisteredApplePayDomainController.php:86
+msgid "Unauthorized access."
+msgstr ""
+
+#: src/PaymentMethods/ApplePay/Controllers/RegisterApplePayDomainController.php:99, src/PaymentMethods/ApplePay/Controllers/ResetRegisteredApplePayDomainController.php:95
+msgid "Invalid Stripe account."
+msgstr ""
+
+#. translators: %s Exception Message Body
+#: src/PaymentMethods/ApplePay/Controllers/ResetRegisteredApplePayDomainController.php:72
+msgid "Unable to unregister domain association with Apple Pay. Details: %s"
 msgstr ""
 
 #: src/PaymentMethods/Plaid/Api/ApiClient.php:90

@@ -2,6 +2,9 @@
 
 namespace Give\Framework\FieldsAPI;
 
+use function get_allowed_mime_types;
+use function wp_max_upload_size;
+
 /**
  * A file upload field.
  *
@@ -15,14 +18,19 @@ class File extends Field {
 	use Concerns\HasLabel;
 	use Concerns\ShowInReceipt;
 	use Concerns\StoreAsMeta;
+	use Concerns\AllowMultiple;
 
 	const TYPE = 'file';
 
-	/** @var int */
-	protected $maxSize = 1024;
+	/**
+	 * @param $name
+	 */
+	public function __construct( $name ) {
+		parent::__construct( $name );
 
-	/** @var string[] */
-	protected $allowedTypes = [ '*' ];
+		$this->validationRules->rule( 'maxSize', wp_max_upload_size() / 1024 ); // in kb
+		$this->validationRules->rule( 'allowedTypes', get_allowed_mime_types() );
+	}
 
 	/**
 	 * Set the maximum file size.
@@ -31,7 +39,7 @@ class File extends Field {
 	 * @return $this
 	 */
 	public function maxSize( $maxSize ) {
-		$this->maxSize = $maxSize;
+		$this->validationRules->rule( 'maxSize', $maxSize );
 		return $this;
 	}
 
@@ -41,7 +49,7 @@ class File extends Field {
 	 * @return int
 	 */
 	public function getMaxSize() {
-		return $this->maxSize;
+		return $this->validationRules->getRule( 'maxSize' );
 	}
 
 	/**
@@ -50,8 +58,8 @@ class File extends Field {
 	 * @param string[] $allowedTypes
 	 * @return $this
 	 */
-	public function allowedTypes( $allowedTypes = [ '*' ] ) {
-		$this->allowedTypes = $allowedTypes;
+	public function allowedTypes( $allowedTypes ) {
+		$this->validationRules->rule( 'allowedTypes', $allowedTypes );
 		return $this;
 	}
 
@@ -61,6 +69,6 @@ class File extends Field {
 	 * @return string[]
 	 */
 	public function getAllowedTypes() {
-		return $this->allowedTypes;
+		return $this->validationRules->getRule( 'allowedTypes' );
 	}
 }

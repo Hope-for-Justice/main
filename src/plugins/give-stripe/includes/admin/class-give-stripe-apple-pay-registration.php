@@ -27,12 +27,9 @@ class Give_Stripe_Apple_Pay_Registration {
 	private $fileName = 'apple-developer-merchantid-domain-association';
 
 	/**
-	 * Give_Stripe_Apple_Pay_Registration constructor.
-	 *
-	 * @since  2.0.8
-	 * @access public
+	 * @since 2.4.0
 	 */
-	public function __construct() {
+	public function boot(){
 		add_action( 'init', [ $this, 'registerDomainVerificationUrl' ] );
 		add_action( 'admin_init', [ $this, 'domainIsNotAccessibleNotice' ] );
 		add_filter( 'query_vars', [ $this, 'registerWellKnownParameter' ] );
@@ -126,4 +123,4 @@ class Give_Stripe_Apple_Pay_Registration {
 	}
 }
 
-new Give_Stripe_Apple_Pay_Registration();
+(new Give_Stripe_Apple_Pay_Registration())->boot();

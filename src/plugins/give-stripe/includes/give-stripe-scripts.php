@@ -21,25 +21,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return void
  */
-function give_stripe_admin_js() {
-
-	Give_Scripts::register_script( 'give-stripe-admin-js', GIVE_STRIPE_PLUGIN_URL . 'assets/dist/js/give-stripe-admin.js', 'jquery', GIVE_STRIPE_VERSION );
-	wp_enqueue_script( 'give-stripe-admin-js' );
-
-	wp_register_style( 'give-stripe-admin-css', GIVE_STRIPE_PLUGIN_URL . 'assets/dist/css/give-stripe-admin.css', false, GIVE_STRIPE_VERSION );
-	wp_enqueue_style( 'give-stripe-admin-css' );
-
-}
-
-add_action( 'admin_enqueue_scripts', 'give_stripe_admin_js', 100 );
-
-/**
- * Load Admin javascript
- *
- * @since  1.0
- *
- * @return void
- */
 function give_stripe_frontend_assets() {
 
 	/**

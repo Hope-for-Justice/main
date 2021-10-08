@@ -8,12 +8,9 @@
 get_header();
 ?>
 
-<main id="main" class="site-main" role="main">
-<?php 
-global $post;
+<main id="main" class="site-main gpf" role="main">
 
-
-?>
+<?php global $post; ?>
 	
 	<div class="grid">
 	<?php
@@ -36,25 +33,30 @@ global $post;
 
 	?>
 
-		<div class="drag-cards gov_pol_fun" id="dragCards">
-			<div class="custom-container">
-				
-					<div class="the_content_post">
-						<h1 class="gpf_main_heading"><?php echo $post->post_title;?></h1>
-						<?php 
-						$post_content = apply_filters('the_content',$post->post_content);
-						echo $post_content;
-						?>
-					</div>
-				
-			</div>
-			<?php foreach($terms as $index => $term) { ?>
-				<div class="custom-container">
-				
-						<h2 class="custom_heading_text text-left"><?php echo $term->name; ?></h2>
-					
-				</div>
-				<?php 
+		<div class="gpf__header">
+			<!-- Heading and description -->
+			<h1 class="font-fk">
+				<?php echo $post->post_title;?>
+			</h1>
+			<?php 
+			$post_content = apply_filters('the_content',$post->post_content);
+			echo $post_content;
+			?>
+		</div>
+
+
+		<?php foreach($terms as $index => $term) { ?>
+
+				<h2 class="gpf-category-title font-canela"><?php echo $term->name; ?></h2>
+
+				<?php if($term->slug == 'policies-documents') { ?>
+					<div class="sub-grid cards gpf__cards">
+				<?php } else { ?>
+					<div class="drag-cards">
+						<div class="drag-cards__inner">
+				<?php } ?>
+
+				<?php
 				$posts_arr = get_posts(
 					[
 						'posts_per_page' => -1,
@@ -70,120 +72,137 @@ global $post;
 				);
 				?>
 				
-				<div class="drag-cards__inner pdocument_<?php echo $index;?>">
 				<?php 
 				foreach($posts_arr as $arr) {
 					if(get_field('choose_between_field',$arr->ID) == 'updf') {
-
 						$field = get_field('upload_pdf',$arr->ID); 
 					} elseif(get_field('choose_between_field',$arr->ID) == 'elink') { 
 						$field = get_field('external_link',$arr->ID); 
-					}
-					
+					}	
 				?>
 
-					<?php if($term->slug == 'policies-documents') { ?>
-
-						<div class="drag-cards__card">
-						
-							<p class="drag-cards__card-number font-canela card_tag_line">Policies & documents</p>
-							
 					
-							<h3 class="drag-cards__card-title font-fk"><?php echo $arr->post_title; ?></h3>
-							<div class="freedom-wall__button">
-								<a href="<?php echo @$field; ?>" class="button button--black" target="_blank">
-									<div class="button__inner">
-										<div class="button__text bold">VIEW DOCUMENT</div>
+						<?php if($term->slug == 'policies-documents') { ?>
+
+							<div class="cards__card">
+								<div class="gpf__cards-inner">
+									<p class="gpf__cards-category">Policies & documents</p>
+							
+									<h3 class="drag-cards__card-title gpf__cards-title font-fk">
+										<?php echo $arr->post_title; ?>		
+									</h3>
+									
+									<div class="gpf__cards-button-container">
+										<a href="<?php echo @$field; ?>" class="button button--black" target="_blank">
+											<div class="button__inner">
+												<div class="button__text bold">		VIEW DOCUMENT</div>
+											</div>
+										</a>
 									</div>
-								</a>
+								</div>
 							</div>
 
+						<?php } elseif($term->slug == 'accreditations') { ?>
 							
-						</div>
-					<?php } elseif($term->slug == 'accreditations') { ?>
-						<?php
-						$thumbnail = wp_get_attachment_url( get_post_thumbnail_id($arr->ID) ); 
-						?>
-						<div class="drag-cards__card custom_content">
-							<p class="drag-cards__card-number custom_image"><img src="<?php echo $thumbnail; ?>"></p>
-							<?php 
-							$content = apply_filters('the_content',$arr->post_content);
+							<?php
+							$thumbnail = wp_get_attachment_url( get_post_thumbnail_id($arr->ID) ); 
 							?>
-							<?php echo $content; ?>
-							<a href="<?php echo get_field('external_link',$arr->ID); ?>" class="link_next" target="_blank">Learn more about the <?php echo strtolower($arr->post_title);?></a>
-						</div>
-					<?php } elseif($term->slug == 'uk-financial-reports') { ?>
-						<div class="drag-cards__card">
-						
-							<p class="drag-cards__card-number font-canela card_tag_line"><?php echo get_field('general_text',$arr->ID); ?></p>
-							
-					
-							<h3 class="drag-cards__card-title font-fk"><?php echo $arr->post_title; ?></h3>
-							<div class="freedom-wall__button">
-								<a href="<?php echo get_field('upload_pdf',$arr->ID); ?>" class="button button--black" target="_blank">
-									<div class="button__inner">
-										<div class="button__text bold">VIEW REPORT</div>
-									</div>
-								</a>
+							<div class="drag-cards__card gpf__accred-card">
+								<div class="gpf__accred-img">
+									<img src="<?php echo $thumbnail; ?>">
+								</div>
+								<?php 
+								$content = apply_filters('the_content',$arr->post_content);
+								?>
+								<div class="line"></div>
+								<div class="gpf__accred-content">
+									<?php echo $content; ?>
+								</div>
+								<a href="<?php echo get_field('external_link',$arr->ID); ?>" class="gfp__accred-link-text" target="_blank">Learn more</a>
 							</div>
 
-							
-						</div>
-					<?php } elseif($term->slug == 'us-financial-reports') { ?>
-						<div class="drag-cards__card">
-						
-							<p class="drag-cards__card-number font-canela card_tag_line"><?php echo get_field('general_text',$arr->ID); ?></p>
-							
-					
-							<h3 class="drag-cards__card-title font-fk"><?php echo $arr->post_title; ?></h3>
-							<div class="freedom-wall__button">
-								<a href="<?php echo @$field; ?>" class="button button--black" target="_blank">
-									<div class="button__inner">
-										<div class="button__text bold">VIEW REPORT</div>
-									</div>
-								</a>
-							</div>
+						<?php } elseif($term->slug == 'uk-financial-reports') { ?>
+							<div class="drag-cards__card gpf__drag-cards">
+								<div class="gpf__cards-inner">
 
-							
-						</div>
-					<?php } elseif($term->slug == 'annual-reports') { ?>
-						<div class="drag-cards__card">
-						
-							<p class="drag-cards__card-number font-canela card_tag_line"><?php echo get_field('general_text',$arr->ID); ?></p>
-							
-					
-							<h3 class="drag-cards__card-title font-fk"><?php echo $arr->post_title; ?></h3>
-							<div class="freedom-wall__button">
-								<a href="<?php echo @$field; ?>" class="button button--black" target="_blank">
-									<div class="button__inner">
-										<div class="button__text bold">VIEW REPORT</div>
-									</div>
-								</a>
-							</div>
+									<p class="gpf__cards-category"><?php echo get_field('general_text',$arr->ID); ?></p>
+									
+									<h3 class="drag-cards__card-title gpf__cards-title font-fk">
+										<?php echo $arr->post_title; ?>	
+									</h3>
 
-							
-						</div>
+									<div class="gpf__cards-button-container">
+										<a href="<?php echo get_field('upload_pdf',$arr->ID); ?>" class="button button--black" target="_blank">
+											<div class="button__inner">
+												<div class="button__text bold">VIEW REPORT</div>
+											</div>
+										</a>
+									</div>
+
+								</div>
+							</div>
+						<?php } elseif($term->slug == 'us-financial-reports') { ?>
+							<div class="drag-cards__card gpf__drag-cards">
+								<div class="gpf__cards-inner">
+
+									<p class="gpf__cards-category">
+										<?php echo get_field('general_text',$arr->ID); ?>	
+									</p>
+
+									<h3 class="drag-cards__card-title font-fk gpf__cards-title">
+										<?php echo $arr->post_title; ?>	
+									</h3>
+
+									<div class="gpf__cards-button-container">
+										<a href="<?php echo @$field; ?>" class="button button--black" target="_blank">
+											<div class="button__inner">
+												<div class="button__text bold">VIEW REPORT</div>
+											</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						<?php } elseif($term->slug == 'annual-reports') { ?>
+							<div class="drag-cards__card gpf__drag-cards">
+								<div class="gpf__cards-inner">
+									<p class="gpf__cards-category">
+										<?php echo get_field('general_text',$arr->ID); ?>	
+									</p>
+
+									<h3 class="drag-cards__card-title font-fk gpf__cards-title">
+										<?php echo $arr->post_title; ?>	
+									</h3>
+
+									<div class="gpf__cards-button-container">
+										<a href="<?php echo @$field; ?>" class="button button--black" target="_blank">
+											<div class="button__inner">
+												<div class="button__text bold">VIEW REPORT</div>
+											</div>
+										</a>
+									</div>
+								</div>
+							</div>
 					<?php } ?>
+
 					
-			<?php } ?>
-			</div>
-			<?php if($term->slug != 'policies-documents') { ?>
-			<div class="drag-cards__dots dots">
-				<div class="dots__dot"></div>
-				<div class="dots__dot"></div>
-				<div class="dots__dot"></div>
-				<div class="dots__dot"></div>
-			</div>
-			<?php } ?>
-			<?php } ?>
+				<?php } ?>
 
-			
-		</div>
+				<?php if($term->slug != 'policies-documents') { ?>
+					</div>
+					<div class="drag-cards__dots dots">
+						<div class="dots__dot"></div>
+						<div class="dots__dot"></div>
+						<div class="dots__dot"></div>
+						<div class="dots__dot"></div>
+					</div>
+				<?php } ?>
+				</div> <!-- / cards or / drag cards -->  
 
-	
+		<?php } ?>
 
-	</div> <!-- /grid -->
 
+
+	</div> <!-- / grid -->
 
 
 </main>

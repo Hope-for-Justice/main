@@ -28,14 +28,16 @@ class CancelSubscriptionRoute extends RouteAbstract {
 	/**
 	 * @param WP_REST_Request $request
 	 *
-	 * @return array
-	 *
 	 * @since 2.10.0
 	 */
 	public function handleRequest( WP_REST_Request $request ) {
 
 		$subscription = new Subscription( $request->get_param( 'id' ) );
 		$gateway = give_recurring_get_gateway_from_subscription( $subscription );
+
+		if( ! $subscription->can_cancel() ) {
+			return;
+		}
 
 		// Cancel the subscription with the gateway
 		if ( $gateway ) {
@@ -44,6 +46,5 @@ class CancelSubscriptionRoute extends RouteAbstract {
 
 		// Cancel the subscription with GiveWP
 		$subscription->cancel();
-		
 	}
 }

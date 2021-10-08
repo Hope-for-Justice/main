@@ -8,6 +8,8 @@
 namespace GiveRecurring\PaymentGateways\Stripe;
 
 use Exception;
+use GiveRecurring\Infrastructure\Exceptions\PaymentGateways\Stripe\UnableToCreateStripePlan;
+use GiveRecurring\Infrastructure\Exceptions\PaymentGateways\Stripe\UnableToRetrieveStripePlan;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,12 +26,13 @@ class Plan {
 	/**
 	 * This function will be used to create subscription plan.
 	 *
-	 * @param  array  $args  List of Plan Arguments.
+	 * @param array $args List of Plan Arguments.
 	 *
-	 * @return bool|\Stripe\Plan
+	 * @return \Stripe\Plan
+	 * @throws UnableToCreateStripePlan
+	 *
 	 * @since  1.10.3
-	 * @access public
-	 *
+	 * @since 1.12.6 throw exception
 	 */
 	public function create( $args ) {
 
@@ -37,8 +40,7 @@ class Plan {
 			return \Stripe\Plan::create( $args );
 
 		} catch ( Exception $e ) {
-			give_record_gateway_error(
-				esc_html__( 'Stripe - Plan Error', 'give-recurring' ),
+			throw new UnableToCreateStripePlan(
 				sprintf(
 				/* translators: %s Exception Message Body */
 					esc_html__( 'The Stripe Gateway returned an error while creating a subscription plan. Details: %s',
@@ -46,19 +48,19 @@ class Plan {
 					$e->getMessage()
 				)
 			);
-
-			return false;
 		}
 	}
 
 	/**
 	 * This function will be used to retrieve subscription plan.
 	 *
-	 * @param  string  $id  Plan ID.
+	 * @param string $id Plan ID.
 	 *
-	 * @return bool|\Stripe\Plan
+	 * @return \Stripe\Plan
+	 * @throws UnableToRetrieveStripePlan
+	 *
 	 * @since  1.10.3
-	 * @access public
+	 * @since 1.12.6 throw exception
 	 *
 	 */
 	public function retrieve( $id ) {
@@ -67,8 +69,7 @@ class Plan {
 			return \Stripe\Plan::retrieve( $id );
 
 		} catch ( Exception $e ) {
-			give_record_gateway_error(
-				esc_html__( 'Stripe - Plan Error', 'give-recurring' ),
+			throw new UnableToRetrieveStripePlan(
 				sprintf(
 				/* translators: %s Exception Message Body */
 					esc_html__( 'The Stripe Gateway returned an error while retrieving the subscription plan. Details: %s',
@@ -76,8 +77,6 @@ class Plan {
 					$e->getMessage()
 				)
 			);
-
-			return false;
 		}
 	}
 }

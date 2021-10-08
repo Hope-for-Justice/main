@@ -55,6 +55,12 @@ Gravity Flow will work with any license of [Gravity Forms](https://gravityflow.i
 
 == ChangeLog ==
 
+= 2.7.4 =
+- Fixed an issue with the entry filter setting where the settings are not saved for the Update Fields step.
+- Fixed an issue where the values of administrative fields are lost when partial entries are updated by the Partial Entries Add-On. Requires Partial Entries Add-On v1.6.1 or greater.
+- Fixed an issue with Gravity Forms 2.5 not displaying the green triangle next to the editable fields on the User Input Workflow Step.
+
+
 = 2.7.3 =
 - Added the Form setting to the Zapier step enabling multiple forms to use the same Zap.
 - Added the gravityflow_note_valid filter to customize note validation for Approval and User Input steps.

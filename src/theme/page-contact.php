@@ -28,28 +28,29 @@ get_header(); ?>
 			</div><!-- /header -->
 
 
-
-			<div class="contact__block">
-				<div class="contact__block-content">
-					<?php the_field('us_contact'); ?>
+			<div class="sub-grid contact__grid">
+				<div class="contact__block">
+					<div class="contact__block-content">
+						<?php the_field('us_contact'); ?>
+					</div>
 				</div>
-			</div>
 
-			<div class="contact__block">
-				<div class="contact__block-content">
-					<?php the_field('uk_contact'); ?>
+				<div class="contact__block">
+					<div class="contact__block-content">
+						<?php the_field('uk_contact'); ?>
+					</div>
 				</div>
-			</div>
 
-			<div class="contact__block">
-				<div class="contact__block-content">
-					<?php the_field('norway_contact'); ?>
+				<div class="contact__block">
+					<div class="contact__block-content">
+						<?php the_field('norway_contact'); ?>
+					</div>
 				</div>
-			</div>
 
-			<div class="contact__block contact__block--press">
-				<div class="contact__block-content">
-					<?php the_field('press_contact'); ?>
+				<div class="contact__block contact__block--press">
+					<div class="contact__block-content">
+						<?php the_field('press_contact'); ?>
+					</div>
 				</div>
 			</div>
 

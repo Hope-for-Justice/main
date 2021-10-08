@@ -446,8 +446,8 @@ class Give_GoCardless_Recurring extends Give_Recurring_Gateway {
 			return false;
 		}
 
-		$total_payments = intval( $subscription->get_total_payments() );
-		$bill_times     = intval( $subscription->bill_times );
+		$total_payments = (int) $subscription->get_total_payments();
+		$bill_times     = (int) $subscription->bill_times;
 
 		// Instance of Give_GoCardless_Gateway.
 		$gocardless_gateway = new Give_GoCardless_Gateway();
@@ -924,8 +924,8 @@ class Give_GoCardless_Recurring extends Give_Recurring_Gateway {
 	/**
 	 * Process the update subscription.
 	 *
+	 * @since  1.3.7 add third argument to make function compatible with recurring add-on 1.12.0
 	 * @since  1.3
-	 * @unreleased add third argument to make function compatible with recurring add-on 1.12.0
 	 *
 	 * @param  Give_Recurring_Subscriber  $subscriber  Give_Recurring_Subscriber
 	 * @param  Give_Subscription  $subscription  Give_Subscription
