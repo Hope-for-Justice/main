@@ -47,7 +47,7 @@ textarea {
 }
 
 .gfield_html {
-  //font-size: 1.6em;
+  p{font-size: 16px;}
   margin-bottom: 2em;
   margin-left: 1em;
 }
@@ -266,7 +266,7 @@ fieldset {
 @include mq($from: desktop) {
 
 .gfield_html p{
-  max-width: 70%;
+  max-width: 90%;
 }
 
 }

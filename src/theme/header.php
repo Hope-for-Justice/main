@@ -41,6 +41,11 @@
 </head>
 
 <body <?php body_class(); ?>>
+
+<div class="upgrade-browser">
+	<p style="font-size: 2em; padding:0.5em; font-family: 'apercu-bold', sans-serif;">It looks like you are using an out of date browser. <br>Please update your browser in order to use this website.</p>
+</div>
+
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'hope-for-justice-2020' ); ?></a>
 
@@ -72,7 +77,7 @@
 				</svg>
 			</a>
 			<div class="header__navigation">
-				<a data-toggle="modal" data-target="#payment-modal-once" class="button button--red button--nav bold" href="/donate">DONATE</a>
+				<a class="button button--red button--nav bold" href="/donate">DONATE</a>
 				<div id="burger-menu" class="header__burger">
 					<div class="burger">
 					  <span></span>
@@ -94,7 +99,7 @@
 				<?php wp_nav_menu( array( 'theme_location' => 'uk-primary', 'container' => false, 'menu_class' => 'menu__primary') ); ?>
 				<?php wp_nav_menu( array( 'theme_location' => 'uk-secondary', 'container' => false, 'menu_class' => 'menu__secondary') ); ?>
 				<div class="menu__button">
-					<a href="/email-sign-up" class="button button--red">
+					<a href="/signup" class="button button--red">
 						<div class="button__inner">
 							<div class="button__text bold">
 								Get our<br>email updates

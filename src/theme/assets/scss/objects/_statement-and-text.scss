@@ -1,0 +1,43 @@
+/*
+*
+* _STATEMENT-AND-TEXT.SCSS
+*
+*/
+
+.statement-and-text {
+	grid-column: col1/col12-end;
+	padding:3em;
+	&__line {
+		width:50%;
+		height: 2px;
+		background-color: $red;
+		margin-bottom:2em;
+		display: none;
+		&--bottom {
+			margin-top: 2em;
+			display: block;
+		}
+	}
+	&__quote {
+
+		p {
+			font-weight: bold;
+			font-size: 2.4em;
+		}
+	}
+	&__text {
+
+	}
+}
+
+// mobile medium 
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: mobileMedium) {
+
+.statement-and-text {
+	grid-column: col1/col12-end;
+	padding:4em;
+}
+
+}

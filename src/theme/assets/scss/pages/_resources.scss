@@ -9,6 +9,13 @@
 	&__content {
 		grid-column: col2 / col12;
 	}
+	&__title {
+		margin-bottom: 0.5em;
+	}
+	&__text {
+		max-width: 900px;
+		margin-bottom: 4em;
+	}
 	&__download {
 		width:4em;
 		margin-left: auto;
@@ -16,6 +23,10 @@
 	.cards{
 		&__info {
 			padding:1em 2em;
+			&--resource {
+				padding:2em;
+				margin-bottom: 1em;
+			}
 		}
 		&__img-container {
 			padding-top:80%;
@@ -27,6 +38,9 @@
 		&__excerpt {
 			font-size: 1.4em;
 			margin-right: 0.5em;
+		}
+		&__title {
+			margin-bottom: 0.5em;
 		}
 	}
 }

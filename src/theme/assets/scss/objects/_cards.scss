@@ -12,7 +12,7 @@
 		border-radius: 20px;
 		overflow: hidden;
 		@include box-shadow;
-		&--blog {
+		&--blog, &--resource {
 			position:relative;
 			height:0;
 			padding-top:100%;
@@ -21,8 +21,9 @@
 				content: "";
 				width:100%;
 				padding-top:100%;
-				background: black;
-				opacity: 0.3;
+				background: rgb(0,0,0);
+				background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+				opacity: 0.7;
 				position: absolute;
 				top:0;
 				z-index: 0;
@@ -32,11 +33,15 @@
 	&__info {
 		padding:2em;
 		color: $black;
-		&--blog {
+		&--blog, &--resource {
 			position: absolute;
 			bottom:0;
 			color: white;
 			z-index: 1;
+		}
+		&--resource {
+			width:100%;
+			text-align: center;
 		}
 	}
 	&__img-container {
@@ -55,6 +60,9 @@
 			object-fit: cover;
 			position: absolute;
 			top:0;
+		}
+		&--resource {
+			z-index: 0;
 		}
 	}
 	&__play-symbol {
@@ -85,7 +93,7 @@
 		&--headlines-fk {
 			font-size: 3.2em;
 		}
-		&--blog {
+		&--blog, &--resource {
 			font-size: 3.6em;
 		}
 	}
@@ -104,7 +112,7 @@
 		padding-bottom:3.5em;
 	}
 	&__title {
-		&--blog {
+		&--blog, &--resource {
 			font-size: 3em;
 		}
 	}
@@ -145,7 +153,7 @@
 		&--headlines-fk {
 			font-size: 4em;
 		}
-		&--blog {
+		&--blog, &--resource {
 			font-size: 3.5em;
 		}
 	}
@@ -163,7 +171,7 @@
 
 .cards {
 	&__title {
-		&--blog {
+		&--blog, &--resource {
 			font-size: 4.5em;
 		}
 	}

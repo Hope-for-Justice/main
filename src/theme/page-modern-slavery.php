@@ -280,8 +280,7 @@ get_header();
 						<a class="button button--red">
 							<div class="button__inner">
 								<div class="button__text bold">
-									Make a<br>
-									Donation
+									Make a Donation
 								</div>
 							</div>
 						</a>

@@ -15,33 +15,6 @@
 			<div id="newsTicker"><a href="#" class="newsticker__item">40.3 Million victims of modern slavery rescued by Hope for Justice</a></div>
 		</div>
 
-		<!-- 
-		-- 
-		-- payment modal once
-		-- 
-		--> 
-		<?php get_template_part(
-		    'partials/content',
-		    'modal',
-		    array(
-		        'type' => 'payment-once',
-		        'id' => 'payment-modal-once'
-		    )
-		); ?>
-
-		<!-- 
-		-- 
-		-- payment modal regular
-		-- 
-		--> 
-		<?php get_template_part(
-		    'partials/content',
-		    'modal',
-		    array(
-		        'type' => 'payment-regular',
-		        'id' => 'payment-modal-regular'
-		    )
-		); ?>
 
 	</div><!-- #content -->
 

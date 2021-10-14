@@ -24,14 +24,24 @@
 		&--top-center {
 			background-position: top center;
 		}
+		&--fit-width {
+			background-size: cover;
+		}
+		&--taller {
+			min-height: 25em;
+		}
 	}
 	&__content {
 		width:100%;
 		background-color: $white;
 		padding:3em;
 		&--grey {background-color: $light-grey;}
+		&--dark {
+			background-color: $black;
+			color: white;
+		}
 	}
-	&__desc {
+	&__desc:last-of-type {
 		margin-bottom: 2em;
 	}
 }
@@ -81,13 +91,16 @@
 		text-align: center;
 	}
 	&__desc {
-		margin-bottom: 2.5em;
+		//margin-bottom: 2.5em;
 		margin-left: auto;
 		margin-right: auto;
 		max-width: 28em;
 		&--thinner {
 			max-width: 24em;
 		}
+	}
+	&__desc:last-of-type {
+		margin-bottom: 2.5em;
 	}
 }
 

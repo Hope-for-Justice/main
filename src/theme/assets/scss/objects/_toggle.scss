@@ -5,7 +5,6 @@
 */
 
 .toggle {
-	font-size: 0.8em; //made slightly smaller for iphone SE
 	color:white;
 	@include box-shadow;
 	border-radius: 7.7em;
@@ -13,7 +12,7 @@
 	display:flex;
 	position: relative;
 	width:100%;
-	max-width: 36em;
+	max-width: 552px;
 	&__option {
 		width:50%;
 		text-decoration: underline;
@@ -63,12 +62,3 @@
 	}
 }
 
-// mobile medium
-///////////////////////////////////////////////////////////////////////////
-@include mq($from: mobileMedium) {
-
-.toggle {
-	font-size: 1em;
-}
-
-}

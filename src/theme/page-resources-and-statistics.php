@@ -18,27 +18,27 @@ get_header(); ?>
 					<?php echo get_the_title(); ?>
 				</h2>
 
-				<div class="resources__content">
-					<?php echo get_the_content(); ?>
+				<div class="resources__text">
+					<p><?php echo get_the_content(); ?></p>
 				</div>
 
 				<!-- cards container -->	
 			    <div class="cards sub-grid">
-					<?php while (have_rows('resources')) : the_row(); ?>
+					<?php while (have_rows('resource')) : the_row(); ?>
 					
 					<!-- card template -->	
-					<a href="<?php get_sub_field('resource_link') ?>" class="cards__card cards__card--resource" >	
+					<a href="<?php echo (get_sub_field('resource_link')) ?>" class="cards__card cards__card--resource" >	
 						<div class="cards__content cards__content--resource" >
-							<img src="<?php get_sub_field('resource_image') ?>" class="cards__img cards__img--resource">
+							<img src="<?php echo (get_sub_field('resource_image')) ?>" class="cards__img cards__img--resource">
 
 							<div class="cards__info cards__info--resource">
 								<h3 class="cards__title cards__title--resource font-fk">
-									<?php get_sub_field('resource_title') ?>
+									<?php echo (get_sub_field('resource_title'))?>
 								</h3>
-								<div class="button button--whites">
+								<div class="button button--white button--smaller">
 									<div class="button__inner">
 										<div class="button__text bold">
-											<?php get_sub_field('resource_button') ?>		
+											<?php echo (get_sub_field('resource_button')) ?>		
 										</div>
 									</div>
 								</div>
@@ -47,14 +47,12 @@ get_header(); ?>
 
 					</a>
 
-					<?php endwhile; ?>?>
+					<?php endwhile; ?>
 				</div>
 
 			</div>
 
 		</div><!-- /grid -->
-
-		<?php endwhile; // end of the loop. ?>
 
 	</main><!-- #main -->
 

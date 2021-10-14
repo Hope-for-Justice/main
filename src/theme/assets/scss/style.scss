@@ -1,3 +1,11 @@
+.site{visibility: hidden;}
+
+
+@supports (display: grid) {
+
+.site {visibility: visible;}
+.upgrade-browser {display: none;}
+
 // base styles
 @import "base/_variables.scss";
 @import "base/_base.scss";
@@ -39,7 +47,6 @@
 @import "objects/_get-involved.scss";
 @import "objects/_freedom-wall.scss";
 @import "objects/_drag-cards.scss";
-@import "objects/_donate.scss";
 @import "objects/_line.scss";
 @import "objects/_text-slider.scss";
 @import "objects/_reference.scss";
@@ -52,6 +59,7 @@
 @import "objects/_hero.scss";
 @import "objects/_campaign.scss";
 @import "objects/_inline-giving.scss";
+@import "objects/_statement-and-text.scss";
 
 // pages
 @import "pages/_default-page.scss";
@@ -67,8 +75,9 @@
 @import "pages/_contact.scss";
 @import "pages/_gpf.scss";
 @import "pages/_resources.scss";
+@import "pages/_donate.scss";
 
-
+}
 
 
 
