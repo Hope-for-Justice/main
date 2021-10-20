@@ -1,0 +1,51 @@
+/*
+*
+* _PEOPLE.SCSS
+*
+*/
+
+.people {
+	margin: 3em 0;
+	grid-column: col2 / col12;
+	text-align: center;
+	&__title {
+		line-height: 1;
+		margin-bottom: 0.5em;
+		&--double-margin {
+			margin-bottom:1em;
+		}
+	}
+	&__subtitle {
+		margin-bottom: 2em;
+	}
+	&__grid {
+		display:flex;
+		flex-wrap: wrap;
+		justify-content: space-evenly;
+		max-width: 1000px; 
+		margin: 0 auto;
+	}
+	&__person {
+		padding:2em;
+		max-width: 220px;
+		text-align: center;
+		img {margin-bottom: 3em;}
+	}
+}
+
+// desktopLarge
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+
+.people {
+	margin: 8em 0;
+	&__subtitle {
+		margin-bottom: 4em;
+	}
+	&__person p {
+		font-size: 1.8em;
+	}
+}
+
+}

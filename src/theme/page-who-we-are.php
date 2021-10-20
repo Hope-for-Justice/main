@@ -8,7 +8,7 @@
 get_header();
 ?>
 
-<main id="main" class="site-main" role="main">
+<main id="main" class="site-main who-we-are" role="main">
 
 	<?php while ( have_posts() ) : the_post(); ?>		
 
@@ -26,6 +26,12 @@ get_header();
 	//acf groups
     $top_section = get_field('top_section');
     $statement_text = get_field('statement_and_text');
+    $image_text = get_field('image_and_text');
+    $global_exec = get_field('global_exec');
+    $country_leadership = get_field('country_leadership');
+    $senior_leadership = get_field('senior_leadership');
+    $trustees = get_field('trustees');
+    $plain_text = get_field('plain_text');
  	?>
 	
 	<div class="grid">
@@ -36,7 +42,7 @@ get_header();
 		--> 
 		<div class="hero-split">
 
-			<div class="hero-split__img hero-split__img--top-center hero-split__img--fit-width hero-split__img--taller" style="background-image: url('<?php echo $thumbnail[0]; ?>');">
+			<div class="hero-split__img hero-split__img--top-center hero-split__img--cover hero-split__img--taller" style="background-image: url('<?php echo $thumbnail[0]; ?>');">
 			</div>
 
 			<div class="hero-split__content hero-split__content--dark">
@@ -70,12 +76,11 @@ get_header();
 
 		<!-- 
 		-- 
-		-- Quote and text
+		-- statement and text
 		-- 
 		--> 
 		<div class="statement-and-text">
-			<div class="statement-and-text__quote">
-				<div class="statement-and-text__line statement-and-text__line--top"></div>
+			<div class="statement-and-text__statement">
 				<?php echo $statement_text['statement'];?>
 				<div class="statement-and-text__line statement-and-text__line--bottom"></div>
 			</div>
@@ -84,6 +89,143 @@ get_header();
 			</div>
 		</div>
 
+		<div class="line line--full"></div>
+
+		<!-- 
+		-- 
+		-- image and text
+		-- 
+		--> 
+		<div class="image-and-text">
+			<div class="image-and-text__image">
+				<img src="<?php echo $image_text['image'];?>">
+			</div>
+			<div class="image-and-text__text">
+				<p><?php echo $image_text['text'];?></p>
+			</div>
+		</div>
+
+		<div class="line line--full"></div>
+
+		<!-- 
+		-- 
+		-- people global exec
+		-- 
+		--> 
+		<div class="people">
+			<h2 class="people__title font-canela">
+				<?php echo $global_exec['title']?>	
+			</h2>
+			<p class="people__subtitle">
+				<?php echo $global_exec['subtitle']?>
+			</p>
+			<div class="people__grid">
+				<?php 	
+
+				while (have_rows('global_exec_members')) : the_row(); ?>
+
+					<div class="people__person">
+						<img src="<?php echo get_sub_field('image'); ?>">
+						<p><?php echo get_sub_field('text'); ?></p>
+					</div>
+
+				<?php endwhile; ?>
+
+			</div>
+		</div>
+
+		<div class="line line--full"></div>
+
+		<!-- 
+		-- 
+		-- people country leadership
+		-- 
+		--> 
+		<div class="people">
+			<h2 class="people__title people__title--double-margin font-canela">
+				<?php echo $country_leadership['title']?>	
+			</h2>
+			<div class="people__grid">
+				<?php 	
+
+				while (have_rows('country_leadership_members')) : the_row(); ?>
+
+					<div class="people__person">
+						<img src="<?php echo get_sub_field('image'); ?>">
+						<p><?php echo get_sub_field('text'); ?></p>
+					</div>
+
+				<?php endwhile; ?>
+
+			</div>
+		</div>
+
+		<div class="line line--full"></div>
+
+
+		<!-- 
+		-- 
+		-- people senior leadership
+		-- 
+		--> 
+		<div class="people">
+			<h2 class="people__title people__title--double-margin font-canela">
+				<?php echo $senior_leadership['title']?>	
+			</h2>
+			<div class="people__grid">
+				<?php 	
+
+				while (have_rows('senior_leadership_members')) : the_row(); ?>
+
+					<div class="people__person">
+						<img src="<?php echo get_sub_field('image'); ?>">
+						<p><?php echo get_sub_field('text'); ?></p>
+					</div>
+
+				<?php endwhile; ?>
+
+			</div>
+		</div>
+
+		<div class="line line--full"></div>
+
+		<!-- 
+		-- 
+		-- people trustees
+		-- 
+		--> 
+		<div class="people">
+			<h2 class="people__title people__title--double-margin font-canela">
+				<?php echo $trustees['title']?>	
+			</h2>
+			<div class="people__grid">
+				<?php 	
+
+				while (have_rows('trustee_members')) : the_row(); ?>
+
+					<div class="people__person">
+						<img src="<?php echo get_sub_field('image'); ?>">
+						<p><?php echo get_sub_field('text'); ?></p>
+					</div>
+
+				<?php endwhile; ?>
+
+			</div>
+		</div>
+
+		<div class="line line--full"></div>
+
+		<!-- 
+		-- 
+		-- plain-text
+		--  
+		-->
+		<div class="plain-text">
+			<h2 class="font-canela"> <?php echo $plain_text['title']?> </h2>
+			<p>
+				<?php echo $plain_text['text']?>
+			</p>
+		</div>
 
 
 	</div> <!-- /grid -->

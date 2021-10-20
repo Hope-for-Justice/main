@@ -415,21 +415,21 @@ function gpf_create_post_type() {
 
     )
   );
-  register_post_type( 'events',
-    array(
-      'labels' => array(
-        'name' => __( 'Events' ),
-        'singular_name' => __( 'Event' )
-      ),
-      'public' => true,
-      'has_archive' => true,
-      'rewrite' => array('slug' => 'event'),
-      'show_in_rest' => true,
-      'menu_icon' => 'dashicons-groups',
-      'supports' => array('thumbnail','title','editor')
+  // register_post_type( 'events',
+  //   array(
+  //     'labels' => array(
+  //       'name' => __( 'Events' ),
+  //       'singular_name' => __( 'Event' )
+  //     ),
+  //     'public' => true,
+  //     'has_archive' => true,
+  //     'rewrite' => array('slug' => 'event'),
+  //     'show_in_rest' => true,
+  //     'menu_icon' => 'dashicons-groups',
+  //     'supports' => array('thumbnail','title','editor')
 
-    )
-  );
+  //   )
+  // );
   register_post_type( 'stories_case_studies',
     array(
       'labels' => array(
@@ -506,30 +506,30 @@ function add_custom_taxonomies() {
 add_action( 'init', 'add_custom_taxonomies', 0 );
 
 
-function update_featured_events() {
+// function update_featured_events() {
 
-  global $posts;
-  global $post;
+//   global $posts;
+//   global $post;
   
-  // Get other post marked as featured
-  $posts = get_posts([
-  // Array of posts to check  
-  'post_type' => ['events'],
-  'meta_key' => 'pin_event',
-  'meta_value' => 1,
-  'post__not_in' => [$post->ID]
-  ]);
+//   // Get other post marked as featured
+//   $posts = get_posts([
+//   // Array of posts to check  
+//   'post_type' => ['events'],
+//   'meta_key' => 'pin_event',
+//   'meta_value' => 1,
+//   'post__not_in' => [$post->ID]
+//   ]);
 
-  // Remove previous featured posts
-  if ( get_field( 'pin_event' ) ) {
-  	foreach( $posts as $p ) {
+//   // Remove previous featured posts
+//   if ( get_field( 'pin_event' ) ) {
+//   	foreach( $posts as $p ) {
 
-  		update_field('pin_event', 0, $p->ID);
-    }
-  } return;
+//   		update_field('pin_event', 0, $p->ID);
+//     }
+//   } return;
 
-}
-add_action('acf/save_post', 'update_featured_events', 20);
+// }
+// add_action('acf/save_post', 'update_featured_events', 20);
 
 
 /**

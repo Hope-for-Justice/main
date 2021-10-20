@@ -51,6 +51,9 @@ get_header();
 
 				<?php if($term->slug == 'policies-documents') { ?>
 					<div class="sub-grid cards gpf__cards">
+				<?php } else if ($term->slug == 'uk-financial-reports') { ?>
+					<div id="financials" class="drag-cards">
+						<div class="drag-cards__inner">
 				<?php } else { ?>
 					<div class="drag-cards">
 						<div class="drag-cards__inner">

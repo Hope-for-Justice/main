@@ -277,7 +277,7 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
         var elem = document.getElementById('getInvolved')
         var animData = {
             container: elem,
-            renderer: 'svg',
+            renderer: 'canvas',
             loop: false,
             autoplay: true, //change to false when using with scroll trigger gsap 
             rendererSettings: {

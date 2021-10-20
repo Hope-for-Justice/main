@@ -1,23 +1,30 @@
 /*
 *
-* _STATEMENT-AND-TEXT.SCSS
+* _IMAGE-AND-TEXT.SCSS
 *
 */
 
-.statement-and-text {
+
+.image-and-text {
 	grid-column: col1/col12-end;
 	padding:3em;
 	&__line {
 		width:50%;
 		height: 2px;
 		background-color: $red;
-		margin:4em 0;
+		margin-bottom:2em;
+		display: none;
+		&--bottom {
+			margin-top: 2em;
+			display: block;
+		}
 	}
-	&__statement {
-
-		p {
-			font-weight: bold;
-			font-size: 2.4em;
+	&__image {
+		text-align: center;
+		img {
+			margin-bottom: 4em;
+			width:80%;
+			max-width: 30em;
 		}
 	}
 	&__text {
@@ -30,7 +37,7 @@
 
 @include mq($from: mobileMedium) {
 
-	.statement-and-text {
+	.image-and-text {
 		padding:4em;
 	}
 
@@ -43,9 +50,14 @@
 
 @include mq($from: tablet) {
 
-	.statement-and-text {
+	.image-and-text {
 		padding:5em 0;
 		grid-column: col2/col12;
+		&__image {
+			img {
+				margin-bottom: 5em;
+			}
+		}
 	}
 
 
@@ -57,26 +69,22 @@
 
 @include mq($from: desktop) {
 
-	.statement-and-text {
+	.image-and-text {
 		display: flex;
 		align-items:center;
-		&__statement{
+		&__image{
 			flex: 1;
-			//margin-right: 2.5em;
-			text-align: center;
 			padding-right:5em;
-			p {
-				font-size: 3em;
-
+			img {
+				margin: 0;
+				max-width: 400px;
 			}
 		}
 		&__text {
 			flex:0 0 50%;
-			//margin-left: 2.5em;
-		}
-		&__line {
-			margin: 2em auto;
-			max-width: 80px;
+			p {
+				font-size: 2.2em;
+			}
 		}
 	}
 
@@ -88,15 +96,8 @@
 
 @include mq($from: desktopLarge) {
 
-	.statement-and-text {
+	.image-and-text {
 		padding:10em 0;
-		&__statement{
-			p {
-				font-size: 3em;
-				max-width: 20em;
-				margin: 0 auto;
-			}
-		}
 	}
 }
 

@@ -16,9 +16,13 @@
 	text-align: center;
 	letter-spacing: 1px;
 	display: inline-block;
-	&__inner {display: flex;}
+	&__inner {
+		display: flex;
+		align-items:center;
+	}
 	&__text {color: inherit;}
 	&__play-symbol {
+		height:100%;
 		width:1.15em;
 		display: inline-block;
 		margin-left: -0.6em;

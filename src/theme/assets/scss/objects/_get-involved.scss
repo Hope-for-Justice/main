@@ -47,7 +47,13 @@
 				left:auto;
 			}
 		}
-		&--b {display:none;}
+		&--b {
+			display:none;
+			svg {
+				height: auto !important;
+				width:100% !important;
+			}
+		}
 		&--c {	
 			order: 3;
 			.button {

@@ -1,0 +1,27 @@
+/*
+*
+* _WHO-WE-ARE.SCSS
+*
+*/
+
+.who-we-are {
+	padding-bottom: 5em;
+	.plain-text {
+		margin:2em 0;
+		h2 {
+			margin-bottom: 0.5em;
+		}
+	}
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.who-we-are .plain-text {
+		margin:5em 0;
+	}
+
+
+}
