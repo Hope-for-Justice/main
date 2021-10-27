@@ -4,35 +4,35 @@
 *
 */
 
-// @font-face {
-//     font-family: 'apercu-reg';
-//     src: url('assets/fonts/apercu-regular-pro.eot');
-//     src: url('assets/fonts/apercu-regular-pro.eot?#iefix') format('embedded-opentype'),
-//          url('assets/fonts/apercu-regular-pro.woff2') format('woff2'),
-//          url('assets/fonts/apercu-regular-pro.woff') format('woff'),
-//          url('assets/fonts/apercu-regular-pro.ttf') format('truetype');
-//     font-weight: normal;
-//     font-style: normal;
-// }
+@font-face {
+    font-family: 'apercu-reg';
+    src: url('assets/fonts/apercu-regular-pro.eot');
+    src: url('assets/fonts/apercu-regular-pro.eot?#iefix') format('embedded-opentype'),
+         url('assets/fonts/apercu-regular-pro.woff2') format('woff2'),
+         url('assets/fonts/apercu-regular-pro.woff') format('woff'),
+         url('assets/fonts/apercu-regular-pro.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
-// .give-form-templates, .give-btn {
-// 	font-family: 'apercu-reg', sans-serif !important;
-// }
+.give-form-templates, .give-btn {
+	font-family: 'apercu-reg', sans-serif !important;
+}
 
-// .give-btn {
-// 	border-radius: 70px !important;
-// }
+.give-btn {
+	border-radius: 70px !important;
+}
 
-// .give-currency-switcher-msg-wrap {
-//     display: none !important;
-// }
+.give-currency-switcher-msg-wrap {
+    display: none !important;
+}
 
-// .give-currency-switcher-wrap {
-//     display: none !important;
-// }
+.give-currency-switcher-wrap {
+    display: none !important;
+}
 
-// .iframe-loader div {
-//     align-items: flex-start !important;
-//     margin-top:40px !important; 
-// }
+.iframe-loader div {
+    align-items: flex-start !important;
+    margin-top:40px !important; 
+}
 

@@ -1,0 +1,8 @@
+<?php defined( 'ABSPATH' ) or exit; ?>
+
+<strong><?php _e( 'Activation Error:', 'give-form-field-manager' ); ?></strong>
+<?php _e( 'You must have', 'give-form-field-manager' ); ?> <a href="https://givewp.com" target="_blank">Give</a>
+<?php _e( 'version', 'give-form-field-manager' ); ?> <?php echo GIVE_FFM_MIN_GIVE_VERSION; ?>+
+<?php printf( esc_html__( 'for the %1$s add-on to activate', 'give-form-field-manager' ), GIVE_FFM_PRODUCT_NAME ); ?>
+.
+
