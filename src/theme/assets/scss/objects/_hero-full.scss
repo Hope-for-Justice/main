@@ -1,0 +1,101 @@
+/*
+*
+* _HERO.SCSS
+*
+*/
+
+
+.hero-full {
+	grid-column: col1 / col12-end;
+	&__img {
+		width:100%;
+		min-height: 24em;
+		background-size: cover;
+	}
+	&__content {
+		grid-column: col2 / col12;
+		margin-top: 8.6vw;
+	}
+	
+}
+
+// mobileLarge
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: mobileLarge) {
+
+.hero-full {
+	&__img {
+		min-height: 35em;
+		background-size: cover;
+	}	
+}
+
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: tablet) {
+
+.hero-full {
+	position: relative;
+	&__img {
+		min-height: 65em;
+	}
+	&__sub-grid {
+		position:absolute;
+		bottom:0;
+		left:0;
+		height:auto;
+	}
+	&__content {
+		color: white;
+		text-align: center;
+		grid-column: col3 / col11;
+		margin-top: 0;
+		margin-bottom: 7em;
+		.line {display: none;}
+	}
+	
+}
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktop) {
+
+.hero-full {
+	&__img {
+		min-height: 85vh;
+		background-position: 50% 50%;
+	}
+	&__content {
+		grid-column: col4 / col10;
+		margin-bottom: 10em;
+	}
+	
+}
+
+}
+
+// desktop xl
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopExtraLarge) {
+
+.hero-full {
+	&__img {
+		background-position: 50% 50%;
+	}
+	&__content {
+		grid-column: col5 / col9;
+	}
+	
+}
+
+}
+
+
+
+
+
+

@@ -36,16 +36,17 @@ get_header();
 			<div class="hero-split__content">
 				<div class="hero-split__content-inner">
 					<h3 class="hero-split__sub-heading">
-						Modern Slavery
+						<?php echo the_field('subtitle'); ?>
 					</h3>
-					<h1 class="hero-split__main-heading">
-						What is <br>Modern Slavery?
+					<h1 class="hero-split__main-heading font-canela">
+						<?php the_title(); ?>
 					</h1>
-					<p class="hero-split__desc">
-						Modern slavery is where one person controls another for profit by exploiting a vulnerability. Usually the victim is forced to work or is sexually exploited, and the trafficker keeps all or nearly all of the money. The control can be physical, financial or psychological.
-					</p>
+					<div class="hero-split__desc">
+						<?php the_content(); ?>
+						<br><br>
+					</div>
 					<div>
-						<a data-toggle="modal" data-target="#video-modal" data-src="https://player.vimeo.com/video/561295870" class="button button--green video-trigger">
+						<a data-toggle="modal" data-target="#video-modal" data-src="<?php echo the_field('hero_video_link'); ?>" class="button button--green video-trigger">
 							<div class="button__inner">
 								<svg class="button__play-symbol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.771 18.228">
 									<g>
@@ -53,8 +54,7 @@ get_header();
 									</g>
 								</svg>
 								<div class="button__text bold">
-									Watch our<br>
-									Explanation
+									<?php echo the_field('hero_button_text'); ?>
 								</div>
 							</div>
 						</a>
@@ -71,14 +71,21 @@ get_header();
 		<div class="color-block color-block--grey">
 			<div class="text-slider">
 				<h3 class="text-slider__heading">
-					Modern Slavery Facts
+					<?php echo the_field('slider_header'); ?>
 				</h3>
 				<div class="text-slider__slider">
 					<div class="flexslider-text">
 						<ul class="slides">
-							<li><p>$150 billion made each year from forced labour, that’s over $4,750&nbsp;a&nbsp;second <span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span></p></li>
-							<li><p>7 in every 10 victims worldwide are women&nbsp;and&nbsp;girls <span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span></p></li>
-							<li><p>There were 10,613 potential cases reported in the UK&nbsp;last&nbsp;year <span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span></p></li>
+							<?php while (have_rows('sliders')) : the_row(); ?>
+								<li>
+									<p>
+										<?php echo (get_sub_field('text')) ?>
+										<span data-toggle="modal" data-target="#reference-modal" data-text="<?php echo (get_sub_field('reference')) ?>" class="reference__symbol">
+											i
+										</span>
+									</p>
+								</li>
+							<?php endwhile; ?>
 						</ul>
 					
 					</div>
@@ -86,11 +93,10 @@ get_header();
 					<a class="text-slider__next" href="next"></a>
 				</div>
 				<div>
-					<a href="#" class="button button--blue">
+					<a href="<?php echo the_field('slider_button_link'); ?>" class="button button--blue">
 						<div class="button__inner">
 							<div class="button__text bold">
-								Resources and<br>
-								Statistics
+								<?php echo the_field('slider_button_text'); ?>
 							</div>
 						</div>
 					</a>
@@ -104,32 +110,55 @@ get_header();
 		--  
 		-->
 		<div class="drag-cards drag-cards--no-margin-top drag-cards--no-margin-bottom" id="dragCards">
-			<h2 class="drag-cards__heading font-canela">Types of exploitation  <span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span></h2>
+			<h2 class="drag-cards__heading font-canela">
+				<?php echo the_field('drag_cards_title'); ?>
+				<span data-toggle="modal" data-target="#reference-modal" data-text="<?php echo the_field('drag_cards_title_reference'); ?>" class="reference__symbol">i</span>
+			</h2>
 			<div class="drag-cards__inner">
 				<div class="drag-cards__card">
 					<p class="drag-cards__card-number font-canela">01</p>
-					<h3 class="drag-cards__card-title font-fk">Sexual<br>Exploitation</h3>
-					<p class="drag-cards__card-desc">Vulnerable people, overwhelmingly women and girls, are tricked or forced into the sex trade. It often begins with a promise of good work in hospitality or modelling, or a 'boyfriend' is responsible.</p>
+					<h3 class="drag-cards__card-title font-fk">
+						<?php echo the_field('card_1_title'); ?>
+					</h3>
+					<p class="drag-cards__card-desc">
+					<?php echo the_field('card_1_text'); ?>
+					</p>
 				</div>
 				<div class="drag-cards__card">
 					<p class="drag-cards__card-number font-canela">02</p>
-					<h3 class="drag-cards__card-title font-fk">FORCED<br>LABOUR</h3>
-					<p class="drag-cards__card-desc">This is when a person has no choice or control over their work, with the money they earn taken by someone else, who often also controls where they live and even who they can speak with.</p>
+					<h3 class="drag-cards__card-title font-fk">
+						<?php echo the_field('card_2_title'); ?>
+					</h3>
+					<p class="drag-cards__card-desc">
+						<?php echo the_field('card_2_text'); ?>
+					</p>
 				</div>
 				<div class="drag-cards__card">
 					<p class="drag-cards__card-number font-canela">03</p>
-					<h3 class="drag-cards__card-title font-fk">DOMESTIC<br>SERVITUDE</h3>
-					<p class="drag-cards__card-desc">A less common type of modern slavery, when a person is forced to cook, clean or do childcare for little or no pay, often living in the home with the 'employer' and not allowed to live their own life.  </p>
+					<h3 class="drag-cards__card-title font-fk">
+						<?php echo the_field('card_3_title'); ?>
+					</h3>
+					<p class="drag-cards__card-desc">
+						<?php echo the_field('card_3_text'); ?>
+					</p>
 				</div>
 				<div class="drag-cards__card">
 					<p class="drag-cards__card-number font-canela">04</p>
-					<h3 class="drag-cards__card-title font-fk">CRIMINAL<br>EXPLOITATION</h3>
-					<p class="drag-cards__card-desc">Victims are forced to grow or transport drugs, made to shoplift or pickpocket, are forced to beg on the streets, or used for fraud. The threat of being reported becomes another method of control. </p>
+					<h3 class="drag-cards__card-title font-fk">
+						<?php echo the_field('card_4_title'); ?>
+					</h3>
+					<p class="drag-cards__card-desc">
+						<?php echo the_field('card_4_text'); ?>
+					</p>
 				</div>
 				<div class="drag-cards__card">
 					<p class="drag-cards__card-number font-canela">05</p>
-					<h3 class="drag-cards__card-title font-fk">FORCED<br>MARRIAGE</h3>
-					<p class="drag-cards__card-desc">More than 15 million people are thought to have been forced into a marriage without consent, nearly all of them women and girls, often to an older man in another region or country.</p>
+					<h3 class="drag-cards__card-title font-fk">
+						<?php echo the_field('card_5_title'); ?>
+					</h3>
+					<p class="drag-cards__card-desc">
+						<?php echo the_field('card_5_text'); ?>
+					</p>
 				</div>
 			</div>
 			<div class="drag-cards__dots dots">
@@ -146,9 +175,12 @@ get_header();
 		--  
 		-->
 		<div class="plain-text">
-			<h2>How many people are in modern slavery?</h2>
-			<p class="plain-text__thinner">The number of people living in modern slavery is estimated at <b>40.3 million</b>, made up of: 
-				<span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span>
+			<h2 class="font-canela">
+			<?php echo the_field('stats_title'); ?>
+			</h2>
+			<p class="plain-text__thinner">
+				<?php echo the_field('stats_text'); ?> 
+				<span data-toggle="modal" data-target="#reference-modal" data-text="<?php echo the_field('stats_reference'); ?>" class="reference__symbol">i</span>
 			</p>
 		</div>
 
@@ -159,20 +191,36 @@ get_header();
 		-->
 		<div class="number-stats">
 			<div class="number-stats__stat">
-				<div class="number-stats__heading">16.3m</div>
-				<p>In some form of forced labour or criminal exploitation</p>
+				<div class="number-stats__heading">
+				<?php echo the_field('stat1_number'); ?>
+				</div>
+				<p>
+				<?php echo the_field('stat1_text'); ?>
+				</p>
 			</div>
 			<div class="number-stats__stat">
-				<div class="number-stats__heading">15.4m</div>
-				<p>In forced marriage to which they had not consented</p>
+				<div class="number-stats__heading">
+				<?php echo the_field('stat2_number'); ?>
+				</div>
+				<p>
+				<?php echo the_field('stat2_text'); ?>
+				</p>
 			</div>
 			<div class="number-stats__stat">
-				<div class="number-stats__heading">16.3m</div>
-				<p>In forced sexual exploitation (including 1 million children)</p>
+				<div class="number-stats__heading">
+				<?php echo the_field('stat3_number'); ?>
+				</div>
+				<p>
+				<?php echo the_field('stat3_text'); ?>
+				</p>
 			</div>
 			<div class="number-stats__stat">
-				<div class="number-stats__heading">3.8m</div>
-				<p>In domestic servitude and private homes</p>
+				<div class="number-stats__heading">
+				<?php echo the_field('stat4_number'); ?>
+				</div>
+				<p>
+				<?php echo the_field('stat4_text'); ?>
+				</p>
 			</div>
 		</div>
 
@@ -182,8 +230,10 @@ get_header();
 		--  
 		-->
 		<div class="plain-text plain-text--margin-bottom">
-			<p class="plain-text__thinner">There are tens of thousands of victims in the UK. Some estimates suggest the number of people in modern slavery in the UK is up to 136,000.  
-				<span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span>
+			<p class="plain-text__thinner">
+				<?php echo the_field('stats_footer_text'); ?>  
+				<span data-toggle="modal" data-target="#reference-modal" data-text="
+				<?php echo the_field('stats_footer_reference'); ?>" class="reference__symbol">i</span>
 			</p>
 		</div>
 
@@ -195,14 +245,13 @@ get_header();
 		<div class="color-block color-block--grey">
 			<div class="sub-grid">
 				<div class="plain-text plain-text--in-color-block">
-					<h2>How do traffickers keep their victims under control?<span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span></h2>
-					<p>People are tricked or forced into exploitation and kept there through violence, fraud or coercion, and often end up living and working in abominable conditions. 
-					<br><br>
-					Some are beaten and abused; others have threats made against their families in their home countries. Many are forced into fraudulent ‘debt bondage’, with their wages kept by a trafficker to pay non-existent bills for their travel, accommodation or food. They are told they will be deported if they go to the authorities. 
-					<br><br>
-					Often, the trafficker takes control of a victim’s identity documents (e.g. passport). They accompany them to open a bank account, then take control of its associated bank card and correspondence (this functions both as a simple way for the trafficker to control the victim’s earnings, and a way for them to exert dominance and control by offering occasional small sums of money from what should be the victim’s own wages). 
-					<br><br>
-					Traffickers usually focus on those easiest to exploit, which tends to be people with fewer resources or existing vulnerabilities. </p>
+					<h2 class="font-canela">
+						<?php echo the_field('plain_text1_title'); ?>
+						<span data-toggle="modal" data-target="#reference-modal" data-text="<?php echo the_field('plain_text1_reference'); ?>" class="reference__symbol">i</span>
+					</h2>
+					<p>
+						<?php echo the_field('plain_text1_text'); ?>			
+					</p>
 				</div>
 			</div>
 		</div>
@@ -212,29 +261,15 @@ get_header();
 		-- color block - plain-text
 		--  
 		-->
-		<div class="color-block color-block--background-img" style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2021/06/man-in-black-shirt-and-gray-denim-pants-sitting-on-gray-1134204.jpg');">
+		<div class="color-block color-block--background-img" style="background-image: url('<?php echo the_field('plain_text2_image'); ?>');">
 			<div class="sub-grid">
 				<div class="plain-text plain-text--in-color-block">
-					<h2>Risk factors for trafficking <span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span></h2>
-					<p>Anyone from any walk of life can be targeted and can end up as a victim of modern slavery. But people experiencing any of the following things can be at particular risk:
-					<br><br>
-					Homelessness
-					<br>
-					Alcohol or drug addiction
-					<br>
-					Mental health problems
-					<br>
-					Chaotic home environment or recent family breakdown
-					<br>
-					Long-term unemployment
-					<br>
-					Learning difficulties
-					<br>
-					Debts or criminal convictions
-					<br>
-					Fearful of deportation or being discovered by authorities
-					<br>
-					Physical injuries or disabilities
+					<h2 class="font-canela">
+					<?php echo the_field('plain_text2_title'); ?>
+						<span data-toggle="modal" data-target="#reference-modal" data-text="<?php echo the_field('plain_text2_reference'); ?>" class="reference__symbol">i</span>
+					</h2>
+					<p>
+					<?php echo the_field('plain_text2_text'); ?>
 					</p>
 				</div>
 			</div>
@@ -248,12 +283,12 @@ get_header();
 		<div class="color-block">
 			<div class="sub-grid">
 				<div class="plain-text plain-text--in-color-block">
-					<h2>Why don’t victims run away?<span data-toggle="modal" data-target="#reference-modal" data-text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." class="reference__symbol">i</span></h2>
-					<p>The relationship between someone experiencing modern slavery and the person or group controlling them is complex. It is rare for the control to be based on physical confinement like locked doors or shackles. Instead, victims are exploited through manipulation, fear, dependency, threats or debt bondage. 
-					<br><br>
-					This means that during the time they are actually in exploitation, few people think of themselves as being a 'victim'. They often describe feeling hopeless or having no options, or even feel a sense of obligation towards those who trafficked them. They do not understand their situation as being one that they could run away from or escape from. 
-					<br><br>
-					For many, it is only once they get long-term help from a specialist organisation like Hope for Justice that they understand the extent of the exploitation and that a different life is possible, with the right support.</p>
+					<h2 class="font-canela">
+						<?php echo the_field('plain_text3_title'); ?>
+						<span data-toggle="modal" data-target="#reference-modal" data-text="<?php echo the_field('plain_text3_reference'); ?>" class="reference__symbol">i</span>
+					</h2>
+					<p>
+					<?php echo the_field('plain_text3_text'); ?></p>
 				</div>
 			</div>
 		</div>
@@ -265,22 +300,22 @@ get_header();
 		--> 
 		<div class="hero-split hero-split--reverse">
 
-			<div class="hero-split__img hero-split__img--center-center" style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2021/06/men-smile.jpg');">
+			<div class="hero-split__img hero-split__img--center-center" style="background-image: url('<?php echo the_field('footer_hero_image'); ?>');">
 			</div>
 
 			<div class="hero-split__content hero-split__content--grey">
 				<div class="hero-split__content-inner">
-					<h3 class="hero-split__sub-heading">
-						Help make a difference
+					<h3 class="hero-split__sub-heading">	
+						<?php echo the_field('footer_hero_subtitle'); ?>
 					</h3>
-					<h2 class="hero-split__smaller-main-heading">
-						Together we can help more of those who are trapped and alone
+					<h2 class="hero-split__smaller-main-heading font-canela">		
+						<?php echo the_field('footer_hero_title'); ?>
 					</h2>
 					<div>
-						<a class="button button--red">
+						<a href="<?php echo the_field('footer_hero_button_link'); ?>" class="button button--red">
 							<div class="button__inner">
 								<div class="button__text bold">
-									Make a Donation
+									<?php echo the_field('footer_hero_button_text'); ?>
 								</div>
 							</div>
 						</a>

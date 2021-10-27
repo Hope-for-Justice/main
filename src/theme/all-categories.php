@@ -55,16 +55,16 @@ get_header();
 			</select>
 			<!-- <span class="icons">&#9660;</span> -->
 
-			<!-- search -->
+			<!-- search
 			<div class="archive-page__search">
 				<form action="" method="POST" >
 					<input type="text" name="search-posts" class="form-control search-posts " placeholder="Search...">
 					<input type="hidden" name="action" value="news_search"/>
 					<input type="hidden" name="category" value="" class="scategory_id" />
-					<input type="hidden" name="news_nonce" value="<?php echo wp_create_nonce('news-search-nonce')?>"/>
-					 <input type="hidden" name="redirect" value="<?php echo home_url().'/search-news-results/'; ?>"/>
+					<input type="hidden" name="news_nonce" value="<?php //echo wp_create_nonce('news-search-nonce')?>"/>
+					 <input type="hidden" name="redirect" value="<?php //echo home_url().'/search-news-results/'; ?>"/>
 				</form>
-			</div>
+			</div> -->
 		</div>
 
 		<!-- pagination -->

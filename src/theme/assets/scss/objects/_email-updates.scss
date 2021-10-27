@@ -1,0 +1,82 @@
+/*
+*
+* _EMAIL-UPDATES.SCSS
+*
+*/
+
+.email-updates {
+	&__content{
+		grid-column: col2 / col12;
+		margin-bottom: 4em;
+	}
+	&__desc {
+		margin-bottom: 2em;
+	}
+	&__img {
+		display: none;
+	}
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: tablet) {
+
+.email-updates {
+	&__img {
+		display: block;
+		grid-column: col1 / col6;
+		margin-left: -5em;
+		margin-top: 5em;
+	}
+	&__content{
+		grid-column: col6 / col12;
+		margin: 10em 0 5em 0;
+		h2 {
+			margin-bottom: 0.5em;
+		}
+	}
+	&__desc {
+		margin-bottom: 2em;
+	}
+}
+
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktop) {
+
+.email-updates {
+	&__img {
+		display: block;
+		margin-left: 5em;
+		margin-top: 10em;
+		grid-column: col2 / col6;
+	}
+	&__content{
+		grid-column: col7 / col12;
+		margin-top: 15em;
+	}
+}
+
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopLarge) {
+
+.email-updates {
+	&__img {
+		grid-column: col3 / col6;
+	}
+	&__content{
+		grid-column: col7 / col11;
+		margin-top: 20em;
+	}
+}
+
+}
+
+

@@ -1,0 +1,53 @@
+/*
+*
+* _GET-INVOLVED-PAGE.SCSS
+*
+*/
+
+.get-involved-page {
+	.get-involved {
+		&__item--b {
+			display: block;
+			order: 6;
+			.button {
+				right:10%;
+				bottom:10%;
+			}
+		}
+		&__item--c {
+			display: none;
+		}
+		&__item--e {
+			order:5;
+			.button {
+				left:10%;
+				bottom:10%;
+			}
+		}
+	}
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktop) {
+
+.get-involved-page {
+	.get-involved {
+		&__item--c {
+			display: block;
+			padding-top:100%;
+		}
+		&__item--e {
+			padding-top: 25%;
+			grid-area: 3 / 1 / 4 / 5;
+			background-position: 50% 50%;
+			.button {
+				left:auto;
+				bottom:10%;
+				right:3%;
+			}
+		}
+	}
+}
+
+}

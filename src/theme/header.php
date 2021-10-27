@@ -109,7 +109,7 @@
 				</div>
 				<div class="menu__footer">
 					<div class="menu__line"></div>
-					<small class="menu__legals">We use cookies to help make this website better. Here is how we use them. You can change the cookie settings on your browser. Otherwise, we’ll assume you’re OK to continue. Here is our Privacy Policy. Hope for Justice is a 501(c)(3) not for profit organization in the USA, a registered charity in England & Wales (no. 1126097) and in Scotland (no. SC045769), and a company limited by guarantee, registered in England and Wales, number 6563365. In Norway, Hope for Justice AS is registered under Organisasjonsnummer 915 520 995.</small>
+					<small class="menu__legals"><?php echo the_field('footer_text', 'option'); ?></small>
 				</div>
 			</div>
 		</nav>

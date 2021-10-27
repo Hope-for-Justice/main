@@ -29,7 +29,7 @@ get_header();
     	$below_hero = get_field('below_hero');
     	$fundraise_with_facebook = get_field('fundraise_with_facebook');
     	$fundraise_with_jg = get_field('fundraise_with_jg');
-    	$bottom_slice = get_field('fundraise_with_jg');
+    	$bottom_slice = get_field('bottom_slice');
 	?>
 
 	
@@ -53,9 +53,18 @@ get_header();
 					<h1 class="font-canela">
 						<?php echo $page_hero['main_heading'];?>
 					</h1>
-					<p class="hero-split__desc">
-						<?php echo $page_hero['description'];?>
-					</p>
+					<div class="hero-split__desc">
+						<p><?php echo $page_hero['description'];?><br><br></p>
+					</div>
+					<div class="hero-spit__button">
+						<a href="<?php echo $page_hero['button_link'];?>" class="button button--green">
+							<div class="button__inner">
+								<div class="button__text bold">
+									<?php echo $page_hero['button_text'];?>
+								</div>
+							</div>
+						</a>
+					</div>
 				</div>
 			</div>
 		</div><!-- /hero-split -->
@@ -91,9 +100,9 @@ get_header();
 					<h1 class="font-canela">
 						<?php echo $fundraise_with_facebook['heading'];?>
 					</h1>
-					<p class="hero-split__desc">
-						<?php echo $fundraise_with_facebook['description'];?>
-					</p>
+					<div class="hero-split__desc">
+						<p><?php echo $fundraise_with_facebook['description'];?><br><br></p>
+					</div>
 					<div class="hero-spit__button">
 						<a href="<?php echo $fundraise_with_facebook['button_link'];?>" class="button button--green">
 							<div class="button__inner">
@@ -122,9 +131,9 @@ get_header();
 					<h1 class="font-canela">
 						<?php echo $fundraise_with_jg['heading'];?>
 					</h1>
-					<p class="hero-split__desc">
-						<?php echo $fundraise_with_jg['description'];?>
-					</p>
+					<div class="hero-split__desc">
+						<p><?php echo $fundraise_with_jg['description'];?><br><br></p>
+					</div>
 					<div class="hero-spit__button">
 						<a href="<?php echo $fundraise_with_jg['button_link'];?>" class="button button--green">
 							<div class="button__inner">
@@ -147,13 +156,17 @@ get_header();
 		<div class="color-block color-block--grey">
 			<div class="sub-grid">
 				<div class="plain-text plain-text--in-color-block">
-					<h2 class="font-canela">How your fundraising could change the world</h2>
-					<p class="margin-bottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
+					<h2 class="font-canela">
+						
+						<?php echo $bottom_slice['title'];?>
+					</h2>
+					<p class="margin-bottom">
+						<?php echo $bottom_slice['description'];?>
 					</p>
-					<a href="#" class="button button--green">
+					<a href="<?php echo $bottom_slice['button_link'];?>" class="button button--green">
 						<div class="button__inner">
 							<div class="button__text bold">
-								See current events
+								<?php echo $bottom_slice['button_text'];?>
 							</div>
 						</div>
 					</a>

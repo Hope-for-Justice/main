@@ -35,15 +35,16 @@ get_header();
 			<div class="hero-split__content hero-split__content--grey">
 				<div class="hero-split__content-inner">
 					<h3>
-						#TeamHopeforJustice
+						<?php the_field('subtitle'); ?>
 					</h3>
 					<h1 class="font-canela">
-						Volunteering<br>
-						Opportunities
+						<?php the_title(); ?>
 					</h1>
-					<p class="hero-split__desc hero-split__desc--thinner">
-						Volunteers are the heartbeat of our movement to end slavery. By joining the team at Hope for Justice (wherever you are in the world) you can be part of making huge change happen in virtually every continent.
-					</p>
+					<div class="hero-split__desc hero-split__desc--thinner">
+						<p>
+							<?php the_content(); ?>		
+						</p>
+					</div>
 				</div>
 			</div>
 		</div><!-- /hero-split -->
@@ -54,8 +55,11 @@ get_header();
 		--  
 		-->
 		<div class="plain-text">
-			<h2 class="font-canela">Current opportunities</h2>
-			<p>Do you want to be part of something incredible? At Hope for Justice, we’re proud to work with a community of amazing volunteers – and we’d love you to join us!
+			<h2 class="font-canela">
+				<?php the_field('plain_text_title'); ?>
+			</h2>
+			<p>
+				<?php the_field('plain_text_description'); ?>
 			</p>
 		</div><!-- /plain-text -->
 

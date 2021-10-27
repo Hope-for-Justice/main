@@ -36,17 +36,16 @@ get_header();
 			<div class="hero-split__content">
 				<div class="hero-split__content-inner">
 					<h3>
-						Our Mission
+						<?php the_field('subtitle'); ?>
 					</h3>
 					<h1 class="font-canela">
-						End Slavery.<br>
-						Change Lives.
+						<?php the_field('title'); ?>
 					</h1>
-					<p class="hero-split__desc hero-split__desc--thinner">
-						We exist to bring an end to modern slavery by preventing exploitation, rescuing victims, restoring lives and reforming society.
-					</p>
+					<div class="hero-split__desc hero-split__desc--thinner">
+						<?php the_content(); ?>
+					</div>
 					<div>
-						<a data-toggle="modal" data-target="#video-modal" data-src="https://player.vimeo.com/video/561295870" class="button button--green video-trigger">
+						<a data-toggle="modal" data-target="#video-modal" data-src="<?php the_field('video_source'); ?>" class="button button--green video-trigger">
 							<div class="button__inner">
 								<svg class="button__play-symbol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.771 18.228">
 									<g>
@@ -54,8 +53,7 @@ get_header();
 									</g>
 								</svg>
 								<div class="button__text bold">
-									New Here?<br>
-									Watch This!
+									<?php the_field('button_text'); ?>
 								</div>
 							</div>
 						</a>
@@ -73,32 +71,40 @@ get_header();
 			<div class="sub-grid">
 				<div class="get-involved">
 					<div class="get-involved__text">
-						<h2 id="waypoint" class="get-involved__heading font-canela">How you can get involved</h2>
-						<p class="get-involved__desc">Hope for Justice is fighting human trafficking and helping the victims all around the world. This work is only possible because of a growing global movement of ordinary people who support this life-changing work in many different ways. Be part of it.
+						<h2 id="waypoint" class="get-involved__heading font-canela">
+							<?php the_field('grid_title'); ?>	
+						</h2>
+						<p class="get-involved__desc">
+							<?php the_field('grid_description'); ?>
 						</p>
 					</div>
 
 
 					<div class="get-involved__grid">
-						<div class="get-involved__item get-involved__item--a" style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2021/02/hope-news-optimised.jpg);">
-							<a href="#" class="button button--blue">
+						<div class="get-involved__item get-involved__item--a" style="background-image: url('<?php the_field('grid_a_picture'); ?>');">
+							<a href="<?php the_field('grid_a_button_link'); ?>" class="button button--blue">
 								<div class="button__inner">
-									<div class="button__text bold">Get our<br>email updates</div>
+									<div class="button__text bold">
+										<?php the_field('grid_a_button_text'); ?>
+									</div>
+									
 								</div>
 							</a>
 						</div>
 
-		    			<div id="getInvolved" class="get-involved__item get-involved__item--b"></div>
+		    			<a href="<?php the_field('grid_b_link'); ?>" id="getInvolved" class="get-involved__item get-involved__item--b"></a>
 
-		    			<div class="get-involved__item get-involved__item--c" style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2021/02/spot-the-signs-optimised.jpg);">
-		    				<a href="#" class="button button--red">
+		    			<div class="get-involved__item get-involved__item--c" style="background-image: url('<?php the_field('grid_c_picture'); ?>');">
+		    				<a href="<?php the_field('grid_c_button_link'); ?>" class="button button--red">
 								<div class="button__inner">
-									<div class="button__text bold">Spot the signs of<br>modern slavery</div>
+									<div class="button__text bold">
+										<?php the_field('grid_c_button_text'); ?>
+									</div>
 								</div>
 							</a>
 		    			</div>
 
-		    			<div class="get-involved__item get-involved__item--d" style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2021/02/guardian-optimised.jpg);">
+		    			<div class="get-involved__item get-involved__item--d" style="background-image: url('<?php the_field('grid_d_picture'); ?>');">
 		    				<svg class="get-involved__guardian-logo" xmlns="http://www.w3.org/2000/svg"viewBox="0 0 119.474 45.23">
 								  <g id="Group_6519" data-name="Group 6519" transform="translate(-984.884 -1527.305)">
 								    <path id="_Path_" data-name="&lt;Path&gt;" d="M102.571,3.7a11.677,11.677,0,0,1,.067,4.706h-1.645c-.38-.9.034-1.923-.288-3.028-.731-.167-1.532-.372-2.342-.53C94.525,4.1,90.66,3.465,86.85,2.589a18.189,18.189,0,0,0-7.788.083c-4.03.8-8.064,1.584-12.094,2.382-.384.076-.761.205-1.259.344l-.136,2.992H63.816A14.013,14.013,0,0,1,63.824,3.7c.983-.216,2.029-.472,3.086-.675Q74.567,1.547,82.231.109A5.321,5.321,0,0,1,84.147.071C90.13,1.2,96.107,2.377,102.084,3.542a4.554,4.554,0,0,1,.487.16Z" transform="translate(961.604 1527.303)"/>
@@ -113,14 +119,18 @@ get_header();
 								    <path id="Path_2879" data-name="Path 2879" d="M180.249,35.417l-4.117-6.689h-.043l.058,6.689h-2.4V25.189h2.817l4.1,6.674h.043l-.058-6.674h2.4V35.417Z" transform="translate(921.306 1518.086)"/>
 								  </g>
 							</svg>
-		    				<a href="#" class="button button--green">
+		    				<a href="<?php the_field('grid_d_link'); ?>" class="button button--green">
 								<div class="button__inner">
-									<div class="button__text bold">Become a<br>regular giver</div>
+									<div class="button__text bold">
+										<?php the_field('grid_d_button_text'); ?>
+									</div>
 								</div>
 							</a>
 		    			</div>
-						<a href="#" class="button get-involved__more-button button--grey">
-								<div class="button__text bold">More<br>options</div>
+						<a href="<?php the_field('grid_more_button_link'); ?>" class="button get-involved__more-button button--grey">
+								<div class="button__text bold">
+									<?php the_field('grid_more_button_text'); ?>
+								</div>
 						</a>
 					</div>
 				</div>
@@ -134,27 +144,45 @@ get_header();
 		--  
 		-->
 		<div class="drag-cards" id="dragCards">
-			<h2 class="drag-cards__heading font-canela">Our approach to <br>ending slavery</h2>
+			<h2 class="drag-cards__heading font-canela">
+				<?php the_field('drag_cards_title'); ?>
+			</h2>
 			<div class="drag-cards__inner">
 				<div class="drag-cards__card">
 					<p class="drag-cards__card-number font-canela">01</p>
-					<h3 class="drag-cards__card-title font-fk">Preventing<br>Exploitation</h3>
-					<p class="drag-cards__card-desc">Through education and community empowerment, we help families and vulnerable people protect themselves against traffickers and the deceptive methods they use to control others.</p>
+					<h3 class="drag-cards__card-title font-fk">
+						<?php the_field('card_1_title'); ?>
+					</h3>
+					<p class="drag-cards__card-desc">
+						<?php the_field('card_1_text'); ?>
+					</p>
 				</div>
 				<div class="drag-cards__card">
 					<p class="drag-cards__card-number font-canela">02</p>
-					<h3 class="drag-cards__card-title font-fk">Rescuing<br>Victims</h3>
-					<p class="drag-cards__card-desc">Our investigators and outreach teams work with police and other agencies to identify victims of modern slavery, build bridges of trust with them and get them safely out of exploitation.</p>
+					<h3 class="drag-cards__card-title font-fk">
+						<?php the_field('card_2_title'); ?>
+					</h3>
+					<p class="drag-cards__card-desc">
+						<?php the_field('card_2_text'); ?>
+					</p>
 				</div>
 				<div class="drag-cards__card">
 					<p class="drag-cards__card-number font-canela">03</p>
-					<h3 class="drag-cards__card-title font-fk">Restoring<br>Lives</h3>
-					<p class="drag-cards__card-desc">We provide world-class survivor aftercare, both residential and non-residential. Our legal advocacy and support ensures needs are met and gives the best chance for justice to be done.</p>
+					<h3 class="drag-cards__card-title font-fk">
+						<?php the_field('card_3_title'); ?>
+					</h3>
+					<p class="drag-cards__card-desc">
+						<?php the_field('card_3_text'); ?>
+					</p>
 				</div>
 				<div class="drag-cards__card">
 					<p class="drag-cards__card-number font-canela">04</p>
-					<h3 class="drag-cards__card-title font-fk">Reforming<br>Society</h3>
-					<p class="drag-cards__card-desc">We train others on the front line – police, NHS, charities and many more – to spot the signs of modern slavery and to respond effectively. We work with governments and businesses to make change happen.</p>
+					<h3 class="drag-cards__card-title font-fk">
+						<?php the_field('card_4_title'); ?>
+					</h3>
+					<p class="drag-cards__card-desc">
+						<?php the_field('card_4_text'); ?>
+					</p>
 				</div>
 			</div>
 			<div class="drag-cards__dots dots">
@@ -165,9 +193,11 @@ get_header();
 			</div>
 
 			<div class="drag-cards__button">
-			    <a href="#" class="button button--green">
+			    <a href="<?php the_field('drag_cards_button_link'); ?>" class="button button--green">
 					<div class="button__inner">
-						<div class="button__text bold">Learn more about<br>how we help</div>
+						<div class="button__text bold">
+							<?php the_field('drag_cards_button_text'); ?>
+						</div>
 					</div>
 				</a>
 			</div>
@@ -179,15 +209,19 @@ get_header();
 		--  
 		-->
 		<div class="freedom-wall">
-			<h2 class="freedom-wall__heading font-canela">Every lock on our Freedom Wall<br> represents a real life changed</h2>
+			<h2 class="freedom-wall__heading font-canela">
+				<?php the_field('freedom_wall_title'); ?>
+			</h2>
 			<div class="freedom-wall__button">
-			    <a href="#" class="button button--black">
+			    <a href="<?php the_field('freedom_wall_button_link'); ?>" class="button button--black">
 					<div class="button__inner">
-						<div class="button__text bold">See how we <br>change lives</div>
+						<div class="button__text bold">
+							<?php the_field('freedom_wall_button_text'); ?>
+						</div>
 					</div>
 				</a>
 			</div>
-			<div class="freedom-wall__image"></div>
+			<div style="background-image: url('<?php the_field('freedom_wall_image'); ?>');" class="freedom-wall__image"></div>
 		</div>
 
 	</div> <!-- /grid -->
@@ -210,15 +244,15 @@ get_header();
 	-- 
 	-- splash modal
 	-- 
-	--> 
-	<?php get_template_part(
-	    'partials/content',
-	    'modal',
-	    array(
-	        'type' => 'splash',
-	        'id' => 'splash-modal'
-	    )
-	); ?> 
+	
+	<?//php get_template_part(
+	    //'partials/content',
+	   // 'modal',
+	   // array(
+	        //'type' => 'splash',
+	       // 'id' => 'splash-modal'
+	   // )
+	//); ?> --> 
 
 	<?php endwhile; // end of the loop. ?>
 

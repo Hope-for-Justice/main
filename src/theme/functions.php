@@ -46,6 +46,10 @@ if ( ! function_exists( 'hope_for_justice_2021_setup' ) ) :
 		register_nav_menus( array(
 			'uk-primary' => esc_html__( 'uk-primary', 'hope-for-justice-2021' ),
 			'uk-secondary' => esc_html__( 'uk-secondary', 'hope-for-justice-2021' ),
+      'uk-footer-a' => esc_html__( 'uk-footer-a', 'hope-for-justice-2021' ),
+      'uk-footer-b' => esc_html__( 'uk-footer-b', 'hope-for-justice-2021' ),
+      'uk-footer-c' => esc_html__( 'uk-footer-c', 'hope-for-justice-2021' ),
+      'uk-footer-d' => esc_html__( 'uk-footer-d', 'hope-for-justice-2021' ),
 		) );
 
 		/*
@@ -553,3 +557,16 @@ function my_custom_override_iframe_template_styles() {
 }
 
 add_action('wp_print_styles', 'my_custom_override_iframe_template_styles', 10);
+
+//acf issue updating fix
+add_filter( 'https_ssl_verify', '__return_false' );
+
+if( function_exists('acf_add_options_page') ) {
+  
+  acf_add_options_page();
+  
+}
+
+//shortcodes
+include('custom-shortcodes.php');
+add_shortcode('dropdown', 'dropdown_function');

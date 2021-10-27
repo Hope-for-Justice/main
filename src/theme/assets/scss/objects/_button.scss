@@ -16,6 +16,7 @@
 	text-align: center;
 	letter-spacing: 1px;
 	display: inline-block;
+	transition: all 0.3s;
 	&__inner {
 		display: flex;
 		align-items:center;
@@ -44,6 +45,7 @@
 	}
 	&:hover {
 		cursor: pointer;
+		transform: rotate(1deg) scale(1.05);
 	}
 	&--smaller {font-size: 1.4em;}
 

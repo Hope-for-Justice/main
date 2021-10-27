@@ -5,6 +5,7 @@
 
  */
 .newsticker {
+  display: none;
   position:fixed;
   bottom:0;
   width:100%;
@@ -64,6 +65,10 @@
 
 
 @include mq($from: tablet) {
+
+.newsticker {
+  display: block;
+}
 
 .newsticker__item{font-size: 1.8em;}
 

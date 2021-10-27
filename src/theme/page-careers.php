@@ -38,15 +38,14 @@ get_header();
 			<div class="hero-split__content hero-split__content--grey">
 				<div class="hero-split__content-inner">
 					<h3>
-						#TeamHopeforJustice
+						<?php the_field('subtitle'); ?>
 					</h3>
 					<h1 class="font-canela">
-						Careers &<br>
-						Volunteering
+						<?php the_title(); ?>
 					</h1>
-					<p class="hero-split__desc hero-split__desc--thinner">
-						Hope for Justice is growing fast and we are always looking for talented and passionate people to join our team. With more than 30 locations across five continents, there are so many ways you can use your skills to make a difference in the fight against modern slavery and human trafficking.
-					</p>
+					<div class="hero-split__desc hero-split__desc--thinner">
+						<?php the_content(); ?>
+					</div>
 				</div>
 			</div>
 		</div><!-- /hero-split -->
@@ -57,8 +56,11 @@ get_header();
 		--  
 		-->
 		<div class="plain-text">
-			<h2 class="font-canela">Current vacancies</h2>
-			<p>Hope for Justice is committed to the principles of diversity, equality and inclusion. If you feel that your skills and experience fit one of our roles then we would welcome your application regardless of your background.
+			<h2 class="font-canela">
+			<?php the_field('vacancies_title'); ?>
+			</h2>
+			<p>
+				<?php the_field('vacancies_description'); ?>
 			</p>
 		</div><!-- /plain-text -->
 
@@ -103,16 +105,16 @@ get_header();
 		--  
 		-->
 		<div class="plain-text">
-			<h2 class="font-canela">Volunteering opportunities</h2>
-			<p><b>Do you want to be part of something incredible? At Hope for Justice, we’re proud to work with a community of amazing volunteers – and we’d love you to join us!</b>
-			<br><br>
-			Volunteers are the heartbeat of our movement to end slavery. By joining the team at Hope for Justice (wherever you are in the world) you can be part of making huge change happen in virtually every continent. We have been overwhelmed by the kindness of volunteers recently, and are excited to be accepting applications to support our teams, particularly in the following areas:
+			<h2 class="font-canela">
+				<?php the_field('volunteering_title'); ?>
+			</h2>
+			<p>
+				<?php the_field('volunteering_description'); ?>
 			</p>
-			<a class="button button--red">
+			<a href="<?php the_field('volunteering_button_link'); ?>" class="button button--red">
 				<div class="button__inner">
 					<div class="button__text bold">
-						See current 
-						<br>opportunities
+						<?php the_field('volunteering_button_text'); ?>
 					</div>
 				</div>
 			</a>

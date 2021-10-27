@@ -1,0 +1,65 @@
+/*
+*
+* _GET-HELP.SCSS
+*
+*/
+
+.get-help{
+	position: fixed;
+    right: 0px;
+    bottom: 0;
+	&__help-button {
+	@include box-shadow-reverse;
+	left:0;
+    top:0;
+    height: 39px;
+    display: flex;
+    align-items: center;
+    position:absolute;
+    left:0;
+    transform:translate(-100%, -100%);
+    font-family: 'fk-screamer', sans-serif;
+    text-transform: uppercase;
+    background-color: $yellow;
+    color: $black;
+    font-size: 2.6em;
+    line-height: 1;
+    //padding: 6px 13px;
+    padding: 6px 13px 6px 18px;
+    border-radius: 20px 0px 0px 20px;
+    //border-radius: 0;
+    z-index: 999;
+    white-space: nowrap;
+	}
+    &__quick-exit {
+    	@include box-shadow-reverse;
+    	display: none;
+    	height: 39px;
+    	// transform: translateX(-100%);
+    	background-color:$yellow;
+    	color: $black;
+    	padding: 6px 18px 6px 18px;
+    	border-left: 1px solid black;
+    	align-items: center;
+    	font-size: 1.6em;
+    	text-decoration: underline;
+    	span {margin-top: 1px;}
+    }
+}
+
+// Tablet
+///////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.get-help{
+    bottom: 42px;
+	&__help-button {
+		transform:translate(-100%, 0);
+	}
+    &__quick-exit {
+    	display: flex;
+    }
+}
+
+}

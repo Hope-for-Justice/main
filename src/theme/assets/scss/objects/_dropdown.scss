@@ -1,0 +1,35 @@
+/*
+*
+* _DROPDOWN.SCSS
+*
+*/
+
+.dropdown{
+	&__title{
+		position: relative;
+		display: inline-block;
+		span::after {
+			content:"▼";
+			position:absolute;
+			right:0px;
+			top:50%;
+			transform: translate(200%, -50%);
+			font-size: 0.5em;
+			transition: all 0.2s ease-out;
+		}
+	}
+	&__content {
+		max-height:0;
+		transition: max-height 0.4s ease-in-out;
+		overflow: hidden;
+	}
+	&--open {
+		.dropdown__content {
+			max-height: 10000px;
+		}
+		.dropdown__title span::after {
+			content: "▲"
+		}
+	}
+
+}

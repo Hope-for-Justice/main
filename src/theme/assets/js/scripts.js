@@ -30,8 +30,7 @@ jQuery(document).ready(function($) {
 
     //Drop down questions
     $('.dropdown').click(function() {
-        $(this).find(".answer").slideDown();
-        $(".dropdown").not(this).find(".answer").slideUp();
+        $(this).toggleClass('dropdown--open');
     });
 
     //Drop cards
@@ -54,7 +53,10 @@ jQuery(document).ready(function($) {
      });
 
     //News ticker
-    $("#newsTicker").eocjsNewsticker();
+    if ($(window).width() > 767) {
+        $("#newsTicker").eocjsNewsticker();
+    }
+    
 
     // Burger menu
     let isOpen = false;
@@ -227,40 +229,40 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
     }
 
     //give wp
-    $("#usaForm").find('iframe').contents().find(".currency--before").html('$');
-    $("#ausForm").find('iframe').contents().find(".currency--before").html('$');
-    $("#norwayForm").find('iframe').contents().find(".currency--before").html('Kr.');
+    //$("#usaForm").find('iframe').contents().find(".currency--before").html('$');
+    //$("#ausForm").find('iframe').contents().find(".currency--before").html('$');
+    //$("#norwayForm").find('iframe').contents().find(".currency--before").html('Kr.');
     
-    const selectOption = $(".give-embed-form-wrapper").find('iframe').contents().find(".preferencesQuestion").find('select');
-    const options = $(".give-embed-form-wrapper").find('iframe').contents().find(".preference"); 
-    const preferenceText = $(".give-embed-form-wrapper").find('iframe').contents().find(".preferenceText");
+    //const selectOption = $(".give-embed-form-wrapper").find('iframe').contents().find(".preferencesQuestion").find('select');
+    //const options = $(".give-embed-form-wrapper").find('iframe').contents().find(".preference"); 
+    //const preferenceText = $(".give-embed-form-wrapper").find('iframe').contents().find(".preferenceText");
 
-    let selectedValue = selectOption.val();
+    // let selectedValue = selectOption.val();
         
-    function preferenceQuestions(){
-        let selectedValue = selectOption.val();
-        if (selectedValue !== "Yes, keep my settings as they are") {
-            $(options).each(function(i) {
-                $(this).show();
-                $(this).find('select').children('option:nth-child(4)').prop('hidden','true');
-                $(this).find('select').children('option:nth-child(1)').prop('selected','selected');
-                $(preferenceText).parent().show();
-            });
-        } else {
-            $(options).each(function(i) {
-                $(this).hide();
-                $(this).find('select').children('option:nth-child(4)').prop('hidden','true');
-                $(this).find('select').children('option:nth-child(4)').prop('selected','selected');
-                $(preferenceText).parent().hide();
-            });
-        }  
-    }
+    // function preferenceQuestions(){
+    //     let selectedValue = selectOption.val();
+    //     if (selectedValue !== "Yes, keep my settings as they are") {
+    //         $(options).each(function(i) {
+    //             $(this).show();
+    //             $(this).find('select').children('option:nth-child(4)').prop('hidden','true');
+    //             $(this).find('select').children('option:nth-child(1)').prop('selected','selected');
+    //             $(preferenceText).parent().show();
+    //         });
+    //     } else {
+    //         $(options).each(function(i) {
+    //             $(this).hide();
+    //             $(this).find('select').children('option:nth-child(4)').prop('hidden','true');
+    //             $(this).find('select').children('option:nth-child(4)').prop('selected','selected');
+    //             $(preferenceText).parent().hide();
+    //         });
+    //     }  
+    // }
 
-    preferenceQuestions();
+    // preferenceQuestions();
 
-    selectOption.change(function (){
-        preferenceQuestions();
-    });
+    // selectOption.change(function (){
+    //     preferenceQuestions();
+    // });
 
     //Homepage
         // if(!$(".modal").length){
