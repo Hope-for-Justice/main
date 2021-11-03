@@ -26,25 +26,25 @@ get_header();
 						<span class="bold">Contact Press: </span><a href="mailto:press@hopeforjustice.org">press@hopeforjustice.org</a>
 					</p>
 					<!-- social icons -->
-					<ul class="news-header__social-icons">
-						<li class="news-header__social-icon">
-							<a href="#">
-								<img src="<?php echo get_template_directory_uri().'/assets/img/linkedin.svg'; ?>" alt="">
+					<ul class="footer__social-icons">
+						<li class="footer__social-icon">
+							<a href="<?php echo the_field('linked_in_link', 'option'); ?>">
+								<img src="<?php echo get_template_directory_uri().'/assets/img/li-white.svg'; ?>" alt="">
 							</a>
 						</li>
-						<li class="news-header__social-icon">
-							<a href="#">
-								<img src="<?php echo get_template_directory_uri().'/assets/img/instagram.svg'; ?>" alt="">
+						<li class="footer__social-icon">
+							<a href="<?php echo the_field('instagram_link', 'option'); ?>">
+								<img src="<?php echo get_template_directory_uri().'/assets/img/in-white.svg'; ?>" alt="">
 							</a>
 						</li>
-						<li class="news-header__social-icon">
-							<a href="#">
-								<img src="<?php echo get_template_directory_uri().'/assets/img/twitter-seeklogo.com.svg'; ?>" alt="">
+						<li class="footer__social-icon">
+							<a href="<?php echo the_field('twitter_link', 'option'); ?>">
+								<img src="<?php echo get_template_directory_uri().'/assets/img/tw-white.svg'; ?>" alt="">
 							</a>
 						</li>
-						<li class="news-header__social-icon">
-							<a href="#">
-								<img src="<?php echo get_template_directory_uri().'/assets/img/fb.svg'; ?>" alt="">
+						<li class="footer__social-icon">
+							<a href="<?php echo the_field('facebook_link', 'option'); ?>">
+								<img src="<?php echo get_template_directory_uri().'/assets/img/fb-white.svg'; ?>" alt="">
 							</a>
 						</li>
 					</ul>

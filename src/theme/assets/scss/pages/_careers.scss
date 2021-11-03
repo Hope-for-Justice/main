@@ -17,6 +17,10 @@
 .volunteering .career-cards {
 	padding-bottom: 8em;
 }
+
+.careers .careers__vacancies {
+	margin-bottom: 2em;
+}
 // tablet
 ///////////////////////////////////////////////////////////////////////////
 
@@ -24,6 +28,10 @@
 
 .careers .plain-text {
 	margin: 8em 0;
+}
+
+.careers .careers__vacancies {
+	margin-bottom: 4em;
 }
 
 }
@@ -41,5 +49,7 @@
 	grid-column: col4 / col10;
 	margin: 8em 0;
 }
+
+
 
 }

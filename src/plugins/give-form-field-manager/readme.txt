@@ -1,10 +1,10 @@
 === Give - Form Field Manager ===
 Contributors: givewp
 Tags: donations, donation, ecommerce, e-commerce, fundraising, fundraiser, paymill, gateway
-Requires at least: 4.8
-Tested up to: 5.7
-Stable tag: 1.6.0
-Requires Give: 2.10.0
+Requires at least: 4.9
+Tested up to: 5.8
+Stable tag: 2.0.0
+Requires Give: 2.16.0
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -36,6 +36,11 @@ The manual installation method involves downloading our donation plugin and uplo
 Automatic updates should work like a charm; as always though, ensure you backup your site just in case.
 
 == Changelog ==
+
+= 2.0.0: October 25th, 2021 =
+* New: Field conditions! Conditionally display a field based on the donation amount or another field!
+* Change: All fields are new registered via the new Field API
+* Break: Field markup has changed to match the Field API, so existing custom styles may break! Test before updating on production!
 
 = 1.6.0: March 25th, 2021 =
 * New: Added support for the new plugin telemetry introduced in GiveWP 2.10.0

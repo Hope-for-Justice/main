@@ -9,6 +9,8 @@
  */
 
 // Exit if accessed directly
+use GiveFormFieldManager\Helpers\Form;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -58,20 +60,18 @@ class Give_FFM_Emails {
 		}
 
 		// Bailout.
-		if( ! ( $form_id = give_get_payment_form_id( $tag_args['payment_id'] ) ) ) {
+		if ( ! ( $form_id = give_get_payment_form_id( $tag_args['payment_id'] ) ) ) {
 			return '';
 		}
 
 		//Get input field data
 		$ffm          = new Give_FFM_Render_Form();
-		$form_data    = $ffm->get_input_fields( $form_id );
+		$form_data    = Form::get_input_fields( $form_id );
 		$ignore_lists = array( 'section', 'html', 'action_hook', 'file_upload' );
 		$output       = '';
 
 		//Loop through form fields and match.
 		foreach ( $form_data as $key => $value ) {
-
-
 			if ( empty( $value ) ) {
 				continue;
 			}

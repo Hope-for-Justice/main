@@ -41,9 +41,9 @@ get_header();
 						<?php the_title(); ?>
 					</h1>
 					<div class="hero-split__desc hero-split__desc--thinner">
-						<p>
+						
 							<?php the_content(); ?>		
-						</p>
+						
 					</div>
 				</div>
 			</div>

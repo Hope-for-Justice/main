@@ -34,7 +34,7 @@ class Give_FFM_Admin_Template {
 		$field_label = $values ? '<strong>' . $values['label'] . '</strong>' : '';
 		?>
 		<div class="ffm-legend form-field-item-bar"
-		     title="<?php _e( 'Drag and drop to re-arrange the field order.', 'give-form-field-manager' ); ?>"
+		     title="<?php _e( 'Drag and drop to rearrange the field order.', 'give-form-field-manager' ); ?>"
 		     data-position="left center">
 			<div class="form-field-item-handle">
 
@@ -108,19 +108,19 @@ class Give_FFM_Admin_Template {
 	public static function common( $id, $field_name_value = '', $custom_field = true, $values = array(), $toggle = array() ) {
 		$tpl               = '%s[%d][%s]';
 
-		$required_name     = sprintf( $tpl, self::$input_name, $id, 'required' );
-		$field_name        = sprintf( $tpl, self::$input_name, $id, 'name' );
-		$label_name        = sprintf( $tpl, self::$input_name, $id, 'label' );
-		$is_meta_name      = sprintf( $tpl, self::$input_name, $id, 'is_meta' );
-		$help_name         = sprintf( $tpl, self::$input_name, $id, 'help' );
-		$css_name          = sprintf( $tpl, self::$input_name, $id, 'css' );
-		$field_width_name  = sprintf( $tpl, self::$input_name, $id, 'field_width' );
-		$required          = $values && isset( $values['required'] ) ? esc_attr( $values['required'] ) : 'no';
-		$label_value       = $values && isset( $values['label'] ) ? esc_attr( $values['label'] ) : '';
-		$help_value        = $values && isset( $values['help'] ) ? esc_textarea( $values['help'] ) : '';
-		$css_value         = $values && isset( $values['css'] ) ? esc_attr( $values['css'] ) : '';
-		$field_width_value = $values && isset( $values['field_width'] ) ? esc_attr( $values['field_width'] ) : '';
-		$meta_key_disabled = '';
+		$required_name                         = sprintf( $tpl, self::$input_name, $id, 'required' );
+		$field_name                            = sprintf( $tpl, self::$input_name, $id, 'name' );
+		$label_name                            = sprintf( $tpl, self::$input_name, $id, 'label' );
+		$is_meta_name                          = sprintf( $tpl, self::$input_name, $id, 'is_meta' );
+		$help_name                             = sprintf( $tpl, self::$input_name, $id, 'help' );
+		$css_name                              = sprintf( $tpl, self::$input_name, $id, 'css' );
+		$field_width_name                      = sprintf( $tpl, self::$input_name, $id, 'field_width' );
+		$required                              = $values && isset( $values['required'] ) ? esc_attr( $values['required'] ) : 'no';
+		$label_value                           = $values && isset( $values['label'] ) ? esc_attr( $values['label'] ) : '';
+		$help_value                            = $values && isset( $values['help'] ) ? esc_textarea( $values['help'] ) : '';
+		$css_value                             = $values && isset( $values['css'] ) ? esc_attr( $values['css'] ) : '';
+		$field_width_value                     = $values && isset( $values['field_width'] ) ? esc_attr( $values['field_width'] ) : '';
+		$meta_key_disabled                     = '';
 
 		if ( $custom_field && $values ) {
 			$field_name_value = $values['name'];
@@ -152,17 +152,19 @@ class Give_FFM_Admin_Template {
 					_e( 'Required', 'give-form-field-manager' );
 
 					echo Give()->tooltips->render_help( array(
-						'label'    => __( 'Is this a required field? Required fields must be completed prior to a donation.', 'give-form-field-manager' ),
+						'label'    => __( 'Required fields must be completed for the donation to submit. Note that conditionally-displayed fields are only required when visible.', 'give-form-field-manager' ),
 						'position' => 'right'
 					) );
 					?>
 				</label>
 				<div class="give-form-fields-sub-fields">
 					<label>
-						<input type="radio" name="<?php echo $required_name; ?>" value="yes"<?php checked( $required, 'yes' ); ?>> <?php _e( 'Yes', 'give-form-field-manager' ); ?>
+						<input type="radio" name="<?php echo $required_name; ?>"
+							   value="yes"<?php checked( $required, 'yes' ); ?>> <?php _e( 'Yes', 'give-form-field-manager' ); ?>
 					</label>
 					<label>
-						<input type="radio" name="<?php echo $required_name; ?>" value="no"<?php checked( $required, 'no' ); ?>> <?php _e( 'No', 'give-form-field-manager' ); ?>
+						<input type="radio" name="<?php echo $required_name; ?>"
+							   value="no"<?php checked( $required, 'no' ); ?>> <?php _e( 'No', 'give-form-field-manager' ); ?>
 					</label>
 				</div>
 			</div> <!-- .give-form-fields-rows -->
@@ -171,24 +173,40 @@ class Give_FFM_Admin_Template {
 		?>
 
 		<div class="give-form-fields-rows">
-			<label><?php _e( 'Field Label', 'give-form-field-manager' ); ?>
-				<span class="give-tooltip give-icon give-icon-question"
-				      data-tooltip="<?php _e( 'Enter a label for this field. The label is like a title for the field.', 'give-form-field-manager' ); ?>"></label>
+			<label>
+				<?php _e( 'Field Label', 'give-form-field-manager' ); ?>
+				<?php
+				echo give()->tooltips->render_help( [
+					'label' => esc_html__(
+						'The label is like a title for the field and is displayed to the donor.',
+						'give-form-field-manager'
+					)
+				] );
+				?>
+			</label>
 			<input class="js-ffm-field-label" type="text" data-type="label" name="<?php echo $label_name; ?>"
-			       value="<?php echo $label_value; ?>">
+				   value="<?php echo $label_value; ?>">
 		</div> <!-- .give-form-fields-rows -->
 
 		<?php if ( $custom_field ) { ?>
 			<div class="give-form-fields-rows">
-				<label><?php _e( 'Meta Key', 'give-form-field-manager' ); ?>
-					<span class="give-tooltip give-icon give-icon-question"
-					      data-tooltip="<?php _e( 'The name of the meta key this field will save to in the database. This should not have any spaces or foreign characters.', 'give-form-field-manager' ); ?>"></label>
+				<label>
+					<?php _e( 'Meta Key', 'give-form-field-manager' ); ?>
+					<?php
+					echo give()->tooltips->render_help( [
+						'label' => esc_html__(
+							'The name of the meta key this field will save to in the database. This should not have any spaces or special characters.',
+							'give-form-field-manager'
+						)
+					] );
+					?>
+				</label>
 				<div class="give-meta-key-wrap">
 					<input class="js-ffm-meta-key" type="text" name="<?php echo $field_name; ?>"
 						<?php echo $meta_key_disabled; ?>
 						   value="<?php echo $field_name_value; ?>" maxlength="200">
 
-					<?php if( ! empty( $field_name_value ) ) { ?>
+					<?php if ( ! empty( $field_name_value ) ) { ?>
 						<a class="give-icon-locked-anchor" href="javascript;">
 							<i class="give-icon give-icon-locked"></i>
 						</a>
@@ -207,9 +225,17 @@ class Give_FFM_Admin_Template {
 		if ( ! empty( $toggle['field_width'] ) && true === $toggle['field_width'] ) {
 			?>
 			<div class="give-form-fields-rows">
-				<label><?php _e( 'Field Width', 'give-form-field-manager' ); ?>
-					<span class="give-tooltip give-icon give-icon-question"
-					      data-tooltip="<?php _e( 'Define width of the form field to manage your form', 'give-form-field-manager' ); ?>"></span></label>
+				<label>
+					<?php _e( 'Field Width', 'give-form-field-manager' ); ?>
+					<?php
+					echo give()->tooltips->render_help( [
+						'label' => esc_html__(
+							'This setting determines how widely this field displays.',
+							'give-form-field-manager'
+						)
+					] );
+					?>
+				</label>
 
 				<select name="<?php echo $field_width_name; ?>">
 					<option value="full"<?php selected( $field_width_value, 'full' ) ?>>
@@ -232,9 +258,17 @@ class Give_FFM_Admin_Template {
 		// If Required and CSS Toggle is enabled, then show CSS Class Name Form Field.
 		if ( ! empty( $toggle['required'] ) && true === $toggle['required'] && ! empty( $toggle['css'] ) && true === $toggle['css'] ) { ?>
 			<div class="give-form-fields-rows">
-				<label><?php _e( 'CSS Class Name', 'give-form-field-manager' ); ?>
-					<span class="give-tooltip give-icon give-icon-question"
-					      data-tooltip="<?php _e( 'Add a CSS class name for this field', 'give-form-field-manager' ); ?>"></label>
+				<label>
+					<?php _e( 'CSS Class Name', 'give-form-field-manager' ); ?>
+					<?php
+					echo give()->tooltips->render_help( [
+						'label' => esc_html__(
+							'Add a CSS class name for this field',
+							'give-form-field-manager'
+						)
+					] );
+					?>
+				</label>
 				<input type="text" name="<?php echo $css_name; ?>" value="<?php echo $css_value; ?>">
 			</div> <!-- .give-form-fields-rows -->
 		<?php } else { ?>
@@ -246,9 +280,17 @@ class Give_FFM_Admin_Template {
 		if ( ! empty( $toggle['help'] ) && true === $toggle['help'] ) {
 			?>
 			<div class="give-form-fields-rows wide">
-				<label><?php _e( 'Help text', 'give-form-field-manager' ); ?>
-					<span class="give-tooltip give-icon give-icon-question"
-					      data-tooltip="<?php _e( 'Give the user some information about this field', 'give-form-field-manager' ); ?>"></label>
+				<label>
+					<?php _e( 'Help text', 'give-form-field-manager' ); ?>
+					<?php
+					echo give()->tooltips->render_help( [
+						'label' => esc_html__(
+							'Give the user some information about this field',
+							'give-form-field-manager'
+						)
+					] );
+					?>
+				</label>
 				<textarea name="<?php echo $help_name; ?>"><?php echo $help_value; ?></textarea>
 			</div> <!-- .give-form-fields-rows -->
 			<?php
@@ -293,10 +335,18 @@ class Give_FFM_Admin_Template {
 		if ( $placeholder_toggle ) {
 			?>
 			<div class="give-form-fields-rows">
-				<label><?php _e( 'Placeholder text', 'give-form-field-manager' ); ?>
-					<span class="give-tooltip give-icon give-icon-question"
-					      data-tooltip="<?php esc_attr_e( 'Text for HTML5 placeholder attribute', 'give-form-field-manager' ); ?>"></label>
-				<input type="text" name="<?php echo $placeholder_name; ?>" value="<?php echo $placeholder_value; ?>" />
+				<label>
+					<?php _e( 'Placeholder text', 'give-form-field-manager' ); ?>
+					<?php
+					echo give()->tooltips->render_help( [
+						'label' => esc_html__(
+							'Text for HTML5 placeholder attribute',
+							'give-form-field-manager'
+						)
+					] );
+					?>
+				</label>
+				<input type="text" name="<?php echo $placeholder_name; ?>" value="<?php echo $placeholder_value; ?>"/>
 			</div> <!-- .give-form-fields-rows -->
 			<?php
 		}
@@ -304,10 +354,18 @@ class Give_FFM_Admin_Template {
 		if ( $default_toggle ) {
 			?>
 			<div class="give-form-fields-rows">
-				<label><?php _e( 'Default value', 'give-form-field-manager' ); ?>
-					<span class="give-tooltip give-icon give-icon-question"
-					      data-tooltip="<?php esc_attr_e( 'The default value this field will have', 'give-form-field-manager' ); ?>"></label>
-				<input type="text" name="<?php echo $default_name; ?>" value="<?php echo $default_value; ?>" />
+				<label>
+					<?php _e( 'Default value', 'give-form-field-manager' ); ?>
+					<?php
+					echo give()->tooltips->render_help( [
+						'label' => esc_html__(
+							'The value the field will carry if the donor does not fill out the field. Leave blank in most cases.',
+							'give-form-field-manager'
+						)
+					] );
+					?>
+				</label>
+				<input type="text" name="<?php echo $default_name; ?>" value="<?php echo $default_value; ?>"/>
 			</div> <!-- .give-form-fields-rows -->
 			<?php
 		}
@@ -315,10 +373,18 @@ class Give_FFM_Admin_Template {
 		if ( $maxlength_toggle ) {
 			?>
 			<div class="give-form-fields-rows">
-				<label><?php _e( 'Max Length', 'give-form-field-manager' ); ?>
-					<span class="give-tooltip give-icon give-icon-question"
-					      data-tooltip="<?php esc_attr_e( 'Maxlength of this input field', 'give-form-field-manager' ); ?>"></label>
-				<input type="text" name="<?php echo $maxlength_name; ?>" value="<?php echo $maxlength_value; ?>" />
+				<label>
+					<?php _e( 'Max Length', 'give-form-field-manager' ); ?>
+					<?php
+					echo give()->tooltips->render_help( [
+						'label' => esc_html__(
+							'Maximum length of this input field',
+							'give-form-field-manager'
+						)
+					] );
+					?>
+				</label>
+				<input type="text" name="<?php echo $maxlength_name; ?>" value="<?php echo $maxlength_value; ?>"/>
 			</div> <!-- .give-form-fields-rows -->
 			<?php
 		}
@@ -327,7 +393,9 @@ class Give_FFM_Admin_Template {
 	/**
 	 * Common fields for a textarea.
 	 *
-	 * @param int   $id
+	 * @since [[UNRELEASED]] Remove support for WYSIWYG editor with backward compatibility.
+	 *
+	 * @param int $id
 	 * @param array $values
 	 */
 	public static function common_textarea( $id, $values = array() ) {
@@ -349,52 +417,77 @@ class Give_FFM_Admin_Template {
 			<label>
 				<?php
 				_e( 'Rows', 'give-form-field-manager' );
-
 				echo Give()->tooltips->render_help( array(
 					'label'    => __( 'The number of rows in the textarea. This affects the height of the textarea.', 'give-form-field-manager' ),
 					'position' => 'right'
 				) );
 				?>
 			</label>
-			<input type="text" name="<?php echo $rows_name; ?>" value="<?php echo $rows_value; ?>" />
+			<input type="text" name="<?php echo $rows_name; ?>" value="<?php echo $rows_value; ?>"/>
 		</div> <!-- .give-form-fields-rows -->
 
 		<div class="give-form-fields-rows">
-			<label><?php _e( 'Columns', 'give-form-field-manager' ); ?>
-				<span class="give-tooltip give-icon give-icon-question"
-				      data-tooltip="<?php _e( 'Number of columns in textarea.', 'give-form-field-manager' ); ?>"></label>
-			<input type="text" name="<?php echo $cols_name; ?>" value="<?php echo $cols_value; ?>" />
+			<label>
+				<?php _e( 'Columns', 'give-form-field-manager' ); ?>
+				<?php
+				echo give()->tooltips->render_help( [
+					'label' => esc_html__(
+						'Number of columns in textarea.',
+						'give-form-field-manager'
+					)
+				] );
+				?>
+			</label>
+			<input type="text" name="<?php echo $cols_name; ?>" value="<?php echo $cols_value; ?>"/>
 		</div> <!-- .give-form-fields-rows -->
 
 		<div class="give-form-fields-rows">
-			<label><?php _e( 'Placeholder text', 'give-form-field-manager' ); ?>
-				<span class="give-tooltip give-icon give-icon-question"
-				      data-tooltip="<?php _e( 'The text for an HTML5 placeholder attribute.', 'give-form-field-manager' ); ?>"></label>
-			<input type="text" name="<?php echo $placeholder_name; ?>" value="<?php echo $placeholder_value; ?>" />
+			<label>
+				<?php _e( 'Placeholder text', 'give-form-field-manager' ); ?>
+				<?php
+				echo give()->tooltips->render_help( [
+					'label' => esc_html__(
+						'The text for an HTML5 placeholder attribute.',
+						'give-form-field-manager'
+					)
+				] );
+				?>
+			</label>
+			<input type="text" name="<?php echo $placeholder_name; ?>" value="<?php echo $placeholder_value; ?>"/>
 		</div> <!-- .give-form-fields-rows -->
 
 		<div class="give-form-fields-rows wide">
-			<label><?php _e( 'Default value', 'give-form-field-manager' ); ?>
-				<span class="give-tooltip give-icon give-icon-question"
-				      data-tooltip="<?php _e( 'The default value this field will have.', 'give-form-field-manager' ); ?>"></label>
-			<textarea name="<?php echo $default_name; ?>" ><?php echo $default_value; ?></textarea>
+			<label>
+				<?php _e( 'Default value', 'give-form-field-manager' ); ?>
+				<?php
+				echo give()->tooltips->render_help( [
+					'label' => esc_html__(
+						'The value the field will carry if the donor does not fill out the field. Leave blank in most cases.',
+						'give-form-field-manager'
+					)
+				] );
+				?>
+			</label>
+			<textarea name="<?php echo $default_name; ?>"><?php echo $default_value; ?></textarea>
 		</div> <!-- .give-form-fields-rows -->
 
-		<div class="give-form-fields-rows wide">
-			<label><?php _e( 'Textarea', 'give-form-field-manager' ); ?></label>
+		<?php if ( in_array( $rich_value, [ 'yes', 'teeny' ] ) ): ?>
+			<div class="give-form-fields-rows wide">
+				<label><?php _e( 'Textarea', 'give-form-field-manager' ); ?></label>
+				<div class="give-form-fields-sub-fields">
+					<label><input type="radio" name="<?php echo $rich_name; ?>"
+								  value="no"<?php checked( $rich_value, 'no' ); ?>> <?php _e( 'Normal', 'give-form-field-manager' ); ?>
+					</label>
+					<label><input type="radio" name="<?php echo $rich_name; ?>"
+								  value="yes"<?php checked( $rich_value, 'yes' ); ?>> <?php _e( 'Rich textarea', 'give-form-field-manager' ); ?>
+					</label>
+					<label><input type="radio" name="<?php echo $rich_name; ?>"
+								  value="teeny"<?php checked( $rich_value, 'teeny' ); ?>> <?php _e( 'Small Rich textarea', 'give-form-field-manager' ); ?>
+					</label>
+				</div>
+			</div> <!-- .give-form-fields-rows -->
+		<?php endif; ?>
 
-			<div class="give-form-fields-sub-fields">
-				<label><input type="radio" name="<?php echo $rich_name; ?>"
-				              value="no"<?php checked( $rich_value, 'no' ); ?>> <?php _e( 'Normal', 'give-form-field-manager' ); ?>
-				</label>
-				<label><input type="radio" name="<?php echo $rich_name; ?>"
-				              value="yes"<?php checked( $rich_value, 'yes' ); ?>> <?php _e( 'Rich textarea', 'give-form-field-manager' ); ?>
-				</label>
-				<label><input type="radio" name="<?php echo $rich_name; ?>"
-				              value="teeny"<?php checked( $rich_value, 'teeny' ); ?>> <?php _e( 'Small Rich textarea', 'give-form-field-manager' ); ?>
-				</label>
-			</div>
-		</div> <!-- .give-form-fields-rows -->
 		<?php
 	}
 
@@ -411,9 +504,17 @@ class Give_FFM_Admin_Template {
 	public static function common_email_tag_field() {
 		?>
 		<div class="give-form-fields-rows">
-			<label><?php _e( 'Email Tag', 'give-form-field-manager' ); ?>
-				<span class="give-tooltip give-icon give-icon-question"
-					  data-tooltip="<?php esc_attr_e( 'You can use this email tag to show this data in email.', 'give-form-field-manager' ); ?>"></label>
+			<label>
+				<?php _e( 'Email Tag', 'give-form-field-manager' ); ?>
+				<?php
+				echo give()->tooltips->render_help( [
+					'label' => esc_html__(
+						'Use this email tag to dynamically output the data in supported GiveWP emails.',
+						'give-form-field-manager'
+					)
+				] );
+				?>
+			</label>
 			<input type="text" name="" value="" class="give-form-field-email-tag-field" readonly/>
 		</div> <!-- .give-form-fields-rows -->
 		<?php
@@ -547,35 +648,52 @@ class Give_FFM_Admin_Template {
 		$title_name  = sprintf( '%s[%d][label]', self::$input_name, $field_id );
 		$title_value = $values ? esc_attr( $values['label'] ) : '';
 		$class_name  = sprintf( '%s[%d][class]', self::$input_name, $field_id );
-		$class_value  = $values ? esc_attr( $values['class'] ) : '';
+		$class_value = $values ? esc_attr( $values['class'] ) : '';
 		?>
-		<li class="custom-field text_field">
+		<li class="custom-field section_field">
 			<?php self::legend( $field_id, $label, $values, $removable ); ?>
 			<?php self::hidden_field( "[$field_id][input_type]", 'section' ); ?>
 			<?php self::hidden_field( "[$field_id][template]", 'section_field' ); ?>
 
 			<div id="form-field-item-settings-<?php echo esc_attr( $field_id ); ?>"
-			     class="give-form-fields-holder collapse">
+				 class="give-form-fields-holder collapse">
 				<div class="give-form-fields-rows wide">
-					<label><?php _e( 'Section Name', 'give-form-field-manager' ); ?>
-						<span class="give-tooltip give-icon give-icon-question"
-						      data-tooltip="<?php _e( 'The name of the section title.', 'give-form-field-manager' ); ?>"></span></label>
-
+					<label>
+						<?php _e( 'Section Name', 'give-form-field-manager' ); ?>
+						<?php
+						echo give()->tooltips->render_help( [
+							'label' => esc_html__(
+								'The name of the section title.',
+								'give-form-field-manager'
+							)
+						] );
+						?>
+					</label>
 					<div class="give-form-fields-sub-fields">
 						<input type="text" name="<?php echo $title_name; ?>"
-						       value="<?php echo esc_attr( $title_value ); ?>" />
+							   value="<?php echo esc_attr( $title_value ); ?>"/>
 
 						<div class="description" style="margin-top: 8px;">
-							<p class="give-field-description"><?php _e( 'Sections are helpful to break up sections of a form.', 'give-form-field-manager' ); ?></p>
+							<p class="give-field-description"><?php _e( 'Sections are helpful to break up sections of custom fields on a form.', 'give-form-field-manager' ); ?></p>
 						</div>
 					</div>
 				</div>
 				<div class="give-form-fields-rows">
-					<label><?php _e( 'CSS Class Name', 'give-form-field-manager' ); ?>
-						<span class="give-tooltip give-icon give-icon-question"
-						      data-tooltip="<?php _e( 'Add a CSS class name for the section.', 'give-form-field-manager' ); ?>"></label>
-					<input type="text" name="<?php  echo $class_name; ?>" value="<?php echo $class_value; ?>">
+					<label>
+						<?php _e( 'CSS Class Name', 'give-form-field-manager' ); ?>
+						<?php
+						echo give()->tooltips->render_help( [
+							'label' => esc_html__(
+								'Add a CSS class name for the section.',
+								'give-form-field-manager'
+							)
+						] );
+						?>
+					</label>
+					<input type="text" name="<?php echo $class_name; ?>" value="<?php echo $class_value; ?>">
 				</div> <!-- .give-form-fields-rows -->
+
+				<?php self::common_condition_visibility_settings( $field_id, $values ); ?>
 
 				<div class="form-field-actions">
 					<?php if ( $removable ) : ?>
@@ -610,9 +728,10 @@ class Give_FFM_Admin_Template {
 			<?php self::hidden_field( "[$field_id][template]", 'text_field' ); ?>
 
 			<div id="form-field-item-settings-<?php echo esc_attr( $field_id ); ?>"
-			     class="give-form-fields-holder collapse">
+				 class="give-form-fields-holder collapse">
 				<?php self::common( $field_id, '', true, $values ); ?>
 				<?php self::common_text( $field_id, $values ); ?>
+				<?php self::common_condition_visibility_settings( $field_id, $values ); ?>
 
 				<div class="form-field-actions">
 					<?php if ( $removable ) : ?>
@@ -632,12 +751,13 @@ class Give_FFM_Admin_Template {
 	/**
 	 * Hidden Form Field
 	 *
-	 * @param           $field_id  Form Field ID.
-	 * @param           $label     Label of Form Field.
-	 * @param array     $values    List of form field values.
+	 * @since 1.2
+	 *
+	 * @param string $label Label of Form Field.
+	 * @param array $values List of form field values.
 	 * @param bool|true $removable Toggle to add option for removing the form field collapsible from the FFM holder.
 	 *
-	 * @since 1.2
+	 * @param int $field_id Form Field ID.
 	 */
 	public static function hidden_form_field( $field_id, $label, $values = array(), $removable = true ) {
 		?>
@@ -697,9 +817,10 @@ class Give_FFM_Admin_Template {
 			<?php self::hidden_field( "[$field_id][template]", 'textarea_field' ); ?>
 
 			<div id="form-field-item-settings-<?php echo esc_attr( $field_id ); ?>"
-			     class="give-form-fields-holder collapse">
+				 class="give-form-fields-holder collapse">
 				<?php self::common( $field_id, '', true, $values ); ?>
 				<?php self::common_textarea( $field_id, $values ); ?>
+				<?php self::common_condition_visibility_settings( $field_id, $values ); ?>
 
 				<div class="form-field-actions">
 					<?php if ( $removable ) : ?>
@@ -745,6 +866,7 @@ class Give_FFM_Admin_Template {
 					<!-- .give-form-fields-sub-fields -->
 				</div>
 				<!-- .give-form-fields-rows -->
+				<?php self::common_condition_visibility_settings( $field_id, $values ); ?>
 
 				<div class="form-field-actions">
 					<?php if ( $removable ) : ?>
@@ -790,6 +912,7 @@ class Give_FFM_Admin_Template {
 					<!-- .give-form-fields-sub-fields -->
 				</div>
 				<!-- .give-form-fields-rows -->
+				<?php self::common_condition_visibility_settings( $field_id, $values ); ?>
 
 				<div class="form-field-actions">
 					<?php if ( $removable ) : ?>
@@ -853,6 +976,7 @@ class Give_FFM_Admin_Template {
 					<!-- .give-form-fields-sub-fields -->
 				</div>
 				<!-- .give-form-fields-rows -->
+				<?php self::common_condition_visibility_settings( $field_id, $values ); ?>
 
 				<div class="form-field-actions">
 					<?php if ( $removable ) : ?>
@@ -916,6 +1040,7 @@ class Give_FFM_Admin_Template {
 					<!-- .give-form-fields-sub-fields -->
 				</div>
 				<!-- .give-form-fields-rows -->
+				<?php self::common_condition_visibility_settings( $field_id, $values ); ?>
 
 				<div class="form-field-actions">
 					<?php if ( $removable ) : ?>
@@ -956,7 +1081,7 @@ class Give_FFM_Admin_Template {
 		$extensions = give_ffm_allowed_extension();
 
 		$help  = esc_attr( __( 'Enter maximum upload size limit in KB', 'give-form-field-manager' ) );
-		$count = esc_attr( __( 'Number of images can be uploaded', 'give-form-field-manager' ) );
+		$count = esc_attr( __( 'Number of images that can be uploaded', 'give-form-field-manager' ) );
 		?>
 		<li class="custom-field custom_image">
 			<?php self::legend( $field_id, $label, $values, $removable ); ?>
@@ -964,42 +1089,64 @@ class Give_FFM_Admin_Template {
 			<?php self::hidden_field( "[$field_id][template]", 'file_upload' ); ?>
 
 			<div id="form-field-item-settings-<?php echo esc_attr( $field_id ); ?>"
-			     class="give-form-fields-holder collapse">
+				 class="give-form-fields-holder collapse">
 				<?php self::common( $field_id, '', true, $values ); ?>
 
 				<div class="give-form-fields-rows">
-					<label><?php _e( 'Max. file size', 'give-form-field-manager' ); ?>
-						<span class="give-tooltip give-icon give-icon-question"
-						      data-tooltip="<?php echo $help; ?>"></span></label>
+					<label>
+						<?php _e( 'Max. file size', 'give-form-field-manager' ); ?>
+						<?php echo give()->tooltips->render_help( [ 'label' => $help ] ); ?>
+					</label>
 					<input type="text" name="<?php echo $max_size_name; ?>" value="<?php echo $max_size_value; ?>">
 				</div>
 				<!-- .give-form-fields-rows -->
 
 				<div class="give-form-fields-rows">
-					<label><?php _e( 'Max. files', 'give-form-field-manager' ); ?>
-						<span class="give-tooltip give-icon give-icon-question"
-						      data-tooltip="<?php _e( 'How many files should the user be allowed to upload?', 'give-form-field-manager' ); ?>"></span></label>
+					<label>
+						<?php _e( 'Max. files', 'give-form-field-manager' ); ?>
+						<?php
+						echo give()->tooltips->render_help(
+							[
+								'label' => esc_html__(
+									'How many files should the user be allowed to upload?',
+									'give-form-field-manager'
+								)
+							]
+						);
+						?>
+					</label>
 					<input type="text" name="<?php echo $max_files_name; ?>" value="<?php echo $max_files_value; ?>">
 				</div>
 				<!-- .give-form-fields-rows -->
 
 				<div class="give-form-fields-rows wide">
-					<label><?php _e( 'Allowed Upload File Types', 'give-form-field-manager' ); ?> <span
-								class="give-tooltip give-icon give-icon-question"
-								data-tooltip="<?php _e( 'Below are all the extensions allowed by donors to upload. Use extreme caution when allowing zip files, executables and large file sizes for important server and security reasons.', 'give-form-field-manager' ); ?>"></span></label>
+					<label>
+						<?php _e( 'Allowed Upload File Types', 'give-form-field-manager' ); ?>
+						<?php
+						echo give()->tooltips->render_help(
+							[
+								'label' => esc_html__(
+									'Below are all the extensions allowed by donors to upload. Use extreme caution when allowing zip files, executables and large file sizes for important server and security reasons.',
+									'give-form-field-manager'
+								)
+							]
+						);
+						?>
+					</label>
 
 					<div class="give-form-fields-sub-fields">
 						<?php foreach ( $extensions as $key => $value ) {
 							?>
 							<label>
 								<input type="checkbox" name="<?php echo $extensions_name; ?>"
-								       value="<?php echo $key; ?>"<?php echo in_array( $key, $extensions_value ) ? ' checked="checked"' : ''; ?>>
+									   value="<?php echo $key; ?>"<?php echo in_array( $key, $extensions_value ) ? ' checked="checked"' : ''; ?>>
 								<?php printf( '%s (%s)', $value['label'], str_replace( ',', ', ', $value['ext'] ) ) ?>
-							</label> <br />
+							</label> <br/>
 						<?php } ?>
 					</div>
 				</div>
 				<!-- .give-form-fields-rows -->
+				<?php self::common_condition_visibility_settings( $field_id, $values ); ?>
 
 				<div class="form-field-actions">
 					<?php if ( $removable ) : ?>
@@ -1031,9 +1178,10 @@ class Give_FFM_Admin_Template {
 			<?php self::hidden_field( "[$field_id][template]", 'website_url' ); ?>
 
 			<div id="form-field-item-settings-<?php echo esc_attr( $field_id ); ?>"
-			     class="give-form-fields-holder collapse">
+				 class="give-form-fields-holder collapse">
 				<?php self::common( $field_id, '', true, $values ); ?>
 				<?php self::common_text( $field_id, $values ); ?>
+				<?php self::common_condition_visibility_settings( $field_id, $values ); ?>
 
 				<div class="form-field-actions">
 					<?php if ( $removable ) : ?>
@@ -1065,9 +1213,10 @@ class Give_FFM_Admin_Template {
 			<?php self::hidden_field( "[$field_id][template]", 'email_address' ); ?>
 
 			<div id="form-field-item-settings-<?php echo esc_attr( $field_id ); ?>"
-			     class="give-form-fields-holder collapse">
+				 class="give-form-fields-holder collapse">
 				<?php self::common( $field_id, '', true, $values ); ?>
 				<?php self::common_text( $field_id, $values ); ?>
+				<?php self::common_condition_visibility_settings( $field_id, $values ); ?>
 
 				<div class="form-field-actions">
 					<?php if ( $removable ) : ?>
@@ -1136,43 +1285,83 @@ class Give_FFM_Admin_Template {
 
 					<div class="give-form-fields-sub-fields">
 						<label><input type="checkbox" class="multicolumn"
-						              name="<?php echo $enable_column_name ?>"<?php echo $has_column ? ' checked="checked"' : ''; ?>
-						              value="true"> <?php _e( 'Enable Multi Column', 'give-form-field-manager' ); ?>
+									  name="<?php echo $enable_column_name ?>"<?php echo $has_column ? ' checked="checked"' : ''; ?>
+									  value="true"> <?php _e( 'Enable Multi Column', 'give-form-field-manager' ); ?>
 						</label>
 					</div>
 				</div>
 
 				<div class="give-form-fields-rows<?php echo $has_column ? ' ffm-hide' : ''; ?>">
-					<label><?php _e( 'Placeholder text', 'give-form-field-manager' ); ?>
-						<span class="give-tooltip give-icon give-icon-question"
-						      data-tooltip="<?php _e( 'Text for HTML5 placeholder attribute', 'give-form-field-manager' ); ?>"></span></label>
+					<label>
+						<?php _e( 'Placeholder text', 'give-form-field-manager' ); ?>
+						<?php
+						echo give()->tooltips->render_help(
+							[
+								'label' => esc_html__(
+									'Text for HTML5 placeholder attribute',
+									'give-form-field-manager'
+								)
+							]
+						);
+						?>
+					</label>
 					<input type="text" name="<?php echo $placeholder_name; ?>"
-					       value="<?php echo $placeholder_value; ?>" />
+						   value="<?php echo $placeholder_value; ?>"/>
 				</div>
 				<!-- .give-form-fields-rows -->
 
 				<div class="give-form-fields-rows<?php echo $has_column ? ' ffm-hide' : ''; ?>">
-					<label><?php _e( 'Default value', 'give-form-field-manager' ); ?>
-						<span class="give-tooltip give-icon give-icon-question"
-						      data-tooltip="<?php _e( 'The default value for this field.', 'give-form-field-manager' ); ?>"></span></label>
-					<input type="text" name="<?php echo $default_name; ?>" value="<?php echo $default_value; ?>" />
+					<label>
+						<?php _e( 'Default value', 'give-form-field-manager' ); ?>
+						<?php
+						echo give()->tooltips->render_help(
+							[
+								'label' => esc_html__(
+									'The default value for this field.',
+									'give-form-field-manager'
+								)
+							]
+						);
+						?>
+					</label>
+					<input type="text" name="<?php echo $default_name; ?>" value="<?php echo $default_value; ?>"/>
 				</div>
 				<!-- .give-form-fields-rows -->
 
 				<div class="give-form-fields-rows">
-					<label><?php _e( 'Maxlength', 'give-form-field-manager' ); ?>
-						<span class="give-tooltip give-icon give-icon-question"
-						      data-tooltip="<?php _e( 'Maxlength of this input field.', 'give-form-field-manager' ); ?>"></span></label>
-					<input type="text" name="<?php echo $maxlength_name; ?>" value="<?php echo $maxlength_value; ?>" />
+					<label>
+						<?php _e( 'Maxlength', 'give-form-field-manager' ); ?>
+						<?php
+						echo give()->tooltips->render_help(
+							[
+								'label' => esc_html__(
+									'Maxlength of this input field.',
+									'give-form-field-manager'
+								)
+							]
+						);
+						?>
+					</label>
+					<input type="text" name="<?php echo $maxlength_name; ?>" value="<?php echo $maxlength_value; ?>"/>
 				</div>
 				<!-- .give-form-fields-rows -->
 
 				<div class="give-form-fields-rows">
-					<label><?php _e( 'Maximum Number', 'give-form-field-manager' ); ?>
-						<span class="give-tooltip give-icon give-icon-question"
-						      data-tooltip="<?php _e( 'The maximum number of times this field can be created. This allows you to set limits to the number of fields.', 'give-form-field-manager' );
-						      ?>"></span></label>
-					<input type="text" name="<?php echo $maximum_repeat_name; ?>" value="<?php echo $maximum_repeat_value; ?>" />
+					<label>
+						<?php _e( 'Maximum Number', 'give-form-field-manager' ); ?>
+						<?php
+						echo give()->tooltips->render_help(
+							[
+								'label' => esc_html__(
+									'The maximum number of times this field can be created. This allows you to set limits to the number of fields.',
+									'give-form-field-manager'
+								)
+							]
+						);
+						?>
+					</label>
+					<input type="text" name="<?php echo $maximum_repeat_name; ?>"
+						   value="<?php echo $maximum_repeat_value; ?>"/>
 				</div>
 				<!-- .give-form-fields-rows -->
 
@@ -1206,6 +1395,7 @@ class Give_FFM_Admin_Template {
 					</div>
 				</div>
 				<!-- .give-form-fields-rows -->
+				<?php self::common_condition_visibility_settings( $field_id, $values ); ?>
 
 				<div class="form-field-actions">
 					<?php if ( $removable ) : ?>
@@ -1249,23 +1439,35 @@ class Give_FFM_Admin_Template {
 						_e( 'Title', 'give-form-field-manager' );
 
 						echo Give()->tooltips->render_help( array(
-							'label'    => __( 'The title field is only for admin field reference and will not be output on the frontend.', 'give-form-field-manager' ),
+							'label'    => __( 'The title field is only for site admin reference and will not be output on the front end.', 'give-form-field-manager' ),
 							'position' => 'right',
 						) );
 						?>
 					</label>
 					<input type="text" name="<?php echo $title_name; ?>"
-					       value="<?php echo esc_attr( $title_value ); ?>" />
+						   value="<?php echo esc_attr( $title_value ); ?>"/>
 				</div>
 				<!-- .give-form-fields-rows -->
 
 				<div class="give-form-fields-rows wide">
-					<label><?php _e( 'HTML Code', 'give-form-field-manager' ); ?>
-						<span class="give-tooltip give-icon give-icon-question"
-						      data-tooltip="<?php _e( 'Add html code in the textarea below. You can add images, text, links, and more!', 'give-form-field-manager' ); ?>"></span></label>
+					<label>
+						<?php _e( 'HTML Code', 'give-form-field-manager' ); ?>
+						<?php
+						echo give()->tooltips->render_help(
+							[
+								'label' => esc_html__(
+									'Add html code in the textarea below. You can add images, text, links, and more!',
+									'give-form-field-manager'
+								)
+							]
+						);
+						?>
+					</label>
 					<textarea name="<?php echo $html_name; ?>"
-					          rows="10"><?php echo wp_kses_post( $html_value ); ?></textarea>
+							  rows="10"><?php echo wp_kses_post( $html_value ); ?></textarea>
 				</div>
+
+				<?php self::common_condition_visibility_settings( $field_id, $values ); ?>
 
 				<div class="form-field-actions">
 					<?php if ( $removable ) : ?>
@@ -1299,15 +1501,25 @@ class Give_FFM_Admin_Template {
 			<?php self::hidden_field( "[$field_id][template]", 'action_hook' ); ?>
 
 			<div id="form-field-item-settings-<?php echo esc_attr( $field_id ); ?>"
-			     class="give-form-fields-holder collapse">
+				 class="give-form-fields-holder collapse">
 				<div class="give-form-fields-rows wide">
-					<label><?php _e( 'Hook Name', 'give-form-field-manager' ); ?>
-						<span class="give-tooltip give-icon give-icon-question"
-						      data-tooltip="<?php _e( 'The name of the hook', 'give-form-field-manager' ); ?>"></span></label>
+					<label>
+						<?php _e( 'Hook Name', 'give-form-field-manager' ); ?>
+						<?php
+						echo give()->tooltips->render_help(
+							[
+								'label' => esc_html__(
+									'The name of the hook',
+									'give-form-field-manager'
+								)
+							]
+						);
+						?>
+					</label>
 
 					<div class="give-form-fields-sub-fields">
 						<input type="text" name="<?php echo $title_name; ?>"
-						       value="<?php echo esc_attr( $title_value ); ?>" />
+							   value="<?php echo esc_attr( $title_value ); ?>"/>
 
 						<div class="description" style="margin-top: 8px;">
 							<p><?php echo sprintf( __( 'This form field is for developers to add their own custom %1$sWordPress actions%2$s. You can hook your own functions to this action and are provided 3 parameters: <code>$form_id</code>, <code>$post_id</code>, and <code>$form_settings</code>.', 'give-form-field-manager' ), '<a href="https://codex.wordpress.org/Plugin_API/Action_Reference" target="_blank">', '</a>' ); ?></p>
@@ -1388,19 +1600,30 @@ function your_function_name( $form_id, $post_id, $form_settings ) {
 						<label>
 							<?php self::hidden_field( "[$field_id][time]", 'no' ); ?>
 							<input type="checkbox" name="<?php echo $time_name ?>"
-							       value="yes"<?php checked( $time_value, 'yes' ); ?> />
+								   value="yes"<?php checked( $time_value, 'yes' ); ?> />
 							<?php _e( 'Enable time input', 'give-form-field-manager' ); ?>
 						</label>
 					</div>
 				</div>
 				<div class="give-form-fields-rows">
-					<label><?php _e( 'Time Format', 'give-form-field-manager' ); ?>
-						<span class="give-tooltip give-icon give-icon-question"
-						      data-tooltip="<?php echo esc_attr( __( 'The format of the datepicker\'s time field.', 'give-form-field-manager' ) ); ?>"></span></label>
+					<label>
+						<?php _e( 'Time Format', 'give-form-field-manager' ); ?>
+						<?php
+						echo give()->tooltips->render_help(
+							[
+								'label' => esc_html__(
+									'The format of the datepicker\'s time field.',
+									'give-form-field-manager'
+								)
+							]
+						);
+						?>
+					</label>
 					<input type="text" name="<?php echo $time_format_name; ?>"
-					       value="<?php echo $time_format_value; ?>">
+						   value="<?php echo $time_format_value; ?>">
 				</div>
 				<!-- .give-form-fields-rows -->
+				<?php self::common_condition_visibility_settings( $field_id, $values ); ?>
 
 				<div class="form-field-actions">
 					<a class="item-delete submitdelete deletion button button-small"
@@ -1542,9 +1765,9 @@ function your_function_name( $form_id, $post_id, $form_settings ) {
 	/**
 	 * Phone Field
 	 *
-	 * @param           $field_id  Form Field ID.
-	 * @param           $label     Label of form field.
-	 * @param array     $values    Values of form field.
+	 * @param int $field_id Form Field ID.
+	 * @param string $label Label of form field.
+	 * @param array $values Values of form field.
 	 * @param bool|true $removable Is Form field removable?
 	 *
 	 * @updated 1.2
@@ -1561,22 +1784,33 @@ function your_function_name( $form_id, $post_id, $form_settings ) {
 			<?php self::hidden_field( "[$field_id][template]", 'phone_field' ); ?>
 
 			<div id="form-field-item-settings-<?php echo esc_attr( $field_id ); ?>"
-			     class="give-form-fields-holder collapse">
+				 class="give-form-fields-holder collapse">
 				<?php self::common( $field_id, '', true, $values ); ?>
 				<?php self::common_text( $field_id, $values, true, true, false ); ?>
 
 				<div class="give-form-fields-rows">
-					<label><?php _e( 'Phone Format', 'give-form-field-manager' ); ?>
-						<span class="give-tooltip give-icon give-icon-question"
-						      data-tooltip="<?php _e( 'Format in which the phone number is saved and displayed', 'give-form-field-manager' ); ?>"></span></label>
+					<label>
+						<?php _e( 'Phone Format', 'give-form-field-manager' ); ?>
+						<?php
+						echo give()->tooltips->render_help(
+							[
+								'label' => esc_html__(
+									'Format in which the phone number is saved and displayed',
+									'give-form-field-manager'
+								)
+							]
+						);
+						?>
+					</label>
 
 					<select name="<?php echo $format_name; ?>">
 						<option
-								value="domestic"<?php selected( $format_value, 'domestic' ) ?>><?php _e( '(###) ###-####', 'give-form-field-manager' ); ?></option>
+							value="domestic"<?php selected( $format_value, 'domestic' ) ?>><?php _e( '(###) ###-####', 'give-form-field-manager' ); ?></option>
 						<option
-								value="unformatted"<?php selected( $format_value, 'unformatted' ) ?>><?php _e( 'Unformatted', 'give-form-field-manager' ); ?></option>
+							value="unformatted"<?php selected( $format_value, 'unformatted' ) ?>><?php _e( 'Unformatted', 'give-form-field-manager' ); ?></option>
 					</select>
 				</div> <!-- .give-form-fields-rows -->
+				<?php self::common_condition_visibility_settings( $field_id, $values ); ?>
 
 				<div class="form-field-actions">
 					<?php if ( $removable ) : ?>
@@ -1593,4 +1827,118 @@ function your_function_name( $form_id, $post_id, $form_settings ) {
 		<?php
 	}
 
+	/**
+	 * @since 2.0.0
+	 */
+	private static function common_condition_visibility_settings( $id, $values = array() ) {
+		$tpl = '%s[%d][%s]';
+
+		$checkbox_field_id = 'ffm-visibility-conditions-section__status-' . wp_generate_password();
+
+		$control_field_visibility_name         = sprintf( $tpl, self::$input_name, $id, 'control_field_visibility' );
+		$control_field_custom_conditions       = sprintf( $tpl, self::$input_name, $id, 'control_field_custom_conditions' );
+		$controller_field_meta_key_name        = sprintf( $tpl, self::$input_name, $id, 'controller_field_name' );
+		$controller_field_operator_name        = sprintf( $tpl, self::$input_name, $id, 'controller_field_operator' );
+		$controller_field_value_name           = sprintf( $tpl, self::$input_name, $id, 'controller_field_value' );
+		$control_field_visibility_value        = $values && isset( $values['control_field_visibility'] ) ? esc_attr( $values['control_field_visibility'] ) : '';
+		$control_field_custom_conditions_value = $values && isset( $values['control_field_custom_conditions'] ) ? esc_attr( $values['control_field_custom_conditions'] ) : '';
+		$controller_field_meta_key_value       = $values && isset( $values['controller_field_name'] ) ? esc_attr( $values['controller_field_name'] ) : '';
+		$controller_field_operator_value       = $values && isset( $values['controller_field_operator'] ) ? html_entity_decode( esc_attr( $values['controller_field_operator'] ) ) : '';
+		$controller_field_value                = $values && isset( $values['controller_field_value'] ) ? esc_attr( $values['controller_field_value'] ) : '';
+
+		?>
+		<div class="give-form-fields-rows wide visibility-conditions-section">
+			<div
+				class="give-form-fields-sub-rows wide visibility-conditions-section__status js-conditional-options__status">
+				<div class="row-header">
+					<div class="heading">
+						<strong><?php esc_html_e( 'Field visibility', 'give-form-field-manager' ); ?></strong>
+						<div class="give-ffm-toggle">
+							<input name="<?php echo $control_field_visibility_name; ?>"
+								   type="checkbox"
+								   id="<?php echo $checkbox_field_id; ?>"
+								<?php checked( 'on', $control_field_visibility_value ) ?>>
+							<label for="<?php echo $checkbox_field_id; ?>"
+								   aria-label="<?php esc_html_e( 'Enabled visibility condition', 'give-form-field-manager' ); ?>"></label>
+						</div>
+					</div>
+					<div class="sub-heading">
+						<p class="text-style-italic margin-top-5"><?php esc_html_e( 'Enable this option to make this field visible based on the value of another field in this form. Choose the Amount field or any other existing custom field (dropdown, radio, or checkbox) in this form.', 'give-form-field-manager' ); ?></p>
+					</div>
+				</div>
+			</div>
+			<div class="setting-group">
+				<div
+					class="give-form-fields-sub-rows js-conditional-options__field-meta-key <?php echo $control_field_visibility_value ? '' : 'give-hidden'; ?>">
+					<label class="text-style-normal">
+						<?php esc_html_e( 'Visible When Field', 'give-form-field-manager' ); ?>
+						<select name="<?= $controller_field_meta_key_name; ?>"
+								data-selected-value="<?= checked( 'on', $control_field_custom_conditions_value, false ) ? '' : $controller_field_meta_key_value; ?>"
+								class="<?= checked( 'on', $control_field_custom_conditions_value, false ) ? 'give-hidden' : ''; ?>"
+							<?= checked( 'on', $control_field_custom_conditions_value, false ) ? 'disabled' : ''; ?>></select>
+						<input type="text"
+							   name="<?php echo $controller_field_meta_key_name; ?>"
+							   value="<?php echo $controller_field_meta_key_value; ?>"
+							   placeholder="<?php esc_html_e( 'Field Name', 'give-form-field-manager' ); ?>"
+							   class="<?php echo checked( 'on', $control_field_custom_conditions_value, false ) ? '' : 'give-hidden'; ?>"
+							<?php echo checked( 'on', $control_field_custom_conditions_value, false ) ? '' : 'disabled'; ?>>
+					</label>
+				</div>
+				<div
+					class="give-form-fields-sub-rows js-conditional-options__field-operator <?php echo $control_field_visibility_value ? '' : 'give-hidden'; ?>">
+					<label aria-label="<?php esc_html_e( 'Comparison Operator', 'give-form-field-manager' ); ?>">
+						<select name="<?php echo $controller_field_operator_name; ?>">
+							<?php
+							$operators = [
+								'='  => esc_html__( 'Equals', 'give-form-field-manager' ),
+								'!=' => esc_html__( 'Does not equal', 'give-form-field-manager' ),
+								'>'  => esc_html__( 'Greater Than', 'give-form-field-manager' ),
+								'<'  => esc_html__( 'Less Than', 'give-form-field-manager' ),
+								'>=' => esc_html__( 'Greater Than or Equals', 'give-form-field-manager' ),
+								'<=' => esc_html__( 'Less Than or Equals', 'give-form-field-manager' ),
+							];
+							foreach ( $operators as $value => $name ) {
+								printf(
+									'<option value="%1$s" %3$s>%2$s</option>',
+									$value,
+									$name,
+									selected( $controller_field_operator_value, $value, false )
+								);
+							}
+							?>
+						</select>
+					</label>
+				</div>
+				<div
+					class="give-form-fields-sub-rows js-conditional-options__field-value <?php echo $control_field_visibility_value ? '' : 'give-hidden'; ?>">
+					<label class="text-style-normal">
+						<?php esc_html_e( 'Value', 'give-form-field-manager' ); ?>
+						<select name="<?php echo $controller_field_value_name; ?>"
+								data-selected-value="<?php echo checked( 'on', $control_field_custom_conditions_value, false ) ? '' : $controller_field_value; ?>"
+								class="<?php echo checked( 'on', $control_field_custom_conditions_value, false ) ? 'give-hidden' : ''; ?>"
+							<?php echo checked( 'on', $control_field_custom_conditions_value, false ) ? 'disabled' : ''; ?>></select>
+						<input type="text"
+							   name="<?php echo $controller_field_value_name; ?>"
+							   value="<?php echo $controller_field_value; ?>"
+							   class="<?php echo checked( 'on', $control_field_custom_conditions_value, false ) ? '' : 'give-hidden'; ?>"
+							<?php echo checked( 'on', $control_field_custom_conditions_value, false ) ? '' : 'disabled'; ?>>
+					</label>
+				</div>
+			</div>
+			<div
+				class="give-form-fields-sub-rows wide visibility-conditions-section__custom-conditions js-conditional-options__custom-conditions <?php echo $control_field_visibility_value ? '' : 'give-hidden'; ?>">
+				<label class="text-style-normal">
+					<input name="<?php echo $control_field_custom_conditions; ?>" type="checkbox"
+						   value="on" <?php checked( 'on', $control_field_custom_conditions_value ) ?>>&nbsp;<?php esc_html_e( 'Manually enter field name', 'give-form-field-manager' ); ?>
+				</label>
+			</div>
+			<div class="helper-notices <?php echo $control_field_visibility_value ? '' : 'give-hidden'; ?>">
+				<div
+					class="helper-notice js-custom-visibility-condition-notice <?php echo checked( 'on', $control_field_custom_conditions_value, false ) ? '' : 'give-hidden'; ?>">
+					<p class="text-style-italic margin-top-5"><?php esc_html_e( 'The Field Name is the “name” attribute for the field. Inspect the form in your browser’s developer tools to find the exact field name you want to control visibility of this field, and enter it here.', 'give-form-field-manager' ); ?></p>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
 }

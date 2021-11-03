@@ -51,7 +51,7 @@ class UpdateDonationReceipt extends UpdateReceipt {
 	 */
 	private function convertArrayValueToHTMLTable( $field ){
 		$thead = '';
-		if( $field['columns'] ) {
+		if ( ! empty( $field['columns'] ) ) {
 			$thead .= '<tr>';
 			foreach ( $field['columns'] as $column ) {
 

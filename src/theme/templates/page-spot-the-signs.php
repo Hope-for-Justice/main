@@ -36,20 +36,23 @@ get_header();
 			<div class="hero-split__content hero-split__content--grey">
 				<div class="hero-split__content-inner">
 					<h3 class="hero-split__sub-heading">
-						Awareness can save lives
+						<!--  -->
+						<?php the_field('subtitle'); ?>
 					</h3>
 					<h1 class="font-canela">
-						Spot the Signs<br> of Modern Slavery
+						<!--  -->
+						<?php the_title(); ?>
 					</h1>
-					<p class="hero-split__desc">
-						Modern slavery is happening in our communities - being able to spot the signs and know what to do could make a life-changing difference. You might walk past or speak to someone who needs help without you even realising it. Help spread the word about the signs to look out for.  
-					</p>
+					<div class="hero-split__desc">
+						<!--  -->
+						<?php the_content(); ?>
+					</div>
 					<div class="hero-spit__button">
-						<a href="/spot-the-signs-resources" class="button button--red">
+						<a href="<?php the_field('hero_button_link'); ?>" class="button button--red">
 							<div class="button__inner">
 								<div class="button__text bold">
-									Downloadable<br>
-									resources
+									<?php the_field('hero_button_text'); ?>
+									<!--  -->
 								</div>
 							</div>
 						</a>
@@ -64,122 +67,110 @@ get_header();
 		-- 
 		-->
 		<div class="drop-cards">
-			<div class="drop-card drop-card--open">
-				<div class="drop-card__header">
-					<h2 class="drop-card__title font-fk">General Indicators</h2>
-					<div class="drop-card__cross cross-circle"><span class="cross-circle__plus cross-circle__plus--open">&times;</span></div>
-				</div>
-				<div class="drop-card__content">
-					<ul class="drop-card__list">
-						<li class="drop-card__list-item">
-							Houses or flats with too many people, all picked up or dropped off at the same time 
-						</li>
-						<li class="drop-card__list-item">
-							People who seem scared, confused or have untreated injuries 
-						</li>
-						<li class="drop-card__list-item">
-							Few or no documents, or someone else in control of their documents / passport 
-						</li>
-						<li class="drop-card__list-item">
-							No control over their own post/mail, no phone or phone held by someone else 
-						</li>
-						<li class="drop-card__list-item">
-							Low or no pay 
-						</li>
-						<li class="drop-card__list-item">
-							One person speaking on behalf of many others, who may avoid eye contact or conversation 
-						</li>
-						<li class="drop-card__list-item">
-							Lights on at workplaces at strange times – are people living there? 
-						</li>
-						<li class="drop-card__list-item">
-							Feel they are in debt to someone 
-						</li>
-						<li class="drop-card__list-item">
-							Limited freedom of movement and dependency on others 
-						</li>
-						<li class="drop-card__list-item">
-							Fear of police/authorities
-						</li>
-						<li class="drop-card__list-item">
-							Fear of a trafficker, believing their life or families’ lives are at risk if they escape or complain 
-						</li>
-						<li class="drop-card__list-item">
-							Anxious and unwilling to tell others about their situation 
-						</li>
-						<li class="drop-card__list-item">
-							Poor health, malnutrition or untreated dental conditions  
-						</li>
-						<li class="drop-card__list-item">
-							Bruising; signs of other physical or psychological trauma including anxiety, confusion, memory loss  
-						</li>
-						<li class="drop-card__list-item">
-							Less often, someone believing they are being controlled through witchcraft 
-						</li>
-						<li class="drop-card__list-item">
-							Note: Those affected are unlikely to self-identify as a ‘victim’ and may not realise or accept they are being controlled  
-						</li>
-					</ul>
-					<a href="#" class="button button--red">
-						<div class="button__inner">
-							<div class="button__text bold">
-								Report<br>
-								a concern
+			
+
+			<?php
+
+			$i = 1;
+
+			while (have_rows('drop_cards')) : the_row(); ?>
+			
+				<div class="drop-card <?php if($i == 1) {echo 'drop-card--open';} ?>">
+					<div class="drop-card__header">
+						<h2 class="drop-card__title font-fk">
+							<?php echo (get_sub_field('drop_card_title'))?>
+						</h2>
+						<div class="drop-card__cross cross-circle"><span class="cross-circle__plus <?php if($i == 1) {echo 'cross-circle__plus--open';} ?>">&times;</span></div>
+					</div>
+					<div class="drop-card__content">
+						<!-- If has description -->
+						<?php if( get_sub_field('description') ){ ?>
+							<p class="drop-card__desc">
+								<?php echo (get_sub_field('description'))?>
+							</p>
+						<?php } ?>
+						
+						<?php while (have_rows('lists')) : the_row(); ?>
+
+							<!-- If has title -->
+							<?php if( get_sub_field('list_title') ){ ?>
+								<h3 class="drop-card__sub-title">
+									<?php echo (get_sub_field('list_title'))?>		
+								</h3>
+							<?php } ?>
+
+							<ul class="drop-card__list">
+								<?php while (have_rows('list_items')) : the_row(); ?>
+									<li class="drop-card__list-item">
+										<?php echo (get_sub_field('list_item'))?>
+									</li>
+								<?php endwhile; ?> <!--/list items-->							
+							</ul>
+						<?php endwhile; ?> <!--/lists-->	
+						<a href="<?php echo (get_sub_field('drop_card_button_link'))?>" class="button button--red">
+							<div class="button__inner">
+								<div class="button__text bold">
+									<!-- Report<br>
+									a concern -->
+									<?php echo (get_sub_field('drop_card_button_text'))?>
+								</div>
 							</div>
-						</div>
-					</a>
+						</a>
+					</div>
 				</div>
-			</div>
-			<div class="drop-card">
+
+			<?php $i++; 
+			endwhile; ?> <!-- end card loop -->
+
+<!-- 			<div class="drop-card">
 				<div class="drop-card__header">
-					<h2 class="drop-card__title font-fk">Forced Labour</h2>
+					<h2 class="drop-card__title font-fk"></h2>
 					<div class="drop-card__cross cross-circle"><span class="cross-circle__plus">&times;</span></div>
 				</div>
 				<div class="drop-card__content">
-					<p class="drop-card__desc"><b>Where work is done under the menace of a penalty or the person has not offered himself or herself voluntarily and is now unable to leave. They may experience some or all of the above General Indicators as well as:</b></p>
+					
 					<ul class="drop-card__list">
 						<li class="drop-card__list-item">
-							Withholding of wages or reductions resulting in low or no pay 
+							 
 						</li>
 						<li class="drop-card__list-item">							
-							Excessive hours, forced overtime, few or no breaks 
+							
 						</li>
 						<li class="drop-card__list-item">						
-							Poor or non-existent health and safety standards 
+							 
 						</li>
 						<li class="drop-card__list-item">						
-							Workers made to pay for own tools or equipment  
+							
 						</li>
 						<li class="drop-card__list-item">	
-							Intimidation and threats, or physical violence 
+							
 						</li>
 						<li class="drop-card__list-item">
-							Threat of revealing irregular immigration status 
+							
 						</li>
 						<li class="drop-card__list-item">					
-							No access to labour contract or documentation 
+							
 						</li>
 						<li class="drop-card__list-item">
-							Abusive working and living conditions 
+							
 						</li>
 						<li class="drop-card__list-item">
-							Imposed place of accommodation (deductions made) 
+							
 						</li>
 						<li class="drop-card__list-item">		
-							Abuse of vulnerability 
+							
 						</li>
 						<li class="drop-card__list-item">		
-							Isolation, restriction of movement or confinement 
+							 
 						</li>
 						<li class="drop-card__list-item">
-							Debt bondage with spurious deductions or interest added 
+							
 						</li>
 					</ul>
 					<a href="#" class="button button--red">
 						<div class="button__inner">
 							<div class="button__text bold">
-								Report<br>
-								a concern
+								
 							</div>
 						</div>
 					</a>
@@ -187,30 +178,13 @@ get_header();
 			</div>
 			<div class="drop-card">
 				<div class="drop-card__header">
-					<h2 class="drop-card__title font-fk">Forced Sexual Exploitation</h2>
+					<h2 class="drop-card__title font-fk"></h2>
 					<div class="drop-card__cross cross-circle"><span class="cross-circle__plus">&times;</span></div>
 				</div>
 				<div class="drop-card__content">
-					<p class="drop-card__desc"><b>People trapped in situations of sexual exploitation may experience some or all of the above General Indicators as well as: </b></p>
+					<p class="drop-card__desc"></p>
 					<ul class="drop-card__list">
-						<li class="drop-card__list-item">
-							Movement between brothels, sometimes different cities (temporary brothels can be set up in residential homes or hotels) 
-						</li>
-						<li class="drop-card__list-item">
-							Sleeping on work premises 
-						</li>
-						<li class="drop-card__list-item">
-							Limited amount of clothing and sexualised clothing  
-						</li>
-						<li class="drop-card__list-item">							
-							Subjected to abduction, assault or rape  
-						</li>
-						<li class="drop-card__list-item">
-							Movement is controlled, is picked up and dropped off at work location 
-						</li>
-						<li class="drop-card__list-item">
-							Someone other than the person receives the money for the services  
-						</li>
+
 					</ul>
 					<a href="#" class="button button--red">
 						<div class="button__inner">
@@ -228,32 +202,9 @@ get_header();
 					<div class="drop-card__cross cross-circle"><span class="cross-circle__plus">&times;</span></div>
 				</div>
 				<div class="drop-card__content">
-					<p class="drop-card__desc"><b>Modern slavery includes all forms of commercial sexual exploitation of children. This encompasses the use, procuring, or offering of children for prostitution or pornography. The below indicators relate specifically to grooming for sexual exploitation: </b></p>
+					<p class="drop-card__desc"></p>
 					<ul class="drop-card__list">
-						<li class="drop-card__list-item">
-							A child or teenager who is often truant or goes missing    
-						</li>
-						<li class="drop-card__list-item">
-							Secretive behaviour or unexplained money/presents 
-						</li>
-						<li class="drop-card__list-item">
-							Experimenting with drugs, alcohol 
-						</li>
-						<li class="drop-card__list-item">
-							Unexplained association with older males or a significantly older boyfriend 
-						</li>
-						<li class="drop-card__list-item">
-							Social activities without any plausible explanation 
-						</li>
-						<li class="drop-card__list-item">
-							Low self-image/self-harm/eating disorder 
-						</li>
-						<li class="drop-card__list-item">
-							Seen entering or leaving vehicles with unknown adults 
-						</li>
-						<li class="drop-card__list-item">
-							Evidence of physical/sexual assault 
-						</li>
+
 					</ul>
 					<a href="#" class="button button--red">
 						<div class="button__inner">
@@ -267,33 +218,13 @@ get_header();
 			</div>
 			<div class="drop-card">
 				<div class="drop-card__header">
-					<h2 class="drop-card__title font-fk">Domestic Servitude</h2>
+					<h2 class="drop-card__title font-fk"></h2>
 					<div class="drop-card__cross cross-circle"><span class="cross-circle__plus">&times;</span></div>
 				</div>
 				<div class="drop-card__content">
-					<p class="drop-card__desc"><b>This is one of the most hidden forms of modern slavery as it happens within private homes. Some are exploited exclusively in domestic servitude, others have domestic duties imposed where they are forced to live while also working outside the home through forced labour or sexual exploitation. Signs include: </b></p>
+					<p class="drop-card__desc"></p>
 					<ul class="drop-card__list">
-						<li class="drop-card__list-item">
-							Living and working for a family in a private home 
-						</li>
-						<li class="drop-card__list-item">
-							Not eating with the rest of the family 
-						</li>
-						<li class="drop-card__list-item">
-							No bedroom or proper sleeping place 
-						</li>
-						<li class="drop-card__list-item">
-							No private space, documents or access to phone  
-						</li>
-						<li class="drop-card__list-item">
-							Forced to work excessive hours, on-call 24 hours a day 
-						</li>
-						<li class="drop-card__list-item">
-							May never leave the house without the employer 
-						</li>
-						<li class="drop-card__list-item">
-							Employer reports as missing and/or accuses criminal activity if attempts to escape 
-						</li>
+						
 					</ul>
 					<a href="#" class="button button--red">
 						<div class="button__inner">
@@ -307,11 +238,11 @@ get_header();
 			</div>
 			<div class="drop-card">
 				<div class="drop-card__header">
-					<h2 class="drop-card__title font-fk">Criminal Activity</h2>
+					<h2 class="drop-card__title font-fk"></h2>
 					<div class="drop-card__cross cross-circle"><span class="cross-circle__plus">&times;</span></div>
 				</div>
 				<div class="drop-card__content">
-					<p class="drop-card__desc"><b>Criminal gangs use modern slavery to exploit victims both to profit from them and to use the threat of reporting the criminal behaviour as a means of control. Signs include all of the General Indictors above as well as</b></p>
+					<p class="drop-card__desc"></p>
 					<h3 class="drop-card__sub-title">Cannabis Cultivation:</h3>
 					<ul class="drop-card__list">
 						<li class="drop-card__list-item">
@@ -472,7 +403,7 @@ get_header();
 						</div>
 					</a>
 				</div>
-			</div>
+			</div> -->
 		</div>
 
 

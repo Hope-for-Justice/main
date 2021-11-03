@@ -76,122 +76,6 @@ class Give_FFM_Render_Form {
 	}
 
 	/**
-	 * Get input meta fields separated as post vars, taxonomy and meta vars.
-	 *
-	 * @param int $form_id form id
-	 *
-	 * @return array
-	 */
-	public static function get_input_fields( $form_id ) {
-		$form_vars = give_get_meta( $form_id, self::$meta_key, true );
-
-		$ignore_lists = array( 'section', 'html' );
-		$post_vars    = $meta_vars = $taxonomy_vars = array();
-
-		if ( $form_vars == null ) {
-			return array( array(), array(), array() );
-		}
-
-		foreach ( $form_vars as $key => $value ) {
-
-			// ignore section break and HTML input type
-			if ( in_array( $value['input_type'], $ignore_lists ) ) {
-				continue;
-			}
-
-			// separate the post and custom fields
-			if ( isset( $value['is_meta'] ) && $value['is_meta'] == 'yes' ) {
-				$meta_vars[] = $value;
-				continue;
-			}
-
-			$post_vars[] = $value;
-		}
-
-		return array( $post_vars, $taxonomy_vars, $meta_vars );
-	}
-
-	/**
-	 * Prepare Meta Fields.
-	 *
-	 * @param $meta_vars
-	 *
-	 * @return array
-	 */
-	public static function prepare_meta_fields( $meta_vars ) {
-
-		// Loop through custom fields skip files, put in a key => value paired array for later execution process repeatable fields separately if the input is array type, implode with separator in a field.
-		$files          = array();
-		$meta_key_value = array();
-		$multi_repeated = array(); // multi repeated fields will in store duplicated meta key.
-
-		foreach ( $meta_vars as $key => $value ) {
-
-			// Check is field hide?
-			$is_field_hide = ( isset( $value['hide_field'] ) && 'on' === $value['hide_field'] ) ? true : false;
-
-			// put files in a separate array, we'll process it later.
-			if ( ( $value['input_type'] == 'file_upload' ) || ( $value['input_type'] == 'image_upload' ) ) {
-
-				$files[] = array(
-					'name'  => $value['name'],
-					'value' => isset( $_POST['ffm_files'][ $value['name'] ] ) ? $_POST['ffm_files'][ $value['name'] ] : array(),
-				);
-
-				// process repeatable fields
-			} elseif (
-				'repeat' === $value['input_type']
-				&& ! $is_field_hide
-			) {
-				// if it is a multi column repeat field
-				if ( isset( $value['multiple'] ) ) {
-
-					// if there's any items in the array, process it
-					if ( $_POST[ $value['name'] ] ) {
-
-						$ref_arr = array();
-						$cols    = count( $value['columns'] );
-						$ar_vals = array_values( $_POST[ $value['name'] ] );
-						$first   = array_shift( $ar_vals ); // first element
-						$rows    = count( $first );
-
-						// loop through columns
-						for ( $i = 0; $i < $rows; $i ++ ) {
-
-							// loop through the rows and store in a temp array
-							$temp = array();
-							for ( $j = 0; $j < $cols; $j ++ ) {
-
-								$temp[] = $_POST[ $value['name'] ][ $j ][ $i ];
-							}
-
-							// store all fields in a row with self::$separator separated
-							$ref_arr[] = implode( self::$separator, $temp );
-						}
-
-						// now, if we found anything in $ref_arr, store to $multi_repeated
-						if ( $ref_arr ) {
-							$multi_repeated[ $value['name'] ] = array_slice( $ref_arr, 0, $rows );
-						}
-					}
-				} else {
-					$meta_key_value[ $value['name'] ] = implode( self::$separator, $_POST[ $value['name'] ] );
-				}
-			} elseif ( ! empty( $_POST[ $value['name'] ] ) ) {
-
-				// if it's an array, implode with this->separator
-				if ( is_array( $_POST[ $value['name'] ] ) ) {
-					$meta_key_value[ $value['name'] ] = implode( self::$separator, $_POST[ $value['name'] ] );
-				} else {
-					$meta_key_value[ $value['name'] ] = trim( $_POST[ $value['name'] ] );
-				}
-			}// End if().
-		} // End foreach().
-
-		return array( $meta_key_value, $multi_repeated, $files );
-	}
-
-	/**
 	 * Render Form
 	 *
 	 * Handles the add post shortcode.
@@ -298,7 +182,7 @@ class Give_FFM_Render_Form {
 	 * @param int    $form_id       Form ID.
 	 * @param array  $form_settings Form Settings.
 	 */
-	function render_items( $form_vars, $post_id, $type = 'post', $form_id, $form_settings ) {
+	function render_items( $form_vars, $post_id, $type, $form_id, $form_settings ) {
 
 		$hidden_fields = array();
 
@@ -486,7 +370,7 @@ class Give_FFM_Render_Form {
 	 *
 	 * @return string
 	 */
-	function get_meta( $object_id, $meta_key, $type = 'post', $single = true ) {
+	function get_meta( $object_id, $meta_key, $type, $single = true ) {
 		if ( ! $object_id ) {
 			return '';
 		}
@@ -554,7 +438,7 @@ class Give_FFM_Render_Form {
 	 *
 	 * @updated 1.2
 	 */
-	function text( $attr, $post_id, $type = 'post', $form_id ) {
+	function text( $attr, $post_id, $type, $form_id ) {
 		// checking for user profile username
 		$username = false;
 		$taxonomy = false;
@@ -793,11 +677,11 @@ class Give_FFM_Render_Form {
 	 * @param string   $type        Post or User.
 	 * @param int|null $form_id     Form ID.
 	 */
-	function select( $attr, $multiselect = false, $post_id, $type, $form_id ) {
+	function select( $attr, $multiselect, $post_id, $type, $form_id ) {
 
 		if ( $post_id ) {
 			$selected = $this->get_meta( $post_id, $attr['name'], $type );
-			$selected = $multiselect ? array_map( 'trim', explode( self::$separator, $selected ) ) : $selected;
+			$selected = $multiselect ? explode( self::$separator, $selected ) : $selected;
 		} else {
 			$selected = isset( $attr['selected'] ) ? $attr['selected'] : '';
 			$selected = $multiselect ? ( is_array( $selected ) ? $selected : array() ) : $selected;
@@ -956,7 +840,7 @@ class Give_FFM_Render_Form {
 	 *
 	 * @updated 1.2
 	 */
-	function email( $attr, $post_id, $type = 'post', $form_id ) {
+	function email( $attr, $post_id, $type, $form_id ) {
 		if ( $post_id ) {
 			if ( $this->is_meta( $attr ) ) {
 				$value = $this->get_meta( $post_id, $attr['name'], $type, true );
@@ -1036,9 +920,9 @@ class Give_FFM_Render_Form {
 							?>
 							<td>
 								<span class="ffm-clone-field give-tooltip give-icon give-icon-plus"
-									  data-tooltip="<?php esc_attr_e( 'Click here to add another field', 'give-form-field-manager' ); ?>"></span>
+									  data-tooltip="<?php esc_attr_e( 'Add another field', 'give-form-field-manager' ); ?>"></span>
 								<span class="ffm-remove-field give-tooltip give-icon give-icon-minus"
-									  data-tooltip="<?php esc_attr_e( 'Click here to remove this field', 'give-form-field-manager' ); ?>"></span>
+									  data-tooltip="<?php esc_attr_e( 'Remove this field', 'give-form-field-manager' ); ?>"></span>
 							</td>
 						</tr>
 
@@ -1060,9 +944,9 @@ class Give_FFM_Render_Form {
 						<?php } ?>
 						<td>
 							<span class="ffm-clone-field give-tooltip give-icon give-icon-plus"
-								  data-tooltip="<?php esc_attr_e( 'Click here to add another field', 'give-form-field-manager' ); ?>"></span>
+								  data-tooltip="<?php esc_attr_e( 'Add another field', 'give-form-field-manager' ); ?>"></span>
 							<span class="ffm-remove-field give-tooltip give-icon give-icon-minus"
-								  data-tooltip="<?php esc_attr_e( 'Click here to remove this field', 'give-form-field-manager' ); ?>"></span>
+								  data-tooltip="<?php esc_attr_e( 'Remove this field', 'give-form-field-manager' ); ?>"></span>
 						</td>
 					</tr>
 
@@ -1096,9 +980,9 @@ class Give_FFM_Render_Form {
 							</td>
 							<td>
 								<span class="ffm-clone-field give-tooltip give-icon give-icon-plus"
-									  data-tooltip="<?php esc_attr_e( 'Click here to add another field', 'give-form-field-manager' ); ?>"></span>
+									  data-tooltip="<?php esc_attr_e( 'Add another field', 'give-form-field-manager' ); ?>"></span>
 								<span class="ffm-remove-field give-tooltip give-icon give-icon-minus"
-									  data-tooltip="<?php esc_attr_e( 'Click here to remove this field', 'give-form-field-manager' ); ?>"></span>
+									  data-tooltip="<?php esc_attr_e( 'Remove this field', 'give-form-field-manager' ); ?>"></span>
 							</td>
 						</tr>
 						<?php
@@ -1121,9 +1005,9 @@ class Give_FFM_Render_Form {
 						</td>
 						<td>
 							<span class="ffm-clone-field give-tooltip give-icon give-icon-plus"
-								  data-tooltip="<?php esc_attr_e( 'Click here to add another field', 'give-form-field-manager' ); ?>"></span>
+								  data-tooltip="<?php esc_attr_e( 'Add another field', 'give-form-field-manager' ); ?>"></span>
 							<span class="ffm-remove-field give-tooltip give-icon give-icon-minus"
-								  data-tooltip="<?php esc_attr_e( 'Click here to remove this field', 'give-form-field-manager' ); ?>"></span>
+								  data-tooltip="<?php esc_attr_e( 'Remove this field', 'give-form-field-manager' ); ?>"></span>
 						</td>
 					</tr>
 					<?php
@@ -1137,21 +1021,20 @@ class Give_FFM_Render_Form {
 	/**
 	 * Prints a Section field
 	 *
-	 * @param array $attr
+	 * @param  array  $attr
 	 */
 	function section( $attr ) {
-
-		$classes = ( isset( $attr['class'] ) && ! empty( $attr['class'] ) ) ? $attr['class'] : '';
+		$classes = ( isset( $attr['class'] ) && ! empty( $attr['class'] ) ) ? " {$attr['class']}" : '';
 
 		if ( isset( $attr['label'] ) ) {
-
-			echo '<legend class="give-ffm-section ' . $classes . '">' . $attr['label'] . '</legend>';
-
+			printf(
+					'<legend class="give-ffm-section%1$S">%2$s</legend>',
+					$classes,
+					$attr['label']
+			);
 		} else {
-
 			echo '<hr>';
 		}
-
 	}
 
 	/**
@@ -1211,7 +1094,7 @@ class Give_FFM_Render_Form {
 	 *
 	 * @updated 1.2
 	 */
-	function phone( $attr, $post_id, $type = 'post', $form_id ) {
+	function phone( $attr, $post_id, $type, $form_id ) {
 		if ( $post_id ) {
 			$value = $this->get_meta( $post_id, $attr['name'], $type, true );
 		} else {

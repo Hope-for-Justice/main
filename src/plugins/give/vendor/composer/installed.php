@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '2.14.0',
-        'version' => '2.14.0.0',
+        'pretty_version' => '2.16.0',
+        'version' => '2.16.0.0',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '34c40d75d920455cd0e13dbbeee593fec139a02e',
+        'reference' => '99dde6154375ec46ccd468582950ab040dd6169c',
         'name' => 'impress-org/give',
         'dev' => false,
     ),
@@ -41,12 +41,12 @@
             ),
         ),
         'impress-org/give' => array(
-            'pretty_version' => '2.14.0',
-            'version' => '2.14.0.0',
+            'pretty_version' => '2.16.0',
+            'version' => '2.16.0.0',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '34c40d75d920455cd0e13dbbeee593fec139a02e',
+            'reference' => '99dde6154375ec46ccd468582950ab040dd6169c',
             'dev_requirement' => false,
         ),
         'kjohnson/format-object-list' => array(

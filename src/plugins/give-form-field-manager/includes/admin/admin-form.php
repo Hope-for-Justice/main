@@ -407,7 +407,7 @@ class Give_FFM_Admin_Form {
 						_e( 'Form Field Location', 'give-form-field-manager' );
 
 						echo Give()->tooltips->render_help( array(
-							'label'    => __( 'Where would you like the fields to display on the form? Note, if you do not accept credit cards the fields will not display in those locations if set.', 'give-form-field-manager' ),
+							'label'    => __( 'Where would you like the fields to display on the form? Note, if you do not accept credit cards the fields will not display in those locations if set. Also, some locations display differently depending on the form template in use.', 'give-form-field-manager' ),
 							'position' => 'top-left',
 						) );
 						?>

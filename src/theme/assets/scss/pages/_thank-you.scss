@@ -1,0 +1,56 @@
+/*
+*
+* _THANK-YOU.SCSS
+*
+*/
+
+.thankyou {
+	min-height: 90vh;
+	padding-top:8.6vw;
+	&__text, &__title, &__subtitle, &__socials {
+		grid-column: col2 / col12;
+		text-align: left;
+	}
+	&__text {
+		max-width: 440px;
+		//margin: 0 auto;
+	}
+	&__socials {
+		display:flex;
+		max-width: 500px;
+		margin-top: 3em;
+		// margin:0 auto;
+		//justify-content: space-between;
+		li {
+			margin-right: 2em;
+		}
+	}
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.thankyou {
+	padding-top:15vh;
+	&__text, &__title, &__subtitle, &__socials {
+		text-align: center;
+	}
+	&__text {
+		max-width: 440px;
+		margin: 0 auto;
+	}
+	&__socials {
+		display:flex;
+		width: 280px;
+		margin:0 auto;
+		margin-top: 5em;
+		justify-content: space-between;
+		li {
+			margin-right: 0em;
+		}
+	}
+}
+
+}

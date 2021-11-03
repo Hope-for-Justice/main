@@ -2,7 +2,6 @@
 
 use Give\Receipt\DonationReceipt;
 use GiveFormFieldManager\Helpers\Form;
-use GiveFormFieldManager\Receipt\AdditionalInformationFields;
 use GiveFormFieldManager\Receipt\UpdateDonationReceipt;
 
 /**
@@ -73,19 +72,17 @@ function give_ffm_associate_attachment( $attachment_id, $post_id ) {
  * @since 1.2
  */
 function give_ffm_donation_receipt_output( $donation, $args ) {
-
 	// Get this form ID from payment.
-	$form_id      = give_get_payment_form_id( $donation->ID );
+	$form_id = give_get_payment_form_id( $donation->ID );
 
 	// Get input field data.
 	$ffm          = new Give_FFM_Render_Form();
-	$form_data    = $ffm->get_input_fields( $form_id );
+	$form_data    = Form::get_input_fields( $form_id );
 	$ignore_lists = array( 'section', 'html', 'action_hook', 'file_upload', 'hidden' );
 	$html         = '';
 
 	// Loop through form fields and match.
 	foreach ( $form_data as $key => $value ) {
-
 		if ( empty( $value ) ) {
 			continue;
 		}

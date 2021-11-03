@@ -55,7 +55,7 @@ get_header();
 		-- plain-text
 		--  
 		-->
-		<div class="plain-text">
+		<div class="plain-text careers__vacancies">
 			<h2 class="font-canela">
 			<?php the_field('vacancies_title'); ?>
 			</h2>
@@ -72,7 +72,15 @@ get_header();
 		-->
 		<div class="sub-grid career-cards">
 				<?php $get_records =  wp_remote_get( 'https://cezanneondemand.intervieweb.it/annunci.php?lang=en&LAC=hopeforjustice&d=hopeforjustice.org&k=1408e0edd8768dfa3e838b0059df4899&CodP=&nbsp;&format=json_en&utype=0');
-					foreach(json_decode($get_records['body']) as $body) { ?>
+					// when empty show message
+					if (empty($get_records)) {
+					echo '<h2 style="text-align: center; grid-column: col2 / col12; opacity:0.5;" class="font-canela">No Vacancies</h2>';
+					} 
+				?>
+
+
+					<?php foreach(json_decode($get_records['body']) as $body) { 
+					?>
 					
 					<div class="career-cards__card">
 						<a class="career-cards__inner" href="<?php echo $body->url; ?>">

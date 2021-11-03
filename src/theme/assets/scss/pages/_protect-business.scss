@@ -1,0 +1,28 @@
+/*
+*
+* _PROTECT-BUSINESS.SCSS
+*
+*/
+
+.protect-business {
+	&__sfa {
+		opacity: 0.5;
+		max-width: 200px;
+		margin-top: 2em;
+		margin-left: 2em;
+		display: none;
+	}
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.protect-business {
+	&__sfa {
+		display: block;
+	}
+}
+
+}

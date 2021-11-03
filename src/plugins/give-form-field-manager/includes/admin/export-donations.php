@@ -9,6 +9,8 @@
  */
 
 // Exit if accessed directly
+use GiveFormFieldManager\Helpers\Form;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -47,23 +49,20 @@ add_action( 'give_export_donation_fields', 'give_ffm_export_donation_form_fields
  * @return  array $responses contain the list of form filed manage that need to be display when donation form is selected
  */
 function give_ffm_export_donations_get_custom_fields( $responses, $form_id ) {
-
 	$ffm_field_array           = array();
 	$non_multi_column_ffm_keys = array();
 
 	// Get the custom fields for the payment's form.
 	$ffm = new Give_FFM_Render_Form();
 
-	list( $post_fields, $taxonomy_fields, $custom_fields ) = $ffm->get_input_fields( absint( $form_id ) );
+	list( $post_fields, $taxonomy_fields, $custom_fields ) = Form::get_input_fields( absint( $form_id ) );
 
 	foreach ( $custom_fields as $field ) {
-
 		// Assemble multi-column repeater fields.
 		if ( isset( $field['multiple'] ) && 'repeat' === $field['input_type'] ) {
 			$non_multi_column_ffm_keys[] = $field['name'];
 
 			foreach ( $field['columns'] as $column ) {
-
 				// All other fields.
 				$ffm_field_array['repeaters'][] = array(
 					'subkey'       => 'repeater_' . give_export_donations_create_column_key( $column ),
@@ -127,7 +126,7 @@ function give_ffm_give_export_donation_data( $data, $payment, $columns, $instanc
 		$post_fields,
 		$taxonomy_fields,
 		$custom_fields
-		) = $ffm->get_input_fields( $payment->form_id );
+		) = Form::get_input_fields( $payment->form_id );
 	$parents = isset( $instance->data['give_give_donations_export_parent'] ) ? $instance->data['give_give_donations_export_parent'] : array();
 
 

@@ -53,7 +53,7 @@ get_header();
 					<h1 class="font-canela">
 						<?php the_title(); ?>
 					</h1>
-					<div>
+					<div class="hero-split__desc">
 						<?php the_content(); ?>
 					</div>
 					<div>

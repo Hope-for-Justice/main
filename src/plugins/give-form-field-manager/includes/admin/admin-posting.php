@@ -4,6 +4,9 @@
  *
  * Builds custom fields UI for post add/edit screen and handles value saving.
  */
+
+use GiveFormFieldManager\Helpers\Form;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -17,9 +20,9 @@ class Give_FFM_Admin_Posting extends Give_FFM_Render_Form {
 	 * Give_FFM_Admin_Posting constructor.
 	 */
 	function __construct() {
-		add_action( 'give_view_donation_details_billing_after', array( $this, 'render_form' ) );
-		add_action( 'give_update_edited_donation', array( $this, 'save_meta' ) );
-	}
+	  add_action( 'give_view_donation_details_billing_after', array( $this, 'render_form' ) );
+	  add_action( 'give_update_edited_donation', array( $this, 'save_meta' ) );
+  }
 
 	/**
 	 * Render Form in Payment Transactions.
@@ -31,25 +34,25 @@ class Give_FFM_Admin_Posting extends Give_FFM_Render_Form {
 	 * @param bool|false $preview
 	 */
 	function render_form( $payment_id, $post_id = null, $preview = false ) {
+	  // Create Payment Object.
+	  $payment = new Give_Payment( $payment_id );
 
-		// Create Payment Object.
-		$payment = new Give_Payment( $payment_id );
+	  $payment_meta  = give_get_payment_meta( $payment_id );
+	  $form_id       = $payment_meta['form_id'];
+	  $form_settings = give_get_meta( $form_id, 'give-form-fields_settings', true );
 
-		$payment_meta  = give_get_payment_meta( $payment_id );
-		$form_id       = $payment_meta['form_id'];
-		$form_settings = give_get_meta( $form_id, 'give-form-fields_settings', true );
+	  list( $post_fields, $taxonomy_fields, $custom_fields ) = Form::get_input_fields( $form_id );
 
-		list( $post_fields, $taxonomy_fields, $custom_fields ) = $this->get_input_fields( $form_id );
+	  //Sanity Check
+	  if ( empty( $custom_fields ) ) {
+		  return;
+	  } ?>
+    <div id="give-form-fields" class="postbox">
+      <h3 class="hndle"><?php
+		  _e( 'Custom Form Fields', 'give-form-field-manager' ); ?></h3>
 
-		//Sanity Check
-		if ( empty( $custom_fields ) ) {
-			return;
-		} ?>
-		<div id="give-form-fields" class="postbox">
-			<h3 class="hndle"><?php _e( 'Custom Form Fields', 'give-form-field-manager' ); ?></h3>
-
-			<div class="inside">
-				<?php
+      <div class="inside">
+		  <?php
 				// Bailout, if it is renewals donation and not parent recurring donation.
 				if ( 'give_subscription' === $payment->post_status ) : ?>
 
@@ -114,17 +117,16 @@ class Give_FFM_Admin_Posting extends Give_FFM_Render_Form {
 	 * @param $post_id
 	 */
 	function save_meta( $post_id ) {
+	  if ( ! isset( $_POST['ffm_field_data_update'] ) ) {
+		  return;
+	  }
 
-		if ( ! isset( $_POST['ffm_field_data_update'] ) ) {
-			return;
-		}
+	  $form_id = absint( $_POST['ffm_field_data_form_id'] );
+	  $form_vars = Form::get_input_fields( $form_id );
 
-		$form_id   = absint( $_POST['ffm_field_data_form_id'] );
-		$form_vars = self::get_input_fields( $form_id );
-
-		list( $post_vars, $tax_vars, $meta_vars ) = self::get_input_fields( $form_id );
-		Give_FFM()->frontend_form_post->update_post_meta( $meta_vars, absint( $_GET['id'] ), $form_vars );
-	}
+	  list( $post_vars, $tax_vars, $meta_vars ) = Form::get_input_fields( $form_id );
+	  Form::update_post_meta( $meta_vars, absint( $_GET['id'] ), $form_vars );
+  }
 
 	/**
 	 * Submit Button
