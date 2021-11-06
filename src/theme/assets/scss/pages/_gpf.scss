@@ -243,7 +243,18 @@
 
 }
 
+// wide
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: wide) {
 
+.gpf{
+	.drag-cards__inner {
+    	grid-template-columns: repeat(10, 52em);
+    	padding-left: 16.2em
+	}
+}
+
+}
 
 
 

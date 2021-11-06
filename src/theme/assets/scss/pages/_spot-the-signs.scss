@@ -1,0 +1,19 @@
+/*
+*
+* _SPOT-THE-SIGNS.SCSS
+*
+*/
+
+
+// desktop extra large
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopExtraLarge) {
+
+.spot-the-signs {
+	h1 {
+		font-size: 6em;
+	}
+}
+
+}
