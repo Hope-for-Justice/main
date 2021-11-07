@@ -8,6 +8,7 @@
 	position: fixed;
     right: 0px;
     bottom: 0;
+    z-index: $z-modals;
 	&__help-button {
 	@include box-shadow-reverse;
 	left:0;
@@ -45,7 +46,66 @@
     	text-decoration: underline;
     	span {margin-top: 1px;}
     }
+
 }
+
+.get-help-modal {
+    width:100%;
+    max-width: 100vw;
+    &__title {
+        font-family: 'fk-screamer', sans-serif;
+        text-transform: uppercase;
+        line-height: 1;
+        font-size: 7.4em;
+    }
+    &__text {
+        font-weight: bold;
+    }
+    &__content {
+        padding: 2.5em;
+        margin: 10px;
+    }
+    &__country-select {
+        position:relative;
+        select {
+            padding-left: 67px;
+        }
+    }
+    &__country-flag {
+        position:absolute;
+        margin-left: 10px;
+        margin-top: -66px;
+        img {
+            width:40%;
+        }
+    }
+    &__line {
+        height:1px;
+        background-color: $black;
+        width:calc(100% + 6em);
+        margin-left: -3.4em;
+        margin-top: 2em;
+    }
+    &__contact {
+        display: flex;
+        flex-wrap: wrap;
+        align-items:center;
+        margin-bottom: 35px;
+    }
+    &__number, &__email {
+        text-decoration: underline;
+    }
+    &__number {
+        font-family: fk-screamer, sans-serif;
+        font-size: 2.8em;
+    }
+    &__or {
+        margin-left: 10px
+    }
+}
+
+
+
 
 // Tablet
 ///////////////////////////////////////////////////////////////////////////////

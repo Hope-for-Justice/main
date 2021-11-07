@@ -15,6 +15,7 @@ module.exports = function (distTheme, devTheme, jsDir) {
 		devTheme + jsDir + 'plugins/pca.js',
 		devTheme + jsDir + 'plugins/flexslider.js',
 		devTheme + jsDir + 'plugins/fitvids.js',
+		//devTheme + jsDir + 'plugins/bootstrap-flags.js',
 		devTheme + jsDir + 'scripts.js',
 
 	];

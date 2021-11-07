@@ -1,0 +1,35 @@
+/*
+*  
+* $_WEGLOT.SCSS
+*
+*/
+
+
+
+.country-selector.weglot-default {
+	display: none;
+}
+
+.weglot-show .country-selector.weglot-default {
+		display: block;
+	}
+
+
+.country-selector.weglot-dropdown .wgcurrent {
+    border: 1px solid #FFC845;
+}
+.country-selector.weglot-dropdown .wgcurrent span {
+    padding-right: 30px;
+}
+.country-selector.weglot-default {
+    position: fixed;
+    bottom: 0px;
+    right: auto;
+    background-color: #FFC845;
+}
+
+@media screen and (min-width:768px){
+	.country-selector.weglot-default {
+    	bottom: 42px;
+	}
+}

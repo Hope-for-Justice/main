@@ -122,6 +122,12 @@ jQuery(document).ready(function($) {
     $(".page").fitVids();
     $(".single").fitVids();
 
+    //get help button
+    // jQuery(".get-help__help-button").on('click', function(){
+    //     alert('yep');
+    //    jQuery(".get-help__modal").toggleClass('get-help__modal--open');
+    // });
+
 
 }); /* end of as page load scripts */
 
@@ -137,8 +143,8 @@ jQuery(document).ready(function($) {
 jQuery(document).on('gform_post_render', function(event, form_id, current_page){
 
 
-    //modify field name to 'search' on gravity forms if class exists
-    jQuery(".address-search input").attr("name","search");
+    // //modify field name to 'search' on gravity forms if class exists
+    // jQuery(".address-search input").attr("name","search");
 
     //show address fields on click
     jQuery(".address-link").on('click', function(){
