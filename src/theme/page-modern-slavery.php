@@ -355,7 +355,7 @@ get_header();
 	    )
 	); ?>
 
-
+	<?php endwhile; ?>
 
 	
 

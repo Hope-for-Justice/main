@@ -994,10 +994,13 @@ object {
 
 body {
 	z-index: $z-body; 
-	background-color: #E4E4E4;
+	background-color: #efefef;
 }
 
-.site {background-color: $white;}
+.site {
+	background-color: $white;
+	border: 1px solid $lines;
+}
 
 /* No link decoration */
 a {text-decoration: none; color:$red; cursor:pointer;}

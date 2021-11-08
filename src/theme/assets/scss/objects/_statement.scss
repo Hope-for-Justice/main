@@ -45,10 +45,26 @@
 @include mq($from: desktopExtraLarge) {
 
 .statement {
+	margin: 10em 0;
 	padding: 0 3em;
 	h2 {
 		font-size: 3.4em;
 	}
 }
+
+}
+
+// wide
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: wide) {
+
+.statement {
+	padding: 0 5em;
+	h2 {
+		font-size: 3.6em;
+	}
+}
+
 
 }

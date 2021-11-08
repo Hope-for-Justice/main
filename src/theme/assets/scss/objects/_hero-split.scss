@@ -159,8 +159,6 @@
 
 @include mq($from: desktopExtraLarge) {
 
-
-
 }
 
 // wide
@@ -175,8 +173,12 @@
 // // extra wide
 // ///////////////////////////////////////////////////////////////////////////
 
-// @include mq($from: extraWide) {
+@include mq($from: extraWide) {
 
+.hero-split {
+	&__img {
+		min-height: 90em;
+	}
+}
 
-
-// }
+}
