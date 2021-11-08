@@ -1,0 +1,59 @@
+/*
+*
+* _MAP.SCSS
+*
+*/
+
+.picture-quote {
+	grid-column: col2/col12;
+	text-align: center;
+	margin-bottom: 3em;
+	&__picture {
+		border-radius: 100%;
+		width: 200px;
+		height: 200px;
+		margin: 0 auto;
+		background-size: cover;
+	}
+	&__quote {
+		font-size: 2.2em;
+		margin: 1.3em 0;
+	}
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.picture-quote {
+	margin: 5em auto;
+	grid-column: col4/col10;
+	max-width: 680px;
+	&__quote {
+		font-size: 3.2em;
+	}
+}
+
+
+}
+
+// desktopLarge
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+
+.picture-quote {
+	margin: 10em auto;
+	grid-column: col4/col10;
+	max-width: 800px;
+	&__quote {
+		font-size: 3.8em;
+	}
+	&__picture {
+		width: 250px;
+		height: 250px;
+	}
+}
+
+}

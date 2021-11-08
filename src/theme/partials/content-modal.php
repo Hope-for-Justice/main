@@ -160,5 +160,21 @@ $args = wp_parse_args(
                 </div>
          </div>
     </div>
+<?php } else if ( ( $args['type'] ) == "country") { ?>
+    
+    <!--
+    --
+    --  reference
+    --
+    --> 
+    <div class="modal fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
+          <div class="modal__dialog">
+                <div class="modal__content">
+                    <h2 class="modal__title modal__title--country">Lorem ipsum dolor</h2>
+                    <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <a href="#" data-dismiss="modal" class="gi-close modal__close">&times;<span class="accessibility">Close</span></a>
+                </div>
+         </div>
+    </div>
 
 <?php } ?>

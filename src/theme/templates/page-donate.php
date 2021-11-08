@@ -84,7 +84,7 @@ get_header(); ?>
 							echo do_shortcode( get_field('uk_donate_form_monthly') );
 						} ?>
 				</div>
-				<div class="donate__form donate__form--once">
+				<div id="usaForm" class="donate__form donate__form--once">
 					<?php 
 						if($GLOBALS['userInfo'] 
 						&& in_array($GLOBALS['userInfo'], $GLOBALS['us'])){

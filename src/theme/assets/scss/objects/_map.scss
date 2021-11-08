@@ -1,0 +1,60 @@
+/*
+*
+* _MAP.SCSS
+*
+*/
+
+.map {
+	display:none;
+	&__title {
+		display: none;
+	}
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.map {
+	display: block;
+	grid-column: col2/col12;
+	svg {
+		width:100%;
+		height: auto;
+	}
+	&__title {
+		display: block;
+		grid-column: col2/col12;
+		text-align: center;
+	}
+	&__pin {
+		//animation: fade ease 2s infinite;
+		//animation-delay: 0.5s;
+		&:hover {
+			opacity: 1;
+			cursor: pointer;
+		}
+		&:focus {
+			outline: none;
+		}
+		path:focus {
+			outline: none;
+		}
+	}
+}
+
+// @keyframes fade{
+//   0% {
+//     opacity:0.6;
+//   }
+//   50% {
+//     opacity:1;
+//   }
+//   100% {
+//   	opacity: 0.6;
+//   }
+// }
+
+}
+

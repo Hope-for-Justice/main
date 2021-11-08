@@ -1,0 +1,29 @@
+/*
+*
+* _HOW_WE_CHANGE_LIVES.SCSS
+*
+*/
+
+
+
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.how-we-change-lives {
+	.drop-cards{
+		display:none;
+		&__title {
+			display:none;
+		}
+	}
+	&__hero-bottom {
+		h2 {
+			max-width: 590px;
+		}
+	}
+}
+
+}

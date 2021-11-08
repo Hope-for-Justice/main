@@ -18,15 +18,15 @@ jQuery(document).ready(function($) {
         }
     };
 
-    //if donate=true show donate form
-    var donate = getUrlParameter('donate');
-    if(donate == "true") {
-        //modal (spash)
-        $('#payment-modal-once').modal('show');
-    } else if(donate == "monthly")   {
-        //modal (spash)
-        $('#payment-modal-regular').modal('show');
-    }
+    // //if donate=true show donate form
+    // var donate = getUrlParameter('donate');
+    // if(donate == "true") {
+    //     //modal (spash)
+    //     $('#payment-modal-once').modal('show');
+    // } else if(donate == "monthly")   {
+    //     //modal (spash)
+    //     $('#payment-modal-regular').modal('show');
+    // }
 
     //Drop down questions
     $('.dropdown').click(function() {
@@ -90,9 +90,11 @@ jQuery(document).ready(function($) {
 
     //reference modal text 
     var $text;
-    $('.reference__symbol').click(function() {
+    $('.reference__symbol, .reference').click(function() {
         $text = $(this).data( "text" );
+        $title = $(this).data("title");
         $(".modal__text").html($text);
+        $(".modal__title").html($title);
     });
 
     //flexslider
@@ -229,9 +231,9 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
     }
 
     //give wp
-    //$("#usaForm").find('iframe').contents().find(".currency--before").html('$');
-    //$("#ausForm").find('iframe').contents().find(".currency--before").html('$');
-    //$("#norwayForm").find('iframe').contents().find(".currency--before").html('Kr.');
+    $("#usaForm").find('iframe').contents().find(".currency--before").html('$');
+    $("#ausForm").find('iframe').contents().find(".currency--before").html('$');
+    $("#norwayForm").find('iframe').contents().find(".currency--before").html('Kr.');
     
     //const selectOption = $(".give-embed-form-wrapper").find('iframe').contents().find(".preferencesQuestion").find('select');
     //const options = $(".give-embed-form-wrapper").find('iframe').contents().find(".preference"); 

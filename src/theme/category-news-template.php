@@ -29,22 +29,22 @@ get_header();
 					<ul class="footer__social-icons">
 						<li class="footer__social-icon">
 							<a href="<?php echo the_field('linked_in_link', 'option'); ?>">
-								<img src="<?php echo get_template_directory_uri().'/assets/img/li-white.svg'; ?>" alt="">
+								<img src="<?php echo get_template_directory_uri().'/assets/img/li-red.svg'; ?>" alt="">
 							</a>
 						</li>
 						<li class="footer__social-icon">
 							<a href="<?php echo the_field('instagram_link', 'option'); ?>">
-								<img src="<?php echo get_template_directory_uri().'/assets/img/in-white.svg'; ?>" alt="">
+								<img src="<?php echo get_template_directory_uri().'/assets/img/in-red.svg'; ?>" alt="">
 							</a>
 						</li>
 						<li class="footer__social-icon">
 							<a href="<?php echo the_field('twitter_link', 'option'); ?>">
-								<img src="<?php echo get_template_directory_uri().'/assets/img/tw-white.svg'; ?>" alt="">
+								<img src="<?php echo get_template_directory_uri().'/assets/img/tw-red.svg'; ?>" alt="">
 							</a>
 						</li>
 						<li class="footer__social-icon">
 							<a href="<?php echo the_field('facebook_link', 'option'); ?>">
-								<img src="<?php echo get_template_directory_uri().'/assets/img/fb-white.svg'; ?>" alt="">
+								<img src="<?php echo get_template_directory_uri().'/assets/img/fb-red.svg'; ?>" alt="">
 							</a>
 						</li>
 					</ul>
@@ -236,7 +236,7 @@ get_header();
 			</h2>
 		    
 		    <!-- posts container-->
-		    <div class="cards sub-grid" id="term_slug_<?php echo $headline_category->term_id; ?>">
+		    <div class="cards sub-grid news-headlines" id="term_slug_<?php echo $headline_category->term_id; ?>">
 			
 				<!-- While there are posts show them -->
 				<?php while ($query->have_posts()) : $query->the_post(); ?>
@@ -265,14 +265,14 @@ get_header();
 
 			</div><!-- /posts container-->	
 
-			<!-- see more posts button -->	
+			<!-- see more posts button 
 	    	<div class="news-page__button">
 				<a href="javascript:void(0)" class="button button--white more_posts" data-term="<?php echo $headline_category->term_id; ?>" data-href="<?php echo home_url().'/category/in_the_headlines/';?>">
 					<div class="button__inner">
 						<div class="button__text bold">See more</div>
 					</div>
 				</a>
-	    	</div>
+	    	</div>-->	
 		    	
 
 			<!-- 
