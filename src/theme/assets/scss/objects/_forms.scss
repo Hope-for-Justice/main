@@ -121,6 +121,7 @@ fieldset {
     position: absolute;
     right: 1.5em;
     top: 50%;
+    pointer-events: none;
     transform: translateY(calc(-50% - 0.4em));
     opacity: 0.5;
     }

@@ -95,6 +95,46 @@
 
 }
 
+.get-help-modal {
+	min-height: 100vh;
+	.modal__close {
+		border-radius: 100%;
+	    width: 1.5em;
+	    height: 1.5em;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    top: 20px;
+	    right: 20px;
+	    left:auto;
+	    margin-left:auto;
+	    position:sticky;
+	    z-index: 1;
+	}
+	.modal__dialog {
+		top:0;
+	}
+	.get-help-modal__country-flag {
+    	position: absolute;
+    	margin-left: 14px;
+    	margin-top: -73px;
+    	pointer-events: none;
+	}
+	.get-help-modal__title {
+		margin-bottom: 0.3em;
+	}
+	.get-help-modal__email {
+		font-size: 1.8em;
+	}
+	.get-help-modal__number {
+		font-size: 3.8em;
+	}
+	.get-help-modal__text {
+		font-size: 1.8em;
+		margin-bottom: 1.5em;
+	}
+}
+
 // tablet
 ///////////////////////////////////////////////////////////////////////////
 
@@ -128,6 +168,20 @@
 	}
 
 }
+
+.get-help-modal {
+	.modal__dialog {
+		left:auto;
+		right:0;
+		transform: translate(0,0);
+	}
+	.modal__content {
+		margin: 0;
+		border-radius: 0;
+	}
+
+}
+
 
 }
 

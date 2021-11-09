@@ -121,8 +121,9 @@ jQuery(document).ready(function($) {
     })
 
     // responsive resizing videos
-    $(".page").fitVids();
-    $(".single").fitVids();
+    //$(".page").fitVids();
+    //$(".single").fitVids();
+    $('iframe[src*="youtube"]').parent().fitVids();
 
     //get help button
     // jQuery(".get-help__help-button").on('click', function(){

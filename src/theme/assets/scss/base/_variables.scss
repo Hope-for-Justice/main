@@ -19,12 +19,13 @@ $mq-breakpoints: (
     desktopLarge: 1366px,
     desktopExtraLarge: 1680px,
     wide: 1920px,
+    max: 1921px,
     extraWide: 2300px,
 
 ) !default;
 
 // Show breakpoints 
-//$mq-show-breakpoints: (mobile, mobileMedium, mobileLarge, phablet, tablet, desktop, desktopLarge, desktopExtraLarge, wide, extraWide);
+//$mq-show-breakpoints: (mobile, mobileMedium, mobileLarge, phablet, tablet, desktop, desktopLarge, desktopExtraLarge, wide, max, extraWide);
 
 // Colors
 ///////////////////////////////////////////////////////////////////////////////

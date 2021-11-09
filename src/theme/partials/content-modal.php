@@ -185,12 +185,13 @@ $args = wp_parse_args(
     --
     -->
     <div class="modal get-help-modal fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
+        <a href="#" data-dismiss="modal" class="gi-close modal__close">&times;<span class="accessibility">Close</span></a>
           <div class="modal__dialog get-help-modal__dialog">
                 <div class="modal__content modal__content--yellow get-help-modal__content">
 
                         <?php echo do_shortcode("[gravityform id=\"32\" title=\"false\" description=\"true\"]"); ?>
 
-                    <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--payment">&times;<span class="accessibility">Close</span></a>
+                    
 
                 </div>
          </div>
