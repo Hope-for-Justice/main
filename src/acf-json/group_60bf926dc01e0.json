@@ -1,0 +1,40 @@
+{
+    "key": "group_60bf926dc01e0",
+    "title": "News Post",
+    "fields": [
+        {
+            "key": "field_60bf928245fd0",
+            "label": "Enter Vimeo Link",
+            "name": "upload_video",
+            "type": "oembed",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "width": "",
+            "height": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_category",
+                "operator": "==",
+                "value": "category:videos"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1636642072
+}

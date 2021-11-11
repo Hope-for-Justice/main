@@ -1,0 +1,107 @@
+{
+    "key": "group_60e331c75e5e4",
+    "title": "Resources Template",
+    "fields": [
+        {
+            "key": "field_60e332a777ad4",
+            "label": "Choose Between",
+            "name": "choose_between",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "pdf": "Upload Pdf",
+                "link": "Link"
+            },
+            "allow_null": 0,
+            "other_choice": 0,
+            "default_value": "",
+            "layout": "vertical",
+            "return_format": "value",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_60e331d7b8f87",
+            "label": "Upload Pdf",
+            "name": "upload_pdf",
+            "type": "file",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_60e33200b8f88",
+                        "operator": "==empty"
+                    },
+                    {
+                        "field": "field_60e332a777ad4",
+                        "operator": "==",
+                        "value": "pdf"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "library": "all",
+            "min_size": "",
+            "max_size": "",
+            "mime_types": "pdf"
+        },
+        {
+            "key": "field_60e33200b8f88",
+            "label": "External Link",
+            "name": "link",
+            "type": "url",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_60e331d7b8f87",
+                        "operator": "==empty"
+                    },
+                    {
+                        "field": "field_60e332a777ad4",
+                        "operator": "==",
+                        "value": "link"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "resources_template"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1636642081
+}

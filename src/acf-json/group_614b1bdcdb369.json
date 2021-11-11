@@ -1,0 +1,81 @@
+{
+    "key": "group_614b1bdcdb369",
+    "title": "Basic Campaign",
+    "fields": [
+        {
+            "key": "field_614b1e212edda",
+            "label": "Giving Form",
+            "name": "giving_form",
+            "type": "wysiwyg",
+            "instructions": "Copy and paste the short code for the giving form here",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "text",
+            "media_upload": 0,
+            "toolbar": "full",
+            "delay": 0
+        },
+        {
+            "key": "field_614b1ea72eddb",
+            "label": "Form description title",
+            "name": "form_description_title",
+            "type": "text",
+            "instructions": "The title that appears next to the form",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_614b1eee6e251",
+            "label": "Form description text",
+            "name": "form_description_text",
+            "type": "text",
+            "instructions": "The text that appears next to the giving form",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates\/page-basic-campaign.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1636642031
+}
