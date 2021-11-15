@@ -13,12 +13,12 @@ module.exports = function (devPlugins, distPlugins, devACF, distACF) {
           expand: false,
           src: devPlugins,
           dest: distPlugins
-        }/*,
+        },
         {
           expand: false,
           src: devACF,
           dest: distACF
-        }*/
+        }
       ]
     }
 	}
