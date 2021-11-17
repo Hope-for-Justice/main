@@ -114,20 +114,8 @@
 	.modal__dialog {
 		top:0;
 	}
-	.get-help-modal__country-flag {
-    	position: absolute;
-    	margin-left: 14px;
-    	margin-top: -73px;
-    	pointer-events: none;
-	}
 	.get-help-modal__title {
 		margin-bottom: 0.3em;
-	}
-	.get-help-modal__email {
-		font-size: 1.8em;
-	}
-	.get-help-modal__number {
-		font-size: 3.8em;
 	}
 	.get-help-modal__text {
 		font-size: 1.8em;
@@ -178,6 +166,7 @@
 	.modal__content {
 		margin: 0;
 		border-radius: 0;
+		padding: 3.5em;
 	}
 
 }
