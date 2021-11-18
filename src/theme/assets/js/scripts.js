@@ -271,9 +271,9 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
     // }
 
     //give wp
-    $("#usaForm").find('iframe').contents().find(".currency--before").html('$');
-    $("#ausForm").find('iframe').contents().find(".currency--before").html('$');
-    $("#norwayForm").find('iframe').contents().find(".currency--before").html('Kr.');
+    $("#usaForm, #usaFormMonthly").find('iframe').contents().find(".currency--before").html('$');
+    //$("#ausForm").find('iframe').contents().find(".currency--before").html('$');
+    $("#norwayForm, #norwayFormMonthly").find('iframe').contents().find(".currency--before").html('Kr.');
     
     //const selectOption = $(".give-embed-form-wrapper").find('iframe').contents().find(".preferencesQuestion").find('select');
     //const options = $(".give-embed-form-wrapper").find('iframe').contents().find(".preference"); 
