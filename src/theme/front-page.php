@@ -71,7 +71,7 @@ get_header();
 			<div class="sub-grid">
 				<div class="get-involved">
 					<div class="get-involved__text">
-						<h2 id="waypoint" class="get-involved__heading font-canela">
+						<h2 class="get-involved__heading font-canela">
 							<?php the_field('grid_title'); ?>	
 						</h2>
 						<p class="get-involved__desc">
