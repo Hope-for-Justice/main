@@ -88,7 +88,8 @@ get_header();
 				 		} elseif(get_field('choose_between') == 'link') { 
 				 			$field = get_field('link',$query->ID); 
 				 		} 
-				 		$location = get_field('location',$query->ID); 
+				 		//$location = get_field('location',$query->ID); 
+				 		$description = get_field('description',$query->ID); 
 				 		$country = get_field('country',$query->ID); 
 				 		?>
 					
@@ -99,6 +100,11 @@ get_header();
 								<?php echo get_the_title(); ?>
 							</h3>
 
+							<!-- Short decription -->
+							<div class="career-cards__description">
+								<p><?php echo $description ?></p>
+							</div>
+							
 							<!-- Arrow -->
 							<div class="career-cards__arrow">
 								<img src="<?php echo get_template_directory_uri().'/assets/img/arrow.svg'; ?>" />
@@ -108,7 +114,7 @@ get_header();
 							<div class="career-cards__location">
 								<img src="<?php echo get_template_directory_uri().'/assets/img/balloon.svg'; ?>" />
 								<p>
-									<?php echo $location; ?>,&nbsp;<?php echo $country; ?>	
+									<?php echo $country; ?>	
 								</p>
 							</div>	
 						</a>
