@@ -94,13 +94,13 @@ add_action( 'after_setup_theme', 'hope_for_justice_2021_setup' );
 function hope_for_justice_2021_scripts() {
 	global $wp_styles;
 
-	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202107' );
+	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202108' );
 
 	wp_enqueue_script('jquery'); 
-	// wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202107', true );
+	// wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202108', true );
 
 
-    wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202107', true );
+    wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202108', true );
 
 }
 
@@ -120,7 +120,7 @@ add_action( 'wp_enqueue_scripts', 'hope_for_justice_2021_scripts', 1 );
 function page_scripts() {
     global $post;
 
-    wp_register_script( 'donate-uk', get_template_directory_uri() . '/assets/js/pages/donate-uk.js', array('jquery'), '202107', true);
+    wp_register_script( 'donate-uk', get_template_directory_uri() . '/assets/js/pages/donate-uk.js', array('jquery'), '202108', true);
 
     $themeVars = array( 'template_directory_uri' => get_template_directory_uri() );
 
@@ -570,3 +570,6 @@ if( function_exists('acf_add_options_page') ) {
 //shortcodes
 include('custom-shortcodes.php');
 add_shortcode('dropdown', 'dropdown_function');
+
+
+

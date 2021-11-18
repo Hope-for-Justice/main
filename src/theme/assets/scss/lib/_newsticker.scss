@@ -13,6 +13,8 @@
   max-width: 1920px;
   //left:0;
   @include box-shadow-reverse;
+  opacity: 0;
+  transition: all 0.5s ease-out;
 }
 
 .newsticker__item{

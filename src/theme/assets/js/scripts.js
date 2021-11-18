@@ -18,6 +18,36 @@ jQuery(document).ready(function($) {
         }
     };
 
+    // lottie
+    var getInvolved;
+    var elem = document.getElementById('getInvolved');
+
+        if (elem != undefined) {
+        var animData = {
+            container: elem,
+            renderer: 'canvas',
+            loop: false,
+            autoplay: false, //change to false when using trigger
+            rendererSettings: {
+                progressiveLoad:false
+            },
+            path: '/wp-content/themes/hope-for-justice-2020/assets/img/getinvolved.json',
+            //on wp-engine /wp-content/themes/hope-for-justice-2020/assets/img/getinvolved.json
+            //on local setup /build/themes/hope-for-justice-2020/assets/img/getinvolved.json
+        };
+        getInvolved = bodymovin.loadAnimation(animData);
+
+
+        //waypoint
+        var waypoint = new Waypoint({
+        element: document.getElementById('getInvolved'),
+          handler: function(direction) {
+            getInvolved.play();
+          },
+          offset: '50%'
+        }); 
+    }
+
     // //if donate=true show donate form
     // var donate = getUrlParameter('donate');
     // if(donate == "true") {
@@ -55,6 +85,7 @@ jQuery(document).ready(function($) {
     //News ticker
     if ($(window).width() > 767) {
         $("#newsTicker").eocjsNewsticker();
+        $(".newsticker").css('opacity','1');
     }
     
 
@@ -130,7 +161,9 @@ jQuery(document).ready(function($) {
     //     alert('yep');
     //    jQuery(".get-help__modal").toggleClass('get-help__modal--open');
     // });
-
+    $('.get-help-modal__country-select').find('select').on('change', function(){
+        alert('Country select changed - This will trigger translations in the get help area when available.');
+    });
 
 }); /* end of as page load scripts */
 
@@ -232,10 +265,10 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
     };
 
     //if no donate url param show splash
-    var donate = getUrlParameter('donate');
-    if(donate != "true" && donate != "monthly") {
-        $('#splash-modal').modal('show');
-    }
+    // var donate = getUrlParameter('donate');
+    // if(donate != "true" && donate != "monthly") {
+    //     $('#splash-modal').modal('show');
+    // }
 
     //give wp
     $("#usaForm").find('iframe').contents().find(".currency--before").html('$');
@@ -282,33 +315,6 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
         //     $(".hero__content").addClass("animate__animated animate__fadeInDown").css('opacity','1');
         // });
         
-
-        // lottie
-        var getInvolved;
-        var elem = document.getElementById('getInvolved')
-        var animData = {
-            container: elem,
-            renderer: 'canvas',
-            loop: false,
-            autoplay: true, //change to false when using with scroll trigger gsap 
-            rendererSettings: {
-                progressiveLoad:false
-            },
-            path: '/build/themes/hope-for-justice-2020/assets/img/getinvolved.json',
-            //on wp-engine /wp-content/themes/hope-for-justice-2020/assets/img/getinvolved.json
-            //on local setup /build/themes/hope-for-justice-2020/assets/img/getinvolved.json
-        };
-        getInvolved = bodymovin.loadAnimation(animData);
-
-
-
-        // var waypoint = new Waypoint({
-        // element: document.getElementById('waypoint'),
-        //   handler: function(direction) {
-        //     getInvolved.play();
-        //   },
-        //   offset: 200
-        // }); /////////////////// replace with scroll trigger gsap
 
         //cards
         Draggable.create(".drag-cards__inner", {

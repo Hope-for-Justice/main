@@ -24,7 +24,7 @@
 	<!-- get help -->
 	<div class="get-help">
 		<a data-toggle="modal" data-target="#get-help-modal" class="get-help__help-button">Get&nbsp;Help</a>
-		<a class="get-help__quick-exit"><span>Quick&nbsp;Exit</span></a>
+		<a href="http://google.com" class="get-help__quick-exit"><span>Quick&nbsp;Exit</span></a>
 	</div>
 
 
