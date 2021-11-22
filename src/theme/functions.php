@@ -120,14 +120,14 @@ add_action( 'wp_enqueue_scripts', 'hope_for_justice_2021_scripts', 1 );
 function page_scripts() {
     global $post;
 
-    wp_register_script( 'donate-uk', get_template_directory_uri() . '/assets/js/pages/donate-uk.js', array('jquery'), '202108', true);
+    wp_register_script( 'donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '202108', true);
 
     $themeVars = array( 'template_directory_uri' => get_template_directory_uri() );
 
     	//donate uk
-        if (is_page('donate')) {
-         	wp_enqueue_script('donate-uk');
-        }
+      if (is_page('donate') || is_page_template('templates/page-basic-campaign.php')) {
+       	wp_enqueue_script('donate');
+      }
 
 
 }

@@ -52,9 +52,92 @@ get_header(); ?>
 			--  
 			-->
 			<div class="inline-giving">
-				<div class="inline-giving__form">
-					<?php the_field('giving_form');?>
-				</div> 
+				
+				<!-- 
+				-- 
+				-- Giving
+				--  
+				-->
+				<div class="donate__giving">
+					<!-- 
+					-- 
+					-- Toggle
+					--  
+					-->				
+					<?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])) {?> 
+
+					<a href="<?php echo the_field('norway_donate_form_monthly')?>">
+						<div class="donate__toggle-container">
+							<div class="donate__toggle toggle toggle--black">
+								<div class="toggle__option">Give once</div>
+								<div class="toggle__option">Give monthly</div>
+								<div class="toggle__slider toggle__slider--left">Giving </div>
+							</div>
+						</div>
+					</a>
+
+					<?php } else { ?>
+
+					<div class="donate__toggle-container">
+						<div class="donate__toggle toggle toggle--black">
+							<div class="toggle__option">Give once</div>
+							<div class="toggle__option">Give monthly</div>
+							<div class="toggle__slider">Giving </div>
+						</div>
+					</div>
+
+					<?php } ?>
+
+					<div class="donate__form donate__form--monthly">
+						<?php 
+							if($GLOBALS['userInfo'] 
+							&& in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){ ?>
+								<!-- US -->
+								<div id="usaFormMonthly">
+									<?php echo do_shortcode( get_field('us_donate_form_monthly') ); ?>
+								</div>
+							<?php } 
+							else if($GLOBALS['userInfo'] 
+							&& in_array($GLOBALS['userInfo'], $GLOBALS['norway'])) { ?>
+								<!-- Norway 
+									one off default for norway
+								-->
+								<div id="norwayForm">
+									<?php echo do_shortcode( get_field('norway_donate_form_once') ); ?>
+								</div>
+							<?php } else { ?>
+								<!-- UK fallback -->
+								<div id="ukFormMonthly">
+									<?php echo do_shortcode( get_field('uk_donate_form_monthly') ); ?>
+								</div>
+							<?php } ?>
+					</div>
+					<div class="donate__form donate__form--once">
+						<?php 
+							if($GLOBALS['userInfo'] 
+							&& in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){ ?>
+								<!-- US -->
+								<div id="usaForm">
+									<?php echo do_shortcode( get_field('us_donate_form_once') );?>
+								</div>
+							<?php } 
+							else if($GLOBALS['userInfo'] 
+							&& in_array($GLOBALS['userInfo'], $GLOBALS['norway'])) { ?>
+								<!-- Norway
+									one off form in 'default' monthly div
+									slider made one-off
+								 -->
+
+							<?php } 
+							else { ?>
+								<!-- UK fallback -->
+								<div id="ukForm">
+									<?php echo do_shortcode( get_field('uk_donate_form_once') ); ?>
+								</div>
+							<?php } ?>
+					</div>
+				</div><!-- / giving -->
+
 			</div>
 
 			<div class="inline-giving__info">	

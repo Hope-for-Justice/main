@@ -21,9 +21,9 @@ module.exports = function (distTheme, devTheme, jsDir) {
 	];
 
 
-	uglifyFilesObject[distTheme + jsDir + 'pages/donate-uk.js'] = [
+	uglifyFilesObject[distTheme + jsDir + 'pages/donate.js'] = [
 
-		devTheme + jsDir + 'pages/donate-uk.js',
+		devTheme + jsDir + 'pages/donate.js',
 
 
 	];

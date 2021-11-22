@@ -132,7 +132,7 @@ get_header(); ?>
 							</div>
 						<?php } ?>
 				</div>
-			</div>
+			</div><!-- / giving -->
 
 
 		</div><!-- /grid -->
