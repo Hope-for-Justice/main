@@ -71,7 +71,7 @@ get_header(); ?>
 							<div class="donate__toggle toggle toggle--black">
 								<div class="toggle__option">Give once</div>
 								<div class="toggle__option">Give monthly</div>
-								<div class="toggle__slider toggle__slider--left">Giving </div>
+								<div class="toggle__slider">Giving </div>
 							</div>
 						</div>
 					</a>
@@ -123,11 +123,10 @@ get_header(); ?>
 							<?php } 
 							else if($GLOBALS['userInfo'] 
 							&& in_array($GLOBALS['userInfo'], $GLOBALS['norway'])) { ?>
-								<!-- Norway
-									one off form in 'default' monthly div
-									slider made one-off
-								 -->
-
+								<!-- Norway -->
+								<div id="norwayForm">
+									<?php echo do_shortcode( get_field('norway_donate_form_once') ); ?>
+								</div>
 							<?php } 
 							else { ?>
 								<!-- UK fallback -->
@@ -156,5 +155,11 @@ get_header(); ?>
 		<?php endwhile; // end of the loop. ?>
 
 	</main><!-- #main -->
+
+	<?php if($GLOBALS['userInfo'] 
+	&& in_array($GLOBALS['userInfo'], $GLOBALS['norway']) || get_field('start_with_one_off')) { ?>
+		<input id="initialDonationType" type="hidden" name="geo" value="once">
+	<?php } ?>
+
 
 <?php get_footer(); ?>

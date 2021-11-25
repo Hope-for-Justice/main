@@ -4,13 +4,12 @@
 
 
 jQuery(document).ready(function($) {
-    $('.newsticker').css('visibility', 'hidden');
+    //$('.newsticker').css('visibility', 'hidden');
 
-    // Norway starts on one-off
-    if ($('#geo').val() == "norway") {
-        var monthly = false; 
-    } else {
-        var monthly = true; 
+    var monthly = true; 
+    // Campaigns/ Norway starts on one-off
+    if ($('#initialDonationType').val() == "once") {
+        slider();
     }
 
     //toggle slider for monthly or single donation change amounts and messages
