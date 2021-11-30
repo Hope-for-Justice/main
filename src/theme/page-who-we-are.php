@@ -126,6 +126,11 @@ get_header();
 
 					<div class="people__person">
 						<img src="<?php echo get_sub_field('image'); ?>">
+						<?php if( get_sub_field('linked_in_link') ) { ?>
+							<a href="<?php echo get_sub_field('linked_in_link'); ?>" class="people__linked-in">
+								<img class="people__linked-in-img" src="<?php echo get_template_directory_uri().'/assets/img/li-blue.svg'; ?>">
+							</a>
+						<?php } ?>
 						<p><?php echo get_sub_field('text'); ?></p>
 					</div>
 

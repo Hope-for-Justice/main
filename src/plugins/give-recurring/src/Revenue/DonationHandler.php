@@ -1,12 +1,10 @@
 <?php
+
 namespace GiveRecurring\Revenue;
 
 use Give\Revenue\DonationHandler as GiveDonationHandler;
-use Give_Payment;
-use Give_Subscription;
-use GiveFunds\Repositories\Funds;
 use Give\Revenue\Repositories\Revenue;
-use GiveRecurring\Revenue\Traits\FundAddonTrait;
+use Give_Payment;
 
 
 /**
@@ -16,45 +14,32 @@ use GiveRecurring\Revenue\Traits\FundAddonTrait;
  * @since 1.11.0
  */
 class DonationHandler {
-	use FundAddonTrait;
+	/**
+	 * @var Revenue
+	 */
+	private $revenueRepository;
+
+	/**
+	 * @var GiveDonationHandler
+	 */
+	private $donationHandler;
+
+	public function __construct(
+		Revenue $revenue,
+		GiveDonationHandler $handler
+	) {
+		$this->revenueRepository = $revenue;
+		$this->donationHandler   = $handler;
+	}
 
 	/**
 	 * Handle new renewal
 	 *
-	 * @param Give_Payment $donation
-	 * @param int $parentDonation
+	 * @param  Give_Payment  $payment
 	 */
-	public function handle( $donation, $parentDonation ){
-		/* @var Revenue $revenueRepository */
-		$revenueRepository = give( Revenue::class );
-		$subscription = new Give_Subscription( $parentDonation );
-		$revenueData = $this->getData( $donation->ID, $subscription );
-		$revenueRepository->insert( $revenueData );
-	}
-
-	/**
-	 * Get revenue data.
-	 *
-	 * @since 1.11.0
-	 *
-	 * @param int $donationId
-	 * @param Give_Subscription $subscription
-	 *
-	 * @return array
-	 */
-	private function getData( $donationId, $subscription ) {
-		/* @var GiveDonationHandler $giveWPCoreDonationHandler */
-		$giveWPCoreDonationHandler = give( GiveDonationHandler::class );
-		$revenueData = $giveWPCoreDonationHandler->getData( $donationId );
-
-		if( $this->isFundAddonActive() ){
-			/* @var Funds $fundRepository */
-			$fundRepository = give( Funds::class );
-
-			$revenueData['fund_id'] = give_recurring()->subscription_meta->get_meta( $subscription->id, 'fund_id', true );
-			$revenueData['fund_id'] = $revenueData['fund_id'] ?: $fundRepository->getDefaultFundId();
-		}
-
-		return $revenueData;
+	public function handle( $payment ) {
+		$this->revenueRepository->insert(
+			$this->donationHandler->getData( $payment->ID )
+		);
 	}
 }

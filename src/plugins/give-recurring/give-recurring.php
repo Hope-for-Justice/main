@@ -3,22 +3,25 @@
  * Plugin Name: Give - Recurring Donations
  * Plugin URI:  https://givewp.com/addons/recurring-donations/
  * Description: Adds support for recurring (subscription) donations to the GiveWP donation plugin.
- * Version:     1.12.6
- * Author:      GiveWP
- * Author URI:  https://givewp.com
+ * Version: 1.12.7
+ * Requires at least: 4.9
+ * Requires PHP: 5.6
+ * Author: GiveWP
+ * Author URI: https://givewp.com
  * Text Domain: give-recurring
  * Domain Path: /languages
  */
 
-use GiveRecurring\Email\EmailServiceProvider;
-use GiveRecurring\PaymentGateways\PaymentGateways;
 use GiveRecurring\Activation;
-use GiveRecurring\Revenue\RevenueServiceProvider;
-use GiveRecurring\Tracking\TrackingServiceProvider;
-use GiveRecurring\Logs\LogsServiceProvider;
+use GiveRecurring\Donation\ServiceProvider;
 use GiveRecurring\DonorDashboard\ServiceProvider as DonorDashboardServiceProvider;
-use GiveRecurring\Webhooks\ServiceProvider as WebhooksServiceProvider;
+use GiveRecurring\Email\EmailServiceProvider;
+use GiveRecurring\Logs\LogsServiceProvider;
+use GiveRecurring\PaymentGateways\PaymentGateways;
+use GiveRecurring\Revenue\RevenueServiceProvider;
 use GiveRecurring\Subscriptions\ServiceProvider as SubscriptionsServiceProvider;
+use GiveRecurring\Tracking\TrackingServiceProvider;
+use GiveRecurring\Webhooks\ServiceProvider as WebhooksServiceProvider;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -27,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Plugin constants.
 if ( ! defined( 'GIVE_RECURRING_VERSION' ) ) {
-	define( 'GIVE_RECURRING_VERSION', '1.12.6' );
+	define( 'GIVE_RECURRING_VERSION', '1.12.7' );
 }
 if ( ! defined( 'GIVE_RECURRING_MIN_GIVE_VERSION' ) ) {
 	define( 'GIVE_RECURRING_MIN_GIVE_VERSION', '2.12.3' );
@@ -445,7 +448,6 @@ final class Give_Recurring {
 		add_filter( 'give_get_sales_by_date_args', [ $this, 'earnings_query' ] );
 		add_filter( 'give_stats_earnings_args', [ $this, 'earnings_query' ] );
 		add_filter( 'give_get_sales_by_date_args', [ $this, 'earnings_query' ] );
-		add_filter( 'give_get_users_donations_args', [ $this, 'has_donated_query' ] );
 
 		// Allow give_subscription to run a refund to the gateways.
 		add_filter( 'give_should_process_refunded', [ $this, 'maybe_process_refund' ], 10, 2 );
@@ -1256,22 +1258,6 @@ final class Give_Recurring {
 	}
 
 	/**
-	 * Make sure subscription payments get included in has user donated query.
-	 *
-	 * @since  1.0
-	 * @access public
-	 *
-	 * @param  array  $args
-	 *
-	 * @return array
-	 */
-	public function has_donated_query( $args ) {
-		$args['status'] = [ 'publish', 'revoked', 'cancelled', 'give_subscription' ];
-
-		return $args;
-	}
-
-	/**
 	 * Tells Give to include child payments in queries.
 	 *
 	 * @since  1.0
@@ -1848,15 +1834,17 @@ add_action( 'before_give_init', function () {
 	// Check Give min required version.
 	if ( GiveRecurring\Infrastructure\Environment::giveMinRequiredVersionCheck() ) {
 		$service_providers = [
-			PaymentGateways::class,
-			RevenueServiceProvider::class,
-			TrackingServiceProvider::class,
-			EmailServiceProvider::class,
-			DonorDashboardServiceProvider::class,
-			LogsServiceProvider::class,
-			WebhooksServiceProvider::class,
-      SubscriptionsServiceProvider::class,
-		];
+            PaymentGateways::class,
+            RevenueServiceProvider::class,
+            TrackingServiceProvider::class,
+            EmailServiceProvider::class,
+            DonorDashboardServiceProvider::class,
+            LogsServiceProvider::class,
+            WebhooksServiceProvider::class,
+            SubscriptionsServiceProvider::class,
+            ServiceProvider::class,
+            \GiveRecurring\PaymentGateways\AuthorizeNet\ServiceProvider::class
+        ];
 
 		foreach ( $service_providers as $service_provider ) {
 			give()->registerServiceProvider( $service_provider );

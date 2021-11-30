@@ -4,9 +4,8 @@
 
 
 jQuery(document).ready(function($) {
-    $('.newsticker').css('visibility', 'hidden');
 
-    // Norway starts on one-off
+    // Norway always starts on one-off
     if ($('#geo').val() == "norway") {
         var monthly = false; 
     } else {
@@ -39,4 +38,8 @@ jQuery(document).ready(function($) {
     }
 
 
+
+
 });
+
+

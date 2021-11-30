@@ -450,7 +450,9 @@ class Give_Subscription {
 	 *
 	 * Records a new payment on the subscription.
 	 *
-	 * @param  array  $args  Array of values for the payment, including amount and transaction ID.
+	 * @since 1.12.7 Set donor first and last name in new donation
+	 *
+	 * @param array $args Array of values for the payment, including amount and transaction ID.
 	 *
 	 * @return bool
 	 */
@@ -481,6 +483,8 @@ class Give_Subscription {
 		$payment->form_id        = $parent->form_id;
 		$payment->customer_id    = $parent->customer_id;
 		$payment->address        = $parent->address;
+		$payment->first_name     = $parent->user_info['first_name'];
+		$payment->last_name      = $parent->user_info['last_name'];
 		$payment->user_info      = $parent->user_info;
 		$payment->user_id        = $parent->user_id;
 		$payment->email          = $parent->email;

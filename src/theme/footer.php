@@ -10,40 +10,48 @@
  */
 
 ?>
-	<!-- #newsTicker -->
-	<div class="newsticker">
-		<div id="newsTicker">
-			<?php while (have_rows('news_ticker','option')) : the_row(); ?>
-			<a href="<?php echo get_sub_field('link'); ?>" class="newsticker__item">
-				<?php echo get_sub_field('text'); ?>	
-			</a>
-			<?php endwhile; ?>
+
+	<?php // show or hide ticker
+	if( ! get_field('no_news') ) { ?>
+
+		<!-- #newsTicker -->
+		<div class="newsticker">
+			<div id="newsTicker">
+				<?php while (have_rows('news_ticker','option')) : the_row(); ?>
+				<a href="<?php echo get_sub_field('link'); ?>" class="newsticker__item">
+					<?php echo get_sub_field('text'); ?>	
+				</a>
+				<?php endwhile; ?>
+			</div>
 		</div>
-	</div>
 
-	<!-- get help -->
-	<div class="get-help">
-		<a data-toggle="modal" data-target="#get-help-modal" class="get-help__help-button">Get&nbsp;Help</a>
-		<a href="http://google.com" class="get-help__quick-exit"><span>Quick&nbsp;Exit</span></a>
-	</div>
+	<?php } ?>
 
 
+	<?php // show or hide get help
+	if( ! get_field('no_get_help') ) { ?>
+		
+		<!-- get help -->
+		<div class="get-help">
+			<a data-toggle="modal" data-target="#get-help-modal" class="get-help__help-button">Get&nbsp;Help</a>
+			<a href="http://google.com" class="get-help__quick-exit"><span>Quick&nbsp;Exit</span></a>
+		</div>
 
+		<!-- 
+		-- 
+		-- get help modal
+		-- 
+		--> 
+		<?php get_template_part(
+		    'partials/content',
+		    'modal',
+		    array(
+		        'type' => 'get-help',
+		        'id' => 'get-help-modal'
+		    )
+		); ?>
 
-
-	<!-- 
-	-- 
-	-- video modal
-	-- 
-	--> 
-	<?php get_template_part(
-	    'partials/content',
-	    'modal',
-	    array(
-	        'type' => 'get-help',
-	        'id' => 'get-help-modal'
-	    )
-	); ?>
+	<?php } ?>
 
 	</div><!-- #content -->
 

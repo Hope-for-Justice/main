@@ -3,7 +3,7 @@ Contributors: givewp
 Tags: donations, donation, ecommerce, e-commerce, fundraising, fundraiser, paymill, gateway
 Requires at least: 4.9
 Tested up to: 5.8
-Stable tag: 1.12.6
+Stable tag: 1.12.7
 Requires Give: 2.12.3
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
@@ -38,6 +38,14 @@ The manual installation method involves downloading our donation plugin and uplo
 Automatic updates should work like a charm; as always though, ensure you backup your site just in case.
 
 == Changelog ==
+
+= 1.12.7: November 18th, 2021 =
+* Change: PayPal IPN verification is always in effect for improve security
+* Fix: Rogue HTML no longer shows up in the multi-level donation receipt
+* Fix: Donor first name is properly set on renewals
+* Fix: When setting a form to admin-defined recurrence a proper default is set that makes things work properly
+* Fix: Correct the Authorize.net subscription URL
+* Fix: Offline pending donations no longer show up in donor history
 
 = 1.12.6: August 12th, 2021 =
 * Fix: Stripe subscriptions properly honor donor currency

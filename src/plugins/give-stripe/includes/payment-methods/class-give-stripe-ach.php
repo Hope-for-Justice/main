@@ -126,6 +126,7 @@ class Give_Stripe_ACH extends Give_Stripe_Gateway {
 	/**
 	 * Process ACH Payments
 	 *
+	 * @unreleased update toArray methods for latest Stripe SDK
 	 * @since 2.2.14 Increase Stripe Plaid API request timeout to 15 seconds
 	 *
 	 * @param array $donation_data List of donation data.
@@ -288,7 +289,7 @@ class Give_Stripe_ACH extends Give_Stripe_Gateway {
 			) );
 
 			// Set bank object to array.
-			$bank_obj = $bank_obj->__toArray( true );
+			$bank_obj = $bank_obj->toArray();
 
 			$bank_id = isset( $bank_obj['id'] ) ? $bank_obj['id'] : false;
 
@@ -320,14 +321,14 @@ class Give_Stripe_ACH extends Give_Stripe_Gateway {
 	/**
 	 * Get the Bank ID from Stripe.
 	 *
+	 * @unreleased update toArray methods for latest Stripe sdk
+	 * @since  1.4
+	 *
 	 * @param $response
 	 * @param $donation_data
 	 * @param $customer
 	 *
 	 * @return bool
-	 * @since  1.4
-	 * @access public
-	 *
 	 */
 	public function check_repeat_donor( $response, $donation_data, $customer ) {
 
@@ -341,7 +342,7 @@ class Give_Stripe_ACH extends Give_Stripe_Gateway {
 			);
 
 			$token_response = $this->get_token_details( $response->stripe_bank_account_token, $token_args );
-			$token_response = $token_response->__toArray( true ); // @see http://stackoverflow.com/a/27364648/684352
+			$token_response = $token_response->toArray();
 
 			$bank_id     = isset( $token_response['bank_account']['id'] ) ? $token_response['bank_account']['id'] : false;
 			$fingerprint = isset( $token_response['bank_account']['fingerprint'] ) ? $token_response['bank_account']['fingerprint'] : false;
@@ -376,7 +377,7 @@ class Give_Stripe_ACH extends Give_Stripe_Gateway {
 			'object' => 'bank_account',
 		);
 
-		$customer_bank_sources = $customer->sources->all( $source_args )->__toArray( true );
+		$customer_bank_sources = $customer->sources->all( $source_args )->toArray();
 		$match                 = false;
 
 		// Loop through sources and check for match with the new bank ID.

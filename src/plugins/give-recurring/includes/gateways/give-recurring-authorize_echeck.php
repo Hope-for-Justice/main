@@ -465,32 +465,6 @@ class Give_Recurring_Authorize_eCheck extends Give_Recurring_Gateway {
 	}
 
 	/**
-	 * Link the recurring profile in Authorize.net.
-	 *
-	 * @param string $profile_id   The recurring profile id
-	 * @param object $subscription The Subscription object
-	 *
-	 * @return string               The link to return or just the profile id.
-	 * @since  1.8
-	 *
-	 */
-	public function link_profile_id( $profile_id, $subscription ) {
-
-		if ( ! empty( $profile_id ) ) {
-			$html = '<a href="%s" target="_blank">' . $profile_id . '</a>';
-
-			$payment  = new Give_Payment( $subscription->parent_payment_id );
-			$base_url = 'live' === $payment->mode ? 'https://authorize.net/' : 'https://sandbox.authorize.net/';
-			$link     = esc_url( $base_url . 'ui/themes/sandbox/ARB/SubscriptionDetail.aspx?SubscrID=' . $profile_id );
-
-			$profile_id = sprintf( $html, $link );
-		}
-
-		return $profile_id;
-
-	}
-
-	/**
 	 * Require last name if authorize recurring donation.
 	 *
 	 * @param $form_id

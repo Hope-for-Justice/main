@@ -24,6 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param $settings
  *
  * @since       1.0
+ * @since 1.12.7 Donation Level Recurring option now defaults to enabled.
  * @return      array
  */
 function give_donation_levels_recurring_fields( $settings ) {
@@ -44,7 +45,7 @@ function give_donation_levels_recurring_fields( $settings ) {
 				'yes' => __( 'Enabled', 'give-recurring' ),
 				'no'  => __( 'Disabled', 'give-recurring' ),
 			),
-			'default'     => 'no',
+			'default'     => 'yes',
 		),
 	);
 
@@ -53,6 +54,28 @@ function give_donation_levels_recurring_fields( $settings ) {
 }
 
 add_filter( 'give_donation_levels_table_row', 'give_donation_levels_recurring_fields' );
+
+/**
+ * @since 1.12.7
+ *
+ * @param array $form_field_options
+ *
+ * @return array
+ */
+function give_recurring_set_donation_levels_default_value( $form_field_options ) {
+	$id = array_search( '_give_donation_levels', array_column( $form_field_options['fields'], 'id' ), true );
+
+	array_walk( $form_field_options['fields'][ $id ]['default'], static function ( &$option ) {
+		$option['_give_recurring'] = 'yes';
+		$option['_give_period_interval'] = '1';
+		$option['_give_period'] = 'month';
+		$option['_give_times'] = '0';
+	} );
+
+	return $form_field_options;
+}
+
+add_filter( 'give_forms_field_options', 'give_recurring_set_donation_levels_default_value' );
 
 /**
  * Meta box recurring period field.

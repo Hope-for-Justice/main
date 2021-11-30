@@ -16,71 +16,66 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. translators: 1. GiveWP account login page, 2. GiveWP Account downloads page
-#: give-stripe.php:275
+#: give-stripe.php:274
 msgid "<strong>Attention:</strong> The Stripe Premium plugin requires the latest version of the Recurring donations add-on to process donations properly. Please update to the latest version of Recurring donations plugin to resolve this issue. If your license is active you should see the update available in WordPress. Otherwise, you can access the latest version by <a href=\"%1$s\" target=\"_blank\">logging into your account</a> and visiting <a href=\"%2$s\" target=\"_blank\">your downloads</a> page on the GiveWP website."
 msgstr ""
 
-#: give-stripe.php:311
+#: give-stripe.php:310
 msgid "Stripe + Plaid"
 msgstr ""
 
-#: give-stripe.php:312
+#: give-stripe.php:311
 msgid "Bank Account"
 msgstr ""
 
-#: give-stripe.php:317
+#: give-stripe.php:316
 msgid "Stripe iDEAL"
 msgstr ""
 
-#: give-stripe.php:318
+#: give-stripe.php:317
 msgid "iDEAL"
 msgstr ""
 
-#: give-stripe.php:323
+#: give-stripe.php:322
 msgid "Stripe - Apple Pay"
 msgstr ""
 
-#: give-stripe.php:324
+#: give-stripe.php:323
 msgid "If enabled, donors will be able to make donations using Apple Pay on desktops or iPhones using the Safari browser."
 msgstr ""
 
-#: give-stripe.php:325
+#: give-stripe.php:324
 msgid "Apple Pay"
 msgstr ""
 
-#: give-stripe.php:331
+#: give-stripe.php:330
 msgid "Stripe - Google Pay"
 msgstr ""
 
-#: give-stripe.php:332
+#: give-stripe.php:331
 msgid "If enabled, donors will be able to make donations using Google Pay on desktops or Android devices using the Chrome browser."
 msgstr ""
 
-#: give-stripe.php:333
+#: give-stripe.php:332
 msgid "Google Pay"
 msgstr ""
 
 #. translators: %s: GiveWP Website Link.
-#: give-stripe.php:377
+#: give-stripe.php:376
 msgid "<strong>Activation Error:</strong> You must have the <a href=\"%s\" target=\"_blank\">Give</a> plugin installed and activated for GiveWP - Stripe to activate."
 msgstr ""
 
 #. translators: 1: GiveWP Website Link, 2: GiveWP Version
-#: give-stripe.php:412
+#: give-stripe.php:411
 msgid "<strong>Activation Error:</strong> You must have the <a href=\"%1$s\" target=\"_blank\">Give</a> core version %2$s for the GiveWP - Stripe add-on to activate."
 msgstr ""
 
-#. translators: 1: GiveWP Website Link, 2: GiveWP Version
-#: give-stripe.php:427
-msgid "<strong>Activation Error:</strong> You must have the <a href=\"%1$s\" target=\"_blank\">PHP</a> version %2$s or above for the GiveWP - Stripe gateway add-on to activate."
-msgstr ""
-
 #. translators: %s: GiveWP Documentation URL
-#: give-stripe.php:442
+#: give-stripe.php:426
 msgid "<strong>Activation Error:</strong> You must have the <a href=\"%s\" target=\"_blank\">cURL</a> installed for the GiveWP - Stripe gateway add-on to activate."
 msgstr ""
 
-#: give-stripe.php:476
+#: give-stripe.php:460
 msgid "Stripe Gateway"
 msgstr ""
 
@@ -92,7 +87,7 @@ msgstr ""
 msgid "Stripe Transaction ID."
 msgstr ""
 
-#: includes/give-stripe-helpers.php:99, includes/payment-methods/class-give-stripe-ach.php:203, includes/payment-methods/class-give-stripe-ach.php:254
+#: includes/give-stripe-helpers.php:99, includes/payment-methods/class-give-stripe-ach.php:204, includes/payment-methods/class-give-stripe-ach.php:255
 msgid "Plaid API Error"
 msgstr ""
 
@@ -100,11 +95,11 @@ msgstr ""
 #. translators: %s Error Message
 #. translators: %s Error Message
 #. translators: %s Error Message
-#: includes/give-stripe-helpers.php:102, includes/payment-methods/class-give-stripe-ach.php:206, includes/payment-methods/class-give-stripe-ach.php:236, includes/payment-methods/class-give-stripe-ach.php:257
+#: includes/give-stripe-helpers.php:102, includes/payment-methods/class-give-stripe-ach.php:207, includes/payment-methods/class-give-stripe-ach.php:237, includes/payment-methods/class-give-stripe-ach.php:258
 msgid "An error occurred when processing a donation via Plaid's API. Details: %s"
 msgstr ""
 
-#: includes/give-stripe-helpers.php:106, includes/payment-methods/class-give-stripe-ach.php:210, includes/payment-methods/class-give-stripe-ach.php:244, includes/payment-methods/class-give-stripe-ach.php:261, src/PaymentMethods/Plaid/Controllers/AchLinkTokenController.php:129
+#: includes/give-stripe-helpers.php:106, includes/payment-methods/class-give-stripe-ach.php:211, includes/payment-methods/class-give-stripe-ach.php:245, includes/payment-methods/class-give-stripe-ach.php:262, src/PaymentMethods/Plaid/Controllers/AchLinkTokenController.php:129
 msgid "There was an API error received from the payment gateway. Please try again."
 msgstr ""
 
@@ -199,7 +194,7 @@ msgstr ""
 msgid "Add-ons"
 msgstr ""
 
-#: includes/admin/class-give-stripe-apple-pay-registration.php:102, includes/payment-methods/class-give-stripe-ach.php:305, includes/payment-methods/class-give-stripe-ach.php:355, includes/payment-methods/class-give-stripe-ach.php:367, includes/payment-methods/class-give-stripe-ideal.php:193, includes/payment-methods/class-give-stripe-ideal.php:358
+#: includes/admin/class-give-stripe-apple-pay-registration.php:102, includes/payment-methods/class-give-stripe-ach.php:306, includes/payment-methods/class-give-stripe-ach.php:356, includes/payment-methods/class-give-stripe-ach.php:368, includes/payment-methods/class-give-stripe-ideal.php:193, includes/payment-methods/class-give-stripe-ideal.php:358
 msgid "Stripe Error"
 msgstr ""
 
@@ -329,58 +324,58 @@ msgstr ""
 msgid "A window will open after you click the Donate Now button where you can securely make your donation through your bank account. You will then be brought back to this page to view your receipt."
 msgstr ""
 
-#: includes/payment-methods/class-give-stripe-ach.php:149, includes/payment-methods/class-give-stripe-ach.php:155, includes/payment-methods/class-give-stripe-ach.php:182
+#: includes/payment-methods/class-give-stripe-ach.php:150, includes/payment-methods/class-give-stripe-ach.php:156, includes/payment-methods/class-give-stripe-ach.php:183
 msgid "Missing Stripe Token"
 msgstr ""
 
-#: includes/payment-methods/class-give-stripe-ach.php:150
+#: includes/payment-methods/class-give-stripe-ach.php:151
 msgid "The Stripe ACH gateway failed to generate the Plaid token."
 msgstr ""
 
-#: includes/payment-methods/class-give-stripe-ach.php:156
+#: includes/payment-methods/class-give-stripe-ach.php:157
 msgid "The Stripe ACH gateway failed to generate the Plaid account ID."
 msgstr ""
 
 #. translators: %s Error Message
-#: includes/payment-methods/class-give-stripe-ach.php:185
+#: includes/payment-methods/class-give-stripe-ach.php:186
 msgid "The Stripe ACH gateway failed to make the call to the Plaid server to get the Stripe bank account token along with the Plaid access token that can be used for other Plaid API requests. Details: %s"
 msgstr ""
 
-#: includes/payment-methods/class-give-stripe-ach.php:190
+#: includes/payment-methods/class-give-stripe-ach.php:191
 msgid "There was a problem communicating with the payment gateway. Please try again."
 msgstr ""
 
-#: includes/payment-methods/class-give-stripe-ach.php:233
+#: includes/payment-methods/class-give-stripe-ach.php:234
 msgid "Plaid API Response Error"
 msgstr ""
 
 #. translators: %s Exception Message Body
-#: includes/payment-methods/class-give-stripe-ach.php:308
+#: includes/payment-methods/class-give-stripe-ach.php:309
 msgid "The Stripe Gateway returned an error while checking if a Stripe source exists. Details: %s"
 msgstr ""
 
-#: includes/payment-methods/class-give-stripe-ach.php:353
+#: includes/payment-methods/class-give-stripe-ach.php:354
 msgid "There was a problem identifying your bank account with the payment gateway. Please try you donation again."
 msgstr ""
 
-#: includes/payment-methods/class-give-stripe-ach.php:356
+#: includes/payment-methods/class-give-stripe-ach.php:357
 msgid "The Stripe Gateway returned an error while checking if a Stripe source exists."
 msgstr ""
 
 #. translators: %s Exception Message
-#: includes/payment-methods/class-give-stripe-ach.php:368, includes/payment-methods/class-give-stripe-ideal.php:361
+#: includes/payment-methods/class-give-stripe-ach.php:369, includes/payment-methods/class-give-stripe-ideal.php:361
 msgid "The Stripe Gateway returned an error while processing a donation. Details: %s"
 msgstr ""
 
-#: includes/payment-methods/class-give-stripe-ach.php:369, includes/payment-methods/class-give-stripe-ideal.php:326, includes/payment-methods/class-give-stripe-ideal.php:365
+#: includes/payment-methods/class-give-stripe-ach.php:370, includes/payment-methods/class-give-stripe-ideal.php:326, includes/payment-methods/class-give-stripe-ideal.php:365
 msgid "An error occurred while processing the donation. Please try again."
 msgstr ""
 
-#: includes/payment-methods/class-give-stripe-ach.php:486, includes/payment-methods/class-give-stripe-ach.php:487
+#: includes/payment-methods/class-give-stripe-ach.php:487, includes/payment-methods/class-give-stripe-ach.php:488
 msgid "The Plaid client ID must be entered in settings."
 msgstr ""
 
-#: includes/payment-methods/class-give-stripe-ach.php:492, includes/payment-methods/class-give-stripe-ach.php:493
+#: includes/payment-methods/class-give-stripe-ach.php:493, includes/payment-methods/class-give-stripe-ach.php:494
 msgid "The Plaid secret key must be entered in settings."
 msgstr ""
 

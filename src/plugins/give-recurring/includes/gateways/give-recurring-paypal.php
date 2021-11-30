@@ -357,16 +357,6 @@ class Give_Recurring_PayPal extends Give_Recurring_Gateway {
 			return; // Payment already recorded.
 		}
 
-		$currency_code = strtolower( $ipn_data['mc_currency'] );
-
-		// verify details
-		if ( $currency_code != strtolower( give_get_currency() ) ) {
-			// the currency code is invalid
-			give_record_gateway_error( __( 'IPN Error', 'give-recurring' ), sprintf( __( 'Invalid currency in IPN response. IPN data: ', 'give-recurring' ), json_encode( $ipn_data ) ) );
-
-			return;
-		}
-
 		$args = array(
 			'amount'         => $ipn_data['mc_gross'],
 			'transaction_id' => $ipn_data['txn_id']
