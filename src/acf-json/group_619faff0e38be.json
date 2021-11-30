@@ -1,0 +1,57 @@
+{
+    "key": "group_619faff0e38be",
+    "title": "Donation options",
+    "fields": [
+        {
+            "key": "field_619faffa251f2",
+            "label": "Start with one off",
+            "name": "start_with_one_off",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates\/page-donate.php"
+            }
+        ],
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "521"
+            }
+        ],
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "344"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1637855361
+}
