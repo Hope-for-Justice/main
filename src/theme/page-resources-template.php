@@ -61,7 +61,7 @@ get_header();
 					?>
 
 					<div class="cards__card">
-						<a href="<?php echo $field; ?>" >
+						<a target="_blank" href="<?php echo $field; ?>" download>
 							<div class="cards__content" >
 								<div class="cards__img-container">
 									<img src="<?php echo get_the_post_thumbnail_url($rpost->ID); ?>" class="cards__img">
@@ -70,8 +70,10 @@ get_header();
 							    	<div class="cards__text">
 							    		<span class="cards__excerpt">
 							    			<?php echo get_the_excerpt($rpost->ID); ?>
-							    		</span>	
-					    				<img class="resources__download" src="<?php echo get_template_directory_uri().'/assets/img/download.svg'; ?>" alt="">		
+							    		</span>
+							    		<?php if(get_field('choose_between', $rpost->ID) != 'link') { ?>	
+					    				<img class="resources__download" src="<?php echo get_template_directory_uri().'/assets/img/download.svg'; ?>" alt="">
+					    				<?php } ?>		
 							    	</div>
 							  	</div>
 							</div>

@@ -111,7 +111,7 @@ input[type="button"], input[type="submit"] {
 @include mq($from: wide) {
 
 .button {
-	font-size: 2em;
+	//font-size: 2em;
 	&--nav {
 		font-size: 1.8em;
 	}

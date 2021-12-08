@@ -33,7 +33,10 @@
 		
 		<!-- get help -->
 		<div class="get-help">
-			<a data-toggle="modal" data-target="#get-help-modal" class="get-help__help-button">Get&nbsp;Help</a>
+			<a data-toggle="modal" data-target="#get-help-modal" class="get-help__help-button">
+				Get&nbsp;Help
+				<div style="background-image: url(<?php echo get_template_directory_uri().'/assets/img/eng-flag.png';?>)" class="get-help__flag"></div><div class="get-help__triangle"></div>
+			</a>
 			<a href="http://google.com" class="get-help__quick-exit"><span>Quick&nbsp;Exit</span></a>
 		</div>
 
