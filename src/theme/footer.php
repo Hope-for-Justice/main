@@ -35,7 +35,6 @@
 		<div class="get-help">
 			<a data-toggle="modal" data-target="#get-help-modal" class="get-help__help-button">
 				Get&nbsp;Help
-				<div style="background-image: url(<?php echo get_template_directory_uri().'/assets/img/eng-flag.png';?>)" class="get-help__flag"></div><div class="get-help__triangle"></div>
 			</a>
 			<a href="http://google.com" class="get-help__quick-exit"><span>Quick&nbsp;Exit</span></a>
 		</div>
@@ -63,22 +62,22 @@
 			<div class="footer__social-email">
 				<ul class="footer__social-icons">
 					<li class="footer__social-icon">
-						<a href="<?php echo the_field('linked_in_link', 'option'); ?>">
+						<a href="<?php echo the_field('linked_in_link', 'option'); ?>" target="_blank">
 							<img src="<?php echo get_template_directory_uri().'/assets/img/li-white.svg'; ?>" alt="">
 						</a>
 					</li>
 					<li class="footer__social-icon">
-						<a href="<?php echo the_field('instagram_link', 'option'); ?>">
+						<a href="<?php echo the_field('instagram_link', 'option'); ?>" target="_blank">
 							<img src="<?php echo get_template_directory_uri().'/assets/img/in-white.svg'; ?>" alt="">
 						</a>
 					</li>
 					<li class="footer__social-icon">
-						<a href="<?php echo the_field('twitter_link', 'option'); ?>">
+						<a href="<?php echo the_field('twitter_link', 'option'); ?>" target="_blank">
 							<img src="<?php echo get_template_directory_uri().'/assets/img/tw-white.svg'; ?>" alt="">
 						</a>
 					</li>
 					<li class="footer__social-icon">
-						<a href="<?php echo the_field('facebook_link', 'option'); ?>">
+						<a href="<?php echo the_field('facebook_link', 'option'); ?>" target="_blank">
 							<img src="<?php echo get_template_directory_uri().'/assets/img/fb-white.svg'; ?>" alt="">
 						</a>
 					</li>

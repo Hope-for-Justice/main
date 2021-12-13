@@ -47,7 +47,12 @@
     $GLOBALS['userInfo'] = $GLOBALS['geo']->country(); 
 ?>
 
+<link rel="preload" href="<?php echo get_template_directory_uri(). '/assets/fonts/FKScreamerLegacy-Upright.woff'; ?>" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="<?php echo get_template_directory_uri(). '/assets/fonts/canela-medium.woff';?>" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="<?php echo get_template_directory_uri(). '/assets/fonts/apercu-regular-pro.woff';?>" as="font" type="font/woff" crossorigin>
+
 <?php wp_head(); ?>
+
 
 </head>
 

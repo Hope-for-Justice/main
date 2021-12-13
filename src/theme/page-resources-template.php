@@ -18,6 +18,23 @@ get_header();
 					<?php echo get_the_title(); ?>
 				</h2>
 
+				<?php global $post;
+				  if ( $post->post_parent ) { ?>
+				    <ul class="breadcrumbs">
+				    	<li class="breadcrumbs__crumb">
+				    		<a class="breadcrumbs__link" href="<?php echo get_permalink( $post->post_parent ); ?>" >
+				   			<?php echo get_the_title( $post->post_parent ); ?>
+				    		</a>
+				    	</li>
+				    	<li class="breadcrumbs__seperator">></li>
+				    	<li class="breadcrumbs__crumb">
+				    		<a class="breadcrumbs__link" href="<?php echo get_permalink( $post ); ?>" >
+				   			<?php echo get_the_title( $post ); ?>
+				    		</a>
+				    	</li>
+				    </ul>
+				<?php } ?>
+
 				<div class="resources__content">
 					<?php echo get_the_content(); ?>
 				</div>
@@ -71,7 +88,7 @@ get_header();
 							    		<span class="cards__excerpt">
 							    			<?php echo get_the_excerpt($rpost->ID); ?>
 							    		</span>
-							    		<?php if(get_field('choose_between', $rpost->ID) != 'link') { ?>	
+							    		<?php if( ! get_field('no_download', $rpost->ID) ) { ?>	
 					    				<img class="resources__download" src="<?php echo get_template_directory_uri().'/assets/img/download.svg'; ?>" alt="">
 					    				<?php } ?>		
 							    	</div>

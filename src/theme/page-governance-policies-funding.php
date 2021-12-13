@@ -23,7 +23,7 @@ get_header();
 		'accreditations', 
 		'uk-financial-reports', 
 		'us-financial-reports',
-		'annual-reports'
+		'annual-reviews'
 	];
 	usort($terms, function ($a, $b) use ($cat_order) {
 		$cat_a = array_search($a->slug, $cat_order);
@@ -135,7 +135,7 @@ get_header();
 									</h3>
 
 									<div class="gpf__cards-button-container">
-										<a href="<?php echo get_field('upload_pdf',$arr->ID); ?>" class="button button--black" target="_blank">
+										<a href="<?php echo @$field; ?>" class="button button--black" target="_blank">
 											<div class="button__inner">
 												<div class="button__text bold">VIEW REPORT</div>
 											</div>
@@ -165,7 +165,7 @@ get_header();
 									</div>
 								</div>
 							</div>
-						<?php } elseif($term->slug == 'annual-reports') { ?>
+						<?php } elseif($term->slug == 'annual-reviews') { ?>
 							<div class="drag-cards__card gpf__drag-cards">
 								<div class="gpf__cards-inner">
 									<p class="gpf__cards-category">

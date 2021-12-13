@@ -28,22 +28,22 @@ get_header();
 					<!-- social icons -->
 					<ul class="footer__social-icons">
 						<li class="footer__social-icon">
-							<a href="<?php echo the_field('linked_in_link', 'option'); ?>">
+							<a href="<?php echo the_field('linked_in_link', 'option'); ?>" target="_blank">
 								<img src="<?php echo get_template_directory_uri().'/assets/img/li-red.svg'; ?>" alt="">
 							</a>
 						</li>
 						<li class="footer__social-icon">
-							<a href="<?php echo the_field('instagram_link', 'option'); ?>">
+							<a href="<?php echo the_field('instagram_link', 'option'); ?>" target="_blank">
 								<img src="<?php echo get_template_directory_uri().'/assets/img/in-red.svg'; ?>" alt="">
 							</a>
 						</li>
 						<li class="footer__social-icon">
-							<a href="<?php echo the_field('twitter_link', 'option'); ?>">
+							<a href="<?php echo the_field('twitter_link', 'option'); ?>" target="_blank">
 								<img src="<?php echo get_template_directory_uri().'/assets/img/tw-red.svg'; ?>" alt="">
 							</a>
 						</li>
 						<li class="footer__social-icon">
-							<a href="<?php echo the_field('facebook_link', 'option'); ?>">
+							<a href="<?php echo the_field('facebook_link', 'option'); ?>" target="_blank">
 								<img src="<?php echo get_template_directory_uri().'/assets/img/fb-red.svg'; ?>" alt="">
 							</a>
 						</li>

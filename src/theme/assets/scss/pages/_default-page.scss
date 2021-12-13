@@ -8,23 +8,45 @@
 .default-page {
 	grid-column: col2 / col12;
 	margin: 3em 0;
-	h2, h1{
+	h2, h1, h3{
 		font-family: 'canela-medium', serif;
 		margin-bottom: 0.5em;
+		text-transform: none;
+		letter-spacing: 0;
 	}
-	h1{margin-bottom: 1em;}
+	h1{margin-bottom: 1em; font-size: 3.4em;}
 	h2{font-size: 2.4em;}
+	h3 {font-size: 2em;}
 	p{
 		margin-bottom: 0;
 	}
+	ul, ol {
+		font-size: 1.6em;
+	}
+	ul {
+		padding-left: 1em;
+		list-style: disc;
+	}
+	ol {
+		padding-left:2em;
+	} 
 }
 
+@include mq($from: desktop) {
+	.default-page {
+		ul, ol {
+		font-size: 1.8em;
+	}
+	}
+}
 
 @include mq($from: desktop) {
 	.default-page {
 		grid-column: col3 / col11;
 		margin: 5em 0;
-		h2{font-size: 3.4em;}
+		h1 {font-size: 4.2em;}
+		h2{font-size: 2.8em;}
+		h3 {font-size: 2.2em;}
 	}
 }
 
@@ -33,4 +55,12 @@
 		grid-column: col3 / col10;
 		margin: 8em 0;
 	}
+}
+
+@include mq($from: wide) {
+.default-page {
+	ul, ol {
+		font-size: 2.1em;
+	}
+}
 }

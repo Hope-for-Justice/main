@@ -155,43 +155,6 @@ jQuery(document).ready(function($) {
     //$(".page").fitVids();
     //$(".single").fitVids();
     $('iframe[src*="youtube"]').parent().fitVids();
-   
-   $('.get-help-modal__country-select').find('select').on('change', function(){
-        let select = $(this).val();
-        let title = $(".get-help-modal__title");
-        let text = $(".get-help-modal__text");
-        let flag = $(".get-help-modal__country-flag img");
-        let number = $(".get-help-modal__number");
-        let or = $(".get-help-modal__or");
-        let email = $(".get-help-modal__email");
-        let name = $(".get-help__name input");
-        let message = $(".get-help__message textarea");
-        let button = $(".get-help-modal .gform_button");
-
-        if (select == "Spanish") {
-            $(title).html("test<br> title");
-            $(text).text("test");
-            $(flag).attr('src', 'https://hfj2.wpengine.com/wp-content/uploads/2021/12/spn-flag.png');
-            $(number).text("10300 008 8000");
-            $(or).text("x");
-            $(email).text("x@x.com");
-            $(name).attr('placeholder', 'test');
-            $(message).attr('placeholder','test');
-            $(button).val("test");
-        }
-        if (select == "English") {
-            $(title).html("DO YOU<br> NEED HELP?");
-            $(text).text("Hope for Justice is not an emergency service. If your life or someone else’s life is in immediate danger, always call 999 first.");
-            $(flag).attr('src', 'https://hfj2.wpengine.com/wp-content/uploads/2021/11/eng-flag.png');
-            $(number).text("0300 008 8000");
-            $(or).text("or");
-            $(email).text("help@hopeforjustice.org");
-            $(name).attr('placeholder', 'Your Name');
-            $(message).attr('placeholder','Your message. \n \nHow and when can we contact you?');
-            $(button).val("Submit");
-        }
-
-    });
 
 }); /* end of as page load scripts */
 

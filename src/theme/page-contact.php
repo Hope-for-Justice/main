@@ -47,6 +47,12 @@ get_header(); ?>
 					</div>
 				</div>
 
+				<div class="contact__block contact__block">
+					<div class="contact__block-content">
+						<?php the_field('concern_contact'); ?>
+					</div>
+				</div>
+
 				<div class="contact__block contact__block--press">
 					<div class="contact__block-content">
 						<?php the_field('press_contact'); ?>
