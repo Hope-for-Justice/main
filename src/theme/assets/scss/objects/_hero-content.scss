@@ -1,0 +1,14 @@
+/*
+*
+* _HERO-IMG.SCSS
+*
+*/
+
+.hero-content {
+	grid-column: col2 / col12;
+	margin-top: 45px;
+	margin-bottom: 40px;
+	&__text {
+		margin-bottom: 30px;
+	}
+}

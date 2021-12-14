@@ -55,7 +55,13 @@
 @import "objects/_drop-cards.scss";
 @import "objects/_cards.scss";
 @import "objects/_career-cards.scss";
+
+// replacing
 @import "objects/_hero.scss";
+// with
+@import "objects/_hero-img.scss";
+@import "objects/_hero-content.scss";
+
 @import "objects/_campaign.scss";
 @import "objects/_inline-giving.scss";
 @import "objects/_statement-and-text.scss";
@@ -71,6 +77,8 @@
 @import "objects/_map.scss";
 @import "objects/_picture-quote.scss";
 @import "objects/_breadcrumbs.scss";
+
+@import "objects/_text-lip.scss";
 
 
 // pages

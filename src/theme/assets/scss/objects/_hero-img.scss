@@ -1,0 +1,30 @@
+/*
+*
+* _HERO-IMG.SCSS
+*
+*/
+
+.hero-img {
+	grid-column: col1 / col12-end;
+	padding-top:80%;
+	background-size: cover;
+	background-position: center center;
+	// start below text on mobile	
+	grid-row-start: 2;
+	&--home {
+		background-position: top right 2%; 
+	}
+	//round corners
+	&--round-tl {
+		border-top-left-radius: 50px;
+	}
+	&--round-tr {
+		border-top-right-radius: 50px;
+	}
+	&--round-bl {
+		border-bottom-left-radius: 50px;
+	}
+	&--round-br {
+		border-bottom-right-radius: 50px;
+	}
+}
