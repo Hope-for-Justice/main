@@ -181,7 +181,7 @@ $args = wp_parse_args(
 
     <!--
     --
-    --  payment regular
+    --  get - help
     --
     -->
     <div class="modal get-help-modal fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
@@ -189,7 +189,7 @@ $args = wp_parse_args(
           <div class="modal__dialog get-help-modal__dialog">
                 <div class="modal__content modal__content--yellow get-help-modal__content">
 
-                        <?php echo do_shortcode("[gravityform id=\"33\" title=\"false\" description=\"true\"]"); ?>
+                        <?php echo do_shortcode("[gravityform id=\"33\" title=\"false\" ajax=\"true\" description=\"true\"]"); ?>
 
                     
 

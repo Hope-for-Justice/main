@@ -18,6 +18,7 @@ jQuery(document).ready(function($) {
         }
     };
 
+
     // lottie
     var getInvolved;
     var elem = document.getElementById('getInvolved');
@@ -47,6 +48,9 @@ jQuery(document).ready(function($) {
           offset: '50%'
         }); 
     }
+
+
+
 
     // //if donate=true show donate form
     // var donate = getUrlParameter('donate');
@@ -219,6 +223,32 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
 
 });
 
+
+jQuery(document).on('gform_confirmation_loaded', function(event, formId){
+    
+    // lottie
+    var blackTick;
+    var elem = document.getElementById('blackTick');
+
+        if (elem != undefined) {
+        var blackTickAnimData = {
+            container: elem,
+            renderer: 'canvas',
+            loop: false,
+            autoplay: true, //change to false when using trigger
+            rendererSettings: {
+                progressiveLoad:false
+            },
+            path: '/wp-content/themes/hope-for-justice-2020/assets/img/black-tick.json',
+            //on wp-engine /wp-content/themes/hope-for-justice-2020/assets/img/black-tick.json
+            //on local setup /build/themes/hope-for-justice-2020/assets/img/black-tick.json
+        };
+            blackTick = bodymovin.loadAnimation(blackTickAnimData);
+        }
+
+
+
+});
 
 
 /* Window load scripts */
