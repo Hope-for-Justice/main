@@ -41,6 +41,8 @@
 	$GLOBALS['uk'] = array('GB');
 
 	$GLOBALS['aus'] = array('AU');
+
+	$GLOBALS['help'] = array('GB', 'NO', 'US');
 	
 	// lookup country code of IP
 	$GLOBALS['geo'] = Wpengine\Geoip::instance();
@@ -56,12 +58,7 @@
 
 </head>
 
-<body
-<?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])){
-	body_class( 'weglot-show' ); 
-} else { 
-	body_class(); } 
-?>>
+<body <?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])){ body_class( 'weglot-show' ); } else{ body_class(); }?>>
 
 <div class="upgrade-browser">
 	<p style="font-size: 2em; padding:0.5em; font-family: 'apercu-bold', sans-serif;">It looks like you are using an out of date browser. <br>Please update your browser in order to use this website.</p>

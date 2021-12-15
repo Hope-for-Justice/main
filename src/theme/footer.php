@@ -27,8 +27,9 @@
 
 	<?php } ?>
 
-
-	<?php // show or hide get help
+	<?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['help'])){
+ 
+	// show or hide get help
 	if( ! get_field('no_get_help') ) { ?>
 		
 		<!-- get help -->
@@ -53,7 +54,8 @@
 		    )
 		); ?>
 
-	<?php } ?>
+	<?php } 
+	}?>
 
 	</div><!-- #content -->
 
