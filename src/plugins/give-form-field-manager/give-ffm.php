@@ -3,7 +3,7 @@
  * Plugin Name:         Give - Form Field Manager
  * Plugin URI:          https://givewp.com/addons/form-field-manager/
  * Description:         Easily add and control additional donation form fields using an easy-to-use interface.
- * Version:             2.0.0
+ * Version:             2.0.2
  * Requires at least:   4.9
  * Requires PHP:        5.6
  * Author:              GiveWP
@@ -171,7 +171,7 @@ final class Give_Form_Fields_Manager {
 
 		// Plugin Version.
 		if ( ! defined( 'GIVE_FFM_VERSION' ) ) {
-			define( 'GIVE_FFM_VERSION', '2.0.0' );
+			define( 'GIVE_FFM_VERSION', '2.0.2' );
 		}
 
 		// Min Give Version.
@@ -186,7 +186,7 @@ final class Give_Form_Fields_Manager {
 
 		// Plugin Folder Path.
 		if ( ! defined( 'GIVE_FFM_PLUGIN_DIR' ) ) {
-			define( 'GIVE_FFM_PLUGIN_DIR', WP_PLUGIN_DIR . '/' . basename( dirname( GIVE_FFM_PLUGIN_FILE ) ) . '/' );
+			define( 'GIVE_FFM_PLUGIN_DIR', trailingslashit( plugin_dir_path(GIVE_FFM_PLUGIN_FILE) ) );
 		}
 
 		// Plugin Folder URL.

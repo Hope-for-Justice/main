@@ -4,11 +4,13 @@ namespace GiveFormFieldManager\FormFields\Fields;
 
 use Give\Framework\FieldsAPI\Concerns;
 use Give\Framework\FieldsAPI\Field;
+use GiveFormFieldManager\FormFields\Fields\Contracts\HasFormInputValidator;
+use GiveFormFieldManager\FormFields\Fields\FieldValidators\RepeaterFieldValidator;
 
 /**
  * @since 2.0.0
  */
-class Repeater extends Field {
+class Repeater extends Field implements HasFormInputValidator{
 
 	use Concerns\HasEmailTag;
 	use Concerns\HasHelpText;
@@ -73,4 +75,14 @@ class Repeater extends Field {
 	public function getMaxRepeatable() {
 		return $this->validationRules->getRule( 'maxRepeatable' );
 	}
+
+    /**
+     * @unreleased
+     * @inerhitDoc
+     * @return string
+     */
+    public function getFormInputValidator()
+    {
+        return RepeaterFieldValidator::class;
+    }
 }

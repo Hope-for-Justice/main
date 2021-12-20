@@ -2624,6 +2624,26 @@ msgstr ""
 msgid "Latest recurring amount for subscription."
 msgstr ""
 
+#: src/PaymentGateways/AuthorizeNet/Actions/ProcessOneTimeDonation.php:57
+msgid "Authorize.net transaction flagged this donation through the fraud filter. Please approve or void this transaction within your Authorize.net merchant dashboard."
+msgstr ""
+
+#: src/PaymentGateways/AuthorizeNet/Actions/ProcessOneTimeDonation.php:67
+msgid "The subscription could not be charged because the type of credit card used is not accepted. Please try again with a supported card type."
+msgstr ""
+
+#: src/PaymentGateways/AuthorizeNet/Actions/ProcessOneTimeDonation.php:73
+msgid "The transaction has been declined."
+msgstr ""
+
+#: src/PaymentGateways/AuthorizeNet/Actions/ProcessOneTimeDonation.php:78
+msgid "The donation could not be charged. Please try again. Reason: %s"
+msgstr ""
+
+#: src/PaymentGateways/AuthorizeNet/Actions/ProcessOneTimeDonation.php:89
+msgid "The donation could not be charged. Please try again."
+msgstr ""
+
 #: src/PaymentGateways/AuthorizeNet/Views/SubscriptionProfileIdView.php:30
 msgid "Authorize subscription link"
 msgstr ""

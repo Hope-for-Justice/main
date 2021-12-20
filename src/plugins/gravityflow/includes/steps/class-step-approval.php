@@ -775,10 +775,12 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 		}
 		$display_step_status = (bool) $args['step_status'];
 		if ( $display_step_status ) : ?>
-			<h4>
-				<?php printf( '%s (%s)', $this->get_name(), $status ); ?>
-			</h4>
-			<div>
+			<div class="gravityflow-status-box-field gravityflow-status-box-field-step-status">
+				<h4>
+					<?php printf( '<span class="gravityflow-status-box-field-label">%s </span><span class="gravityflow-status-box-field-value">(%s)</span>', $this->get_name(), $status ); ?>
+				</h4>
+			</div>
+			<div class="gravityflow-status-box-field gravityflow-status-box-field-assignees">
 				<?php $this->workflow_detail_status_box_status(); ?>
 			</div>
 		<?php endif; ?>
@@ -830,7 +832,7 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 			$assignees = $this->get_assignees();
 			foreach ( $assignees as $assignee ) {
 				$assignee_status_label = $assignee->get_status_label();
-				$assignee_status_li    = sprintf( '<li>%s</li>', $assignee_status_label );
+				$assignee_status_li    = sprintf( '<span class="gravityflow-status-box-field-value"><li>%s</li></span>', $assignee_status_label );
 
 				echo $assignee_status_li;
 			}
@@ -864,29 +866,32 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 
 			if ( $this->note_mode !== 'hidden' ) {
 				?>
-				<br/>
-				<div>
-					<label for="gravityflow-note">
-						<?php
-						$note_label = esc_html__( 'Note', 'gravityflow' );
-						/**
-						 * Allows the label for the Note field on the approval step to be modified.
-						 *
-						 * @since 1.8.1
-						 *
-						 * @param string @note_label the label
-						 * @param Gravity_Flow_Step_Approval $this The current Approval Step.
-						 */
-						$note_label = apply_filters( 'gravityflow_approval_note_label_workflow_detail', $note_label, $this );
-						echo $note_label;
-						$required_indicator = ( $this->note_mode == 'required' ) ? '*' : '';
-						printf( "<span class='gfield_required'>%s</span>", $required_indicator );
-						?>
-					</label>
+				<div class="gravityflow-status-box-field gravityflow-status-box-field-note">
+					<span class="gravityflow-status-box-field-label">
+						<label for="gravityflow-note">
+							<?php
+							$note_label = esc_html__( 'Note', 'gravityflow' );
+							/**
+							 * Allows the label for the Note field on the approval step to be modified.
+							 *
+							 * @since 1.8.1
+							 *
+							 * @param string @note_label the label
+							 * @param Gravity_Flow_Step_Approval $this The current Approval Step.
+							 */
+							$note_label = apply_filters( 'gravityflow_approval_note_label_workflow_detail', $note_label, $this );
+							echo $note_label;
+							$required_indicator = ( $this->note_mode == 'required' ) ? '*' : '';
+							printf( "<span class='gfield_required'>%s</span>", $required_indicator );
+							?>
+						</label>
+					</span>
 				</div>
-				<textarea id="gravityflow-note" style="width:100%;" rows="4" class="wide" name="gravityflow_note"><?php
-					echo rgar( $form, 'failed_validation' ) ? esc_textarea( rgpost( 'gravityflow_note' ) ) : '';
-					?></textarea>
+				<span class="gravityflow-status-box-field-value">
+					<textarea id="gravityflow-note" style="width:100%;" rows="4" class="wide" name="gravityflow_note"><?php
+						echo rgar( $form, 'failed_validation' ) ? esc_textarea( rgpost( 'gravityflow_note' ) ) : '';
+						?></textarea>
+				</span>
 				<?php
 				$invalid_note = ( isset( $form['workflow_note'] ) && is_array( $form['workflow_note'] ) && $form['workflow_note']['failed_validation'] );
 				if ( $invalid_note ) {
@@ -896,7 +901,7 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 
 			do_action( 'gravityflow_above_approval_buttons', $this, $form );
 			?>
-			<br/><br/>
+			
 			<div class="gravityflow-action-buttons">
 				<button name="gravityflow_approval_new_status_step_<?php echo $this->get_id(); ?>" value="approved" 
 						type="submit"

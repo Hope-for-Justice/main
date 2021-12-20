@@ -8,7 +8,7 @@
 	position: fixed;
     right: 0px;
     bottom: 0;
-    z-index: $z-modals;
+    z-index: $z-modals + 1;
 	&__help-button {
     	@include box-shadow-reverse;
     	left:0;
@@ -32,22 +32,6 @@
         z-index: 999;
         white-space: nowrap;
 	}
-    &__flag {
-        background:black;
-        width:25px;
-        height:25px;
-        margin-left: 9px;
-        border-radius:100%;
-        background-size: cover;
-    }
-    &__triangle {
-        width: 0; 
-        height: 0; 
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-top: 10px solid black;
-        margin-left: 9px;
-    }
     &__quick-exit {
     	@include box-shadow-reverse;
     	display: none;
@@ -63,6 +47,18 @@
     	span {margin-top: 1px;}
     }
 
+}
+
+.get-help--modal-open {
+    .get-help {
+        &__help-button {
+            display:none;
+        }
+        &__quick-exit {
+            background-color: black;
+            color: white;
+        }
+    }
 }
 
 .get-help-modal {

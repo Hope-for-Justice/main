@@ -43,10 +43,6 @@
 		font-size: 1.2em;
 		padding: 1em 1.6em 0.8em 1.8em;
 	}
-	&:hover {
-		cursor: pointer;
-		transform: rotate(1deg) scale(1.05);
-	}
 	&--smaller {font-size: 1.4em;}
 
 }
@@ -85,6 +81,10 @@ input[type="button"], input[type="submit"] {
 .button {
 	&--nav {
 		font-size: 1.8em;
+	}
+	&:hover {
+		cursor: pointer;
+		transform: rotate(1deg) scale(1.05);
 	}
 }
 

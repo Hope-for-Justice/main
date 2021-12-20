@@ -32,14 +32,19 @@
 		//animation: fade ease 2s infinite;
 		//animation-delay: 0.5s;
 		&:hover {
-			opacity: 1;
 			cursor: pointer;
 		}
 		&:focus {
 			outline: none;
 		}
-		path:focus {
-			outline: none;
+		path {
+				transition: all 0.2 ease;
+			&:hover {
+				fill: $black;
+			}
+			&:focus {
+				outline: none;
+			}
 		}
 	}
 }

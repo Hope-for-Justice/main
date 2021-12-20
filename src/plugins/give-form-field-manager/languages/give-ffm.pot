@@ -847,8 +847,12 @@ msgstr ""
 msgid "The following fields have been created by Form Field Manager."
 msgstr ""
 
-#: src/FormFields/FieldValidation.php:50
+#: src/FormFields/Fields/FieldValidators/RepeaterFieldValidator.php:134
 msgid "%1$s field value exceed allowed character limit."
+msgstr ""
+
+#: src/FormFields/Fields/FieldValidators/RepeaterFieldValidator.php:148
+msgid "%1$s fields count exceed allowed field limit."
 msgstr ""
 
 #: src/resources/views/admin/notices/give-inactive.php:3, src/resources/views/admin/notices/give-version-error.php:3

@@ -3,7 +3,7 @@ Contributors: givewp
 Tags: donations, donation, ecommerce, e-commerce, fundraising, fundraiser, paymill, gateway
 Requires at least: 4.9
 Tested up to: 5.8
-Stable tag: 2.0.0
+Stable tag: 2.0.2
 Requires Give: 2.16.0
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
@@ -36,6 +36,14 @@ The manual installation method involves downloading our donation plugin and uplo
 Automatic updates should work like a charm; as always though, ensure you backup your site just in case.
 
 == Changelog ==
+
+= 2.0.2: December 9th, 2021 =
+* Fix: Resolved an error if using the less than condition
+* Fix: Cleared up a notice thrown by the Repeater field
+* Fix: Custom field classes are now correctly added to the field
+
+= 2.0.1: November 11th, 2021 =
+* Fix: Took care of a memory leak in field registration
 
 = 2.0.0: October 25th, 2021 =
 * New: Field conditions! Conditionally display a field based on the donation amount or another field!

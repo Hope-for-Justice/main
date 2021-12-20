@@ -288,3 +288,6 @@ button.gform-add, button.gform-remove {
     height:1.8em;
 }
 
+#expiration_date_field_before_after, #expiration_date_field {
+    width: auto;
+}

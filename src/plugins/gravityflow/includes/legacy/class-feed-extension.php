@@ -14,6 +14,8 @@ if ( ! class_exists( 'GFForms' ) ) {
 }
 GFForms::include_feed_addon_framework();
 
+use Gravity_Flow\Gravity_Flow\Translations;
+
 /**
  * Class Gravity_Flow_Feed_Extension
  *
@@ -59,6 +61,8 @@ abstract class Gravity_Flow_Feed_Extension extends GFFeedAddOn {
 		if ( ! $meets_requirements['meets_requirements'] ) {
 			return;
 		}
+
+		$this->init_translations();
 
 		add_filter( 'gravityflow_menu_items', array( $this, 'menu_items' ) );
 		add_filter( 'gravityflow_toolbar_menu_items', array( $this, 'toolbar_menu_items' ) );
@@ -553,4 +557,35 @@ abstract class Gravity_Flow_Feed_Extension extends GFFeedAddOn {
 
 		return $is_extension_settings;
 	}
+
+	/**
+	 * Inits the TranslationsPress integration.
+	 *
+	 * @since 2.7.5
+	 */
+	public function init_translations() {
+		Translations\Manager::get_instance( $this->get_slug() );
+	}
+
+	/**
+	 * Uses TranslationsPress to install translations for the specified locale.
+	 *
+	 * @since 2.7.5
+	 *
+	 * @param string $locale The locale the translations are to be installed for.
+	 */
+	public function install_translations( $locale = '' ) {
+		Translations\Manager::get_instance( $this->get_slug() )->install( $locale );
+	}
+
+	/**
+	 * Installs or upgrades the plugin.
+	 *
+	 * @since 2.7.5
+	 */
+	public function setup() {
+		Translations\Manager::get_instance( $this->get_slug() )->legacy_install_on_setup( $this );
+		parent::setup();
+	}
+
 }

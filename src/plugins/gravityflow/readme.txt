@@ -2,7 +2,7 @@
 Contributors: stevehenty
 Tags: workflow, approvals, gravity forms
 Requires at least: 5.2
-Tested up to: 5.7.1
+Tested up to: 5.8.1
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,19 @@ https://gravityflow.io/contact/
 Gravity Flow will work with any license of [Gravity Forms](https://gravityflow.io/out/gravityforms).
 
 == ChangeLog ==
+
+= 2.7.5 =
+- Added TranslationsPress to manage translations for Gravity Flow and the extensions. Translations for the installed WordPress languages will be installed on Gravity Flow/extension installation and updates. The WordPress updates page will also offer to install them when updates to the translations are available. The WP-CLI `wp language plugin` commands for managing translations are also supported.
+- Added CSS classes to the Workflow Status Box.
+- Added two filters to the step get_form function - gravityflow_{$this->get_type()}_form and gravityflow_step_form - to allow the form to be revised before/during step processing.
+- Updated the request body sent by the Gravity Forms Zapier Add-On to include formatted versions of workflow field values.
+- Removed the step type restrictions note from the Workflow > Settings > Connected Apps page.
+- Fixed new theme css and js bundles loading on all pages.
+- Fixed a compatibility issue with the Gravity Perks Populate Anything Perk.
+- Fixed an issue where the Likert field is editable on the User Input step when it should be display only.
+- Fixed an issue where Workflow Detail Page for an entry is loading without matching the form id.
+- Fixed an issue where PDF Custom File Name Setting did not appear as a sub-setting under Send by Email on PDF Workflow Step Settings.
+
 
 = 2.7.4 =
 - Fixed an issue with the entry filter setting where the settings are not saved for the Update Fields step.

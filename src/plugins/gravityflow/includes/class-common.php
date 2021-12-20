@@ -20,6 +20,15 @@ if ( ! class_exists( 'GFForms' ) ) {
 class Gravity_Flow_Common {
 
 	/**
+	 * Array of extension instances with the slugs as keys
+	 *
+	 * @since 2.7.5
+	 *
+	 * @var array
+	 */
+	public static $_extensions = array();
+
+	/**
 	 * Returns a URl to a workflow page.
 	 *
 	 * @param array                      $query_args   An associative array of query variables.

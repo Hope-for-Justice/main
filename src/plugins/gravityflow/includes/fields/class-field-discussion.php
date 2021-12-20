@@ -593,6 +593,39 @@ class Gravity_Flow_Field_Discussion extends GF_Field_Textarea {
 			<?php
 		}
 	}
+
+	/**
+	 * Returns a formatted version of the field value to be added to the Zapier request body.
+	 *
+	 * @since 2.7.5
+	 *
+	 * @param array $entry The entry being sent to Zapier.
+	 *
+	 * @return array
+	 */
+	public function get_value_zapier_formatted( $entry ) {
+		if ( empty( $entry[ (string) $this->id ] ) ) {
+			return array();
+		}
+
+		$items = json_decode( $entry[ (string) $this->id ], true );
+		if ( empty( $items ) ) {
+			return array();
+		}
+
+		$timestamp_format = empty( $this->gravityflowDiscussionTimestampFormat ) ? 'd M Y g:i a' : $this->gravityflowDiscussionTimestampFormat;
+
+		foreach ( $items as &$item ) {
+			$item['datetime'] = Gravity_Flow_Common::format_date( $item['timestamp'], $timestamp_format );
+
+			if ( $item['assignee_key'] ) {
+				$item['assignee'] = Gravity_Flow_Assignees::create( $item['assignee_key'] )->get_display_name();
+			}
+		}
+
+		return $items;
+	}
+
 }
 
 GF_Fields::register( new Gravity_Flow_Field_Discussion() );

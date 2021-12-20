@@ -3,7 +3,7 @@
  * Plugin Name: Give - Recurring Donations
  * Plugin URI:  https://givewp.com/addons/recurring-donations/
  * Description: Adds support for recurring (subscription) donations to the GiveWP donation plugin.
- * Version: 1.12.7
+ * Version: 1.13.1
  * Requires at least: 4.9
  * Requires PHP: 5.6
  * Author: GiveWP
@@ -30,10 +30,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Plugin constants.
 if ( ! defined( 'GIVE_RECURRING_VERSION' ) ) {
-	define( 'GIVE_RECURRING_VERSION', '1.12.7' );
+	define( 'GIVE_RECURRING_VERSION', '1.13.1' );
 }
 if ( ! defined( 'GIVE_RECURRING_MIN_GIVE_VERSION' ) ) {
-	define( 'GIVE_RECURRING_MIN_GIVE_VERSION', '2.12.3' );
+	define( 'GIVE_RECURRING_MIN_GIVE_VERSION', '2.17.0' );
 }
 if ( ! defined( 'GIVE_RECURRING_PLUGIN_FILE' ) ) {
 	define( 'GIVE_RECURRING_PLUGIN_FILE', __FILE__ );

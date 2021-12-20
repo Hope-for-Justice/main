@@ -59,7 +59,7 @@
 
 	</div><!-- #content -->
 
-	<footer class="footer">
+	<footer id="footer" class="footer">
 		<div class="grid">
 			<div class="footer__social-email">
 				<ul class="footer__social-icons">

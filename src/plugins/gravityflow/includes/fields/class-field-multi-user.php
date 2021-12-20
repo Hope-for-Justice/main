@@ -285,6 +285,7 @@ class Gravity_Flow_Field_Multi_User extends GF_Field_MultiSelect {
 	 * @since 1.7.1-dev
 	 */
 	public function post_convert_field() {
+		parent::post_convert_field();
 		if ( ! $this->is_form_editor() ) {
 			$this->choices = $this->get_users_as_choices();
 		}
@@ -315,6 +316,20 @@ class Gravity_Flow_Field_Multi_User extends GF_Field_MultiSelect {
 			}
 		}
 	}
+
+	/**
+	 * Returns a formatted version of the field value to be added to the Zapier request body.
+	 *
+	 * @since 2.7.5
+	 *
+	 * @param array $entry The entry being sent to Zapier.
+	 *
+	 * @return array
+	 */
+	public function get_value_zapier_formatted( $entry ) {
+		return $this->get_display_names( $this->to_array( rgar( $entry, (string) $this->id ) ) );
+	}
+
 }
 
 GF_Fields::register( new Gravity_Flow_Field_Multi_User() );

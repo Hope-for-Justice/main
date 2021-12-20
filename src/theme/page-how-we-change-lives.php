@@ -149,10 +149,7 @@ get_header();
 			</div>
 		</div>
 		<div class="drag-cards__dots dots">
-			<div class="dots__dot"></div>
-			<div class="dots__dot"></div>
-			<div class="dots__dot"></div>
-			<div class="dots__dot"></div>
+			<img src="<?php echo get_template_directory_uri().'/assets/img/drag-above.svg'; ?>">
 		</div>
 	</div>
 

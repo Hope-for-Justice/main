@@ -5,19 +5,23 @@ namespace GiveFormFieldManager\FormFields\Fields;
 use Give\Framework\FieldsAPI\Concerns\HasEmailTag;
 use Give\Framework\FieldsAPI\Concerns\HasHelpText;
 use Give\Framework\FieldsAPI\Concerns\HasLabel;
+use Give\Framework\FieldsAPI\Concerns\HasVisibilityConditions;
 use Give\Framework\FieldsAPI\Concerns\ShowInReceipt;
 use Give\Framework\FieldsAPI\Concerns\StoreAsMeta;
 use Give\Framework\FieldsAPI\Field;
+use GiveFormFieldManager\FormFields\Fields\Contracts\HasFormInputValidator;
+use GiveFormFieldManager\FormFields\Fields\FieldValidators\WPEditorFieldValidator;
 
 /**
  * @since 2.0.0
  */
-class WPEditor extends Field {
+class WPEditor extends Field implements HasFormInputValidator {
 	use HasEmailTag;
 	use HasHelpText;
 	use HasLabel;
 	use ShowInReceipt;
 	use StoreAsMeta;
+    use HasVisibilityConditions;
 
 	/**
 	 * @var string
@@ -95,4 +99,14 @@ class WPEditor extends Field {
 			$this->defaultEditorConfig
 		);
 	}
+
+    /**
+     * @unreleased
+     * @inerhitDoc
+     * @return string
+     */
+    public function getFormInputValidator()
+    {
+        return WPEditorFieldValidator::class;
+    }
 }

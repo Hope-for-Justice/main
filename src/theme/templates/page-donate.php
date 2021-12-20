@@ -37,6 +37,24 @@ get_header(); ?>
 				<p>
 					<?php the_field('donate_description_monthly');?>	
 				</p>
+				<p class="donate__other-desktop">
+					<a href="
+					<?php if($GLOBALS['userInfo'] 
+						&& in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){ ?>
+						<?php the_field('other_ways_link_usa');?>
+					<?php } 
+						else if($GLOBALS['userInfo'] 
+						&& in_array($GLOBALS['userInfo'], $GLOBALS['norway'])) { ?>
+						<?php the_field('other_ways_link_norway');?>
+					<?php }
+						else if($GLOBALS['userInfo'] 
+						&& in_array($GLOBALS['userInfo'], $GLOBALS['aus'])) { ?>
+						<?php the_field('other_ways_link_aus');?>
+					<?php } else { ?>
+						<?php the_field('other_ways_link_uk');?>
+					<?php } ?>
+					">Other ways to give</a>
+				</p>
 			</div>
 
 			<div class="donate__info donate__info--once">	
@@ -46,8 +64,25 @@ get_header(); ?>
 				<p>
 					<?php the_field('donate_description_once');?>	
 				</p>
+				<p class="donate__other-desktop">
+					<a href="
+					<?php if($GLOBALS['userInfo'] 
+						&& in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){ ?>
+						<?php the_field('other_ways_link_usa');?>
+					<?php } 
+						else if($GLOBALS['userInfo'] 
+						&& in_array($GLOBALS['userInfo'], $GLOBALS['norway'])) { ?>
+						<?php the_field('other_ways_link_norway');?>
+					<?php }
+						else if($GLOBALS['userInfo'] 
+						&& in_array($GLOBALS['userInfo'], $GLOBALS['aus'])) { ?>
+						<?php the_field('other_ways_link_aus');?>
+					<?php } else { ?>
+						<?php the_field('other_ways_link_uk');?>
+					<?php } ?>
+					">Other ways to give</a>
+				</p>
 			</div>
-
 
 			<!-- 
 			-- 
@@ -101,6 +136,13 @@ get_header(); ?>
 							<div id="norwayForm">
 								<?php echo do_shortcode( get_field('norway_donate_form_once') ); ?>
 							</div>
+						<?php } 
+						else if($GLOBALS['userInfo'] 
+						&& in_array($GLOBALS['userInfo'], $GLOBALS['aus'])) { ?>
+							<!-- AUS -->
+							<div id="ausFormMonthly">
+								<?php echo do_shortcode( get_field('aus_donate_form_monthly') ); ?>
+							</div>
 						<?php } else { ?>
 							<!-- UK fallback -->
 							<div id="ukFormMonthly">
@@ -124,7 +166,13 @@ get_header(); ?>
 								<?php echo do_shortcode( get_field('norway_donate_form_once') ); ?>
 							</div>
 						<?php } 
-						else { ?>
+						else if($GLOBALS['userInfo'] 
+						&& in_array($GLOBALS['userInfo'], $GLOBALS['aus'])) { ?>
+							<!-- AUS -->
+							<div id="ausForm">
+								<?php echo do_shortcode( get_field('aus_donate_form_once') ); ?>
+							</div>
+						<?php } else { ?>
 							<!-- UK fallback -->
 							<div id="ukForm">
 								<?php echo do_shortcode( get_field('uk_donate_form_once') ); ?>
@@ -132,6 +180,25 @@ get_header(); ?>
 						<?php } ?>
 				</div>
 			</div><!-- / giving -->
+
+			<p class="donate__other-mobile">
+				<a href="
+				<?php if($GLOBALS['userInfo'] 
+					&& in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){ ?>
+					<?php the_field('other_ways_link_usa');?>
+				<?php } 
+					else if($GLOBALS['userInfo'] 
+					&& in_array($GLOBALS['userInfo'], $GLOBALS['norway'])) { ?>
+					<?php the_field('other_ways_link_norway');?>
+				<?php }
+					else if($GLOBALS['userInfo'] 
+					&& in_array($GLOBALS['userInfo'], $GLOBALS['aus'])) { ?>
+					<?php the_field('other_ways_link_aus');?>
+				<?php } else { ?>
+					<?php the_field('other_ways_link_uk');?>
+				<?php } ?>
+				">Other ways to give</a>
+			</p>
 
 
 		</div><!-- /grid -->

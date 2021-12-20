@@ -33,6 +33,7 @@ class Gravity_Flow_Fields {
 	 */
 	public function init_hooks() {
 		add_filter( 'gform_tooltips', array( $this, 'add_tooltips' ) );
+		add_filter( 'gform_zapier_request_body', array( $this, 'filter_zapier_request_body' ), 10, 4 );
 
 		add_action( 'gform_field_standard_settings', array( $this, 'field_settings' ) );
 		add_action( 'gform_field_appearance_settings', array( $this, 'field_appearance_settings' ) );
@@ -263,6 +264,38 @@ class Gravity_Flow_Fields {
 
 		return $value;
 	}
+
+	/**
+	 * Adds formatted versions of the workflow field values to the Zapier request body.
+	 *
+	 * @since 2.7.5
+	 *
+	 * @param array $body  An associative array containing the request body that will be sent to Zapier.
+	 * @param array $feed  The feed currently being processed.
+	 * @param array $entry The entry currently being processed.
+	 * @param array $form  The form currently being processed.
+	 *
+	 * @return array
+	 */
+	public function filter_zapier_request_body( $body, $feed, $entry, $form ) {
+		if ( ! function_exists( 'gf_zapier' ) || empty( $form['fields'] ) ) {
+			return $body;
+		}
+
+		$admin_labels = rgars( $feed, 'meta/adminLabels' );
+
+		foreach ( $form['fields'] as $field ) {
+			if ( ! is_callable( array( $field, 'get_value_zapier_formatted' ) ) ) {
+				continue;
+			}
+
+			$key          = gf_zapier()->get_body_key( $body, gf_zapier()->get_body_label( $admin_labels, $field ) . ' /' );
+			$body[ $key ] = $field->get_value_zapier_formatted( $entry );
+		}
+
+		return $body;
+	}
+
 }
 
 new Gravity_Flow_Fields();

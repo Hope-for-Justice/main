@@ -1,8 +1,10 @@
-### 4.0.1
+### 4.1 | 2021-06-30
+- Updated error messages when API isn't connected to be more informative.
+- Fixed an issue where the merge tags are replaced with fixed values when the subscription name is longer than the 200 character limit by Stripe.
+- Fixed an issue where an empty validation message appears if feed conditional logic is set.
 - Fixed an issue where an empty validation message appears as soon as a customer types in the credit card field.
 - Fixed an issue where the credit card icon overlaps with the placeholder text in the credit card field.
-- Fixed an issue where the form will fail validation if the plan (price) or product, created by the add-on, is archived in the Stripe account.
-- Updated error messages when API isn't connected to be more informative.
+- Fixed an issue where the form fails validation if the plan (price) or product, created by the add-on, is archived in the Stripe account.
 
 ### 4.0 | 2021-04-21
 - Added a warning notice when deprecated credit card field is still being used.

@@ -14,6 +14,8 @@ if ( ! class_exists( 'GFForms' ) ) {
 }
 GFForms::include_feed_addon_framework();
 
+use Gravity_Flow\Gravity_Flow\Translations;
+
 /**
  * Class Gravity_Flow_Feed_Extension
  *
@@ -50,6 +52,14 @@ abstract class Gravity_Flow_Feed_Extension extends GFFeedAddOn {
 	public $license_key = '';
 
 	/**
+	 * Class constructor.
+	 */		
+	public function __construct() {
+		parent::__construct();
+		Gravity_Flow_Common::$_extensions[ $this->get_slug() ] = $this;
+	}	
+
+	/**
 	 * If the extensions minimum requirements are met add the general hooks.
 	 */
 	public function init() {
@@ -58,6 +68,10 @@ abstract class Gravity_Flow_Feed_Extension extends GFFeedAddOn {
 		$meets_requirements = $this->meets_minimum_requirements();
 		if ( ! $meets_requirements['meets_requirements'] ) {
 			return;
+		}
+
+		if ( ! $this->is_gravityforms_supported( '2.5.6' ) ) {
+			$this->init_translations();
 		}
 
 		add_filter( 'gravityflow_menu_items', array( $this, 'menu_items' ) );
@@ -211,32 +225,56 @@ abstract class Gravity_Flow_Feed_Extension extends GFFeedAddOn {
 	 * Override this function to customize the markup for the uninstall section on the plugin settings page
 	 */
 	public function render_uninstall() {
-
-		?>
-		<form action="" method="post">
-			<?php wp_nonce_field( 'uninstall', 'gf_addon_uninstall' ) ?>
-			<?php if ( $this->current_user_can_any( $this->_capabilities_uninstall ) ) { ?>
-
-				<div class="hr-divider"></div>
-
-				<h3><span><i
-							class="fa fa-times"></i> <?php printf( esc_html_x( 'Uninstall %s Extension', 'Title for the uninstall section on the settings page for a Gravity Flow extension.', 'gravityflow' ), $this->get_short_title() ) ?></span>
-				</h3>
-				<div class="delete-alert alert_red">
-					<h3><i class="fa fa-exclamation-triangle gf_invalid"></i> Warning</h3>
-
-					<div class="gf_delete_notice">
-						<?php echo $this->uninstall_warning_message() ?>
+		if ( GFForms::get_page() === 'settings' ) {
+			parent::render_uninstall();
+			return;
+		}
+		
+		if ( rgget( 'page' ) == 'gravityflow_settings' && rgget( 'view' ) == 'uninstall' ) {
+			$icon        = array( 'icon' => $this->get_menu_icon() );
+			$icon_markup = GFCommon::get_icon_markup( $icon, 'dashicon-admin-generic' );
+			?>
+			<form action="" method="post" class="gform-settings-panel gform-settings-panel__addon-uninstall">
+				<?php wp_nonce_field( 'gflow_extension_uninstall', 'gflow_extension_uninstall' ); ?>
+				<div class="gform-settings-panel__content">
+					<div class="addon-logo dashicons"><?php echo $icon_markup; ?></div>
+					<div class="addon-uninstall-text">
+						<h4 class="gform-settings-panel__title"><?php printf( esc_html__( '%s', 'gravityflow' ), $this->get_short_title() ) ?></h4>
+						<?php
+						if ( version_compare( GFForms::$version, '2.5.10', '<' ) )  {
+							?>
+							<div><?php printf( esc_html__( 'This operation deletes ALL %s settings.', 'gravityflow' ), $this->get_short_title() ) ?></div>
+							<?php
+						} else {
+							?>
+							<div><?php echo esc_html( $this->uninstall_message() ); ?></div>
+							<?php
+						}
+						?>
 					</div>
-					<input type="submit" name="uninstall"
-					       value="<?php echo esc_attr_x( 'Uninstall Extension', 'Button text on the settings page for an extension.', 'gravityflow' ) ?>"
-					       class="button"
-					       onclick="return confirm('<?php echo esc_js( $this->uninstall_confirm_message() ); ?>');">
+					<div class="addon-uninstall-button">
+						<input id="addon" name="addon" type="hidden" value="<?php echo $this->get_slug(); ?>">
+						<button type="submit" aria-label="<?php printf( esc_html__( 'Uninstall %s', 'gravityflow'), $this->get_short_title() ); ?>" name="uninstall_addon" value="uninstall" class="button uninstall-addon red" onclick="return confirm('<?php echo esc_js( $this->uninstall_confirm_message() ); ?>');" onkeypress="return confirm('<?php echo esc_js( $this->uninstall_confirm_message() ); ?>');">
+							<i class="dashicons dashicons-trash"></i>
+							<?php esc_attr_e( 'Uninstall', 'gravityflow' ); ?>
+						</button>
+					</div>
 				</div>
+			</form>
+			<?php
+			return;
+		}
+	}
 
-			<?php } ?>
-		</form>
-		<?php
+	/**
+	 * Return the plugin's icon for the form/settings/uninstall page.
+	 *
+	 * @since 2.7.5
+	 *
+	 * @return string
+	 */	
+	public function get_menu_icon() {
+		return 'dashicons-gravityflow-icon';
 	}
 
 	/**
@@ -260,7 +298,7 @@ abstract class Gravity_Flow_Feed_Extension extends GFFeedAddOn {
 		$url         = add_query_arg( array( 'view' => $this->get_slug() ), admin_url( 'admin.php?page=gravityflow_settings' ) );
 		?>
 		<form action="" method="post" class="gform-settings-panel gform-settings-panel__addon-uninstall">
-			<?php wp_nonce_field( 'uninstall', 'gf_addon_uninstall' ); ?>
+			<?php wp_nonce_field( 'uninstall', 'gflow_extension_uninstall' ); ?>
 			<div class="gform-settings-panel__content">
 				<div class="addon-logo dashicons"><?php echo $icon_markup; ?></div>
 				<div class="addon-uninstall-text">
@@ -622,4 +660,48 @@ abstract class Gravity_Flow_Feed_Extension extends GFFeedAddOn {
 
 		return $is_extension_settings;
 	}
+
+	/**
+	 * Inits the TranslationsPress integration.
+	 *
+	 * @since 2.7.5
+	 */
+	public function init_translations() {
+		Translations\Manager::get_instance( $this->get_slug() );
+	}
+
+	/**
+	 * Uses TranslationsPress to install translations for the specified locale.
+	 *
+	 * @since 2.7.5
+	 *
+	 * @param string $locale The locale the translations are to be installed for.
+	 */
+	public function install_translations( $locale = '' ) {
+		Translations\Manager::get_instance( $this->get_slug() )->install( $locale );
+	}
+
+	/**
+	 * Returns an array of locales from the mo files found in the WP_LANG_DIR/plugins directory.
+	 *
+	 * Used to display the installed locales on the system report.
+	 *
+	 * @since 2.7.5
+	 *
+	 * @return array
+	 */
+	public function get_installed_locales() {
+		return Translations\Manager::get_instance( $this->get_slug() )->get_installed_translations();
+	}
+
+	/**
+	 * Installs or upgrades the plugin.
+	 *
+	 * @since 2.7.5
+	 */
+	public function setup() {
+		Translations\Manager::get_instance( $this->get_slug() )->legacy_install_on_setup( $this );
+		parent::setup();
+	}
+
 }

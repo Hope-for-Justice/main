@@ -60,6 +60,25 @@
             "maxlength": ""
         },
         {
+            "key": "field_61bb3c794a82c",
+            "label": "Australia Monthly Form",
+            "name": "aus_donate_form_monthly",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_61655ba8b44b6",
             "label": "US Once form",
             "name": "us_donate_form_once",
@@ -101,6 +120,25 @@
             "key": "field_61655c99b44b8",
             "label": "Norway Once form",
             "name": "norway_donate_form_once",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_61bb3cd54a82d",
+            "label": "Australia Once form",
+            "name": "aus_donate_form_once",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -191,6 +229,82 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
+        },
+        {
+            "key": "field_61bb3cf24a82e",
+            "label": "Other ways to give link US",
+            "name": "other_ways_link_usa",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_61bb2efe7a4cd",
+            "label": "Other ways to give link UK",
+            "name": "other_ways_link_uk",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_61bb3d324a82f",
+            "label": "Other ways to give Norway",
+            "name": "other_ways_link_norway",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_61bb3d494a830",
+            "label": "Other ways to give Australia",
+            "name": "other_ways_link_aus",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         }
     ],
     "location": [
@@ -210,5 +324,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1636642039
+    "modified": 1639661035
 }

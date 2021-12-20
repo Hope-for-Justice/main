@@ -186,17 +186,26 @@ get_header();
 				</div>
 			</div>
 			<div class="drag-cards__dots dots">
-				<div class="dots__dot"></div>
-				<div class="dots__dot"></div>
-				<div class="dots__dot"></div>
-				<div class="dots__dot"></div>
+				<img src="<?php echo get_template_directory_uri().'/assets/img/drag-above.svg'; ?>">
 			</div>
 
 			<div class="drag-cards__button">
-			    <a href="<?php the_field('drag_cards_button_link'); ?>" class="button button--green">
+			    <a href="
+			    <?php 
+				if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){
+					the_field('drag_cards_button_link_usa');
+				} else {
+			      	the_field('drag_cards_button_link');
+			    }?>
+				
+			    " class="button button--green">
 					<div class="button__inner">
 						<div class="button__text bold">
-							<?php the_field('drag_cards_button_text'); ?>
+							<?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){
+								the_field('drag_cards_button_text_usa');
+							} else {
+								the_field('drag_cards_button_text');
+							} ?>
 						</div>
 					</div>
 				</a>

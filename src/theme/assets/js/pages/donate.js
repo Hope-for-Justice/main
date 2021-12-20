@@ -23,17 +23,15 @@ jQuery(document).ready(function($) {
         if (monthly !== true) {
             $('.donate__form--monthly').hide();
             $('.donate__form--once').show();
-            if ($(window).width() >= 550) {
-                $('.donate__info--monthly').hide();
-                $('.donate__info--once').show(); 
-            }
+            $('.donate__info--monthly').hide();
+            $('.donate__info--once').show(); 
+            
         } else {
             $('.donate__form--monthly').show();
             $('.donate__form--once').hide();
-            if ($(window).width() >= 550) {
-                $('.donate__info--monthly').show();
-                $('.donate__info--once').hide()
-            }
+            $('.donate__info--monthly').show();
+            $('.donate__info--once').hide()
+            
         }
     }
 

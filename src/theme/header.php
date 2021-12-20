@@ -49,16 +49,24 @@
     $GLOBALS['userInfo'] = $GLOBALS['geo']->country(); 
 ?>
 
-<link rel="preload" href="<?php echo get_template_directory_uri(). '/assets/fonts/FKScreamerLegacy-Upright.woff'; ?>" as="font" type="font/woff" crossorigin>
-<link rel="preload" href="<?php echo get_template_directory_uri(). '/assets/fonts/canela-medium.woff';?>" as="font" type="font/woff" crossorigin>
-<link rel="preload" href="<?php echo get_template_directory_uri(). '/assets/fonts/apercu-regular-pro.woff';?>" as="font" type="font/woff" crossorigin>
-
 <?php wp_head(); ?>
 
 
 </head>
 
-<body <?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])){ body_class( 'weglot-show' ); } else{ body_class(); }?>>
+<body <?php 
+if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])){ 
+	body_class('weglot-show country-norway'); 
+} else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){
+	body_class('country-usa'); 
+} else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['aus'])) {
+	body_class('country-aus');
+} else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['uk'])) {
+	body_class('country-uk');
+} else {
+	body_class('country-other');
+}
+?>>
 
 <div class="upgrade-browser">
 	<p style="font-size: 2em; padding:0.5em; font-family: 'apercu-bold', sans-serif;">It looks like you are using an out of date browser. <br>Please update your browser in order to use this website.</p>

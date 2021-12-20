@@ -47,7 +47,7 @@ get_header();
 					if($category_id == $category->term_id) {
 						$selected = 'selected';
 					}
-						echo '<option data-value="'.$category->term_id.'" value="'.home_url().'/category/'.$category->slug.'" '.$selected.'>'.$category->name.'</option>';
+						echo '<option data-value="'.$category->term_id.'" value="'.home_url().'/news/category/'.$category->slug.'" '.$selected.'>'.$category->name.'</option>';
 					}
 					
 				}

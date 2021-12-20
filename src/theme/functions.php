@@ -94,13 +94,13 @@ add_action( 'after_setup_theme', 'hope_for_justice_2021_setup' );
 function hope_for_justice_2021_scripts() {
 	global $wp_styles;
 
-	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202108' );
+	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202109' );
 
 	wp_enqueue_script('jquery'); 
-	// wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202108', true );
+	// wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202109', true );
 
 
-    wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202108', true );
+    wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202109', true );
 
 }
 
@@ -120,7 +120,7 @@ add_action( 'wp_enqueue_scripts', 'hope_for_justice_2021_scripts', 1 );
 function page_scripts() {
     global $post;
 
-    wp_register_script( 'donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '202108', true);
+    wp_register_script( 'donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '202109', true);
 
     $themeVars = array( 'template_directory_uri' => get_template_directory_uri() );
 
@@ -677,3 +677,60 @@ function my_custom_give_populate_amount_name_email() {
 
 add_action( 'give_post_form_output', 'my_custom_give_populate_amount_name_email' );
 
+/**
+ * A local translation snippet for making text changes to only one of the forms.
+ * Change 'YOUR TEXT HERE' to your desired text, and the "964" to the form ID you'd like to modify.
+ *
+ * Also, ensure that all functions here have unique names to avoid conflicts.
+ *
+ * @param $translations
+ * @param $text
+ * @param $domain
+ *
+ * @return mixed|string
+ */
+function my_give_picky_text_switcher( $translations, $text, $domain ) {
+
+    // Only for the 'give' text domain.
+    if ( $domain == 'give' && $text == 'First Name' ) {
+        return __( 'Fornavn', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Last Name' ) {
+        return __( 'Etternavn', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Email Address' ) {
+        return __( 'E-post', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Card Number' ) {
+        return __( 'Kortnummer', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Cardholder Name' ) {
+        return __( 'Kortholders navn', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Secure Donation' ) {
+        return __( 'Sikker Donasjon', 'give' );
+    }
+
+    return $translations;
+    
+}
+
+/**
+ * Conditional for gettext.
+ *
+ * @param $form_id
+ */
+function my_give_confirm_form( $form_id ) {
+
+    // Customize form title here or remove conditional for all forms.
+    if ( $form_id == 1119 ) {
+        add_filter( 'gettext', 'my_give_picky_text_switcher', 10, 3 );
+    }
+}
+
+add_action( 'give_pre_form_output', 'my_give_confirm_form', 10, 1 );

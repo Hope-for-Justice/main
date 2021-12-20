@@ -75,7 +75,7 @@ window.GFStripe = null;
 
 								// Clear card field errors before initiate it.
 								if (GFStripeObj.GFCCField.next('.validation_message').length) {
-									GFStripeObj.GFCCField.next('.validation_message').html('');
+									GFStripeObj.GFCCField.next('.validation_message').remove();
 								}
 
 								card = elements.create(
@@ -120,11 +120,8 @@ window.GFStripe = null;
 						}
 
 						if (!GFStripeObj.GFCCField.next('.validation_message').length) {
-							GFStripeObj.GFCCField.after('<div class="gfield_description validation_message"></div>');
+							GFStripeObj.GFCCField.after('<div class="gfield_description validation_message">' + gforms_stripe_frontend_strings.no_active_frontend_feed + '</div>');
 						}
-
-						var cardErrors = GFStripeObj.GFCCField.next('.validation_message');
-						cardErrors.html( gforms_stripe_frontend_strings.no_active_frontend_feed );
 
 						wp.a11y.speak( gforms_stripe_frontend_strings.no_active_frontend_feed );
 					}

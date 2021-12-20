@@ -1,22 +1,22 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.12.7',
-        'version' => '1.12.7.0',
+        'pretty_version' => '1.13.1',
+        'version' => '1.13.1.0',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '57cb5125bea09f6e465504fd9f0d701e2a883372',
+        'reference' => 'd22cd26826f65126305fddf6578669fd93a7839d',
         'name' => 'impress-org/give-recurring',
         'dev' => false,
     ),
     'versions' => array(
         'impress-org/give-recurring' => array(
-            'pretty_version' => '1.12.7',
-            'version' => '1.12.7.0',
+            'pretty_version' => '1.13.1',
+            'version' => '1.13.1.0',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '57cb5125bea09f6e465504fd9f0d701e2a883372',
+            'reference' => 'd22cd26826f65126305fddf6578669fd93a7839d',
             'dev_requirement' => false,
         ),
     ),

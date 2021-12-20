@@ -181,7 +181,7 @@ $args = wp_parse_args(
 
     <!--
     --
-    --  get - help
+    --  get help
     --
     -->
     <div class="modal get-help-modal fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">

@@ -3,8 +3,8 @@ Contributors: givewp
 Tags: donations, donation, ecommerce, e-commerce, fundraising, fundraiser, paymill, gateway
 Requires at least: 4.9
 Tested up to: 5.8
-Stable tag: 1.12.7
-Requires Give: 2.12.3
+Stable tag: 1.13.1
+Requires Give: 2.17.0
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -38,6 +38,12 @@ The manual installation method involves downloading our donation plugin and uplo
 Automatic updates should work like a charm; as always though, ensure you backup your site just in case.
 
 == Changelog ==
+
+= 1.13.1: December 13th, 2021 =
+* Fix: Correct namespacing issue causing a donation error.
+
+= 1.13.0: December 8th, 2021 =
+* New: When used with GiveWP Authorize.net 1.5.0, the first payment of a Subscription is now immediately processed.
 
 = 1.12.7: November 18th, 2021 =
 * Change: PayPal IPN verification is always in effect for improve security

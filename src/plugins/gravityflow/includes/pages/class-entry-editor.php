@@ -633,6 +633,11 @@ class Gravity_Flow_Entry_Editor {
 		if ( $input_type == 'hiddenproduct' ) {
 			$display_value = $value[ $field->id . '.2' ];
 		} else {
+			if ( $input_type === 'likert' ) {
+				// Survey disables the likert inputs when preparing the entry detail markup.
+				$field->_is_entry_detail = true;
+			}
+
 			$display_value = GFCommon::get_lead_field_display( $field, $value, $this->entry['currency'] );
 		}
 

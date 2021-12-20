@@ -121,7 +121,18 @@ jQuery(document).ready(function($) {
     $('.modal').on('hidden.bs.modal', function(e) {
         // sets the source to nothing, stopping the video
         $frame.attr('src', '');
-    })
+    });
+
+
+    //get help modal on show
+    $("#get-help-modal").on("shown.bs.modal", function(e) {
+        $('.get-help').addClass('get-help--modal-open');
+    });
+
+    //get help modal on hidden
+    $("#get-help-modal").on("hidden.bs.modal", function(e) {
+        $('.get-help').removeClass('get-help--modal-open');
+    });
 
     //reference modal text 
     var $text;
@@ -293,7 +304,7 @@ jQuery(document).on('gform_confirmation_loaded', function(event, formId){
 
     //give wp
     $("#usaForm, #usaFormMonthly").find('iframe').contents().find(".currency--before").html('$');
-    //$("#ausForm").find('iframe').contents().find(".currency--before").html('$');
+    $("#ausForm, #ausFormMonthly").find('iframe').contents().find(".currency--before").html('$');
     $("#norwayForm, #norwayFormMonthly").find('iframe').contents().find(".currency--before").html('Kr.');
     
     //const selectOption = $(".give-embed-form-wrapper").find('iframe').contents().find(".preferencesQuestion").find('select');
