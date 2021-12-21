@@ -27,8 +27,8 @@ jQuery(document).ready(function($) {
         var animData = {
             container: elem,
             renderer: 'canvas',
-            loop: false,
-            autoplay: false, //change to false when using trigger
+            loop: true,
+            autoplay: true, //change to false when using trigger
             rendererSettings: {
                 progressiveLoad:false
             },
@@ -39,14 +39,14 @@ jQuery(document).ready(function($) {
         getInvolved = bodymovin.loadAnimation(animData);
 
 
-        //waypoint
-        var waypoint = new Waypoint({
-        element: document.getElementById('getInvolved'),
-          handler: function(direction) {
-            getInvolved.play();
-          },
-          offset: '50%'
-        }); 
+        // //waypoint
+        // var waypoint = new Waypoint({
+        // element: document.getElementById('getInvolved'),
+        //   handler: function(direction) {
+        //     getInvolved.play();
+        //   },
+        //   offset: '50%'
+        // }); 
     }
 
 

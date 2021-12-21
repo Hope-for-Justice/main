@@ -118,7 +118,7 @@ get_header();
 
 			<!-- see more posts button -->
 	    	<div class="news-page__button">
-				<a href="javascript:void(0)" class="button button--white more_posts" data-term="<?php echo $top_category->term_id; ?>" data-href="<?php echo home_url().'/category/top_news/';?>">
+				<a href="javascript:void(0)" class="button button--white more_posts" data-term="<?php echo $top_category->term_id; ?>" data-href="<?php echo home_url().'/news/category/top_news/';?>">
 					<div class="button__inner">
 						<div class="button__text bold">See more</div>
 					</div>
@@ -198,7 +198,7 @@ get_header();
 
 			<!-- see more posts button -->	
 	    	<div class="news-page__button">
-				<a href="javascript:void(0)" class="button button--white more_posts" data-term="<?php echo $video_category->term_id; ?>" data-href="<?php echo home_url().'/category/videos/';?>">
+				<a href="javascript:void(0)" class="button button--white more_posts" data-term="<?php echo $video_category->term_id; ?>" data-href="<?php echo home_url().'/news/category/videos/';?>">
 					<div class="button__inner">
 						<div class="button__text bold">See more</div>
 					</div>
@@ -267,7 +267,7 @@ get_header();
 
 			<!-- see more posts button 
 	    	<div class="news-page__button">
-				<a href="javascript:void(0)" class="button button--white more_posts" data-term="<?php echo $headline_category->term_id; ?>" data-href="<?php echo home_url().'/category/in_the_headlines/';?>">
+				<a href="javascript:void(0)" class="button button--white more_posts" data-term="<?php echo $headline_category->term_id; ?>" data-href="<?php echo home_url().'/news/category/in_the_headlines/';?>">
 					<div class="button__inner">
 						<div class="button__text bold">See more</div>
 					</div>
@@ -331,7 +331,7 @@ get_header();
 
 			<!-- see more posts button -->	
 	    	<div class="news-page__button">
-				<a href="javascript:void(0)" class="button button--white more_posts" data-term="<?php echo $headline_category->term_id; ?>" data-href="<?php echo home_url().'/category/blogs_and_opinion_editorials/';?>">
+				<a href="javascript:void(0)" class="button button--white more_posts" data-term="<?php echo $headline_category->term_id; ?>" data-href="<?php echo home_url().'/news/category/blogs_and_opinion_editorials/';?>">
 					<div class="button__inner">
 						<div class="button__text bold">See more</div>
 					</div>
