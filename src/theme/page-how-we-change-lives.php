@@ -66,7 +66,7 @@ get_header();
 	--> 
 	<div class="hero-split">
 
-		<div class="hero-split__img hero-split__img--center-center" style="background-image: url('<?php echo the_field('second_split_image'); ?>');">
+		<div class="hero-split__img hero-split__img--top-center" style="background-image: url('<?php echo the_field('second_split_image'); ?>');">
 		</div>
 
 		<div class="hero-split__content hero-split__content--grey">
