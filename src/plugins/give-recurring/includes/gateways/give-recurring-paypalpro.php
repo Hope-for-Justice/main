@@ -251,9 +251,10 @@ class Give_Recurring_PayPal_Website_Payments_Pro extends Give_Recurring_Gateway 
 		parse_str( $encoded_data, $encoded_data_array );
 
 		// Is the PP verification disabled? If so, skip.
-		$verification_option = give_get_option( 'paypal_verification' );
-
-		if ( 'disabled' !== $verification_option && ! give_is_test_mode() ) {
+		if (
+			give_is_setting_enabled( give_get_option( 'paypal_verification', 'enabled' ) ) &&
+			! give_is_test_mode()
+		) {
 
 			// Validate the IPN
 			$remote_post_vars = array(
@@ -298,7 +299,9 @@ class Give_Recurring_PayPal_Website_Payments_Pro extends Give_Recurring_Gateway 
 	/**
 	 * Verifies if the currency code is the same as the one set in Give.
 	 *
-	 * @param  array $data
+	 * @deprecated
+	 *
+	 * @param array $data
 	 *
 	 * @return boolean
 	 */
@@ -509,7 +512,6 @@ class Give_Recurring_PayPal_Website_Payments_Pro extends Give_Recurring_Gateway 
 
 		$posted                    = apply_filters( 'give_recurring_ipn_post', $_POST ); // allow $_POST to be modified
 		$verified                  = $this->verify_ipn();
-		$is_currency_code_verified = $this->verify_currency_code_from_ipn( $posted );
 		$payment_data              = $this->generate_payment_data_from_ipn( $posted );
 		$die_status                = '';
 
@@ -522,21 +524,19 @@ class Give_Recurring_PayPal_Website_Payments_Pro extends Give_Recurring_Gateway 
 
 		status_header( 200 );
 
-		if ( $is_currency_code_verified ) {
+		// Subscription/Recurring IPN variables
+		// @see: https://developer.paypal.com/webapps/developer/docs/classic/ipn/integration-guide/IPNandPDTVariables/
+		switch ( $posted['txn_type'] ) :
 
-			// Subscription/Recurring IPN variables
-			// @see: https://developer.paypal.com/webapps/developer/docs/classic/ipn/integration-guide/IPNandPDTVariables/
-			switch ( $posted['txn_type'] ) :
+			case 'recurring_payment':
+				$result = $this->pay_and_renew_subscription_from_ipn( $posted );
+				break;
 
-				case 'recurring_payment':
-					$result = $this->pay_and_renew_subscription_from_ipn( $posted );
-					break;
+			case 'recurring_payment_profile_cancel':
+				$result = $this->cancel_subscription_from_ipn( $posted );
+				break;
 
-				case 'recurring_payment_profile_cancel':
-					$result = $this->cancel_subscription_from_ipn( $posted );
-					break;
-
-				case 'recurring_payment_failed':
+			case 'recurring_payment_failed':
 					$result = array(
 						'is_success' => true,
 						'message'    => __( 'Recurring Donation Failed', 'give-recurring' ),
@@ -564,11 +564,6 @@ class Give_Recurring_PayPal_Website_Payments_Pro extends Give_Recurring_Gateway 
 				$message    = $die_status . sprintf( __( 'Payment Data : %s', 'give-recurring' ), json_encode( $payment_data ) );
 				give_record_gateway_error( __( 'Error Processing IPN Transaction', 'give-recurring' ), $message );
 			}
-		} else {
-
-			give_record_gateway_error( __( 'Invalid Currency Code', 'give-recurring' ), sprintf( __( 'The currency code in an IPN request did not match the site currency code. Payment data: %s', 'give-recurring' ), json_encode( $payment_data ) ) );
-			$die_status = __( 'Invalid Currency Code', 'give-recurring' );
-		}// End if().
 
 		give_die( $die_status );
 

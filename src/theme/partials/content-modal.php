@@ -181,17 +181,20 @@ $args = wp_parse_args(
 
     <!--
     --
-    --  payment regular
+    --  get help
     --
     -->
     <div class="modal get-help-modal fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
         <a href="#" data-dismiss="modal" class="gi-close modal__close">&times;<span class="accessibility">Close</span></a>
           <div class="modal__dialog get-help-modal__dialog">
                 <div class="modal__content modal__content--yellow get-help-modal__content">
-
-                        <?php echo do_shortcode("[gravityform id=\"32\" title=\"false\" description=\"true\"]"); ?>
-
-                    
+                        <?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['uk'])){
+                            echo do_shortcode("[gravityform id=\"33\" title=\"false\" ajax=\"true\" description=\"true\"]"); 
+                        } else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])){
+                            echo do_shortcode("[gravityform id=\"34\" title=\"false\" ajax=\"true\" description=\"true\"]"); 
+                        } else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){
+                            echo do_shortcode("[gravityform id=\"35\" title=\"false\" ajax=\"true\" description=\"true\"]"); 
+                        }?>
 
                 </div>
          </div>

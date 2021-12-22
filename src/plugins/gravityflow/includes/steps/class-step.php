@@ -376,6 +376,7 @@ abstract class Gravity_Flow_Step extends stdClass {
 		return $this->_entry;
 	}
 
+	
 	/**
 	 * Returns the Form object for this step.
 	 *
@@ -390,6 +391,18 @@ abstract class Gravity_Flow_Step extends stdClass {
 		}
 
 		$form = GFAPI::get_form( $form_id );
+
+		/**
+		 * Allows the form to be modified before it is processed.
+		 *
+		 * @since 2.7.5
+		 *
+		 * @param array             $form  The form to be processed.
+		 * @param array             $entry The entry being processed.
+		 * @param Gravity_Flow_Step $step  The step being processed.
+		 */
+		$form = apply_filters( "gravityflow_{$this->get_type()}_form", $form, $entry, $this );
+		$form = apply_filters( "gravityflow_step_form", $form, $entry, $this );
 
 		return $form;
 	}

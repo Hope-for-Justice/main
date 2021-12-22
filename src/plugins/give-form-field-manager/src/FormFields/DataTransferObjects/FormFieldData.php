@@ -5,11 +5,13 @@ namespace GiveFormFieldManager\FormFields\DataTransferObjects;
 use Give\Framework\FieldsAPI\Types;
 use GiveFormFieldManager\FormFields\ValueObjects\FieldType;
 use ReflectionException;
+
 use function give_ffm_allowed_extension;
 
 /**
  * Class FormFieldData
  *
+ * @since 2.0.1 Remove extensions property and setExtensionsProperty to prevent memory leaks.
  * @since 2.0.0
  */
 class FormFieldData {
@@ -53,8 +55,6 @@ class FormFieldData {
 	public $first;
 	/** @var bool */
 	public $hideField;
-	/** @var array */
-	public $extensions;
 	/**
 	 * @var int
 	 *
@@ -90,6 +90,8 @@ class FormFieldData {
 	/**
 	 * FormFieldData constructor.
 	 *
+     * @unreleased Decode html entities in operator value.
+     *
 	 * @param array $data
 	 *
 	 * @throws ReflectionException
@@ -121,146 +123,161 @@ class FormFieldData {
 		$this->multiple                            = $this->boolean( 'multiple', 'true' );
 		$this->options                             = $this->arrayValue( 'options' );
 		$this->fieldVisibilityControllerFieldName  = $this->string( 'controller_field_name' );
-		$this->fieldVisibilityComparisonOperator   = $this->string( 'controller_field_operator' );
+		$this->fieldVisibilityComparisonOperator   = html_entity_decode( $this->string( 'controller_field_operator' ) );
 		$this->fieldVisibilityControllerFieldValue = $this->string( 'controller_field_value' );
 		$this->hasVisibilityCondition              = $this->boolean( 'control_field_visibility', 'on' ) &&
 		                                             $this->fieldVisibilityControllerFieldName &&
 		                                             $this->fieldVisibilityComparisonOperator;
 
-		$this->setDefaultValueProperty( $data );
-		$this->setExtensionsProperty( $data ); // Only exist in file upload field.
-		$this->setEditorTypeProperty(); // Only exist in textarea field.
-	}
+        $this->setDefaultValueProperty($data);
+        $this->setEditorTypeProperty(); // Only exist in textarea field.
+    }
 
-	/**
-	 * @since 2.0.0
-	 *
-	 * @param array $data
-	 */
-	private function setDefaultValueProperty( $data ){
-		if ( in_array( $this->inputType->getFieldsApiType(), [ Types::SELECT, Types::CHECKBOX, Types::RADIO ] ) ) {
-			$this->defaultValue = isset( $data['selected'] ) ? $data['selected'] : [];
-		} elseif ( 'html' === $data['input_type'] ) {
-			$this->defaultValue = $this->string( 'html' );
-		} else {
-			$this->defaultValue = $this->maxLength ?
-				substr( $this->string( 'default' ), 0, $this->maxLength ) :
-				$this->string( 'default' );
-		}
-	}
+    /**
+     * @since 2.0.0
+     *
+     * @param array $data
+     */
+    private function setDefaultValueProperty($data)
+    {
+        if (in_array($this->inputType->getFieldsApiType(), [Types::SELECT, Types::CHECKBOX, Types::RADIO])) {
+            $this->defaultValue = isset($data['selected']) ? $data['selected'] : [];
+        } elseif ('html' === $data['input_type']) {
+            $this->defaultValue = $this->string('html');
+        } else {
+            $this->defaultValue = $this->maxLength ?
+                substr($this->string('default'), 0, $this->maxLength) :
+                $this->string('default');
+        }
+    }
 
-	/**
-	 * @since 2.0.0
-	 * @param array $data
-	 */
-	private function setExtensionsProperty( $data ){
-		$extensions = give_ffm_allowed_extension();
-		$selectedExtensionIds = ! empty( $data['extension'] ) ? $data['extension'] : [];
-		$allowedExtensions = [];
+    /**
+     * @since 2.0.1
+     *
+     * @return array
+     *
+     * Note: Use this function to get allowed fields extension list.
+     *       There is not any limitation of use but this function work better for "File Upload" field type.
+     */
+    public function getAllowedExtensions()
+    {
+        $defaultAllowedExtensionsInFFM = give_ffm_allowed_extension();
+        $selectedExtensionIds          = ! empty($this->data['extension']) ? $this->data['extension'] : [];
+        $allowedExtensions             = [];
+        $allowedMimeTypesInWP          = get_allowed_mime_types();
+        $extensions                    = [];
 
-		if( empty( $selectedExtensionIds ) ) {
-			$this->extensions = get_allowed_mime_types();
-		}
+        if (empty($selectedExtensionIds)) {
+            $extensions = $allowedMimeTypesInWP;
+        }
 
-		foreach ( $selectedExtensionIds as $extensionId ) {
-			if( ! array_key_exists( $extensionId, $extensions ) ){
-				continue;
-			}
+        foreach ($selectedExtensionIds as $extensionId) {
+            if ( ! array_key_exists($extensionId, $defaultAllowedExtensionsInFFM)) {
+                continue;
+            }
 
-			$allowedExtensions = array_merge(
-				$allowedExtensions,
-				array_map( 'trim', explode( ',', $extensions[ $extensionId ]['ext'] ) )
-			);
-		}
+            $allowedExtensions = array_merge(
+                $allowedExtensions,
+                array_map('trim', explode(',', $defaultAllowedExtensionsInFFM[$extensionId]['ext']))
+            );
+        }
 
-		$allowedMimeTypesInWP = get_allowed_mime_types();
-		foreach ( $allowedExtensions as $extension ) {
-			foreach ( $allowedMimeTypesInWP as $ext => $mimeType ) {
-				if( false === strpos( $ext, '|' ) ) {
-					if( $ext !== $extension ) {
-						continue;
-					}
-				} elseif ( ! in_array( $extension, explode( '|', $ext ) ) ) {
-					continue;
-				}
+        foreach ($allowedExtensions as $extension) {
+            foreach ($allowedMimeTypesInWP as $ext => $mimeType) {
+                if (false === strpos($ext, '|')) {
+                    if ($ext !== $extension) {
+                        continue;
+                    }
+                } elseif ( ! in_array($extension, explode('|', $ext))) {
+                    continue;
+                }
 
-				$this->extensions[$ext] = $mimeType;
-				break;
-			}
-		}
-	}
+                $extensions[$ext] = $mimeType;
+                break;
+            }
+        }
 
-	/**
-	 * @since 2.0.0
-	 */
-	private function setEditorTypeProperty(){
-		$editorType = $this->string( 'rich' ); // Only for textarea
-		$this->editorType = '';
+        return $extensions;
+    }
 
-		if( 'yes' === $editorType ) {
-			$this->editorType = 'rich';
-		}elseif ( 'teeny' === $editorType ) {
-			$this->editorType = 'teeny';
-		}
-	}
+    /**
+     * @since 2.0.0
+     */
+    private function setEditorTypeProperty()
+    {
+        $editorType       = $this->string('rich'); // Only for textarea
+        $this->editorType = '';
 
-	/**
-	 * Boolean cast helper
-	 *
-	 * @param string $value
-	 *
-	 * @return bool
-	 */
-	private function boolean( $value, $expected = 'yes' ) {
-		return array_key_exists( $value, $this->data ) && $this->data[ $value ] === $expected;
-	}
+        if ('yes' === $editorType) {
+            $this->editorType = 'rich';
+        } elseif ('teeny' === $editorType) {
+            $this->editorType = 'teeny';
+        }
+    }
 
-	/**
-	 * String cast helper
-	 *
-	 * @param string $value
-	 *
-	 * @return mixed|string
-	 */
-	private function string( $value ) {
-		return isset($this->data[$value]) ? $this->data[$value] : '';
-	}
+    /**
+     * Boolean cast helper
+     *
+     * @param string $value
+     *
+     * @return bool
+     */
+    private function boolean($value, $expected = 'yes')
+    {
+        return array_key_exists($value, $this->data) && $this->data[$value] === $expected;
+    }
 
-	/**
-	 * Array cast helper
-	 *
-	 * @param string $value
-	 *
-	 * @return array
-	 */
-	private function arrayValue( $value ) {
-		return $this->useDataOrFallback( $value, [] );
-	}
+    /**
+     * String cast helper
+     *
+     * @param string $value
+     *
+     * @return mixed|string
+     */
+    private function string($value)
+    {
+        return isset($this->data[$value]) ? $this->data[$value] : '';
+    }
 
-	/**
-	 * FieldType cast helper
-	 *
-	 * @param $value
-	 *
-	 * @return FieldType
-	 * @throws ReflectionException
-	 */
-	private function fieldType( $value ) {
-		return new FieldType( $this->data[ $value ] );
-	}
+    /**
+     * Array cast helper
+     *
+     * @param string $value
+     *
+     * @return array
+     */
+    private function arrayValue($value)
+    {
+        return $this->useDataOrFallback($value, []);
+    }
 
-	/**
-	 * Use the data provided if it exists or the fallback.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param string $value
-	 * @param mixed $fallback
-	 * @return mixed
-	 */
-	private function useDataOrFallback( $value, $fallback ) {
-		return array_key_exists( $value, $this->data ) && ! empty( $this->data[ $value ] )
-			? $this->data[ $value ]
-			: $fallback;
-	}
+    /**
+     * FieldType cast helper
+     *
+     * @param $value
+     *
+     * @return FieldType
+     * @throws ReflectionException
+     */
+    private function fieldType($value)
+    {
+        return new FieldType($this->data[$value]);
+    }
+
+    /**
+     * Use the data provided if it exists or the fallback.
+     *
+     * @since 2.0.0
+     *
+     * @param string $value
+     * @param mixed $fallback
+     *
+     * @return mixed
+     */
+    private function useDataOrFallback($value, $fallback)
+    {
+        return array_key_exists($value, $this->data) && ! empty($this->data[$value])
+            ? $this->data[$value]
+            : $fallback;
+    }
 }

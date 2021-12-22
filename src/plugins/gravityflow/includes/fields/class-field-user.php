@@ -246,6 +246,7 @@ class Gravity_Flow_Field_User extends GF_Field_Select {
 	 * @since 1.7.1-dev
 	 */
 	public function post_convert_field() {
+		parent::post_convert_field();
 		if ( ! $this->is_form_editor() ) {
 			$this->choices = $this->get_users_as_choices();
 		}
@@ -272,6 +273,20 @@ class Gravity_Flow_Field_User extends GF_Field_Select {
 			}
 		}
 	}
+
+	/**
+	 * Returns a formatted version of the field value to be added to the Zapier request body.
+	 *
+	 * @since 2.7.5
+	 *
+	 * @param array $entry The entry being sent to Zapier.
+	 *
+	 * @return string
+	 */
+	public function get_value_zapier_formatted( $entry ) {
+		return $this->get_value_export( $entry, (string) $this->id, true );
+	}
+
 }
 
 GF_Fields::register( new Gravity_Flow_Field_User() );

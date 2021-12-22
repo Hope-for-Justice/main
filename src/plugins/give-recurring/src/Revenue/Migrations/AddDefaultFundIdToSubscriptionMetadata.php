@@ -1,7 +1,7 @@
 <?php
 namespace GiveRecurring\Revenue\Migrations;
 
-use Give\Framework\Migrations\Contracts\Migration;
+use GiveRecurring\Infrastructure\Migration;
 use GiveRecurring\Revenue\Repositories\Subscription;
 
 /**
@@ -33,13 +33,6 @@ class AddDefaultFundIdToSubscriptionMetadata extends Migration {
 	 */
 	public static function title() {
 		return 'Add default Fund ID to subscriptions metadata';
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public static function source() {
-		return GIVE_RECURRING_ADDON_NAME;
 	}
 
 	/**

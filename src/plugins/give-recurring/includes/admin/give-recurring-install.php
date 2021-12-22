@@ -1,5 +1,6 @@
 <?php
 
+use GiveRecurring\Donation\Migrations\RecoverDonorFirstAndLastNameAffectByRenewal;
 use GiveRecurring\Logs\Migrations\MigrateEmailLogs;
 use GiveRecurring\Logs\Migrations\MigrateLogs;
 use GiveRecurring\Subscriptions\Migrations\UpdateRenewalsWithPaymentMode;
@@ -136,7 +137,8 @@ function give_recurring_install() {
 			'give_recurring_v182_alter_amount_column_type',
 			MigrateLogs::id(),
 			MigrateEmailLogs::id(),
-			UpdateRenewalsWithPaymentMode::id()
+			UpdateRenewalsWithPaymentMode::id(),
+			RecoverDonorFirstAndLastNameAffectByRenewal::id()
 		];
 
 		foreach ( $updates as $update ) {

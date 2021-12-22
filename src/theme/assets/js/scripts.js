@@ -18,6 +18,7 @@ jQuery(document).ready(function($) {
         }
     };
 
+
     // lottie
     var getInvolved;
     var elem = document.getElementById('getInvolved');
@@ -26,8 +27,8 @@ jQuery(document).ready(function($) {
         var animData = {
             container: elem,
             renderer: 'canvas',
-            loop: false,
-            autoplay: false, //change to false when using trigger
+            loop: true,
+            autoplay: true, //change to false when using trigger
             rendererSettings: {
                 progressiveLoad:false
             },
@@ -38,15 +39,18 @@ jQuery(document).ready(function($) {
         getInvolved = bodymovin.loadAnimation(animData);
 
 
-        //waypoint
-        var waypoint = new Waypoint({
-        element: document.getElementById('getInvolved'),
-          handler: function(direction) {
-            getInvolved.play();
-          },
-          offset: '50%'
-        }); 
+        // //waypoint
+        // var waypoint = new Waypoint({
+        // element: document.getElementById('getInvolved'),
+        //   handler: function(direction) {
+        //     getInvolved.play();
+        //   },
+        //   offset: '50%'
+        // }); 
     }
+
+
+
 
     // //if donate=true show donate form
     // var donate = getUrlParameter('donate');
@@ -117,7 +121,18 @@ jQuery(document).ready(function($) {
     $('.modal').on('hidden.bs.modal', function(e) {
         // sets the source to nothing, stopping the video
         $frame.attr('src', '');
-    })
+    });
+
+
+    //get help modal on show
+    $("#get-help-modal").on("shown.bs.modal", function(e) {
+        $('.get-help').addClass('get-help--modal-open');
+    });
+
+    //get help modal on hidden
+    $("#get-help-modal").on("hidden.bs.modal", function(e) {
+        $('.get-help').removeClass('get-help--modal-open');
+    });
 
     //reference modal text 
     var $text;
@@ -155,15 +170,6 @@ jQuery(document).ready(function($) {
     //$(".page").fitVids();
     //$(".single").fitVids();
     $('iframe[src*="youtube"]').parent().fitVids();
-
-    //get help button
-    // jQuery(".get-help__help-button").on('click', function(){
-    //     alert('yep');
-    //    jQuery(".get-help__modal").toggleClass('get-help__modal--open');
-    // });
-    $('.get-help-modal__country-select').find('select').on('change', function(){
-        alert('Country select changed - This will trigger translations in the get help area when available.');
-    });
 
 }); /* end of as page load scripts */
 
@@ -229,6 +235,32 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
 });
 
 
+jQuery(document).on('gform_confirmation_loaded', function(event, formId){
+    
+    // lottie
+    var blackTick;
+    var elem = document.getElementById('blackTick');
+
+        if (elem != undefined) {
+        var blackTickAnimData = {
+            container: elem,
+            renderer: 'canvas',
+            loop: false,
+            autoplay: true, //change to false when using trigger
+            rendererSettings: {
+                progressiveLoad:false
+            },
+            path: '/wp-content/themes/hope-for-justice-2020/assets/img/black-tick.json',
+            //on wp-engine /wp-content/themes/hope-for-justice-2020/assets/img/black-tick.json
+            //on local setup /build/themes/hope-for-justice-2020/assets/img/black-tick.json
+        };
+            blackTick = bodymovin.loadAnimation(blackTickAnimData);
+        }
+
+
+
+});
+
 
 /* Window load scripts */
 (function($) {
@@ -272,7 +304,7 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
 
     //give wp
     $("#usaForm, #usaFormMonthly").find('iframe').contents().find(".currency--before").html('$');
-    //$("#ausForm").find('iframe').contents().find(".currency--before").html('$');
+    $("#ausForm, #ausFormMonthly").find('iframe').contents().find(".currency--before").html('$');
     $("#norwayForm, #norwayFormMonthly").find('iframe').contents().find(".currency--before").html('Kr.');
     
     //const selectOption = $(".give-embed-form-wrapper").find('iframe').contents().find(".preferencesQuestion").find('select');

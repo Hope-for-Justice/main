@@ -8,12 +8,13 @@
 	&__title{
 		position: relative;
 		display: inline-block;
-		span::after {
+		padding-left:1em;
+		&::before {
 			content:"▼";
 			position:absolute;
-			right:0px;
-			top:50%;
-			transform: translate(200%, -50%);
+			left:0;
+			//top:50%;
+			transform: translate(0, 50%);
 			font-size: 0.5em;
 			transition: all 0.2s ease-out;
 		}
@@ -22,14 +23,17 @@
 		max-height:0;
 		transition: max-height 0.4s ease-in-out;
 		overflow: hidden;
+		margin-bottom: 2em;
 	}
 	&--open {
 		.dropdown__content {
 			max-height: 10000px;
 		}
-		.dropdown__title span::after {
+		.dropdown__title::before {
 			content: "▲"
 		}
 	}
-
+	&:hover {
+		cursor: pointer;
+	}
 }

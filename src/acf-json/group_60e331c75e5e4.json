@@ -59,9 +59,9 @@
         },
         {
             "key": "field_60e33200b8f88",
-            "label": "External Link",
+            "label": "Link",
             "name": "link",
-            "type": "url",
+            "type": "text",
             "instructions": "",
             "required": 1,
             "conditional_logic": [
@@ -83,7 +83,29 @@
                 "id": ""
             },
             "default_value": "",
-            "placeholder": ""
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_61b0e51ca30f3",
+            "label": "Hide download symbol",
+            "name": "no_download",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
@@ -103,5 +125,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1636642081
+    "modified": 1638983731
 }

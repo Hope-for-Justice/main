@@ -171,7 +171,7 @@
         },
         {
             "key": "field_6151e82db1fae",
-            "label": "Fundraise with Facebook",
+            "label": "Fundraise with 1",
             "name": "fundraise_with_facebook",
             "type": "group",
             "instructions": "",
@@ -309,7 +309,7 @@
         },
         {
             "key": "field_6151ed86b1fb5",
-            "label": "Fundraise with Just Giving",
+            "label": "Fundraise with 2",
             "name": "fundraise_with_jg",
             "type": "group",
             "instructions": "",
@@ -542,9 +542,9 @@
     "location": [
         [
             {
-                "param": "page",
+                "param": "page_template",
                 "operator": "==",
-                "value": "370"
+                "value": "templates\/page-fundraise.php"
             }
         ]
     ],
@@ -554,7 +554,8 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": "",
-    "modified": 1636642049
+    "show_in_rest": 0,
+    "modified": 1640092560
 }

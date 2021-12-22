@@ -18,6 +18,23 @@ get_header();
 					<?php echo get_the_title(); ?>
 				</h2>
 
+				<?php global $post;
+				  if ( $post->post_parent ) { ?>
+				    <ul class="breadcrumbs">
+				    	<li class="breadcrumbs__crumb">
+				    		<a class="breadcrumbs__link" href="<?php echo get_permalink( $post->post_parent ); ?>" >
+				   			<?php echo get_the_title( $post->post_parent ); ?>
+				    		</a>
+				    	</li>
+				    	<li class="breadcrumbs__seperator">></li>
+				    	<li class="breadcrumbs__crumb">
+				    		<a class="breadcrumbs__link" href="<?php echo get_permalink( $post ); ?>" >
+				   			<?php echo get_the_title( $post ); ?>
+				    		</a>
+				    	</li>
+				    </ul>
+				<?php } ?>
+
 				<div class="resources__content">
 					<?php echo get_the_content(); ?>
 				</div>
@@ -61,7 +78,7 @@ get_header();
 					?>
 
 					<div class="cards__card">
-						<a href="<?php echo $field; ?>" >
+						<a target="_blank" href="<?php echo $field; ?>" download>
 							<div class="cards__content" >
 								<div class="cards__img-container">
 									<img src="<?php echo get_the_post_thumbnail_url($rpost->ID); ?>" class="cards__img">
@@ -70,8 +87,10 @@ get_header();
 							    	<div class="cards__text">
 							    		<span class="cards__excerpt">
 							    			<?php echo get_the_excerpt($rpost->ID); ?>
-							    		</span>	
-					    				<img class="resources__download" src="<?php echo get_template_directory_uri().'/assets/img/download.svg'; ?>" alt="">		
+							    		</span>
+							    		<?php if( ! get_field('no_download', $rpost->ID) ) { ?>	
+					    				<img class="resources__download" src="<?php echo get_template_directory_uri().'/assets/img/download.svg'; ?>" alt="">
+					    				<?php } ?>		
 							    	</div>
 							  	</div>
 							</div>

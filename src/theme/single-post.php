@@ -32,7 +32,7 @@ $query = new WP_Query($args);
 ?>
 
 <!-- Page container -->
-<div class="news-inner grid">
+<div class="news-inner grid news-inner-cat-<?php echo $category_id ?>">
 	<!-- container for post --> 
 	<div class="news-inner__post">
 		<!-- Post image -->

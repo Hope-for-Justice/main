@@ -57,6 +57,14 @@
 	}
 }
 
+.news-inner-cat-7 {
+	.news-inner {
+		&__img-container {
+			display:none;
+		}
+	}
+}
+
 // tablet
 ///////////////////////////////////////////////////////////////////////////
 @include mq($from: tablet) {
@@ -126,6 +134,16 @@
 	}
 	&__content{
 		padding:6.5em 0 6.5em;
+	}
+	&__img-container {
+		position: relative;
+		height:45em;
+	}
+	&__hero-img {
+    	position: absolute;
+    	top: 50%;
+    	left: 50%;
+    	transform: translate(-50%, -50%);
 	}
 }
 

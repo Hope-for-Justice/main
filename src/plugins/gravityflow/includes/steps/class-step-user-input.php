@@ -890,8 +890,9 @@ class Gravity_Flow_Step_User_Input extends Gravity_Flow_Step {
 			return;
 		}
 
-		echo sprintf( '<h4 style="margin-bottom:10px;">%s (%s)</h4>', $this->get_name(), $this->get_status_string() );
+		echo sprintf( '<div class="gravityflow-status-box-field gravityflow-status-box-field-step-status"><h4><span class="gravityflow-status-box-field-label">%s </span><span class="gravityflow-status-box-field-value">(%s)</span></h4></div>', $this->get_name(), $this->get_status_string() );
 
+		echo '<div class="gravityflow-status-box-field gravityflow-status-box-field-assignees">';
 		echo '<ul>';
 
 		$assignees = $this->get_assignees();
@@ -906,6 +907,7 @@ class Gravity_Flow_Step_User_Input extends Gravity_Flow_Step {
 		}
 
 		echo '</ul>';
+		echo '</div>';
 	}
 
 	/**
@@ -967,8 +969,7 @@ class Gravity_Flow_Step_User_Input extends Gravity_Flow_Step {
 			 */
 			$complete_label = apply_filters( 'gravityflow_complete_label_user_input', $complete_label, $this )
 			?>
-			<br/><br/>
-			<div>
+			<div class="gravityflow-status-box-field gravityflow-status-box-field-progress-buttons">
 				<label for="gravityflow_in_progress">
 					<input type="radio" id="gravityflow_in_progress" name="gravityflow_status" <?php checked( $default_status, 'in_progress' ); ?> value="in_progress"/><?php echo $in_progress_label; ?>
 				</label>&nbsp;&nbsp;
@@ -1091,7 +1092,7 @@ class Gravity_Flow_Step_User_Input extends Gravity_Flow_Step {
 		}
 		?>
 
-		<div>
+		<div class="gravityflow-status-box-field gravityflow-status-box-field-note">
 			<label id="gravityflow-notes-label" for="gravityflow-note">
 				<?php
 				esc_html_e( 'Note', 'gravityflow' );
@@ -1099,14 +1100,16 @@ class Gravity_Flow_Step_User_Input extends Gravity_Flow_Step {
 				printf( "<span class='gfield_required'>%s</span>", $required_indicator );
 				?>
 			</label>
+
+			<textarea id="gravityflow-note" rows="4" class="wide" name="gravityflow_note"><?php echo esc_textarea( $posted_note ) ?></textarea>
+			<?php
+
+			if ( $invalid_note ) {
+				printf( "<div class='gfield_description validation_message'>%s</div>", $form['workflow_note']['validation_message'] );
+			}
+			?>
 		</div>
-
-		<textarea id="gravityflow-note" rows="4" class="wide" name="gravityflow_note"><?php echo esc_textarea( $posted_note ) ?></textarea>
 		<?php
-
-		if ( $invalid_note ) {
-			printf( "<div class='gfield_description validation_message'>%s</div>", $form['workflow_note']['validation_message'] );
-		}
 	}
 
 	/**

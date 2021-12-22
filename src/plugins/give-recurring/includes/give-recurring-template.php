@@ -201,6 +201,8 @@ add_action( 'give_after_donation_amount', 'give_output_admin_choice', 10, 2 );
  *
  * Pragmatically append, prepend, replace and/or alter multilevel donation form output
  *
+ * @since 1.12.7 Do not add HTML to price name. Remove old hack which remove HTML from price name while processing donation.
+ *
  * @param $level_text
  * @param $form_id
  * @param $level
@@ -231,12 +233,12 @@ function give_recurring_multilevel_text( $level_text, $form_id, $level ) {
 	$interval      = isset( $level['_give_period_interval'] ) ? $level['_give_period_interval'] : 1;
 	$pretty_period = give_recurring_pretty_subscription_frequency( $period, $times, $lowercase = false, $interval );
 
-	$text = $level_text . apply_filters( 'give_recurring_multilevel_text_separator', ', ', $form_id, $level ) . '<span class="give-recurring-multilevel-label">' . $pretty_period . '</span>';
-
-	// Remove html tag if need recurring multilevel text during donation processing.
-	if( doing_action('give_purchase' ) ) {
-		$text = strip_tags( $text );
-	}
+	$text = sprintf(
+		'%1$s%2$s%3$s',
+		$level_text,
+		apply_filters( 'give_recurring_multilevel_text_separator', ', ', $form_id, $level ),
+		$pretty_period
+	);
 
 	return apply_filters( 'give_recurring_multilevel_text', $text, $form_id, $level );
 
@@ -331,7 +333,7 @@ function give_recurring_get_manage_subscriptions_link() {
 
 	// Link to the subscriptions page if set and exists.
 	$donation_id = give_clean( filter_input( INPUT_GET, 'donation_id' ) );
-	
+
 	if (
         give_can_view_receipt( $donation_id ) ||
         is_user_logged_in()

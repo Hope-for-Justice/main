@@ -1,0 +1,37 @@
+/*
+*
+* _COUNTRY-SPECIFICS.SCSS
+*
+*/
+
+// one of the classes is added to body class depending on geo target arrays
+
+.country-uk {
+	.hide-in-uk {
+		display:none;
+	}
+}
+
+.country-usa {
+	.hide-in-usa {
+		display:none;
+	}
+}
+
+.country-norway {
+	.hide-in-norway {
+		display:none;
+	}
+}
+
+.country-aus {
+	.hide-in-aus {
+		display:none;
+	}
+}
+
+.country-other {
+	.hide-in-other-countries {
+		display:none;
+	}
+}

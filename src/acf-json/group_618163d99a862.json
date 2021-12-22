@@ -3,6 +3,44 @@
     "title": "How we change lives",
     "fields": [
         {
+            "key": "field_61a4fea73ec67",
+            "label": "Button text",
+            "name": "button_text",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_61a4fec53ec68",
+            "label": "Video Source",
+            "name": "video_source",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_618163e2621d5",
             "label": "Subtitle",
             "name": "subtitle",
@@ -816,5 +854,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1636642062
+    "modified": 1638203166
 }

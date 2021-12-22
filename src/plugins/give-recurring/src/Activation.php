@@ -1,9 +1,7 @@
 <?php
 namespace GiveRecurring;
 
-use GiveFunds\FundsServiceProvider;
 use GiveRecurring\Revenue\Repositories\Subscription;
-use GiveRecurring\Revenue\Traits\FundAddonTrait;
 
 /**
  * Class responsible for registering and handling add-on activation hooks.
@@ -19,10 +17,8 @@ class Activation {
 	 * @return void
 	 */
 	public static function activateAddon() {
-		if( class_exists( FundsServiceProvider::class ) ) {
-			/* @var Subscription $subscriptionRepository */
-			$subscriptionRepository = give( Subscription::class );
-			$subscriptionRepository->setAllToDefaultFundId();
+		if ( defined( 'GIVE_FUNDS_ADDON_VERSION' ) ) {
+			give( Subscription::class )->setAllToDefaultFundId();
 		}
 	}
 

@@ -1,0 +1,22 @@
+/*
+*
+* _BURGER.SCSS
+*
+*/
+
+.breadcrumbs {
+	font-size: 1.6em;
+	display: flex;
+	color: black;
+	margin-bottom: 2em;
+	flex-wrap: wrap;
+	&__crumb {
+
+	}
+	&__link {
+
+	}
+	&__seperator {
+		margin: 0 1em;
+	}
+}

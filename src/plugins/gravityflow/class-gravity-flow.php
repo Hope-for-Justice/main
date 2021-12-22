@@ -9,6 +9,8 @@
  * @since       1.0
  */
 
+use Gravity_Flow\Gravity_Flow\Translations;
+
 // Make sure Gravity Forms is active and already loaded.
 if ( class_exists( 'GFForms' ) ) {
 
@@ -194,6 +196,10 @@ if ( class_exists( 'GFForms' ) ) {
 		public function init() {
 			parent::init();
 
+			if ( ! $this->is_gravityforms_supported( '2.5.6' ) ) {
+				$this->init_translations();
+			}
+
 			if ( ! is_user_logged_in() ) {
 				add_filter( 'nonce_user_logged_out', array( $this, 'filter_nonce_user_logged_out' ) );
 			}
@@ -231,6 +237,7 @@ if ( class_exists( 'GFForms' ) ) {
 			);
 
 			add_filter( 'add_menu_classes', array( $this, 'show_inbox_count' ), 10 );
+			add_filter( 'gform_form_settings_menu', array( $this, 'filter_extension_form_settings_menu' ), 20, 1 );
 
 			// GravityView Integration.
 			add_filter( 'gravityview/adv_filter/field_filters', array( $this, 'filter_gravityview_adv_filter_field_filters' ), 10, 2 );
@@ -322,9 +329,21 @@ if ( class_exists( 'GFForms' ) ) {
 		}
 
 		/**
+		 * Return the plugin's icon for the form/settings/uninstall page.
+		 *
+		 * @since 2.7.5
+		 *
+		 * @return string
+		 */	
+		public function get_menu_icon() {
+			return 'dashicons-gravityflow-icon';
+		}		
+
+		/**
 		 * Installs or upgrades the plugin.
 		 */
 		public function setup() {
+			Translations\Manager::get_instance( $this->get_slug() )->legacy_install_on_setup( $this );
 			parent::setup();
 		}
 
@@ -823,17 +842,18 @@ PRIMARY KEY  (id)
 		public function enqueue_frontend_scripts() {
 			global $wp_query;
 
-			// Enqueue theme CSS and JS
-			wp_enqueue_style( self::THEME_CSS,  $this->get_base_url() . "/css/theme{$this->min()}.css", null, $this->_version );
-			wp_enqueue_script( self::VENDOR_JS_THEME, $this->get_base_url() . "/js/vendor-theme{$this->min()}.js", array(), $this->_version, true );
-			wp_enqueue_script( self::THEME_JS, $this->get_base_url() . "/js/scripts-theme{$this->min()}.js", array( self::VENDOR_JS_THEME ), $this->_version, true );
-
 			if ( isset( $wp_query->posts ) && is_array( $wp_query->posts ) ) {
 				$shortcode_found = $this->look_for_shortcode();
 
 				if ( $shortcode_found ) {
 					$this->enqueue_form_scripts();
 					$nonce = wp_create_nonce( 'wp_rest' );
+
+					// Enqueue new theme CSS and JS bundles
+					wp_enqueue_style( self::THEME_CSS,  $this->get_base_url() . "/css/theme{$this->min()}.css", null, $this->_version );
+					wp_enqueue_script( self::VENDOR_JS_THEME, $this->get_base_url() . "/js/vendor-theme{$this->min()}.js", array(), $this->_version, true );
+					wp_enqueue_script( self::THEME_JS, $this->get_base_url() . "/js/scripts-theme{$this->min()}.js", array( self::VENDOR_JS_THEME ), $this->_version, true );
+
 					wp_enqueue_script( 'sack', "/wp-includes/js/tw-sack{$this->min()}.js", array(), '1.6.1' );
 					wp_enqueue_script( 'gravityflow_entry_detail', $this->get_base_url() . "/js/entry-detail{$this->min()}.js", array( 'jquery', 'sack' ), $this->_version );
 					wp_enqueue_script( 'gravityflow_status_list', $this->get_base_url() . "/js/status-list{$this->min()}.js",  array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'gform_datepicker_init' ), $this->_version );
@@ -4205,7 +4225,7 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 				$entry_id_link = '<a href="' . admin_url( 'admin.php?page=gf_entries&view=entry&id=' . absint( $form['id'] ) . '&lid=' . absint( $entry['id'] ) ) . '">' . $entry_id . '</a>';
 			}
 
-			printf( '%s: %s<br/><br/>', esc_html__( 'Entry ID', 'gravityflow' ), $entry_id_link );
+			printf( '<div class="gravityflow-status-box-field gravityflow-status-box-field-entry-id"><span class="gravityflow-status-box-field-label">%s: </span><span class="gravityflow-status-box-field-value">%s</span></div>', esc_html__( 'Entry ID', 'gravityflow' ), $entry_id_link );
 
 			/**
 			 * Allows the format for dates within the entry detail workflow info box to be modified.
@@ -4214,41 +4234,38 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 			 */
 			$date_format = apply_filters( 'gravityflow_date_format_entry_detail', '' );
 			$date_created = Gravity_Flow_Common::format_date( $entry['date_created'], $date_format, false, true );
-			printf( '%s: %s', esc_html__( 'Submitted', 'gravityflow' ), esc_html( $date_created ) );
+			printf( '<div class="gravityflow-status-box-field gravityflow-status-box-field-submitted-time"><span class="gravityflow-status-box-field-label">%s: </span><span class="gravityflow-status-box-field-value">%s</span></div>', esc_html__( 'Submitted', 'gravityflow' ), esc_html( $date_created ) );
 
 			if ( ! empty( $entry['workflow_timestamp'] ) ) {
 				$last_updated = Gravity_Flow_Common::format_date( $entry['workflow_timestamp'], $date_format, false, true );
 				if ( $date_created != $last_updated ) {
-					echo '<br /><br />';
-					esc_html_e( 'Last updated', 'gravityflow' ); ?>: <?php echo esc_html( $last_updated );
+					printf( '<div class="gravityflow-status-box-field gravityflow-status-box-field-last-updated"><span class="gravityflow-status-box-field-label">%s: </span><span class="gravityflow-status-box-field-value">%s</span></div>', esc_html__( 'Last updated', 'gravityflow' ), esc_html( $last_updated ) );
 				}
 			}
 
-			echo '<br/><br/>';
-
 			if ( ! empty( $entry['created_by'] ) && $usermeta = get_userdata( $entry['created_by'] ) ) {
-				printf( '%s: %s<br/><br/>', esc_html__( 'Submitted by', 'gravityflow' ), esc_html( $usermeta->display_name ) );
+				printf( '<div class="gravityflow-status-box-field gravityflow-status-box-field-submitted"><span class="gravityflow-status-box-field-label">%s: </span><span class="gravityflow-status-box-field-value">%s</span></div>', esc_html__( 'Submitted by', 'gravityflow' ), esc_html( $usermeta->display_name ) );
 			}
 
 			$workflow_status = gform_get_meta( $entry['id'], 'workflow_final_status' );
 
 			if ( ! empty( $workflow_status ) ) {
 				$workflow_status_label = $this->translate_status_label( $workflow_status );
-				printf( '%s: %s', esc_html__( 'Status', 'gravityflow' ), $workflow_status_label );
+				printf( '<div class="gravityflow-status-box-field gravityflow-status-box-field-status"><span class="gravityflow-status-box-field-label">%s: </span><span class="gravityflow-status-box-field-value">%s</span></div>', esc_html__( 'Status', 'gravityflow' ), $workflow_status_label );
 			}
 
 			if ( false !== $current_step && $current_step instanceof Gravity_Flow_Step
 			     && $current_step->supports_due_date() && $current_step->due_date
 			) {
 				$gflow_due_date_date = Gravity_Flow_Common::format_date( $current_step->get_due_date_timestamp(), $date_format, false, false );
-				printf( '<br /><br />%s: %s', esc_html__( 'Due Date', 'gravityflow' ), $gflow_due_date_date );
+				printf( '<div class="gravityflow-status-box-field gravityflow-status-box-field-due-date"><span class="gravityflow-status-box-field-label">%s: </span><span class="gravityflow-status-box-field-value">%s</span></div>', esc_html__( 'Due Date', 'gravityflow' ), $gflow_due_date_date );
 			}
 
 			if ( false !== $current_step && $current_step instanceof Gravity_Flow_Step
 			     && $current_step->supports_expiration() && $current_step->expiration
 			) {
 				$glfow_date = Gravity_Flow_Common::format_date( $current_step->get_expiration_timestamp(), $date_format, false, true );
-				printf( '<br /><br />%s: %s', esc_html__( 'Expires', 'gravityflow' ), $glfow_date );
+				printf( '<div class="gravityflow-status-box-field gravityflow-status-box-field-expires"><span class="gravityflow-status-box-field-label">%s: </span><span class="gravityflow-status-box-field-value">%s</span></div>', esc_html__( 'Expires', 'gravityflow' ), $glfow_date );
 			}
 
 			/**
@@ -4294,7 +4311,7 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 		 * @param Gravity_Flow_Step $current_step The current step for this entry.
 		 */
 		public function display_queued_step_details( $current_step ) {
-			printf( '<h4>%s (%s)</h4>', $current_step->get_name(), esc_html__( 'Queued', 'gravityflow' ) );
+			printf( '<div class="gravityflow-status-box-field gravityflow-status-box-field-step-name"><h4><span class="gravityflow-status-box-field-label">%s </span><span class="gravityflow-status-box-field-value">(%s)</span></h4></div>', $current_step->get_name(), esc_html__( 'Queued', 'gravityflow' ) );
 
 			$scheduled_timestamp = $current_step->get_schedule_timestamp();
 
@@ -4312,7 +4329,7 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 					$scheduled_date     = get_date_from_gmt( $scheduled_date_str );
 			}
 
-			printf( '<h4>%s: %s</h4>', esc_html__( 'Scheduled', 'gravityflow' ), $scheduled_date );
+			printf( '<div class="gravityflow-status-box-field gravityflow-status-box-field-scheduled-date"><h4><span class="gravityflow-status-box-field-label">%s: </span><span class="gravityflow-status-box-field-value">%s<span></h4></div>', esc_html__( 'Scheduled', 'gravityflow' ), $scheduled_date );
 		}
 
 		/**
@@ -4328,7 +4345,7 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 			$current_step->add_note( $note );
 			$this->process_workflow( $form, $entry_id );
 			$current_step = null;
-			printf( '<h4>%s</h4>', esc_html__( 'Expired: refresh the page', 'gravityflow' ) );
+			printf( '<div class="gravityflow-status-box-field gravityflow-status-box-field-expired-step"><h4>%s</h4></div>', esc_html__( 'Expired: refresh the page', 'gravityflow' ) );
 		}
 
 		/**
@@ -5654,7 +5671,15 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 					return;
 				}
 
-				$form_id = $entry['form_id'];
+				$form_id   = $entry['form_id'];
+				$passed_id = rgget( 'id' );
+
+				// ID in URL param does not match the entry's Form ID; bail.
+				if ( ! empty( $passed_id ) && $form_id != $passed_id ) {
+					esc_html_e( 'Oops! We could not locate your entry.', 'gravityflow' );
+					return;
+				}
+
 				$form = GFAPI::get_form( $form_id );
 
 				$process_entry_detail = apply_filters( 'gravityflow_inbox_entry_detail_pre_process', true, $form, $entry );
@@ -6323,6 +6348,25 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 
 			return $menu;
 		}
+
+		/**
+		 * Target for the gform_form_settings_menu hook.
+		 * Set default icon for extensions.
+		 *
+		 * @since 2.7.5
+		 *
+		 * @param array $menu_items The form settings menu items.
+		 *
+		 * @return array
+		 */	
+		function filter_extension_form_settings_menu( $menu_items ) {
+			foreach ( $menu_items as &$menu_item ) {
+				if ( empty( $menu_item['icon'] ) && strpos( $menu_item['name'], 'gravityflow' ) === 0 ) {
+					$menu_item['icon'] = 'dashicons-gravityflow-icon';
+				}
+			}
+			return $menu_items;
+		}			
 
 		/**
 		 * Starts or resumes workflow processing.
@@ -9349,7 +9393,7 @@ AND m.meta_value='queued'";
 					), admin_url( 'admin.php' ) );
 
 					// Get tab icon.
-					$icon_markup = '<i class="dashicons dashicons-admin-generic"></i>';
+					$icon_markup = '<i class="dashicons dashicons-gravityflow-icon"></i>';
 					if ( strpos( rgar( $tab, 'icon' ), '<svg' ) !== false ) {
 						$icon_markup = $tab['icon'];
 					} else if ( filter_var( rgar( $tab, 'icon' ), FILTER_VALIDATE_URL ) ) {
@@ -9588,6 +9632,108 @@ AND m.meta_value='queued'";
 				$settings['background_updates'] = $is_enabled;
 				$this->update_app_settings( $settings );
 			}
+		}
+
+		/**
+		 * Renders the app settings uninstall tab.
+		 *
+		 * @since 2.7.4
+		 */
+		public function app_settings_uninstall_tab() {
+
+			if ( $this->maybe_uninstall() ) {
+				GFAddOn::app_settings_uninstall_tab();
+			} else {
+				if ( $this->current_user_can_uninstall() ) {
+					?>
+
+					<div class="gform-settings-panel">
+						<header class="gform-settings-panel__header">
+							<h4 class="gform-settings-panel__title"><?php esc_html_e( 'Uninstall Gravity Flow', 'gravityflow' ); ?></h4>
+						</header>
+						<div class="gform-settings-panel__content">
+							<p class="alert error">
+							<?php echo $this->uninstall_warning_message() ?>
+							</p>
+							<form action="" method="post">
+								<?php
+									if ( GFCommon::current_user_can_uninstall() ) {
+
+										wp_nonce_field( 'gform_uninstall', 'gform_uninstall_nonce' );
+
+										$uninstall_button = '<input type="submit" name="uninstall" value="' . sprintf( esc_attr__( 'Uninstall %s', 'gravityflow' ), $this->get_short_title() ) . '" class="button" onclick="return confirm(\'' . esc_js( $this->uninstall_confirm_message() ) . '\');" onkeypress="return confirm(\'' . esc_js( $this->uninstall_confirm_message() ) . '\');"/>';
+										echo $uninstall_button;
+
+									}
+								?>
+							</form>
+						</div>
+					</div>
+					<?php
+
+					self::uninstall_extensions();
+				}
+			}
+		}
+
+		/**
+		 * Renders the extension panels and processes the uninstallation request.
+		 *
+		 * @since 2.7.5
+		 */
+		private static function uninstall_extensions() {
+			$installed_extensions = Gravity_Flow_Common::$_extensions;
+
+			if ( isset( $_POST['gflow_extension_uninstall'] ) && wp_verify_nonce( $_POST['gflow_extension_uninstall'], 'gflow_extension_uninstall' ) && isset( $_POST['addon'] ) && isset( $installed_extensions[ $_POST['addon'] ] ) ) {
+				$installed_extensions[ $_POST['addon'] ]->uninstall_addon();
+				unset( $installed_extensions[ $_POST['addon'] ] );
+				if ( wp_safe_redirect( $_SERVER['HTTP_REFERER'] ) ) {
+					exit;
+				}
+			}
+
+			?>
+			<div class="gform-addons-uninstall-panel">
+			<?php
+			foreach ( $installed_extensions as $extension ) {
+				$extension->render_uninstall();
+			}
+			?>
+			</div>
+			<?php
+		}
+
+		/**
+		 * Inits the TranslationsPress integration.
+		 *
+		 * @since 2.5.6
+		 */
+		public function init_translations() {
+			Translations\Manager::get_instance( $this->get_slug() );
+		}
+
+		/**
+		 * Uses TranslationsPress to install translations for the specified locale.
+		 *
+		 * @since 2.5.6
+		 *
+		 * @param string $locale The locale the translations are to be installed for.
+		 */
+		public function install_translations( $locale = '' ) {
+			Translations\Manager::get_instance( $this->get_slug() )->install( $locale );
+		}
+
+		/**
+		 * Returns an array of locales from the mo files found in the WP_LANG_DIR/plugins directory.
+		 *
+		 * Used to display the installed locales on the system report.
+		 *
+		 * @since 2.5.6
+		 *
+		 * @return array
+		 */
+		public function get_installed_locales() {
+			return Translations\Manager::get_instance( $this->get_slug() )->get_installed_translations();
 		}
 
 	}

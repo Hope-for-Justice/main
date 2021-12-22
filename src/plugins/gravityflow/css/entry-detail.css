@@ -425,6 +425,20 @@ span.gf_admin_page_formid {
     border-bottom: 1px solid #eee;
 }
 
+.gravityflow-status-box-field {
+    line-height: 2;
+}
+.gravityflow-status-box-field-step-status {
+    line-height: 0.5;
+}
+.gravityflow-status-box-field-assignees, .gravityflow-status-box-field-note {
+    line-height: 1;
+}
+
+.gravityflow-status-box-field-assignees {
+    margin-bottom: 1em;
+}
+
 /* Step Highlight */
 table#gravityflow-inbox tbody tr{
     border-left-width: 3px;

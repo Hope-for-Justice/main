@@ -3,7 +3,7 @@
 Plugin Name: Gravity Flow
 Plugin URI: https://gravityflow.io
 Description: Build Workflow Applications with Gravity Forms.
-Version: 2.7.4
+Version: 2.7.5
 Author: Gravity Flow
 Author URI: https://gravityflow.io
 License: GPL-2.0+
@@ -27,7 +27,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see http://www.gnu.org/licenses.
  */
 
-define( 'GRAVITY_FLOW_VERSION', '2.7.4' );
+define( 'GRAVITY_FLOW_VERSION', '2.7.5' );
 
 define( 'GRAVITY_FLOW_EDD_STORE_URL', 'https://gravityflow.io' );
 
@@ -96,6 +96,7 @@ class Gravity_Flow_Bootstrap {
 		require_once 'includes/integrations/class-partial-entries.php';
 		require_once 'includes/class-dynamic-hook.php';
 		require_once 'includes/class-populate-form.php';
+		require_once 'includes/translations/class-manager.php';
 
 		if ( version_compare( GFForms::$version, '2.5-dev-1', '>=' ) ) {
 			require_once 'includes/settings/class-checkbox-textarea.php';

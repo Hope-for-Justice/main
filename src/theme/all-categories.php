@@ -37,7 +37,7 @@ get_header();
 			<select class="custom-category archive-page__select" onchange="location = this.value;">
 
 				<option disabled="disabled">Select Category</option>
-				<option value="<?php echo home_url().'/all-categories' ?>">All Categories</option>
+				<option value="<?php echo home_url().'/news-media/all-categories' ?>">All Categories</option>
 				
 				<?php
 				$categories = get_categories();
@@ -47,7 +47,7 @@ get_header();
 					if($category_id == $category->term_id) {
 						$selected = 'selected';
 					}
-						echo '<option data-value="'.$category->term_id.'" value="'.home_url().'/category/'.$category->slug.'" '.$selected.'>'.$category->name.'</option>';
+						echo '<option data-value="'.$category->term_id.'" value="'.home_url().'/news/category/'.$category->slug.'" '.$selected.'>'.$category->name.'</option>';
 					}
 					
 				}

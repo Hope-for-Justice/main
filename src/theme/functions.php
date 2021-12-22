@@ -94,13 +94,13 @@ add_action( 'after_setup_theme', 'hope_for_justice_2021_setup' );
 function hope_for_justice_2021_scripts() {
 	global $wp_styles;
 
-	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202108' );
+	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202109' );
 
 	wp_enqueue_script('jquery'); 
-	// wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202108', true );
+	// wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202109', true );
 
 
-    wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202108', true );
+    wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202109', true );
 
 }
 
@@ -120,7 +120,7 @@ add_action( 'wp_enqueue_scripts', 'hope_for_justice_2021_scripts', 1 );
 function page_scripts() {
     global $post;
 
-    wp_register_script( 'donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '202108', true);
+    wp_register_script( 'donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '202109', true);
 
     $themeVars = array( 'template_directory_uri' => get_template_directory_uri() );
 
@@ -572,4 +572,165 @@ include('custom-shortcodes.php');
 add_shortcode('dropdown', 'dropdown_function');
 
 
+/**
+ * AUTO-POPULATE AMOUNT, NAME, and EMAIL FROM URL STRING
+ *
+ * This jQuery snippet will auto-populate the Give form amount,
+ * first and last name, and email address from a URL you provide
+ * EXAMPLE: https://example.com/donations/give-form/?amount=46.00&first=Peter&last=Joseph&email=testing@givewp.com
+ *
+ * Hooking into the single form view.
+ *
+ * CAVEATS:
+ * -- Your form must support custom amounts
+ * -- This snippet only supports one form per page as-is
+ */
+function my_custom_give_populate_amount_name_email() {
+    ?>
+    <script>
+        ( function( window, document, $, undefined ) {
+            'use strict';
+    var giveCustom = {};
 
+    giveCustom.init = function() {
+
+        // Are we passed a form ID?
+        var form_id = giveCustom.getQueryVariable( 'form_id' ) !== false ? decodeURI( giveCustom.getQueryVariable( 'form_id' ) ) : '';
+
+        if ( form_id !== '' ) {
+            // Make to jQuery object.
+            var giveForm = $( '.give-form' + giveCustom.getQueryVariable( 'form_id' ) )
+        } else {
+            // Fallback.
+            giveForm = $( '.give-form' );
+        }
+
+        // Get the amount from the URL
+        var amount = giveCustom.getQueryVariable( 'amount' ) !== false ? decodeURI( giveCustom.getQueryVariable( 'amount' ) ) : '';
+
+        // Update the amount
+        var formattedAmount = Give.fn.formatCurrency( amount, {
+            symbol: Give.form.fn.getInfo( 'currency_symbol', giveForm ),
+            position: Give.form.fn.getInfo( 'currency_position', giveForm )
+        }, giveForm );
+
+        // Unformatted amount (for data).
+        var unformattedAmount = Give.fn.unFormatCurrency( amount, Give.form.fn.getInfo( 'decimal_separator', giveForm ) );
+
+        // Update the total amount.
+        if ( amount ) {
+            giveForm.find( '.give-final-total-amount' ).attr( 'data-total', unformattedAmount )
+                .text( formattedAmount );
+            giveForm.find( '.give-amount-top' ).val(unformattedAmount);
+        }
+
+        // Fill personal info fields.
+
+        var firstNamePassedVal = giveCustom.getQueryVariable( 'first' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'first' ) ) : '';
+        var lastNamePassedVal = giveCustom.getQueryVariable( 'last' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'last' ) ) : '';
+        var emailPassedVal = giveCustom.getQueryVariable( 'email' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'email' ) ) : '';
+        var postcodePassedVal = giveCustom.getQueryVariable( 'postcode' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'postcode' ) ) : '';
+
+        var firstNameInput = giveForm.find( '#give-first-name-wrap input.give-input' );
+        var lastNameInput = giveForm.find( '#give-last-name-wrap input.give-input' );
+        var emailInput = giveForm.find( '#give-email-wrap input.give-input' );
+        var postcodeInput = giveForm.find( "#give-post_code-334-9" );
+
+        if ( firstNamePassedVal !== false && firstNameInput.length > 0 ) {
+            firstNameInput.val( firstNamePassedVal );
+        }
+        if ( lastNamePassedVal !== false && lastNameInput.length > 0 ) {
+            lastNameInput.val( lastNamePassedVal );
+        }
+        if ( emailPassedVal !== false && emailInput.length > 0 ) {
+            emailInput.val( emailPassedVal );
+        }
+        if ( postcodePassedVal !== false && postcodeInput.length > 0 ) {
+            postcodeInput.val( postcodePassedVal );
+        }
+    };
+
+    /**
+     * Get Query Variable from URL.
+     *
+     * @param variable
+     * @returns {string|boolean}
+     */
+    giveCustom.getQueryVariable = function( variable ) {
+        var query = window.location.search.substring( 1 );
+        var vars = query.split( '&' );
+        for ( var i = 0; i < vars.length; i ++ ) {
+            var pair = vars[ i ].split( '=' );
+            if ( pair[ 0 ] == variable ) {
+                return pair[ 1 ];
+            }
+        }
+        return false;
+    };
+
+    giveCustom.init();
+
+        } )( window, document, jQuery );
+    </script>
+    <?php
+}
+
+add_action( 'give_post_form_output', 'my_custom_give_populate_amount_name_email' );
+
+/**
+ * A local translation snippet for making text changes to only one of the forms.
+ * Change 'YOUR TEXT HERE' to your desired text, and the "964" to the form ID you'd like to modify.
+ *
+ * Also, ensure that all functions here have unique names to avoid conflicts.
+ *
+ * @param $translations
+ * @param $text
+ * @param $domain
+ *
+ * @return mixed|string
+ */
+function my_give_picky_text_switcher( $translations, $text, $domain ) {
+
+    // Only for the 'give' text domain.
+    if ( $domain == 'give' && $text == 'First Name' ) {
+        return __( 'Fornavn', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Last Name' ) {
+        return __( 'Etternavn', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Email Address' ) {
+        return __( 'E-post', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Card Number' ) {
+        return __( 'Kortnummer', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Cardholder Name' ) {
+        return __( 'Kortholders navn', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Secure Donation' ) {
+        return __( 'Sikker Donasjon', 'give' );
+    }
+
+    return $translations;
+    
+}
+
+/**
+ * Conditional for gettext.
+ *
+ * @param $form_id
+ */
+function my_give_confirm_form( $form_id ) {
+
+    // Customize form title here or remove conditional for all forms.
+    if ( $form_id == 1119 ) {
+        add_filter( 'gettext', 'my_give_picky_text_switcher', 10, 3 );
+    }
+}
+
+add_action( 'give_pre_form_output', 'my_give_confirm_form', 10, 1 );

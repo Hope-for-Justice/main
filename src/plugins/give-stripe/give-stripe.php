@@ -1,16 +1,18 @@
 <?php
 /**
- * Plugin Name: Give - Stripe Gateway
- * Plugin URI:  https://givewp.com/addons/stripe-gateway/
- * Description: Adds the Stripe.com payment gateway to the available GiveWP payment methods.
- * Version:     2.4.0
- * Author:      GiveWP
- * Author URI:  https://givewp.com/
- * Text Domain: give-stripe
- * Domain Path: /languages
+ * Plugin Name:  		Give - Stripe Gateway
+ * Plugin URI:        	https://givewp.com/addons/stripe-gateway/
+ * Description:        	Adds the Stripe.com payment gateway to the available GiveWP payment methods.
+ * Version:            	2.4.1
+ * Requires at least:   4.9
+ * Requires PHP:        5.6
+ * Author:            	GiveWP
+ * Author URI:        	https://givewp.com/
+ * Text Domain:        	give-stripe
+ * Domain Path:        	/languages
  *
- * @package    Give
- * @subpackage Stripe Premium
+ * @package             Give
+ * @subpackage          Stripe Premium
  */
 
 // Exit if accessed directly.
@@ -26,13 +28,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Required minimum versions, paths, urls, etc.
  */
 if ( ! defined( 'GIVE_STRIPE_VERSION' ) ) {
-	define( 'GIVE_STRIPE_VERSION', '2.4.0' );
+	define( 'GIVE_STRIPE_VERSION', '2.4.1' );
 }
 if ( ! defined( 'GIVE_STRIPE_MIN_GIVE_VER' ) ) {
-	define( 'GIVE_STRIPE_MIN_GIVE_VER', '2.13.0' );
-}
-if ( ! defined( 'GIVE_STRIPE_MIN_PHP_VER' ) ) {
-	define( 'GIVE_STRIPE_MIN_PHP_VER', '5.6.0' );
+	define( 'GIVE_STRIPE_MIN_GIVE_VER', '2.16.0' );
 }
 if ( ! defined( 'GIVE_STRIPE_PLUGIN_FILE' ) ) {
 	define( 'GIVE_STRIPE_PLUGIN_FILE', __FILE__ );
@@ -412,21 +411,6 @@ if ( ! class_exists( 'Give_Stripe_Premium' ) ) :
 						__( '<strong>Activation Error:</strong> You must have the <a href="%1$s" target="_blank">Give</a> core version %2$s for the GiveWP - Stripe add-on to activate.', 'give-stripe' ),
 						'https://givewp.com',
 						GIVE_STRIPE_MIN_GIVE_VER
-					)
-				);
-
-				$is_working = false;
-			}
-
-			if ( version_compare( phpversion(), GIVE_STRIPE_MIN_PHP_VER, '<' ) ) {
-				$this->add_admin_notice(
-					'prompt_give_incompatible',
-					'error',
-					sprintf(
-						/* translators: 1: GiveWP Website Link, 2: GiveWP Version */
-						__( '<strong>Activation Error:</strong> You must have the <a href="%1$s" target="_blank">PHP</a> version %2$s or above for the GiveWP - Stripe gateway add-on to activate.', 'give-stripe' ),
-						'https://givewp.com/documentation/core/requirements/',
-						GIVE_STRIPE_MIN_PHP_VER
 					)
 				);
 

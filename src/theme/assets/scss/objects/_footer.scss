@@ -19,6 +19,7 @@
 		width:100%;
 		justify-content: space-between;
 		max-width: 25em;
+		img {width:32px;}
 	}
 	&__button {
 		margin-top: 8.6vw;
@@ -55,6 +56,10 @@
 		grid-column: col2/col12;
 		color: white;
 		margin-bottom: 5em;
+		a {
+			text-decoration:underline;
+			color: white;
+		}
 	}
 	&__logos {
 		display: flex;

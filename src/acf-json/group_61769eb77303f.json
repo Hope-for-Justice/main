@@ -550,9 +550,47 @@
             "maxlength": ""
         },
         {
+            "key": "field_61bcb9a942233",
+            "label": "Drag cards button text usa",
+            "name": "drag_cards_button_text_usa",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_6176a2bc8c017",
             "label": "Drag cards button link",
             "name": "drag_cards_button_link",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_61bcb99d42232",
+            "label": "Drag cards button link usa",
+            "name": "drag_cards_button_link_usa",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -665,7 +703,8 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": "",
-    "modified": 1636642059
+    "show_in_rest": 0,
+    "modified": 1639758264
 }

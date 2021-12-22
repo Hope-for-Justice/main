@@ -457,6 +457,20 @@ class Gravity_Flow_Field_Assignee_Select extends GF_Field_Select {
 			}
 		}
 	}
+
+	/**
+	 * Returns a formatted version of the field value to be added to the Zapier request body.
+	 *
+	 * @since 2.7.5
+	 *
+	 * @param array $entry The entry being sent to Zapier.
+	 *
+	 * @return string
+	 */
+	public function get_value_zapier_formatted( $entry ) {
+		return $this->get_value_export( $entry, (string) $this->id, true );
+	}
+
 }
 
 GF_Fields::register( new Gravity_Flow_Field_Assignee_Select() );

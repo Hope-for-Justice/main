@@ -43,10 +43,6 @@
 		font-size: 1.2em;
 		padding: 1em 1.6em 0.8em 1.8em;
 	}
-	&:hover {
-		cursor: pointer;
-		transform: rotate(1deg) scale(1.05);
-	}
 	&--smaller {font-size: 1.4em;}
 
 }
@@ -86,6 +82,10 @@ input[type="button"], input[type="submit"] {
 	&--nav {
 		font-size: 1.8em;
 	}
+	&:hover {
+		cursor: pointer;
+		transform: rotate(1deg) scale(1.05);
+	}
 }
 
 }
@@ -111,7 +111,7 @@ input[type="button"], input[type="submit"] {
 @include mq($from: wide) {
 
 .button {
-	font-size: 2em;
+	//font-size: 2em;
 	&--nav {
 		font-size: 1.8em;
 	}

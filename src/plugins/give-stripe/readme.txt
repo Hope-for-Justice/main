@@ -2,9 +2,9 @@
 Contributors: givewp
 Tags: donations, donation, ecommerce, e-commerce, fundraising, fundraiser, stripe, gateway
 Requires at least: 4.9
-Tested up to: 5.7
-Stable tag: 2.4.0
-Requires Give: 2.10.0
+Tested up to: 5.8
+Stable tag: 2.4.1
+Requires Give: 2.16.0
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -38,6 +38,9 @@ The manual installation method involves downloading our donation plugin and uplo
 Automatic updates should work like a charm; as always though, ensure you backup your site just in case.
 
 == Changelog ==
+= 2.4.1: November 4th, 2021 =
+* Fix: Fixed failing Plaid donations by correcting Stripe SDK usage as the SDK was updated in GiveWP 2.16.0
+
 = 2.4.0: August 19th, 2021 =
 * New: Added support for the new Stripe account management UI introduced in GiveWP 2.13.0
 * Fix: Fixed Apple Pay and Google Pay on subdirectory multisites

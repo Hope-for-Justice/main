@@ -29,7 +29,21 @@
 		padding:2em;
 		max-width: 220px;
 		text-align: center;
-		img {margin-bottom: 3em;}
+		position: relative;
+		img {margin-bottom: 2.5em;
+		}
+	}
+	&__linked-in {
+		margin-bottom: 0;
+		margin-bottom: 0;
+    	position: absolute;
+    	right: 0;
+    	top: 48%;
+    	transform: translateX(-84%);
+		img {
+			width:40px;
+			margin-bottom: 0;
+		}
 	}
 }
 

@@ -3089,10 +3089,9 @@ class GFStripe extends GFPaymentAddOn {
 
 			// Checkout Session does not support setting trial period days at the plan level. So we create plans in
 			// 0 trial days, and then set it in the subscription data.
-			if ( rgars( $feed, 'meta/subscription_name' ) ) {
-				$feed['meta']['subscription_name'] = GFCommon::replace_variables( rgars( $feed, 'meta/subscription_name' ), $form, $entry, false, true, true, 'text' );
-			}
 
+			// Process merge tags in the subscription name.
+			$feed['meta']['processed_subscription_name'] = GFCommon::replace_variables( rgars( $feed, 'meta/subscription_name' ), $form, $entry, false, true, true, 'text' );
 			// Get Stripe plan that matches current feed.
 			$plan = $this->get_plan_for_feed( $feed, $payment_amount, null, $currency );
 
@@ -3101,7 +3100,7 @@ class GFStripe extends GFPaymentAddOn {
 				return $plan;
 			}
 
-			$items                                                  = array(
+			$items = array(
 				'plan' => $plan->id,
 			);
 			$session_data['subscription_data']['items'][]           = $items;
@@ -3738,13 +3737,11 @@ class GFStripe extends GFPaymentAddOn {
 		$single_payment_amount = $submission_data['setup_fee'];
 		$trial_period_days     = rgars( $feed, 'meta/trialPeriod' ) ? $submission_data['trial'] : null;
 		$currency              = rgar( $entry, 'currency' );
-
-		if ( rgars( $feed, 'meta/subscription_name' ) ) {
-			$feed['meta']['subscription_name'] = GFCommon::replace_variables( rgars( $feed, 'meta/subscription_name' ), $form, $entry, false, true, true, 'text' );
-		}
+		// Process merge tags in subscription name.
+		$feed['meta']['processed_subscription_name'] = rgars( $feed, 'meta/subscription_name' ) ? GFCommon::replace_variables( rgars( $feed, 'meta/subscription_name' ), $form, $entry, false, true, true, 'text' ) : '';
 
 		// Get Stripe plan that matches current feed.
-		$plan    = $this->get_plan_for_feed( $feed, $payment_amount, $trial_period_days, $currency );
+		$plan = $this->get_plan_for_feed( $feed, $payment_amount, $trial_period_days, $currency );
 
 		// If error was returned when retrieving plan, return authorization error array.
 		if ( rgar( $plan, 'error_message' ) ) {
@@ -4326,8 +4323,10 @@ class GFStripe extends GFPaymentAddOn {
 
 			// Plan with same id exists but with mismatching properties.
 			// Append time to feed subscription name to guarantee the generated plan id will be unique.
-			$current_subscription_name         = rgars( $feed, 'meta/subscription_name', $feed['meta']['feedName'] );
-			$feed['meta']['subscription_name'] = $current_subscription_name . '_' . gmdate( 'Y_m_d_H_i_s' );
+			$current_subscription_name                   = rgars( $feed, 'meta/subscription_name', $feed['meta']['feedName'] );
+			$processed_subscription_name                 = rgars( $feed, 'meta/processed_subscription_name', $feed['meta']['feedName'] );
+			$feed['meta']['subscription_name']           = $current_subscription_name . '_' . gmdate( 'Y_m_d_H_i_s' );
+			$feed['meta']['processed_subscription_name'] = $processed_subscription_name . '_' . gmdate( 'Y_m_d_H_i_s' );
 			$this->update_feed_meta( $feed['id'], $feed['meta'] );
 			// Generate new unique plan id.
 			$plan_id = $this->get_subscription_plan_id( $feed, $payment_amount, $trial_period_days, $currency );
@@ -4345,10 +4344,10 @@ class GFStripe extends GFPaymentAddOn {
 	 * @since 3.7.2
 	 * @since 4.1   Updated to validate the plan and parent product are active.
 	 *
-	 * @param \Stripe\Plan  $plan              The retrieved stripe plan object.
-	 * @param array         $feed              The feed object currently being processed.
-	 * @param float|int     $payment_amount    The recurring amount.
-	 * @param string        $currency          The currency code for the entry being processed.
+	 * @param \Stripe\Plan  $plan           The retrieved stripe plan object.
+	 * @param array         $feed           The feed object currently being processed.
+	 * @param float|int     $payment_amount The recurring amount.
+	 * @param string        $currency       The currency code for the entry being processed.
 	 *
 	 * @return bool
 	 */
@@ -4405,13 +4404,11 @@ class GFStripe extends GFPaymentAddOn {
 	 * @return array|\Stripe\Plan The plan object, or an authorization error.
 	 */
 	public function create_plan( $plan_id, $feed, $payment_amount, $trial_period_days, $currency ) {
-		// Prepare plan metadata.
-		$name = ( rgars( $feed, 'meta/subscription_name' ) ) ? rgars( $feed, 'meta/subscription_name' ) : $feed['meta']['feedName'];
 
 		$plan_meta = array(
 			'interval'          => $feed['meta']['billingCycle_unit'],
 			'interval_count'    => $feed['meta']['billingCycle_length'],
-			'product'           => array( 'name' => $name ),
+			'product'           => array( 'name' => $this->get_product_name( $feed ) ),
 			'currency'          => $currency,
 			'id'                => $plan_id,
 			'amount'            => $this->get_amount_export( $payment_amount, $currency ),
@@ -4429,6 +4426,20 @@ class GFStripe extends GFPaymentAddOn {
 		}
 
 		return $plan;
+	}
+
+	/**
+	 * Retrieves the name of the product from the feed.
+	 *
+	 * @since 4.1
+	 *
+	 * @param array $feed The feed being processed.
+	 *
+	 * @return string
+	 */
+	private function get_product_name( $feed ) {
+		$processed_subscription_name = rgars( $feed, 'meta/processed_subscription_name', '' );
+		return $processed_subscription_name ? $processed_subscription_name : $feed['meta']['feedName'];
 	}
 
 	/**
@@ -6106,11 +6117,10 @@ class GFStripe extends GFPaymentAddOn {
 	 */
 	public function get_subscription_plan_id( $feed, $payment_amount, $trial_period_days, $currency = '' ) {
 
-		$subscription_name   = ( rgars( $feed, 'meta/subscription_name' ) ) ? rgars( $feed, 'meta/subscription_name' ) : $feed['meta']['feedName'];
-		$safe_feed_name      = preg_replace( '/[^a-z0-9_\-]/', '', strtolower( $subscription_name ) );
-		$safe_billing_cycle  = $feed['meta']['billingCycle_length'] . $feed['meta']['billingCycle_unit'];
-		$safe_trial_period   = $trial_period_days ? 'trial' . $trial_period_days . 'days' : '';
-		$safe_payment_amount = $this->get_amount_export( $payment_amount, $currency );
+		$safe_subscription_name = preg_replace( '/[^a-z0-9_\-]/', '', strtolower( rgars( $feed, 'meta/processed_subscription_name', $feed['meta']['feedName'] ) ) );
+		$safe_billing_cycle     = $feed['meta']['billingCycle_length'] . $feed['meta']['billingCycle_unit'];
+		$safe_trial_period      = $trial_period_days ? 'trial' . $trial_period_days . 'days' : '';
+		$safe_payment_amount    = $this->get_amount_export( $payment_amount, $currency );
 
 		/*
 		 * Only include the currency code in the plan id when the entry currency does not match the plugin currency.
@@ -6121,7 +6131,7 @@ class GFStripe extends GFPaymentAddOn {
 			$currency = '';
 		}
 
-		$plan_id = implode( '_', array_filter( array( $safe_feed_name, $feed['id'], $safe_billing_cycle, $safe_trial_period, $safe_payment_amount, $currency ) ) );
+		$plan_id = implode( '_', array_filter( array( $safe_subscription_name, $feed['id'], $safe_billing_cycle, $safe_trial_period, $safe_payment_amount, $currency ) ) );
 
 		$this->log_debug( __METHOD__ . '(): ' . $plan_id );
 

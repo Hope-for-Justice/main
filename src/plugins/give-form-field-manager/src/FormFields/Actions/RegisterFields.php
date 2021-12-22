@@ -146,11 +146,11 @@ class RegisterFields {
 					$collection->append( $node );
 					break;
 				case FieldType::file():
-					$node = File::make( $field->name )
-						->label( $field->label )
-						->helpText( $field->helpText)
-						->required( $field->required )
-						->allowedTypes( $field->extensions )
+					$node = File::make($field->name)
+                                ->label($field->label)
+                                ->helpText($field->helpText)
+                                ->required($field->required)
+                                ->allowedTypes($field->getAllowedExtensions())
 						->maxSize( $field->maxSize )
 						->allowMultiple( (bool) $field->count );
 
@@ -388,6 +388,7 @@ class RegisterFields {
 
 	/**
 	 * @since 2.0.0
+     * @unreleased Insert custom class as string to array instead of array
 	 *
 	 * @param array $classList
 	 * @param FormFieldData $field
@@ -418,7 +419,7 @@ class RegisterFields {
 
 		// Handle custom class names
 		if ( ! empty( $field->css ) ) {
-			$classList[] = array_map( 'trim', explode( ' ', $field->css ) );
+			$classList = array_merge( $classList, array_map( 'trim', explode( ' ', $field->css ) ) );
 		}
 
 		return array_filter( $classList );

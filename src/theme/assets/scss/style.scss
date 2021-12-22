@@ -21,7 +21,7 @@
 @import "lib/_bootstrap-modal.scss";
 @import "lib/_animate.scss";
 @import "lib/_flexslider.scss";
-
+@import "lib/FA/_all.scss";
 
 // typography
 @import "base/_type.scss";
@@ -70,6 +70,7 @@
 @import "objects/_weglot.scss";
 @import "objects/_map.scss";
 @import "objects/_picture-quote.scss";
+@import "objects/_breadcrumbs.scss";
 
 
 // pages
@@ -95,6 +96,9 @@
 @import "pages/_spot-the-signs.scss";
 @import "pages/_how-we-change-lives.scss";
 
+
+//country specifics
+@import "other/_country-specifics.scss";
 
 }
 
