@@ -205,77 +205,7 @@ get_header();
 				</a>
 	    	</div>
 
-
-			<!-- 
-			--
-			-- In the headlines
-			--
-			-->
-
-			<?php wp_reset_query();  // Restore global post data stomped by the_post().?>
-			
-			<!-- Get category -->
-			<?php $headline_category = get_category(6);
-
-			// query arguments
-		    $args=array(
-		      "cat" => $headline_category->term_id,
-		      'post_type' => 'post',
-		      'post_status' => 'publish',
-		      'posts_per_page' => 9,
-		    );
-
-		    $query = null;
-		    $query = new WP_Query($args);
-
-		    // if there is posts show the title
-		    if( $query->have_posts() ) { ?>
-
-			<h2 class="font-canela news-page__title" >
-				<?php echo $headline_category->name; ?>
-			</h2>
-		    
-		    <!-- posts container-->
-		    <div class="cards sub-grid news-headlines" id="term_slug_<?php echo $headline_category->term_id; ?>">
-			
-				<!-- While there are posts show them -->
-				<?php while ($query->have_posts()) : $query->the_post(); ?>
-			      	
-			      	<?php $external_link = get_field('external_news_link',get_the_ID()); ?>
-			      	
-						<div class="cards__card cards__card--headlines category_<?php echo $headline_category->term_id; ?>" >
-								<a href="<?php echo  $external_link;  ?>" target="_blank">
-									<div class="cards__info">
-								    	<div class="cards__text">
-											<p class="cards__date">
-												<?php echo get_the_date(); ?>
-											</p>
-											<h3 class="cards__title cards__title--headlines-fk font-fk">
-												<?php the_title(); ?>:
-											</h3>
-									    	<p class="cards__title cards__title--headlines font-canela">
-									    		<?php echo get_the_excerpt(); ?>
-									    	</p>
-								    	</div>
-									</div>
-								</a>
-						</div>
-
-			    <?php endwhile; wp_reset_postdata(); } ?>
-
-			</div><!-- /posts container-->	
-
-			<!-- see more posts button 
-	    	<div class="news-page__button">
-				<a href="javascript:void(0)" class="button button--white more_posts" data-term="<?php echo $headline_category->term_id; ?>" data-href="<?php echo home_url().'/news/category/in_the_headlines/';?>">
-					<div class="button__inner">
-						<div class="button__text bold">See more</div>
-					</div>
-				</a>
-	    	</div>-->	
-		    	
-
-			<!-- 
+	    	<!-- 
 			--
 			-- Blogs & editorial
 			--
@@ -340,6 +270,67 @@ get_header();
 
 
 			<?php wp_reset_query();  // Restore global post data stomped by the_post().?>
+
+
+			<!-- 
+			--
+			-- In the headlines
+			--
+			-->
+
+			<?php wp_reset_query();  // Restore global post data stomped by the_post().?>
+			
+			<!-- Get category -->
+			<?php $headline_category = get_category(6);
+
+			// query arguments
+		    $args=array(
+		      "cat" => $headline_category->term_id,
+		      'post_type' => 'post',
+		      'post_status' => 'publish',
+		      'posts_per_page' => 9,
+		    );
+
+		    $query = null;
+		    $query = new WP_Query($args);
+
+		    // if there is posts show the title
+		    if( $query->have_posts() ) { ?>
+
+			<h2 class="font-canela news-page__title" >
+				<?php echo $headline_category->name; ?>
+			</h2>
+		    
+		    <!-- posts container-->
+		    <div class="cards sub-grid news-headlines" id="term_slug_<?php echo $headline_category->term_id; ?>">
+			
+				<!-- While there are posts show them -->
+				<?php while ($query->have_posts()) : $query->the_post(); ?>
+			      	
+			      	<?php $external_link = get_field('external_news_link',get_the_ID()); ?>
+			      	
+						<div class="cards__card cards__card--headlines category_<?php echo $headline_category->term_id; ?>" >
+								<a href="<?php echo  $external_link;  ?>" target="_blank">
+									<div class="cards__info">
+								    	<div class="cards__text">
+											<p class="cards__date">
+												<?php echo get_the_date(); ?>
+											</p>
+											<h3 class="cards__title cards__title--headlines-fk font-fk">
+												<?php the_title(); ?>:
+											</h3>
+									    	<p class="cards__title cards__title--headlines font-canela">
+									    		<?php echo get_the_excerpt(); ?>
+									    	</p>
+								    	</div>
+									</div>
+								</a>
+						</div>
+
+			    <?php endwhile; wp_reset_postdata(); } ?>
+
+			</div><!-- /posts container-->	
+
 
 		</div> <!-- /content-->
 

@@ -38,9 +38,9 @@
 	// Norwegian countries - I've put this into an array because we'll no doubt add other Scandinavian countries at some point
 	$GLOBALS['norway'] = array('NO');
 
-	$GLOBALS['uk'] = array('GB');
+	$GLOBALS['uk'] = array('GB', 'AU');
 
-	$GLOBALS['aus'] = array('AU');
+	//$GLOBALS['aus'] = array('AU');
 
 	$GLOBALS['help'] = array('GB', 'NO', 'US');
 	
@@ -55,16 +55,22 @@
 </head>
 
 <body <?php 
-if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])){ 
-	body_class('weglot-show country-norway'); 
+if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])){
+	if (is_single()){
+		body_class('weglot-hidden country-norway'); 
+	} else if( get_field('no_weglot') ) { 
+  	body_class('weglot-hidden country-norway');  
+	} else {
+		body_class('country-norway');
+	}
 } else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){
-	body_class('country-usa'); 
+	body_class('weglot-hidden country-usa'); 
 } else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['aus'])) {
-	body_class('country-aus');
+	body_class('weglot-hidden country-aus');
 } else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['uk'])) {
-	body_class('country-uk');
+	body_class('weglot-hidden country-uk');
 } else {
-	body_class('country-other');
+	body_class('weglot-hidden country-other');
 }
 ?>>
 

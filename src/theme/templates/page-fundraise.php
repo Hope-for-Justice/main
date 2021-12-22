@@ -1,6 +1,6 @@
 <?php
 /**
- * Fundraise
+ * Template Name: Fundraise
  *
  * @package Hope_for_Justice_2021
  */
