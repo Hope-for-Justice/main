@@ -5,6 +5,8 @@
 */
 
 .get-involved-page {
+
+	//img grid
 	.get-involved {
 		&__item--b {
 			display: block;
@@ -19,7 +21,9 @@
 		}
 	}
 
-
+	&__text-block {
+		grid-column: col2 / col12;
+	}
 }
 
 // desktop
@@ -27,6 +31,8 @@
 @include mq($from: desktop) {
 
 .get-involved-page {
+
+	//img grid
 	.get-involved {
 		&__item--c {
 			display: block;

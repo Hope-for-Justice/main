@@ -9,7 +9,7 @@
 	grid-column: col1 / col12-end;
 	&__img {
 		width:100%;
-		min-height: calc(100vh - 76.42px);
+		min-height: calc(100vh - 64.02px);
 		background-size: auto 120%;
 		background-position: bottom center;
 	}
@@ -17,7 +17,44 @@
 		grid-column: col2 / col12;
 		margin-top: 8.6vw;
 	}
-	
+	&__sub-grid {
+		position:absolute;
+		bottom:0;
+		left:0;
+		height:auto;
+	}
+	&__content {
+		color: white;
+		margin-top: 0;
+	}
+	&__title {
+		font-size: 7em;
+		line-height: 1;
+		margin-bottom: 0;
+	}
+	&__subtitle {
+		margin-bottom: 1em;
+	}
+	&__line {
+		height:40px;
+		width:1px;
+		background-color: white;
+		margin-left: 25px;
+    	margin-top: 25px;
+	}
+}
+
+// mobileMedium
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: mobileMedium) {
+
+.hero-full {
+	&__title {
+		font-size: 7.7em;
+	}
+}
+
+
 }
 
 // mobileLarge
@@ -42,12 +79,7 @@
 	&__img {
 		min-height: 65em;
 	}
-	&__sub-grid {
-		position:absolute;
-		bottom:0;
-		left:0;
-		height:auto;
-	}
+
 	&__content {
 		color: white;
 		text-align: center;

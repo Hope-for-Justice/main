@@ -39,20 +39,21 @@ get_header();
 
 			<div class="sub-grid hero-full__sub-grid">
 				<div class="hero-full__content">
-					<h3 class="email-updates__subtitle">
+					<h3 class="hero-full__subtitle">
 						<?php echo the_field('subtitle'); ?>
 					</h3>
-					<h1 class="font-fk email-updates__title">
+					<h1 class="font-fk hero-full__title">
 						<?php the_title(); ?>
 					</h1>
-					<div class="get-involved-page__line"></div>
+					<div class="hero-full__line"></div>
 				</div>
 			</div>
 		</div><!-- /hero-split -->
 
-		<!-- <p class="get-involved-page__decription">
-			<?php //the_content(); ?>
-		</p> -->
+		<div class="get-involved-page__text-block">
+			<h2>Take action today!</h2>
+			<p><?php the_content(); ?></p>
+		</div>
 
 		<!-- 
 		-- 
