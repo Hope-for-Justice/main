@@ -185,6 +185,25 @@
                     "maxlength": "",
                     "rows": 4,
                     "new_lines": "br"
+                },
+                {
+                    "key": "field_61ccab342c264",
+                    "label": "Linked in link",
+                    "name": "linked_in_link",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
                 }
             ]
         },
@@ -423,6 +442,25 @@
                     "prepend": "",
                     "append": "",
                     "maxlength": ""
+                },
+                {
+                    "key": "field_61ccab612c265",
+                    "label": "Linked in link",
+                    "name": "linked_in_link",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
                 }
             ]
         },
@@ -523,6 +561,25 @@
                     "prepend": "",
                     "append": "",
                     "maxlength": ""
+                },
+                {
+                    "key": "field_61ccab712c266",
+                    "label": "Linked in link",
+                    "name": "linked_in_link",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
                 }
             ]
         },
@@ -545,6 +602,25 @@
                     "key": "field_61699d00b03b6",
                     "label": "Title",
                     "name": "title",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_61ccab822c267",
+                    "label": "Linked in link",
+                    "name": "linked_in_link",
                     "type": "text",
                     "instructions": "",
                     "required": 0,
@@ -609,6 +685,25 @@
                     "key": "field_61699cf8b03b4",
                     "label": "Text",
                     "name": "text",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_61ccab962c268",
+                    "label": "Linked in link",
+                    "name": "linked_in_link",
                     "type": "text",
                     "instructions": "",
                     "required": 0,
@@ -697,7 +792,8 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": "",
-    "modified": 1638200844
+    "show_in_rest": 0,
+    "modified": 1640803239
 }

@@ -21,14 +21,26 @@
 	}
 	&__image {
 		text-align: center;
-		img {
-			margin-bottom: 4em;
+		div {
+			position: relative;
+			display: inline-block;
 			width:80%;
+			margin-bottom: 4em;
 			max-width: 30em;
+		}
+		img {
+			width:100%;
 		}
 	}
 	&__text {
 
+	}
+	&__linked-in {
+		position: absolute;
+		width:50px;
+		height:50px;
+		bottom:25px;
+		right:25px;
 	}
 }
 
@@ -54,7 +66,7 @@
 		padding:5em 0;
 		grid-column: col2/col12;
 		&__image {
-			img {
+			div {
 				margin-bottom: 5em;
 			}
 		}
@@ -75,7 +87,7 @@
 		&__image{
 			flex: 1;
 			padding-right:5em;
-			img {
+			div {
 				margin: 0;
 				max-width: 400px;
 			}
@@ -85,6 +97,13 @@
 			p {
 				font-size: 2.2em;
 			}
+		}
+		&__linked-in {
+			position: absolute;
+			width:50px;
+			height:50px;
+			bottom:35px;
+			right:35px;
 		}
 	}
 
