@@ -42,40 +42,17 @@ get_header();
 					<h3 class="email-updates__subtitle">
 						<?php echo the_field('subtitle'); ?>
 					</h3>
-					<h1 class="font-canela email-updates__title">
+					<h1 class="font-fk email-updates__title">
 						<?php the_title(); ?>
 					</h1>
-					<p class="hero-full__desc">
-						<?php the_content(); ?>
-					</p>
-					<div class="line"></div>
+					<div class="get-involved-page__line"></div>
 				</div>
 			</div>
 		</div><!-- /hero-split -->
 
-
-		<!-- 
-		-- 
-		-- email-updates
-		--  
-		-->
-		<img class="email-updates__img" src="<?php echo $email_updates['image'];?>">
-		<div class="email-updates__content">
-			<h2 class="font-canela">
-				<?php echo $email_updates['title'];?>
-			</h2>
-			<p class="email-updates__desc">
-				<?php echo $email_updates['description'];?>
-			</p>
-			<a href="<?php echo $email_updates['button_link'];?>" class="button button--red">
-				<div class="button__inner">
-					<div class="button__text bold">
-						<?php echo $email_updates['button_text'];?>
-					</div>
-				</div>
-			</a>
-		</div>
-
+		<!-- <p class="get-involved-page__decription">
+			<?php //the_content(); ?>
+		</p> -->
 
 		<!-- 
 		-- 
@@ -124,14 +101,6 @@ get_header();
 	    				<a href="<?php echo $grid['link_d'];?>" class="button button--green">
 							<div class="button__inner">
 								<div class="button__text bold"><?php echo $grid['button_text_d'];?></div>
-							</div>
-						</a>
-	    			</div>
-
-	    			<div class="get-involved__item get-involved__item--e" style="background-image: url('<?php echo $grid['image_e'];?>');">
-	    				<a href="<?php echo $grid['link_e'];?>" class="button button--blue">
-							<div class="button__inner">
-								<div class="button__text bold"><?php echo $grid['button_text_e'];?></div>
 							</div>
 						</a>
 	    			</div>

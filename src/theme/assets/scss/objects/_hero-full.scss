@@ -9,8 +9,9 @@
 	grid-column: col1 / col12-end;
 	&__img {
 		width:100%;
-		min-height: 24em;
-		background-size: cover;
+		min-height: calc(100vh - 76.42px);
+		background-size: auto 120%;
+		background-position: bottom center;
 	}
 	&__content {
 		grid-column: col2 / col12;
