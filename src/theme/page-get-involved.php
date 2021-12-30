@@ -48,12 +48,35 @@ get_header();
 					<div class="hero-full__line"></div>
 				</div>
 			</div>
-		</div><!-- /hero-split -->
+		</div><!-- /hero -->
 
+
+		<!-- 
+		-- 
+		-- text block
+		-- 
+		--> 
 		<div class="get-involved-page__text-block">
-			<h2>Take action today!</h2>
+			<h2 class="font-canela">Take action today!</h2>
 			<p><?php the_content(); ?></p>
 		</div>
+
+		<!-- 
+		-- 
+		-- action block
+		-- 
+		--> 
+		<div class="action-block">
+			<div class="action-block__content">
+				<h2 class="font-fk action-block__title">Fundraise</h2>
+				<p>
+					Our work depends on the fundraising of people just like you! What could you do to make a life-changing difference?
+				</p>
+				<a class="button button--green">Fundraise for<br> freedom</a>
+			</div>
+			<div class="action-block__image"></div>
+		</div>
+
 
 		<!-- 
 		-- 

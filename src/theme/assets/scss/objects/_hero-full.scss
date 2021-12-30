@@ -7,6 +7,7 @@
 
 .hero-full {
 	grid-column: col1 / col12-end;
+	margin-bottom: 40px;
 	&__img {
 		width:100%;
 		min-height: calc(100vh - 64.02px);
