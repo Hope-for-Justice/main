@@ -16,7 +16,7 @@
 		}
 	}
 	&__title {
-		font-size: 5.5em;
+		font-size: 5em;
 		margin-bottom: 0.5em;
 		line-height: 1;
 		text-transform: none;
@@ -28,4 +28,27 @@
 		border-radius: 25px;
 		margin-bottom: 40px;
 	}
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: tablet) {
+
+.action-block {
+	grid-column: col2 / col12-end;
+	flex-direction: row;
+	align-items: center;
+	&__content {
+		margin-right: 60px;
+	}
+	&__title {
+
+	}
+	&__image {
+		border-radius: 50px 0 0 50px;
+		padding-top:50%;
+		margin-bottom: 0;
+	}
+}
+
 }

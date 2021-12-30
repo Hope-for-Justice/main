@@ -24,7 +24,27 @@
 	&__text-block {
 		grid-column: col2 / col12;
 		margin-bottom: 40px;
+		h2 {
+			margin-bottom: 0.7em;
+			line-height: 1;
+		}
 	}
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: tablet) {
+
+.get-involved-page {
+	&__text-block {
+		grid-column: col3 / col11;
+		text-align: center;
+		margin-bottom: 80px;
+	}
+
+}
+
+
 }
 
 // desktop
@@ -44,7 +64,6 @@
 	&__text-block {
 		grid-column: col4 / col10;
 		margin-bottom: 80px;
-		text-align: center;
 	}
 
 }

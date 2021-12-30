@@ -61,6 +61,22 @@ get_header();
 			<p><?php the_content(); ?></p>
 		</div>
 
+		<!-- 
+		-- 
+		-- action block
+		-- 
+		--> 
+		<div class="action-block">
+			<div class="action-block__content">
+				<h2 class="font-fk action-block__title">Fundraise</h2>
+				<p>
+					Our work depends on the fundraising of people just like you! What could you do to make a life-changing difference?
+				</p>
+				<a href="/fundraise" class="button button--green">Fundraise for<br> freedom</a>
+			</div>
+			<div style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2021/09/freedom-run.jpg)" class="action-block__image"></div>
+		</div>
+
 
 		<!-- 
 		-- 

@@ -73,6 +73,7 @@
 @include mq($from: tablet) {
 
 .hero-full {
+	margin-bottom: 80px;
 	&__title {
 		font-size: 11em;
 	}
