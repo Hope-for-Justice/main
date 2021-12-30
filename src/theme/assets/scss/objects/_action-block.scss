@@ -6,4 +6,26 @@
 
 .action-block {
 	grid-column: col2 / col12;
+	margin-bottom: 40px;
+	display: flex;
+	flex-direction: column-reverse;
+
+	&__content {
+		p {
+			margin-bottom: 30px;
+		}
+	}
+	&__title {
+		font-size: 5.5em;
+		margin-bottom: 0.5em;
+		line-height: 1;
+		text-transform: none;
+	}
+	&__image {
+		background-size: cover;
+		width: 100%;
+		padding-top: 67%;
+		border-radius: 25px;
+		margin-bottom: 40px;
+	}
 }

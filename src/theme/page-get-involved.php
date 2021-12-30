@@ -61,22 +61,6 @@ get_header();
 			<p><?php the_content(); ?></p>
 		</div>
 
-		<!-- 
-		-- 
-		-- action block
-		-- 
-		--> 
-		<div class="action-block">
-			<div class="action-block__content">
-				<h2 class="font-fk action-block__title">Fundraise</h2>
-				<p>
-					Our work depends on the fundraising of people just like you! What could you do to make a life-changing difference?
-				</p>
-				<a class="button button--green">Fundraise for<br> freedom</a>
-			</div>
-			<div class="action-block__image"></div>
-		</div>
-
 
 		<!-- 
 		-- 

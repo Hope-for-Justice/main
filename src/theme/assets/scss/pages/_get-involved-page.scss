@@ -41,6 +41,12 @@
 		}
 	}
 
+	&__text-block {
+		grid-column: col4 / col10;
+		margin-bottom: 80px;
+		text-align: center;
+	}
+
 }
 
 }

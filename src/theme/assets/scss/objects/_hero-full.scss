@@ -63,10 +63,7 @@
 @include mq($from: mobileLarge) {
 
 .hero-full {
-	&__img {
-		min-height: 35em;
-		background-size: cover;
-	}	
+
 }
 
 }
@@ -76,18 +73,18 @@
 @include mq($from: tablet) {
 
 .hero-full {
-	position: relative;
-	&__img {
-		min-height: 65em;
+	&__title {
+		font-size: 11em;
 	}
-
 	&__content {
-		color: white;
 		text-align: center;
 		grid-column: col3 / col11;
 		margin-top: 0;
-		margin-bottom: 7em;
-		.line {display: none;}
+	}
+	&__line {
+		height:100px;
+		margin-left:auto;
+		margin-right: auto;
 	}
 	
 }
@@ -101,7 +98,7 @@
 .hero-full {
 	&__img {
 		min-height: 85vh;
-		background-position: 50% 50%;
+		background-size: cover;
 	}
 	&__content {
 		grid-column: col4 / col10;
