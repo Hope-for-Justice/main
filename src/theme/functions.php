@@ -732,24 +732,8 @@ function my_give_picky_text_switcher( $translations, $text, $domain ) {
         return __( 'Legg til din informasjon', 'give' );
     }
 
-    if ( $domain == 'give' && $text == 'Who’s giving today' ) {
-        return __( 'Hvem er det som gir i dag', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'We’ll never share this information with anyone' ) {
-        return __( 'Denne informasjonen blir ikke delt med noen', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'Your gift can help bring us one step closer to ending slavery' ) {
-        return __( 'Din gave kan bringe oss ett steg videre mot å stoppe slaveriet', 'give' );
-    }
-
     if ( $domain == 'give' && $text == 'A great big thank you' ) {
         return __( 'Tusen takk', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'What inspired you to give' ) {
-        return __( 'Hva inspirerte deg til å gi', 'give' );
     }
 
     if ( $domain == 'give' && $text == 'Choose an amount' ) {
