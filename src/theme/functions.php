@@ -716,6 +716,87 @@ function my_give_picky_text_switcher( $translations, $text, $domain ) {
         return __( 'Sikker Donasjon', 'give' );
     }
 
+    if ( $domain == 'give' && $text == 'Share on Facebook' ) {
+        return __( 'Del på Facebook', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Share on Twitter' ) {
+        return __( 'Del på Twitter', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Add your information' ) {
+        return __( 'Legg til din informasjon', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Who’s giving today' ) {
+        return __( 'Hvem er det som gir i dag', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'We’ll never share this information with anyone' ) {
+        return __( 'Denne informasjonen blir ikke delt med noen', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Your gift can help bring us one step closer to ending slavery' ) {
+        return __( 'Din gave kan bringe oss ett steg videre mot å stoppe slaveriet', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'A great big thank you' ) {
+        return __( 'Tusen takk', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'What inspired you to give' ) {
+        return __( 'Hva inspirerte deg til å gi', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Choose an amount' ) {
+        return __( 'Velg et beløp', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Continue' ) {
+        return __( 'Neste', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'your contribution means a lot and will be put to good use' ) {
+        return __( 'Neste', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Would you like to prevent your name and image from being displayed publicly' ) {
+        return __( 'Ønsker du ikke at ditt navn og bilde skal bli vist offentlig', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'your contribution means a lot and will be put to good use making a difference. We’ve sent your donation receipt to' ) {
+        return __( 'ditt bidrag betyr mye, og vil bli brukt på en god måte for å utgjøre en forskjell. Vi har sendt din kvittering til', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Donor name' ) {
+        return __( 'Navn på donor', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'EMAIL ADDRESS' ) {
+        return __( 'E-mailadresse', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Payment method' ) {
+        return __( 'Betalingsmetode', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Payment status' ) {
+        return __( 'Status på betaling', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Complete' ) {
+        return __( 'Gjennomført', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Donation amount' ) {
+        return __( 'Donasjonsbeløp', 'give' );
+    }
+
+    if ( $domain == 'give' && $text == 'Donation total' ) {
+        return __( 'Donasjoner totalt', 'give' );
+    }
+
+
     return $translations;
     
 }
