@@ -716,6 +716,10 @@ function my_give_picky_text_switcher( $translations, $text, $domain ) {
         return __( 'Sikker Donasjon', 'give' );
     }
 
+    if ( $domain == 'give' && $text == 'This is a secure SSL encrypted payment.' ) {
+        return __( 'Sikker Donasjon', 'give' );
+    }
+
     if ( $domain == 'give' && $text == 'Share on Facebook' ) {
         return __( 'Del på Facebook', 'give' );
     }
@@ -756,16 +760,8 @@ function my_give_picky_text_switcher( $translations, $text, $domain ) {
         return __( 'Neste', 'give' );
     }
 
-    if ( $domain == 'give' && $text == 'your contribution means a lot and will be put to good use' ) {
-        return __( 'Neste', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'Would you like to prevent your name and image from being displayed publicly' ) {
-        return __( 'Ønsker du ikke at ditt navn og bilde skal bli vist offentlig', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'your contribution means a lot and will be put to good use making a difference. We’ve sent your donation receipt to' ) {
-        return __( 'ditt bidrag betyr mye, og vil bli brukt på en god måte for å utgjøre en forskjell. Vi har sendt din kvittering til', 'give' );
+    if ( $domain == 'give' && $text == 'Donation Details' ) {
+        return __( 'Donordetaljer', 'give' );
     }
 
     if ( $domain == 'give' && $text == 'Donor name' ) {
@@ -776,11 +772,11 @@ function my_give_picky_text_switcher( $translations, $text, $domain ) {
         return __( 'E-mailadresse', 'give' );
     }
 
-    if ( $domain == 'give' && $text == 'Payment method' ) {
+    if ( $domain == 'give' && $text == 'PAYMENT METHOD' ) {
         return __( 'Betalingsmetode', 'give' );
     }
 
-    if ( $domain == 'give' && $text == 'Payment status' ) {
+    if ( $domain == 'give' && $text == 'PAYMENT STATUS' ) {
         return __( 'Status på betaling', 'give' );
     }
 
@@ -788,11 +784,11 @@ function my_give_picky_text_switcher( $translations, $text, $domain ) {
         return __( 'Gjennomført', 'give' );
     }
 
-    if ( $domain == 'give' && $text == 'Donation amount' ) {
+    if ( $domain == 'give' && $text == 'DONATION AMOUNT' ) {
         return __( 'Donasjonsbeløp', 'give' );
     }
 
-    if ( $domain == 'give' && $text == 'Donation total' ) {
+    if ( $domain == 'give' && $text == 'DONATION TOTAL' ) {
         return __( 'Donasjoner totalt', 'give' );
     }
 
