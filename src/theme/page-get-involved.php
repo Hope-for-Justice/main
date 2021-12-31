@@ -57,7 +57,7 @@ get_header();
 		-- 
 		--> 
 		<div class="get-involved-page__text-block">
-			<h2 class="font-canela">Take action today!</h2>
+			<h2 class="font-canela"><?php echo the_field('below_hero_title'); ?></h2>
 			<p><?php the_content(); ?></p>
 		</div>
 
@@ -68,14 +68,44 @@ get_header();
 		--> 
 		<div class="action-block">
 			<div class="action-block__content">
-				<h2 class="font-fk action-block__title">Fundraise</h2>
+				<h2 class="font-fk action-block__title"><?php echo the_field('action_block_a_title'); ?></h2>
 				<p>
-					Our work depends on the fundraising of people just like you! What could you do to make a life-changing difference?
+					<?php echo the_field('action_block_a_text'); ?>
 				</p>
-				<a href="/fundraise" class="button button--green">Fundraise for<br> freedom</a>
+				<a href="<?php echo the_field('action_block_a_button_link'); ?>" class="button button--green"><?php echo the_field('action_block_a_button_text'); ?></a>
 			</div>
-			<div style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2021/09/freedom-run.jpg)" class="action-block__image"></div>
+			<div style="background-image: url(<?php echo the_field('action_block_a_image'); ?>)" class="action-block__image"></div>
 		</div>
+
+		<!-- 
+		-- 
+		-- socials
+		--  
+		-->
+		<h3 class="get-involved-page__social-title"><?php echo the_field('social_text'); ?></h3>
+		<ul class="footer__social-icons get-involved-page__social-icons">
+			<li class="footer__social-icon">
+				<a href="<?php echo the_field('linked_in_link', 'option'); ?>" target="_blank">
+					<img src="<?php echo get_template_directory_uri().'/assets/img/li-red.svg'; ?>" alt="">
+				</a>
+			</li>
+			<li class="footer__social-icon">
+				<a href="<?php echo the_field('instagram_link', 'option'); ?>" target="_blank">
+					<img src="<?php echo get_template_directory_uri().'/assets/img/in-red.svg'; ?>" alt="">
+				</a>
+			</li>
+			<li class="footer__social-icon">
+				<a href="<?php echo the_field('twitter_link', 'option'); ?>" target="_blank">
+					<img src="<?php echo get_template_directory_uri().'/assets/img/tw-red.svg'; ?>" alt="">
+				</a>
+			</li>
+			<li class="footer__social-icon">
+				<a href="<?php echo the_field('facebook_link', 'option'); ?>" target="_blank">
+					<img src="<?php echo get_template_directory_uri().'/assets/img/fb-red.svg'; ?>" alt="">
+				</a>
+			</li>
+		</ul>
+
 
 
 		<!-- 
@@ -132,6 +162,41 @@ get_header();
 				</div>
 			</div>
 		</div> 
+
+		<!-- 
+		-- 
+		-- action block
+		-- 
+		--> 
+		<div class="action-block action-block--reverse">
+			<div class="action-block__content">
+				<h2 class="font-fk action-block__title"><?php echo the_field('action_block_b_title'); ?></h2>
+				<p>
+					<?php echo the_field('action_block_b_text'); ?>
+				</p>
+				<a href="<?php echo the_field('action_block_b_button_link'); ?>" class="button button--red">
+					<?php echo the_field('action_block_b_button_text'); ?>
+				</a>
+			</div>
+			<div style="background-image: url(<?php echo the_field('action_block_b_image'); ?>)" class="action-block__image"></div>
+		</div>
+
+		<!-- 
+		-- 
+		-- action block
+		-- 
+		--> 
+		<div class="action-block action-block--no-margin-top">
+			<div class="action-block__content">
+				<h2 class="font-fk action-block__title"><?php echo the_field('action_block_c_title'); ?></h2>
+				<p>
+					<?php echo the_field('action_block_c_text'); ?>
+					
+				</p>
+				<a href="<?php echo the_field('action_block_c_button_link'); ?>" class="button button--blue"><?php echo the_field('action_block_c_button_text'); ?></a>
+			</div>
+			<div style="background-image: url(<?php echo the_field('action_block_c_image'); ?>)" class="action-block__image"></div>
+		</div>
 
 
 	</div> <!-- /grid -->

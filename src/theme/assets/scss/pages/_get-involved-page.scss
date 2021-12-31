@@ -23,11 +23,22 @@
 
 	&__text-block {
 		grid-column: col2 / col12;
-		margin-bottom: 40px;
 		h2 {
 			margin-bottom: 0.7em;
 			line-height: 1;
 		}
+	}
+	&__social-title {
+		grid-column: col2 / col12;
+		margin-right: auto;
+		margin-bottom: 20px;
+		margin-top: 20px;
+	}
+	&__social-icons {
+		grid-column: col2 / col12;
+		margin-top: 0;
+		margin-right: auto;
+		margin-bottom: 40px;
 	}
 }
 
@@ -40,6 +51,15 @@
 		grid-column: col3 / col11;
 		text-align: center;
 		margin-bottom: 80px;
+	}
+	&__social-title {
+		grid-column: col2 / col12;
+		margin:20px auto;
+	}
+	&__social-icons {
+		grid-column: col2 / col12;
+		margin: 60px auto;
+		margin-top: 10px;
 	}
 
 }
@@ -64,6 +84,21 @@
 	&__text-block {
 		grid-column: col4 / col10;
 		margin-bottom: 80px;
+	}
+
+}
+
+}
+
+// desktopLarge
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopLarge) {
+
+.get-involved-page {
+
+	&__text-block {
+		grid-column: col5 / col9;
+		margin-bottom: 100px;
 	}
 
 }
