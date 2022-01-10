@@ -306,6 +306,7 @@ jQuery(document).on('gform_confirmation_loaded', function(event, formId){
     $("#usaForm, #usaFormMonthly").find('iframe').contents().find(".currency--before").html('$');
     $("#ausForm, #ausFormMonthly").find('iframe').contents().find(".currency--before").html('$');
     $("#norwayForm, #norwayFormMonthly").find('iframe').contents().find(".currency--before").html('Kr.');
+    $('iframe').contents().find(".country-selector").hide();
     
     //const selectOption = $(".give-embed-form-wrapper").find('iframe').contents().find(".preferencesQuestion").find('select');
     //const options = $(".give-embed-form-wrapper").find('iframe').contents().find(".preference"); 
