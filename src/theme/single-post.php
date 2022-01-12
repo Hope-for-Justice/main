@@ -141,7 +141,7 @@ $query = new WP_Query($args);
 
 		<!-- see more button -->
   		<div class="news-inner__cards-button">
-  			<a href="javascript:void(0)" class="button button--white more_postss" data-term="<?php echo $category_id; ?>" data-href="<?php echo home_url().'/category/'.$category_slug.'/';?>">
+  			<a href="javascript:void(0)" class="button button--white more_postss" data-term="<?php echo $category_id; ?>" data-href="<?php echo home_url().'/news/category/'.$category_slug.'/';?>">
   				<div class="button__inner">
   					<div class="button__text bold">See more</div>
   				</div>
