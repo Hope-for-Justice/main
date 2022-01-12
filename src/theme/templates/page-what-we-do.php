@@ -1,7 +1,7 @@
 <?php
 /**
  * The template for /how-we-change-lives
- *
+ * Template Name: What we do
  *
  * @package Hope_for_Justice_2021
  */
