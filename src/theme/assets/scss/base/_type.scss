@@ -18,6 +18,9 @@ body {
 .font-fk {
 	font-family: fk-screamer, sans-serif;
 	text-transform: uppercase;
+	&--normal-case {
+		text-transform: none;
+	}
 }
 
 .font-canela {

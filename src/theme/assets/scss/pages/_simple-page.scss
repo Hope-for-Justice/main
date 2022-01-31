@@ -1,0 +1,189 @@
+/*
+*
+* _SIMPLE-PAGE.SCSS
+*
+*/
+
+.simple-page {
+	&__hero {
+		grid-column: col2/ col12;
+		margin-top: 8.6vw;
+	}
+	&__image {
+		width:100%;
+		padding-top:100%;
+		background-size: cover;
+		border-radius: 25px;
+	}
+	&__title {
+		font-size: 4.8em;
+		margin-top: 40px;
+	}
+	&__hero-content {
+		h2 {
+			font-size: 2.2em;
+			margin-bottom: 30px;
+		}
+	}
+	&__line {
+		width:100%;
+		height:1px;
+		background-color: $black;
+		margin: 30px 0;
+		grid-column: col2/ col12;
+		opacity: 0.3;;
+	}
+	&__content {
+		grid-column: col2/ col12;
+	}
+}
+
+// phablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: phablet) {
+
+
+.simple-page {
+	&__image {
+		width: 350px;
+		padding-top:350px
+	}
+	&__title {
+		font-size: 8.1em;
+	}
+	&__hero-content {
+		h2 {
+			margin-bottom: 50px;
+		}
+	}
+	&__line {
+		margin: 60px 0;
+	}
+}
+
+
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.simple-page {
+	&__hero {
+		grid-column: col3/ col11;
+	}
+	&__image {
+
+	}
+	&__title {
+		max-width: 500px;
+	}
+	&__hero-content {
+		h2 {
+
+		}
+	}
+	&__line {
+		grid-column: col3/ col11;
+
+	}
+	&__content {
+		grid-column: col3/ col11;
+	}
+}
+
+}
+
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+
+.simple-page {
+	&__hero {
+		grid-column: col2/ col12-end;
+		display:flex;
+		flex-direction: row-reverse;
+		margin-top: 0;
+	}
+	&__image-con {
+		width:45%;
+		padding-right:5%;
+	}
+	&__image {
+		width:100%;
+		padding-top:100%;
+		border-radius: 0 0 50px 50px;
+	}
+	&__title {
+	}
+	&__hero-content-con {
+		width:55%;
+		padding-right:50px;
+		align-self:center;
+	}
+	&__hero-content {
+		h2 {
+
+		}
+	}
+	&__line {
+		margin: 100px 0;
+		grid-column: col3/ col11;
+
+	}
+	&__content {
+		grid-column: col3/ col11;
+	}
+}
+
+
+
+}
+
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopExtraLarge) {
+
+.simple-page {
+	&__hero {
+		grid-column: col2/ col12-end;
+
+	}
+	&__image-con {
+		width:50%;
+	}
+	&__image {
+		padding-right:8.6%;
+	}
+	&__title {
+		font-size: 10em;
+		max-width: none;
+	}
+	&__hero-content-con {
+		width:50%;
+	}
+	&__hero-content {
+		h2 {
+
+		}
+	}
+	&__line {
+		margin: 150px 0;
+		grid-column: col4/ col10;
+
+	}
+	&__content {
+		grid-column: col4/ col10;
+	}
+}
+
+}
+
+
+
