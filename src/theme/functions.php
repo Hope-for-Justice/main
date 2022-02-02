@@ -629,12 +629,22 @@ function my_custom_give_populate_amount_name_email() {
         var firstNamePassedVal = giveCustom.getQueryVariable( 'first' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'first' ) ) : '';
         var lastNamePassedVal = giveCustom.getQueryVariable( 'last' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'last' ) ) : '';
         var emailPassedVal = giveCustom.getQueryVariable( 'email' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'email' ) ) : '';
-        var postcodePassedVal = giveCustom.getQueryVariable( 'postcode' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'postcode' ) ) : '';
+        var campaignPassedVal = giveCustom.getQueryVariable( 'campaign' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'campaign' ).replace(/\+/g, ' ') ) : '';
 
         var firstNameInput = giveForm.find( '#give-first-name-wrap input.give-input' );
         var lastNameInput = giveForm.find( '#give-last-name-wrap input.give-input' );
         var emailInput = giveForm.find( '#give-email-wrap input.give-input' );
-        var postcodeInput = giveForm.find( "#give-post_code-334-9" );
+
+        //UK
+        var campaignInput = giveForm.find( "#give-campaign-1069-14" );
+        var campaignInput2 = giveForm.find( "#give-campaign-314-13" );
+        //US
+        var campaignInput3 = giveForm.find( "#give-campaign-1098-6" );
+        var campaignInput4 = giveForm.find( "#give-campaign-1062-6" );
+        //Norway
+        var campaignInput5 = giveForm.find( "#give-campaign-1119-11" );
+        //AU
+
 
         if ( firstNamePassedVal !== false && firstNameInput.length > 0 ) {
             firstNameInput.val( firstNamePassedVal );
@@ -645,8 +655,12 @@ function my_custom_give_populate_amount_name_email() {
         if ( emailPassedVal !== false && emailInput.length > 0 ) {
             emailInput.val( emailPassedVal );
         }
-        if ( postcodePassedVal !== false && postcodeInput.length > 0 ) {
-            postcodeInput.val( postcodePassedVal );
+        if ( campaignPassedVal !== false) {
+            campaignInput.val( campaignPassedVal );
+            campaignInput2.val( campaignPassedVal );
+            campaignInput3.val( campaignPassedVal );
+            campaignInput4.val( campaignPassedVal );
+            campaignInput5.val( campaignPassedVal );
         }
     };
 
