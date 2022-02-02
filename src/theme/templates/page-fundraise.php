@@ -27,153 +27,169 @@ get_header();
 		//ACF GROUPS
     	$page_hero = get_field('page_hero');
     	$below_hero = get_field('below_hero');
-    	$fundraise_with_facebook = get_field('fundraise_with_facebook');
-    	$fundraise_with_jg = get_field('fundraise_with_jg');
+    	$steps = get_field('steps');
+    	$fundraise_option_a = get_field('fundraise_a');
+    	$fundraise_option_b = get_field('fundraise_b');
+    	$fundraise_option_b_usa = get_field('fundraise_b_usa');
     	$bottom_slice = get_field('bottom_slice');
 	?>
 
 	
 	
 	<div class="grid">
+		
 		<!-- 
 		-- 
-		-- hero split
+		-- hero
 		-- 
 		--> 
-		<div class="hero-split fundraise-top hero-split--reverse">
+		<div class="fundraise-hero-img" style="background-image: url('<?php echo $thumbnail[0]; ?>');">
+		</div>
 
-			<div class="hero-split__img hero-split__img--center-center" style="background-image: url('<?php echo $thumbnail[0]; ?>');">
+		<div class="fundraise-intro">
+			<h3 class="fundraise-intro__subtitle">
+				<?php echo $page_hero['sub_header'];?>
+			</h3>
+			<h1 class="fundraise-intro__title font-canela">
+				<?php echo $page_hero['main_heading'];?>
+			</h1>
+			<div class="fundraise-intro__description">
+				<p><?php echo $page_hero['description'];?></p>
 			</div>
-
-			<div class="hero-split__content">
-				<div class="hero-split__content-inner">
-					<h3>
-						<?php echo $page_hero['sub_header'];?>
-					</h3>
-					<h1 class="font-canela">
-						<?php echo $page_hero['main_heading'];?>
-					</h1>
-					<div class="hero-split__desc">
-						<p><?php echo $page_hero['description'];?><br><br></p>
-					</div>
-					<div class="hero-spit__button">
-						<a href="<?php echo $page_hero['button_link'];?>" class="button button--green">
-							<div class="button__inner">
-								<div class="button__text bold">
-									<?php echo $page_hero['button_text'];?>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div><!-- /hero-split -->
-
-		<!-- 
-		-- 
-		-- plain-text
-		--  
-		-->
-		<div class="color-block color-block--grey">
-			<div class="sub-grid">
-				<div class="plain-text plain-text--in-color-block">
-					<h2 class="font-canela"><?php echo $below_hero['title'];?></h2>
-					<p><?php echo $below_hero['description'];?>
-					</p>
-				</div>
-			</div>
-		</div><!-- /plain-text -->
-
-		<!-- 
-		-- 
-		-- hero split facebook
-		-- 
-		--> 
-		<div class="hero-split">
-
-			<div class="hero-split__img hero-split__img--center-center" style="background-image: url('<?php echo $fundraise_with_facebook['image'];?>');">
-			</div>
-
-			<div class="hero-split__content">
-				<div class="hero-split__content-inner">
-					<img class="fundraise-facebook-image" src="<?php echo $fundraise_with_facebook['logo'];?>"> 
-					<h1 class="font-canela">
-						<?php echo $fundraise_with_facebook['heading'];?>
-					</h1>
-					<div class="hero-split__desc">
-						<p><?php echo $fundraise_with_facebook['description'];?><br><br></p>
-					</div>
-					<div class="hero-spit__button">
-						<a href="<?php echo $fundraise_with_facebook['button_link'];?>" class="button button--green">
-							<div class="button__inner">
-								<div class="button__text bold">
-									<?php echo $fundraise_with_facebook['button_text'];?>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div><!-- /hero-split -->
-		<!-- 
-		-- 
-		-- hero split just giving
-		-- 
-		--> 
-		<div class="hero-split hero-split--reverse">
-
-			<div class="hero-split__img hero-split__img--center-center" style="background-image: url('<?php echo $fundraise_with_jg['image'];?>');">
-			</div>
-
-			<div class="hero-split__content">
-				<div class="hero-split__content-inner">
-					<img class="fundraise-jg-image" src="<?php echo $fundraise_with_jg['logo'];?>"> 
-					<h1 class="font-canela">
-						<?php echo $fundraise_with_jg['heading'];?>
-					</h1>
-					<div class="hero-split__desc">
-						<p><?php echo $fundraise_with_jg['description'];?><br><br></p>
-					</div>
-					<div class="hero-spit__button">
-						<a href="<?php echo $fundraise_with_jg['button_link'];?>" class="button button--green">
-							<div class="button__inner">
-								<div class="button__text bold">
-									<?php echo $fundraise_with_jg['button_text'];?>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div>
-
-		</div><!-- /hero-split -->
-
-		<!-- 
-		-- 
-		-- plain-text
-		--  
-		-->
-		<div class="color-block color-block--grey">
-			<div class="sub-grid">
-				<div class="plain-text plain-text--in-color-block">
-					<h2 class="font-canela">
-						
-						<?php echo $bottom_slice['title'];?>
-					</h2>
-					<p class="margin-bottom">
-						<?php echo $bottom_slice['description'];?>
-					</p>
-					<a href="<?php echo $bottom_slice['button_link'];?>" class="button button--green">
-						<div class="button__inner">
-							<div class="button__text bold">
-								<?php echo $bottom_slice['button_text'];?>
-							</div>
+			<div class="fundraise-intro__button-con">
+				<a href="<?php echo $page_hero['button_link'];?>" class="button button--green">
+					<div class="button__inner">
+						<div class="button__text bold">
+							<?php echo $page_hero['button_text'];?>
 						</div>
-					</a>
+					</div>
+				</a>
+			</div>
+		</div>
+
+
+		<!-- 
+		-- 
+		-- below img
+		-- 
+		--> 
+		<div class="fundraise-below-img">
+			<div class="sub-grid">
+				<h2 class="font-canela"><?php echo $below_hero['title'];?></h2>
+				<p><?php echo $below_hero['description'];?></p>
+			</div>
+		</div>
+
+		<!-- 
+		-- 
+		-- steps
+		-- 
+		-->
+		<div class="fundraise-steps">
+			<div class="sub-grid fundraise-steps__grid">
+				<div class="fundraise-steps__step fundraise-steps__step--left">
+					<div class="sub-grid">
+						<div class="fundraise-steps__step-header">
+							<div class="fundraise-steps__number font-fk">1</div>
+							<h2 class="font-fk fundraise-steps__title"><?php echo $steps['step_1_title'];?></h2>
+						</div>
+						<?php echo $steps['step_1_content'];?>
+
+					</div>
+				</div>
+				<div class="fundraise-steps__step">
+					<div class="sub-grid">
+						<div class="sub-grid">
+							<div class="fundraise-steps__step-header">
+								<div class="fundraise-steps__number font-fk">2</div>
+								<h2 class="font-fk fundraise-steps__title"><?php echo $steps['step_2_title'];?></h2>
+							</div>
+							<?php echo $steps['step_2_content'];?>
+						</div>
+					</div>
+				</div>
+				<div class="fundraise-steps__step fundraise-steps__step--left">
+					<div class="sub-grid">
+						<div class="sub-grid">
+							<div class="fundraise-steps__step-header">
+								<div class="fundraise-steps__number font-fk">3</div>
+								<h2 class="font-fk fundraise-steps__title"><?php echo $steps['step_3_title'];?></h2>
+							</div>
+							<?php echo $steps['step_3_content'];?>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div><!-- /plain-text -->
+		</div>
 
+		<!-- 
+		-- 
+		-- option
+		--  
+		-->
+		<div class="fundraise-option__img" style="background-image: url('<?php echo $fundraise_option_a['image'];?>');"></div>
+
+		<div class="fundraise-option__content">
+			<h2 class="font-canela fundraise-option__title"><?php echo $fundraise_option_a['heading'];?></h2>
+			<p>
+				<?php echo $fundraise_option_a['description'];?>
+				
+			</p>
+			<div><a href="<?php echo $fundraise_option_a['button_link'];?>" class="button button--green">
+				<?php echo $fundraise_option_a['button_text'];?></a></div>
+		</div>
+
+		<!-- 
+		-- 
+		-- option
+		--  
+		-->
+
+		<?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){ ?>
+			
+
+			<div class="fundraise-option__img fundraise-option__img--reverse" style="background-image: url('<?php echo $fundraise_option_b_usa['image'];?>');"></div>
+
+			<div class="fundraise-option__content fundraise-option__content--reverse">
+				<h2 class="font-canela fundraise-option__title"><?php echo $fundraise_option_b_usa['heading'];?></h2>
+				<p>
+					<?php echo $fundraise_option_b_usa['description'];?>
+					
+				</p>
+				<div><a href="<?php echo $fundraise_b_usa['button_link'];?>" class="button button--green"><?php echo $fundraise_option_b_usa['button_text'];?></a></div>
+			</div>
+
+
+
+		<?php } else {  ?>
+
+			<div class="fundraise-option__img fundraise-option__img--reverse" style="background-image: url('<?php echo $fundraise_option_b['image'];?>');"></div>
+
+			<div class="fundraise-option__content fundraise-option__content--reverse">
+				<h2 class="font-canela fundraise-option__title"><?php echo $fundraise_option_b['heading'];?></h2>
+				<p>
+					<?php echo $fundraise_option_b['description'];?>
+				</p>
+				<div><a href="<?php echo $fundraise_option_b['button_link'];?>" class="button button--green"><?php echo $fundraise_option_b['button_text'];?></a></div>
+			</div>
+
+		<?php } ?>
+
+		<!-- 
+		-- 
+		-- events
+		--  
+		-->
+		<div class="fundraise-events">
+			<div class="sub-grid">
+				<div class="fundraise-events__content">
+					<h2 class="font-canela"><?php echo $bottom_slice['title'];?></h2>
+					<p>
+						<?php echo $bottom_slice['description'];?></p>
+					<a href="<?php echo $bottom_slice['button_link'];?>" class="button button--green"><?php echo $bottom_slice['button_text'];?></a>
+				</div>
+			</div>
+		</div>
 
 
 	</div> <!-- /grid -->
