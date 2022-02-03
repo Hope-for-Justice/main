@@ -1,0 +1,110 @@
+/*
+*
+* _NEW-TYPE.SCSS
+*
+*/
+
+//to em conversion 
+$browser-context: 10; // Default
+
+@function em($pixels, $context: $browser-context) {
+  @return #{$pixels/$context}em;
+}
+
+// thin 
+///////////////////////////////////////////////////////////////////////////
+
+.heading {
+	margin-bottom: 0.5em;
+	line-height: 1.2;
+	&-a {
+		font-size: em(41);
+	}
+	&-b {
+		font-size: em(36);
+	}
+	&-c {
+		font-size: em(21);
+	}
+	&-d {
+		font-size: em(12);
+	}
+}
+
+p {font-size: em(16);}
+
+.type-block {
+	grid-column: col2/ span 6;
+}
+
+// mobile medium 
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: mobileMedium) {
+
+}
+
+// mobile large
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: mobileLarge) {
+
+
+
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+
+.heading {
+	&-a {
+		font-size: em(68);
+	}
+	&-b {
+		font-size: em(44);
+	}
+	&-c {
+		font-size: em(36);
+	}
+	&-d {
+		font-size: em(14);
+	}
+}
+
+p {font-size: em(20);}
+
+}
+
+
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+
+
+}
+
+
+// desktop extra large
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopExtraLarge) {
+
+
+
+}
+
+// wide
+///////////////////////////////////////////////////////////////////////////
+
+
+@include mq($from: wide) {
+
+
+
+}

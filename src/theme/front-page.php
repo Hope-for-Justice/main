@@ -35,10 +35,10 @@ get_header();
 
 			<div class="hero-split__content">
 				<div class="hero-split__content-inner">
-					<h3>
+					<h3 class="heading heading-d">
 						<?php the_field('subtitle'); ?>
 					</h3>
-					<h1 class="font-canela">
+					<h1 class="font-canela heading heading-a">
 						<?php the_field('title'); ?>
 					</h1>
 					<div class="hero-split__desc hero-split__desc--thinner">
