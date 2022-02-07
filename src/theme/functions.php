@@ -94,13 +94,13 @@ add_action( 'after_setup_theme', 'hope_for_justice_2021_setup' );
 function hope_for_justice_2021_scripts() {
 	global $wp_styles;
 
-	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202202' );
+	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202205' );
 
 	wp_enqueue_script('jquery'); 
-	// wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202202', true );
+	// wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202205', true );
 
 
-    wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202202', true );
+    wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202205', true );
 
 }
 
@@ -120,7 +120,7 @@ add_action( 'wp_enqueue_scripts', 'hope_for_justice_2021_scripts', 1 );
 function page_scripts() {
     global $post;
 
-    wp_register_script( 'donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '202202', true);
+    wp_register_script( 'donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '202205', true);
 
     $themeVars = array( 'template_directory_uri' => get_template_directory_uri() );
 
@@ -629,22 +629,40 @@ function my_custom_give_populate_amount_name_email() {
         var firstNamePassedVal = giveCustom.getQueryVariable( 'first' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'first' ) ) : '';
         var lastNamePassedVal = giveCustom.getQueryVariable( 'last' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'last' ) ) : '';
         var emailPassedVal = giveCustom.getQueryVariable( 'email' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'email' ) ) : '';
-        var campaignPassedVal = giveCustom.getQueryVariable( 'campaign' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'campaign' ).replace(/\+/g, ' ') ) : '';
+        var campaignPassedVal = decodeURIComponent( getCookie("campaign").replace(/\+/g, '%20'));
 
         var firstNameInput = giveForm.find( '#give-first-name-wrap input.give-input' );
         var lastNameInput = giveForm.find( '#give-last-name-wrap input.give-input' );
         var emailInput = giveForm.find( '#give-email-wrap input.give-input' );
 
         //UK
+
+        //campaigns reg/once
         var campaignInput = giveForm.find( "#give-campaign-1069-14" );
         var campaignInput2 = giveForm.find( "#give-campaign-314-13" );
-        //US
-        var campaignInput3 = giveForm.find( "#give-campaign-1098-6" );
-        var campaignInput4 = giveForm.find( "#give-campaign-1062-6" );
-        //Norway
-        var campaignInput5 = giveForm.find( "#give-campaign-1119-11" );
-        //AU
+        //recruitment campaign reg/once
+        var campaignInput3 = giveForm.find( "#give-recruitment_campaign-1069-20" );
+        var campaignInput4 = giveForm.find( "#give-recruitment_campaign-314-19" );
 
+        //US
+
+        //campaigns reg/once
+        var campaignInput5 = giveForm.find( "#give-campaign-1098-6" );
+        var campaignInput6 = giveForm.find( "#give-campaign-1062-6" );
+        //recruitment campaigns reg/once
+        var campaignInput7 = giveForm.find( "#give-recruitment_campaign-1098-12" );
+        var campaignInput8 = giveForm.find( "#give-recruitment_campaign-1062-12" );
+        
+        //Norway
+
+        //once only recruitment campaign and campaign
+        var campaignInput9 = giveForm.find( "#give-campaign-1119-11" );
+        var campaignInput10 = giveForm.find( "#give-recruitment_campaign-1119-17" );
+
+        //AU - not yet
+
+        //local give-campaign-334-13 once
+        //var campaignInput11 = giveForm.find( "#give-campaign-334-13" );
 
         if ( firstNamePassedVal !== false && firstNameInput.length > 0 ) {
             firstNameInput.val( firstNamePassedVal );
@@ -661,6 +679,12 @@ function my_custom_give_populate_amount_name_email() {
             campaignInput3.val( campaignPassedVal );
             campaignInput4.val( campaignPassedVal );
             campaignInput5.val( campaignPassedVal );
+            campaignInput6.val( campaignPassedVal );
+            campaignInput7.val( campaignPassedVal );
+            campaignInput8.val( campaignPassedVal );
+            campaignInput9.val( campaignPassedVal );
+            campaignInput10.val( campaignPassedVal );
+            //campaignInput11.val( campaignPassedVal );
         }
     };
 
@@ -681,6 +705,23 @@ function my_custom_give_populate_amount_name_email() {
         }
         return false;
     };
+
+    // get cookie
+    function getCookie(cname) {
+      let name = cname + "=";
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return false;
+    }
 
     giveCustom.init();
 

@@ -2,6 +2,14 @@
 
 jQuery(document).ready(function($) {
 
+    //cookieAccept click
+    $("#cookieAccept").click(function(){
+        //Cookies.set('cookies', 'accept', { path: '/', expires: 365 })
+        $("#cookieNotice").hide();
+    });
+
+
+
     //url param function
     var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = window.location.search.substring(1),

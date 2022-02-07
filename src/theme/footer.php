@@ -10,6 +10,21 @@
  */
 
 ?>
+	
+	<!-- if no cookie exists show notice -->
+	<?php if($GLOBALS['showCookie'] == true) { ?>
+		 <!-- cookie notice  -->
+		<!-- <div id="cookieNotice" class="cookie-notice">
+			<p>
+				<?php //echo the_field('cookie_text', 'option'); ?>
+				
+			</p>
+			<div id="cookieAccept" class="button button--yellow">
+			<?php //echo the_field('cookie_button_text', 'option'); ?>
+			</div>
+		</div> -->
+	<?php } ?>
+
 
 	<?php // show or hide ticker
 	if( ! get_field('no_news') ) { ?>

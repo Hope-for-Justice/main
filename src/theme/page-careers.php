@@ -71,10 +71,10 @@ get_header();
 		-- 
 		-->
 		<div class="sub-grid career-cards">
-				<?php $get_records =  wp_remote_get( 'https://cezanneondemand.intervieweb.it/annunci.php?lang=en&LAC=hopeforjustice&d=hopeforjustice.org&k=1408e0edd8768dfa3e838b0059df4899&CodP=&nbsp;&format=json_en&utype=0');
+				<?php $emptyCezanne = false; $get_records =  wp_remote_get( 'https://cezanneondemand.intervieweb.it/annunci.php?lang=en&LAC=hopeforjustice&d=hopeforjustice.org&k=1408e0edd8768dfa3e838b0059df4899&CodP=&nbsp;&format=json_en&utype=0');
 					// when empty show message
 					if (empty($get_records)) {
-					echo '<h2 style="text-align: center; grid-column: col2 / col12; opacity:0.5;" class="font-canela">No Vacancies</h2>';
+					$emptyCezanne = true;
 					} 
 				?>
 
@@ -105,6 +105,46 @@ get_header();
 					</div>	
 
 				<?php } ?>
+
+				<?php if( have_rows('non_cezanne') ): 
+					while (have_rows('non_cezanne')) : the_row(); ?>
+
+						<div class="career-cards__card">
+							<a class="career-cards__inner" href="<?php echo (get_sub_field('link'))?>">
+								<!-- Card title -->
+								<h3 class="career-cards__title font-fk">
+									<?php echo (get_sub_field('title'))?>
+								</h3>
+
+								<div class="career-cards__description">
+									<p><?php echo (get_sub_field('description'))?></p>
+								</div>
+
+								<!-- Arrow -->
+								<div class="career-cards__arrow">
+									<img src="<?php echo get_template_directory_uri().'/assets/img/arrow.svg'; ?>" />
+								</div>
+
+								<!-- location -->
+								<div class="career-cards__location">
+									<img src="<?php echo get_template_directory_uri().'/assets/img/balloon.svg'; ?>" />
+									<p>
+										<?php echo (get_sub_field('location'))?>
+									</p>
+								</div>	
+							</a>
+						</div>	
+
+					<?php endwhile; 
+			    	else:
+			    	$emptyNonCezanne = true;
+			    	if($emptyNonCezanne == true && $emptyCezanne == true):
+					?>
+					<h2 style="text-align: center; grid-column: col2 / col12; opacity:0.5;" class="font-canela">No Vacancies</h2>
+
+				<?php endif; endif;?>
+
+
 		</div><!-- /career-cards -->
 
 		<!-- 
