@@ -26,7 +26,9 @@ get_header();
 	<?php
 		//ACF GROUPS
     	$page_hero = get_field('page_hero');
+    	$page_hero_usa = get_field('page_hero_usa');
     	$below_hero = get_field('below_hero');
+    	$below_hero_usa = get_field('below_hero_usa');
     	$steps = get_field('steps');
     	$fundraise_option_a = get_field('fundraise_a');
     	$fundraise_option_b = get_field('fundraise_b');
@@ -54,16 +56,31 @@ get_header();
 				<?php echo $page_hero['main_heading'];?>
 			</h1>
 			<div class="fundraise-intro__description">
-				<p><?php echo $page_hero['description'];?></p>
+				<?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){ ?>
+					<p><?php echo $page_hero_usa['description'];?></p>
+				<?php } else { ?>
+					<p><?php echo $page_hero['description'];?></p>
+				<?php }?>
 			</div>
 			<div class="fundraise-intro__button-con">
-				<a href="<?php echo $page_hero['button_link'];?>" class="button button--green">
-					<div class="button__inner">
-						<div class="button__text bold">
-							<?php echo $page_hero['button_text'];?>
+				<?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){ ?>
+					<a href="<?php echo $page_hero_usa['button_link'];?>" class="button button--green">
+						<div class="button__inner">
+							<div class="button__text bold">
+								<?php echo $page_hero_usa['button_text'];?>
+							</div>
 						</div>
-					</div>
-				</a>
+					</a>
+				<?php } else { ?>
+					<a href="<?php echo $page_hero['button_link'];?>" class="button button--green">
+						<div class="button__inner">
+							<div class="button__text bold">
+								<?php echo $page_hero['button_text'];?>
+							</div>
+						</div>
+					</a>
+				<?php }?>
+
 			</div>
 		</div>
 
@@ -75,8 +92,13 @@ get_header();
 		--> 
 		<div class="fundraise-below-img">
 			<div class="sub-grid">
-				<h2 class="font-canela"><?php echo $below_hero['title'];?></h2>
-				<p><?php echo $below_hero['description'];?></p>
+				<?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){ ?>
+					<h2 class="font-canela"><?php echo $below_hero_usa['title'];?></h2>
+					<p><?php echo $below_hero_usa['description'];?></p>
+				<?php } else { ?>
+					<h2 class="font-canela"><?php echo $below_hero['title'];?></h2>
+					<p><?php echo $below_hero['description'];?></p>
+				<?php }?>
 			</div>
 		</div>
 
@@ -93,7 +115,10 @@ get_header();
 							<div class="fundraise-steps__number font-fk">1</div>
 							<h2 class="font-fk fundraise-steps__title"><?php echo $steps['step_1_title'];?></h2>
 						</div>
-						<?php echo $steps['step_1_content'];?>
+						<?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){  echo $steps['step_1_content_usa'];
+						 } else { 
+							echo $steps['step_1_content'];
+						 }?>
 
 					</div>
 				</div>
@@ -156,7 +181,7 @@ get_header();
 					<?php echo $fundraise_option_b_usa['description'];?>
 					
 				</p>
-				<div><a href="<?php echo $fundraise_b_usa['button_link'];?>" class="button button--green"><?php echo $fundraise_option_b_usa['button_text'];?></a></div>
+				<div><a href="<?php echo $fundraise_option_b_usa['button_link'];?>" class="button button--green"><?php echo $fundraise_option_b_usa['button_text'];?></a></div>
 			</div>
 
 
