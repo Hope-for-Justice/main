@@ -94,13 +94,13 @@ add_action( 'after_setup_theme', 'hope_for_justice_2021_setup' );
 function hope_for_justice_2021_scripts() {
 	global $wp_styles;
 
-	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202205' );
+	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202206' );
 
 	wp_enqueue_script('jquery'); 
-	// wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202205', true );
+	// wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202206', true );
 
 
-    wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202205', true );
+    wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202206', true );
 
 }
 
@@ -120,13 +120,17 @@ add_action( 'wp_enqueue_scripts', 'hope_for_justice_2021_scripts', 1 );
 function page_scripts() {
     global $post;
 
-    wp_register_script( 'donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '202205', true);
+    wp_register_script( 'donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '202206', true);
+    wp_register_script( 'training', get_template_directory_uri() . '/assets/js/pages/training.js', array('jquery'), '202206', true);
 
     $themeVars = array( 'template_directory_uri' => get_template_directory_uri() );
 
     	//donate uk
       if (is_page('donate') || is_page_template('templates/page-basic-campaign.php')) {
        	wp_enqueue_script('donate');
+      }
+      if (is_page_template('templates/page-training.php')) {
+        wp_enqueue_script('training');
       }
 
 
@@ -629,7 +633,7 @@ function my_custom_give_populate_amount_name_email() {
         var firstNamePassedVal = giveCustom.getQueryVariable( 'first' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'first' ) ) : '';
         var lastNamePassedVal = giveCustom.getQueryVariable( 'last' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'last' ) ) : '';
         var emailPassedVal = giveCustom.getQueryVariable( 'email' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'email' ) ) : '';
-        var campaignPassedVal = decodeURIComponent( getCookie("campaign").replace(/\+/g, '%20'));
+        var campaignPassedVal = decodeURIComponent( getCookie("wordpress_hfjcampaign").replace(/\+/g, '%20'));
 
         var firstNameInput = giveForm.find( '#give-first-name-wrap input.give-input' );
         var lastNameInput = giveForm.find( '#give-last-name-wrap input.give-input' );

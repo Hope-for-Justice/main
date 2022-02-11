@@ -1,0 +1,78 @@
+/*
+*
+* _FUNDRAISE.SCSS
+*
+*/
+
+//intro
+.training-intro {
+	grid-column: col2 / col12;
+	margin: 45px 0;
+	&__title {
+		font-size: 44px;
+	}
+	&__description {
+		margin-bottom: 30px;
+	}
+	&__link {
+		font-weight: bold;
+		text-decoration: underline;
+		margin-top: 35px;
+		a{color: $black;}
+		font-size: 16px;
+	}
+}
+
+// hero-img
+.training-hero-img {
+	grid-column: col1 / col12-end;
+	grid-row-start: 2;
+	padding-top:100%;
+	background-size: cover;
+	background-position: center;
+	border-radius: 50px 0 50px 0;
+}
+
+//below-img
+.training-below-img {
+	grid-column: col1 / col12-end;
+	background-color: $light-grey;
+	padding: 40px 0 60px 0;
+	margin-top: -20px;
+	border-radius: 25px;
+	margin-bottom: 35px;
+	&__title {
+		grid-column: col2 / col12;
+		font-size: 36px;
+	}
+	p {grid-column: col2 / col12;}
+}
+
+//dropdown
+.training-dropdown {
+ 	grid-column: col2/col12;
+ 	margin-top: 50px;
+ 	&__trigger {
+ 		margin-bottom: 20px;
+ 	}
+ 	&__header {
+ 		display: flex;
+ 		align-items: center;
+ 		justify-content: space-between;
+ 		padding-bottom: 20px;
+ 		border-bottom: 1px solid #E0E0E0;
+ 	}
+ 	&__title {
+ 		font-size: 21px;
+ 		margin-bottom: 0;
+ 	}
+ 	&__content {
+ 		display: none;
+ 		padding: 20px 0;
+ 	}
+ 	&__cross {
+ 		transform: rotate(0deg);
+ 		transition: all 0.2s ease-out;
+ 		&--open {transform: rotate(45deg);}
+ 	}
+}

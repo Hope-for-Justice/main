@@ -27,6 +27,14 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 
 	];
+
+	uglifyFilesObject[distTheme + jsDir + 'pages/training.js'] = [
+
+		devTheme + jsDir + 'pages/training.js',
+
+
+	];
+
 	uglifyFilesObject[distTheme + jsDir + 'popper.min.js'] = [
 
 		devTheme + jsDir + 'plugins/popper.min.js',

@@ -2,10 +2,16 @@
 
 jQuery(document).ready(function($) {
 
-    //cookieAccept click
+    let cookies = Cookies.get('wordpress_hfjcookies');
+
+    // cookieAccept click
+    if (cookies !== "accept") {
+        $("#cookieNotice").css('visibility', 'visible');
+    }
+
     $("#cookieAccept").click(function(){
-        //Cookies.set('cookies', 'accept', { path: '/', expires: 365 })
-        $("#cookieNotice").hide();
+        Cookies.set('wordpress_hfjcookies', 'accept', { path: '/', expires: 100 });
+        $("#cookieNotice").css('display', 'none');
     });
 
 

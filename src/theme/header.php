@@ -10,6 +10,14 @@
  */
 
 ?>
+
+<?php
+    //cookie for campaign from the url
+    $value=$_GET['campaign']; //the value from the url
+    if (isset($_GET['campaign'])) {
+		setcookie("wordpress_hfjcampaign", $value, strtotime( '+7 days' ), '/');  /* expire in 7 days */
+	}
+?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -44,18 +52,6 @@
 	$GLOBALS['geo'] = Wpengine\Geoip::instance();
     $GLOBALS['userInfo'] = $GLOBALS['geo']->country(); 
 
-
-    //cookie for campaign from the url
-    $value=$_GET['campaign']; //the value from the url
-    if (isset($_GET['campaign'])) {
-		setcookie("campaign", $value, strtotime( '+7 days' ), '/');  /* expire in 7 dasy */
-	}
-
-	if(!isset($_COOKIE['cookies'])){
-    	$GLOBALS['showCookie'] = true;
-    	setcookie("cookies", "accept", strtotime( '+365 days' ), '/');  /* expire in 7 dasy */
-	}
-	
 ?>
 
 <?php wp_head(); ?>
