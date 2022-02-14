@@ -4,6 +4,10 @@
 *
 */
 
+.training {
+	margin-bottom: 60px;
+}
+
 //intro
 .training-intro {
 	grid-column: col2 / col12;
@@ -40,12 +44,13 @@
 	padding: 40px 0 60px 0;
 	margin-top: -20px;
 	border-radius: 25px;
-	margin-bottom: 35px;
+	z-index: 1;
+	//margin-bottom: 35px;
 	&__title {
 		grid-column: col2 / col12;
 		font-size: 36px;
 	}
-	p {grid-column: col2 / col12;}
+	&__description {grid-column: col2 / col12;}
 }
 
 //dropdown
@@ -54,6 +59,9 @@
  	margin-top: 50px;
  	&__trigger {
  		margin-bottom: 20px;
+ 		&:hover {
+ 			cursor: pointer;
+ 		}
  	}
  	&__header {
  		display: flex;
@@ -76,3 +84,281 @@
  		&--open {transform: rotate(45deg);}
  	}
 }
+
+.training-second-img {
+	z-index: 0;
+	grid-column: col1/ col12-end;
+	padding-top: 100%;
+	background-size: cover;
+	background-position: center;
+	border-radius: 25px;
+	margin-top: -20px;
+}
+
+.training-second-content {
+	grid-column: col2/col12;
+	margin-bottom: 60px;
+	&__line {
+		width: 50px;
+		height:3px;
+		background-color: $red;
+		margin: 40px 0 25px 0;
+	}
+	&__title {
+		font-size: 36px;
+	}
+	&__desc {
+		margin-bottom: 40px;
+	}
+}
+
+.training-quote {
+	grid-column: col2 / col12;
+
+	&__title {
+		font-size: 24px;
+		font-weight: bold;
+		margin-bottom: 30px;
+	}
+
+	&__credit {
+
+	}
+
+	&__line {
+		width: 50px;
+		height:3px;
+		background-color: $red;
+		margin: 40px 0 25px 0;
+	}
+
+}
+
+// phablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: phablet) { 
+
+//intro
+.training-intro {
+	grid-column: col2 / col11;
+	margin: 65px 0 85px 0;
+	&__title {
+		font-size: 48px;
+		margin-bottom: 35px;
+	}
+	&__description {
+		margin-bottom: 50px;
+	}
+	&__cta {
+		display: flex;
+		align-items: center;
+
+	}
+	&__link {
+		margin-top: 0;
+		margin-left: 40px;
+	}
+}
+
+//hero img
+.training-hero-img {
+	padding-top: 70%;
+}
+
+
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) { 
+
+//intro
+.training-intro {
+	grid-column: col2 / col10;
+	//margin: 65px 0 85px 0;
+	&__subtitle {
+		//margin-bottom: 43px;
+	}
+	&__title {
+		font-size: 68px;
+		//margin-bottom: 35px;
+	}
+	&__description {
+		margin-bottom: 50px;
+		p{font-size: 20px;}
+	}
+	&__link {
+		a{font-size: 20px}
+	}
+}
+
+//hero img
+.training-hero-img {
+	//padding-top: 62%;
+}
+
+//below-img
+.training-below-img {
+	grid-column: col2 / col12;
+	padding: 70px 60px;
+	&__title {
+		font-size: 44px;
+		margin-bottom: 20px;
+		text-align: center;
+		grid-column: col1/col12-end;
+	} 
+	&__description {
+		text-align: center;
+		grid-column: col1/col12-end;
+		padding: 0 10px;
+	}
+}
+
+.training-dropdown {
+	grid-column: col1/col12-end;
+	&__title {
+		font-size: 32px;
+	}
+	&__content {
+		padding: 40px 0;
+	}
+}
+
+.training-second-img {
+	border-radius: 50px;
+}
+
+.training-second-content {
+	grid-column: col2/col10;
+	margin-bottom: 90px;
+	&__line {
+		width: 50px;
+		height:3px;
+		background-color: $red;
+		margin: 60px 0 45px 0;
+	}
+	&__title {
+		font-size: 44px;
+		margin-bottom: 30px;
+	}
+	&__desc {
+		margin-bottom: 60px;
+	}
+}
+
+.training-quote {
+	grid-column: col3 / col11;
+	text-align: center;
+	&__line {
+		margin: 40px auto 40px auto;
+	}
+}
+
+
+}
+
+// desktopLarge
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) { 
+
+//intro
+.training-intro {
+	grid-column: col2 / span 4;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+//hero img
+.training-hero-img {
+	padding-top: 100%;
+	grid-column: col7 / col12-end;
+	grid-row-start: 1;
+	border-radius: 0 0 100px 0;
+}
+
+//below-img
+.training-below-img {
+	grid-column: col4 / col10;
+	padding: 70px;
+	border-radius: 50px;
+}
+
+.training-second-img {
+	grid-column: col1/ span 6;
+	border-radius: 50px 50px 50px 0;
+}
+
+.training-second-content {
+	grid-column: col8/col12;
+	margin-bottom: 90px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.training-quote {
+	grid-column: col4 / col10;
+	text-align: center;
+	margin-top: 100px;
+	&__title {
+		font-size: 28px;
+	}
+	&__line {
+		margin: 40px auto 40px auto;
+	}
+}
+
+}
+
+
+// desktopXLarge
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopExtraLarge) { 
+
+.training {
+	margin-bottom: 160px;
+}
+
+//intro
+.training-intro {
+	margin-top: -20px;
+}
+
+
+//below-img
+.training-below-img {
+	grid-column: col4 / col10;
+	padding: 100px;
+	border-radius: 50px;
+}
+
+
+
+.training-quote {
+	grid-column: col4 / col10;
+	text-align: center;
+	margin-top: 160px;
+	&__line {
+		margin: 40px auto 40px auto;
+	}
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

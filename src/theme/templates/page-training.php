@@ -23,7 +23,7 @@ get_header();
 	} 
 		//ACF GROUPS
     	$page_hero = get_field('page_hero');
-    	$below_img = get_field('below_img');
+    	$below_img = get_field('below_image');
     	$second_section = get_field('second_section');
 	?>
 
@@ -42,16 +42,14 @@ get_header();
 		<div class="training-intro">
 			<h3 class="training-intro__subtitle">
 				<?php echo $page_hero['subtitle'];?>
-				Learn the skills to respond
+				
 			</h3>
 			<h1 class="training-intro__title font-canela">
 				<?php echo $page_hero['title'];?>
-				Modern slavery<br>Training
 			</h1>
 			<div class="training-intro__description">
 				<p>
-					<?php echo $page_hero['description'];?>
-					Do you work with potential victims of modern slavery? Hope for Justice believes in multi-agency working and is keen to work with and train law enforcement, medical professionals, social services, community outreach programmes and other frontline agencies and organisations to tackle the issue of modern slavery.
+					<?php echo $page_hero['description'];?>	
 				</p>
 			</div>
 			<div class="training-intro__cta">
@@ -59,14 +57,12 @@ get_header();
 					<div class="button__inner">
 						<div class="button__text bold">
 							<?php echo $page_hero['button_text'];?>
-							Make a training<br>enquiry
 						</div>
 					</div>
 				</a>
 				<div class="training-intro__link">
 					<a id="learnMore">
 						<?php echo $page_hero['more_link_text'];?>
-						Learn more
 					</a>
 				</div>
 			</div>
@@ -80,12 +76,10 @@ get_header();
 		<div class="training-below-img">
 			<div class="sub-grid">
 				<h2 class="font-canela training-below-img__title">
-					<?php echo $below_img['title'];?>
-					The value of training		
+					<?php echo $below_img['title'];?>		
 				</h2>
-				<p>
+				<p class="training-below-img__description">
 					<?php echo $below_img['description'];?>
-					We believe that by equipping people who are specialists in their own field with relevant, comprehensive and practical guidance we can increase the number of victims identified and improve the response and help offered by organisations like yours.
 				</p>
 				<ul class="training-dropdown">
 					<?php while (have_rows('below_image')) : the_row(); ?>
@@ -114,6 +108,33 @@ get_header();
 		<div class="training-second-img" style="background-image: url('<?php echo $second_section['img']; ?>');">
 		</div>
 
+		<div class="training-second-content">
+			<div class="training-second-content__line"></div>
+			
+			<h2 class="training-second-content__title font-canela">Accredited training</h2>
+			
+			<p class="training-second-content__desc">Hope for Justice's training is award-winning, including being named Best Public Service / Not-for-Profit Programme at the Training Journal Awards. Hope for Justice and Slave-Free Alliance is a Member of The CPD Certification Service (number 14454), showing our commitment to upholding and increasing standards in continuing professional development.</p>
+			<div>
+				<a href="<?php echo $page_hero['button_link'];?>" class="button button--red">
+					<div class="button__inner">
+						<div class="button__text bold">
+							<?php echo $page_hero['button_text'];?>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+
+		<!-- 
+		-- 
+		-- Quote
+		-- 
+		--> 
+		<div class="training-quote">
+			<h2 class="training-quote__title">“This training was a great insight into modern-day slavery and human trafficking and really pitched at the right level... The feedback from our safeguarding champions was fantastic."</h2>
+			<p class="training-quote__credit">Paul Corry, Adult Safeguarding, Blackpool Teaching Hospitals NHS Foundation Trust</p>
+			<div class="training-quote__line"></div>
+		</div>
 
 
 	</div> <!-- /grid -->
