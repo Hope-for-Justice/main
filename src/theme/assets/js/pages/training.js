@@ -16,8 +16,12 @@ $(".training-dropdown__trigger").click(function(){
     
     $(".training-dropdown__trigger").not(this)
     .find(".training-dropdown__cross").removeClass("training-dropdown__cross--open");
-
 });
 
+$("#learnMore").click(function(){
+    $([document.documentElement, document.body]).animate({
+            scrollTop: $("#scrollTo").offset().top
+        }, 500);
+});
 
 });

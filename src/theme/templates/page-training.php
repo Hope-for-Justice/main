@@ -25,6 +25,7 @@ get_header();
     	$page_hero = get_field('page_hero');
     	$below_img = get_field('below_image');
     	$second_section = get_field('second_section');
+    	$quote = get_field('quote');
 	?>
 
 	
@@ -73,7 +74,7 @@ get_header();
 		-- below img
 		-- 
 		--> 
-		<div class="training-below-img">
+		<div id="scrollTo" class="training-below-img">
 			<div class="sub-grid">
 				<h2 class="font-canela training-below-img__title">
 					<?php echo $below_img['title'];?>		
@@ -111,9 +112,12 @@ get_header();
 		<div class="training-second-content">
 			<div class="training-second-content__line"></div>
 			
-			<h2 class="training-second-content__title font-canela">Accredited training</h2>
+			<h2 class="training-second-content__title font-canela">
+				<?php echo $second_section['title'];?></h2>
 			
-			<p class="training-second-content__desc">Hope for Justice's training is award-winning, including being named Best Public Service / Not-for-Profit Programme at the Training Journal Awards. Hope for Justice and Slave-Free Alliance is a Member of The CPD Certification Service (number 14454), showing our commitment to upholding and increasing standards in continuing professional development.</p>
+			<p class="training-second-content__desc">
+			<?php echo $second_section['description'];?>
+			</p>
 			<div>
 				<a href="<?php echo $page_hero['button_link'];?>" class="button button--red">
 					<div class="button__inner">
@@ -131,8 +135,12 @@ get_header();
 		-- 
 		--> 
 		<div class="training-quote">
-			<h2 class="training-quote__title">“This training was a great insight into modern-day slavery and human trafficking and really pitched at the right level... The feedback from our safeguarding champions was fantastic."</h2>
-			<p class="training-quote__credit">Paul Corry, Adult Safeguarding, Blackpool Teaching Hospitals NHS Foundation Trust</p>
+			<h2 class="training-quote__title">
+			<?php echo $quote['title'];?>
+			</h2>
+			<p class="training-quote__credit">
+			<?php echo $quote['credit'];?>
+			</p>
 			<div class="training-quote__line"></div>
 		</div>
 
