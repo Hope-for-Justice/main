@@ -118,6 +118,8 @@ get_header();
 			<p class="training-second-content__desc">
 			<?php echo $second_section['description'];?>
 			</p>
+
+			<img class="training-second-content__img" src="https://hopeforjustice.org/wp-content/uploads/2022/02/cdp.png">
 			<div>
 				<a href="<?php echo $page_hero['button_link'];?>" class="button button--red">
 					<div class="button__inner">

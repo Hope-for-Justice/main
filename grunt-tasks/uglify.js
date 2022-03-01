@@ -55,6 +55,13 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 	];
 
+	uglifyFilesObject[distTheme + jsDir + 'pages/freedom-run.js'] = [
+
+		devTheme + jsDir + 'pages/freedom-run.js',
+
+
+	];
+
 
 
 	return {

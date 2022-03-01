@@ -1,0 +1,289 @@
+/*
+*
+* _FUNDRAISE.SCSS
+*
+*/
+
+
+.freedom-run {
+	background-color: #FAFAFA;
+	position: relative;
+	top:50px;
+	overflow: hidden;
+	opacity: 0;
+	transition: top 0.5s ease-out, opacity 1s ease-out;
+	padding-bottom: 100px;
+	&__logo {
+		grid-column: col5/span 4;
+		max-width: 150px;
+		margin: 0 auto;
+		margin-top: 35px;
+	}
+	&__plus {
+		position: absolute;
+		top: 100px;
+		left: 30px;
+		width:30px;
+		transition: all 0.2s ease;
+	}
+}
+
+.freedom-run-video {
+	display: none;
+}
+
+.freedom-run-hero {
+	grid-column: col1/col12-end;
+	position: relative;
+	margin-bottom: 60px;
+	margin-top: 40px;;
+	&__img {
+		position: relative;
+	}
+	&__slant {
+	    position: absolute;
+	    top: -32%;
+	    width: 151%;
+	    right: -68%;
+	    max-width: none;
+	    z-index: 0;
+	}
+	&__lines {
+		position: absolute;
+	    //z-index: 2;
+	    bottom: -8%;
+	    width: 40%;
+	    right: -15%;
+	}
+	&__date {
+		position: absolute;
+		top:5%;
+		left:5%;
+		width:22%;
+	}
+}
+
+
+
+.freedom-run-description {
+	grid-column: col2 / col12;
+	p {margin-bottom: 35px;}
+	&__logo {
+		display: none;
+	}
+	
+	&__title {
+		font-size: 36px;
+	}
+}
+
+.freedom-run-second {
+	grid-column: col2/col12;
+	margin-top: 50px;
+	position: relative;
+	&__place {
+		width: 55%;
+		z-index: 1;
+		position: relative;
+	}
+	&__img {
+		margin-top: -30px;
+		z-index: 0;
+		position: relative;
+		margin-bottom: 35px;
+	}
+	&__plus {
+		position: absolute;
+		top: -50px;
+		right: 50px;
+		width: 30px;
+	}
+}
+
+.freedom-run-second-description {
+	grid-column: col2/col12;
+	p{margin-bottom: 35px;}
+	&__date {
+		display: none;
+	}
+}
+
+
+// phablet
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: phablet) {
+
+.freedom-run {
+	&__logo {
+		margin-top: 40px;
+		margin-bottom: 0px;
+	}
+	&__plus {
+		left: 60px;
+	}
+}
+
+.freedom-run-hero {
+	margin-bottom: 80px;
+	&__slant {top: -35%;}
+	&__lines {bottom: -6%;}
+}
+
+}
+
+// desktop
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.freedom-run {
+	&__plus {
+		top: 100px;
+		left: 40%;
+		transform: translateX(-50%);
+		z-index: 3;
+	}
+}
+
+
+.freedom-run-video {
+	display: block;
+	grid-column: col7/col12-end;
+	grid-row-start: 1;
+	height:0;
+	padding-top: 100%;
+	position: relative;
+	z-index: 1;
+	background-color:$battleship-grey;
+	iframe {
+		position: absolute;
+		top:0;
+	}
+}
+
+.freedom-run-hero {
+	grid-column: col7/col12-end;
+	grid-row-start: 1;
+	height:0;
+	padding-top: 100%;
+	margin:0 ;
+	&__img {
+		display: none;
+	}
+	&__slant {
+	    top: auto;
+	    right: -73%;
+	    bottom: -30px;
+	}
+	&__lines {
+	    z-index: 2;
+	    bottom: -30px;
+	    right: -20%;
+	}
+	&__date {
+		display: none;
+	}
+}
+
+.freedom-run__logo {
+	display:none;
+}
+
+.freedom-run-description {
+	grid-column: col2/col6;
+	grid-row-start: 1;
+	// display: flex;
+	// justify-content: center;
+	// flex-direction: column;
+	margin-top: 80px;
+	&__logo {
+		display: block;
+		max-width: 90px;
+		margin-bottom: 30px;
+	}
+}
+
+.freedom-run-second {
+	grid-column: col2/col7;
+	&__plus {
+		top: 10%;
+		right: -78%;
+	}
+}
+
+.freedom-run-second-description {
+	grid-column: col8/col12;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-top: 40px;
+	&__date {
+		display: block;
+		max-width: 100px;
+		margin-bottom: 30px;
+	}
+}
+
+}
+
+// desktopLarge
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+
+.freedom-run-description {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin-top: -50px;
+	&__logo {
+		display: block;
+		max-width: 110px;
+		margin-bottom: 50px;
+	}
+	&__title {
+		margin-bottom: 35px;
+	}
+	p{margin-bottom: 40px;}
+}
+
+.freedom-run-second-description {
+	&__date {
+		max-width: 130px;
+	}
+}
+
+
+}
+
+
+// desktopXLarge
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopExtraLarge) {
+
+.freedom-run-description {
+	margin-top: -120px;
+	&__title {
+		font-size: 44px;
+	}
+}
+
+.freedom-run-hero {
+	&__slant {
+	    bottom: -50px;
+	}
+	&__lines {
+	    bottom: -50px;
+	}
+}
+
+}
+
+
+
+
+
+
+

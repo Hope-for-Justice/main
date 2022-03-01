@@ -110,6 +110,10 @@
 	&__desc {
 		margin-bottom: 40px;
 	}
+	&__img {
+		max-width: 150px;
+		margin-bottom: 40px;
+	}
 }
 
 .training-quote {
@@ -244,6 +248,9 @@
 		margin-bottom: 30px;
 	}
 	&__desc {
+		margin-bottom: 60px;
+	}
+	&__img {
 		margin-bottom: 60px;
 	}
 }
