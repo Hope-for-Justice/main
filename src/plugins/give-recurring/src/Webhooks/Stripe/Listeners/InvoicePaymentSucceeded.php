@@ -4,7 +4,7 @@ namespace GiveRecurring\Webhooks\Stripe\Listeners;
 
 use Give\PaymentGateways\PayPalCommerce\Webhooks\Listeners\EventListener;
 use Give_Subscription;
-use GiveRecurring\Infrastructure\Log;
+use Give_Subscriptions_DB;
 use Stripe\Event as StripeEvent;
 
 /**
@@ -13,100 +13,155 @@ use Stripe\Event as StripeEvent;
  *
  * @since 1.12.6
  */
-class InvoicePaymentSucceeded implements EventListener {
+class InvoicePaymentSucceeded implements EventListener
+{
 
-	/**
-	 * Processes invoice.payment_succeeded event.
-	 *
-	 * @param StripeEvent $event Stripe Event received via webhooks.
-	 *
-	 * @since 1.12.6
-	 * @return void
-	 */
-	public function processEvent( $event ) {
-		$invoice = $event->data->object;
+    /**
+     * Processes invoice.payment_succeeded event.
+     *
+     * @since 1.12.6
+     *
+     * @param StripeEvent $event Stripe Event received via webhooks.
+     *
+     * @return void
+     */
+    public function processEvent($event)
+    {
+        $invoice = $event->data->object;
+        $subscription = $this->getSubscription($event);
 
-		$subscription_profile_id = $invoice->subscription;
-		$subscription            = new Give_Subscription( $subscription_profile_id, true );
+        // Exit if we did not find subscription for given webhook notification.
+        if (!$subscription->id) {
+            return;
+        }
 
-		/**
-		 * Return false if no subscription ID can be found,
-		 **/
+        /**
+         * This action hook will be used to extend processing the invoice payment succeeded event.
+         *
+         * @since 1.9.4
+         */
+        do_action('give_recurring_stripe_process_invoice_payment_succeeded', $event);
 
-		if ( ! $subscription || ! $subscription->id ) {
-			return;
-		}
+        $totalPayments = (int)$subscription->get_total_payments();
+        $billTimes = (int)$subscription->bill_times;
 
-		/**
-		 * This action hook will be used to extend processing the invoice payment succeeded event.
-		 *
-		 * @since 1.9.4
-		 */
-		do_action( 'give_recurring_stripe_process_invoice_payment_succeeded', $event );
+        // We can create renewal If:
+        //  1. Subscription is ongoing
+        //  2. bill_times is less than total payments.
+        if ($this->shouldCreateRenewal($billTimes, $totalPayments)) {
+            // Look to see if we have set the transaction ID on the parent payment yet.
+            if (!$subscription->get_transaction_id()) {
+                // This is the initial transaction payment aka first subscription payment.
+                $subscription->set_transaction_id($invoice->charge);
 
-		$total_payments = (int) $subscription->get_total_payments();
-		$bill_times     = (int) $subscription->bill_times;
+                if ($this->isDonationCompleted($subscription->parent_payment_id)) {
+                    give_update_payment_status($subscription->parent_payment_id, 'publish');
+                }
+            } else {
+                $this->addRenewal($subscription, $invoice);
+            }
+        } else {
+            $this->completeSubscriptionAndCancelOnStripe(
+                $subscription,
+                $totalPayments,
+                $billTimes
+            );
+        }
+    }
 
-		if ( give_recurring_stripe_can_cancel( false, $subscription ) ) {
+    /**
+     * @since 1.15.0
+     *
+     * @param int $billTimes
+     * @param int $totalPayments
+     *
+     * @return bool
+     */
+    private function shouldCreateRenewal($billTimes, $totalPayments)
+    {
+        return 0 === $billTimes || $totalPayments < $billTimes;
+    }
 
-			// If subscription is ongoing or bill_times is less than total payments.
-			if ( 0 === $bill_times || $total_payments < $bill_times ) {
+    /**
+     * @since 1.15.0
+     *
+     * @param int $subscriptionParentDonationId
+     *
+     * @return bool
+     */
+    private function isDonationCompleted($subscriptionParentDonationId)
+    {
+        $paymentStatus = give_get_payment_status($subscriptionParentDonationId);
 
-				// We have a new invoice payment for a subscription.
-				$amount         = give_stripe_cents_to_dollars( $invoice->total );
-				$transaction_id = $invoice->charge;
+        return in_array($paymentStatus, ['pending', 'processing'], true);
+    }
 
-				// Look to see if we have set the transaction ID on the parent payment yet.
-				if ( ! $subscription->get_transaction_id() ) {
-					// This is the initial transaction payment aka first subscription payment.
-					$subscription->set_transaction_id( $transaction_id );
+    /**
+     * @since 1.15.0
+     *
+     * @param Give_Subscription $subscription
+     * @param object $invoice
+     */
+    private function addRenewal($subscription, $invoice)
+    {
+        $donationId = give_get_purchase_id_by_transaction_id($invoice->charge);
 
-					// Update Parent Donation to `Complete`, if the status is `Pending` or `Processing`.
-					$payment_status = give_get_payment_status( $subscription->parent_payment_id );
-					if ( in_array( $payment_status, [ 'pending', 'processing' ], true ) ) {
-						give_update_payment_status( $subscription->parent_payment_id, 'publish' );
-					}
-				} else {
+        // Check if donation id empty that means renewal donation not made so please create it.
+        // We have a renewal.
+        if (empty($donationId)) {
+            $args = [
+                'amount' => give_stripe_cents_to_dollars($invoice->total),
+                'transaction_id' => $invoice->charge,
+                'post_date' => date_i18n('Y-m-d H:i:s', $invoice->created),
+            ];
 
-					$donation_id = give_get_purchase_id_by_transaction_id( $transaction_id );
+            $subscription->add_payment($args);
+            $subscription->renew();
+        }
 
-					// Check if donation id empty that means renewal donation not made so please create it.
-					if ( empty( $donation_id ) ) {
+        $this->completeSubscriptionAndCancelOnStripe(
+            $subscription,
+            $subscription->get_total_payments(),
+            $subscription->bill_times
+        );
+    }
 
-						$args = array(
-							'amount'         => $amount,
-							'transaction_id' => $transaction_id,
-							'post_date'      => date_i18n( 'Y-m-d H:i:s', $invoice->created ),
-						);
-						// We have a renewal.
-						$subscription->add_payment( $args );
-						$subscription->renew();
-					}
+    /**
+     * @param StripeEvent $event
+     *
+     * @return Give_Subscription
+     */
+    private function getSubscription($event)
+    {
+        $subscription = new Give_Subscription(
+            $event->data->object->subscription,
+            true
+        );
 
-					// Update Total Payments as new renewal might have added.
-					$total_payments = $subscription->get_total_payments();
+        if (!$subscription->id) {
+            $donationMetaData = $event->data->object->lines->data[0]->metadata;
+            $donationId = !empty($donationMetaData['Donation Post ID']) ? $donationMetaData['Donation Post ID'] : 0;
+            $subscription = give_recurring_get_subscription_by( 'payment', $donationId );
+        }
 
-					// Check if this subscription is complete.
-					give_recurring_stripe_is_subscription_completed( $subscription, $total_payments, $bill_times );
+        return $subscription;
+    }
 
-				}
-			} else {
-
-				give_recurring_stripe_is_subscription_completed( $subscription, $total_payments, $bill_times );
-			}
-
-			return;
-
-		}
-
-		Log::error(
-			'Stripe Subscription Can Cancel Error',
-			[
-				'Description'  => esc_html__( 'The Stripe Gateway returned an error while canceling the subscription.',
-					'give-recurring' ),
-				'Subscription' => $subscription,
-				'Event Data'   => $event
-			]
-		);
-	}
+    /**
+     * @since 1.15.0
+     * @param Give_Subscription $subscription
+     * @param int $totalPayments
+     * @param int $billTimes
+     * @return void
+     */
+    private function completeSubscriptionAndCancelOnStripe(Give_Subscription $subscription, $totalPayments, $billTimes)
+    {
+        // If the billing cycle is completed for a subscription then we have to complete the subscription to prevent further payments on Stripe.
+        // This function completes the subscription in the GiveWP database and cancels it on Stripe.
+        give_recurring_stripe_is_subscription_completed(
+            $subscription,
+            $totalPayments,
+            $billTimes
+        );
+    }
 }

@@ -3,7 +3,7 @@
 Plugin Name: Gravity Flow
 Plugin URI: https://gravityflow.io
 Description: Build Workflow Applications with Gravity Forms.
-Version: 2.7.5
+Version: 2.7.9
 Author: Gravity Flow
 Author URI: https://gravityflow.io
 License: GPL-2.0+
@@ -11,7 +11,7 @@ Text Domain: gravityflow
 Domain Path: /languages
 
 ------------------------------------------------------------------------
-Copyright 2015-2021 Steven Henty S.L.
+Copyright 2015-2022 Steven Henty S.L.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see http://www.gnu.org/licenses.
  */
 
-define( 'GRAVITY_FLOW_VERSION', '2.7.5' );
+define( 'GRAVITY_FLOW_VERSION', '2.7.9' );
 
 define( 'GRAVITY_FLOW_EDD_STORE_URL', 'https://gravityflow.io' );
 
@@ -84,7 +84,8 @@ class Gravity_Flow_Bootstrap {
 		}
 
 		if ( class_exists( 'GravityView_Field' ) ) {
-			include dirname( __FILE__ ) . '/includes/class-gravityview-detail-link.php';
+			include dirname( __FILE__ ) . '/includes/integrations/class-gravityview-detail-link.php';
+			include dirname( __FILE__ ) . '/includes/integrations/class-gravityview-approval-links.php';
 		}
 
 		require_once dirname( __FILE__ ) . '/includes/class-common.php';
@@ -196,6 +197,8 @@ function gravityflow_action_init() {
 			$settings = gravity_flow()->get_app_settings();
 
 			$license_key = trim( rgar( $settings, 'license_key' ) );
+
+			$beta = rgar( $settings, 'enable_pre_release' ) ? true : false;
 		}
 
 		new Gravity_Flow_EDD_SL_Plugin_Updater( GRAVITY_FLOW_EDD_STORE_URL, __FILE__, array(
@@ -203,6 +206,7 @@ function gravityflow_action_init() {
 			'license' => $license_key,
 			'item_id' => GRAVITY_FLOW_EDD_ITEM_ID,
 			'author'  => 'Steven Henty',
+			'beta'    => $beta,
 		) );
 
 		if ( isset( $_GET['page'] ) && $_GET['page'] == 'gravityflow-installation') {

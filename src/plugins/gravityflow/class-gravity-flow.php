@@ -239,11 +239,8 @@ if ( class_exists( 'GFForms' ) ) {
 			add_filter( 'add_menu_classes', array( $this, 'show_inbox_count' ), 10 );
 			add_filter( 'gform_form_settings_menu', array( $this, 'filter_extension_form_settings_menu' ), 20, 1 );
 
-			// GravityView Integration.
-			add_filter( 'gravityview/adv_filter/field_filters', array( $this, 'filter_gravityview_adv_filter_field_filters' ), 10, 2 );
-			add_filter( 'gravityview_search_criteria', array( $this, 'filter_gravityview_search_criteria' ), 999, 3 ); // Advanced Filter v1.0
-			add_filter( 'gravityview/adv_filter/filters', array( $this, 'filter_gravityview_adv_filter_filters' ), 999, 2 ); // Advanced Filter v2.0
-			add_filter( 'gravityview/common/get_entry/check_entry_display', array( $this, 'filter_gravityview_common_get_entry_check_entry_display' ), 999, 2 );
+			// Integrations - GravityView.
+			require_once dirname( __FILE__ ) . '/includes/integrations/gravityview-hooks.php';
 		}
 
 		/**
@@ -850,7 +847,7 @@ PRIMARY KEY  (id)
 					$nonce = wp_create_nonce( 'wp_rest' );
 
 					// Enqueue new theme CSS and JS bundles
-					wp_enqueue_style( self::THEME_CSS,  $this->get_base_url() . "/css/theme{$this->min()}.css", null, $this->_version );
+					wp_enqueue_style( self::THEME_CSS, $this->get_base_url() . "/css/theme{$this->min()}.css", null, $this->_version );
 					wp_enqueue_script( self::VENDOR_JS_THEME, $this->get_base_url() . "/js/vendor-theme{$this->min()}.js", array(), $this->_version, true );
 					wp_enqueue_script( self::THEME_JS, $this->get_base_url() . "/js/scripts-theme{$this->min()}.js", array( self::VENDOR_JS_THEME ), $this->_version, true );
 
@@ -861,15 +858,13 @@ PRIMARY KEY  (id)
 					wp_enqueue_script( 'gravityflow_frontend', $this->get_base_url() . "/js/frontend{$this->min()}.js",  array(), $this->_version );
 					wp_enqueue_script( 'gravityflow_inbox', $this->get_base_url() . "/js/inbox{$this->min()}.js",  array(), $this->_version );
 
-					wp_enqueue_style( 'gform_admin',  GFCommon::get_base_url() . "/css/admin{$this->min()}.css", null, $this->_version );
-					wp_enqueue_style( 'gform_font_awesome',  GFCommon::get_base_url() . "/css/font-awesome{$this->min()}.css", null, $this->_version );
-					wp_enqueue_style( 'gravityflow_entry_detail',  $this->get_base_url() . "/css/entry-detail{$this->min()}.css", null, $this->_version );
+					wp_enqueue_style( 'gform_admin', GFCommon::get_base_url() . "/css/admin{$this->min()}.css", null, $this->_version );
+					wp_enqueue_style( 'gform_font_awesome', GFCommon::get_base_url() . "/css/font-awesome{$this->min()}.css", null, $this->_version );
+					wp_enqueue_style( 'gravityflow_entry_detail', $this->get_base_url() . "/css/entry-detail{$this->min()}.css", null, $this->_version );
 					wp_enqueue_style( 'gravityflow_frontend_css', $this->get_base_url() . "/css/frontend{$this->min()}.css", null, $this->_version );
 					wp_enqueue_style( 'gravityflow_status', $this->get_base_url() . "/css/status{$this->min()}.css", null, $this->_version );
 					wp_localize_script( 'gravityflow_status_list', 'gravityflow_status_list_strings', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 					wp_localize_script( 'gravityflow_inbox', 'gravityflow_inbox_strings', array( 'restUrl' => esc_url_raw( rest_url() ), 'nonce' => $nonce ) );
-
-
 
 					/**
 					 * Allows additional scripts to be enqueued when the gravityflow shortcode is present on the page.
@@ -1122,6 +1117,16 @@ PRIMARY KEY  (id)
 						),
 					)
 				),
+				array(
+					'handle'  => 'gravityflow_reports',
+					'src'     => $this->get_base_url() . "/css/reports{$this->min()}.css",
+					'version' => $this->_version,
+					'enqueue' => array(
+						array(
+							'query'      => 'page=gravityflow-reports',
+						),
+					)
+				),				
 				array(
 					'handle'  => 'gravityflow_activity',
 					'src'     => $this->get_base_url() . "/css/activity{$this->min()}.css",
@@ -3562,7 +3567,7 @@ PRIMARY KEY  (id)
 
 			$settings_prefix = version_compare( GFForms::$version, '2.5-dev-1', '<' ) ? 'gaddon' : 'gform';
 
-			$id = isset( $field['id'] ) ?  $field['id'] : 'gform_user_routing_setting_' . $name;
+			$id = ! empty( $field['id'] ) ?  $field['id'] : 'gform_user_routing_setting_' . $name;
 
 			$html  = '<div class="gravityflow-user-routing" id="' . $id . '" data-field_name="_' . $settings_prefix . '_setting_' . $name . 'user_routing" data-field_id="' . $name . '" ></div>';
 			$html .= ( $name === 'workflow_notification_routing' ) ? '' : rgar( $field, 'description' );
@@ -5013,14 +5018,15 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 						array(
 							'name'          => 'background_updates',
 							'label'         => esc_html__( 'Automatic Updates', 'gravityflow' ),
-							'tooltip' => __( 'Set this to ON to allow WordPress to download and install Gravity Flow bug fixes and security updates automatically in the background. Requires a valid license key.' , 'gravityflow' ),
-							'type'          => 'radio',
-							'horizontal' => true,
-							'default_value' => false,
-							'choices' => array(
-								array( 'label' => __( 'On', 'gravityflow' ), 'value' => true ),
-								array( 'label' => __( 'Off', 'gravityflow' ), 'value' => false ),
-							),
+							'tooltip'       => esc_html__( 'Set this to ON to allow WordPress to download and install Gravity Flow bug fixes and security updates automatically in the background. Requires a valid license key.' , 'gravityflow' ),
+							'type'          => 'toggle',
+						),
+						array(
+							'name'          => 'enable_pre_release',
+							'label'         => esc_html__( 'Pre-Release Versions', 'gravityflow' ),
+							'type'          => 'toggle',
+							'toggle_label'  => esc_html__( 'Get updates to pre-release versions of Gravity Flow', 'gravityflow' ),
+							'tooltip'       => esc_html__( 'Set this option to update this site to pre-release versions of Gravity Flow including betas and release candidates' , 'gravityflow' ),
 						),
 					),
 				);
@@ -5108,6 +5114,21 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 					),
 				),
 			);
+
+			if ( class_exists( 'GravityView_Field' ) ) {
+				$settings['fields'][] = array(
+					'name'  => 'gravityview',
+					'label' => esc_html__( 'GravityView Integration', 'gravityflow' ),
+					'type'        => 'checkbox',
+					'choices'     => array(
+						array(
+							'label'   => esc_html__( 'Editing an entry in GravityView will complete a User Input Step when the user is an assignee.', 'gravityflow' ),
+							'name'    => 'gravityview_allow_edit_user_input',
+							'tooltip' => esc_html__( 'This setting will not prevent editing in GravityView if the workflow is not on a User Input step.', 'gravityflow' ),
+						),
+					),
+				);
+			}
 
 			return $settings;
 		}
@@ -5696,7 +5717,7 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 					$token = $this->decode_access_token();
 
 					if ( isset( $token['scopes']['action'] ) ) {
-						if ( $token['scopes']['action'] === 'cancel_workflow'  ) {
+						if ( $token['scopes']['action'] === 'cancel_workflow' ) {
 							$entry_id = rgars( $token, 'scopes/entry_id' );
 							if ( empty( $entry_id ) || $entry_id != $entry['id'] ) {
 								esc_html_e( 'Error: incorrect entry.', 'gravityflow' );
@@ -5705,7 +5726,13 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 							$api = new Gravity_Flow_API( $form_id );
 							$result = $api->cancel_workflow( $entry );
 							if ( $result ) {
-								$feedback = esc_html__( 'Workflow Cancelled', 'gravityflow' );
+								$complete_step = $this->get_workflow_complete_step( $form_id );
+								if ( $complete_step->cancellationEnable && strlen( $complete_step->cancellationValue ) ) {
+									$feedback = $complete_step->cancellationValue;
+								} else {
+									$feedback = esc_html__( 'Workflow Cancelled', 'gravityflow' );
+								}
+
 								/**
 								 * Allows the user feedback to be modified after cancelling the workflow with the cancel link.
 								 *
@@ -5727,6 +5754,7 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 						}
 
 						$feedback = $step->maybe_process_token_action( $token['scopes']['action'], $token, $form, $entry );
+
 						if ( empty( $feedback ) ) {
 							esc_html_e( 'Error: This URL is no longer valid.', 'gravityflow' );
 							return;
@@ -5782,8 +5810,8 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 
 					$next_step = $this->get_current_step( $form, $entry );
 					$current_user_assignee_key = $this->get_current_user_assignee_key();
-					if ( ( $next_step && $next_step->is_assignee( $current_user_assignee_key ) ) || $args['check_permissions'] == false || $this->current_user_can_any( 'gravityflow_status_view_all' ) ) {
-						$step = $next_step;
+					if ( $next_step && ( $next_step->is_assignee( $current_user_assignee_key ) || $args['check_permissions'] == false || $this->current_user_can_any( 'gravityflow_status_view_all' ) ) ) {
+						$step = $next_step->get_current_assignee_status() == 'complete' ? false : $next_step;
 					} else {
 						$step = false;
 						$args['display_instructions'] = false;
@@ -9062,182 +9090,13 @@ AND m.meta_value='queued'";
 				'workflow_approve_link'  => esc_html__( 'Approve Link', 'gravityflow' ),
 				'workflow_approve_url'   => esc_html__( 'Approve URL', 'gravityflow' ),
 				'workflow_approve_token' => esc_html__( 'Approve Token', 'gravityflow' ),
+				'workflow_revert_link'   => esc_html__( 'Revert Link', 'gravityflow' ),
+				'workflow_revert_url'    => esc_html__( 'Revert URL', 'gravityflow' ),
+				'workflow_revert_token'  => esc_html__( 'Revert Token', 'gravityflow' ),
 				'workflow_reject_link'   => esc_html__( 'Reject Link', 'gravityflow' ),
 				'workflow_reject_url'    => esc_html__( 'Reject URL', 'gravityflow' ),
 				'workflow_reject_token'  => esc_html__( 'Reject Token', 'gravityflow' ),
 			);
-		}
-
-		/**
-		 * Target for the gravityview_adv_filter_field_filters filter.
-		 *
-		 * Adds the Gravity Flow assignees as field filters.
-		 *
-		 * @since 1.5.1-dev
-		 *
-		 * @param array $field_filters The field filters used by GravityView.
-		 * @param int   $post_id       The post ID.
-		 *
-		 * @return array
-		 */
-		public function filter_gravityview_adv_filter_field_filters( $field_filters, $post_id ) {
-			$form_id = gravityview_get_form_id( $post_id );
-
-			$steps = $this->get_steps( $form_id );
-
-			$workflow_assignees = array();
-
-			foreach ( $steps as $step ) {
-				if ( empty( $step ) || ! $step->is_active() ) {
-					continue;
-				}
-
-				$step_assignees = $step->get_assignees();
-
-				$step_assignee_choices = array();
-
-				foreach ( $step_assignees as $assignee ) {
-					$step_assignee_choices[] = array(
-						'value' => $assignee->get_key(),
-						'text'  => $assignee->get_display_name(),
-					);
-				}
-
-				$workflow_assignees = array_merge( $workflow_assignees, $step_assignee_choices );
-			}
-			// Remove duplicate assignees.
-			$workflow_assignees = array_map( 'unserialize', array_unique( array_map( 'serialize', $workflow_assignees ) ) );
-			$workflow_assignees = array_values( $workflow_assignees );
-
-			$workflow_assignees[] = array(
-				'value' => 'current_user',
-				'text'  => esc_html__( 'Current User', 'gravityflow' ),
-			);
-
-			$filter                    = array();
-			$filter['key']             = 'workflow_assignee';
-			$filter['preventMultiple'] = false;
-			$filter['text']            = esc_html__( 'Workflow Assignee', 'gravityflow' );
-			$filter['operators']       = array( 'is' );
-			$filter['values']          = $workflow_assignees;
-			$field_filters[]           = $filter;
-
-			return $field_filters;
-		}
-
-		/**
-		 * Target for the gravityview_search_criteria filter.
-		 *
-		 * @since 1.5.1-dev
-		 *
-		 * @param array $search_criteria Search criteria used by GravityView.
-		 * @param array $form_ids        Forms to search.
-		 * @param int   $view_id         ID of the view being used to search.
-		 *
-		 * @return array
-		 */
-		public function filter_gravityview_search_criteria( $search_criteria, $form_ids, $view_id ) {
-			if ( isset( $search_criteria['search_criteria']['field_filters'] ) && is_array( $search_criteria['search_criteria']['field_filters'] ) ) {
-				$field_filters = $search_criteria['search_criteria']['field_filters'];
-				foreach ( $field_filters as &$field_filter ) {
-					if ( is_array( $field_filter ) && isset( $field_filter['key'] ) && $field_filter['key'] == 'workflow_assignee' ) {
-						$assignee_key          = $field_filter['value'] == 'current_user' ? gravity_flow()->get_current_user_assignee_key() : $field_filter['value'];
-						$field_filter['key']   = 'workflow_' . str_replace( '|', '_', $assignee_key );
-						$field_filter['value'] = 'pending';
-					}
-				}
-				$search_criteria['search_criteria']['field_filters'] = $field_filters;
-			}
-
-			return $search_criteria;
-		}
-
-		/**
-		 * Target for the `gravityview/adv_filter/filters` filter.
-		 *
-		 * @since 2.5.11
-		 *
-		 * @param array|null $filters Search filters used by GravityView.
-		 * @param \GV\View   $view    GravityView View object.
-		 *
-		 * @return array
-		 */
-		public function filter_gravityview_adv_filter_filters( $filters, $view ) {
-
-			$modify_filter_conditions = function ( &$filters ) use ( &$modify_filter_conditions ) {
-
-				foreach ( $filters['conditions'] as &$filter_condition ) {
-					if ( ! empty( $filter_condition['conditions'] ) ) {
-						$modify_filter_conditions( $filter_condition );
-					}
-
-					if ( ! empty( $filter_condition['key'] ) && ! empty( $filter_condition['value'] ) && 'workflow_assignee' === $filter_condition['key'] ) {
-						$assignee_key              = ( 'current_user' === $filter_condition['value'] ) ? gravity_flow()->get_current_user_assignee_key() : $filter_condition['value'];
-						$filter_condition['key']   = 'workflow_' . str_replace( '|', '_', $assignee_key );
-						$filter_condition['value'] = 'pending';
-					}
-				}
-
-				return $filters;
-			};
-
-			return ! empty( $filters['conditions'] ) ? $modify_filter_conditions( $filters ) : $filters;
-		}
-
-		/**
-		 * Target for the gravityview/common/get_entry/check_entry_display filter.
-		 *
-		 * Performs the permission check if a Gravity Flow assignee key is specified in the criteria.
-		 *
-		 * @since 1.5.1-dev
-		 *
-		 * @param bool  $check_entry_display Check whether the entry is visible for the current View configuration. Default: true.
-		 * @param array $entry               The current entry.
-		 *
-		 * @return bool
-		 */
-		public function filter_gravityview_common_get_entry_check_entry_display( $check_entry_display, $entry ) {
-
-			global $_fields;
-
-			$criteria = GVCommon::calculate_get_entries_criteria();
-
-			$keys = array();
-
-			// Add the workflow assignee entry meta to the entry.
-			// This is necessary because assignee meta keys are not registered so they're not added automatically to the entry.
-			if ( isset( $criteria['search_criteria']['field_filters'] ) && is_array( $criteria['search_criteria']['field_filters'] ) ) {
-				foreach ( $criteria['search_criteria']['field_filters'] as $filter ) {
-					if ( is_array( $filter ) && strpos( $filter['key'], 'workflow_' ) !== false && ! isset( $entry[ $filter['key'] ] ) ) {
-						$meta_value              = gform_get_meta( $entry['id'], $filter['key'] );
-						$entry[ $filter['key'] ] = $meta_value;
-						$keys[]                  = $filter['key'];
-					}
-				}
-			}
-
-			if ( empty( $keys ) ) {
-				return $check_entry_display;
-			}
-
-			$form_id = $entry['form_id'];
-			// Hack to ensure that the meta values for assignees are returned when rule matching in GVCommon::check_entry_display().
-			foreach ( $keys as $key ) {
-				$_fields[ $form_id . '_' . $key ] = array( 'id' => $key );
-			}
-
-			$entry = GVCommon::check_entry_display( $entry );
-
-			// Clean up the hack.
-			foreach ( $keys as $key ) {
-				unset( $_fields[ $form_id . '_' . $key ] );
-			}
-
-			// GVCommon::check_entry_display() returns the entry if permission is granted otherwise false or maybe a WP_Error instance.
-			// If permission is granted then we can tell GravityView not to check permissions again.
-			$check_entry_display = ! $entry || is_wp_error( $entry );
-
-			return $check_entry_display;
 		}
 
 		/**
@@ -9553,6 +9412,13 @@ AND m.meta_value='queued'";
 
 				GFCommon::display_dismissible_message( $notices );
 			}
+
+			// Deprecation warning for Gravity Forms < 2.5.
+			// To have it only apply on Settings > Workflow - Add  && rgget( 'view' ) == 'settings' && rgget( 'subview' ) == 'gravityflow'
+			if ( ! $this->is_gravityforms_supported( '2.5-beta' ) && rgget( 'page' ) == 'gf_edit_forms' ) {
+				echo sprintf('<div class="gf-notice notice notice-error"><p>%s</p></div>', __( 'This site is running a version of Gravity Forms that is not supported by Gravity Flow. Please upgrade to Gravity Forms 2.5 or later.', 'gravityflow' ) );
+			}
+
 		}
 
 		/**

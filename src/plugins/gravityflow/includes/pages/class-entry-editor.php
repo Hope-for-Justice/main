@@ -297,6 +297,10 @@ class Gravity_Flow_Entry_Editor {
 				$field->gravityflow_is_display_field = $this->is_display_field( $field, true );
 			}
 
+			if ( $field->type == 'html' && $field->conditionalLogic != null ) {
+				$field->gravityflow_is_display_field = true;
+			}
+
 			if ( ! $dynamic_conditional_logic_enabled || ! ( $field->gravityflow_is_editable || $field->gravityflow_is_display_field ) ) {
 				// Clear the field conditional logic properties as conditional logic is not enabled for the step or the field is not for display or editable.
 				$field->conditionalLogicFields = null;
@@ -414,7 +418,7 @@ class Gravity_Flow_Entry_Editor {
 	 * @return bool
 	 */
 	public function can_remove_field( $field ) {
-		$can_remove_field = ! ( $this->is_editable_field( $field ) || $this->is_display_field( $field ) || $this->is_dependency( $field ) || $this->is_pricing_field_required( $field ) ) && empty( $field->conditionalLogicFields );
+		$can_remove_field = ! ( $this->is_editable_field( $field ) || $this->is_display_field( $field ) || $this->is_dependency( $field ) || $this->is_pricing_field_required( $field ) || $field->type == 'html' ) && empty( $field->conditionalLogicFields );
 
 		return $can_remove_field;
 	}
@@ -834,7 +838,11 @@ class Gravity_Flow_Entry_Editor {
 		}
 
 		if ( $this->is_hidden_field( $field ) ) {
-			$content         = sprintf( '<div style="display:none;">%s</div>', $this->_non_editable_field_content[ $field->id ] );
+			if ( $field->type == 'html' ) {
+				$content = sprintf( '<div>%s</div>', $this->_non_editable_field_content[ $field->id ] );
+			} else {
+				$content = sprintf( '<div style="display:none;">%s</div>', $this->_non_editable_field_content[ $field->id ] );
+			}
 			$field_container = str_replace( '{FIELD_CONTENT}', $content, $field_container );
 		}
 

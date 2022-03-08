@@ -72,9 +72,14 @@ class Gravity_Flow_Merge_Tag_Current_Step extends Gravity_Flow_Merge_Tag {
 				 *
 				 * @since 2.2.4-dev
 				 *
-				 * @param string $date_format A date format string - defaults to the WordPress settings.
+				 * @param string             $date_format 	A date format string - defaults to the WordPress settings.
+				 * @param Gravity_Flow_Step  $current_step 	The current step for this entry.
+				 * @param string             $property 		Modifier for the current step merge tag.
+				 * 
+				 * @return string
 				 */
-				$date_format = apply_filters( 'gravityflow_date_format_current_step_merge_tag', '' );
+				$date_format = apply_filters( 'gravityflow_date_format_current_step_merge_tag', '', $current_step, $property );
+				$include_time = empty( $date_format );
 
 				switch ( $property ) :
 					case 'due_date':
@@ -116,7 +121,7 @@ class Gravity_Flow_Merge_Tag_Current_Step extends Gravity_Flow_Merge_Tag {
 					case 'expiration':
 						$expiration_timestamp = $current_step->get_expiration_timestamp();
 						if ( false !== $expiration_timestamp ) {
-							$value = Gravity_Flow_Common::format_date( $expiration_timestamp, $date_format, false, true );
+							$value = Gravity_Flow_Common::format_date( $expiration_timestamp, $date_format, false, $include_time );
 						} else {
 							$value = '';
 						}
@@ -131,11 +136,11 @@ class Gravity_Flow_Merge_Tag_Current_Step extends Gravity_Flow_Merge_Tag {
 							$scheduled_timestamp = $current_step->get_schedule_timestamp();
 							switch ( $current_step->schedule_type ) {
 								case 'date':
-									$value = Gravity_Flow_Common::format_date( $current_step->schedule_date, $date_format, false, true );
+									$value = Gravity_Flow_Common::format_date( $current_step->schedule_date, $date_format, false, $include_time );
 									break;
 								case 'date_field':
 								case 'delay':
-									$value = Gravity_Flow_Common::format_date( $scheduled_timestamp, $date_format, false, true );
+									$value = Gravity_Flow_Common::format_date( $scheduled_timestamp, $date_format, false, $include_time );
 									break;
 							}
 						} else {
@@ -144,7 +149,7 @@ class Gravity_Flow_Merge_Tag_Current_Step extends Gravity_Flow_Merge_Tag {
 						break;
 
 					case 'start':
-						$value = Gravity_Flow_Common::format_date( $current_step->get_step_timestamp(), $date_format, false, true );
+						$value = Gravity_Flow_Common::format_date( $current_step->get_step_timestamp(), $date_format, false, $include_time );
 						break;
 
 					case 'type':

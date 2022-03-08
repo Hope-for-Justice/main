@@ -29,11 +29,11 @@ if ( ! class_exists( 'Give_Recurring_Subscription_Payment_Failed_Email' ) ) :
 	class Give_Recurring_Subscription_Payment_Failed_Email extends Give_Email_Notification {
 
 		/**
-		 * Create a class instance.
-		 *
-		 * @access public
-		 * @since  1.9.0
-		 */
+         * Create a class instance.
+         *
+         * @since  1.9.0
+         * @since 1.14.0 Allow email to edit in donation form.
+         */
 		public function init() {
 
 			$this->load(
@@ -42,7 +42,6 @@ if ( ! class_exists( 'Give_Recurring_Subscription_Payment_Failed_Email' ) ) :
 					'label'                        => __( 'Subscription Payment Failed Email', 'give-recurring' ),
 					'description'                  => __( 'Sent to designated recipient(s) when the renewal payments of the donor fails due to card declined or expired', 'give-recurring' ),
 					'recipient_group_name'         => __( 'Donor', 'give-recurring' ),
-					'form_metabox_setting'         => false,
 					'has_recipient_field'          => false,
 					'has_preview_header'           => true,
 					'notification_status'          => 'enabled',
@@ -104,9 +103,7 @@ if ( ! class_exists( 'Give_Recurring_Subscription_Payment_Failed_Email' ) ) :
 
 			array_splice( $settings_field, '-1', count( $settings_field ), $supported_gateways_field );
 
-			$settings_field = array_merge( $settings_field, $settings_field_end );
-
-			return $settings_field;
+            return array_merge($settings_field, $settings_field_end);
 		}
 
 		/**
@@ -155,7 +152,7 @@ if ( ! class_exists( 'Give_Recurring_Subscription_Payment_Failed_Email' ) ) :
 			$supported_gateways = give_get_option( "{$this->config['id']}_supported_gateways", $this->default_active_payment_gateways() );
 
 			if ( in_array( $subscription->gateway, $supported_gateways, true ) ) {
-				$this->setup_email_data();
+                $this->setup_email_data();
 
 				$this->recipient_email = Give()->payment_meta->get_meta( $subscription->parent_payment_id, '_give_payment_donor_email', true );
 

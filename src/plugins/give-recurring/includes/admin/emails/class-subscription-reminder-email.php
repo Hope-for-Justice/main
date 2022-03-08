@@ -38,49 +38,49 @@ class Give_Subscription_Reminder_Email extends Give_Email_Notification {
 
 
 	/**
-	 * Stores the value of the query param
-	 * 'notice_type'.
-	 *
-	 * Notice types can be 'renewal|expiration'.
-	 *
-	 * @since 1.7
-	 *
-	 * @var string|boolean
-	 */
+     * Stores the value of the query param
+     * 'notice_type'.
+     *
+     * Notice types can be 'renewal|expiration'.
+     *
+     * @since 1.7
+     *
+     * @var string|bool
+     */
 	private $notice_type;
 
 
-	/**
-	 * Stores the value of the query param
-	 * 'notice_action'.
-	 *
-	 * Notice actions can be 'add|edit|delete'.
-	 *
-	 * @since 1.7
-	 *
-	 * @var string|boolean
-	 */
+    /**
+     * Stores the value of the query param
+     * 'notice_action'.
+     *
+     * Notice actions can be 'add|edit|delete'.
+     *
+     * @since 1.7
+     *
+     * @var string|bool
+     */
 	private $notice_action;
 
 
-	/**
-	 * Stores the value of the query param
-	 * 'notice_id'.
-	 *
-	 * @since 1.7
-	 *
-	 * @var string|boolean
-	 */
+    /**
+     * Stores the value of the query param
+     * 'notice_id'.
+     *
+     * @since 1.7
+     *
+     * @var string|bool
+     */
 	private $notice_id;
 
 
-	/**
-	 * Stores the number of notices.
-	 *
-	 * @since 1.7
-	 *
-	 * @var integer
-	 */
+    /**
+     * Stores the number of notices.
+     *
+     * @since 1.7
+     *
+     * @var int
+     */
 	private $notice_count;
 
 
@@ -340,22 +340,28 @@ class Give_Subscription_Reminder_Email extends Give_Email_Notification {
 			$this->verify_action_nonce( 'add' );
 		}
 
-		if ( 'renewal' === $this->notice_type ) {
-			$fields = array(
-				'default_email_header'  => esc_html__( 'Subscription Reminder', 'give-recurring' ),
-				'default_email_subject' => __( 'Subscription Renewal Reminder', 'give-recurring' ),
-				'default_email_message' => __( 'Dear', 'give-recurring' ) . " {name},\n\n" . __( "Your subscription's renewal date is approaching. Here are the subscription details for your records:\n\n<strong>Subscription:</strong> {donation} - {amount}\n<strong>Subscription Frequency:</strong> {subscription_frequency} \n<strong>Completed Donations:</strong> {subscriptions_completed} \n<strong>Payment Method:</strong> {payment_method}\n\nSincerely,\n{sitename}", 'give-recurring' ),
-			);
-		} else if ( 'expiration' === $this->notice_type ) {
-			$fields = array(
-				'default_email_header'  => esc_html__( 'Subscription Reminder', 'give-recurring' ),
-				'default_email_subject' => __( 'Subscription Expiration reminder', 'give-recurring' ),
-				'default_email_message' => __( 'Dear', 'give-recurring' ) . " {name},\n\n" . __( "Your subscription's expiration date is approaching. Here are the subscription details for your records:\n\n<strong>Subscription:</strong> {donation} - {amount}\n<strong>Subscription Frequency:</strong> {subscription_frequency} \n<strong>Completed Donations:</strong> {subscriptions_completed} \n<strong>Payment Method:</strong> {payment_method}\n\nSincerely,\n{sitename}", 'give-recurring' ),
-			);
-		}
+        if ( 'renewal' === $this->notice_type ) {
+            $fields = [
+                'default_email_header'  => esc_html__('Subscription Reminder', 'give-recurring'),
+                'default_email_subject' => __('Subscription Renewal Reminder', 'give-recurring'),
+                'default_email_message' => __('Dear', 'give-recurring') . " {name},\n\n" . __(
+                        "Your subscription's renewal date is approaching. Here are the subscription details for your records:\n\n<strong>Subscription:</strong> {donation} - {amount}\n<strong>Subscription Frequency:</strong> {subscription_frequency} \n<strong>Completed Donations:</strong> {subscriptions_completed} \n<strong>Payment Method:</strong> {payment_method}\n\nSincerely,\n{sitename}",
+                        'give-recurring'
+                    ),
+            ];
+        } elseif ( 'expiration' === $this->notice_type ) {
+            $fields = [
+                'default_email_header'  => esc_html__('Subscription Reminder', 'give-recurring'),
+                'default_email_subject' => __('Subscription Expiration reminder', 'give-recurring'),
+                'default_email_message' => __('Dear', 'give-recurring') . " {name},\n\n" . __(
+                        "Your subscription's expiration date is approaching. Here are the subscription details for your records:\n\n<strong>Subscription:</strong> {donation} - {amount}\n<strong>Subscription Frequency:</strong> {subscription_frequency} \n<strong>Completed Donations:</strong> {subscriptions_completed} \n<strong>Payment Method:</strong> {payment_method}\n\nSincerely,\n{sitename}",
+                        'give-recurring'
+                    ),
+            ];
+        }
 
 
-		// Load already saved setting if any.
+        // Load already saved setting if any.
 		if ( $this->is_notice_action( 'edit' ) ) {
 			$stored_notices = get_option( 'give_recurring_reminder_notices', array() );
 			$notice_id      = $this->get_notice_id();
@@ -494,26 +500,26 @@ class Give_Subscription_Reminder_Email extends Give_Email_Notification {
 
 	/**
 	 * This function is a utility function. It checks if
-	 * you're on the 'emails' tab and the 'subscription-reminder'
-	 * section.
-	 *
-	 * @since 1.7
-	 *
-	 * @return boolean 'true' if the conditions are met, 'false' otherwise.
-	 */
-	public function is_renewal_settings() {
+     * you're on the 'emails' tab and the 'subscription-reminder'
+     * section.
+     *
+     * @since 1.7
+     *
+     * @return bool 'true' if the conditions are met, 'false' otherwise.
+     */
+    public function is_renewal_settings() {
 		return Give_Admin_Settings::is_setting_page( 'emails', 'subscription-reminder' );
 	}
 
 
 	/**
 	 * Get value of the 'notice_action' query param.
-	 *
-	 * @since 1.7
-	 *
-	 * @return boolean|string 'false' if 'notice_action', value of 'notice_action' if true.
-	 */
-	public function get_notice_action() {
+     *
+     * @since 1.7
+     *
+     * @return bool|string 'false' if 'notice_action', value of 'notice_action' if true.
+     */
+    public function get_notice_action() {
 
 		if ( isset( $_GET['notice_action'] ) ) {
 			return give_clean( $_GET['notice_action'] );
@@ -525,12 +531,12 @@ class Give_Subscription_Reminder_Email extends Give_Email_Notification {
 
 	/**
 	 * Get value of the 'notice_type' query param.
-	 *
-	 * @since 1.7
-	 *
-	 * @return boolean|string 'false' if 'notice_type', value of 'notice_type' if true.
-	 */
-	public function get_notice_type() {
+     *
+     * @since 1.7
+     *
+     * @return bool|string 'false' if 'notice_type', value of 'notice_type' if true.
+     */
+    public function get_notice_type() {
 
 		if ( isset( $_GET['notice_type'] ) ) {
 			return give_clean( $_GET['notice_type'] );
@@ -542,12 +548,12 @@ class Give_Subscription_Reminder_Email extends Give_Email_Notification {
 
 	/**
 	 * Get value of the 'notice_id' query param.
-	 *
-	 * @since 1.7
-	 *
-	 * @return boolean|string 'false' if 'notice_id', value of 'notice_id' if true.
-	 */
-	public function get_notice_id() {
+     *
+     * @since 1.7
+     *
+     * @return bool|string 'false' if 'notice_id', value of 'notice_id' if true.
+     */
+    public function get_notice_id() {
 
 		if ( isset( $_GET['notice_id'] ) ) {
 			return give_clean( $_GET['notice_id'] );
@@ -836,16 +842,16 @@ class Give_Subscription_Reminder_Email extends Give_Email_Notification {
 
 	/**
 	 * Returns with the list of payment gateways indicating which
-	 * gateways are in the excluded list.
-	 *
-	 * @param integer $notice_id      ID of the email notice.
-	 * @param array   $stored_notices Array of all the notices.
-	 *
-	 * @since 1.7
-	 *
-	 * @return string
-	 */
-	public function get_gateway_info( $notice_id, $stored_notices ) {
+     * gateways are in the excluded list.
+     *
+     * @param int $notice_id ID of the email notice.
+     * @param array $stored_notices Array of all the notices.
+     *
+     * @since 1.7
+     *
+     * @return string
+     */
+    public function get_gateway_info( $notice_id, $stored_notices ) {
 
 		// Get all the gateways.
 		$all_gateways = $this->get_payment_gateways();
@@ -874,10 +880,10 @@ class Give_Subscription_Reminder_Email extends Give_Email_Notification {
 		 * If no gateways are added to the exclude gateways list.
 		 */
 		if ( empty( $excluded_gateway_labels ) ) {
-			return sprintf( esc_html__( 'All', 'give-recurring' ) );
-		}
+			return esc_html__('All', 'give-recurring');
+        }
 
-		/**
+        /**
 		 * Message if the excluded gateway count is less than or equal to
 		 * the count of all gateways.
 		 */
@@ -937,14 +943,14 @@ class Give_Subscription_Reminder_Email extends Give_Email_Notification {
 
 	/**
 	 * When adding or editing a Renewal|Expiration reminder,
-	 * the default save button is disabled since we use our
-	 * own custom save button and custom save logic.
-	 *
-	 * @since 1.7
-	 *
-	 * @return boolean
-	 */
-	public function disable_settings_save_button() {
+     * the default save button is disabled since we use our
+     * own custom save button and custom save logic.
+     *
+     * @since 1.7
+     *
+     * @return bool
+     */
+    public function disable_settings_save_button() {
 		if ( $this->is_renewal_settings() && isset( $_GET['notice_type'] ) ) {
 			return true;
 		}
@@ -1010,16 +1016,14 @@ class Give_Subscription_Reminder_Email extends Give_Email_Notification {
 	 * 'Add|Edit Renewal|Expiration Reminder' button.
 	 *
 	 * @since 1.7
-	 *
-	 * @return boolean Returns false if $_POST is empty.
 	 */
 	public function custom_save_logic() {
 
 		if ( empty( $_POST ) ) {
-			return false;
-		}
+			return;
+        }
 
-		$action = $this->get_notice_action();
+        $action = $this->get_notice_action();
 
 		if ( false !== $action && isset( $_POST['custom-save-button'] ) ) {
 

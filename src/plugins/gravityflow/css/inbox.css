@@ -133,3 +133,7 @@ table#gravityflow-inbox td[data-label="ID"] {
 .gravityflow-actions-note-field-container textarea {
     width:200px;
 }
+
+a.gform-icon--circle-arrow-down, a.gform-icon--circle-delete {
+    font-family: "gform-icons-admin" !important;
+}

@@ -26,6 +26,15 @@ class GF_Stripe_API {
 	protected $api_version;
 
 	/**
+	 * Stripe API Client.
+	 *
+	 * @since 4.2
+	 *
+	 * @var \Stripe\StripeClient  $stripe_client Stripe API Client
+	 */
+	protected $stripe_client;
+
+	/**
 	 * Initialize Stripe API library.
 	 *
 	 * @since  3.4
@@ -43,9 +52,9 @@ class GF_Stripe_API {
 		}
 
 		require_once 'deprecated.php';
-
+		$this->stripe_client = new \Stripe\StripeClient( $api_key );
 		// Set Stripe API key.
-		\Stripe\Stripe::setApiKey( $api_key );
+		Stripe\Stripe::setApiKey( $api_key );
 		// Set API version.
 		\Stripe\Stripe::setApiVersion( $this->api_version );
 
@@ -65,10 +74,8 @@ class GF_Stripe_API {
 	 */
 	public function get_account() {
 		try {
-
 			// Attempt to retrieve account details.
-			return \Stripe\Account::retrieve();
-
+			return $this->stripe_client->accounts->retrieve();
 		} catch ( \Exception $e ) {
 
 			// Log that key validation failed.
@@ -89,7 +96,7 @@ class GF_Stripe_API {
 	 */
 	public function create_charge( $charge_meta ) {
 		try {
-			return \Stripe\Charge::create( $charge_meta );
+			return $this->stripe_client->charges->create( $charge_meta );
 		} catch ( \Exception $e ) {
 
 			return $this->get_error( $e );
@@ -107,7 +114,7 @@ class GF_Stripe_API {
 	 */
 	public function get_charge( $transaction_id ) {
 		try {
-			return \Stripe\Charge::retrieve( $transaction_id );
+			return $this->stripe_client->charges->retrieve( $transaction_id );
 		} catch ( \Exception $e ) {
 
 			return $this->get_error( $e );
@@ -125,7 +132,7 @@ class GF_Stripe_API {
 	 */
 	public function save_charge( $charge ) {
 		try {
-			return $charge->save();
+			return $this->stripe_client->charges->update( $charge->id, $charge->serializeParameters() );
 		} catch ( \Exception $e ) {
 
 			return $this->get_error( $e );
@@ -143,7 +150,7 @@ class GF_Stripe_API {
 	 */
 	public function capture_charge( $charge ) {
 		try {
-			return $charge->capture();
+			return $this->stripe_client->charges->capture( $charge->id, $charge->serializeParameters() );
 		} catch ( \Exception $e ) {
 
 			return $this->get_error( $e );
@@ -161,9 +168,8 @@ class GF_Stripe_API {
 	 */
 	public function create_plan( $plan_meta ) {
 		try {
-			return \Stripe\Plan::create( $plan_meta );
+			return $this->stripe_client->plans->create( $plan_meta );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -179,7 +185,7 @@ class GF_Stripe_API {
 	 */
 	public function get_plan( $id ) {
 		try {
-			return \Stripe\Plan::retrieve( array( 'id' => $id, 'expand' => array( 'product' ) ) );
+			return $this->stripe_client->plans->retrieve( $id, array( 'expand' => array( 'product' ) ) );
 		} catch ( \Exception $e ) {
 			/**
 			 * There is no error type specific to failing to retrieve a subscription when an invalid plan ID is passed. We assume here
@@ -201,6 +207,23 @@ class GF_Stripe_API {
 	}
 
 	/**
+	 * Get the Stripe Product.
+	 *
+	 * @since 4.2
+	 *
+	 * @param string $id The Stripe Product ID.
+	 *
+	 * @return bool|\Stripe\Product|WP_Error
+	 */
+	public function get_product( $id ) {
+		try {
+			return $this->stripe_client->products->retrieve( $id );
+		} catch ( \Exception $e ) {
+			return $this->get_error( $e );
+		}
+	}
+
+	/**
 	 * Create the Stripe Customer.
 	 *
 	 * @since 3.4
@@ -211,9 +234,8 @@ class GF_Stripe_API {
 	 */
 	public function create_customer( $customer_meta ) {
 		try {
-			return \Stripe\Customer::create( $customer_meta );
+			return $this->stripe_client->customers->create( $customer_meta );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -229,9 +251,8 @@ class GF_Stripe_API {
 	 */
 	public function get_customer( $id ) {
 		try {
-			return \Stripe\Customer::retrieve( $id );
+			return $this->stripe_client->customers->retrieve( $id );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -247,9 +268,8 @@ class GF_Stripe_API {
 	 */
 	public function save_customer( $customer ) {
 		try {
-			return $customer->save();
+			return $this->stripe_client->customers->update( $customer->id, $customer->serializeParameters() );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -266,9 +286,8 @@ class GF_Stripe_API {
 	 */
 	public function update_customer( $id, $meta ) {
 		try {
-			return \Stripe\Customer::update( $id, $meta );
+			return $this->stripe_client->customers->update( $id, $meta );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -284,9 +303,8 @@ class GF_Stripe_API {
 	 */
 	public function create_payment_intent( $data ) {
 		try {
-			return \Stripe\PaymentIntent::create( $data );
+			return $this->stripe_client->paymentIntents->create( $data );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -302,11 +320,8 @@ class GF_Stripe_API {
 	 */
 	public function get_payment_intent( $id ) {
 		try {
-
-			return \Stripe\PaymentIntent::retrieve( $id );
-
+			return $this->stripe_client->paymentIntents->retrieve( $id );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -323,9 +338,8 @@ class GF_Stripe_API {
 	 */
 	public function update_payment_intent( $id, $data ) {
 		try {
-			return \Stripe\PaymentIntent::update( $id, $data );
+			return $this->stripe_client->paymentIntents->update( $id, $data );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -341,9 +355,8 @@ class GF_Stripe_API {
 	 */
 	public function confirm_payment_intent( $intent ) {
 		try {
-			return $intent->confirm();
+			return $this->stripe_client->paymentIntents->confirm( $intent->id, $intent->serializeParameters() );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -359,9 +372,8 @@ class GF_Stripe_API {
 	 */
 	public function save_payment_intent( $intent ) {
 		try {
-			return $intent->save();
+			return $this->stripe_client->paymentIntents->update( $intent->id, $intent->serializeParameters() );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -377,9 +389,32 @@ class GF_Stripe_API {
 	 */
 	public function capture_payment_intent( $intent ) {
 		try {
-			return $intent->capture();
+			return $this->stripe_client->paymentIntents->capture( $intent->id, $intent->serializeParameters() );
 		} catch ( \Exception $e ) {
+			return $this->get_error( $e );
+		}
+	}
 
+	/**
+	 * Cancels the payment intent.
+	 *
+	 * @since 4.2
+	 *
+	 * @param string $id     The payment intent id.
+	 * @param string $reason The optional reason for cancelling. Possible values are duplicate, fraudulent, requested_by_customer, or abandoned.
+	 *
+	 * @return \Stripe\PaymentIntent|WP_Error Return WP_Error if exceptions thrown.
+	 */
+	public function cancel_payment_intent( $id, $reason = '' ) {
+		$params = array();
+
+		if ( ! empty( $reason ) ) {
+			$params['cancellation_reason'] = $reason;
+		}
+
+		try {
+			return $this->stripe_client->paymentIntents->cancel( $id, $params );
+		} catch ( \Exception $e ) {
 			return $this->get_error( $e );
 		}
 	}
@@ -395,9 +430,8 @@ class GF_Stripe_API {
 	 */
 	public function create_checkout_session( $data ) {
 		try {
-			return \Stripe\Checkout\Session::create( $data );
+			return $this->stripe_client->checkout->sessions->create( $data );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -413,9 +447,8 @@ class GF_Stripe_API {
 	 */
 	public function get_checkout_session( $id ) {
 		try {
-			return \Stripe\Checkout\Session::retrieve( $id );
+			return $this->stripe_client->checkout->sessions->retrieve( $id );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -431,9 +464,8 @@ class GF_Stripe_API {
 	 */
 	public function get_coupon( $coupon ) {
 		try {
-			return \Stripe\Coupon::retrieve( $coupon );
+			return $this->stripe_client->coupons->retrieve( $coupon );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -449,9 +481,8 @@ class GF_Stripe_API {
 	 */
 	public function create_subscription( $meta ) {
 		try {
-			return \Stripe\Subscription::create( $meta );
+			return $this->stripe_client->subscriptions->create( $meta );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -467,9 +498,8 @@ class GF_Stripe_API {
 	 */
 	public function get_subscription( $id ) {
 		try {
-			return \Stripe\Subscription::retrieve( $id );
+			return $this->stripe_client->subscriptions->retrieve( $id );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -486,9 +516,8 @@ class GF_Stripe_API {
 	 */
 	public function update_subscription( $id, $meta ) {
 		try {
-			return \Stripe\Subscription::update( $id, $meta );
+			return $this->stripe_client->subscriptions->update( $id, $meta );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -504,9 +533,8 @@ class GF_Stripe_API {
 	 */
 	public function save_subscription( $subscription ) {
 		try {
-			return $subscription->save();
+			return $this->stripe_client->subscriptions->update( $subscription->id, $subscription->serializeParameters() );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -522,9 +550,8 @@ class GF_Stripe_API {
 	 */
 	public function cancel_subscription( $subscription ) {
 		try {
-			return $subscription->cancel();
+			return $this->stripe_client->subscriptions->cancel( $subscription->id );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -540,9 +567,8 @@ class GF_Stripe_API {
 	 */
 	public function get_invoice( $id ) {
 		try {
-			return \Stripe\Invoice::retrieve( $id );
+			return $this->stripe_client->invoices->retrieve( $id );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -559,9 +585,8 @@ class GF_Stripe_API {
 	 */
 	public function pay_invoice( $invoice, $params = array() ) {
 		try {
-			return $invoice->pay( $params );
+			return $this->stripe_client->invoices->pay( $invoice->id, $params );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -577,9 +602,8 @@ class GF_Stripe_API {
 	 */
 	public function add_invoice_item( $params = array() ) {
 		try {
-			return \Stripe\InvoiceItem::create( $params );
+			return $this->stripe_client->invoiceItems->create( $params );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -595,9 +619,8 @@ class GF_Stripe_API {
 	 */
 	public function get_event( $id ) {
 		try {
-			return \Stripe\Event::retrieve( $id );
+			return $this->stripe_client->events->retrieve( $id );
 		} catch ( \Exception $e ) {
-
 			return $this->get_error( $e );
 		}
 	}
@@ -618,6 +641,55 @@ class GF_Stripe_API {
 			return \Stripe\Webhook::constructEvent( $body, $sig_header, $endpoint_secret );
 		} catch ( \Exception $e ) {
 
+			return $this->get_error( $e );
+		}
+	}
+
+
+	/**
+	 * Create a billing portal link for the provided customer id.
+	 *
+	 * @since 4.2
+	 *
+	 * @param string $customer_id The customer id.
+	 *
+	 * @return string|WP_Error
+	 */
+	public function get_billing_portal_link( $customer_id ) {
+		try {
+
+			$response = $this->stripe_client->billingPortal->sessions->create(
+				array(
+					'customer'   => $customer_id,
+					'return_url' => get_site_url(),
+				)
+			);
+
+			return $response->url;
+
+		} catch ( \Stripe\Exception\ApiErrorException $e ) {
+
+			return $this->get_error( $e );
+
+		}
+	}
+
+	/**
+	 * Refund a payment.
+	 *
+	 * @since 4.2
+	 *
+	 * @param string  $transaction_id The transaction ID to refund
+	 * @param boolean $payment_intent Whether the payment was created with the payment intents API (true) or charges API (false)
+	 *
+	 * @return \Stripe\Refund|WP_Error
+	 */
+	public function create_refund( $transaction_id, $payment_intent ) {
+		$key = $payment_intent ? 'payment_intent' : 'charge';
+
+		try {
+			return $this->stripe_client->refunds->create( [ $key => $transaction_id ] );
+		} catch ( \Exception $e ) {
 			return $this->get_error( $e );
 		}
 	}

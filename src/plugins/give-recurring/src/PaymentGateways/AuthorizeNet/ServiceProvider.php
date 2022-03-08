@@ -22,11 +22,12 @@ class ServiceProvider implements \Give\ServiceProviders\ServiceProvider
 
     /**
      * @inerhitDoc
+     * @unreleased Process one-time payment before subscription creates on payment gateway.
      */
     public function boot()
     {
         if (class_exists(CreditCardProcessor::class)) {
-            Hooks::addAction('give_recurring_post_create_payment_profiles', ProcessOneTimeDonation::class);
+            Hooks::addAction('give_recurring_pre_create_payment_profiles', ProcessOneTimeDonation::class);
 
             Hooks::addFilter(
                 'give_recurring_authorize_create_subscription_request_args',

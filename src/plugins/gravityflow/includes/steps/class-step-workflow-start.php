@@ -89,7 +89,7 @@ class Gravity_Flow_Step_Workflow_Start extends Gravity_Flow_Step {
 	public function get_settings() {
 
 		$settings = array(
-			'title'  => esc_html__( 'Start', 'grvityflow' ),
+			'title'  => esc_html__( 'Start', 'gravityflow' ),
 			'fields' => array(
 				array(
 					'name'     => 'instructions',

@@ -2,7 +2,7 @@
 Contributors: stevehenty
 Tags: workflow, approvals, gravity forms
 Requires at least: 5.2
-Tested up to: 5.8.1
+Tested up to: 5.8.3
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,45 @@ https://gravityflow.io/contact/
 Gravity Flow will work with any license of [Gravity Forms](https://gravityflow.io/out/gravityforms).
 
 == ChangeLog ==
+
+= 2.7.9 =
+- Added security enhancements.
+- Added 3 new merge tags to support reverting Approval steps to user input steps via email including one-click tokens - {workflow_revert_link} {workflow_revert_url} {workflow_revert_token}
+- Added settings for custom revert messages after an Approval step is reverted.
+- Added new step type; Update Post. Update posts which were created via the Create Post step or feed. Requires the Gravity Forms Advanced Post Creation Add-On v1.0.
+- Added the gravityflow_post_update_post filter for custom logic to perform after a post has been updated.
+- Added deprecated version warning for Gravity Forms less than version 2.5. Gravity Flow will soon require Gravity Forms 2.5+.
+- Updated the Revert to User Input step setting for new Approval steps to be off by default.
+- Updated the Post Creation step type to Create Post. It also now has a step specific icon.
+- Fixed an issue with Gravity PDF conditional logic not honored on the PDF sent with Workflow notifications.
+- Fixed an issue with entry details screen displaying instructions section markup when the step settings for instructions are empty.
+
+
+= 2.7.8 =
+- Added enhanced support for GravityView. Editing an entry in GravityView can complete a User Input Step when the user is an assignee. Enable via setting in Workflow > Settings > Advanced.
+- Added enhanced support for GravityView. List views can now add one-click approval links using a new View Field "Workflow Approval Links".
+- Fixed an issue with Approval Steps Invalid Approval Link Message not displaying when workflow has proceeded on to a non-approval step type.
+- Fixed an issue with Approval Steps Invalid Approval Link Message and Custom Cancellation Message not displaying when a workflow has been cancelled.
+- Fixed an issue with how HTML fields with conditional logic were displaying on the User Input Workflow Step.
+- API: Added a filter gravityflow_user_input_by_view_edit to provide additional control of if/when GravityView edits should trigger completion of a matching assignees' User Input step.
+- API: Updated the {current_step} merge tag to remove the time if the gravityflow_date_format_current_step_merge_tag filter returns an empty string.
+- API: Updated the gravityflow_date_format_current_step_merge_tag filter to include arguments for step and modifier.
+
+
+= 2.7.7 =
+- Added settings for custom confirmation messages after approval and rejection.
+- Added a setting for custom cancellation message.
+- Added a translator comment to the tooltip text for the partial entries workflow enabling feed setting.
+- Fixed an issue with RTL languages not displaying correctly on the Reports page.
+
+
+= 2.7.6 =
+- Added a setting to enable updates to pre-releases of Gravity Flow.
+- Fixed an issue with conditional routing not loading when the Workflow Notification setting was active on Gravity Forms 2.5.13 and greater.
+- Fixed an issue with File Upload field not displaying download/remove file icon links on User Input steps when accessed via the dashboard inbox.
+- Fixed an issue with Workflow Status Box not displaying long step names correctly on the Workflow Details page.
+- Fixed an issue with start step type display field settings not evaluating correctly for entry creator status page view.
+
 
 = 2.7.5 =
 - Added TranslationsPress to manage translations for Gravity Flow and the extensions. Translations for the installed WordPress languages will be installed on Gravity Flow/extension installation and updates. The WordPress updates page will also offer to install them when updates to the translations are available. The WP-CLI `wp language plugin` commands for managing translations are also supported.

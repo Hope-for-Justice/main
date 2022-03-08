@@ -5,10 +5,10 @@
  */
 class Give_Subscription_Completed_Email extends Give_Email_Notification {
 	/**
-	 * Create a class instance.
-	 *
-	 * @access  public
-	 */
+     * Create a class instance.
+     *
+     * @since 1.14.0 Allow email to edit in donation form.
+     */
 	public function init() {
 
 		$this->load( array(
@@ -16,7 +16,6 @@ class Give_Subscription_Completed_Email extends Give_Email_Notification {
 			'label'                 => __( 'Subscription Completed Email', 'give-recurring' ),
 			'description'           => __( 'Check this option if you would like donors to receive an email when a subscription has been completed.', 'give-recurring' ),
 			'recipient_group_name'  => __( 'Donor', 'give-recurring' ),
-			'form_metabox_setting'  => false,
 			'has_recipient_field'   => false,
 			'default_email_subject' => __( 'Subscription Donation Completed', 'give-recurring' ),
 			'default_email_message' => __( 'Dear', 'give-recurring' ) . " {name},\n\n" . __( "Your subscription for {donation} has been successfully completed. Here are the subscription details for your records:\n\n<strong>Subscription:</strong> {donation} - {amount}\n<strong>Subscription Frequency:</strong> {subscription_frequency} \n<strong>Completed Donations:</strong> {subscriptions_completed} \n<strong>Payment Method:</strong> {payment_method}\n<strong>Cancellation Date:</strong> {cancellation_date}\n\nSincerely,\n{sitename}", 'give-recurring' ),
@@ -116,9 +115,8 @@ class Give_Subscription_Completed_Email extends Give_Email_Notification {
 
 		// $settings[] = Give_Email_Setting_Field::get_email_content_type_field( $this, $form_id );
 		$settings[] = Give_Email_Setting_Field::get_preview_setting_field( $this, $form_id );
-		$settings   = Give_Email_Setting_Field::add_section_end( $this, $settings );
 
-		return $settings;
+        return Give_Email_Setting_Field::add_section_end($this, $settings);
 	}
 
 	/**

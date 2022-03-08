@@ -3,22 +3,24 @@
 Plugin Name: URL Params
 Plugin URI: http://asandia.com/wordpress-plugins/urlparams/
 Description: Short Code to grab any URL Parameter
-Version: 2.2
+Version: 2.3
 Author: Jeremy B. Shapiro
 Author URI: http://www.asandia.com/
 */
 
 /*
 URL Params (Wordpress Plugin)
-Copyright (C) 2011-2019 Jeremy Shapiro
+Copyright (C) 2011-2022 Jeremy Shapiro
 
 */
 
-//tell wordpress to register the shortcodes
+// error_reporting(E_ALL); // Helpful for checking for warnings that are TYPICALLY hidden but may be present on some installs
+
+// Tell WordPress to register the shortcodes
 add_shortcode("urlparam", "urlparam");
 add_shortcode("ifurlparam", "ifurlparam");
 
-function urlparam($atts, $content) {
+function urlparam($attributes, $content) {
     $defaults = array(
         'param'          => '',
         'default'        => '',
@@ -27,46 +29,49 @@ function urlparam($atts, $content) {
         'htmltag'        => false,
     );
 
-    # we used to use shortcode_atts(), but that would nuke an extra attributes that we don't know about but want. array_merge() keeps them all.
-    $atts = array_merge($defaults, $atts);
+    // We used to use shortcode_atts(), but that would nuke an extra attributes that we don't know about but want. array_merge() keeps them all.
+    $attributes = array_merge($defaults, $attributes);
 
-    $params = preg_split('/\,\s*/',$atts['param']);
+    $params = preg_split('/,\s*/',$attributes['param']);
 
     $return = false;
 
     foreach($params as $param)
     {
-        if(!$return and ($rawtext = $_REQUEST[$param]))
-        {
-            if(($atts['dateformat'] != '') && strtotime($rawtext))
-            {
-                $return = date($atts['dateformat'], strtotime($rawtext));
+        if(!$return
+            && array_key_exists($param, $_REQUEST)
+            && ($rawText = $_REQUEST[$param])
+        ) {
+            if(($attributes['dateformat'] != '')
+                && strtotime($rawText)
+            ) {
+                $return = date($attributes['dateformat'], strtotime($rawText));
             } else {
-                $return = esc_html($rawtext);
+                $return = esc_html($rawText);
             }
         }
     }
 
     if(!$return) {
-        $return = $atts['default'];
+        $return = $attributes['default'];
     }
 
-    if($atts['attr']) {
-        $return = ' ' . $atts['attr'] . '="' . $return . '" ';
+    if($attributes['attr']) {
+        $return = ' ' . $attributes['attr'] . '="' . $return . '" ';
 
-        if($atts['htmltag']) {
-            $tagname = $atts['htmltag'];
+        if($attributes['htmltag']) {
+            $tagName = $attributes['htmltag'];
 
             foreach(array_keys($defaults) as $key) {
-                unset($atts[$key]);
+                unset($attributes[$key]);
             }
 
-            $otheratts = "";
-            foreach($atts as $key => $val) {
-                $otheratts .= " $key=\"$val\"";
+            $otherAttributes = "";
+            foreach($attributes as $key => $val) {
+                $otherAttributes .= " $key=\"$val\"";
             }
 
-            $return = "<$tagname $otheratts $return".($content ? ">$content</$tagname>" : "/>");
+            $return = "<$tagName $otherAttributes $return".($content ? ">$content</$tagName>" : "/>");
         }
     }
 
@@ -79,29 +84,31 @@ function urlparam($atts, $content) {
  * If 'param' is not found and 'empty' is set, display the content between the tags
  *
  */
-function ifurlparam($atts, $content) {
-    $atts = shortcode_atts(array(
+function ifurlparam($attributes, $content) {
+    $attributes = shortcode_atts(array(
         'param'           => '',
         'empty'          => false,
         'is'            => false,
-    ), $atts);
+    ), $attributes);
 
-    $params = preg_split('/\,\s*/',$atts['param']);
+    $params = preg_split('/,\s*/',$attributes['param']);
 
     foreach($params as $param)
     {
         if($_REQUEST[$param])
         {
-            if($atts['empty'])
+            if($attributes['empty'])
             {
                 return '';
-            } elseif(!$atts['is'] or ($_REQUEST[$param] == $atts['is'])) {
+            } elseif(!$attributes['is']
+                || ($_REQUEST[$param] == $attributes['is'])
+            ) {
                 return do_shortcode($content);
             }
         }
     }
 
-    if ($atts['empty'])
+    if ($attributes['empty'])
     {
         return do_shortcode($content);
     }

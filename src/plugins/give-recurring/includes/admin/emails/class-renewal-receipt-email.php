@@ -5,10 +5,10 @@
  */
 class Give_Renewal_Recipient_Email extends Give_Email_Notification {
 	/**
-	 * Create a class instance.
-	 *
-	 * @access  public
-	 */
+     * Create a class instance.
+     *
+     * @since 1.14.0 Allow email to edit in donation form.
+     */
 	public function init() {
 		// Backward compatibility
 		$old_notification_status = give_get_option( 'enable_subscription_receipt_email', '' );
@@ -19,7 +19,6 @@ class Give_Renewal_Recipient_Email extends Give_Email_Notification {
 			'description'           => __( 'Check this option if you would like donors to receive an email when a renewal donation payment has been received. Note: some payment gateways like Stripe and Authorize.net may also send out an email depending on your gateway settings.', 'give-recurring' ),
 			'notification_status'   => ( ! empty( $old_notification_status ) ? 'enabled' : 'disabled' ),
 			'recipient_group_name'  => __( 'Donor', 'give-recurring' ),
-			'form_metabox_setting'  => false,
 			'has_recipient_field'   => false,
 			'default_email_header'  => apply_filters( 'give_recurring_subscription_email_heading', __( 'Donation Receipt', 'give-recurring' ) ),
 			'default_email_subject' => __( 'Subscription Donation Receipt', 'give-recurring' ),
@@ -68,10 +67,8 @@ class Give_Renewal_Recipient_Email extends Give_Email_Notification {
 
 		// $settings[] = Give_Email_Setting_Field::get_email_content_type_field( $this, $form_id );
 		$settings[] = Give_Email_Setting_Field::get_preview_setting_field( $this, $form_id );
-		$settings   = Give_Email_Setting_Field::add_section_end( $this, $settings );
 
-
-		return $settings;
+        return Give_Email_Setting_Field::add_section_end($this, $settings);
 	}
 
 	/**
@@ -183,14 +180,12 @@ class Give_Renewal_Recipient_Email extends Give_Email_Notification {
 	 * @access public
 	 *
 	 * @param array $data
-	 *
-	 * @return bool
 	 */
 	public function resend_email_notification( $data ) {
 		$donation_id = absint( $data['purchase_id'] );
 
 		if ( empty( $donation_id ) ) {
-			return false;
+            return;
 		}
 
 		// Get donation payment information.

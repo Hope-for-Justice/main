@@ -175,7 +175,7 @@ class Give_Recurring_Stripe extends Give_Recurring_Gateway {
 			give_send_back_to_checkout( '?payment-mode=stripe' );
 		}
 
-		$this->subscribe_customer_to_plan( $stripe_customer, $source_object, $stripePlan->id );
+		//$this->subscribe_customer_to_plan( $stripe_customer, $source_object, $stripePlan->id );
 	}
 
 	/**

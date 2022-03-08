@@ -126,6 +126,7 @@ class Gravity_Flow_Partial_Entries {
 			'label' => gravity_flow()->translate_navigation_label( 'workflow' ),
 		);
 
+		/* translators: the custom label for the workflow navigation key */
 		$field['tooltip'] = sprintf( esc_html__( 'Start %s processing when the partial entry is saved.', 'gravityflow' ), strtolower( $field['label'] ) );
 
 		if ( ! $add_on->is_gravityforms_supported( '2.5-rc-2' ) ) {

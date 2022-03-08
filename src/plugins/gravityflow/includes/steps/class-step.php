@@ -1883,9 +1883,10 @@ abstract class Gravity_Flow_Step extends stdClass {
 		$form_id  = $this->get_form_id();
 		$entry_id = $this->get_entry_id();
 
-		$pdf = GPDFAPI::get_pdf( $form_id, $gpdf_id );
+		$pdf  = GPDFAPI::get_pdf( $form_id, $gpdf_id );
+		$misc = GPDFAPI::get_misc_class();
 
-		if ( ! is_wp_error( $pdf ) && true === $pdf['active'] ) {
+		if ( ! is_wp_error( $pdf ) && true === $pdf['active'] && $misc->evaluate_conditional_logic( $pdf['conditionalLogic'], $this->get_entry() ) ) {
 
 			/* Generate and save the PDF */
 			$pdf_path = GPDFAPI::create_pdf( $entry_id, $gpdf_id );
@@ -2161,6 +2162,22 @@ abstract class Gravity_Flow_Step extends stdClass {
 	 * @return bool|WP_Error Return a success feedback message safe for page output or false.
 	 */
 	public function maybe_process_token_action( $action, $token, $form, $entry ) {
+		$step_id = rgars( $token, 'scopes/step_id' );
+		if ( empty( $step_id ) ) {
+			$feedback = new WP_Error( '', esc_html__( 'Error: This URL is no longer valid.', 'gravityflow' ) );
+			return $feedback;
+		}
+
+		if ( $step_id != $this->get_id() ) {
+			$non_current_step = gravity_flow()->get_step( $step_id, $entry );
+			if ( $non_current_step && $non_current_step->processed_step_messageEnable ) {
+				$feedback = new WP_Error( 'step_already_processed', $non_current_step->processed_step_messageValue );
+			} else {
+				$feedback = new WP_Error( 'step_already_processed', esc_html__( 'This step has already been processed.', 'gravityflow' ) );
+			}
+			return $feedback;
+		}
+
 		return false;
 	}
 

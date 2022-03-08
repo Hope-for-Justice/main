@@ -3,8 +3,8 @@
  * Gravity Flow Step Feed Post Creation
  *
  * @package     GravityFlow
- * @subpackage  Classes/Gravity_Flow_Step_Feed_Breeze
- * @copyright   Copyright (c) 2016-2018, Steven Henty S.L.
+ * @subpackage  Classes/Gravity_Flow_Step_Feed_Post_Creation
+ * @copyright   Copyright (c) 2016-2022, Steven Henty S.L.
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       1.4.3-dev
  */
@@ -45,7 +45,18 @@ class Gravity_Flow_Step_Feed_Post_Creation extends Gravity_Flow_Step_Feed_Add_On
 	 * @return string
 	 */
 	public function get_label() {
-		return 'Post Creation';
+		return esc_html__( 'Create Post', 'gravityflow' );
+	}
+
+	/**
+	 * Returns the HTML for the step icon.
+	 *
+	 * @since 2.7.9
+	 *
+	 * @return string
+	 */
+	public function get_icon_url() {
+		return '<i class="fa fa-file-o"></i>';
 	}
 
 	/**

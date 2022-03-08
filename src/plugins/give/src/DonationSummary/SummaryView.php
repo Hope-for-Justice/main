@@ -17,6 +17,12 @@ class SummaryView
     protected $formID;
 
     /**
+     * @since 2.18.0
+     * @var string
+     */
+    protected $template;
+
+    /**
      * @since 2.17.0
      * @var array
      */
@@ -30,6 +36,7 @@ class SummaryView
     public function __invoke($formID)
     {
         $this->formID = $formID;
+        $this->template = Template::getActiveID($formID);
         $this->templateOptions = Template::getOptions($formID);
 
         /**
@@ -42,7 +49,7 @@ class SummaryView
     public function maybeRender()
     {
         if ($this->isDonationSummaryEnabled()) {
-            if ('sequoia' === Template::getActiveID($this->formID)) {
+            if (in_array(Template::getActiveID($this->formID), [ 'sequoia', 'classic'])) {
                 $this->render();
             }
         }
@@ -53,7 +60,9 @@ class SummaryView
      */
     public function render()
     {
+        do_action( 'give_donation_summary_top' );
         include 'resources/views/summary.php';
+        do_action( 'give_donation_summary_bottom' );
     }
 
     public function getPrimaryColor()
@@ -64,7 +73,6 @@ class SummaryView
     /**
      * @since 2.17.0
      * @return string
-     * @throws \Exception
      */
     public function getFormTemplateLocation()
     {
@@ -113,15 +121,21 @@ class SummaryView
     }
 
     /**
-     * @since 2.17.0
+     * @since 2.19.0 - remove check for Give_Recurring
      * @return bool
+     * @since 2.17.0
      */
     protected function isRecurringEnabled()
     {
-        if (class_exists('\Give_Recurring')) {
-            return Give_Recurring()->is_recurring($this->formID);
-        }
+        return give_recurring_is_recurring($this->formID);
+    }
 
-        return false;
+    /**
+     * @since 2.18.0
+     * @return bool
+     */
+    protected function isMultiStep()
+    {
+        return $this->template === 'sequoia';
     }
 }

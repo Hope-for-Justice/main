@@ -2,6 +2,7 @@
 namespace GiveRecurring\PaymentGateways;
 
 use Give\Helpers\Hooks;
+use Give\PaymentGateways\PayPalCommerce\PayPalCommerce as GivePayPalCommerce;
 use Give\PaymentGateways\PayPalCommerce\Webhooks\WebhookRegister;
 use Give\ServiceProviders\ServiceProvider;
 use Give_Subscription;
@@ -10,7 +11,6 @@ use GiveRecurring\PaymentGateways\PayPalCommerce\AjaxRequestHandler;
 use GiveRecurring\PaymentGateways\PayPalCommerce\HttpHeader;
 use GiveRecurring\PaymentGateways\PayPalCommerce\PayPalCommerce;
 use GiveRecurring\PaymentGateways\PayPalCommerce\SubscriptionProcessor;
-use Give\PaymentGateways\PayPalCommerce\PayPalCommerce as GivePayPalCommerce;
 use GiveRecurring\PaymentGateways\PayPalCommerce\WebHooks\Listeners\BillingSubscriptionActivated;
 use GiveRecurring\PaymentGateways\PayPalCommerce\WebHooks\Listeners\BillingSubscriptionCancelled;
 use GiveRecurring\PaymentGateways\PayPalCommerce\WebHooks\Listeners\BillingSubscriptionExpired;

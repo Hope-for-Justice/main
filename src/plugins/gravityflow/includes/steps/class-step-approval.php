@@ -285,7 +285,8 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 				'type'     => 'checkbox_and_select',
 				'tooltip'  => esc_html__( 'The Revert setting enables a third option in addition to Approve and Reject which allows the assignee to send the entry directly to a User Input step without changing the status. Enable this setting to show the Revert button next to the Approve and Reject buttons and specify the User Input step the entry will be sent to.', 'gravityflow' ),
 				'checkbox' => array(
-					'label' => esc_html__( 'Enable', 'gravityflow' ),
+					'label'         => esc_html__( 'Enable', 'gravityflow' ),
+					'default_value' => '0',
 				),
 				'select'   => array(
 					'choices' => $user_input_step_choices,
@@ -368,6 +369,72 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 				),
 			);
 		}
+
+		$settings['fields'][] = array(
+			'name'     => 'approved_message',
+			'label'    => __( 'Approval Confirmation', 'gravityflow' ),
+			'type'     => 'checkbox_and_textarea',
+			'callback' => gravity_flow()->is_gravityforms_supported( '2.5-beta-1' ) ? null : array( gravity_flow(), 'legacy_settings_checkbox_and_textarea' ),
+			'tooltip'  => esc_html__( 'Enable this setting to customize the confirmation message displayed when an assignee approves the entry.', 'gravityflow' ),
+			'checkbox' => array(
+				'label' => esc_html__( 'Display a custom confirmation message when an assignee approves', 'gravityflow' ),
+				'value' => '0',
+			),
+			'textarea' => array(
+				'use_editor'    => true,
+				'default_value' => 'Entry Approved',
+			),
+		);
+
+		if ( ! empty( $revert_field ) ) {
+			$settings['fields'][] = array(
+				'name'     => 'reverted_message',
+				'label'    => __( 'Reverted Confirmation', 'gravityflow' ),
+				'type'     => 'checkbox_and_textarea',
+				'callback' => gravity_flow()->is_gravityforms_supported( '2.5-beta-1' ) ? null : array( gravity_flow(), 'legacy_settings_checkbox_and_textarea' ),
+				'tooltip'  => esc_html__( 'Enable this setting to customize the confirmation message displayed when an assignee reverts the entry to a user input step on this workflow.', 'gravityflow' ),
+				'checkbox' => array(
+					'label' => esc_html__( 'Display a custom confirmation message when an assignee reverts', 'gravityflow' ),
+					'value' => '0',
+				),
+				'textarea' => array(
+					'use_editor'    => true,
+					'default_value' => 'Entry Reverted',
+				),
+			);
+		}
+
+		$settings['fields'][] = array(
+			'name'     => 'rejected_message',
+			'label'    => __( 'Rejection Confirmation', 'gravityflow' ),
+			'type'     => 'checkbox_and_textarea',
+			'callback' => gravity_flow()->is_gravityforms_supported( '2.5-beta-1' ) ? null : array( gravity_flow(), 'legacy_settings_checkbox_and_textarea' ),
+			'tooltip'  => esc_html__( 'Enable this setting to customize the confirmation message displayed when an assignee rejects the entry on this step.', 'gravityflow' ),
+			'checkbox' => array(
+				'label' => esc_html__( 'Display a custom confirmation message when an assignee rejects', 'gravityflow' ),
+				'value' => '0',
+			),
+			'textarea' => array(
+				'use_editor'    => true,
+				'default_value' => 'Entry Rejected',
+			),
+		);
+
+		$settings['fields'][] = array(
+			'name'     => 'processed_step_message',
+			'label'    => __( 'Invalid Approval Link Message', 'gravityflow' ),
+			'type'     => 'checkbox_and_textarea',
+			'callback' => gravity_flow()->is_gravityforms_supported( '2.5-beta-1' ) ? null : array( gravity_flow(), 'legacy_settings_checkbox_and_textarea' ),
+			'tooltip'  => esc_html__( 'Enable this setting to display a message to users who click an approve or reject link after this step has been processed.', 'gravityflow' ),
+			'checkbox' => array(
+				'label' => esc_html__( 'Display a custom message for the approval links when the entry is no longer on this step', 'gravityflow' ),
+				'value' => '0',
+			),
+			'textarea' => array(
+				'use_editor'    => true,
+				'default_value' => 'This link is no longer valid.',
+			),
+		);
 
 		return $settings;
 	}
@@ -625,7 +692,8 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 				}
 
 				$step->start();
-				$feedback = esc_html__( 'Reverted to step:', 'gravityflow' ) . ' ' . $step->get_label();
+
+				$feedback = $this->reverted_messageEnable ? $this->reverted_messageValue : esc_html__( 'Reverted to step:', 'gravityflow' ) . ' ' . $step->get_label();
 			}
 		}
 
@@ -660,14 +728,19 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 	 * @return bool|string
 	 */
 	public function get_status_update_feedback( $new_status ) {
+
 		switch ( $new_status ) {
 			case 'approved':
-				return __( 'Entry Approved', 'gravityflow' );
+				$feedback = $this->approved_messageEnable ? $this->approved_messageValue : __( 'Entry Approved', 'gravityflow' );
+				break;
 			case 'rejected':
-				return __( 'Entry Rejected', 'gravityflow' );
+				$feedback = $this->rejected_messageEnable ? $this->rejected_messageValue : __( 'Entry Rejected', 'gravityflow' );
+				break;
+			default:
+				$feedback = false;
 		}
 
-		return false;
+		return $feedback;
 	}
 
 	/**
@@ -1030,7 +1103,7 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 			return $feedback;
 		}
 
-		if ( ! in_array( $action, array( 'approve', 'reject' ) ) ) {
+		if ( ! in_array( $action, array( 'approve', 'reject', 'revert' ) ) ) {
 			return false;
 		}
 
@@ -1040,8 +1113,17 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 		}
 
 		$step_id = rgars( $token, 'scopes/step_id' );
-		if ( empty( $step_id ) || $step_id != $this->get_id() ) {
-			return new WP_Error( 'step_already_processed', esc_html__( 'Error: step already processed.', 'gravityflow' ) );
+		if ( empty( $step_id ) ) {
+			return new WP_Error( 'step_already_processed', esc_html__( 'Error: Step already processed.', 'gravityflow' ) );
+		}
+
+		if ( $step_id != $this->get_id() ) {
+			$non_current_step = gravity_flow()->get_step( $step_id, $entry );
+			if ( $non_current_step && $non_current_step->processed_step_messageEnable ) {
+				return new WP_Error( 'step_already_processed', $non_current_step->processed_step_messageValue );
+			} else {
+				return new WP_Error( 'step_already_processed', esc_html__( 'This step has already been processed.', 'gravityflow' ) );
+			}
 		}
 
 		$assignee_key = sanitize_text_field( $token['sub'] );
@@ -1054,6 +1136,8 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 			case 'reject':
 				$new_status = 'rejected';
 				break;
+			case 'revert':
+				$new_status = 'revert';
 		}
 		$feedback = $this->process_assignee_status( $assignee, $new_status, $form );
 

@@ -59,6 +59,8 @@ class Gravity_Flow_Entry_Detail {
 			/**
 			 * Allows the the permission check to be overridden for the workflow entry detail page.
 			 *
+			 * @since 2.5.8
+			 *
 			 * @param bool                   $permission_granted Whether permission is granted to open the entry.
 			 * @param array                  $entry              The current entry.
 			 * @param array                  $form               The current form.
@@ -68,12 +70,42 @@ class Gravity_Flow_Entry_Detail {
 
 			gravity_flow()->log_debug( __METHOD__ . '() $permission_granted: ' . ( $permission_granted ? 'yes' : 'no' ) );
 
-
 			if ( ! $permission_granted ) {
 				$permission_denied_message = esc_attr__( "You don't have permission to view this entry.", 'gravityflow' );
+
+				// If token was valid but workflow has been cancelled, display either Custom Cancellation Message or Invalid Approval Link Message if they are defined.
+				$token   = gravity_flow()->decode_access_token();
+				$step_id = rgars( $token, 'scopes/step_id' );
+
+				// Token was valid for a previous step that has an Invalid Approval Link Message.
+				if ( rgars( $token, 'scopes/step_id' ) ) {
+					$non_current_step = gravity_flow()->get_step( $step_id, $entry );
+					if ( $non_current_step && $non_current_step->processed_step_messageEnable ) {
+						$permission_denied_message = $non_current_step->processed_step_messageValue;
+					}
+				}
+
+				// Token was valid for a workflow that has already been cancelled.
+				if ( rgars( $token, 'scopes/action' ) == 'cancel_workflow' ) {
+					$workflow_status = gform_get_meta( $entry['id'], 'workflow_final_status' );
+					if ( $workflow_status == 'cancelled' ) {
+						$complete_step = gravity_flow()->get_workflow_complete_step( $form_id, $entry );
+						if ( $complete_step->cancellationEnable ) {
+							$permission_denied_message = $complete_step->cancellationValue;
+						}
+					}
+				}
+
+				/**
+				 * Allows the the permission denied message to be overridden for the workflow entry detail page.
+				 *
+				 * @since 2.5.8
+				 *
+				 * @param string                   $permission_denied_message Whether permission is granted to open the entry.
+				 * @param null|Gravity_Flow_Step   $current_step              Null or the current step.
+				 */
 				$permission_denied_message = apply_filters( 'gravityflow_permission_denied_message_entry_detail', $permission_denied_message, $current_step );
 				echo $permission_denied_message;
-
 				return;
 			}
 
@@ -103,7 +135,6 @@ class Gravity_Flow_Entry_Detail {
 									} else {
 										$instructions_step =  gravity_flow()->get_workflow_start_step( $form_id, $entry );
 									}
-
 								} else {
 									$instructions_step = gravity_flow()->get_workflow_complete_step( $form_id, $entry );
 								}
@@ -399,18 +430,26 @@ class Gravity_Flow_Entry_Detail {
 	 * @param array             $entry                The current entry.
 	 */
 	public static function maybe_show_instructions( $current_step, $form, $entry ) {
-		if ( ! $current_step->instructionsEnable ) {
-			return;
-		}
-		
+
+		$workflow_status = gform_get_meta( $entry['id'], 'workflow_final_status' );
+
 		$nl2br = apply_filters( 'gravityflow_auto_format_instructions', true );
 		$nl2br = apply_filters( 'gravityflow_auto_format_instructions_' . $form['id'], $nl2br );
 
-		$instructions = $current_step->instructionsValue;
+		// Determine whether to display instructions or cancellation message into the based on workflow status and complete step settings.
+		if ( $workflow_status == 'cancelled' && $current_step->get_type() == 'workflow_complete' && $current_step->cancellationEnable ) {
+			$instructions = $current_step->cancellationValue;
+		} elseif ( ! $current_step->instructionsEnable ) {
+				return;
+		} else {
+			$instructions = $current_step->instructionsValue;
+		}
+
 		$instructions = GFCommon::replace_variables( $instructions, $form, $entry, false, true, $nl2br );
 		$instructions = do_shortcode( $instructions );
 		$instructions = self::maybe_sanitize_instructions( $instructions );
 
+		if ( $instructions ) {
 		?>
 		<div class="postbox gravityflow-instructions">
 			<div class="inside">
@@ -419,6 +458,7 @@ class Gravity_Flow_Entry_Detail {
 		</div>
 
 		<?php
+		}
 	}
 
 	/**
@@ -858,12 +898,16 @@ class Gravity_Flow_Entry_Detail {
 
 		$is_assignee = $current_step ? $current_step->is_user_assignee() : false;
 
+		$complete_step = gravity_flow()->get_workflow_complete_step( $form_id, $entry );
 		if ( ! $is_assignee ) {
 			if ( $current_step ) {
 				// Display fields from current step after a POST, otherwise use the start step settings.
-				$display_fields_step = isset( $_POST ) ? $current_step : gravity_flow()->get_workflow_start_step( $form_id, $entry );
+				$display_fields_step = ! empty( $_POST ) ? $current_step : gravity_flow()->get_workflow_start_step( $form_id, $entry );
+				if ( $current_step->get_current_assignee_status() == 'complete' || $current_step->get_current_assignee_status() == 'approved' ) {
+					$display_fields_step = $complete_step;
+				}
 			} else {
-				$display_fields_step = gravity_flow()->get_workflow_complete_step( $form_id, $entry );
+				$display_fields_step = $complete_step;
 			}
 		}
 

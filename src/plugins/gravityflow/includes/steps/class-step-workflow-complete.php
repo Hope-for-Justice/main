@@ -82,7 +82,7 @@ class Gravity_Flow_Step_Workflow_Complete extends Gravity_Flow_Step {
 	public function get_settings() {
 
 		$settings = array(
-			'title'  => esc_html__( 'Complete', 'grvityflow' ),
+			'title'  => esc_html__( 'Complete', 'gravityflow' ),
 			'fields' => array(
 				array(
 					'name'     => 'instructions',
@@ -91,11 +91,26 @@ class Gravity_Flow_Step_Workflow_Complete extends Gravity_Flow_Step {
 					'callback' => gravity_flow()->is_gravityforms_supported( '2.5-beta-1' ) ? null : array( gravity_flow(), 'legacy_settings_checkbox_and_textarea' ),
 					'tooltip'  => esc_html__( 'Enable this setting to display a message to the form submitter when the workflow is complete.', 'gravityflow' ),
 					'checkbox' => array(
-						'label' => esc_html__( 'Display a message to the form submitter when the workflow is complete.', 'gravityflow' ),
+						'label' => esc_html__( 'Display a message to the form submitter when the workflow is complete', 'gravityflow' ),
 					),
 					'textarea' => array(
 						'use_editor'    => true,
 						'default_value' => '',
+					),
+				),
+				array(
+					'name'     => 'cancellation',
+					'label'    => __( 'Custom Cancellation Message', 'gravityflow' ),
+					'type'     => 'checkbox_and_textarea',
+					'callback' => gravity_flow()->is_gravityforms_supported( '2.5-beta-1' ) ? null : array( gravity_flow(), 'legacy_settings_checkbox_and_textarea' ),
+					'tooltip'  => esc_html__( 'This message will display both when a user cancels the workflow and when anyone accesses the entry after cancellation.', 'gravityflow' ),
+					'checkbox' => array(
+						'label' => esc_html__( 'Display a message when the workflow is cancelled', 'gravityflow' ),
+						'value' => '0',
+					),
+					'textarea' => array(
+						'use_editor'    => true,
+						'default_value' => 'The workflow has been cancelled.',
 					),
 				),
 				array(

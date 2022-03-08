@@ -327,7 +327,7 @@
 		var $revertSetting = $('#revertenable');
 		if ( !$revertSetting.prop("checked")) {
 			$('#tabs-notification_tabs').tabs('disable', 3);
-
+			$("#gaddon-setting-row-reverted_message").hide();
 		}
 
 		$revertSetting.change(function () {
@@ -347,8 +347,10 @@
 				}
 
 				$notificationTabs.tabs('disable', 3);
+				$("#gaddon-setting-row-reverted_message").hide();
 			} else {
 				$notificationTabs.tabs('enable', 3);
+				$("#gaddon-setting-row-reverted_message").show();
 			}
 		});
 
@@ -505,7 +507,7 @@
 		}
 
 		addCommonMergeTags(mergeTags, elementId, hideAllFields, excludeFieldTypes, isPrepop, option);
-		addAprovalMergeTags(mergeTags, elementId, hideAllFields, excludeFieldTypes, isPrepop, option);
+		addApprovalMergeTags(mergeTags, elementId, hideAllFields, excludeFieldTypes, isPrepop, option);
 
 		return mergeTags;
 	};
@@ -548,7 +550,7 @@
 
 	}
 
-	function addAprovalMergeTags(mergeTags, elementId, hideAllFields, excludeFieldTypes, isPrepop, option) {
+	function addApprovalMergeTags(mergeTags, elementId, hideAllFields, excludeFieldTypes, isPrepop, option) {
 		var supportedElementIds = [
 			'_gaddon_setting_assignee_notification_message',
 		];
@@ -566,6 +568,12 @@
 		tags.push({tag: '{workflow_reject_link}', label: labels.workflow_reject_link});
 		tags.push({tag: '{workflow_reject_url}', label: labels.workflow_reject_url});
 		tags.push({tag: '{workflow_reject_token}', label: labels.workflow_reject_token});
+
+		if ( $('#revertenable').prop("checked")) {
+			tags.push({tag: '{workflow_revert_link}', label: labels.workflow_revert_link});
+			tags.push({tag: '{workflow_revert_url}', label: labels.workflow_revert_url});
+			tags.push({tag: '{workflow_revert_token}', label: labels.workflow_revert_token});
+		}
 
 		if (typeof mergeTags['gravityflow'] != 'undefined') {
 			mergeTags['gravityflow']['tags'] = $.merge(mergeTags['gravityflow']['tags'], tags);

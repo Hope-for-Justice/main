@@ -23,25 +23,30 @@ if ( ! class_exists( 'Give_Subscription_Cancelled_Admin_Email' ) ) :
 	class Give_Subscription_Cancelled_Admin_Email extends Give_Email_Notification {
 
 		/**
-		 * Create a class instance.
-		 *
-		 * @access  public
-		 */
+         * Create a class instance.
+         *
+         * @since 1.14.0 Allow email to edit in donation form.
+         */
 		public function init() {
 
-			$this->load( array(
-				'id'                    => 'subscription-cancelled-admin',
-				'label'                 => __( 'Subscription Cancelled Email', 'give-recurring' ),
-				'description'           => __( 'Check this option if you would like admin to receive an email when a subscription has been cancelled. The email will send when either the donor or admin cancels the subscription', 'give-recurring' ),
-				'has_recipient_field'   => true,
-				'notification_status'   => 'disabled',
-				'form_metabox_setting'  => false,
-				'default_email_subject' => __( 'Subscription Donation Cancelled', 'give-recurring' ),
-				'default_email_message' => __( 'Hi there,', 'give-recurring' ) . "\n\n" . __( "This email is to inform you that subscription for {donation} has been successfully cancelled. Here are the subscription details for your records:\n\n<strong>Donor Name:</strong> {fullname}\n<strong>Subscription:</strong> {donation} - {amount}\n<strong>Subscription Frequency:</strong> {subscription_frequency} \n<strong>Completed Donations:</strong> {subscriptions_completed} \n<strong>Payment Method:</strong> {payment_method}\n<strong>Cancellation Date:</strong> {cancellation_date}\n\nSincerely,\n{sitename}", 'give-recurring' ),
-				'default_email_header'  => __( 'Subscription Donation Cancelled', 'give-recurring' ),
-			) );
+			$this->load( [
+                'id'                    => 'subscription-cancelled-admin',
+                'label'                 => __('Admin Subscription Cancelled Email', 'give-recurring'),
+                'description'           => __(
+                    'Check this option if you would like admin to receive an email when a subscription has been cancelled. The email will send when either the donor or admin cancels the subscription',
+                    'give-recurring'
+                ),
+                'has_recipient_field'   => true,
+                'notification_status'   => 'disabled',
+                'default_email_subject' => __('Subscription Donation Cancelled', 'give-recurring'),
+                'default_email_message' => __('Hi there,', 'give-recurring') . "\n\n" . __(
+                        "This email is to inform you that subscription for {donation} has been successfully cancelled. Here are the subscription details for your records:\n\n<strong>Donor Name:</strong> {fullname}\n<strong>Subscription:</strong> {donation} - {amount}\n<strong>Subscription Frequency:</strong> {subscription_frequency} \n<strong>Completed Donations:</strong> {subscriptions_completed} \n<strong>Payment Method:</strong> {payment_method}\n<strong>Cancellation Date:</strong> {cancellation_date}\n\nSincerely,\n{sitename}",
+                        'give-recurring'
+                    ),
+                'default_email_header'  => __('Subscription Donation Cancelled', 'give-recurring'),
+            ]);
 
-			add_action( 'give_subscription_cancelled', array( $this, 'setup_email_notification' ), 10, 2 );
+            add_action( 'give_subscription_cancelled', array( $this, 'setup_email_notification' ), 10, 2 );
 		}
 
 		/**
@@ -176,9 +181,8 @@ if ( ! class_exists( 'Give_Subscription_Cancelled_Admin_Email' ) ) :
 
 			// $settings[] = Give_Email_Setting_Field::get_email_content_type_field( $this, $form_id );
 			$settings[] = Give_Email_Setting_Field::get_preview_setting_field( $this, $form_id );
-			$settings   = Give_Email_Setting_Field::add_section_end( $this, $settings );
 
-			return $settings;
+            return Give_Email_Setting_Field::add_section_end($this, $settings);
 		}
 
 		/**

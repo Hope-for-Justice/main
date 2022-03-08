@@ -4,6 +4,8 @@ namespace GiveRecurring\Webhooks\Stripe\Listeners;
 
 use Give\PaymentGateways\PayPalCommerce\Webhooks\Listeners\EventListener;
 use Give_Subscription;
+use Give_Subscriptions_DB;
+use Stripe\Event as StripeEvent;
 
 /**
  * Class CustomerSubscriptionCreated
@@ -11,31 +13,62 @@ use Give_Subscription;
  *
  * @since 1.12.6
  */
-class CustomerSubscriptionCreated implements EventListener {
+class CustomerSubscriptionCreated implements EventListener
+{
 
-	/**
-	 * @inheritDoc
-	 */
-	public function processEvent( $event ) {
-		$subscription = $event->data->object;
+    /**
+     * @param StripeEvent $event
+     *
+     * @return void
+     */
+    public function processEvent($event)
+    {
+        $subscription = $this->getSubscription($event);
 
-		$profile_id   = $subscription->id;
-		$subscription = new Give_Subscription( $profile_id, true );
+        if (!$this->isSubscriptionProcessable($subscription->id, $subscription->status)) {
+            return;
+        }
 
-		// Sanity Check: Don't cancel already completed or cancelled subscriptions or empty subscription objects.
-		if (
-			! $subscription ||
-			! $subscription->id ||
-			in_array( $subscription->status, [ 'completed', 'cancelled' ] )
-		) {
-			return;
-		}
+        give_recurring_update_subscription_status($subscription->id, 'active');
 
-		if( in_array( $subscription->status, [ 'active', 'cancelled', 'completed', 'expired' ] ) ) {
-			return;
-		}
+        if( 'pending' ===  get_post_status( $subscription->parent_payment_id ) ) {
+            give_update_payment_status($subscription->parent_payment_id, 'processing');
+        }
+    }
 
-		give_recurring_update_subscription_status( $subscription->id, 'active' );
-		give_update_payment_status( $subscription->parent_payment_id, 'processing' );
-	}
+    /**
+     * @since 1.15.0
+     *
+     * @param StripeEvent $event
+     *
+     * @return Give_Subscription
+     */
+    private function getSubscription($event)
+    {
+        $subscription = new Give_Subscription(
+            $event->data->object->id,
+            true
+        );
+
+        if (!$subscription->id) {
+            $donationMetaData = $event->data->object->metadata;
+            $donationId = !empty($donationMetaData['Donation Post ID']) ? $donationMetaData['Donation Post ID'] : 0;
+            $subscription = give_recurring_get_subscription_by( 'payment', $donationId );
+        }
+
+        return $subscription;
+    }
+
+    /**
+     * @since 1.15.0
+     *
+     * @param int $subscriptionId
+     * @param string $subscriptionStatus
+     *
+     * @return bool
+     */
+    private function isSubscriptionProcessable($subscriptionId, $subscriptionStatus)
+    {
+        return $subscriptionId && !in_array($subscriptionStatus, ['active', 'cancelled', 'completed', 'expired']);
+    }
 }

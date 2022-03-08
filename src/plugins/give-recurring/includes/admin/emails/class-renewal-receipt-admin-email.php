@@ -23,25 +23,30 @@ if ( ! class_exists( 'Give_Renewal_Recipient_Admin_Email' ) ) :
 	class Give_Renewal_Recipient_Admin_Email extends Give_Email_Notification {
 
 		/**
-		 * Create a class instance.
-		 *
-		 * @access  public
-		 */
+         * Create a class instance.
+         *
+         * @since 1.14.0 Allow email to edit in donation form.
+         */
 		public function init() {
 
-			$this->load( array(
-				'id'                    => 'renewal-receipt-admin',
-				'label'                 => __( 'Renewal Receipt Email', 'give-recurring' ),
-				'description'           => __( 'Check this option if you would like admin to receive an email when a renewal donation payment has been received. Note: some payment gateways like Stripe and Authorize.net may also send out an email depending on your gateway settings.', 'give-recurring' ),
-				'has_recipient_field'   => true,
-				'notification_status'   => 'disabled',
-				'form_metabox_setting'  => false,
-				'default_email_subject' => __( 'Subscription Donation Receipt', 'give-recurring' ),
-				'default_email_message' => __( 'Hi there,', 'give-recurring' ) . "\n\n" . "{name} " . __( 'has succesfully renewed their donation. Here are the donation details:', 'give-recurring' ) . "\n\n<strong>Donor Name:</strong> {fullname}\n<strong>Donation:</strong> {donation} - {amount}\n<strong>Payment ID:</strong> {payment_id} \n<strong>Payment Method:</strong> {payment_method}\n<strong>Date:</strong> {date}\n\nSincerely,\n{sitename}",
-				'default_email_header'  => __( 'Donation Receipt', 'give-recurring' ),
-			) );
+			$this->load( [
+                'id'                    => 'renewal-receipt-admin',
+                'label'                 => __('Admin Renewal Receipt Email', 'give-recurring'),
+                'description'           => __(
+                    'Check this option if you would like admin to receive an email when a renewal donation payment has been received. Note: some payment gateways like Stripe and Authorize.net may also send out an email depending on your gateway settings.',
+                    'give-recurring'
+                ),
+                'has_recipient_field'   => true,
+                'notification_status'   => 'disabled',
+                'default_email_subject' => __('Subscription Donation Receipt', 'give-recurring'),
+                'default_email_message' => __('Hi there,', 'give-recurring') . "\n\n" . "{name} " . __(
+                        'has succesfully renewed their donation. Here are the donation details:',
+                        'give-recurring'
+                    ) . "\n\n<strong>Donor Name:</strong> {fullname}\n<strong>Donation:</strong> {donation} - {amount}\n<strong>Payment ID:</strong> {payment_id} \n<strong>Payment Method:</strong> {payment_method}\n<strong>Date:</strong> {date}\n\nSincerely,\n{sitename}",
+                'default_email_header'  => __('Donation Receipt', 'give-recurring'),
+            ]);
 
-			add_action( 'give_recurring_add_subscription_payment', array( $this, 'setup_email_notification' ), 10, 2 );
+            add_action( 'give_recurring_add_subscription_payment', array( $this, 'setup_email_notification' ), 10, 2 );
 		}
 
 		/**
@@ -87,10 +92,8 @@ if ( ! class_exists( 'Give_Renewal_Recipient_Admin_Email' ) ) :
 			$settings[] = Give_Email_Setting_Field::get_recipient_setting_field( $this, $form_id, Give_Email_Notification_Util::has_recipient_field( $this ) );
 
 			$settings[] = Give_Email_Setting_Field::get_preview_setting_field( $this, $form_id );
-			$settings   = Give_Email_Setting_Field::add_section_end( $this, $settings );
 
-
-			return $settings;
+            return Give_Email_Setting_Field::add_section_end($this, $settings);
 		}
 
 		/**

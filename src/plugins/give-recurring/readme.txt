@@ -2,9 +2,9 @@
 Contributors: givewp
 Tags: donations, donation, ecommerce, e-commerce, fundraising, fundraiser, paymill, gateway
 Requires at least: 4.9
-Tested up to: 5.8
-Stable tag: 1.13.1
-Requires Give: 2.17.0
+Tested up to: 5.9
+Stable tag: 1.15.0
+Requires Give: 2.19.0
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -38,6 +38,17 @@ The manual installation method involves downloading our donation plugin and uplo
 Automatic updates should work like a charm; as always though, ensure you backup your site just in case.
 
 == Changelog ==
+= 1.15.0: January 24th, 2022 =
+* Change: Move internal functions to GiveWP to prepare for future updates. Please update to GiveWP 2.19.0 or higher.
+* Fix: Only create subscription in Authorize.net if initial payment is successful.
+* Fix: Stripe SEPA initial donations are now properly marked as complete by webhook.
+
+= 1.14.1: December 23rd, 2021 =
+* Fix: Correct major breaking change that's waiting for a GiveWP release
+
+= 1.14.0: December 23rd, 2021 =
+* New: Emails can now be defined on a per-form basis!
+* New: Under-the-hood support for the new Gateway API
 
 = 1.13.1: December 13th, 2021 =
 * Fix: Correct namespacing issue causing a donation error.

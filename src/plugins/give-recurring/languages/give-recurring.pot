@@ -1,4 +1,4 @@
-# Copyright (C) 2021 Give-Recurring
+# Copyright (C) 2022 Give-Recurring
 # This file is distributed under the same license as the Give-Recurring package.
 msgid ""
 msgstr ""
@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Language-Team: GiveWP <info@givewp.com>\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -16,193 +16,193 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: give-recurring.php:612
+#: give-recurring.php:620
 msgctxt "Subscription payment status"
 msgid "Renewal"
 msgstr ""
 
-#: give-recurring.php:617
+#: give-recurring.php:625
 msgid "Renewal <span class=\"count\">(%s)</span>"
 msgid_plural "Subscription <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: give-recurring.php:637, give-recurring.php:638, includes/admin/class-donor-subscription-details.php:86, includes/admin/give-recurring-donors.php:16, includes/admin/give-recurring-donors.php:199, includes/admin/give-recurring-filters.php:168, includes/admin/subscriptions.php:23
+#: give-recurring.php:646, give-recurring.php:647, includes/admin/class-donor-subscription-details.php:86, includes/admin/give-recurring-donors.php:16, includes/admin/give-recurring-donors.php:199, includes/admin/give-recurring-filters.php:168, includes/admin/subscriptions.php:23
 msgid "Subscriptions"
 msgstr ""
 
-#: give-recurring.php:685, includes/admin/metabox.php:320
+#: give-recurring.php:697, includes/admin/metabox.php:320
 msgid "Renewal"
 msgstr ""
 
-#: give-recurring.php:686, includes/give-recurring-helpers.php:1163, src/DonorDashboard/Routes/SubscriptionsRoute.php:312
+#: give-recurring.php:698, includes/give-recurring-helpers.php:1163, src/DonorDashboard/Routes/SubscriptionsRoute.php:312
 msgid "Cancelled"
 msgstr ""
 
-#: give-recurring.php:709
+#: give-recurring.php:723
 msgctxt "Recurring billing period."
 msgid "day"
 msgid_plural "%s days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: give-recurring.php:720
+#: give-recurring.php:734
 msgctxt "Recurring billing period."
 msgid "week"
 msgid_plural "%s weeks"
 msgstr[0] ""
 msgstr[1] ""
 
-#: give-recurring.php:731
+#: give-recurring.php:745
 msgctxt "Recurring billing period."
 msgid "month"
 msgid_plural "%s months"
 msgstr[0] ""
 msgstr[1] ""
 
-#: give-recurring.php:742
+#: give-recurring.php:756
 msgctxt "Recurring billing period."
 msgid "quarter"
 msgid_plural "%s quarters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: give-recurring.php:753
+#: give-recurring.php:767
 msgctxt "Recurring billing period."
 msgid "year"
 msgid_plural "%s years"
 msgstr[0] ""
 msgstr[1] ""
 
-#: give-recurring.php:806
+#: give-recurring.php:822
 msgctxt "Subscription length"
 msgid "Ongoing"
 msgstr ""
 
-#: give-recurring.php:811
+#: give-recurring.php:827
 msgctxt "Subscription lengths. e.g. \"For 1 day...\""
 msgid "1 day"
 msgstr ""
 
-#: give-recurring.php:819
+#: give-recurring.php:835
 msgctxt "Subscription lengths. e.g. \"For 1 week...\""
 msgid "1 week"
 msgstr ""
 
-#: give-recurring.php:827
+#: give-recurring.php:843
 msgctxt "Subscription lengths. e.g. \"For 1 month...\""
 msgid "1 month"
 msgstr ""
 
-#: give-recurring.php:835
+#: give-recurring.php:851
 msgctxt "Subscription lengths. e.g. \"For 1 quarter...\""
 msgid "1 quarter"
 msgstr ""
 
-#: give-recurring.php:843
+#: give-recurring.php:859
 msgctxt "Subscription lengths. e.g. \"For 1 year...\""
 msgid "1 year"
 msgstr ""
 
-#: give-recurring.php:876
+#: give-recurring.php:893
 msgctxt "period interval (eg \"$10 _every_ 2 weeks\")"
 msgid "every"
 msgstr ""
 
-#: give-recurring.php:881
+#: give-recurring.php:898
 msgctxt "period interval with ordinal number (e.g. \"every 2nd\""
 msgid "every %s"
 msgstr ""
 
-#: give-recurring.php:912, give-recurring.php:929
+#: give-recurring.php:930, give-recurring.php:947
 msgid "%sth"
 msgstr ""
 
-#: give-recurring.php:917
+#: give-recurring.php:935
 msgid "%sst"
 msgstr ""
 
-#: give-recurring.php:921
+#: give-recurring.php:939
 msgid "%snd"
 msgstr ""
 
-#: give-recurring.php:925
+#: give-recurring.php:943
 msgid "%srd"
 msgstr ""
 
-#: give-recurring.php:1524
+#: give-recurring.php:1574
 msgid "The link to the form through which donation was made."
 msgstr ""
 
-#: give-recurring.php:1533
+#: give-recurring.php:1583
 msgid "Displays the subscription frequency based on its period and times. For instance, \"Monthly for 3 Months\", or simply \"Monthly\" if bill times is 0."
 msgstr ""
 
-#: give-recurring.php:1542
+#: give-recurring.php:1592
 msgid "Displays the number of subscriptions completed with the total bill times. For instance \"1/3\" or \"1 / Until cancelled\"."
 msgstr ""
 
-#: give-recurring.php:1551
+#: give-recurring.php:1601
 msgid "The date the donation was cancelled."
 msgstr ""
 
-#: give-recurring.php:1560
+#: give-recurring.php:1610
 msgid "The date the donation was completed."
 msgstr ""
 
-#: give-recurring.php:1569
+#: give-recurring.php:1619
 msgid "The date of renewal."
 msgstr ""
 
-#: give-recurring.php:1578
+#: give-recurring.php:1628
 msgid "The date of expiration."
 msgstr ""
 
-#: give-recurring.php:1609, includes/give-recurring-emails.php:228
+#: give-recurring.php:1659, includes/give-recurring-emails.php:228
 msgid "n/a"
 msgstr ""
 
-#: give-recurring.php:1636, includes/give-recurring-helpers.php:255
+#: give-recurring.php:1688, includes/give-recurring-helpers.php:255
 msgid "Monthly"
 msgstr ""
 
-#: give-recurring.php:1642
+#: give-recurring.php:1694
 msgid "2 / Ongoing"
 msgstr ""
 
-#: give-recurring.php:1648
+#: give-recurring.php:1700
 msgid "September 2, 2018"
 msgstr ""
 
-#: give-recurring.php:1654
+#: give-recurring.php:1706
 msgid "August 12, 2018"
 msgstr ""
 
-#: give-recurring.php:1660
+#: give-recurring.php:1712
 msgid "June 2, 2018"
 msgstr ""
 
-#: give-recurring.php:1666
+#: give-recurring.php:1718
 msgid "July 2, 2018"
 msgstr ""
 
-#: give-recurring.php:1707, includes/give-recurring-helpers.php:1488
+#: give-recurring.php:1760, includes/give-recurring-helpers.php:1488
 msgid "You have not made any recurring donations."
 msgstr ""
 
-#: give-recurring.php:1732
+#: give-recurring.php:1786
 msgid "Subscription ID is Invalid."
 msgstr ""
 
-#: give-recurring.php:1746
+#: give-recurring.php:1800
 msgid "Subscription is not attached with a parent donation."
 msgstr ""
 
-#: give-recurring.php:1758
+#: give-recurring.php:1812
 msgid "The subscription you are looking for either doesn't exist or belongs to a different donor. Please contact a site administrator for assistance."
 msgstr ""
 
-#: give-recurring.php:1785
+#: give-recurring.php:1841
 msgid "You must be logged in to view your subscriptions."
 msgstr ""
 
@@ -270,7 +270,7 @@ msgstr ""
 msgid "You do not have permission to view this data."
 msgstr ""
 
-#: includes/admin/class-recurring-reports.php:184, includes/admin/emails/class-renewal-receipt-email.php:244, includes/admin/subscriptions.php:71, includes/admin/subscriptions.php:131, includes/admin/subscriptions.php:169, includes/gateways/give-recurring-gateway.php:357, includes/gateways/give-recurring-gateway.php:721, includes/gateways/give-recurring-gateway.php:727, includes/gateways/give-recurring-gateway.php:761, includes/gateways/give-recurring-paypal.php:536, includes/gateways/give-recurring-paypal.php:547, includes/gateways/give-recurring-paypal.php:551, includes/gateways/give-recurring-paypalpro.php:604, includes/gateways/give-recurring-paypalpro.php:773, includes/gateways/give-recurring-paypalpro.php:969, includes/gateways/give-recurring-paypalpro.php:1098, includes/gateways/give-recurring-stripe_ach.php:582, includes/gateways/give-recurring-stripe_apple_pay.php:278, includes/gateways/give-recurring-stripe_becs.php:340, includes/gateways/give-recurring-stripe_checkout.php:444, includes/gateways/give-recurring-stripe_google_pay.php:277, includes/gateways/give-recurring-stripe_sepa.php:344, includes/gateways/give-recurring-stripe.php:323, includes/gateways/give-recurring-wepay.php:624, includes/gateways/give-recurring-wepay.php:634
+#: includes/admin/class-recurring-reports.php:184, includes/admin/emails/class-renewal-receipt-email.php:239, includes/admin/subscriptions.php:71, includes/admin/subscriptions.php:131, includes/admin/subscriptions.php:169, includes/gateways/give-recurring-gateway.php:357, includes/gateways/give-recurring-gateway.php:721, includes/gateways/give-recurring-gateway.php:727, includes/gateways/give-recurring-gateway.php:761, includes/gateways/give-recurring-paypal.php:536, includes/gateways/give-recurring-paypal.php:547, includes/gateways/give-recurring-paypal.php:551, includes/gateways/give-recurring-paypalpro.php:604, includes/gateways/give-recurring-paypalpro.php:773, includes/gateways/give-recurring-paypalpro.php:969, includes/gateways/give-recurring-paypalpro.php:1098, includes/gateways/give-recurring-stripe_ach.php:582, includes/gateways/give-recurring-stripe_apple_pay.php:278, includes/gateways/give-recurring-stripe_becs.php:340, includes/gateways/give-recurring-stripe_checkout.php:444, includes/gateways/give-recurring-stripe_google_pay.php:277, includes/gateways/give-recurring-stripe_sepa.php:344, includes/gateways/give-recurring-stripe.php:323, includes/gateways/give-recurring-wepay.php:624, includes/gateways/give-recurring-wepay.php:634
 msgid "Error"
 msgstr ""
 
@@ -370,7 +370,7 @@ msgstr ""
 msgid "Numbered"
 msgstr ""
 
-#: includes/admin/class-subscriptions-list-table.php:107, includes/admin/emails/class-subscription-reminder-email.php:877, includes/admin/give-recurring-filters.php:182
+#: includes/admin/class-subscriptions-list-table.php:107, includes/admin/emails/class-subscription-reminder-email.php:883, includes/admin/give-recurring-filters.php:182
 msgid "All"
 msgstr ""
 
@@ -450,155 +450,163 @@ msgstr ""
 msgid "Sent to designated recipient(s) when the renewal payments of the donor fails due to card declined or expired"
 msgstr ""
 
-#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:44, includes/admin/emails/class-renewal-receipt-email.php:21, includes/admin/emails/class-subscription-cancelled-email.php:22, includes/admin/emails/class-subscription-completed-email.php:18, includes/admin/emails/class-subscription-reminder-email.php:380, includes/admin/emails/class-subscriptions-email-access.php:24
+#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:44, includes/admin/emails/class-renewal-receipt-email.php:21, includes/admin/emails/class-subscription-cancelled-email.php:22, includes/admin/emails/class-subscription-completed-email.php:18, includes/admin/emails/class-subscription-reminder-email.php:386, includes/admin/emails/class-subscriptions-email-access.php:24
 msgid "Donor"
 msgstr ""
 
-#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:52
+#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:51
 msgid "[%s] Subscription Payment Failed"
 msgstr ""
 
-#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:56
+#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:55
 msgid "Subscription Payment Failed"
 msgstr ""
 
-#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:93
+#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:92
 msgid "Supported Gateways"
 msgstr ""
 
-#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:94
+#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:93
 msgid "This email will be sent to the recurring donations processed via the supported gateways."
 msgstr ""
 
-#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:101, includes/admin/emails/class-subscription-reminder-email.php:802
+#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:100, includes/admin/emails/class-subscription-reminder-email.php:808
 msgid "Select payment gateways"
 msgstr ""
 
-#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:122
+#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:119
 msgid "Dear {name},"
 msgstr ""
 
-#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:123
+#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:120
 msgid "We want to inform you that your recurring payment to {sitename} was unsuccessful. Your ongoing support is important to us. To continue your recurring donation, please update your payment method by clicking on this link:"
 msgstr ""
 
-#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:125
+#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:122
 msgid "If no action is taken, your subscription will automatically cancel after a few more attempts. If possible, please renew your payment method before your next scheduled donation on {next_payment_attempt}."
 msgstr ""
 
-#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:126, includes/admin/emails/class-subscriptions-email-access.php:311
+#: includes/admin/emails/class-give-recurring-subscription-payment-failed-email.php:123, includes/admin/emails/class-subscriptions-email-access.php:311
 msgid "Sincerely,"
 msgstr ""
 
-#: includes/admin/emails/class-renewal-receipt-admin-email.php:34, includes/admin/emails/class-renewal-receipt-email.php:18
-msgid "Renewal Receipt Email"
+#: includes/admin/emails/class-renewal-receipt-admin-email.php:34
+msgid "Admin Renewal Receipt Email"
 msgstr ""
 
 #: includes/admin/emails/class-renewal-receipt-admin-email.php:35
 msgid "Check this option if you would like admin to receive an email when a renewal donation payment has been received. Note: some payment gateways like Stripe and Authorize.net may also send out an email depending on your gateway settings."
 msgstr ""
 
-#: includes/admin/emails/class-renewal-receipt-admin-email.php:39, includes/admin/emails/class-renewal-receipt-email.php:25
+#: includes/admin/emails/class-renewal-receipt-admin-email.php:41, includes/admin/emails/class-renewal-receipt-email.php:24
 msgid "Subscription Donation Receipt"
 msgstr ""
 
-#: includes/admin/emails/class-renewal-receipt-admin-email.php:40, includes/admin/emails/class-subscription-cancelled-admin-email.php:40
+#: includes/admin/emails/class-renewal-receipt-admin-email.php:42, includes/admin/emails/class-subscription-cancelled-admin-email.php:42
 msgid "Hi there,"
 msgstr ""
 
-#: includes/admin/emails/class-renewal-receipt-admin-email.php:40
+#: includes/admin/emails/class-renewal-receipt-admin-email.php:42
 msgid "has succesfully renewed their donation. Here are the donation details:"
 msgstr ""
 
-#: includes/admin/emails/class-renewal-receipt-admin-email.php:41, includes/admin/emails/class-renewal-receipt-email.php:24
+#: includes/admin/emails/class-renewal-receipt-admin-email.php:46, includes/admin/emails/class-renewal-receipt-email.php:23
 msgid "Donation Receipt"
 msgstr ""
 
-#: includes/admin/emails/class-renewal-receipt-admin-email.php:63, includes/admin/emails/class-renewal-receipt-email.php:50
+#: includes/admin/emails/class-renewal-receipt-admin-email.php:68, includes/admin/emails/class-renewal-receipt-email.php:49
 msgid "Renewal Receipt Subject"
 msgstr ""
 
-#: includes/admin/emails/class-renewal-receipt-admin-email.php:65, includes/admin/emails/class-renewal-receipt-email.php:52
+#: includes/admin/emails/class-renewal-receipt-admin-email.php:70, includes/admin/emails/class-renewal-receipt-email.php:51
 msgid "Enter the subject line for the renewal donation receipt email."
 msgstr ""
 
-#: includes/admin/emails/class-renewal-receipt-admin-email.php:70
+#: includes/admin/emails/class-renewal-receipt-admin-email.php:75
 msgid "Renewal Receipt Header"
 msgstr ""
 
-#: includes/admin/emails/class-renewal-receipt-admin-email.php:72
+#: includes/admin/emails/class-renewal-receipt-admin-email.php:77
 msgid "Enter the header for the renewal donation receipt email."
 msgstr ""
 
-#: includes/admin/emails/class-renewal-receipt-admin-email.php:77, includes/admin/emails/class-renewal-receipt-email.php:57
+#: includes/admin/emails/class-renewal-receipt-admin-email.php:82, includes/admin/emails/class-renewal-receipt-email.php:56
 msgid "Renewal Donation Receipt"
 msgstr ""
 
-#: includes/admin/emails/class-renewal-receipt-admin-email.php:79, includes/admin/emails/class-renewal-receipt-email.php:59
+#: includes/admin/emails/class-renewal-receipt-admin-email.php:84, includes/admin/emails/class-renewal-receipt-email.php:58
 msgid "Enter the email message that is sent to users after upon Give receiving a successful renewal donation. HTML is accepted. Available template tags: "
+msgstr ""
+
+#: includes/admin/emails/class-renewal-receipt-email.php:18
+msgid "Renewal Receipt Email"
 msgstr ""
 
 #: includes/admin/emails/class-renewal-receipt-email.php:19
 msgid "Check this option if you would like donors to receive an email when a renewal donation payment has been received. Note: some payment gateways like Stripe and Authorize.net may also send out an email depending on your gateway settings."
 msgstr ""
 
-#: includes/admin/emails/class-renewal-receipt-email.php:26, includes/admin/emails/class-subscription-cancelled-email.php:26, includes/admin/emails/class-subscription-completed-email.php:22, includes/admin/emails/class-subscription-reminder-email.php:347, includes/admin/emails/class-subscription-reminder-email.php:353
+#: includes/admin/emails/class-renewal-receipt-email.php:25, includes/admin/emails/class-subscription-cancelled-email.php:25, includes/admin/emails/class-subscription-completed-email.php:21, includes/admin/emails/class-subscription-reminder-email.php:347, includes/admin/emails/class-subscription-reminder-email.php:356
 msgid "Dear"
 msgstr ""
 
-#: includes/admin/emails/class-renewal-receipt-email.php:26
+#: includes/admin/emails/class-renewal-receipt-email.php:25
 msgid "Thank you for your donation and continued support. Your generosity is appreciated! Here are your donation details:"
 msgstr ""
 
-#: includes/admin/emails/class-renewal-receipt-email.php:244
+#: includes/admin/emails/class-renewal-receipt-email.php:239
 msgid "You do not have permission to send email notifications."
 msgstr ""
 
-#: includes/admin/emails/class-subscription-cancelled-admin-email.php:34, includes/admin/emails/class-subscription-cancelled-email.php:19
-msgid "Subscription Cancelled Email"
+#: includes/admin/emails/class-subscription-cancelled-admin-email.php:34
+msgid "Admin Subscription Cancelled Email"
 msgstr ""
 
 #: includes/admin/emails/class-subscription-cancelled-admin-email.php:35
 msgid "Check this option if you would like admin to receive an email when a subscription has been cancelled. The email will send when either the donor or admin cancels the subscription"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-cancelled-admin-email.php:39, includes/admin/emails/class-subscription-cancelled-admin-email.php:41, includes/admin/emails/class-subscription-cancelled-email.php:25
+#: includes/admin/emails/class-subscription-cancelled-admin-email.php:41, includes/admin/emails/class-subscription-cancelled-admin-email.php:46, includes/admin/emails/class-subscription-cancelled-email.php:24
 msgid "Subscription Donation Cancelled"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-cancelled-admin-email.php:40
+#: includes/admin/emails/class-subscription-cancelled-admin-email.php:42
 msgid "This email is to inform you that subscription for {donation} has been successfully cancelled. Here are the subscription details for your records:nn<strong>Donor Name:</strong> {fullname}n<strong>Subscription:</strong> {donation} - {amount}n<strong>Subscription Frequency:</strong> {subscription_frequency} n<strong>Completed Donations:</strong> {subscriptions_completed} n<strong>Payment Method:</strong> {payment_method}n<strong>Cancellation Date:</strong> {cancellation_date}nnSincerely,n{sitename}"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-cancelled-admin-email.php:151, includes/admin/emails/class-subscription-cancelled-email.php:102
+#: includes/admin/emails/class-subscription-cancelled-admin-email.php:156, includes/admin/emails/class-subscription-cancelled-email.php:101
 msgid "Subscription Cancelled Subject"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-cancelled-admin-email.php:153, includes/admin/emails/class-subscription-cancelled-email.php:104
+#: includes/admin/emails/class-subscription-cancelled-admin-email.php:158, includes/admin/emails/class-subscription-cancelled-email.php:103
 msgid "Enter the subject line of the email sent when a subscription is cancelled."
 msgstr ""
 
-#: includes/admin/emails/class-subscription-cancelled-admin-email.php:158
+#: includes/admin/emails/class-subscription-cancelled-admin-email.php:163
 msgid "Subscription Cancelled Header"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-cancelled-admin-email.php:160
+#: includes/admin/emails/class-subscription-cancelled-admin-email.php:165
 msgid "Enter the header of the email sent when a subscription is cancelled."
 msgstr ""
 
-#: includes/admin/emails/class-subscription-cancelled-admin-email.php:165, includes/admin/emails/class-subscription-cancelled-email.php:109
+#: includes/admin/emails/class-subscription-cancelled-admin-email.php:170, includes/admin/emails/class-subscription-cancelled-email.php:108
 msgid "Subscription Cancelled Message"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-cancelled-admin-email.php:167, includes/admin/emails/class-subscription-cancelled-email.php:111
+#: includes/admin/emails/class-subscription-cancelled-admin-email.php:172, includes/admin/emails/class-subscription-cancelled-email.php:110
 msgid "Enter the email message that is sent to users when a subscription is cancelled. HTML is accepted. Available template tags: "
+msgstr ""
+
+#: includes/admin/emails/class-subscription-cancelled-email.php:19
+msgid "Subscription Cancelled Email"
 msgstr ""
 
 #: includes/admin/emails/class-subscription-cancelled-email.php:20
 msgid "Check this option if you would like donors to receive an email when a subscription has been cancelled. The email will send when either the donor or admin cancels the subscription"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-cancelled-email.php:26
+#: includes/admin/emails/class-subscription-cancelled-email.php:25
 msgid "Your subscription for {donation} has been successfully cancelled. Here are the subscription details for your records:nn<strong>Subscription:</strong> {donation} - {amount}n<strong>Subscription Frequency:</strong> {subscription_frequency} n<strong>Completed Donations:</strong> {subscriptions_completed} n<strong>Payment Method:</strong> {payment_method}n<strong>Cancellation Date:</strong> {cancellation_date}nnSincerely,n{sitename}"
 msgstr ""
 
@@ -610,31 +618,31 @@ msgstr ""
 msgid "Check this option if you would like donors to receive an email when a subscription has been completed."
 msgstr ""
 
-#: includes/admin/emails/class-subscription-completed-email.php:21
+#: includes/admin/emails/class-subscription-completed-email.php:20
 msgid "Subscription Donation Completed"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-completed-email.php:22
+#: includes/admin/emails/class-subscription-completed-email.php:21
 msgid "Your subscription for {donation} has been successfully completed. Here are the subscription details for your records:nn<strong>Subscription:</strong> {donation} - {amount}n<strong>Subscription Frequency:</strong> {subscription_frequency} n<strong>Completed Donations:</strong> {subscriptions_completed} n<strong>Payment Method:</strong> {payment_method}n<strong>Cancellation Date:</strong> {cancellation_date}nnSincerely,n{sitename}"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-completed-email.php:98
+#: includes/admin/emails/class-subscription-completed-email.php:97
 msgid "Subscription Completed Subject"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-completed-email.php:100, includes/admin/emails/class-subscription-reminder-email.php:756
+#: includes/admin/emails/class-subscription-completed-email.php:99, includes/admin/emails/class-subscription-reminder-email.php:762
 msgid "Enter the subject line of the email sent when a subscription is completed."
 msgstr ""
 
-#: includes/admin/emails/class-subscription-completed-email.php:105
+#: includes/admin/emails/class-subscription-completed-email.php:104
 msgid "Subscription Completed Message"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-completed-email.php:107, includes/admin/emails/class-subscription-reminder-email.php:769
+#: includes/admin/emails/class-subscription-completed-email.php:106, includes/admin/emails/class-subscription-reminder-email.php:775
 msgid "Enter the email message that is sent to users when a subscription is completed. HTML is accepted. Available template tags: "
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:345, includes/admin/emails/class-subscription-reminder-email.php:351
+#: includes/admin/emails/class-subscription-reminder-email.php:345, includes/admin/emails/class-subscription-reminder-email.php:354
 msgid "Subscription Reminder"
 msgstr ""
 
@@ -646,131 +654,131 @@ msgstr ""
 msgid "Your subscription's renewal date is approaching. Here are the subscription details for your records:nn<strong>Subscription:</strong> {donation} - {amount}n<strong>Subscription Frequency:</strong> {subscription_frequency} n<strong>Completed Donations:</strong> {subscriptions_completed} n<strong>Payment Method:</strong> {payment_method}nnSincerely,n{sitename}"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:352
+#: includes/admin/emails/class-subscription-reminder-email.php:355
 msgid "Subscription Expiration reminder"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:353
+#: includes/admin/emails/class-subscription-reminder-email.php:356
 msgid "Your subscription's expiration date is approaching. Here are the subscription details for your records:nn<strong>Subscription:</strong> {donation} - {amount}n<strong>Subscription Frequency:</strong> {subscription_frequency} n<strong>Completed Donations:</strong> {subscriptions_completed} n<strong>Payment Method:</strong> {payment_method}nnSincerely,n{sitename}"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:378
+#: includes/admin/emails/class-subscription-reminder-email.php:384
 msgid "Subscription Reminder Email"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:379
+#: includes/admin/emails/class-subscription-reminder-email.php:385
 msgid "Check this option if you would like donors to receive an email when a subscription is approaching its renewal or expiration. The email will send a reminder about when the subscription is about to renew or expire."
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:387
+#: includes/admin/emails/class-subscription-reminder-email.php:393
 msgid "This notification is automatically toggled based on whether or not the reminder email is enabled."
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:389, includes/admin/emails/class-subscriptions-email-access.php:33
+#: includes/admin/emails/class-subscription-reminder-email.php:395, includes/admin/emails/class-subscriptions-email-access.php:33
 msgid "Edit Setting"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:572
+#: includes/admin/emails/class-subscription-reminder-email.php:578
 msgid "Globally Enable/Disable the Renewal Reminder feature."
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:574
+#: includes/admin/emails/class-subscription-reminder-email.php:580
 msgid "Send Renewal Reminder"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:578, includes/admin/emails/class-subscription-reminder-email.php:624, includes/admin/emails/class-subscription-reminder-email.php:716
+#: includes/admin/emails/class-subscription-reminder-email.php:584, includes/admin/emails/class-subscription-reminder-email.php:630, includes/admin/emails/class-subscription-reminder-email.php:722
 msgid "Enable"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:579, includes/admin/emails/class-subscription-reminder-email.php:625, includes/admin/emails/class-subscription-reminder-email.php:717
+#: includes/admin/emails/class-subscription-reminder-email.php:585, includes/admin/emails/class-subscription-reminder-email.php:631, includes/admin/emails/class-subscription-reminder-email.php:723
 msgid "Disable"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:599
+#: includes/admin/emails/class-subscription-reminder-email.php:605
 msgid "Renewal Reminder Emails"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:618
+#: includes/admin/emails/class-subscription-reminder-email.php:624
 msgid "Globally Enable/Disable the Expiration Reminder feature."
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:620
+#: includes/admin/emails/class-subscription-reminder-email.php:626
 msgid "Send Expiration Reminder"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:645
+#: includes/admin/emails/class-subscription-reminder-email.php:651
 msgid "Expiration Reminder Emails"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:711
+#: includes/admin/emails/class-subscription-reminder-email.php:717
 msgid "Notification"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:712
+#: includes/admin/emails/class-subscription-reminder-email.php:718
 msgid "Enable/Disable this email notice."
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:729
+#: includes/admin/emails/class-subscription-reminder-email.php:735
 msgid "Period"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:741
+#: includes/admin/emails/class-subscription-reminder-email.php:747
 msgid "Subscription Renewal Header"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:743
+#: includes/admin/emails/class-subscription-reminder-email.php:749
 msgid "Enter the header line of the email sent when a subscription is completed."
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:754
+#: includes/admin/emails/class-subscription-reminder-email.php:760
 msgid "Subscription Renewal Subject"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:767
+#: includes/admin/emails/class-subscription-reminder-email.php:773
 msgid "Subscription Renewal Message"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:780
+#: includes/admin/emails/class-subscription-reminder-email.php:786
 msgid "Email Content Type"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:781
+#: includes/admin/emails/class-subscription-reminder-email.php:787
 msgid "Choose email type."
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:795
+#: includes/admin/emails/class-subscription-reminder-email.php:801
 msgid "Exclude Gateways"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:796
+#: includes/admin/emails/class-subscription-reminder-email.php:802
 msgid "This email won't be sent if the donations are made using the selected payment methods."
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:885
+#: includes/admin/emails/class-subscription-reminder-email.php:891
 msgid "All, except %s."
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:893
+#: includes/admin/emails/class-subscription-reminder-email.php:899
 msgid "%s only."
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:925
+#: includes/admin/emails/class-subscription-reminder-email.php:931
 msgid "Add"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:925
+#: includes/admin/emails/class-subscription-reminder-email.php:931
 msgid "Update"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:926
+#: includes/admin/emails/class-subscription-reminder-email.php:932
 msgid "Renewal Reminder"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:926
+#: includes/admin/emails/class-subscription-reminder-email.php:932
 msgid "Expiration Reminder"
 msgstr ""
 
-#: includes/admin/emails/class-subscription-reminder-email.php:931
+#: includes/admin/emails/class-subscription-reminder-email.php:937
 msgid "Save Changes"
 msgstr ""
 
@@ -892,7 +900,7 @@ msgstr ""
 msgid "one time"
 msgstr ""
 
-#: includes/admin/export-donation.php:124, includes/give-recurring-template.php:292, includes/give-subscription.php:947, templates/shortcode-subscriptions.php:174
+#: includes/admin/export-donation.php:124, includes/give-recurring-template.php:292, templates/shortcode-subscriptions.php:174
 msgid "Ongoing"
 msgstr ""
 
@@ -2572,38 +2580,6 @@ msgstr ""
 msgid "Manage Subscriptions"
 msgstr ""
 
-#: includes/give-subscription.php:201
-msgid "Can't get property %s"
-msgstr ""
-
-#: includes/give-subscription.php:289
-msgid "Status changed from %s to %s"
-msgstr ""
-
-#: includes/give-subscription.php:746
-msgid "gateway"
-msgstr ""
-
-#: includes/give-subscription.php:750
-msgid "Subscription #%1$d cancelled by %2$s"
-msgstr ""
-
-#: includes/give-subscriptions-api.php:87
-msgid "'%s' is not a valid status."
-msgstr ""
-
-#: includes/give-subscriptions-api.php:151
-msgid "No donor found for %s!"
-msgstr ""
-
-#: includes/give-subscriptions-api.php:257
-msgid "No subscriptions found for %s!"
-msgstr ""
-
-#: includes/give-subscriptions-api.php:263
-msgid "No subscriptions found!"
-msgstr ""
-
 #: src/Donation/Migrations/RecoverDonorFirstAndLastNameAffectByRenewal.php:95
 msgid "Recover Donor First And Last Name Affect By Renewal"
 msgstr ""
@@ -2624,23 +2600,23 @@ msgstr ""
 msgid "Latest recurring amount for subscription."
 msgstr ""
 
-#: src/PaymentGateways/AuthorizeNet/Actions/ProcessOneTimeDonation.php:57
+#: src/PaymentGateways/AuthorizeNet/Actions/ProcessOneTimeDonation.php:58
 msgid "Authorize.net transaction flagged this donation through the fraud filter. Please approve or void this transaction within your Authorize.net merchant dashboard."
 msgstr ""
 
-#: src/PaymentGateways/AuthorizeNet/Actions/ProcessOneTimeDonation.php:67
+#: src/PaymentGateways/AuthorizeNet/Actions/ProcessOneTimeDonation.php:68
 msgid "The subscription could not be charged because the type of credit card used is not accepted. Please try again with a supported card type."
 msgstr ""
 
-#: src/PaymentGateways/AuthorizeNet/Actions/ProcessOneTimeDonation.php:73
+#: src/PaymentGateways/AuthorizeNet/Actions/ProcessOneTimeDonation.php:76
 msgid "The transaction has been declined."
 msgstr ""
 
-#: src/PaymentGateways/AuthorizeNet/Actions/ProcessOneTimeDonation.php:78
+#: src/PaymentGateways/AuthorizeNet/Actions/ProcessOneTimeDonation.php:81
 msgid "The donation could not be charged. Please try again. Reason: %s"
 msgstr ""
 
-#: src/PaymentGateways/AuthorizeNet/Actions/ProcessOneTimeDonation.php:89
+#: src/PaymentGateways/AuthorizeNet/Actions/ProcessOneTimeDonation.php:92
 msgid "The donation could not be charged. Please try again."
 msgstr ""
 
@@ -2746,10 +2722,6 @@ msgstr ""
 
 #: src/Webhooks/Stripe/Listeners/InvoicePaymentFailed.php:53
 msgid "Subscription - Renewal Payment Failed"
-msgstr ""
-
-#: src/Webhooks/Stripe/Listeners/InvoicePaymentSucceeded.php:105
-msgid "The Stripe Gateway returned an error while canceling the subscription."
 msgstr ""
 
 #: templates/shortcode-subscription-edit.php:16

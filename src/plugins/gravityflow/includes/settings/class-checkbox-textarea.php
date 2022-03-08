@@ -132,8 +132,18 @@ class Checkbox_And_Textarea extends \Gravity_Forms\Gravity_Forms\Settings\Fields
 
 	}
 
+	/**
+	 * Return the modified container classes in order to allow this field to layout correctly.
+	 *
+	 * @since 2.5.7.6
+	 *
+	 * @return string
+	 */
+	public function get_container_classes() {
+		$classes = parent::get_container_classes();
 
-
+		return str_replace( 'gform-settings-input__container', 'gform-settings-field__textarea', $classes );
+	}
 
 
 	// # VALIDATION METHODS --------------------------------------------------------------------------------------------
