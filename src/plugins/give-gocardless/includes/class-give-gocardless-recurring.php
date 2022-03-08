@@ -554,13 +554,13 @@ class Give_GoCardless_Recurring extends Give_Recurring_Gateway {
 			// Get mandate id from redirect flow response.
 			$mandate_id = $redirect_flow['links']['mandate'];
 
-			// Create the subscription on GoCardless through mandate id and donation payment ID.
-			$subscription_id = $this->gocardless_create_subscription( $mandate_id, $payment_id );
+			// Let Donorfy Handle this // Create the subscription on GoCardless through mandate id and donation payment ID.
+			// $subscription_id = $this->gocardless_create_subscription( $mandate_id, $payment_id );
 
-			// If subscription wasn't created throw error.
-			if ( empty( $subscription_id ) ) {
-				throw new Exception( __( 'Subscription couldn\'t created!', 'give-gocardless' ) );
-			}
+			// // If subscription wasn't created throw error.
+			// if ( empty( $subscription_id ) ) {
+			// 	throw new Exception( __( 'Subscription couldn\'t created!', 'give-gocardless' ) );
+			// }
 
 			// Redirect to give success page, if everything is okay.
 			give_send_to_success_page();
