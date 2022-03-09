@@ -316,11 +316,46 @@ jQuery(document).on('gform_confirmation_loaded', function(event, formId){
     //     $('#splash-modal').modal('show');
     // }
 
-    //give wp
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    // give wp //////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
     $("#usaForm, #usaFormMonthly").find('iframe').contents().find(".currency--before").html('$');
     $("#ausForm, #ausFormMonthly").find('iframe').contents().find(".currency--before").html('$');
     $("#norwayForm, #norwayFormMonthly").find('iframe').contents().find(".currency--before").html('Kr.');
     $('iframe').contents().find(".country-selector").hide();
+
+    const inspirationQuestion = $(".give-embed-form-wrapper").find('iframe').contents().find(".inspiration-question").find('select');
+    
+    function customLabel(obj){
+        let choice = obj.val();
+        let furtherDetails = obj.parent().siblings('.further-details').find('label');
+        if (choice == "Faith Based") {
+            $(furtherDetails).html("Please tell us the name of your place of worship");
+        } else if (choice == "Social media") {
+            $(furtherDetails).html("Please tell us which platform inspired you");
+        } else if (choice == "I know a Hope for Justice staff member/ volunteer") {
+            $(furtherDetails).html("Please tell us who you know");
+        } else if (choice == "Gift of celebration") {
+            $(furtherDetails).html("Please let us know what you are celebrating");
+        } else if (choice == "Other") {
+            $(furtherDetails).html("Tell us more");
+        } else if (choice == "Event or talk") {
+            $(furtherDetails).html("Please tell us which event or talk");
+        } else {
+            $(furtherDetails).html("Further details");
+        }
+    }
+
+    inspirationQuestion.change(function (){
+        customLabel($(this));
+    });
+
+    inspirationQuestion.each(function(){
+        customLabel($(this));
+    });
+    
+
     
     //const selectOption = $(".give-embed-form-wrapper").find('iframe').contents().find(".preferencesQuestion").find('select');
     //const options = $(".give-embed-form-wrapper").find('iframe').contents().find(".preference"); 
