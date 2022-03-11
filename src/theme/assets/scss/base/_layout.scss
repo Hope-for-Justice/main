@@ -47,7 +47,7 @@
 .site-content {margin-top: 10.04em;}
 	
 .site{ 
-	max-width: 1920px;
+	max-width: 2570px;
 	margin: 0 auto;
 }
 
@@ -59,7 +59,7 @@
 
 @include mq($from: max) {
 	.site {
-		border: 1px solid $lines;
+		//border: 1px solid $lines;
 	}
 }
 
