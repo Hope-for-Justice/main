@@ -73,6 +73,7 @@
 	}?>
 
 	</div><!-- #content -->
+	</div><!-- #page -->
 
 	<footer id="footer" class="footer">
 		<div class="grid">
@@ -140,7 +141,7 @@
 			</div>
 		</div>
 	</footer><!-- #colophon -->
-</div><!-- #page -->
+
 
 <?php wp_footer(); ?>
 
