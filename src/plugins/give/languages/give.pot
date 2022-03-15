@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Give - Donation Plugin plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Give - Donation Plugin 2.19.1\n"
+"Project-Id-Version: Give - Donation Plugin 2.19.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/givewp\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-02-25T19:21:35+00:00\n"
+"POT-Creation-Date: 2022-03-11T20:58:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: give\n"
@@ -1734,7 +1734,7 @@ msgstr ""
 #: src/DonorDashboards/Admin/Settings.php:114
 #: src/Form/Template/Options.php:170
 #: src/Form/Template/Options.php:194
-#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:203
+#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:209
 #: src/PaymentGateways/PayPalCommerce/PayPalCommerce.php:190
 #: src/Tracking/AdminSettings.php:47
 #: src/Views/Form/Templates/Classic/optionConfig.php:57
@@ -1797,7 +1797,7 @@ msgstr ""
 #: src/DonorDashboards/Admin/Settings.php:115
 #: src/Form/Template/Options.php:171
 #: src/Form/Template/Options.php:195
-#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:204
+#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:210
 #: src/PaymentGateways/PayPalCommerce/PayPalCommerce.php:191
 #: src/Tracking/AdminSettings.php:48
 #: src/Views/Form/Templates/Classic/optionConfig.php:58
@@ -2962,7 +2962,7 @@ msgstr ""
 
 #: includes/admin/payments/class-payments-table.php:412
 #: src/API/Endpoints/Reports/TopDonors.php:46
-#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:188
+#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:194
 #: src/PaymentGateways/PayPalCommerce/PayPalCommerce.php:157
 #: templates/shortcode-receipt.php:82
 #: src/DonorDashboards/resources/js/app/components/donation-table/index.js:49
@@ -12665,7 +12665,7 @@ msgid "MM / YY"
 msgstr ""
 
 #: includes/forms/template.php:1112
-#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:194
+#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:200
 #: src/PaymentGateways/PayPalCommerce/AdvancedCardFields.php:85
 msgid "Billing Details"
 msgstr ""
@@ -13181,9 +13181,9 @@ msgstr ""
 #: includes/gateways/stripe/includes/class-give-stripe-gateway.php:468
 #: includes/gateways/stripe/includes/class-give-stripe-logger.php:77
 #: includes/gateways/stripe/includes/class-give-stripe-webhooks.php:167
-#: includes/gateways/stripe/includes/give-stripe-helpers.php:573
-#: includes/gateways/stripe/includes/give-stripe-helpers.php:669
-#: includes/gateways/stripe/includes/give-stripe-helpers.php:834
+#: includes/gateways/stripe/includes/give-stripe-helpers.php:590
+#: includes/gateways/stripe/includes/give-stripe-helpers.php:686
+#: includes/gateways/stripe/includes/give-stripe-helpers.php:851
 msgid "Stripe Error"
 msgstr ""
 
@@ -13514,7 +13514,7 @@ msgstr ""
 #: includes/gateways/stripe/includes/class-give-stripe-gateway.php:282
 #: includes/gateways/stripe/includes/class-give-stripe-gateway.php:322
 #: includes/gateways/stripe/includes/class-give-stripe-gateway.php:388
-#: includes/gateways/stripe/includes/give-stripe-helpers.php:676
+#: includes/gateways/stripe/includes/give-stripe-helpers.php:693
 msgid "An error occurred while processing the donation. Please try again."
 msgstr ""
 
@@ -13753,50 +13753,50 @@ msgstr ""
 msgid "Charge refunded in Stripe."
 msgstr ""
 
-#: includes/gateways/stripe/includes/give-stripe-helpers.php:496
+#: includes/gateways/stripe/includes/give-stripe-helpers.php:513
 msgid "-- N/A --"
 msgstr ""
 
 #. translators: %s Exception Error Message
-#: includes/gateways/stripe/includes/give-stripe-helpers.php:576
+#: includes/gateways/stripe/includes/give-stripe-helpers.php:593
 msgid "Unable to set application information to Stripe. Details: %s"
 msgstr ""
 
-#: includes/gateways/stripe/includes/give-stripe-helpers.php:581
+#: includes/gateways/stripe/includes/give-stripe-helpers.php:598
 msgid "Unable to set application information to Stripe. Please try again."
 msgstr ""
 
 #. translators: %s Exception Message Body
-#: includes/gateways/stripe/includes/give-stripe-helpers.php:672
+#: includes/gateways/stripe/includes/give-stripe-helpers.php:689
 msgid "Unable to set Stripe API Key. Details: %s"
 msgstr ""
 
-#: includes/gateways/stripe/includes/give-stripe-helpers.php:981
+#: includes/gateways/stripe/includes/give-stripe-helpers.php:998
 msgid "Stripe Customer Creation Failed"
 msgstr ""
 
 #. translators: %s Donation Data
-#: includes/gateways/stripe/includes/give-stripe-helpers.php:984
+#: includes/gateways/stripe/includes/give-stripe-helpers.php:1001
 msgid "Customer creation failed while processing the donation. Details: %s"
 msgstr ""
 
-#: includes/gateways/stripe/includes/give-stripe-helpers.php:988
+#: includes/gateways/stripe/includes/give-stripe-helpers.php:1005
 msgid "The Stripe Gateway returned an error while processing the donation."
 msgstr ""
 
-#: includes/gateways/stripe/includes/give-stripe-helpers.php:1175
+#: includes/gateways/stripe/includes/give-stripe-helpers.php:1192
 msgid "By providing your IBAN and confirming this payment, you are authorizing %1$s and Stripe, our payment service provider, to send instructions to your bank to debit your account and your bank to debit your account in accordance with those instructions. You are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited."
 msgstr ""
 
-#: includes/gateways/stripe/includes/give-stripe-helpers.php:1182
+#: includes/gateways/stripe/includes/give-stripe-helpers.php:1199
 msgid "By providing your bank account details and confirming this payment, you agree to this Direct Debit Request and the <a href=\"%1$s\" target=\"_blank\">Direct Debit Request service agreement</a>, and authorize Stripe Payments Australia Pty Ltd ACN 160 180 343 Direct Debit User ID number 507156 (“Stripe”) to debit your account through the Bulk Electronic Clearing System (BECS) on behalf of %2$s (the “Merchant”) for any amounts separately communicated to you by the Merchant. You certify that you are either an account holder or an authorized signatory on the account listed above."
 msgstr ""
 
-#: includes/gateways/stripe/includes/give-stripe-helpers.php:1519
+#: includes/gateways/stripe/includes/give-stripe-helpers.php:1536
 msgid "Give - Stripe Error"
 msgstr ""
 
-#: includes/gateways/stripe/includes/give-stripe-helpers.php:1522
+#: includes/gateways/stripe/includes/give-stripe-helpers.php:1539
 msgid "Unable to retrieve account details. Please contact support for assistance. Details:"
 msgstr ""
 
@@ -14812,7 +14812,7 @@ msgstr ""
 msgid "An unexpected error occurred while processing the subscription.  Please try again or contact the site administrator."
 msgstr ""
 
-#: src/Framework/PaymentGateways/Routes/GatewayRoute.php:173
+#: src/Framework/PaymentGateways/Routes/GatewayRoute.php:188
 msgid "An unexpected error occurred while processing your donation.  Please try again or contact us to help resolve."
 msgstr ""
 
@@ -15239,7 +15239,7 @@ msgstr ""
 msgid "GiveWP &rsaquo; Onboarding Wizard"
 msgstr ""
 
-#: src/PaymentGateways/Gateways/PayPalStandard/Controllers/PayPalStandardWebhook.php:95
+#: src/PaymentGateways/Gateways/PayPalStandard/Controllers/PayPalStandardWebhook.php:105
 msgid "IPN received on %1$s at %2$s"
 msgstr ""
 
@@ -15247,53 +15247,53 @@ msgstr ""
 msgid "PayPal Standard"
 msgstr ""
 
-#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:162
+#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:168
 msgid "PayPal Email"
 msgstr ""
 
-#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:163
+#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:169
 msgid "Enter the email address associated with your PayPal account to connect with the gateway."
 msgstr ""
 
-#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:171
+#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:177
 msgid "PayPal Page Style"
 msgstr ""
 
-#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:172
+#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:178
 msgid "Enter the name of the PayPal page style to use, or leave blank to use the default."
 msgstr ""
 
-#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:180
+#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:186
 msgid "PayPal Transaction Type"
 msgstr ""
 
-#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:181
+#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:187
 #: src/PaymentGateways/PayPalCommerce/PayPalCommerce.php:150
 msgid "Nonprofits must verify their status to withdraw donations they receive via PayPal. PayPal users that are not verified nonprofits must demonstrate how their donations will be used, once they raise more than $10,000. By default, GiveWP transactions are sent to PayPal as donations. You may change the transaction type using this option if you feel you may not meet PayPal's donation requirements."
 msgstr ""
 
-#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:189
+#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:195
 #: src/PaymentGateways/PayPalCommerce/PayPalCommerce.php:158
 msgid "Standard Transaction"
 msgstr ""
 
-#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:195
+#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:201
 msgid "If enabled, required billing address fields are added to PayPal Standard forms. These fields are not required by PayPal to process the transaction, but you may have a need to collect the data. Billing address details are added to both the donation and donor record in GiveWP."
 msgstr ""
 
-#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:209
+#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:215
 msgid "Invoice ID Prefix"
 msgstr ""
 
-#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:210
+#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:216
 msgid "Enter a prefix for your invoice numbers. If you use your PayPal account for multiple fundraising platforms or ecommerce stores, ensure this prefix is unique. PayPal will not allow orders or donations with the same invoice number."
 msgstr ""
 
-#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:218
+#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:224
 msgid "PayPal Standard Gateway Settings Docs Link"
 msgstr ""
 
-#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:221
+#: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:227
 msgid "PayPal Standard Gateway Settings"
 msgstr ""
 
@@ -15997,19 +15997,19 @@ msgstr ""
 msgid "Dismiss"
 msgstr ""
 
-#: src/Promotions/InPluginUpsells/SaleBanners.php:41
+#: src/Promotions/InPluginUpsells/SaleBanners.php:42
 msgid "Black Friday/Giving Tuesday Sale"
 msgstr ""
 
-#: src/Promotions/InPluginUpsells/SaleBanners.php:42
+#: src/Promotions/InPluginUpsells/SaleBanners.php:43
 msgid "Save 40% on all Plans for a limited time."
 msgstr ""
 
-#: src/Promotions/InPluginUpsells/SaleBanners.php:43
+#: src/Promotions/InPluginUpsells/SaleBanners.php:44
 msgid "Black Friday through Giving Tuesday."
 msgstr ""
 
-#: src/Promotions/InPluginUpsells/SaleBanners.php:44
+#: src/Promotions/InPluginUpsells/SaleBanners.php:45
 msgid "Shop Now"
 msgstr ""
 
