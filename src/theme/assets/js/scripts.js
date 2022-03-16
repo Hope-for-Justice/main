@@ -184,6 +184,7 @@ jQuery(document).ready(function($) {
     //$(".page").fitVids();
     //$(".single").fitVids();
     $('iframe[src*="youtube"]').parent().fitVids();
+    $('iframe[src*="bbc"]').parent().fitVids();
 
 }); /* end of as page load scripts */
 
