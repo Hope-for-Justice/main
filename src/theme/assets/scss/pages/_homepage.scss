@@ -3,27 +3,16 @@
 * _HOMEPAGE.SCSS
 *
 */
+.home .site {max-width: 2560px;}
 
 .homepage{
 
 	.grid {
 		display:grid;
 		grid-template-columns:
-		[full-start] minmax(0, 1fr)
-		[main-start] 1fr
-		[col2] 1fr
-		[col3] 1fr
-		[col4] 1fr
-		[col5] 1fr
-		[col6] 1fr
-		[col7] 1fr
-		[col8] 1fr
-		[col9] 1fr
-		[col10] 1fr
-		[col11] 1fr
-		[col12] 1fr 
-		[main-end] minmax(0, 1fr)
-		[full-end];
+		[full-start] minmax(8.6vw, 1fr)
+		[main-start] minmax(0, 192em)[main-end] 
+		minmax(8.6vw, 1fr) [full-end];
 	}
 
 }
@@ -34,8 +23,248 @@
 	min-height: 60vw;
 	background-position: right;
 	background-size: 200%;
+	&__content {
+	 	grid-column: main;
+	 	margin-top: 8.6vw;
+	}
+	&__text {
+		margin-bottom: 30px;
+	}
 }
 
-.homepage-hero__content {
- grid-column: main;
+.homepage-get-involved {
+	grid-column: main;
+	margin-top: 8.6vw;
+	&__title {
+		font-size: 36px;
+	}
+	&__grid {
+		grid-column: full;
+		padding: 0 10px;
+		margin-top: 8.6vw;
+		margin-bottom: 17.2vw;
+		.get-involved__item {
+			border-radius: 25px;
+			margin-bottom: 10px;
+			svg {fill:#ffffff;}
+			&--c {
+				margin-bottom: 0;
+			}
+		}
+		.get-involved__more-button {
+			//border-radius:120px;
+		}
+	}
 }
+
+.homepage-freedom-wall {
+	grid-column: full;
+	margin-top: 40px;
+	padding: 0 5px;
+	&__image {
+		width:100%;
+		padding-top:67%;
+		background-size: cover;
+		background-position: left;
+		border-radius: 25px;
+	}
+	&__info {
+		grid-column: full;
+		background-color: $light-grey;
+		padding: 8.6vw;
+		margin-top: -20px;
+		border-radius: 25px;
+	}
+	&__subtitle {
+		font-size: 12px;
+	}
+	&__title {
+		font-size: 21px;
+		margin-bottom: 20px;
+	}
+}
+
+
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.homepage-hero {
+	min-height: 0;
+	height: 85em;
+	background-size: cover;
+	background-position: top right 50%;
+	grid-row-start: 1;
+	&__content {
+		grid-row-start: 1;
+		max-width: 65%;
+		align-self:center;
+		margin: 0;
+	}
+	&__title {
+		font-size: 68px;
+		margin-bottom: 30px;
+	}
+	&__text {
+		p{font-size: 2em;}
+		margin-bottom: 40px;
+	}
+}
+
+.homepage-get-involved {
+	padding: 60px;
+	background-color: $light-grey;
+	border-radius: 50px 50px 0 0;
+	text-align: center;
+	max-width: 680px;
+	margin: -40px auto 0 auto;
+	&__title {
+		font-size: 44px;
+		margin-bottom: 30px;
+	}
+	&__grid {
+		grid-column: full;
+		padding: 0 20px;
+		margin-top: 0;
+		.get-involved__item {
+			border-radius: 50px;
+			margin-bottom: 20px;
+			padding-top: 60%;
+			&--c {
+				margin-bottom: 0;
+			}
+		}
+	}
+}
+
+.homepage-freedom-wall {
+	&__image {
+		border-radius: 50px;
+	}
+	&__info {
+		padding:80px;
+		margin-right: 40px;
+		margin-left: 0;
+		border-radius: 0 50px 50px 0;
+	}
+	&__subtitle {
+		font-size: 14px;
+	}
+	&__title {
+		font-size: 36px;
+		margin-bottom: 20px;
+	}
+}
+
+
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.homepage-hero {
+	height: 90vh;
+	max-height: 85em;
+	&__content {
+		max-width: 42em;
+		margin-top: -40px;
+	}
+}
+
+.homepage-get-involved {
+	&__grid {
+		grid-column: main;
+		padding: 0;
+		margin-top: 0;
+		margin-bottom: 80px;
+		.get-involved__item {
+			border-radius: 0px;
+			margin-bottom: 0px;
+			padding-top: 100%;
+			&--a {
+				padding-top: 50%;
+			}
+			&--b {
+				padding-top:0;
+			}
+		}
+	}
+}
+
+.homepage-freedom-wall {
+	grid-column: main;
+	&__info {
+		max-width: 1000px;
+		grid-column: main;
+		margin-right:0;
+		display:flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		position: relative;
+		margin-top: -80px;
+		&::before {
+			content: "";
+			display: block;
+			position: absolute;
+			width: 100%;
+			height:100%;
+			top:0;
+			left:0;
+			transform: translateX(-100%);
+			background-color: $light-grey;
+		}
+	}
+	&__text {
+		max-width: 500px;
+	}
+}
+
+}
+
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+
+.homepage-hero {
+	&__content {
+		margin-left: 8.6vw;
+	}
+}
+
+.homepage-get-involved {
+	padding: 80px;
+	max-width: 840px;
+}
+
+}
+
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: wide) {
+
+.homepage-hero {
+	max-height: 150em;
+	&__content {
+		margin-top: -80px;
+	}
+}
+
+.homepage-get-involved {
+	margin: -80px auto 0 auto;
+}
+
+}
+
+
+
+
