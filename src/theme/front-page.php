@@ -22,7 +22,7 @@ get_header();
 		$thumbnail = wp_get_attachment_image_src($post_thumbnail_id, '', false, '');
 	} ?>
 	
-	<div class="grid">
+	<div class="full-grid">
 
 		<!-- 
 		-- 
@@ -149,7 +149,7 @@ get_header();
 
 		<div class="homepage-freedom-wall__info">
 			<div class="homepage-freedom-wall__text">
-				<h3 class="homepage-freedom-wall__subtitle">2000 LOCKS AND COUNTING</h3>
+				<h3 class="homepage-freedom-wall__subtitle"><?php the_field('freedom_wall_subtitle'); ?></h3>
 				<h2 class="homepage-freedom-wall__title font-canela">
 					<?php the_field('freedom_wall_title'); ?>
 				</h2>
@@ -163,14 +163,6 @@ get_header();
 					</div>
 				</a>
 			</div>
-		</div>
-
-		<div class="homepage-email">
-			<h2 class="homepage-email__title"><?php the_field('email_title'); ?></h2>
-			<p>
-			<?php the_field('email_text'); ?>
-			</p>
-			<?php echo do_shortcode( get_field('email_form') ); ?>
 		</div>
 
 	</div> <!-- /grid -->

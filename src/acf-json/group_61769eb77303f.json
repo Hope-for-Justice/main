@@ -607,6 +607,25 @@
             "maxlength": ""
         },
         {
+            "key": "field_62320a07bc1e5",
+            "label": "Freedom wall subtitle",
+            "name": "freedom_wall_subtitle",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_6176a2d08c018",
             "label": "Freedom wall title",
             "name": "freedom_wall_title",
@@ -763,5 +782,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1647434125
+    "modified": 1647446571
 }

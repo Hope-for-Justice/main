@@ -75,6 +75,18 @@
 	</div><!-- #content -->
 	</div><!-- #page -->
 
+	<div class="email-push">
+		<div class="grid">
+			<div class="email-push__content">
+				<h2 class="email-push__title font-fk"><?php the_field('email_footer_title', 'option'); ?></h2>
+				<p class="email-push__text">
+					<?php the_field('email_footer_text', 'option'); ?>
+				</p>
+				<?php echo do_shortcode( get_field('email_footer_form', 'option') ); ?>
+			</div>
+		</div>
+	</div>
+
 	<footer id="footer" class="footer">
 		<div class="grid">
 			<div class="footer__social-email">
