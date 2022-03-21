@@ -13,11 +13,14 @@
 
 <?php
     //cookie for campaign from the url
+	
     $value=$_GET['campaign']; //the value from the url
     if (isset($_GET['campaign'])) {
 		setcookie("wordpress_hfjcampaign", $value, strtotime( '+7 days' ), '/');  /* expire in 7 days */
 	}
 ?>
+
+
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -89,10 +92,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<p style="font-size: 2em; padding:0.5em; font-family: 'apercu-bold', sans-serif;">It looks like you are using an out of date browser. <br>Please update your browser in order to use this website.</p>
 </div>
 
+
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'hope-for-justice-2020' ); ?></a>
 
 	<header id="site-header" class="header">
+		<?php
+
+		//banner cookie
+		$cookie_name = "wordpress_" . get_field('push_banner_cookie', 'option');
+
+		$page = get_field('push_banner_hide', 'option');
+		$url = 'https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+
+		if ($page != $url) {
+			if ( get_field('push_banner_text', 'option') ) { ?>
+				<?php if ( ! isset($_COOKIE[$cookie_name]) ) { ?>
+					<div id="pushBanner" data-cookie="wordpress_<?php echo the_field('push_banner_cookie', 'option'); ?>" style="background-color: <?php echo the_field('push_banner_background', 'option'); ?>;"
+						class="push-banner"><a style="color: <?php echo the_field('push_banner_color', 'option'); ?>;" href="<?php echo the_field('push_banner_link', 'option'); ?>"><?php echo the_field('push_banner_text', 'option'); ?></a></div>
+			<?php }  ?>
+		<?php }  ?>
+		<?php }  ?>
 		<div class="header__inner">
 			<a style="margin-bottom: -5px" href="/"><!-- inline style - remove space from the bottom of the logo -->
 			<svg class="header__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 173.806 52.08">

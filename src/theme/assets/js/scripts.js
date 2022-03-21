@@ -14,7 +14,18 @@ jQuery(document).ready(function($) {
         $("#cookieNotice").css('display', 'none');
     });
 
+    //push banner cookie
+    $("#pushBanner").click(function(){
+        let name = $(this).data('cookie');
+        Cookies.set(name, 'set', { path: '/', expires: 30 });
+        $("#cookieNotice").css('display', 'none');
+    });
 
+    $('.ukraineDonate').click(function(){
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#ukraineGiving").offset().top - 100
+        }, 500);
+    });
 
     //url param function
     var getUrlParameter = function getUrlParameter(sParam) {
@@ -31,6 +42,17 @@ jQuery(document).ready(function($) {
             }
         }
     };
+
+    //push banner
+    let banner = $('#pushBanner');
+    let bannerHeight = $('#pushBanner').outerHeight();
+
+    if($('#pushBanner').length) {
+        //alert(bannerHeight);
+        $('body').css('padding-top', bannerHeight);
+        let headerPadding = parseInt($('header').css("padding-top"));
+        $('header').css('padding-top', bannerHeight + headerPadding);
+    }
 
 
     // lottie

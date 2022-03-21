@@ -57,11 +57,11 @@
 
 @keyframes headerSlideUp {
   	from {transform: translateY(0);}
-  	to {transform: translateY(-110px);}
+  	to {transform: translateY(-135px);}
 }
 
 @keyframes headerSlideDown {
-  	from {transform: translateY(-110px);}
+  	from {transform: translateY(-135px);}
   	to {transform: translateY(0px);}
 }
 

@@ -1,0 +1,368 @@
+/*
+*
+* _UKRAIN-CRISIS.SCSS
+*
+*/
+.ukraine-seo-title {display:none;}
+
+.ukraine-crisis {
+	padding-bottom: 60px;
+}
+
+.ukraine-hero {
+	grid-column: col1 / col12-end;
+	grid-row-start:1;
+	height: 65vw;
+	background-size: cover;
+	background-position: left center;
+	&__content {
+		grid-row-start:1;
+		grid-column: col2 / col12;
+		margin-top: 37vw;
+	}
+	&__svg {
+		max-width: 80%;
+		margin-bottom: 30px;
+	}
+	&__info {
+		font-weight: bold;
+		margin-bottom: 30px;;
+	}
+}
+
+.ukraine-giving {
+	grid-column: col1 / col12-end;
+}
+
+.ukraine-quote {
+	grid-column: col2 / col12;
+	text-align: center;
+	margin-bottom: 8.6vw;
+	&__circle {
+		width: 153px;
+		height: 153px;
+		background-size: cover;
+		background-position: center bottom;
+		margin: 30px auto;
+		border-radius: 100%;
+	}
+	&__quote {
+		font-size: 20px;
+		margin-bottom: 30px;
+	}
+	&__attr {
+		font-size: 16px;
+	}
+}
+
+.ukraine-second {
+	grid-column: col1/col12-end;
+	background-color:#FFD500;
+	padding: 8.6vw 0;
+	&__title {
+		grid-column: col2/col12;
+		font-family: fk-screamer;
+		font-size: 50px;
+		margin-bottom: 40px;
+		line-height: 1;
+	}
+	&__text {
+		grid-column: col2/col12;
+	}
+	&__button {
+		grid-column: col2/col12;
+		margin-top: 40px;;
+	}
+	&__img {
+		display: none;
+	}
+}
+
+.ukraine-third {
+	&__title {
+		grid-column: col2/col12;
+		font-family: fk-screamer;
+		line-height: 1.2;
+		margin-top: 8.6vw;
+		font-size: 44px;
+	}
+	&__text {
+		grid-column: col2/col12;
+		margin-bottom: 8.6vw;
+	}
+	&__img {
+		grid-column: col1/col12-end;
+		margin: 0 auto;
+		z-index: 1;;
+	}
+}
+
+.ukraine-second-quote {
+	background-color: $black;
+	color: white;
+	text-align: center;
+	grid-column: col1/col12-end;
+	padding: 40px 8.6vw;
+	margin-bottom: 8.6vw;
+	&__quote {
+		font-size: 20px;
+		margin-bottom: 40px;
+	}
+}
+
+.ukraine-last {
+	&__title {
+		grid-column: col2/col12;
+		font-family: fk-screamer;
+		font-size: 50px;
+		line-height: 1.2;
+		margin-bottom: 30px;
+	}
+	&__text {
+		grid-column: col2/col12;
+		margin-bottom: 8.6vw;
+	}
+	&__img {
+		grid-column: col1/col12-end;
+		margin: 0 auto;
+		margin-bottom: 20px;
+
+	}
+}
+
+// tablet
+//////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.ukraine-hero {
+	&__svg {
+		max-width: 80%;
+		margin-bottom: 60px;
+	}
+	&__info {
+		font-weight: bold;
+		margin-bottom: 60px;;
+	}
+}
+
+.ukraine-quote {
+	grid-column: col2 / col12;
+	margin-top: 0px;
+	&__circle {
+		width: 240px;
+		height: 240px;
+		margin: 40px auto;
+	}
+	&__quote {
+		font-size: 20px;
+		margin-bottom: 40px;
+	}
+}
+
+.ukraine-third {
+	&__title {
+		grid-column: col2/col12;
+		font-family: fk-screamer;
+		line-height: 1.2;
+		margin-top: 8.6vw;
+		font-size: 50px;
+	}
+	&__text {
+		grid-column: col2/col12;
+		margin-bottom: 8.6vw;
+	}
+	&__img {
+		grid-column: col1/col12-end;
+		margin: 0 auto;
+		z-index: 1;;
+	}
+}
+
+
+}
+
+// desktop
+//////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.ukraine-hero {
+	min-height: 700px;
+	height: auto;
+	&__content {
+		grid-column: col2 / col8;
+		margin-top: 80px;
+		padding-bottom: 180px;
+	}
+	&__svg {
+		max-width: 600px;
+		margin-bottom: 80px;
+	}
+	&__info {
+		font-weight: bold;
+		margin-right: 18.2vw;
+		color: white;
+		margin-bottom: 0px;
+		//font-size: 18px;
+	}
+}
+
+.ukraine-giving {
+	grid-column: col7 / col12;
+    margin-top: -300px;
+    grid-row-start:2;
+}
+
+.ukraine-quote {
+	grid-column: col2 / col6;
+	text-align: left;
+	grid-row-start:2;
+	margin-top: -120px;
+	margin-bottom: 80px;
+	&__circle {
+		margin: 0;
+		margin-bottom: 60px;
+	}
+	&__quote {
+		font-size: 26px;
+	}
+}
+
+.ukraine-second {
+	padding: 60px 0;
+	&__title {
+		font-size: 80px;
+		grid-column: col2/col6;
+	}
+	&__text {
+		grid-column: col2/col6;
+	}
+	&__button {
+		grid-column: col2/col6;
+		margin-top: 40px;;
+	}
+	&__img {
+		grid-column: col7/col12-end; 
+		grid-row: 1/5;
+		height: 100%;
+		display: block;
+		margin-top: -120px;
+		background-size: cover;
+		background-position: center;
+	}
+}
+
+.ukraine-second-quote {
+	background-color: $black;
+	color: white;
+	text-align: center;
+	grid-column: col1/col12-end;
+	padding: 100px 0 60px 0;
+	margin-top: -40px;
+	margin-bottom: 60px;;
+	&__quote {
+		font-size: 28px;
+		max-width: 800px;
+		margin: 0 auto;
+		margin-bottom: 40px;
+	}
+}
+
+.ukraine-third {
+	&__title {
+		grid-column: col3/col11;
+		font-family: fk-screamer;
+		line-height: 1.2;
+		margin-top: 60px;
+		font-size: 60px;
+		margin-bottom: 40px;
+		text-align: center;
+		padding: 0 60px;
+	}
+	&__text {
+		grid-column: col3/col11;
+		margin-bottom: 60px;
+	}
+	&__img {
+		grid-column: col2/col12;
+	}
+}
+
+
+.ukraine-last {
+	&__title {
+		grid-column: col3/col11;
+		font-size: 80px;
+		text-align: center;
+	}
+	&__text {
+		grid-column: col3/col11;
+		margin-bottom: 60px;
+	}
+	&__img {
+		grid-column: col2/col12;
+		margin: 0 auto;
+		margin-bottom: 20px;
+
+	}
+}
+
+}
+
+
+// desktopLarge
+//////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+
+.ukraine-giving {
+    margin-top: -400px;
+}
+
+.ukraine-third {
+	&__title {
+		grid-column: col4/col10;
+		font-size: 80px;
+	}
+	&__text {
+		grid-column: col4/col10;
+		margin-bottom: 60px;
+	}
+	&__img {
+		grid-column: col2/col12;
+	}
+}
+
+
+.ukraine-last {
+	&__title {
+		grid-column: col4/col10;
+		font-size: 80px;
+	}
+	&__text {
+		grid-column: col4/col10;
+	}
+	&__img {
+		grid-column: col2/col12;
+	}
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
