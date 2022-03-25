@@ -75,6 +75,9 @@
 	</div><!-- #content -->
 	</div><!-- #page -->
 
+	<?php // show or hide ticker
+	if( ! get_field('no_email_push') ) { ?>
+
 	<div class="email-push">
 		<div class="grid">
 			<div class="email-push__content">
@@ -86,6 +89,8 @@
 			</div>
 		</div>
 	</div>
+
+	<?php } ?>
 
 	<footer id="footer" class="footer">
 		<div class="grid">
