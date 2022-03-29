@@ -1,0 +1,64 @@
+Running php-build composer
+WARNING! Your password will be stored unencrypted in /home/runner/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+Pulling docker.pkg.github.com/impress-org/give-form-field-manager/php-actions_composer_give-form-field-manager:php-7.4-build2
+php-7.4-build2: Pulling from impress-org/give-form-field-manager/php-actions_composer_give-form-field-manager
+a0d0a0d46f8b: Pulling fs layer
+153eea49496a: Pulling fs layer
+11efd0df1fcb: Pulling fs layer
+b3f3214c344d: Pulling fs layer
+bd33e16cce14: Pulling fs layer
+63061f1c8976: Pulling fs layer
+f20a10542755: Pulling fs layer
+d942098e3bc6: Pulling fs layer
+42908852fe94: Pulling fs layer
+cd124ba33ce9: Pulling fs layer
+63061f1c8976: Waiting
+f20a10542755: Waiting
+d942098e3bc6: Waiting
+42908852fe94: Waiting
+b3f3214c344d: Waiting
+cd124ba33ce9: Waiting
+bd33e16cce14: Waiting
+11efd0df1fcb: Download complete
+a0d0a0d46f8b: Verifying Checksum
+a0d0a0d46f8b: Download complete
+153eea49496a: Verifying Checksum
+153eea49496a: Download complete
+a0d0a0d46f8b: Pull complete
+b3f3214c344d: Verifying Checksum
+b3f3214c344d: Download complete
+153eea49496a: Pull complete
+63061f1c8976: Verifying Checksum
+63061f1c8976: Download complete
+11efd0df1fcb: Pull complete
+bd33e16cce14: Verifying Checksum
+bd33e16cce14: Download complete
+b3f3214c344d: Pull complete
+d942098e3bc6: Verifying Checksum
+d942098e3bc6: Download complete
+bd33e16cce14: Pull complete
+63061f1c8976: Pull complete
+42908852fe94: Verifying Checksum
+42908852fe94: Download complete
+f20a10542755: Verifying Checksum
+f20a10542755: Download complete
+cd124ba33ce9: Verifying Checksum
+cd124ba33ce9: Download complete
+f20a10542755: Pull complete
+d942098e3bc6: Pull complete
+42908852fe94: Pull complete
+cd124ba33ce9: Pull complete
+Digest: sha256:1ebc0a89f1e1ca1d3d8a8d4cf690407a7dd60d814edfe32346c4a5bd08a17d0c
+Status: Downloaded newer image for docker.pkg.github.com/impress-org/give-form-field-manager/php-actions_composer_give-form-field-manager:php-7.4-build2
+docker.pkg.github.com/impress-org/give-form-field-manager/php-actions_composer_give-form-field-manager:php-7.4-build2
+Docker tag: docker.pkg.github.com/impress-org/give-form-field-manager/php-actions_composer_give-form-field-manager:php-7.4-build2
+No private keys supplied
+Command: composer install --no-dev --no-progress --no-interaction
+Skipping env variable PWD
+Skipping env variable HOME
+Skipping env variable SHLVL
+Skipping env variable PATH
