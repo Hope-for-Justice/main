@@ -3,7 +3,7 @@
 namespace GiveFormFieldManager\FormFields\Fields\Contracts;
 
 /**
- * @unreleased
+ * @since 2.0.3
  */
 interface FieldValidator
 {

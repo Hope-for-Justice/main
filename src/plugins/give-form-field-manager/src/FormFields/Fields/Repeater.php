@@ -77,7 +77,7 @@ class Repeater extends Field implements HasFormInputValidator{
 	}
 
     /**
-     * @unreleased
+     * @since 2.0.3
      * @inerhitDoc
      * @return string
      */

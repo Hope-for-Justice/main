@@ -3,7 +3,7 @@
 Plugin Name: Gravity Flow
 Plugin URI: https://gravityflow.io
 Description: Build Workflow Applications with Gravity Forms.
-Version: 2.7.9
+Version: 2.8.1
 Author: Gravity Flow
 Author URI: https://gravityflow.io
 License: GPL-2.0+
@@ -27,7 +27,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see http://www.gnu.org/licenses.
  */
 
-define( 'GRAVITY_FLOW_VERSION', '2.7.9' );
+define( 'GRAVITY_FLOW_VERSION', '2.8.1' );
 
 define( 'GRAVITY_FLOW_EDD_STORE_URL', 'https://gravityflow.io' );
 
@@ -36,6 +36,8 @@ define( 'GRAVITY_FLOW_EDD_ITEM_ID', 1473 );
 define( 'GRAVITY_FLOW_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 add_action( 'gform_loaded', array( 'Gravity_Flow_Bootstrap', 'load' ), 1 );
+
+require_once( 'autoloader.php' );
 
 /**
  * Class Gravity_Flow_Bootstrap
@@ -107,7 +109,6 @@ class Gravity_Flow_Bootstrap {
 		self::include_steps();
 		self::include_fields();
 		self::include_merge_tags();
-		self::include_configs();
 
 		GFAddOn::register( 'Gravity_Flow' );
 		do_action( 'gravityflow_loaded' );
@@ -155,14 +156,6 @@ class Gravity_Flow_Bootstrap {
 		foreach ( glob( dirname( __FILE__ ) . '/includes/merge-tags/class-merge-tag-*.php' ) as $gravity_flow_filename ) {
 			require_once( $gravity_flow_filename );
 		}
-	}
-
-	/**
-	 * Includes and initializes the Config class.
-	 */
-	public static function include_configs() {
-		require_once 'includes/config/class-js-config.php';
-		$config = new Gravity_Flow_JS_Config();
 	}
 
 }

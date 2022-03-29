@@ -6,7 +6,7 @@ use GiveFormFieldManager\FormFields\Fields\Contracts\FieldValidator;
 use GiveFormFieldManager\FormFields\Fields\WPEditor;
 
 /**
- * @unreleased
+ * @since 2.0.3
  */
 class WPEditorFieldValidator implements FieldValidator
 {
@@ -27,7 +27,7 @@ class WPEditorFieldValidator implements FieldValidator
     }
 
     /**
-     * @unreleased
+     * @since 2.0.3
      */
     public function __invoke()
     {

@@ -30,7 +30,7 @@ get_header(); ?>
 
             <div class="freedom-run-hero">
                 <img src="<?php the_field('slant');?>" class="freedom-run-hero__slant">
-                <img onload="fadeIn()" src="<?php echo $thumbnail[0]; ?>" class="freedom-run-hero__img">
+                <img src="<?php echo $thumbnail[0]; ?>" class="freedom-run-hero__img">
                 <img src="<?php the_field('lines');?>" class="freedom-run-hero__lines">
                 <img src="<?php the_field('date');?>" class="freedom-run-hero__date">
             </div>

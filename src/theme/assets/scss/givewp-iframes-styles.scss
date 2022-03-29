@@ -24,6 +24,27 @@
 	border-radius: 70px !important;
 }
 
+.give-cs-notices {
+    display: none;
+}
+
+//specific ids for ukraine forms
+#give-form-1352-wrap .give-btn, 
+#give-form-2342-wrap .give-btn,
+#give-form-2341-wrap .give-btn,
+#give-form-2329-wrap .give-btn
+ {
+    color: #212322 !important;
+}
+
+.introduction .description {
+    margin:7%;
+}
+
+.introduction .headline {
+    font-size: 20px;
+}
+
 .give-currency-switcher-msg-wrap {
     display: none !important;
 }
@@ -52,3 +73,5 @@
 .receipt .details {
     display: none;
 }
+
+

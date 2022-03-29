@@ -3,7 +3,7 @@
  * Plugin Name:       Give - Currency Switcher
  * Plugin URI:        https://givewp.com/addons/currency-switcher/
  * Description:       Provide your donors with the ability to give using currency of their choice.
- * Version:           1.5.0
+ * Version:           1.5.1
  * Author:            GiveWP
  * Author URI:        https://givewp.com/
  * License:           GPL-2.0+
@@ -22,7 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! defined( 'GIVE_CURRENCY_SWITCHER_VERSION' ) ) {
-	define( 'GIVE_CURRENCY_SWITCHER_VERSION', '1.5.0' );
+	define( 'GIVE_CURRENCY_SWITCHER_VERSION', '1.5.1' );
 }
 if ( ! defined( 'GIVE_CURRENCY_SWITCHER_MIN_GIVE_VER' ) ) {
 	define( 'GIVE_CURRENCY_SWITCHER_MIN_GIVE_VER', '2.11.0' );

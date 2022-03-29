@@ -36,9 +36,9 @@ if( $(window).width() >= 1024 ) {
 	});
 
 } else {
-	window.fadeIn = function(){
-		$(".freedom-run").css({opacity:1, top:0});
-	}
+	
+	$(".freedom-run").css({opacity:1, top:0});
+	
 }
 
 // $(window).scroll(function() {

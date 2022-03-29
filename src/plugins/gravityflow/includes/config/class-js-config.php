@@ -1,5 +1,9 @@
 <?php
 
+namespace Gravity_Flow\Gravity_Flow\Config;
+
+use \Gravity_Flow;
+
 /**
  * Class Gravity_Flow_JS_Config
  *
@@ -7,12 +11,7 @@
  *
  * @since 2.7.1-dev
  */
-class Gravity_Flow_JS_Config {
-
-	public function __construct() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'localize_admin_config' ), 999 );
-		add_action( 'wp_enqueue_scripts', array( $this, 'localize_theme_config' ), 999 );
-	}
+class JS_Config {
 
 	/**
 	 * Localize admin config object to the scripts-admin.js file.
@@ -30,6 +29,10 @@ class Gravity_Flow_JS_Config {
 	 * Localize theme config object to the theme-scripts.js file.
 	 */
 	public function localize_theme_config() {
+		if ( ! gravity_flow()->look_for_shortcode() ) {
+			return;
+		}
+
 		$theme  = $this->theme_config();
 		$shared = $this->shared_config();
 
@@ -48,6 +51,8 @@ class Gravity_Flow_JS_Config {
 		$config = array(
 			'script_debug' => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || isset( $_GET['gform_debug'] ) ? 1 : 0,
 			'hmr_dev'      => defined( 'HMR_DEV' ) && HMR_DEV === true ? 1 : 0,
+			'user_id'      => get_current_user_id(),
+			'public_path'  => trailingslashit( gravity_flow()->get_base_url() ) . 'assets/js/dist/',
 		);
 
 		/**

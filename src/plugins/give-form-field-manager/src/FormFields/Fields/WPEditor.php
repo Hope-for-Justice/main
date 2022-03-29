@@ -5,7 +5,6 @@ namespace GiveFormFieldManager\FormFields\Fields;
 use Give\Framework\FieldsAPI\Concerns\HasEmailTag;
 use Give\Framework\FieldsAPI\Concerns\HasHelpText;
 use Give\Framework\FieldsAPI\Concerns\HasLabel;
-use Give\Framework\FieldsAPI\Concerns\HasVisibilityConditions;
 use Give\Framework\FieldsAPI\Concerns\ShowInReceipt;
 use Give\Framework\FieldsAPI\Concerns\StoreAsMeta;
 use Give\Framework\FieldsAPI\Field;
@@ -21,7 +20,6 @@ class WPEditor extends Field implements HasFormInputValidator {
 	use HasLabel;
 	use ShowInReceipt;
 	use StoreAsMeta;
-    use HasVisibilityConditions;
 
 	/**
 	 * @var string
@@ -101,7 +99,7 @@ class WPEditor extends Field implements HasFormInputValidator {
 	}
 
     /**
-     * @unreleased
+     * @since 2.0.3
      * @inerhitDoc
      * @return string
      */

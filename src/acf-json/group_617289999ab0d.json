@@ -307,30 +307,6 @@
             "maxlength": ""
         },
         {
-            "key": "field_6241be960f540",
-            "label": "Email signup image",
-            "name": "email_footer_image",
-            "type": "image",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "return_format": "url",
-            "preview_size": "medium",
-            "library": "all",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": ""
-        },
-        {
             "key": "field_6231f52158601",
             "label": "Email signup title",
             "name": "email_footer_title",
@@ -406,5 +382,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1648476421
+    "modified": 1647610371
 }

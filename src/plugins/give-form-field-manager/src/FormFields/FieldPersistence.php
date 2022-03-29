@@ -2,7 +2,9 @@
 
 namespace GiveFormFieldManager\FormFields;
 
+use DateTime;
 use Give\Framework\FieldsAPI\Field;
+use GiveFormFieldManager\FormFields\Fields\Date;
 use GiveFormFieldManager\FormFields\Fields\Repeater;
 use GiveFormFieldManager\FormFields\Fields\WPEditor;
 
@@ -52,13 +54,18 @@ class FieldPersistence {
 				}
 
 				break;
+            case Date::TYPE:
+                if ( isset( $_POST[ $field->getName() ] ) ) {
+                    $this->save( $field, $donationId, $_POST[ $field->getName() ] );
+                }
+                break;
 		}
 	}
 
 	/**
 	 * @since 2.0.0
 	 *
-	 * @param Field|Repeater|WPEditor $field
+	 * @param Field|Repeater|WPEditor|Date $field
 	 * @param $donationId
 	 * @param $metaValue
 	 */

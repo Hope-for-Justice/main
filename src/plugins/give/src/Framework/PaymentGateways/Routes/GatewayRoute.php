@@ -8,6 +8,7 @@ use Give\Framework\PaymentGateways\Log\PaymentGatewayLog;
 use Give\Framework\PaymentGateways\PaymentGateway;
 use Give\Framework\PaymentGateways\PaymentGatewayRegister;
 use Give\Framework\PaymentGateways\Traits\HandleHttpResponses;
+
 use function Give\Framework\Http\Response\response;
 
 /**
@@ -117,21 +118,35 @@ class GatewayRoute
     /**
      * Validate signature using nonces
      *
+     * @since 2.19.5 replace nonce with hash
+     * @since 2.19.4 replace RouteSignature args with unique donationId
      * @since 2.19.0
      *
-     * @param string $routeSignature
-     * @param GatewayRouteData $data
+     * @param  string  $routeSignature
+     * @param  GatewayRouteData  $data
      *
      * @return void
      */
     private function validateSignature($routeSignature, GatewayRouteData $data)
     {
-        $action = new RouteSignature($data->gatewayId, $data->gatewayMethod, $data->queryParams);
+        $signature = new RouteSignature(
+            $data->gatewayId,
+            $data->gatewayMethod,
+            $data->routeSignatureId,
+            $data->routeSignatureExpiration
+        );
 
-        if (!wp_verify_nonce($routeSignature, $action->toString())) {
+        if (!$signature->isValid($routeSignature)) {
             PaymentGatewayLog::error(
                 'Invalid Secure Route',
-                ['routeSignature' => $routeSignature, 'action' => $action->toString(), 'data' => $data]
+                [
+                    'routeSignature' => $routeSignature,
+                    'signature' => $signature,
+                    'signatureString' => $signature->toString(),
+                    'signatureHash' => $signature->toHash(),
+                    'signatureExpiration' => $signature->expiration,
+                    'data' => $data
+                ]
             );
 
             wp_die('Forbidden', 403);

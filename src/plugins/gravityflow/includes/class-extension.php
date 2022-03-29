@@ -150,9 +150,11 @@ abstract class Gravity_Flow_Extension extends GFAddOn {
 		}
 
 		$settings_tabs[] = array(
-			'name'     => $this->_slug,
-			'label'    => $this->get_short_title(),
-			'callback' => array( $this, 'app_settings_tab' ),
+			'name'           => $this->_slug,
+			'label'          => $this->get_short_title(),
+			'callback'       => array( $this, 'app_settings_tab' ),
+			'icon'           => $this->get_menu_icon(),
+			'icon_namespace' => $this->get_icon_namespace(),
 		);
 
 		return $settings_tabs;
@@ -227,9 +229,12 @@ abstract class Gravity_Flow_Extension extends GFAddOn {
 			return;
 		}
 
-		if ( rgget( 'page' ) == 'gravityflow_settings' && rgget( 'view' ) == 'uninstall' ) {
-			$icon        = array( 'icon' => $this->get_menu_icon() );
-			$icon_markup = GFCommon::get_icon_markup( $icon, 'dashicon-admin-generic' );
+		if ( rgget( 'page' ) === 'gravityflow_settings' && rgget( 'view' ) === 'uninstall' ) {
+			$icon        = array(
+                'icon'           => $this->get_menu_icon(),
+                'icon_namespace' => $this->get_icon_namespace(),
+            );
+			$icon_markup = Gravity_Flow_Common::get_icon_markup( $icon, 'dashicons-admin-generic' );
 			?>
 			<form action="" method="post" class="gform-settings-panel gform-settings-panel__addon-uninstall">
 				<?php wp_nonce_field( 'gflow_extension_uninstall', 'gflow_extension_uninstall' ); ?>
@@ -275,6 +280,17 @@ abstract class Gravity_Flow_Extension extends GFAddOn {
 	}
 
 	/**
+	 * Return the plugin's icon namespace.
+	 *
+	 * @since 2.8
+	 *
+	 * @return string
+	 */
+	public function get_icon_namespace() {
+		return 'gflow';
+	}
+
+	/**
 	 * Render the uninstall button on Gravity Forms uninstall page to correctly point for Gravity Flow Extensions
 	 *
 	 * @since 2.7.3
@@ -285,13 +301,16 @@ abstract class Gravity_Flow_Extension extends GFAddOn {
 			return;
 		}
 
-		if ( rgget( 'page' ) == 'gf_settings' ) {
+		if ( rgget( 'page' ) === 'gf_settings' ) {
 			GFAddOn::render_uninstall();
 			return;
 		}
 
-		$icon        = array( 'icon' => $this->get_menu_icon() );
-		$icon_markup = GFCommon::get_icon_markup( $icon, 'dashicon-admin-generic' );
+		$icon        = array(
+			'icon'           => $this->get_menu_icon(),
+			'icon_namespace' => $this->get_icon_namespace(),
+		);
+		$icon_markup = Gravity_Flow_Common::get_icon_markup( $icon, 'dashicons-admin-generic' );
 		$url         = add_query_arg( array( 'view' => $this->get_slug() ), admin_url( 'admin.php?page=gravityflow_settings' ) );
 		?>
 		<form action="" method="post" class="gform-settings-panel gform-settings-panel__addon-uninstall">

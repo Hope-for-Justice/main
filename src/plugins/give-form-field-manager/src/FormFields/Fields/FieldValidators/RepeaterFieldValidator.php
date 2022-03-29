@@ -21,7 +21,7 @@ class RepeaterFieldValidator implements FieldValidator
     private $formInputValue;
 
     /**
-     * @unreleased
+     * @since 2.0.3
      *
      * @param Repeater $field
      * @param array $formInputValue
@@ -33,7 +33,7 @@ class RepeaterFieldValidator implements FieldValidator
     }
 
     /**
-     * @unreleased
+     * @since 2.0.3
      */
     public function __invoke()
     {
@@ -72,7 +72,7 @@ class RepeaterFieldValidator implements FieldValidator
     }
 
     /**
-     * @unreleased
+     * @since 2.0.3
      *
      * @param string $specifiedInputName
      * @param string $columnValue
@@ -94,7 +94,7 @@ class RepeaterFieldValidator implements FieldValidator
     }
 
     /**
-     * @unreleased
+     * @since 2.0.3
      */
     private function validateRepeaterFieldLimit()
     {
@@ -113,7 +113,7 @@ class RepeaterFieldValidator implements FieldValidator
     }
 
     /**
-     * @unreleased
+     * @since 2.0.3
      */
     private function registerEmptyFieldError($specificInputName)
     {
@@ -124,7 +124,7 @@ class RepeaterFieldValidator implements FieldValidator
     }
 
     /**
-     * @unreleased
+     * @since 2.0.3
      */
     private function registerInvalidStringLengthFieldError($specificInputName)
     {
@@ -138,7 +138,7 @@ class RepeaterFieldValidator implements FieldValidator
     }
 
     /**
-     * @unreleased
+     * @since 2.0.3
      */
     private function registerInvalidFieldCountError($specificInputName)
     {

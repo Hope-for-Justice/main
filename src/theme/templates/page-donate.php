@@ -207,9 +207,12 @@ get_header(); ?>
 
 	</main><!-- #main -->
 
-	<?php if($GLOBALS['userInfo'] 
-	&& in_array($GLOBALS['userInfo'], $GLOBALS['norway'])) { ?>
+	<?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])) { ?>
+		<input id="initialDonationType" type="hidden" name="geo" value="once">
+	<?php } else if(isset($_GET['giveDonationAction'])) { ?>
 		<input id="initialDonationType" type="hidden" name="geo" value="once">
 	<?php } ?>
+	
+
 
 <?php get_footer(); ?>

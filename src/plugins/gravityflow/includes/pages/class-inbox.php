@@ -38,6 +38,39 @@ class Gravity_Flow_Inbox {
 			gravity_flow()->log_debug( __METHOD__ . '(): Executing functions hooked to gravityflow_inbox_args.' );
 		}
 
+		if ( $args['legacy'] ) {
+			self::display_legacy( $args );
+			return;
+		}
+
+		$tasks_model = Gravity_Flow::get_instance()->container()->get( \Gravity_Flow\Gravity_Flow\Inbox\Inbox_Service_Provider::TASK_MODEL );
+		$grid_id     = $tasks_model->get_unique_grid_id_from_args( $args );
+
+		// Do not show for non-logged-in users without an assignee token.
+		if ( ! is_user_logged_in() && ! gravity_flow()->decode_access_token() ) {
+			return;
+		}
+
+		?>
+
+		<div class="gflow-inbox gflow-grid gflow-common">
+			<div class="gflow-inbox__container"><div class="ag-theme-alpine" data-js="gflow-inbox" data-grid-id="<?php echo $grid_id; ?>"></div></div>
+			<div class="gflow-inbox__loader" data-js="gflow-inbox-loader"><span class="gform-loader--spin"></span></div>
+		</div>
+
+		<?php
+	}
+
+	/**
+	 * Display a legacy version of the inbox page for backwards-compatibility.
+	 *
+	 * @since 2.8
+	 *
+	 * @param $args
+	 *
+	 * @return void
+	 */
+	public static function display_legacy( $args ) {
 		$total_count = 0;
 		$entries     = Gravity_Flow_API::get_inbox_entries( $args, $total_count );
 
@@ -79,7 +112,7 @@ class Gravity_Flow_Inbox {
 				</div>
 
 			</div>
-		<?php
+			<?php
 		}
 	}
 
@@ -106,9 +139,13 @@ class Gravity_Flow_Inbox {
 			'form_id'              => absint( rgar( $filter, 'form_id' ) ),
 			'field_ids'            => $field_ids,
 			'detail_base_url'      => admin_url( 'admin.php?page=gravityflow-inbox&view=entry' ),
+			'legacy'               => false,
 			'last_updated'         => false,
 			'due_date'             => false,
 			'step_highlight'       => true,
+			'paging'               => array(
+				'page_size' => 999999,
+			),
 		);
 
 	}
@@ -386,9 +423,9 @@ class Gravity_Flow_Inbox {
 	 * @return string
 	 */
 	public static function format_actions( $step ) {
-		$html          = '';
-		$actions = $step->get_actions();
-		$entry_id      = $step->get_entry_id();
+		$html     = '';
+		$actions  = $step->get_actions();
+		$entry_id = $step->get_entry_id();
 		foreach ( $actions as $action ) {
 			$show_workflow_note_field = (bool) $action['show_note_field'];
 			$html .= sprintf( '<span id="gravityflow-action-%s-%d" data-entry_id="%d" data-action="%s" data-rest_base="%s"  data-note_field="%d" class="gravityflow-action" role="link">%s</span>', $action['key'], $entry_id, $entry_id, $action['key'], $step->get_rest_base(), $show_workflow_note_field, $action['icon'] );
