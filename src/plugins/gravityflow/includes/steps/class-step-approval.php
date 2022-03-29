@@ -63,8 +63,8 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 		return array(
 			array(
 				'key'             => 'approve',
-				'icon'            => $this->get_approve_icon(),
 				'label'           => __( 'Approve', 'gravityflow' ),
+				'icon'            => $this->get_approve_icon(),
 				'show_note_field' => in_array( $this->note_mode, array(
 						'required_if_approved',
 						'required_if_reverted_or_rejected',
@@ -74,14 +74,15 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 			),
 			array(
 				'key'             => 'reject',
-				'icon'            => $this->get_reject_icon(),
 				'label'           => __( 'Reject', 'gravityflow' ),
+				'icon'            => $this->get_reject_icon(),
 				'show_note_field' => in_array( $this->note_mode, array(
 						'required_if_rejected',
 						'required_if_reverted_or_rejected',
 						'required',
 					)
 				),
+
 			),
 		);
 	}
@@ -808,7 +809,7 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 		 * @param string            $note          The submitted note.
 		 * @param string            $new_status    The new status for the current step.
 		 * @param Gravity_Flow_Step $this          The current workflow step.
-		 */		
+		 */
 		$valid = apply_filters( 'gravityflow_note_valid', $valid, $note, $new_status, $this );
 
 		return $valid;
@@ -880,11 +881,11 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 			* @param array             $entry    The current entry array.
 			* @param Gravity_Flow_Step $step     The current step.
 			*/
-			$confirmation_approval = apply_filters( 'gravityflow_approval_confirm_prompt_messages', $messages, $form['id'], $this->get_entry(), $this ); 
+			$confirmation_approval = apply_filters( 'gravityflow_approval_confirm_prompt_messages', $messages, $form['id'], $this->get_entry(), $this );
 
 			$messages['approveMessage'] = wp_kses_post( $messages['approveMessage'] );
 			$messages['rejectMessage'] = wp_kses_post( $messages['rejectMessage'] );
-			$messages['revertMessage'] = wp_kses_post( $messages['revertMessage'] );		
+			$messages['revertMessage'] = wp_kses_post( $messages['revertMessage'] );
 
 			wp_localize_script( 'gravityflow_approval', 'gravityflow_approval_confirmation_prompts', array(
 					'approveMessage' => $messages['approveMessage'],
@@ -974,9 +975,9 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 
 			do_action( 'gravityflow_above_approval_buttons', $this, $form );
 			?>
-			
+
 			<div class="gravityflow-action-buttons">
-				<button name="gravityflow_approval_new_status_step_<?php echo $this->get_id(); ?>" value="approved" 
+				<button name="gravityflow_approval_new_status_step_<?php echo $this->get_id(); ?>" value="approved"
 						type="submit"
 						class="button">
 					<?php
@@ -993,7 +994,7 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 					echo $approve_icon . ' ' . $approve_label;
 					?>
 				</button>
-				<button name="gravityflow_approval_new_status_step_<?php echo $this->get_id(); ?>" value="rejected" 
+				<button name="gravityflow_approval_new_status_step_<?php echo $this->get_id(); ?>" value="rejected"
 						type="submit"
 						class="button">
 					<?php
@@ -1011,7 +1012,7 @@ class Gravity_Flow_Step_Approval extends Gravity_Flow_Step {
 					?>
 				</button>
 				<?php if ( $this->revertEnable ) : ?>
-					<button name="gravityflow_approval_new_status_step_<?php echo $this->get_id(); ?>" value="revert" 
+					<button name="gravityflow_approval_new_status_step_<?php echo $this->get_id(); ?>" value="revert"
 							type="submit"
 							class="button">
 						<?php

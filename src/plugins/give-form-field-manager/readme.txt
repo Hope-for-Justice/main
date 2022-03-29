@@ -2,8 +2,8 @@
 Contributors: givewp
 Tags: donations, donation, ecommerce, e-commerce, fundraising, fundraiser, paymill, gateway
 Requires at least: 4.9
-Tested up to: 5.8
-Stable tag: 2.0.2
+Tested up to: 5.9
+Stable tag: 2.0.3
 Requires Give: 2.16.0
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
@@ -36,6 +36,11 @@ The manual installation method involves downloading our donation plugin and uplo
 Automatic updates should work like a charm; as always though, ensure you backup your site just in case.
 
 == Changelog ==
+= 2.0.3: March 17th, 2022 =
+* Fix: 1/3 and 2/3 column fields now display correctly on the Multi-Step forms
+* Fix: Date fields now save and validate properly upon donation submission
+* Fix: Took care of a pesky notice that showed up when using the Editor field
+* Fix: Add a check when saving to make sure all custom fields have a label to prevent weird issues
 
 = 2.0.2: December 9th, 2021 =
 * Fix: Resolved an error if using the less than condition

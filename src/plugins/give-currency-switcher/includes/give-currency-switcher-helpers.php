@@ -102,7 +102,7 @@ function cs_get_setting_fields( $global, $active_section = 'general-settings' ) 
 			$settings[] = [
 					'id' => 'cs_supported_currency',
 					'name' => __( 'Supported Currencies', 'give-currency-switcher' ),
-					'desc' => __( 'Select the currencies you would like to support. Note: the Give Base Currency (USD) will be enabled automatically.', 'give-currency-switcher' ),
+					'desc' => __( 'Select the currencies you would like to support. Note: the GiveWP Base Currency set in the Currency settings will be enabled automatically.', 'give-currency-switcher' ),
 					'type' => 'cs_support_currency_list',
 					'wrapper_class' => 'cs_general_fields cs_supported_currency give-hidden',
 					'default' => give_get_currency(),
@@ -115,7 +115,7 @@ function cs_get_setting_fields( $global, $active_section = 'general-settings' ) 
 					'id' => 'cs_exchange_rates',
 					'name' => __( 'Exchange Rates', 'give-currency-switcher' ),
 					'wrapper_class' => 'cs_general_fields cs_exchange_rates give-hidden',
-					'desc' => sprintf( __( 'In this section you can manually enter the exchange rates to convert donations from your base currency to or you can enable automatic exchange rate updates through the <a href="%1$s">Exchange Rate APIs</a> screen (recommended). Exchange Rates will be fetched on a regular basis from the Provider of your choice. If you wish to lock an exchange rate to a specific value, and not have it updated automatically, simply tick the corresponding box in the set manually column.', 'give-currency-switcher' ), admin_url( 'edit.php?post_type=give_forms&page=give-settings&tab=currency-switcher&section=exchange-rates-api' ) ),
+					'desc' => __( 'By default, exchange rates are set automatically and refresh daily. If you want to override those settings for any reason, the above section allows you to manually set the exchange rates.', 'give-currency-switcher' ),
 					'type' => 'exchange_rates',
 					'multiple' => true,
 			];

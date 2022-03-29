@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.5.0',
-        'version' => '1.5.0.0',
+        'pretty_version' => '1.5.1',
+        'version' => '1.5.1.0',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '301ab38371f4ad4fe1069a4ae6a221e6fd7eb51c',
+        'reference' => 'fe06d3f6b7193e4e2db135dcc3518110a9ca2270',
         'name' => 'impress-org/give-currency-switcher',
         'dev' => false,
     ),
@@ -29,12 +29,12 @@
             'dev_requirement' => false,
         ),
         'impress-org/give-currency-switcher' => array(
-            'pretty_version' => '1.5.0',
-            'version' => '1.5.0.0',
+            'pretty_version' => '1.5.1',
+            'version' => '1.5.1.0',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '301ab38371f4ad4fe1069a4ae6a221e6fd7eb51c',
+            'reference' => 'fe06d3f6b7193e4e2db135dcc3518110a9ca2270',
             'dev_requirement' => false,
         ),
         'maxmind-db/reader' => array(

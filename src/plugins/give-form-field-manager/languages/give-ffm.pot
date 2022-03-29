@@ -1,4 +1,4 @@
-# Copyright (C) 2021 Give-Form-Field-Manager
+# Copyright (C) 2022 Give-Form-Field-Manager
 # This file is distributed under the same license as the Give-Form-Field-Manager package.
 msgid ""
 msgstr ""
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Donate Now"
 msgstr ""
 
-#: includes/class-setup.php:95, includes/class-setup.php:194
+#: includes/class-setup.php:95, includes/class-setup.php:198
 msgid "Are you sure?"
 msgstr ""
 
@@ -88,58 +88,66 @@ msgid "Empty meta key detected. Please make sure you enter a unique meta key for
 msgstr ""
 
 #: includes/class-setup.php:174
-msgid "Do you want to edit field meta key?"
+msgid "Empty field label detected!"
 msgstr ""
 
 #: includes/class-setup.php:175
-msgid "Changing the meta key value will affect the visibility of existing donation data. Would you like to proceed?"
+msgid "Please make sure you enter a label for each custom field."
 msgstr ""
 
 #: includes/class-setup.php:178
-msgid "Duplicate meta key detected!"
+msgid "Do you want to edit field meta key?"
 msgstr ""
 
 #: includes/class-setup.php:179
-msgid "Duplicate meta keys found. Please make this meta key unique."
+msgid "Changing the meta key value will affect the visibility of existing donation data. Would you like to proceed?"
 msgstr ""
 
 #: includes/class-setup.php:182
-msgid "Remove form field?"
+msgid "Duplicate meta key detected!"
 msgstr ""
 
 #: includes/class-setup.php:183
+msgid "Duplicate meta keys found. Please make this meta key unique."
+msgstr ""
+
+#: includes/class-setup.php:186
+msgid "Remove form field?"
+msgstr ""
+
+#: includes/class-setup.php:187
 msgid "Are you sure you want to remove this form field?"
 msgstr ""
 
-#: includes/class-setup.php:185
+#: includes/class-setup.php:189
 msgid "Donation Amount"
 msgstr ""
 
-#: includes/class-setup.php:242
+#: includes/class-setup.php:246
 msgid "Choose Time"
 msgstr ""
 
-#: includes/class-setup.php:243, includes/admin/admin-template.php:1597
+#: includes/class-setup.php:247, includes/admin/admin-template.php:1597
 msgid "Time"
 msgstr ""
 
-#: includes/class-setup.php:244
+#: includes/class-setup.php:248
 msgid "Hour"
 msgstr ""
 
-#: includes/class-setup.php:245
+#: includes/class-setup.php:249
 msgid "Minute"
 msgstr ""
 
-#: includes/class-setup.php:246
+#: includes/class-setup.php:250
 msgid "Second"
 msgstr ""
 
-#: includes/class-setup.php:247
+#: includes/class-setup.php:251
 msgid "Done"
 msgstr ""
 
-#: includes/class-setup.php:248
+#: includes/class-setup.php:252
 msgid "Now"
 msgstr ""
 

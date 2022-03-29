@@ -388,7 +388,7 @@ class RegisterFields {
 
 	/**
 	 * @since 2.0.0
-     * @unreleased Insert custom class as string to array instead of array
+     * @since 2.0.3 Insert custom class as string to array instead of array
 	 *
 	 * @param array $classList
 	 * @param FormFieldData $field
@@ -435,8 +435,8 @@ class RegisterFields {
 	private function getWidthClassName( $width ) {
 		$classes = [
 			'half'      => 'give-ffm-form-row-half',
-			'one-third' => 'give-ffm-form-row-third',
-			'two-third' => 'give-ffm-form-row-thirds',
+			'one-third' => 'give-ffm-form-row-one-third',
+			'two-third' => 'give-ffm-form-row-two-third',
 		];
 
 		if ( array_key_exists( $width, $classes ) ) {

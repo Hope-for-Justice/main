@@ -170,6 +170,10 @@ class Give_FFM_Setup {
 						'title' => esc_html__( 'Empty meta key detected!', 'give-form-field-manager' ),
 						'desc'  => esc_html__( 'Empty meta key detected. Please make sure you enter a unique meta key for each custom field.', 'give-form-field-manager' ),
 					],
+                    'emptyLabel'          => [
+                        'title' => esc_html__( 'Empty field label detected!', 'give-form-field-manager' ),
+                        'desc'  => esc_html__( 'Please make sure you enter a label for each custom field.', 'give-form-field-manager' ),
+                    ],
 					'editMetaKeyModal'      => [
 						'title' => esc_html__( 'Do you want to edit field meta key?', 'give-form-field-manager' ),
 						'desc'  => esc_html__( 'Changing the meta key value will affect the visibility of existing donation data. Would you like to proceed?', 'give-form-field-manager' ),

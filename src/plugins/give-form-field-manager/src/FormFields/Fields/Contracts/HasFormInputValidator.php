@@ -3,12 +3,12 @@
 namespace GiveFormFieldManager\FormFields\Fields\Contracts;
 
 /**
- * @unreleased
+ * @since 2.0.3
  */
 interface HasFormInputValidator
 {
     /**
-     * @unreleased
+     * @since 2.0.3
      * @return string FieldValidator class name.
      */
     public function getFormInputValidator();

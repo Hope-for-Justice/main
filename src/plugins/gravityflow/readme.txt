@@ -55,6 +55,22 @@ Gravity Flow will work with any license of [Gravity Forms](https://gravityflow.i
 
 == ChangeLog ==
 
+= 2.8.1 = 2022-03-27
+- Added performance enhancements.
+- Added the gravityflow_enqueue_admin_scripts action to allow additional scripts to be enqueued when the gravityflow shortcode or block is present on the page.
+- Fixed a conflict with some optimizer plugins.
+- Fixed an issue that prevents the form filter select from opening in the inbox block settings.
+- Fixed an issue which causes Inbox queries to fire on all pages.
+
+
+= 2.8 = 2022-03-13
+- Added a new inbox! Now supports live data refresh (no need to refresh the page), paging, sorting, filtering by value and date range (including date fields and due date), column reordering, full-screen mode, and browser notifications. Note: clear your browser and server cache to avoid seeing errors or an empty inbox!
+- Added workflow blocks for inbox, status, submit, and reports pages.
+- Added entry locking support to the admin UI.
+- Fixed mobile view for the Status page for some themes.
+- Updated icons.
+- API: Added the ability for add-ons to use Gravity Flow icons or specify their own.
+
 = 2.7.9 =
 - Added security enhancements.
 - Added 3 new merge tags to support reverting Approval steps to user input steps via email including one-click tokens - {workflow_revert_link} {workflow_revert_url} {workflow_revert_token}

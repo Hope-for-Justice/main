@@ -90,7 +90,7 @@ class FormFieldData {
 	/**
 	 * FormFieldData constructor.
 	 *
-     * @unreleased Decode html entities in operator value.
+     * @since 2.0.3 Decode html entities in operator value.
      *
 	 * @param array $data
 	 *

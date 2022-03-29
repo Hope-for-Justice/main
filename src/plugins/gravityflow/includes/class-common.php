@@ -120,7 +120,13 @@ class Gravity_Flow_Common {
 
 					if ( is_object( $field ) ) {
 						$input_label_only = apply_filters( 'gform_entry_list_column_input_label_only', true, $form, $field );
-						$columns[ $id ]   = GFFormsModel::get_label( $field, $id, $input_label_only );
+
+						if ( $field->type === 'date' ) {
+							$columns[ $id . '_human_readable' ] = GFFormsModel::get_label( $field, $id, $input_label_only ) . ' HR';
+							$columns[ $id ]                     = GFFormsModel::get_label( $field, $id, $input_label_only );
+						} else {
+							$columns[ $id ] = GFFormsModel::get_label( $field, $id, $input_label_only );
+						}
 					}
 			}
 		}
@@ -499,6 +505,33 @@ class Gravity_Flow_Common {
 		}
 
 		return $total_accounts['total_users'];
+	}
+
+	/**
+	 * Prepare icon markup based on icon type.
+	 *
+	 * @since 2.8
+	 *
+	 * @param array       $item    Array containing an "icon" property.
+	 * @param string|null $default Default icon.
+	 *
+	 * @return string|null
+	 */
+	public static function get_icon_markup( $item, $default = null ) {
+		// Get icon.
+		$icon = rgar( $item, 'icon', $default );
+
+		// If icon is empty, return.
+		if ( rgblank( $icon ) ) {
+			return null;
+		}
+
+		// Return icon markup.
+		if ( version_compare( GFForms::$version, '2.6.1', '<' ) && strpos( $icon, 'gflow-icon' ) === 0 ) {
+			return sprintf( '<i class="gflow-icon %s"></i>', esc_attr( $icon ) );
+		} else {
+			return GFCommon::get_icon_markup( $item, $default );
+		}
 	}
 
 }

@@ -13,6 +13,8 @@ if ( ! class_exists( 'GFForms' ) ) {
 	die();
 }
 
+use Gravity_Flow\Gravity_Flow\Locking;
+
 /**
  * Class Gravity_Flow_Entry_Detail
  */
@@ -50,7 +52,13 @@ class Gravity_Flow_Entry_Detail {
 
 		<div class="wrap gf_entry_wrap gravityflow_workflow_wrap gravityflow_workflow_detail">
 
-			<?php
+		<?php
+
+		if ( is_admin() ) {
+			$locking = new Locking\Locking();
+			$locking->lock_info( $entry['id'], false );
+		}
+
 			self::maybe_display_back_link( $args );
 			self::maybe_show_header( $form, $args );
 

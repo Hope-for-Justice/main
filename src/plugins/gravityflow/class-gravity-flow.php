@@ -9,7 +9,12 @@
  * @since       1.0
  */
 
+use Gravity_Flow\Gravity_Flow\Inbox\Models\Task;
+use Gravity_Flow\Gravity_Flow\Inbox\Inbox_Service_Provider;
+use Gravity_Flow\Gravity_Flow\Config\Services;
+
 use Gravity_Flow\Gravity_Flow\Translations;
+use Gravity_Flow\Gravity_Flow\Locking;
 
 // Make sure Gravity Forms is active and already loaded.
 if ( class_exists( 'GFForms' ) ) {
@@ -29,6 +34,8 @@ if ( class_exists( 'GFForms' ) ) {
 		const THEME_JS  = 'gravityflow_theme_js';
 		const THEME_CSS = 'gravityflow_theme_css';
 
+		const ADMIN_COMPONENTS_CSS = 'gravityflow_admin_components_css';
+
 		const ADMIN_JS  = 'gravityflow_admin_js';
 		const ADMIN_CSS = 'gravityflow_admin_css';
 
@@ -38,6 +45,20 @@ if ( class_exists( 'GFForms' ) ) {
 		 * @var null|Gravity_Flow
 		 */
 		private static $_instance = null;
+
+		/**
+		 * Tokenize the shortcode check for multiple calls.
+		 *
+		 * @var null
+		 */
+		public static $has_shortcode = null;
+
+		/**
+		 * Our Service Container object.
+		 *
+		 * @var \Gravity_Forms\Gravity_Forms\GF_Service_Container $container
+		 */
+		private $container;
 
 		/**
 		 * Defines the add-on version.
@@ -153,10 +174,43 @@ if ( class_exists( 'GFForms' ) ) {
 		 */
 		public static function get_instance() {
 			if ( self::$_instance == null ) {
-				self::$_instance = new Gravity_Flow();
+				$container           = self::gflow_initialize_services();
+				$instance            = new Gravity_Flow();
+				$instance->container = $container;
+
+				self::$_instance = $instance;
 			}
 
 			return self::$_instance;
+		}
+
+		public function container() {
+			return $this->container;
+		}
+
+		/**
+		 * Set up Services and Containers
+		 *
+		 * @since 2.7.1
+		 *
+		 * @return Container
+		 */
+		public static function gflow_initialize_services() {
+			if ( ! class_exists( '\Gravity_Forms\Gravity_Forms\GF_Service_Container' ) ) {
+				require_once( dirname( __FILE__ ) . '/includes/lib/class-gf-service-container.php' );
+				require_once( dirname( __FILE__ ) . '/includes/lib/class-gf-service-provider.php' );
+				$container = new \Gravity_Forms\Gravity_Forms\GF_Service_Container();
+			} else {
+				$container = \GFForms::get_service_container();
+			}
+
+			$services  = new Services();
+			foreach ( $services->get() as $class ) {
+				$obj = new $class();
+				$container->add_provider( $obj );
+			}
+
+			return $container;
 		}
 
 		/**
@@ -176,6 +230,9 @@ if ( class_exists( 'GFForms' ) ) {
 		 * Adds hooks which need to be included before the init hook is triggered.
 		 */
 		public function pre_init() {
+			require_once( dirname( __FILE__ ) . '/includes/pages/class-inbox.php' );
+			require_once( dirname( __FILE__ ) . '/includes/pages/class-reports.php' );
+
 			add_filter( 'gform_export_form', array( $this, 'filter_gform_export_form' ) );
 			add_action( 'gform_forms_post_import', array( $this, 'action_gform_forms_post_import' ) );
 			parent::pre_init();
@@ -229,6 +286,7 @@ if ( class_exists( 'GFForms' ) ) {
 			add_action( 'gform_after_update_entry', array( $this, 'filter_after_update_entry' ), 10, 2 );
 
 			add_filter( 'gform_form_settings_menu', array( $this, 'filter_form_settings_menu' ), 10, 1 );
+            add_filter( 'gform_form_settings_menu', array( $this, 'filter_extension_form_settings_menu' ), 20, 1 );
 
 			$this->add_delayed_payment_support(
 				array(
@@ -237,7 +295,6 @@ if ( class_exists( 'GFForms' ) ) {
 			);
 
 			add_filter( 'add_menu_classes', array( $this, 'show_inbox_count' ), 10 );
-			add_filter( 'gform_form_settings_menu', array( $this, 'filter_extension_form_settings_menu' ), 20, 1 );
 
 			// Integrations - GravityView.
 			require_once dirname( __FILE__ ) . '/includes/integrations/gravityview-hooks.php';
@@ -280,6 +337,8 @@ if ( class_exists( 'GFForms' ) ) {
 			wp_register_style( 'gravityflow_dashicons', plugins_url( 'gravityflow/css/gravityflow-icon.css' ) );
 			wp_enqueue_style( 'gravityflow_dashicons' );
 
+			$locking = new Locking\Locking();
+			$locking->enqueue_scripts();
 		}
 
 		/**
@@ -331,10 +390,21 @@ if ( class_exists( 'GFForms' ) ) {
 		 * @since 2.7.5
 		 *
 		 * @return string
-		 */	
+		 */
 		public function get_menu_icon() {
 			return 'dashicons-gravityflow-icon';
-		}		
+		}
+
+		/**
+		 * Return the plugin's icon namespace.
+		 *
+		 * @since 2.8
+		 *
+		 * @return string
+		 */
+		public function get_icon_namespace() {
+			return 'gflow';
+		}
 
 		/**
 		 * Installs or upgrades the plugin.
@@ -847,9 +917,10 @@ PRIMARY KEY  (id)
 					$nonce = wp_create_nonce( 'wp_rest' );
 
 					// Enqueue new theme CSS and JS bundles
-					wp_enqueue_style( self::THEME_CSS, $this->get_base_url() . "/css/theme{$this->min()}.css", null, $this->_version );
-					wp_enqueue_script( self::VENDOR_JS_THEME, $this->get_base_url() . "/js/vendor-theme{$this->min()}.js", array(), $this->_version, true );
-					wp_enqueue_script( self::THEME_JS, $this->get_base_url() . "/js/scripts-theme{$this->min()}.js", array( self::VENDOR_JS_THEME ), $this->_version, true );
+					wp_enqueue_style( self::ADMIN_COMPONENTS_CSS,  $this->get_base_url() . "/assets/css/dist/admin-components{$this->min()}.css", null, $this->_version );
+					wp_enqueue_style( self::THEME_CSS,  $this->get_base_url() . "/assets/css/dist/theme{$this->min()}.css", null, $this->_version );
+					wp_enqueue_script( self::VENDOR_JS_THEME, $this->get_base_url() . "/assets/js/dist/vendor-theme{$this->min()}.js", array(), $this->_version, true );
+					wp_enqueue_script( self::THEME_JS, $this->get_base_url() . "/assets/js/dist/scripts-theme{$this->min()}.js", array( self::VENDOR_JS_THEME ), $this->_version, true );
 
 					wp_enqueue_script( 'sack', "/wp-includes/js/tw-sack{$this->min()}.js", array(), '1.6.1' );
 					wp_enqueue_script( 'gravityflow_entry_detail', $this->get_base_url() . "/js/entry-detail{$this->min()}.js", array( 'jquery', 'sack' ), $this->_version );
@@ -881,14 +952,20 @@ PRIMARY KEY  (id)
 		 * @return bool
 		 */
 		public function look_for_shortcode() {
+			if ( ! is_null( self::$has_shortcode ) ) {
+				return self::$has_shortcode;
+			}
+
 			global $wp_query;
 
 			foreach ( $wp_query->posts as $post ) {
 				if ( $post instanceof WP_Post && $this->has_shortcode_or_block( $post->post_content ) ) {
+					self::$has_shortcode = true;
 					return true;
 				}
 			}
 
+			self::$has_shortcode = false;
 			return false;
 		}
 
@@ -1056,7 +1133,7 @@ PRIMARY KEY  (id)
 			$styles = array(
 				array(
 					'handle'  => 'gform_admin',
-					'src'     => GFCommon::get_base_url() . "/css/admin{$this->min()}.css",
+					'src'     => GFCommon::get_base_url() . "/assets/css/dist/admin{$this->min()}.css",
 					'version' => GFForms::$version,
 					'enqueue' => array(
 						array(
@@ -1126,7 +1203,7 @@ PRIMARY KEY  (id)
 							'query'      => 'page=gravityflow-reports',
 						),
 					)
-				),				
+				),
 				array(
 					'handle'  => 'gravityflow_activity',
 					'src'     => $this->get_base_url() . "/css/activity{$this->min()}.css",
@@ -1180,14 +1257,6 @@ PRIMARY KEY  (id)
 					'version' => $this->_version,
 					'enqueue' => array(
 						array( 'field_types' => array( 'workflow_discussion' ) ),
-					),
-				),
-				array(
-					'handle'  => 'gravityflow_dashicons',
-					'src'     => $this->get_base_url() . "/css/dashicons{$this->min()}.css",
-					'version' => $this->_version,
-					'enqueue' => array(
-						array( 'query' => 'page=roles&action=edit' ),
 					),
 				),
 			);
@@ -4718,14 +4787,18 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 					'callback' => array( $this, 'app_settings_tab' ),
 				),
 				array(
-					'name' => 'labels',
-					'label' => __( 'Labels', 'gravityflow' ),
-					'callback' => array( $this, 'app_settings_label_tab' ),
+					'name'           => 'labels',
+					'label'          => __( 'Labels', 'gravityflow' ),
+					'callback'       => array( $this, 'app_settings_label_tab' ),
+					'icon'           => 'gflow-icon--tag',
+					'icon_namespace' => $this->get_icon_namespace(),
 				),
 				array(
-					'name' => 'connected_apps',
-					'label' => __( 'Connected Apps', 'gravityflow' ),
-					'callback' => array( $this, 'app_settings_connected_apps_tab' ),
+					'name'           => 'connected_apps',
+					'label'          => __( 'Connected Apps', 'gravityflow' ),
+					'callback'       => array( $this, 'app_settings_connected_apps_tab' ),
+					'icon'           => 'gflow-icon--share-social',
+					'icon_namespace' => $this->get_icon_namespace(),
 				),
 				/*
 				array(
@@ -4739,7 +4812,13 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 			$setting_tabs = apply_filters( 'gravityflow_settings_menu_tabs', $setting_tabs );
 
 			if ( $this->current_user_can_any( $this->_capabilities_uninstall ) ) {
-				$setting_tabs[] = array( 'name' => 'uninstall', 'label' => __( 'Uninstall', 'gravityflow' ), 'callback' => array( $this, 'app_settings_uninstall_tab' ) );
+				$setting_tabs[] = array(
+                    'name'           => 'uninstall',
+                    'label'          => __( 'Uninstall', 'gravityflow' ),
+                    'callback'       => array( $this, 'app_settings_uninstall_tab' ),
+                    'icon'           => 'gflow-icon--trash',
+                    'icon_namespace' => $this->get_icon_namespace(),
+                );
 			}
 
 			ksort( $setting_tabs, SORT_NUMERIC );
@@ -6336,11 +6415,30 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 		 */
 		function filter_form_settings_menu( $menu_items ) {
 			foreach ( $menu_items as &$menu_item ) {
-				if ( $menu_item['name'] == 'gravityflow' ) {
+				if ( $menu_item['name'] === 'gravityflow' ) {
 					$menu_item['icon'] = 'dashicons-gravityflow-icon';
 				}
 			}
 
+			return $menu_items;
+		}
+
+        /**
+		 * Target for the gform_form_settings_menu hook.
+		 * Set default icon for extensions.
+		 *
+		 * @since 2.7.5
+		 *
+		 * @param array $menu_items The form settings menu items.
+		 *
+		 * @return array
+		 */
+		function filter_extension_form_settings_menu( $menu_items ) {
+			foreach ( $menu_items as &$menu_item ) {
+				if ( empty( $menu_item['icon'] ) && strpos( $menu_item['name'], 'gravityflow' ) === 0 ) {
+					$menu_item['icon'] = 'dashicons-gravityflow-icon';
+				}
+			}
 			return $menu_items;
 		}
 
@@ -6376,25 +6474,6 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 
 			return $menu;
 		}
-
-		/**
-		 * Target for the gform_form_settings_menu hook.
-		 * Set default icon for extensions.
-		 *
-		 * @since 2.7.5
-		 *
-		 * @param array $menu_items The form settings menu items.
-		 *
-		 * @return array
-		 */	
-		function filter_extension_form_settings_menu( $menu_items ) {
-			foreach ( $menu_items as &$menu_item ) {
-				if ( empty( $menu_item['icon'] ) && strpos( $menu_item['name'], 'gravityflow' ) === 0 ) {
-					$menu_item['icon'] = 'dashicons-gravityflow-icon';
-				}
-			}
-			return $menu_items;
-		}			
 
 		/**
 		 * Starts or resumes workflow processing.
@@ -6693,6 +6772,9 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 				'step_id'          => null,
 				'assignee'         => '',
 				'display_filter'   => true,
+				'is_block'         => false,
+				'is_shortcode'     => false,
+				'legacy'           => false,
 			);
 
 			return $defaults;
@@ -6709,6 +6791,11 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 			$attributes = $this->get_shortcode_defaults();
 
 			foreach ( $attributes as $attribute => $default ) {
+				if ( ! isset( $a[ $attribute ] ) ) {
+					$a[ $attribute ] = $default;
+					continue;
+				}
+
 				if ( $default === true ) {
 					$a[ $attribute ] = strtolower( $a[ $attribute ] ) == 'false' ? false : true;
 				} elseif ( $default === false ) {
@@ -6750,7 +6837,16 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 				'back_link_url'    => $a['back_link_url'],
 				'context_key'      => $a['context_key'],
 				'due_date'         => $a['due_date'],
+				'is_shortcode'     => ! $a['is_block'],
+				'is_block'         => $a['is_block'],
+				'legacy' => $a['legacy'],
 			);
+
+			/**
+			 * @var Task $tasks
+			 */
+			$tasks = $this->container->get( Inbox_Service_Provider::TASK_MODEL );
+			$tasks->add_args_for_shortcode( $args );
 
 			ob_start();
 			$this->inbox_page( $args );
@@ -7290,9 +7386,17 @@ jQuery('#setting-entry-filter-{$name}').gfFilterUI({$filter_settings_json}, {$va
 			$this->maybe_enqueue_form_scripts();
 
 			// Enqueue admin CSS and JS
-			wp_enqueue_style( self::ADMIN_CSS,  $this->get_base_url() . "/css/admin{$this->min()}.css", null, $this->_version );
-			wp_enqueue_script( self::VENDOR_JS_ADMIN, $this->get_base_url() . "/js/vendor-admin{$this->min()}.js", array(), $this->_version, true );
-			wp_enqueue_script( self::ADMIN_JS, $this->get_base_url() . "/js/scripts-admin{$this->min()}.js", array( self::VENDOR_JS_ADMIN ), $this->_version, true );
+			wp_enqueue_style( self::ADMIN_COMPONENTS_CSS,  $this->get_base_url() . "/assets/css/dist/admin-components{$this->min()}.css", null, $this->_version );
+			wp_enqueue_style( self::ADMIN_CSS,  $this->get_base_url() . "/assets/css/dist/admin{$this->min()}.css", null, $this->_version );
+			wp_enqueue_script( self::VENDOR_JS_ADMIN, $this->get_base_url() . "/assets/js/dist/vendor-admin{$this->min()}.js", array(), $this->_version, true );
+			wp_enqueue_script( self::ADMIN_JS, $this->get_base_url() . "/assets/js/dist/scripts-admin{$this->min()}.js", array( self::VENDOR_JS_ADMIN ), $this->_version, true );
+
+			/**
+			 * Allows additional scripts to be enqueued when others are loaded in the admin.
+			 *
+			 * @since 2.8.1
+			 */
+			do_action( 'gravityflow_enqueue_admin_scripts' );
 		}
 
 		/**
@@ -7902,7 +8006,7 @@ AND m.meta_value='queued'";
 			}
 
 			$body_json = base64_decode( $body_64_probably_url_decoded );
-			if ( empty( $body_json ) ) {
+			if ( empty( $body_json ) || empty( json_decode( $body_json, true ) ) ) {
 				$body_json = base64_decode( urldecode( $body_64_probably_url_decoded ) );
 				if ( empty( $body_json ) ) {
 					$this->log_debug( __METHOD__ . '(): empty body_json; returning false.' );
@@ -7955,6 +8059,10 @@ AND m.meta_value='queued'";
 			}
 
 			if ( empty( $token ) ) {
+				$token = rgpost( 'gflow_access_token' );
+			}
+
+			if ( empty( $token ) ) {
 				$token = rgar( $_COOKIE, 'gflow_access_token' );
 			}
 
@@ -8000,6 +8108,10 @@ AND m.meta_value='queued'";
 				$this->log_debug( __METHOD__ . '(): base64_decode result empty; returning false.' );
 
 				return false;
+			}
+
+			if ( empty( json_decode( $body_json, true ) ) ) {
+				$body_json = base64_decode( urldecode( $body_64 ) );
 			}
 
 			return json_decode( $body_json, true );
@@ -9109,7 +9221,7 @@ AND m.meta_value='queued'";
 				'gravityflow',
 				array(
 					'label' => $this->get_short_title(),
-					'icon'  => 'dashicons-gravityflow',
+					'icon'  => 'dashicons-gravityflow-icon',
 					'caps'  => array(),
 				)
 			);
@@ -9251,25 +9363,17 @@ AND m.meta_value='queued'";
 						'view' => $tab['name'],
 					), admin_url( 'admin.php' ) );
 
-					// Get tab icon.
-					$icon_markup = '<i class="dashicons dashicons-gravityflow-icon"></i>';
-					if ( strpos( rgar( $tab, 'icon' ), '<svg' ) !== false ) {
-						$icon_markup = $tab['icon'];
-					} else if ( filter_var( rgar( $tab, 'icon' ), FILTER_VALIDATE_URL ) ) {
-						$icon_markup = sprintf( '<img src="%s" />', esc_attr( $tab['icon'] ) );
-					} else if ( strpos( rgar( $tab, 'icon' ), 'fa' ) === 0 ) {
-						$icon_markup = sprintf( '<i class="fa %s"></i>', esc_attr( $tab['icon'] ) );
-					} else if ( strpos( rgar( $tab, 'icon' ), 'dashicons' ) === 0 ) {
-						$icon_markup = sprintf( '<i class="dashicons %s"></i>', esc_attr( $tab['icon'] ) );
-					}
+                    // Get tab icon.
+					$icon_markup = Gravity_Flow_Common::get_icon_markup( $tab );
 
 					printf(
 						'<a href="%s"%s><span class="icon">%s</span> <span class="label">%s</span></a>',
 						esc_url( $url ),
 						$current_tab === $tab['name'] ? ' class="active"' : '',
-						$icon_markup,
+						is_null( $icon_markup ) ? '<i class="gflow-icon gflow-icon--tool"></i>' : $icon_markup,
 						esc_html( $label )
 					);
+
 				}
 				?>
 			</nav>
