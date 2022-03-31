@@ -136,7 +136,7 @@ get_header();
 		-- four-pillars
 		--  
 		-->
-
+		<div class="homepage-four-pillars" id="fourPillars"></div>
 
 		<!-- 
 		-- 

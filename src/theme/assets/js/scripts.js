@@ -59,7 +59,7 @@ jQuery(document).ready(function($) {
     var getInvolved;
     var elem = document.getElementById('getInvolved');
 
-        if (elem != undefined) {
+    if (elem != undefined) {
         var animData = {
             container: elem,
             renderer: 'canvas',
@@ -83,6 +83,44 @@ jQuery(document).ready(function($) {
         //   },
         //   offset: '50%'
         // }); 
+    }
+
+    var fourPillars;
+    var fourPillarsElem = document.getElementById('fourPillars');
+
+    if (fourPillarsElem != undefined) {
+        var fourPillarsElemAnimData = {
+            container: fourPillarsElem,
+            renderer: 'svg',
+            loop: false,
+            autoplay: false, //change to false when using trigger
+            rendererSettings: {
+                progressiveLoad:false
+            },
+            path: '/build/themes/hope-for-justice-2020/assets/img/fourpillars-2.json',
+            //on wp-engine /wp-content/themes/hope-for-justice-2020/assets/img/getinvolved.json
+            //on local setup /build/themes/hope-for-justice-2020/assets/img/getinvolved.json
+        };
+        fourPillars = bodymovin.loadAnimation(fourPillarsElemAnimData);
+
+        let segment = 1;
+        fourPillarsElem.addEventListener('click', function() {
+
+            if (segment == 1) {
+                fourPillars.playSegments([0,70], true);
+                segment++
+            } else if (segment == 2) {
+                fourPillars.playSegments([70,140], true);
+                segment++
+            } else if (segment == 3) {
+                fourPillars.playSegments([140,210], true);
+                segment++
+            }
+            else if (segment == 4) {
+                fourPillars.playSegments([210,280], true);
+                segment = 1;
+            }
+        });
     }
 
 
