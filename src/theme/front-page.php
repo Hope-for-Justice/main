@@ -60,6 +60,7 @@ get_header();
 			</div>
 		</div>
 
+		
 
 		<!-- 
 		-- 
@@ -136,7 +137,44 @@ get_header();
 		-- four-pillars
 		--  
 		-->
-		<div class="homepage-four-pillars" id="fourPillars"></div>
+		<div class="homepage-pillars">
+			<div id="pillarA" class="homepage-pillars__card homepage-pillars__card--a homepage-pillars__card--active">
+				<div class="homepage-pillars__background" style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2022/04/prevent.jpg);"></div>
+				<div class="homepage-pillars__content">
+					<h3>Preventing Exploitation</h3>
+					<p>
+						Through education and community empowerment, we help families and vulnerable people protect themselves against traffickers and the deceptive methods they use to control others.
+					</p>
+				</div>
+			</div>
+			<div id="pillarB" class="homepage-pillars__card homepage-pillars__card--b">
+				<div class="homepage-pillars__background" style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2022/04/rescue.jpg);"></div>
+				<div class="homepage-pillars__content">
+					<h3>Rescuing Victims</h3>
+					<p>
+						Through education and community empowerment, we help families and vulnerable people protect themselves against traffickers and the deceptive methods they use to control others.
+					</p>
+				</div>
+			</div>
+			<div id="pillarC" class="homepage-pillars__card homepage-pillars__card--c">
+				<div class="homepage-pillars__background" style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2022/04/restore.jpg);"></div>
+				<div class="homepage-pillars__content">
+					<h3>Restoring Lives</h3>
+					<p>
+						Through education and community empowerment, we help families and vulnerable people protect themselves against traffickers and the deceptive methods they use to control others.
+					</p>
+				</div>
+			</div>
+			<div id="pillarD" class="homepage-pillars__card homepage-pillars__card--d">
+				<div class="homepage-pillars__background" style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2022/04/reform.jpg);"></div>
+				<div class="homepage-pillars__content">
+					<h3>Reforming Society</h3>
+					<p>
+						Through education and community empowerment, we help families and vulnerable people protect themselves against traffickers and the deceptive methods they use to control others.
+					</p>
+				</div>
+			</div>
+		</div>
 
 		<!-- 
 		-- 
