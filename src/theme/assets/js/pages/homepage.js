@@ -32,37 +32,45 @@ jQuery(document).ready(function($) {
     }
 
     //pillars
-    $("#pillarA").click(function(){
+    $("#pillarA, #pillarAText").click(function(){
     	$(".homepage-pillars__card--active").toggleClass("homepage-pillars__card--active");
-    	$(this).toggleClass("homepage-pillars__card--active");
-    	$(this).css('z-index', '4');
+        $(".homepage-pillars__pillar--active").toggleClass("homepage-pillars__pillar--active");
+        $("#pillarAText").toggleClass("homepage-pillars__pillar--active");
+    	$("#pillarA").toggleClass("homepage-pillars__card--active");
+    	$("#pillarA").css('z-index', '4');
     	$("#pillarB").css('z-index', '3');
     	$("#pillarC").css('z-index', '2');
     	$("#pillarD").css('z-index', '1');
     });
 
-    $("#pillarB").click(function(){
+    $("#pillarB, #pillarBText").click(function(){
     	$(".homepage-pillars__card--active").toggleClass("homepage-pillars__card--active");
-    	$(this).toggleClass("homepage-pillars__card--active");
-    	$(this).css('z-index', '4');
+        $(".homepage-pillars__pillar--active").toggleClass("homepage-pillars__pillar--active");
+        $("#pillarBText").toggleClass("homepage-pillars__pillar--active");
+    	$("#pillarB").toggleClass("homepage-pillars__card--active");
+    	$("#pillarB").css('z-index', '4');
     	$("#pillarC").css('z-index', '2');
     	$("#pillarD").css('z-index', '1');
     	$("#pillarA").css('z-index', '3');
     });
 
-    $("#pillarC").click(function(){
+    $("#pillarC, #pillarCText").click(function(){
     	$(".homepage-pillars__card--active").toggleClass("homepage-pillars__card--active");
-    	$(this).toggleClass("homepage-pillars__card--active");
-    	$(this).css('z-index', '4');
+        $(".homepage-pillars__pillar--active").toggleClass("homepage-pillars__pillar--active");
+        $("#pillarCText").toggleClass("homepage-pillars__pillar--active");
+    	$("#pillarC").toggleClass("homepage-pillars__card--active");
+    	$("#pillarC").css('z-index', '4');
     	$("#pillarD").css('z-index', '1');
     	$("#pillarA").css('z-index', '2');
     	$("#pillarB").css('z-index', '3');
     });
 
-    $("#pillarD").click(function(){
+    $("#pillarD, #pillarDText").click(function(){
     	$(".homepage-pillars__card--active").toggleClass("homepage-pillars__card--active");
-    	$(this).toggleClass("homepage-pillars__card--active");
-    	$(this).css('z-index', '4');
+        $(".homepage-pillars__pillar--active").toggleClass("homepage-pillars__pillar--active");
+        $("#pillarDText").toggleClass("homepage-pillars__pillar--active");
+    	$("#pillarD").toggleClass("homepage-pillars__card--active");
+    	$("#pillarD").css('z-index', '4');
     	$("#pillarA").css('z-index', '1');
     	$("#pillarB").css('z-index', '2');
     	$("#pillarC").css('z-index', '3');

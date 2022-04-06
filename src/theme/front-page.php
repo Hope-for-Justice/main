@@ -137,41 +137,67 @@ get_header();
 		-- four-pillars
 		--  
 		-->
-		<div class="homepage-pillars">
-			<div id="pillarA" class="homepage-pillars__card homepage-pillars__card--a homepage-pillars__card--active">
-				<div class="homepage-pillars__background" style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2022/04/prevent.jpg);"></div>
-				<div class="homepage-pillars__content">
-					<h3>Preventing Exploitation</h3>
-					<p>
-						Through education and community empowerment, we help families and vulnerable people protect themselves against traffickers and the deceptive methods they use to control others.
-					</p>
-				</div>
+		<div class="homepage-pillars__container">
+			
+			<div class="homepage-pillars__text">
+				<h3 class="homepage-pillars__title"><?php the_field('drag_cards_title'); ?></h3>
+				<h2 id="pillarAText" class="font-fk homepage-pillars__pillar homepage-pillars__pillar--active">PREVENT</h2>
+				<h2 id="pillarBText" class="font-fk homepage-pillars__pillar">RESCUE</h2>
+				<h2 id="pillarCText" class="font-fk homepage-pillars__pillar">RESTORE</h2>
+				<h2 id="pillarDText" class="font-fk homepage-pillars__pillar">REFORM</h2>
 			</div>
-			<div id="pillarB" class="homepage-pillars__card homepage-pillars__card--b">
-				<div class="homepage-pillars__background" style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2022/04/rescue.jpg);"></div>
-				<div class="homepage-pillars__content">
-					<h3>Rescuing Victims</h3>
-					<p>
-						Through education and community empowerment, we help families and vulnerable people protect themselves against traffickers and the deceptive methods they use to control others.
-					</p>
+
+			<div class="homepage-pillars">
+				<div id="pillarA" class="homepage-pillars__card homepage-pillars__card--a homepage-pillars__card--active">
+					<div class="homepage-pillars__background" style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2022/04/prevent.jpg);"></div>
+					<div class="homepage-pillars__gradient-before"></div>
+					<div class="homepage-pillars__gradient-after"></div>
+					<div class="homepage-pillars__content">
+						<h3 class="homepage-pillars__content-title">Preventing <br>Exploitation</h3>
+						<p>
+							<?php the_field('card_1_text'); ?>
+						</p>
+						<h3 class="homepage-pillars__content-title homepage-pillars__content-title--bottom">Preventing Exploitation</h3>
+					</div>
 				</div>
-			</div>
-			<div id="pillarC" class="homepage-pillars__card homepage-pillars__card--c">
-				<div class="homepage-pillars__background" style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2022/04/restore.jpg);"></div>
-				<div class="homepage-pillars__content">
-					<h3>Restoring Lives</h3>
-					<p>
-						Through education and community empowerment, we help families and vulnerable people protect themselves against traffickers and the deceptive methods they use to control others.
-					</p>
+				<div id="pillarB" class="homepage-pillars__card homepage-pillars__card--b">
+					<div class="homepage-pillars__background" style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2022/04/rescue.jpg);"></div>
+					<div class="homepage-pillars__gradient-before"></div>
+					<div class="homepage-pillars__gradient-after"></div>
+
+					<div class="homepage-pillars__content">
+						<h3 class="homepage-pillars__content-title">Rescuing <br>Victims</h3>
+						<p>
+							<?php the_field('card_2_text'); ?>
+						</p>
+						<h3 class="homepage-pillars__content-title homepage-pillars__content-title--bottom">Rescuing Victims</h3>
+					</div>
 				</div>
-			</div>
-			<div id="pillarD" class="homepage-pillars__card homepage-pillars__card--d">
-				<div class="homepage-pillars__background" style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2022/04/reform.jpg);"></div>
-				<div class="homepage-pillars__content">
-					<h3>Reforming Society</h3>
-					<p>
-						Through education and community empowerment, we help families and vulnerable people protect themselves against traffickers and the deceptive methods they use to control others.
-					</p>
+				<div id="pillarC" class="homepage-pillars__card homepage-pillars__card--c">
+					<div class="homepage-pillars__background" style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2022/04/restore.jpg);"></div>
+					<div class="homepage-pillars__gradient-before"></div>
+					<div class="homepage-pillars__gradient-after"></div>
+
+					<div class="homepage-pillars__content">
+						<h3 class="homepage-pillars__content-title">Restoring <br>Lives</h3>
+						<p>
+							<?php the_field('card_3_text'); ?>
+						</p>
+						<h3 class="homepage-pillars__content-title homepage-pillars__content-title--bottom">Restoring Lives</h3>
+					</div>
+				</div>
+				<div id="pillarD" class="homepage-pillars__card homepage-pillars__card--d">
+					<div class="homepage-pillars__background" style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2022/04/reform.jpg);"></div>
+					<div class="homepage-pillars__gradient-before"></div>
+					<div class="homepage-pillars__gradient-after"></div>
+
+					<div class="homepage-pillars__content">
+						<h3 class="homepage-pillars__content-title">Reforming <br>Society</h3>
+						<p>
+							<?php the_field('card_4_text'); ?>
+						</p>
+						<h3 class="homepage-pillars__content-title homepage-pillars__content-title--bottom">Reforming Society</h3>
+					</div>
 				</div>
 			</div>
 		</div>
