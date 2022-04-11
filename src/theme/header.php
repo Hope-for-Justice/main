@@ -36,6 +36,11 @@
 	})(window,document,'script','dataLayer','GTM-T7PSM4L');</script>
 	<!-- End Google Tag Manager -->
 
+	<link rel="preload" href="/wp-content/themes/hope-for-justice-2020/assets/fonts/canela-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+	<link rel="preload" href="/wp-content/themes/hope-for-justice-2020/assets/fonts/apercu-regular-pro.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+	<link rel="preload" href="/wp-content/themes/hope-for-justice-2020/assets/fonts/FKScreamerLegacy-Upright.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
 <!-- Global GeoIP lookup -->
 <?php

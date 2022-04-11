@@ -94,13 +94,13 @@ add_action( 'after_setup_theme', 'hope_for_justice_2021_setup' );
 function hope_for_justice_2021_scripts() {
 	global $wp_styles;
 
-	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202214' );
+	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202220' );
 
 	wp_enqueue_script('jquery'); 
-	// wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202214', true );
+	// wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202220', true );
 
 
-    wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202214', true );
+    wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202220', true );
 
 }
 
@@ -120,13 +120,13 @@ add_action( 'wp_enqueue_scripts', 'hope_for_justice_2021_scripts', 1 );
 function page_scripts() {
     global $post;
 
-    wp_register_script( 'homepage', get_template_directory_uri() . '/assets/js/pages/homepage.js', array('jquery'), '202214', true);
+    wp_register_script( 'homepage', get_template_directory_uri() . '/assets/js/pages/homepage.js', array('jquery'), '202220', true);
 
-    wp_register_script( 'donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '202214', true);
+    wp_register_script( 'donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '202220', true);
 
-    wp_register_script( 'training', get_template_directory_uri() . '/assets/js/pages/training.js', array('jquery'), '202214', true);
+    wp_register_script( 'training', get_template_directory_uri() . '/assets/js/pages/training.js', array('jquery'), '202220', true);
 
-    wp_register_script( 'freedom-run', get_template_directory_uri() . '/assets/js/pages/freedom-run.js', array('jquery'), '202214', true);
+    wp_register_script( 'freedom-run', get_template_directory_uri() . '/assets/js/pages/freedom-run.js', array('jquery'), '202220', true);
 
     $themeVars = array( 'template_directory_uri' => get_template_directory_uri() );
 

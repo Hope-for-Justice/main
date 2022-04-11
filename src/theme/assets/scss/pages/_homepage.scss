@@ -80,7 +80,7 @@
 	&__container{grid-column: full; margin-top: 50px;}
 	&__text {grid-column: main;}
 	&__pillar {display:none;}
-	&__title {text-align: center;}
+	&__title {text-align: center; font-size: 18px;}
 	&__card {
 		grid-area: 1 / 1 / 2 / 2;
 		margin: 0 auto;
@@ -144,7 +144,7 @@
 					display: block;
 				}
 				&-title {
-					font-family: canela;
+					font-family: canela-medium;
 					text-transform: none;
 					font-size: 36px;
 					letter-spacing: 0;
