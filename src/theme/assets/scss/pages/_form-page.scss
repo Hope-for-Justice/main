@@ -4,19 +4,17 @@
 *
 */
 
+.page-template-page-form .site {
+	max-width: 2560px;
+}
+
 .form-page{
-	&__header {
-		grid-column: col2 / col12;
-		padding: 2em 0;
-	}
-	&__title {
-		font-size: 2.8em;
-	}
+	background-color: $light-grey;
 	&__content {
 		margin-top: 3em;
 		margin-bottom: 5em;
-		grid-column: col2/ col12;
-		min-height: 20vh;
+		grid-column: main;
+		max-width: 680px;
 	}
 }
 
@@ -26,11 +24,7 @@
 @include mq($from: desktop) {
 
 .form-page{
-	&__header {
-		padding: 4em 0;
-	}
 	&__content {
-		grid-column: col2/ col8;
 		margin-top: 5em;
 		margin-bottom: 14em;
 	}
@@ -46,7 +40,7 @@
 
 .form-page{
 	&__content {
-		grid-column: col2/ col6;
+		margin-left: 160px;
 	}
 }
 

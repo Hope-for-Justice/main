@@ -1,0 +1,481 @@
+/*
+*
+* _HOMEPAGE.SCSS
+*
+*/
+.home .site {max-width: 2560px;}
+
+.homepage-hero {
+	width:100%;
+	grid-column: full;
+	min-height: 60vw;
+	background-position: right;
+	background-size: 200%;
+	&__content {
+	 	grid-column: main;
+	 	margin-top: 8.6vw;
+	}
+	&__text {
+		margin-bottom: 30px;
+	}
+}
+
+.homepage-get-involved {
+	grid-column: main;
+	margin-top: 8.6vw;
+	&__title {
+		font-size: 36px;
+	}
+	&__grid {
+		grid-column: full;
+		padding: 0 10px;
+		margin-top: 8.6vw;
+		margin-bottom: 17.2vw;
+		.get-involved__item {
+			border-radius: 25px;
+			margin-bottom: 10px;
+			svg {fill:#ffffff;}
+			&--c {
+				margin-bottom: 0;
+			}
+		}
+		.get-involved__more-button {
+			//border-radius:120px;
+		}
+	}
+}
+
+.homepage-freedom-wall {
+	grid-column: full;
+	margin-top: 40px;
+	padding: 0 5px;
+	&__image {
+		width:100%;
+		padding-top:67%;
+		background-size: cover;
+		background-position: left;
+		border-radius: 25px;
+	}
+	&__info {
+		grid-column: full;
+		background-color: $light-grey;
+		padding: 8.6vw;
+		margin-top: -20px;
+		border-radius: 25px;
+	}
+	&__subtitle {
+		font-size: 12px;
+	}
+	&__title {
+		font-size: 21px;
+		margin-bottom: 20px;
+	}
+}
+
+.homepage-pillars {
+	position: relative;
+	display: grid;
+	padding: 0 10px;
+	margin-top: 10px;
+	&__container{grid-column: full; margin-top: 50px;}
+	&__text {grid-column: main;}
+	&__pillar {display:none;}
+	&__title {text-align: center; font-size: 18px;}
+	&__card {
+		grid-area: 1 / 1 / 2 / 2;
+		margin: 0 auto;
+		@include box-shadow-front;
+		top:0;
+		width:100%;
+		max-width: 650px;
+		height: 431px;
+		background-color:#ffffff;
+		z-index: 4;
+		border-radius: 25px;
+		overflow: hidden;
+		position: relative;
+		&--b {
+			margin-top: 53px;
+			z-index: 3;
+			.homepage-pillars__background {
+				background-size: 167%;
+    			background-position: right;
+    		}
+		}
+		&--c {margin-top: 106px; z-index: 2;}
+		&--d {margin-top: 159px; z-index: 1;}
+
+		.homepage-pillars__gradient-after {
+			background: rgb(0,0,0);
+			background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+			position: absolute;
+			content: "";
+			width:100%;
+			height: 50%;
+			bottom:-2px;
+			opacity: 0.3;
+			transition: opacity 0.3s;
+		}
+		.homepage-pillars__gradient-before {
+			background: rgb(0,0,0);
+			background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+			position: absolute;
+			content: "";
+			width:70%;
+			height: 100%;
+			left: 0;
+			opacity: 0.3;
+			transition: opacity 0.2s;
+		}
+		&--active {
+			.homepage-pillars__gradient-before {
+				opacity: 0.4;
+			}
+			.homepage-pillars__gradient-after {
+				opacity: 0.6;
+			}
+			.homepage-pillars__background {
+				opacity: 1;
+			}
+			.homepage-pillars__content {
+				display: flex;
+				p {
+					font-size: 14px;
+					display: block;
+				}
+				&-title {
+					font-family: canela-medium;
+					text-transform: none;
+					font-size: 36px;
+					letter-spacing: 0;
+					line-height: 1.2;
+					max-width: 70%;
+					font-weight: normal;
+					margin: 0;
+					opacity: 1;
+					br{display: block;}
+					&--bottom {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+	&__background {
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+		background-repeat: no-repeat;
+		opacity: 0.35;
+		transition: opacity 0.2s;
+		position: absolute;
+		top:0;
+		left: 0;
+	}
+	&__content {
+		position: absolute;
+		color: #ffffff;
+		width: 100%;
+		height:100%;
+		top:0;
+		left:0;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		padding: 28px;
+		&-title {
+			font-size: 12px;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			margin-bottom: 0;
+			margin-top: -7px;
+			font-weight: bold;
+			opacity: 0.9;
+			br{display: none;}
+			&--bottom {
+				margin-bottom: -10px;
+			}
+		}
+		p {display:none;}
+	}
+
+}
+
+// mobileLarge
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: mobileLarge) {
+
+.homepage-pillars {
+	&__card {
+		&--b {margin-top: 75px;}
+		&--c {margin-top: 150px;}
+		&--d {margin-top: 225px;}
+		&--active {
+			.homepage-pillars__content {
+				&-title {
+					font-size: 42px;
+				}
+				p {font-size: 16px;}
+			}
+		}
+	}
+	&__content {
+		padding: 40px;
+	}
+}
+
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.homepage-hero {
+	min-height: 0;
+	height: 85em;
+	background-size: cover;
+	background-position: top right 50%;
+	grid-row-start: 1;
+	&__content {
+		grid-row-start: 1;
+		max-width: 65%;
+		align-self:center;
+		margin: 0;
+	}
+	&__title {
+		font-size: 68px;
+		margin-bottom: 30px;
+	}
+	&__text {
+		p{font-size: 2em;}
+		margin-bottom: 40px;
+	}
+}
+
+.homepage-get-involved {
+	padding: 60px;
+	background-color: $light-grey;
+	border-radius: 50px 50px 0 0;
+	text-align: center;
+	max-width: 680px;
+	margin: -40px auto 0 auto;
+	&__title {
+		font-size: 44px;
+		margin-bottom: 30px;
+	}
+	&__grid {
+		grid-column: full;
+		padding: 0 20px;
+		margin-top: 0;
+		.get-involved__item {
+			border-radius: 50px;
+			margin-bottom: 20px;
+			padding-top: 60%;
+			&--c {
+				margin-bottom: 0;
+			}
+		}
+	}
+}
+
+.homepage-freedom-wall {
+	&__image {
+		border-radius: 50px;
+	}
+	&__info {
+		padding:80px;
+		margin-right: 40px;
+		margin-left: 0;
+		border-radius: 0 50px 50px 0;
+	}
+	&__subtitle {
+		font-size: 14px;
+	}
+	&__title {
+		font-size: 36px;
+		margin-bottom: 20px;
+	}
+}
+
+.homepage-pillars {
+	&__title {font-size: 20px;}
+	&__card:hover {
+		cursor: pointer;
+		.homepage-pillars__background {
+			opacity: 0.8;
+		}
+	}
+	&__card--active:hover {
+		.homepage-pillars__background {
+			opacity: 1;
+		}
+	}
+	&__content {
+		padding: 50px;
+		&-title {
+			margin-top: -16px;
+			&--bottom {
+				margin-bottom: -20px;
+			}
+		}
+	}
+
+
+}
+
+
+
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.homepage-hero {
+	height: 90vh;
+	max-height: 85em;
+	&__content {
+		max-width: 42em;
+		margin-top: -40px;
+	}
+}
+
+.homepage-get-involved {
+	&__grid {
+		grid-column: main;
+		padding: 0;
+		margin-top: 0;
+		margin-bottom: 80px;
+		.get-involved__item {
+			border-radius: 0px;
+			margin-bottom: 0px;
+			padding-top: 100%;
+			&--a {
+				padding-top: 50%;
+			}
+			&--b {
+				padding-top:0;
+			}
+		}
+	}
+}
+
+.homepage-freedom-wall {
+	grid-column: main;
+	&__info {
+		max-width: 1000px;
+		grid-column: main;
+		margin-right:0;
+		display:flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		position: relative;
+		margin-top: -80px;
+		margin-bottom: 50px;
+		&::before {
+			content: "";
+			display: block;
+			position: absolute;
+			width: 100%;
+			height:100%;
+			top:0;
+			left:0;
+			transform: translateX(-100%);
+			background-color: $light-grey;
+		}
+	}
+	&__text {
+		max-width: 500px;
+	}
+}
+
+.homepage-pillars {
+	&__container {margin-top: 20px; margin-bottom: 80px;}
+}
+
+}
+
+
+// desktopLarge
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+
+.homepage-hero {
+	&__content {
+		margin-left: 8.6vw;
+	}
+}
+
+.homepage-get-involved {
+	padding: 80px;
+	max-width: 840px;
+}
+
+.homepage-pillars {
+	width:50%;
+	padding:0;
+	&__text {margin-top: -20px;}
+	&__pillar {
+		display:block;
+		font-size: 130px;
+		margin: 0;
+		line-height: 1;
+		opacity: 0.18;
+		transition: opacity 0.2s ease;
+		&--active {opacity: 1;}
+		&:hover {cursor: pointer; opacity: 1;}
+	}
+	&__card {
+		margin-left:0;
+		margin-right: 0;
+		justify-self: end;
+	}
+	&__title {
+		font-size: 20px;
+		max-width: 210px;
+		text-align: left;
+	}
+	&__container {
+		display:flex;
+		grid-column:main;
+		justify-content: space-between;
+		align-items: center;
+		max-width: 1200px;
+		margin-left: auto;
+		margin-right: auto;
+		width:100%;
+	}
+
+
+}
+
+}
+
+
+// wide
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: wide) {
+
+.homepage-hero {
+	max-height: 150em;
+	&__content {
+		margin-top: -80px;
+	}
+}
+
+.homepage-get-involved {
+	margin: -80px auto 0 auto;
+}
+
+}
+
+
+
+

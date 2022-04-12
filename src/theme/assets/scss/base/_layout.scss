@@ -59,7 +59,7 @@
 
 @include mq($from: max) {
 	.site {
-		border: 1px solid $lines;
+		//border: 1px solid $lines;
 	}
 }
 

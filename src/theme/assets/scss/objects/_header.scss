@@ -13,8 +13,8 @@
 	position: fixed;
 	top:0;
 	width:100%;
-	max-width: 1920px;
-	//left:0;
+	max-width: 2560px;
+	left:0;
 	margin: 0 auto;
 	background-color: $white;
 	@include box-shadow;
@@ -37,6 +37,8 @@
 		display:flex;
 		align-items: center;
 		justify-content: space-between;
+		max-width: 1920px;
+		margin:0 auto;
 	}
 
 	&__logo {width:43vw;}

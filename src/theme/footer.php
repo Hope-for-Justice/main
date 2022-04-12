@@ -73,6 +73,27 @@
 	}?>
 
 	</div><!-- #content -->
+	</div><!-- #page -->
+
+	<?php // show or hide ticker
+	if( ! get_field('no_email_push') ) { ?>
+
+	<div class="email-push">
+		<div class="email-push__image">
+			<img src="<?php the_field('email_footer_image', 'option'); ?>">
+		</div>
+		<div class="grid">
+			<div class="email-push__content">
+				<h2 class="email-push__title font-canela"><?php the_field('email_footer_title', 'option'); ?></h2>
+				<p class="email-push__text">
+					<?php the_field('email_footer_text', 'option'); ?>
+				</p>
+				<?php echo do_shortcode( get_field('email_footer_form', 'option') ); ?>
+			</div>
+		</div>
+	</div>
+
+	<?php } ?>
 
 	<footer id="footer" class="footer">
 		<div class="grid">
@@ -140,7 +161,7 @@
 			</div>
 		</div>
 	</footer><!-- #colophon -->
-</div><!-- #page -->
+
 
 <?php wp_footer(); ?>
 

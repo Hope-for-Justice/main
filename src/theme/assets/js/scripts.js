@@ -54,40 +54,6 @@ jQuery(document).ready(function($) {
         $('header').css('padding-top', bannerHeight + headerPadding);
     }
 
-
-    // lottie
-    var getInvolved;
-    var elem = document.getElementById('getInvolved');
-
-        if (elem != undefined) {
-        var animData = {
-            container: elem,
-            renderer: 'canvas',
-            loop: true,
-            autoplay: true, //change to false when using trigger
-            rendererSettings: {
-                progressiveLoad:false
-            },
-            path: '/wp-content/themes/hope-for-justice-2020/assets/img/getinvolved.json',
-            //on wp-engine /wp-content/themes/hope-for-justice-2020/assets/img/getinvolved.json
-            //on local setup /build/themes/hope-for-justice-2020/assets/img/getinvolved.json
-        };
-        getInvolved = bodymovin.loadAnimation(animData);
-
-
-        // //waypoint
-        // var waypoint = new Waypoint({
-        // element: document.getElementById('getInvolved'),
-        //   handler: function(direction) {
-        //     getInvolved.play();
-        //   },
-        //   offset: '50%'
-        // }); 
-    }
-
-
-
-
     // //if donate=true show donate form
     // var donate = getUrlParameter('donate');
     // if(donate == "true") {

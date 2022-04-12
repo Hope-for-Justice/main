@@ -8,7 +8,7 @@
 get_header(); ?>
 
 
-	<main id="main" class="site-main signup" role="main">
+	<main id="main" class="site-main form-picture" role="main">
 
 		<?php while ( have_posts() ) : the_post(); ?>		
 
@@ -22,63 +22,39 @@ get_header(); ?>
 			$thumbnail = wp_get_attachment_image_src($post_thumbnail_id, '', false, '');
 		} ?>
 
-		<div class="grid">
-			<!-- 
-			-- 
-			-- hero
-			--  
-			-->
-			<div style="background-image: url('<?php echo $thumbnail[0]; ?>');" class="signup__hero">
-				<div class="sub-grid">
-					<header class="signup__header">
-						<h1 class="signup__heading font-fk"><?php the_title(); ?>
-						</h1>
-						<div class="signup__desc">
-							<?php the_content(); ?>		
-						</div>
-					</header>
-				</div>
-			</div><!-- /hero -->
+		<div class="full-grid">
 
-			<!-- 
-			-- 
-			-- content
-			--  
-			-->
-			<div class="color-block color-block--grey">
-				<div class="sub-grid">
-					<div class="signup__content form-page__content">
-							<h2 class="font-canela signup__form-title">
-								<?php 
-									if($GLOBALS['userInfo'] 
-									&& in_array($GLOBALS['userInfo'], $GLOBALS['norway'])){ 
-								 		the_field('norway_form_title'); 
-								 	} else {
-								 		the_field('form_title');
-								 	}
-								?>
-							</h2>
-							<?php 
-								if($GLOBALS['userInfo'] 
-								&& in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){ 
-									//US
-									echo do_shortcode( get_field('us_form') );
-								} 
-								else if($GLOBALS['userInfo'] 
-								&& in_array($GLOBALS['userInfo'], $GLOBALS['norway'])) { 
-									//Norway
-									echo do_shortcode( get_field('norway_form') );
-								}
-								else if($GLOBALS['userInfo'] 
-								&& in_array($GLOBALS['userInfo'], $GLOBALS['aus'])) {
-									//AUS
-									echo do_shortcode( get_field('aus_form') );
-								}
-								else {
-									//UK fallback
-									echo do_shortcode( get_field('uk_form') );
-							} ?>
-					</div>
+			<!-- hero -->
+			<div style="background-image: url('<?php echo $thumbnail[0]; ?>');" class="form-picture-hero"></div>
+
+			<!-- title -->
+			<div class="form-picture-title">
+				<h1 class="form-picture-title font-fk"><?php the_title(); ?></h1>
+			</div>
+
+			<!-- content -->
+			<div class="form-picture-form">
+				<div class="form-picture-form__inner">		
+				<?php 
+					if($GLOBALS['userInfo'] 
+					&& in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){ 
+						//US
+						echo do_shortcode( get_field('us_form') );
+					} 
+					else if($GLOBALS['userInfo'] 
+					&& in_array($GLOBALS['userInfo'], $GLOBALS['norway'])) { 
+						//Norway
+						echo do_shortcode( get_field('norway_form') );
+					}
+					else if($GLOBALS['userInfo'] 
+					&& in_array($GLOBALS['userInfo'], $GLOBALS['aus'])) {
+						//AUS
+						echo do_shortcode( get_field('aus_form') );
+					}
+					else {
+						//UK fallback
+						echo do_shortcode( get_field('uk_form') );
+				} ?>
 				</div>
 			</div><!-- /content -->
 

@@ -1,0 +1,174 @@
+.page-template-page-form-picture .site {
+	max-width: 2560px;
+}
+
+.form-picture {
+	margin-bottom: 40px;
+}
+
+
+.form-picture-hero {
+	grid-column: full;
+	background-size: cover;
+	display: none;
+}
+
+.form-picture-form {
+	grid-column:full;
+	padding: 8.6vw;
+	background-color:$light-grey;
+	width:100%;
+	max-width: 720px;
+	margin: 0 auto;
+	&__inner {
+		width:100%;
+	}
+}
+
+.form-picture-title {
+	display: none;
+}
+
+// mobile large
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: mobileMedium) {
+
+
+
+}
+
+// mobile large
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: mobileLarge) {
+
+
+
+
+}
+
+// tablet
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.form-picture-hero {
+	display: block;
+	height: 34vw;
+	grid-row-start: 1;
+}
+
+.form-picture-title {
+	display: block;
+	grid-row-start: 1;
+	grid-column: full;
+	color: white;
+	font-size: 69px;
+	display: flex;
+	justify-content: flex-start;
+	align-items:center;
+	h1 {
+		margin-left: 44vw;
+	}
+}
+
+.form-picture-form {
+	@include box-shadow;
+	padding: 60px;
+	border-top: 10px solid $red;
+	margin-top: -40px;
+	margin-bottom: 50px;
+}
+
+
+}
+
+// desktop
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+
+
+}
+
+// desktop Large
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+
+.form-picture {
+	margin-top: 20px;
+	margin-bottom: 50px;
+}
+
+.form-picture-title {
+	font-size: 80px;
+	grid-column: main;
+	color: $black;
+	align-items:flex-start;
+	h1{
+		margin-left: 0;
+		margin-top: 42px;
+	}
+}
+
+.form-picture-hero {
+	height:100vh;
+	margin-top: 160px;
+}
+
+.form-picture-form {
+	max-width: 620px;
+	grid-row-start: 1;
+	grid-column: main;
+	margin: 50px 0 0 auto;
+}
+
+}
+
+// desktop Large
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopExtraLarge) {
+
+.form-picture {
+	margin-top: 0px;
+}
+
+.form-picture-title {
+	font-size: 100px;
+}
+
+.form-picture-hero {
+	// height:100vh;
+	margin-top: 200px;
+}
+
+.form-picture-form {
+	max-width: 720px;
+}
+
+
+}
+
+// extraWide
+///////////////////////////////////////////////////////////////////////////
+
+@include mq($from: extraWide) {
+
+.form-picture-title {
+	margin-left: 160px;
+}
+
+.form-picture-hero {
+	// height:100vh;
+	margin-top: 200px;
+}
+
+.form-picture-form {
+	margin-right: 160px;
+}
+
+}
