@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: New donate
+ * Template Name: receipt
  *
  * @package hopeforjustice-2014
  */
@@ -13,7 +13,7 @@ get_header(); ?>
 
 		<div class="grid">
 
-			<div style="grid-column: 1 / 13;" class="donate-legacy__form"><?php echo do_shortcode( '[give_form id="1426"]' ); ?></div>
+			<div style="grid-column: 1 / 13;"><?php the_content(); ?></div>
 
 		</div><!-- /grid -->
 
