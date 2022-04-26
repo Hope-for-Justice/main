@@ -11,7 +11,7 @@ input[type="tel"], input[type="range"],
 input[type="date"], input[type="month"], 
 input[type="week"], input[type="time"], 
 input[type="datetime"], input[type="datetime-local"], 
-input[type="color"], textarea{
+input[type="color"], textarea, .StripeElement{
 	padding: 20px 16px !important;
 	font-size:16px !important;
 	border:1px solid $fields-border !important;
@@ -108,7 +108,7 @@ input[type="radio"] {
   input[type="date"], input[type="month"], 
   input[type="week"], input[type="time"], 
   input[type="datetime"], input[type="datetime-local"], 
-  input[type="color"], textarea{font-size:18px !important;}
+  input[type="color"], textarea, .StripeElement{font-size:18px !important;}
 
   .gfield_html p {font-size: 16px;}
 
