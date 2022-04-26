@@ -19,6 +19,7 @@ input[type="color"], textarea, .StripeElement{
   font-weight: normal;
 	font-family: 'apercu-reg';
   line-height: 1.2 !important;
+  height: auto !important;
   &:active, &:focus, &:focus-visible {
     outline:2px solid $red;
   }
@@ -108,7 +109,7 @@ input[type="radio"] {
   input[type="date"], input[type="month"], 
   input[type="week"], input[type="time"], 
   input[type="datetime"], input[type="datetime-local"], 
-  input[type="color"], textarea, .StripeElement{font-size:18px !important;}
+  input[type="color"], textarea, .StripeElement{font-size:18px !important; height: auto !important;}
 
   .gfield_html p {font-size: 16px;}
 
