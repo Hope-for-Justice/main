@@ -10,7 +10,10 @@
 *
 * @see https://codex.wordpress.org/Writing_a_Plugin
 */
+
+//check if defined or die
 defined( 'ABSPATH' ) || die( 'No script kiddies please!' );
+
 
 if ( method_exists( 'GFForms', 'include_payment_addon_framework' ) ) {
 	GFForms::include_payment_addon_framework();
@@ -463,17 +466,19 @@ if ( method_exists( 'GFForms', 'include_payment_addon_framework' ) ) {
 			return $return;
 		}
 
-		public function getTodaysDay() {
-			$day = date('j');
-			if ( $day >= 1 &&  $day <= 28 ){
-				return (int) $day;
-			} else {
-				// as per https://developer.gocardless.com/api-reference/#subscriptions-recurrence-rules
-				// It will be charged the last day of the month
-				return -1;
-			}
+		// dont need to set the date
 
-		}
+		// public function getTodaysDay() {
+		// 	$day = date('j');
+		// 	if ( $day >= 1 &&  $day <= 28 ){
+		// 		return (int) $day;
+		// 	} else {
+		// 		// as per https://developer.gocardless.com/api-reference/#subscriptions-recurrence-rules
+		// 		// It will be charged the last day of the month
+		// 		return -1;
+		// 	}
+
+		// }
 
 		/**
 		 * Success page send the user to gocardless confirmation page.
@@ -505,17 +510,20 @@ if ( method_exists( 'GFForms', 'include_payment_addon_framework' ) ) {
 					// Set up the recurring payment ( Subscription ).
 					$gocardless_client = $this->get_gocardless_client();
 
-					$gocardless_client->subscriptions()->create([
-						 "params" => [
-						 "amount" => (int) ( ( gform_get_meta( $entry['id'], 'gocardless_direct_debit_amount' ) ) * 100 ),
-						 "currency" => "GBP",
-						 "name" => "Monthly Donation",
-						 "interval_unit" => "monthly",
-						 "day_of_month" => $this->getTodaysDay(),
-						 "metadata" => [ 'site_url' => site_url(),
-								'gravity_forms_entry_id' => $entry['id']],
-						 "links" => ["mandate" =>  $mandate_id]]
-					]);
+					// dont create a subscription
+
+					// $gocardless_client->subscriptions()->create([
+					// 	 "params" => [
+					// 	 "amount" => (int) ( ( gform_get_meta( $entry['id'], 'gocardless_direct_debit_amount' ) ) * 100 ),
+					// 	 "currency" => "GBP",
+					// 	 "name" => "Monthly Donation",
+					// 	 "interval_unit" => "monthly",
+					// 	 "day_of_month" => $this->getTodaysDay(),
+					// 	 "metadata" => [ 'site_url' => site_url(),
+					// 			'gravity_forms_entry_id' => $entry['id']],
+					// 	 "links" => ["mandate" =>  $mandate_id]]
+					// ]);
+					$success_amount = gform_get_meta( $entry['id'], 'gocardless_direct_debit_amount' );
 
 					// Determine redirect url from gravity forms settings.
 					$success_redirect_url = false;
@@ -524,7 +532,7 @@ if ( method_exists( 'GFForms', 'include_payment_addon_framework' ) ) {
 							if ( ! $success_redirect_url && 'page' === $confirmation['type'] ) {
 								$success_redirect_url = get_permalink( $confirmation['pageId'] );
 							} elseif ( ! $success_redirect_url && 'redirect' === $confirmation['type'] ) {
-								$success_redirect_url = $confirmation['url'];
+								$success_redirect_url = $confirmation['url'] . '?Amount=' . $success_amount;
 							}
 						}
 					}
@@ -541,6 +549,13 @@ if ( method_exists( 'GFForms', 'include_payment_addon_framework' ) ) {
 					if ( $notifications ) {
 						GFCommon::send_notifications( $notifications, $form, $entry, true, 'form_submission' );
 					}
+
+					//trigger Zapier
+				    if ( class_exists( 'GFZapier' ) ) {
+				        GFZapier::send_form_data_to_zapier( $entry, $form );
+				    } elseif ( function_exists( 'gf_zapier' ) ) {
+				        gf_zapier()->maybe_process_feed( $entry, $form );
+				    }
 
 					// Redirect the user to the gocardless hosted confirmation.
 					wp_safe_redirect( $success_redirect_url );
@@ -654,6 +669,7 @@ if ( method_exists( 'GFForms', 'include_payment_addon_framework' ) ) {
 		 *
 		 * @return bool|\GoCardlessPro\Client The GoCardless client.
 		 */
+
 		protected function get_gocardless_client() {
 			if ( ! defined( 'FB_GF_GOCARDLESS_HOSTED_ENVIRONMENT' ) ) {
 				return false;

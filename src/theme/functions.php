@@ -865,5 +865,14 @@ function my_give_confirm_form( $form_id ) {
 
 add_action( 'give_pre_form_output', 'my_give_confirm_form', 10, 1 );
 
-
+// // send to zapier after updating
+// function update_zapier() {
+//         $entry = GFAPI::get_entry( $entry_id );
+//     if ( class_exists( 'GFZapier' ) ) {
+//         GFZapier::send_form_data_to_zapier( $entry, $form );
+//     } elseif ( function_exists( 'gf_zapier' ) ) {
+//         gf_zapier()->maybe_process_feed( $entry, $form );
+//     }
+// }
+// add_action( 'gform_post_payment_completed_40', 'update_zapier', 10, 2 );
 
