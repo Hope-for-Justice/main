@@ -2,7 +2,7 @@
 /**
  * Template Name: Donate
  *
- * @package hopeforjustice-2014
+ * @package Hope_for_Justice_2021
  */
 
 get_header(); ?>

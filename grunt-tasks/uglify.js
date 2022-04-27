@@ -35,6 +35,13 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 	];
 
+	uglifyFilesObject[distTheme + jsDir + 'pages/donorfy-guardian-usa.js'] = [
+
+		devTheme + jsDir + 'pages/donorfy-guardian-usa.js',
+
+
+	];
+
 
 	uglifyFilesObject[distTheme + jsDir + 'pages/donate-thankyou.js'] = [
 
