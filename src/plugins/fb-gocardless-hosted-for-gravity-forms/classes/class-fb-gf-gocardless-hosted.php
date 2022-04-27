@@ -524,6 +524,7 @@ if ( method_exists( 'GFForms', 'include_payment_addon_framework' ) ) {
 					// 	 "links" => ["mandate" =>  $mandate_id]]
 					// ]);
 					$success_amount = gform_get_meta( $entry['id'], 'gocardless_direct_debit_amount' );
+					$tid = uniqid();
 
 					// Determine redirect url from gravity forms settings.
 					$success_redirect_url = false;
@@ -532,7 +533,7 @@ if ( method_exists( 'GFForms', 'include_payment_addon_framework' ) ) {
 							if ( ! $success_redirect_url && 'page' === $confirmation['type'] ) {
 								$success_redirect_url = get_permalink( $confirmation['pageId'] );
 							} elseif ( ! $success_redirect_url && 'redirect' === $confirmation['type'] ) {
-								$success_redirect_url = $confirmation['url'] . '?Amount=' . $success_amount;
+								$success_redirect_url = $confirmation['url'] . '?amount=' . $success_amount . '&type=UK+Guardian&tid=' . $tid;
 							}
 						}
 					}
@@ -549,13 +550,6 @@ if ( method_exists( 'GFForms', 'include_payment_addon_framework' ) ) {
 					if ( $notifications ) {
 						GFCommon::send_notifications( $notifications, $form, $entry, true, 'form_submission' );
 					}
-
-					//trigger Zapier
-				    if ( class_exists( 'GFZapier' ) ) {
-				        GFZapier::send_form_data_to_zapier( $entry, $form );
-				    } elseif ( function_exists( 'gf_zapier' ) ) {
-				        gf_zapier()->maybe_process_feed( $entry, $form );
-				    }
 
 					// Redirect the user to the gocardless hosted confirmation.
 					wp_safe_redirect( $success_redirect_url );
@@ -659,9 +653,17 @@ if ( method_exists( 'GFForms', 'include_payment_addon_framework' ) ) {
 			$action['type']             = 'create_subscription';
 
 			gform_update_meta( $entry['id'], 'gocardless_direct_debit_mandate_id', $mandate );
+			$form = GFAPI::get_form( $entry['form_id'] );
 
 			// Add the completed payment setup record.
 			$this->complete_payment( $entry, $action );
+
+			//trigger Zapier
+		    if ( class_exists( 'GFZapier' ) ) {
+		        GFZapier::send_form_data_to_zapier( $entry, $form );
+		    } elseif ( function_exists( 'gf_zapier' ) ) {
+		        gf_zapier()->maybe_process_feed( $entry, $form );
+		    }
 		}
 
 		/**

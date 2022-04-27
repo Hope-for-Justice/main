@@ -124,6 +124,8 @@ function page_scripts() {
 
     wp_register_script( 'donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '202224', true);
 
+    wp_register_script( 'donate-thankyou', get_template_directory_uri() . '/assets/js/pages/donate-thankyou.js', array('jquery'), '202224', true);
+
     wp_register_script( 'training', get_template_directory_uri() . '/assets/js/pages/training.js', array('jquery'), '202224', true);
 
     wp_register_script( 'freedom-run', get_template_directory_uri() . '/assets/js/pages/freedom-run.js', array('jquery'), '202224', true);
@@ -141,6 +143,9 @@ function page_scripts() {
     }
     if (is_page_template('templates/page-freedom-run.php')) {
       wp_enqueue_script('freedom-run');
+    }
+    if (is_page_template('templates/page-donation-thank-you.php')) {
+      wp_enqueue_script('donate-thankyou');
     }
 
 

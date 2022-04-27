@@ -98,7 +98,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 
-<div id="page" class="site">
+<div id="page" class="site <?php echo $args['page_class']; ?>">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'hope-for-justice-2020' ); ?></a>
 
 	<header id="site-header" class="header">
