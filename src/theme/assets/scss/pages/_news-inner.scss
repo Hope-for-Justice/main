@@ -12,6 +12,18 @@
 }
 
 .news-inner {
+	.news-inner__post-content {
+		h2 {
+			font-family: apercu-bold;
+			font-size: 23px;
+		}
+		h3 {
+			font-family: apercu-bold;
+			font-size: 18px;
+			letter-spacing: 0;
+			margin-bottom: 0.5em;
+		}
+	}
 	&__post {
 		grid-column: col1 / col12-end;
 	}
@@ -70,6 +82,10 @@
 @include mq($from: tablet) {
 
 .news-inner {
+	.news-inner__post-content {
+		h2 {font-size: 26px;}
+		h3 {font-size: 21px;}
+	}
 	&__content {
 		padding:6.5em;
 		margin-bottom: 5em;
@@ -166,6 +182,12 @@
 ///////////////////////////////////////////////////////////////////////////
 @include mq($from: wide) {
 
+.news-inner {
+	.news-inner__post-content {
+		h2 {font-size: 32px;}
+		h3 {font-size: 24px;}
+	}
+}
 // .news-inner {
 // 	&__post {
 // 		grid-column: col1 / col10;

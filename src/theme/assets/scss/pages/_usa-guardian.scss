@@ -1,0 +1,58 @@
+.usa-guardian {
+	input, select, &__input{
+		width:100%;
+		margin-bottom: 20px;
+	}
+
+	input[type="submit"] {
+		width: auto;
+	}
+	label {font-size: 14px;}
+
+	&__select{
+	  position: relative;  
+	  &:after {
+	  content: '▾';
+	  font-size: 16px;
+	  position: absolute;
+	  right: 1.5em;
+	  top:calc(50% - 10px);
+	  pointer-events: none;
+	  transform: translateY(-50%);
+	  opacity: 0.5;
+	  }
+	}
+
+	&__amount {
+		position: relative;
+		&:before {
+			content:"USD $";
+			position: absolute;
+			top:calc(50% - 10px);
+			left:20px;
+			transform: translateY(-50%);
+			font-size: 16px;
+		}
+		input {
+			padding-left: 80px !important;
+		}
+	}
+}
+
+@include mq($from: tablet) {
+
+.usa-guardian {
+
+	label {font-size: 16px;}
+
+	&__flex {
+		display:flex;
+		input, div {margin-left: 10px;}
+		input:nth-child(1), div:nth-child(1) {
+			margin-right: 10px;
+			margin-left: 0;
+		}
+	}
+}
+
+}

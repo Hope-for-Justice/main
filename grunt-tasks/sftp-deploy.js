@@ -14,7 +14,7 @@ module.exports = function (deployBase, themeName) {
 		cache: 'sftpcache.json',
 		src: deployBase,
 		dest: 'wp-content',
-		exclusions: [deployBase + '/uploads', deployBase + '/languages', deployBase + '/upgrade', '.ftppass', '.git', '.gitignore', 'node_modules', '.sass-cache', 'npm-debug.log', 'debug.log', '.DS_Store', '.sftpcache.json'],
+		exclusions: [deployBase + '/uploads', deployBase + '/languages', deployBase + '/upgrade', deployBase + '/plugins', '.ftppass', '.git', '.gitignore', 'node_modules', '.sass-cache', 'npm-debug.log', 'debug.log', '.DS_Store', '.sftpcache.json'],
 		serverSep: '/',
 		concurrency: 4,
 		progress: true

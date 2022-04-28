@@ -32,7 +32,7 @@ input[type="submit"] {
 // hides the "(required)" from required fields
 .gfield_required {display:none !important;}
 
-.gform_wrapper.gravity-theme select {
+.gform_wrapper.gravity-theme select, select {
   line-height: 1.2 !important;
   padding: 20px 16px !important;
   font-size: 16px !important;
@@ -44,7 +44,7 @@ input[type="submit"] {
   }
 }
 
-.ginput_container select {
+.ginput_container select, select {
   appearance: none;
   position: relative;
 }
@@ -98,6 +98,10 @@ input[type="radio"] {
   filter: grayscale(1);
 }
 
+.gform_page_footer .button {
+  line-height: 1 !important;
+}
+
 // tablet
 ///////////////////////////////////////////////////////////////////////////
 @include mq($from: tablet) {
@@ -119,7 +123,7 @@ input[type="radio"] {
 
   .gform_heading{margin-bottom: 40px;}
 
-  .gform_wrapper.gravity-theme select {
+  .gform_wrapper.gravity-theme select, select {
     font-size: 18px !important;
   }
 
