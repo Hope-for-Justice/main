@@ -128,6 +128,8 @@ function page_scripts() {
 
     wp_register_script( 'donorfy-guardian-usa', get_template_directory_uri() . '/assets/js/pages/donorfy-guardian-usa.js', array('jquery'), '202225', true);
 
+    wp_register_script( 'donorfy-webhooks', get_template_directory_uri() . '/assets/js/pages/donorfy-webhooks.js', array('jquery'), '202225', true);
+
     wp_register_script( 'training', get_template_directory_uri() . '/assets/js/pages/training.js', array('jquery'), '202225', true);
 
     wp_register_script( 'freedom-run', get_template_directory_uri() . '/assets/js/pages/freedom-run.js', array('jquery'), '202225', true);
@@ -151,6 +153,9 @@ function page_scripts() {
     }
     if (is_page_template('templates/page-guardian-usa.php')) {
       wp_enqueue_script('donorfy-guardian-usa');
+    }
+    if (is_page_template('templates/page-donorfy-webhooks.php')) {
+      wp_enqueue_script('donorfy-webhooks');
     }
 
 
