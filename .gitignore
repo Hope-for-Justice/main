@@ -33,3 +33,6 @@ hfj.sublime-workspace
 sftpcache-staging.json
 sftpcache.json
 local-config.php
+
+# Ignore donorfy token file
+/src/theme/donorfy.php
