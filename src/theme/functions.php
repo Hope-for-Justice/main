@@ -124,9 +124,17 @@ function page_scripts() {
 
     wp_register_script( 'donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '202225', true);
 
+    wp_register_script( 'donate-new', get_template_directory_uri() . '/assets/js/pages/donate-new.js', array('jquery'), '202225', true);
+
     wp_register_script( 'donate-thankyou', get_template_directory_uri() . '/assets/js/pages/donate-thankyou.js', array('jquery'), '202225', true);
 
-    wp_register_script( 'donorfy-guardian-usa', get_template_directory_uri() . '/assets/js/pages/donorfy-guardian-usa.js', array('jquery'), '202225', true);
+    wp_register_script( 'donorfy-stripe', get_template_directory_uri() . '/assets/js/pages/donorfy-stripe.js', array('jquery'), '202225', true);
+
+    wp_register_script( 'regular-uk', get_template_directory_uri() . '/assets/js/pages/regular-uk.js', array('jquery'), '202225', true);
+
+    wp_register_script( 'donorfy-gocardless', get_template_directory_uri() . '/assets/js/pages/donorfy-gocardless.js', array('jquery'), '202225', true);
+
+    wp_register_script( 'one-off-uk', get_template_directory_uri() . '/assets/js/pages/one-off-uk.js', array('jquery'), '202225', true);
 
     wp_register_script( 'donorfy-webhooks', get_template_directory_uri() . '/assets/js/pages/donorfy-webhooks.js', array('jquery'), '202225', true);
 
@@ -152,10 +160,21 @@ function page_scripts() {
       wp_enqueue_script('donate-thankyou');
     }
     if (is_page_template('templates/page-guardian-usa.php')) {
-      wp_enqueue_script('donorfy-guardian-usa');
+      wp_enqueue_script('donorfy-stripe');
+    }
+    if (is_page_template('templates/page-one-off-uk.php')) {
+      wp_enqueue_script('donorfy-stripe');
+      wp_enqueue_script('one-off-uk');
+    }
+    if (is_page_template('templates/page-guardian-uk.php')) {
+      wp_enqueue_script('regular-uk');
+      wp_enqueue_script('donorfy-gocardless');
     }
     if (is_page_template('templates/page-donorfy-webhooks.php')) {
       wp_enqueue_script('donorfy-webhooks');
+    }
+    if (is_page_template('templates/page-donate-new.php')) {
+      wp_enqueue_script('donate-new');
     }
 
 
@@ -880,14 +899,35 @@ function my_give_confirm_form( $form_id ) {
 
 add_action( 'give_pre_form_output', 'my_give_confirm_form', 10, 1 );
 
-// // send to zapier after updating
-// function update_zapier() {
-//         $entry = GFAPI::get_entry( $entry_id );
-//     if ( class_exists( 'GFZapier' ) ) {
-//         GFZapier::send_form_data_to_zapier( $entry, $form );
-//     } elseif ( function_exists( 'gf_zapier' ) ) {
-//         gf_zapier()->maybe_process_feed( $entry, $form );
-//     }
-// }
-// add_action( 'gform_post_payment_completed_40', 'update_zapier', 10, 2 );
 
+/**
+ * Responsive Image Helper Function
+ *
+ * @param string $image_id the id of the image (from ACF or similar)
+ * @param string $image_size the size of the thumbnail image or custom image size
+ * @param string $max_width the max width this image will be shown to build the sizes attribute 
+ */
+
+function acf_responsive_image($image_id,$image_size,$max_width){
+
+  // check the image ID is not blank
+  if($image_id != '') {
+
+    // set the default src image size
+    $image_src = wp_get_attachment_image_url( $image_id, $image_size );
+
+    // set the srcset with various image sizes
+    $image_srcset = wp_get_attachment_image_srcset( $image_id, $image_size );
+
+    // generate the markup for the responsive image
+    echo 'src="'.$image_src.'" srcset="'.$image_srcset.'" sizes="(max-width: '.$max_width.') 100vw, '.$max_width.'"';
+
+  }
+}
+
+add_filter( 'max_srcset_image_width', 'awesome_acf_max_srcset_image_width', 10 , 2 );
+
+// set the max image width 
+function awesome_acf_max_srcset_image_width() {
+  return 2560;
+} 

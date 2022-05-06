@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Guardian USA
+ * Template Name: One off UK
  *
  * @package Hope_for_Justice_2021
  */
@@ -13,14 +13,13 @@ get_header(); ?>
 
 <div class="main site-main donorfy-donate">
     <div class="grid">
-        <div class="default-page">
+        
+        <div class="donorfy-donate__forms">
+            
+            <!-- form 1 -->
+            <form class="donorfy-donate__form" id="formOne"> 
 
-            <h1>Donation details:</h1>
-            <form method="post" id="CreditCardForm">   
-
-                <div class="donorfy-donate__amount">
-                    <input type="text" name="Amount" class="required numberOnly form-control donate-uk__amount" id="Amount" maxlength="10" placeholder="18.00" value="18.00">
-                </div>
+                <h2 class="font-fk">Your details:</h2>  
 
                 <div class="donorfy-donate__select">
                     <select type="text" name="Title" id="Title">
@@ -35,8 +34,6 @@ get_header(); ?>
                     </select>
                 </div>
 
-                <input style="display: none;" type="text" name="terms and conditions" class="honey" id="honey" maxlength="50"> 
-
                 <div class="donorfy-donate__flex">
                     <input type="text" name="FirstName" class="required" id="FirstName" placeholder="First Name" maxlength="50"> 
                     <input type="text" name="LastName" class="required" id="LastName" placeholder="Last Name"maxlength="50"> 
@@ -44,7 +41,18 @@ get_header(); ?>
 
                 <input type="text" name="Email" class="required" type="email" id="Email" maxlength="50" placeholder="Email"> 
 
+                <!-- <div id="testButton" class="button">test</div> -->
+
                 <input type="text" name="Phone" class="" id="Phone" maxlength="50" placeholder="Phone"> 
+
+                <div id="toStepTwo" class="button button--red">Next</div>
+            </form>
+            <!-- /form 1 -->
+
+
+            <!-- form 2 -->
+            <form class="donorfy-donate__form" id="formTwo">
+                <h2 class="font-fk">Address details:</h2> 
 
                 <input type="text" name="Address1" class="" id="Address1" maxlength="50" placeholder="Address 1"> 
                 
@@ -78,12 +86,20 @@ get_header(); ?>
                         <option value="Australia">Australia</option>
                     </select>
                 </div>
-
+            
+            </form>
+            <!-- /form 2 -->
                  
 
+            <!-- form 3 -->
+            <form class="donorfy-donate__form" id="formThree">
 
+                <h2 class="font-fk">Payment details:</h2>  
 
-                <label>Card Details</label>
+                <div class="donorfy-donate__amount donorfy-donate__amount--uk">
+                    <input type="text" name="Amount" class="required numberOnly form-control donate-uk__amount" id="Amount" maxlength="10" placeholder="18.00" value="18.00">
+                </div>
+                
                 <div id="card-number" class="donorfy-donate__input"></div>
 
                 <div class="donorfy-donate__flex">
@@ -102,22 +118,23 @@ get_header(); ?>
 
 
                 <div style="display: none;">
-                    <input type="radio" id="OneOffPayment" name="PaymentType" value="OneOff">
-                    <input type="radio" id="RecurringPayment" name="PaymentType" value="Recurring" checked="checked">
+                    <input type="radio" id="OneOffPayment" name="PaymentType" value="OneOff" checked="checked">
+                    <input type="radio" id="RecurringPayment" name="PaymentType" value="Recurring">
                 </div>
 
                 <div id="PaymentScheduleRow" style="display: none;">   
-                    <input type="radio" id="MonthlyPayment" name="PaymentSchedule" value="Monthly" checked="checked">
+                    <input type="radio" id="MonthlyPayment" name="PaymentSchedule" value="Monthly">
                     <input type="radio" id="QuarterlyPayment" name="PaymentSchedule" value="Quarterly">
                     <input type="radio" id="AnnualPayment" name="PaymentSchedule" value="Annually"> 
                 </div>
 
               
-                <div style="display: none;">
-                    <input type="checkbox" value="2" class="KeepInTouch" checked="checked">&nbsp;Email
-                    <input type="checkbox" value="4" class="KeepInTouch" checked="checked">&nbsp;Post
-                    <input type="checkbox" value="8" class="KeepInTouch" checked="checked">&nbsp;Sms
-                    <input type="checkbox" value="16" class="KeepInTouch" checked="checked">&nbsp;Phone
+                <div>
+                    <input id="emailPreference" type="checkbox" value="2" class="KeepInTouch">
+                    &nbsp;Email
+                    <input id="postPreference" type="checkbox" value="4" class="KeepInTouch">&nbsp;Post
+                    <input id="smsPreference" type="checkbox" value="8" class="KeepInTouch">&nbsp;Sms
+                    <input id="phonePreference" type="checkbox" value="16" class="KeepInTouch">&nbsp;Phone
                 </div>
 
 
@@ -138,11 +155,14 @@ get_header(); ?>
                 <input type="hidden" id="RedirectToPage" value="http://hopeforjustice.org/thank-you-usa-regular" />
                 <input type="hidden" id="ReCaptchaSiteKey" value="6LeSscYZAAAAABIur1rDAvJtDiR7SayCuAylTV2q" />
                 <input type="hidden" id="ReCaptchaAction" value="Donorfy" />
+            
             </form>
+            <!-- /form 3 -->
 
         </div>
+
+    </div><!-- /grid -->
      
-    </div>
 </div>
 
 <script>

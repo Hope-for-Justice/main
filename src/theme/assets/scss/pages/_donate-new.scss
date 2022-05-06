@@ -1,0 +1,160 @@
+.donate-new {
+	padding-bottom: 10px;
+	&__hero-image {
+		grid-column: full;
+		height: 50vw;
+		overflow: hidden;
+		position:relative;
+		z-index: 0;
+		grid-row-start:1;
+		img {
+			width:120%;
+			position: absolute;
+			top:-10%;
+			max-width: none;
+		}
+	}
+	&__giving-widget {
+		grid-column:full;
+    	margin: 0 8px;
+    	margin-top: -20px;
+	}
+	&__picture-description {
+		grid-row-start:1;
+		grid-column:full;
+		justify-self:start;
+		align-self: start;
+		z-index: 1;
+		margin: 8px;
+	}
+}
+
+// phablet
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: phablet) {
+
+.donate-new {
+	padding-bottom: 50px;
+	&__giving-widget {
+		justify-self: center;
+		align-self: start;
+	}
+}
+
+}
+
+// desktop
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.donate-new {
+	&__giving-widget {
+		//margin-top: -30px;
+	}
+	&__picture-description {
+		margin: 12px;
+	}
+}
+
+
+}
+
+// desktop
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.donate-new {
+	padding-bottom: 0;
+	&__hero-image {
+		grid-row-start: 1;
+		height: 100%;
+		img{ 
+			width:160%;
+			left:-42%;
+		}
+	}
+	&__giving-widget {
+		grid-row-start:1;
+		grid-column:main;
+		margin-right: 0;
+		justify-self: end;
+		align-self: start;
+		margin-top: 80px;
+		margin-bottom: 100px;
+	}
+}	
+
+}
+
+// desktop
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+
+.donate-new {
+	&__hero-image {
+		img{ 
+			width:120%;
+			left:-20%;
+			top:-10%;
+		}
+	}
+	&__picture-description {
+		margin: 20px;
+	}
+	&__giving-widget {
+		grid-column:main;
+		margin-right: 0;
+		margin-top: 80px;
+		margin-bottom: 80px;
+	}
+}	
+
+}
+
+// desktopXLarge
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopExtraLarge) {
+
+.donate-new {
+	img{ 
+		width:110%;
+		left:-10%;
+		top:-10%;
+	}
+	&__giving-widget{
+		transform: translateX(-20%);
+		margin-bottom: 200px;
+	}
+}
+
+}
+
+
+// extra wide
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: extraWide) {
+
+.donate-new {
+	&__hero-image {
+		img{ 
+			width:110%;
+			left:-10%;
+			top:-20%;
+		}
+	}
+	&__giving-widget{
+		margin-top: 100px;
+		transform: translateX(-50%);
+	}
+}
+
+}
+
+
+
