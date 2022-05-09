@@ -180,7 +180,7 @@ jQuery(document).ready(function($) {
         
         if (! open) { 
             $(this).toggleClass('picture-description--active');
-            $('.picture-description__text').delay(100).slideDown(200);
+            $('.picture-description__text').delay(200).slideDown(150);
             open = true;
         } else { 
             $('.picture-description__text').hide();
