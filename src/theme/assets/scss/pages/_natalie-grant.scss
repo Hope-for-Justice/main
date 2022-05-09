@@ -1,0 +1,235 @@
+/*
+*
+* _NATALIE-GRANT.SCSS
+*
+*/
+
+.natalie-grant {
+	padding-bottom: 50px;
+	&__hero {
+		grid-column: full;
+		max-height: 400px;
+		overflow: hidden;
+	}
+	&__top-content {
+		grid-column: main;
+		margin-top: 8.6vw;
+	}
+	&__top-text {
+		grid-column: col1/col12-end;
+	}
+	&__content {
+		grid-column:main;
+	}
+	&__portrait {
+		grid-column: col1/col5;
+		width:136px;
+		height: 136px;
+		border-radius:100%;
+		overflow: hidden;
+		margin-top: 40px;
+		margin-bottom: 20px;;
+		img {
+			margin-top: -30px;
+			object-fit: cover;
+		}
+		&-text {
+			grid-column: col1/col12end;
+		}
+	}
+	&__line {
+		width:80px;
+		height:3px;
+		background-color: $red;
+		margin: 40px auto;
+	}
+	&__pull-quote {
+		grid-column: col1/col12-end;
+		font-weight: bold;
+		text-align: center;
+		margin-bottom: 40px;
+	}
+	&__video {
+		cursor: pointer;
+		grid-column: col1/col12-end;
+		margin-left: -8vw;
+   		margin-right: -8vw;
+   		margin-bottom: 40px;
+   		border-radius: 20px;
+   		overflow: hidden;
+   		height:0;
+   		padding-top: 60%;
+   		position: relative;
+   		img{
+   			position: absolute;
+   			top:0;
+   		}
+	}
+	&__video-text {
+		grid-column: col1/col12-end;
+	}
+}
+
+// tablet
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: tablet) {
+
+.natalie-grant {
+	padding-bottom:100px;
+	&__portrait {
+		width: 200px;
+		height:200px;
+		margin-bottom: 40px;
+		&-text {
+			grid-column: col1/col12end;
+			h2 {margin-bottom: 20px;}
+		}
+	}
+	&__pull-quote {
+		grid-column: col2/col12;
+		font-weight: bold;
+		text-align: center;
+		margin-bottom: 60px;
+		margin-top: 60px;
+		p {font-size: 28px;}
+	}
+	&__video {margin-bottom: 60px;}
+}
+
+}
+
+
+// desktop
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) {
+
+.natalie-grant {
+	&__hero {
+		min-height: 700px;
+		max-height: none;
+		position: relative;
+		background-color: #000;
+		grid-row-start:1;
+		z-index: 0;
+		&-img {
+			position:absolute;
+			right:-20%;
+			height:100%;
+			img{max-width: none; height: 100%;}
+			&:after {
+				content: "";
+				background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+				display: block;
+				height: 100%;
+				width:50%;
+				position: absolute;
+				left:0;
+				top:0;
+			}
+		}
+	}
+	&__top-content {
+		margin-top: -80px;
+		grid-row-start:1;
+		color: white;
+		z-index: 1;
+		width:100%;
+		align-self: center;
+	}
+	&__top-text {
+		grid-column: col1/col7;
+	}
+	&__portrait { 
+		width:320px;
+		height:320px;
+		margin-top:-160px;
+		z-index: 1;
+	}
+}
+
+
+}
+
+// desktop Large
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopLarge) {
+
+.natalie-grant {
+	&__hero {
+		min-height: 800px;
+		&-img {
+			right:-10%;
+		}
+	}
+	&__portrait {
+		width:100%;
+		height:1000px;
+		grid-column: col1/col7;
+		border-radius: 20px;
+		margin-top: -50px;
+		z-index: 1;;
+		img {height:100%; width:100%; margin-top: 0;}
+		&-text {
+			grid-column: col8/col12-end;
+			margin-top: 80px;
+			p{font-size: 18px;}
+		}
+	}
+	&__pull-quote {
+		margin-top: 60px;
+		margin-bottom: 60px;
+		grid-column: col4/col10;
+		p {font-size: 34px;}
+	}
+	&__video {
+		margin-left: 0;
+   		margin-right: 0;
+   		grid-column: col2/col12;
+   		img{
+   			height: 100%; 
+   			max-width: none;
+   			left: 50%;
+   			transform: translateX(-50%);
+   		}
+	}
+	&__video-text {
+		grid-column: col2/col10;
+		p{font-size: 18px;;}
+	}
+}
+
+// desktop Extra Large
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: desktopExtraLarge) {
+
+.natalie-grant {
+	&__hero {
+		&-img {
+			right:0%;
+		}
+	}
+	&__top-text {
+		grid-column: col2 /col7;
+	}
+}
+
+}
+
+}
+
+// extra wide
+//////////////////////////////////////////////////////////////////////////////////
+
+@include mq($from: extraWide) {
+
+.natalie-grant {
+	&__hero {
+		min-height: 1000px;
+	}
+}
+
+}

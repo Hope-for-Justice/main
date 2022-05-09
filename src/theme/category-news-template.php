@@ -21,11 +21,8 @@ get_header();
 				</h1>
 
 				<div class="news-header__links">
-					<!-- Contact press -->
-					<p class="news-header__press">
-						<span class="bold">Contact Press: </span><a href="mailto:press@hopeforjustice.org">press@hopeforjustice.org</a>
-					</p>
 					<!-- social icons -->
+					<p class="news-header__links-follow">Follow us on social media:</p>
 					<ul class="footer__social-icons">
 						<li class="footer__social-icon">
 							<a href="<?php echo the_field('linked_in_link', 'option'); ?>" target="_blank">
@@ -48,7 +45,13 @@ get_header();
 							</a>
 						</li>
 					</ul>
-					<div class="line"></div>
+				</div>
+
+				<!-- Contact press -->
+				<div class="news-header__press">
+					<p>	
+						For press and media enquiries only, call +44 (0)300 008 0055 or email <a href="mailto:press@hopeforjustice.org">press@hopeforjustice.org</a> | For non-media enquiries, see our <a href="/contact">Contact Details</a> for your country.
+					</p>
 				</div>
 
 			</div>

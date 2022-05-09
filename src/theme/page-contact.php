@@ -14,20 +14,6 @@ get_header(); ?>
 
 		<div class="grid">
 
-			<!-- 
-			-- 
-			-- header
-			--  
-			-->
-			<div class="color-block color-block--red">
-				<div class="sub-grid">
-					<header class="form-page__header">
-						<h1 class="form__heading form__heading--no-margin font-fk"><?php the_title(); ?></h1>
-					</header>
-				</div>
-			</div><!-- /header -->
-
-
 			<div class="sub-grid contact__grid">
 				<div class="contact__block">
 					<div class="contact__block-content">
