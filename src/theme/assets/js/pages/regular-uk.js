@@ -78,7 +78,9 @@ function getPreferences(id) {
 
     $.ajax({
         method : 'POST',
-        url : '/build/themes/hope-for-justice-2020/get-preferences.php',
+        url : '/wp-content/themes/hope-for-justice-2020/get-preferences.php',
+        // /wp-content/ wp-engine
+        // /build/ local
         data : {ConstituentId: id},
         success: function(output) {
             let obj = $.parseJSON(output);
