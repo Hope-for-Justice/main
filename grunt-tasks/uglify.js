@@ -28,6 +28,13 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 	];
 
+	uglifyFilesObject[distTheme + jsDir + 'pages/donorfy-webhooks.js'] = [
+
+		devTheme + jsDir + 'pages/donorfy-webhooks.js',
+
+
+	];
+
 	uglifyFilesObject[distTheme + jsDir + 'pages/donate.js'] = [
 
 		devTheme + jsDir + 'pages/donate.js',
@@ -35,9 +42,40 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 	];
 
-	uglifyFilesObject[distTheme + jsDir + 'pages/donorfy-guardian-usa.js'] = [
+	uglifyFilesObject[distTheme + jsDir + 'pages/donate-new.js'] = [
 
-		devTheme + jsDir + 'pages/donorfy-guardian-usa.js',
+		devTheme + jsDir + 'pages/donate-new.js',
+
+
+	];
+
+
+	uglifyFilesObject[distTheme + jsDir + 'pages/donorfy-stripe.js'] = [
+
+		devTheme + jsDir + 'plugins/jquery-validate.js',
+		devTheme + jsDir + 'pages/donorfy-stripe.js',
+
+
+	];
+
+	uglifyFilesObject[distTheme + jsDir + 'pages/regular-uk.js'] = [
+
+		devTheme + jsDir + 'pages/regular-uk.js',
+
+
+	];
+
+	uglifyFilesObject[distTheme + jsDir + 'pages/donorfy-gocardless.js'] = [
+
+		devTheme + jsDir + 'plugins/jquery-validate.js',
+		devTheme + jsDir + 'pages/donorfy-gocardless.js',
+
+
+	];
+
+	uglifyFilesObject[distTheme + jsDir + 'pages/one-off-uk.js'] = [
+
+		devTheme + jsDir + 'pages/one-off-uk.js',
 
 
 	];

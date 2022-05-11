@@ -446,15 +446,5 @@ function zapier() {
     });
 }
 
-////////////////////////// custom jquery ////////////////////////
-
-jQuery(document).ready(function($) {
-
-
-
-
-
-
-});
 
 

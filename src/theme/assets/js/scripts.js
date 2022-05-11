@@ -174,6 +174,21 @@ jQuery(document).ready(function($) {
     $('iframe[src*="youtube"]').parent().fitVids();
     $('iframe[src*="bbc"]').parent().fitVids();
 
+    let open = false;
+
+    $('.picture-description').click(function(){
+        
+        if (! open) { 
+            $(this).toggleClass('picture-description--active');
+            $('.picture-description__text').delay(200).slideDown(150);
+            open = true;
+        } else { 
+            $('.picture-description__text').hide();
+            $(this).toggleClass('picture-description--active');
+            open = false;
+        }
+    });
+
 }); /* end of as page load scripts */
 
 

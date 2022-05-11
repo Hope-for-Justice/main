@@ -113,3 +113,5 @@ if ( !defined('ABSPATH') )
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
+
+define( 'DONORFY_TOKEN', 'mb5(FJNkZNOT3KPN-k{Y.9ZOr' );
