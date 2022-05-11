@@ -37,7 +37,9 @@ $('#toStepTwo').click(function(){
     console.log(paymentDay)
 	$.ajax({
         method : 'POST',
-        url : '/build/themes/hope-for-justice-2020/duplicate-check.php',
+        url : '/wp-content/themes/hope-for-justice-2020/duplicate-check.php',
+        // /wp-content/ wp-engine
+        // /build/ local
         data : {Email: email},
         success: function(output) {
             let obj = $.parseJSON(output)
