@@ -1,5 +1,9 @@
 .donorfy-donate {
 
+	#formTwo, #DirectDebitForm{
+		display:none;
+	}
+
 	background-color: #FAFAFA;
 	width:100%;
 	//min-height: 60vh;
@@ -10,18 +14,15 @@
 
 	input, select {
 		width:100%;
-		margin-bottom: 20px;
+		margin-bottom: 4px;
 	}
 
 	input[type="submit"] {
 		width: auto;
 	}
 
-	input.error {
+	input.error, select.error {
 		background-color: #d6001c17;
-		&:after {
-			content: "required";
-		}
 	}
 
 	hr {margin: 40px 0}
@@ -31,17 +32,24 @@
 	&__hidden {display:none;}
 
 	&__select{
-	  position: relative;  
+	  position: relative; 
+	  margin-bottom: 16px; 
 	  &:after {
 	  content: '▾';
 	  font-size: 16px;
 	  position: absolute;
 	  right: 1.5em;
-	  top:calc(50% - 10px);
+	  top:20px;
 	  pointer-events: none;
-	  transform: translateY(-50%);
 	  opacity: 0.5;
 	  }
+	  label.error {
+			background-color: #d6001c9e;
+			padding: 4px 8px;
+			color: white;
+			border-radius: 10px;
+			margin-top: 4px;
+		}
 	}
 
 	&__amount {
@@ -70,16 +78,13 @@
 			font-size: 21px;
 			font-weight: bold;
 		}
-		#formTwo, #formThree{
-			display:none;
-		}
 	}
 
 	&__input {
 		margin-bottom: 16px;
 		width:100%;
 		input {margin-bottom: 4px;}
-		.error {
+		label.error {
 			background-color: #d6001c9e;
 			padding: 4px 8px;
 			color: white;
@@ -97,6 +102,7 @@
 
 	&__preferences {
 		display: flex;
+		flex-wrap: wrap;
 		.donorfy-donate__preference {
 			min-width: 120px;
 			margin-right: 20px;

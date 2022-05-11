@@ -51,6 +51,8 @@
 
 .donate-new {
 	&__giving-widget {
+		opacity: 0;
+		transition: opacity 0.4s;
 		//margin-top: -30px;
 	}
 	&__picture-description {

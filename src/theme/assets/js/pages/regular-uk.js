@@ -3,28 +3,19 @@ jQuery(document).ready(function($) {
 $('#formOne').validate({
     // rules
     rules: {
-        field1: {
-            required: true
+        Email: {
+          required: true,
+          email: true
         }
     }
 });
 
 $('#formTwo').validate({
     // rules
-    rules: {
-        field2: {
-            required: true
-        }
-    }
 });
 
 $('#formThree').validate({
-    // rules,
-    rules: {
-        field3: {
-            required: true
-        }
-    },
+    // rules
 });
 
 // $('#formOne').hide();
@@ -42,7 +33,8 @@ $('#toStepTwo').click(function(){
   	$('#formOne').hide();
 	$('#formTwo').show();
 	let email = $('#Email').val();
-	console.log(email);
+    let paymentDay = $('#paymentDay').val();
+    console.log(paymentDay)
 	$.ajax({
         method : 'POST',
         url : '/build/themes/hope-for-justice-2020/duplicate-check.php',
@@ -69,14 +61,14 @@ $('#backToStepOne').click(function(){
 
 $('#toStepThree').click(function(){
 	if ($('#formTwo').valid()) {
-  		$('#formThree').show();
+  		$('#DirectDebitForm').show();
 		$('#formTwo').hide();
 	}
 });
 
 $('#backToStepTwo').click(function(){
   	$('#formTwo').show();
-	$('#formThree').hide();
+	$('#DirectDebitForm').hide();
 });
 
 

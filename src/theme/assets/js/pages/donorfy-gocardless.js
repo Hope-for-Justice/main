@@ -121,6 +121,20 @@ function ValidateForm() {
             else
                 error.insertAfter(element);
         },
+        rules: {
+            postSelect: {
+              required: true
+            },
+            smsSelect: {
+              required: true
+            },
+            emailSelect: {
+              required: true
+            },
+            phoneSelect: {
+              required: true
+            }
+        }
 
     }).settings.ignore = ':disabled,:hidden';
 

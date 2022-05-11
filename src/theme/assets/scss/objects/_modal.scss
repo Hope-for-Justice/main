@@ -44,6 +44,7 @@
 			border-radius: 0;
 		}
 		&--yellow {background-color: $yellow;}
+		&--white {background-color: #ffffff;}
 	}
 	&__title{
 		// set default here
@@ -73,6 +74,7 @@
     background-color: #f2f2f2;
     
 	    &--yellow {background-color: $yellow;}
+	    &--white {background-color: #ffffff;}
 		
 		&:hover {cursor: pointer;}
 		
@@ -120,6 +122,36 @@
 	.get-help-modal__text {
 		font-size: 1.8em;
 		margin-bottom: 1.5em;
+	}
+}
+
+.modal-currency{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	&__currency {
+		background-color: #EBEBEB;
+		color: #BCBCBC;
+		padding: 1em;
+		font-size: 20px;
+		border-radius: 10px;
+		font-weight: bold;
+		margin-right: 10px;
+		&:hover {
+			opacity: 0.8;
+		}
+	}
+	&__title {
+		font-size: 21px;
+		font-weight: bold;
+		text-align: center;
+		margin-bottom: 12px;
+	}
+	&__text {
+		font-size: 16px;
+		text-align: center;
+		padding: 0 20px;
+		margin-bottom: 20px;
 	}
 }
 
@@ -171,6 +203,11 @@
 
 }
 
+.modal-currency{
+	&__text {
+		padding: 0 40px;
+	}
+}
 
 }
 

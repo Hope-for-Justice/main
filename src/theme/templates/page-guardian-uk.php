@@ -23,6 +23,17 @@ get_header('', array( 'page_class' => 'site--full') ); ?>
                         value="<?php echo $_GET['Amount']?>" 
                     <?php } ?>>   
                 </div>
+
+                <label for="paymentDay">Payment day:</label>
+                <div class="donorfy-donate__select">
+                    <select type="text" class="required" name="paymentDay" id="paymentDay">
+                        <option value="">-- Select option--</option>
+                        <option value="1">1</option>
+                        <option value="15">15</option>
+                        <option value="25">25</option>
+                        <option value="30">30</option>        
+                    </select>
+                </div>
                 
                             
                 <label class="donorfy-donate__hidden" for="Title">Title</label>
@@ -97,12 +108,12 @@ get_header('', array( 'page_class' => 'site--full') ); ?>
                 </div>
             </form>
 
-            <form id="formThree">
+            <form id="DirectDebitForm">
                 
                 <h2>Gift Aid:</h2>
 
                 <div class="donorfy-donate__select">
-                    <select id="GiftAidSelect">
+                    <select id="GiftAidSelect" class="required">
                         <option value="">-- Select option --</option>
                         <option value="true">Yes please</option>
                         <option value="false">No thank you</option>
@@ -124,7 +135,7 @@ get_header('', array( 'page_class' => 'site--full') ); ?>
                     <div class="donorfy-donate__preference">
                         <p class="donorfy-donate__select-text">Email:</p>
                         <div class="donorfy-donate__select donorfy-donate__select--preference">  
-                            <select id="emailSelect">
+                            <select id="emailSelect" class="required" name="emailSelect">
                                 <option value="">Select</option>
                                 <option value="true">Yes</option>
                                 <option value="false">No</option>
@@ -135,7 +146,7 @@ get_header('', array( 'page_class' => 'site--full') ); ?>
                     <div class="donorfy-donate__preference">
                         <p class="donorfy-donate__select-text">Post:</p>
                         <div class="donorfy-donate__select donorfy-donate__select--preference">      
-                            <select id="postSelect">
+                            <select id="postSelect" class="required" name="postSelect">
                                 <option value="">Select</option>
                                 <option value="true">Yes</option>
                                 <option value="false">No</option>
@@ -146,7 +157,7 @@ get_header('', array( 'page_class' => 'site--full') ); ?>
                     <div class="donorfy-donate__preference">
                         <p class="donorfy-donate__select-text">SMS:</p>
                         <div class="donorfy-donate__select donorfy-donate__select--preference">         
-                            <select id="smsSelect">
+                            <select id="smsSelect" class="required" name="smsSelect">
                                 <option value="">Select</option>
                                 <option value="true">Yes</option>
                                 <option value="false">No</option>
@@ -157,7 +168,7 @@ get_header('', array( 'page_class' => 'site--full') ); ?>
                     <div class="donorfy-donate__preference">
                         <p class="donorfy-donate__select-text">Phone:</p>
                         <div class="donorfy-donate__select donorfy-donate__select--preference">
-                            <select id="phoneSelect">
+                            <select id="phoneSelect" class="required" name="phoneSelect">
                                 <option value="">Select</option>
                                 <option value="true">Yes</option>
                                 <option value="false">No</option>
@@ -196,7 +207,7 @@ get_header('', array( 'page_class' => 'site--full') ); ?>
 
                 <div class="donorfy-donate__buttons">
                     <div id="backToStepTwo" class="button button--white">Previous</div>
-                    <div id="submit" class="button">Setup Direct Debit</div>
+                    <div id="submitButton" class="button">Setup Direct Debit</div>
                 </div>
                 
                 <div class="donorfy-donate__hidden">

@@ -5,13 +5,28 @@ jQuery(document).ready(function ($) {
 	let reasonMonthly = $(".giving-widget__options-option--active").data(
 		"monthly"
 	);
-	let currency = $(".currency").text();
+	let currency = $(".giving-widget").data('currency');
+
+
+	// Norway monthly click
 
 	$('#norwayMonthly').click(function(){
-		window.location.href = "https://www2.solidus.no/ASrd/RegistrerAvtale.aspx?ID=kClkmr6TI0FJWh425kpLtA=="
+		let link = $(this).data('link');
+		window.location.href = link;
 	})
 
+	//modal currency click
+	$('.modal-currency__currency').click(function(){
+		let data = $(this).data('currency');
+		let url = window.location.origin + window.location.pathname;
+		window.location.href = url + `?Currency=${data}`;
+	})
+
+
 	//alert(parseFloat(amount).toFixed(2));
+
+
+	//initial set
 
 	if (freq == "monthly") {
 		$("#reason").text(reasonMonthly);
@@ -43,6 +58,10 @@ jQuery(document).ready(function ($) {
 
 	$(".giving-widget__text-amount").text(amount);
 	$(".giving-widget__button-amount").text(amount);
+
+
+	//fade in widget
+	$(".donate-new__giving-widget").css('opacity', '1');
 
 
 	//frequency select
@@ -174,4 +193,47 @@ jQuery(document).ready(function ($) {
 		$(".giving-widget__text-amount").text(val);
 		amount = val;
 	});
+
+
+	$('.giving-widget__button').click(function(){
+		console.log(amount, freq, currency);
+
+		let url = window.location.origin;
+		let urlAmount = parseFloat(amount).toFixed(2);
+
+		if(currency=='GBP') {
+			if(freq=='monthly') {
+				url += '/regular-uk/'
+			} else {
+				url += '/one-off-uk/'
+			}
+		} else if (currency=='USD') {
+			if(freq=='monthly'){
+				url += '/regular-usa/'
+			} else {
+				url += '/one-off-usa/'
+			}
+		} else if (currency=='NOK') {
+			url += '/one-off-norge/'
+		}
+
+		window.location.href = url + `?Amount=${urlAmount}`;
+	});
+
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

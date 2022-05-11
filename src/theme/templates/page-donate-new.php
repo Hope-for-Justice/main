@@ -6,7 +6,12 @@
  */
 
 get_header("", ["page_class" =>
-"site--full"]); $currency = $_GET["Currency"]; ?>
+"site--full"]); 
+
+$currency = $_GET["Currency"]; 
+$default_form = true;
+
+?>
 
 <?php while (have_posts()):
     the_post(); ?>
@@ -25,429 +30,429 @@ $sizes = wp_get_attachment_image_sizes($post_thumbnail_id);
 
 } ?>
 
-<div class="main site-main donate-new">
+<main class="main site-main donate-new">
     <div class="full-grid">
         <div class="donate-new__hero-image">
             <img src="<?php echo $src[0]; ?>" srcset="<?php echo $srcset; ?>" />
         </div>
 
         <!-- giving widget -->
-        <?php if (
-            ($GLOBALS["userInfo"] &&
-                in_array($GLOBALS["userInfo"], $GLOBALS["usa"])) ||
-            $currency == "USD"
-        ) { ?>
+        <?php if (($GLOBALS["userInfo"] && in_array($GLOBALS["userInfo"], $GLOBALS["usa"])) || $currency == 'USD') { ?>
 
-        <div class="donate-new__giving-widget giving-widget">
-            <div class="giving-widget__freq">
-                <div class="giving-widget__freq-option" data-freq="once">
-                    &nbsp;Once
-                </div>
-                <div
-                    class="giving-widget__freq-option giving-widget__freq-option--active"
-                    data-freq="monthly"
-                >
-                    &nbsp;Monthly
-                </div>
-            </div>
+            <?php if ($currency != 'NOK' && $currency != 'GBP') { ?>
+                
+                <!-- USA -->
+                <div data-currency="USD" class="donate-new__giving-widget giving-widget">
+                    <div class="giving-widget__freq">
+                        <div class="giving-widget__freq-option" data-freq="once">
+                            &nbsp;Once
+                        </div>
+                        <div
+                            class="giving-widget__freq-option giving-widget__freq-option--active"
+                            data-freq="monthly"
+                        >
+                            &nbsp;Monthly
+                        </div>
+                    </div>
 
-            <h2 class="font-fk giving-widget__title">
-                <?php the_field('usa_widget_guardian_title')?>
-                BECOME A <span class="color-red">GUARDIAN</span>
-            </h2>
+                    <h2 class="font-fk giving-widget__title">
+                        <?php the_field('usa_widget_guardian_title')?>
+                        
+                    </h2>
 
-            <h2 class="font-fk giving-widget__title giving-widget__title--once">
-                <?php the_field('usa_widget_once_title')?>
-                FUND <span class="color-red">FREEDOM</span>
-            </h2>
+                    <h2 class="font-fk giving-widget__title giving-widget__title--once">
+                        <?php the_field('usa_widget_once_title')?>
+                                    </h2>
 
-            <p class="giving-widget__text giving-widget__top-text">
-                <?php the_field('usa_widget_guardian_text')?>
-                GUARDIANS are part of our community of regular givers who know
-                that rescue is not an event, it is a process. Let’s rebuild
-                lives, together.
-            </p>
+                    <p class="giving-widget__text giving-widget__top-text">
+                        <?php the_field('usa_widget_guardian_text')?>
+                        
+                    </p>
 
-            <p class="giving-widget__text giving-widget__top-text--once">
-                <?php the_field('usa_widget_once_text')?>
-                ONCE are part of our community of regular givers who know
-                that rescue is not an event, it is a process. Let’s rebuild
-                lives, together.
-            </p>
+                    <p class="giving-widget__text giving-widget__top-text--once">
+                        <?php the_field('usa_widget_once_text')?>
+                        
+                    </p>
 
-            <div class="giving-widget__options">
-                <div
-                    class="giving-widget__options-option"
-                    data-amount="<?php the_field('usa_widget_option_1_amount')?>10"
-                    data-amountmonthly="<?php the_field('widget_option_1_amount_monthly')?>12"
-                    data-reason="<?php the_field('usa_widget_option_1_reason')?>could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 1"
-                    data-monthly="<?php the_field('usa_widget_option_1_reason_monthly')?>could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 1 monthly"
-                >
-                    <span class="currency">$</span
-                    ><span class="giving-widget__options-amount"><?php the_field('widget_option_1_amount_monthly')?>10</span>
-                </div>
+                    <div class="giving-widget__options">
+                        <div
+                            class="giving-widget__options-option"
+                            data-amount="<?php the_field('usa_widget_option_1_amount')?>"
+                            data-amountmonthly="<?php the_field('usa_widget_option_1_amount_monthly')?>"
+                            data-reason="<?php the_field('usa_widget_option_1_reason')?>"
+                            data-monthly="<?php the_field('usa_widget_option_1_reason_monthly')?>"
+                        >
+                            <span class="currency">$</span
+                            ><span class="giving-widget__options-amount"><?php the_field('usa_widget_option_1_amount_monthly')?></span>
+                        </div>
 
-                <div
-                    class="giving-widget__options-option"
-                    data-amount="<?php the_field('usa_widget_option_2_amount')?>25"
-                    data-amountmonthly="<?php the_field('widget_option_1_amount_monthly')?>27"
-                    data-reason="<?php the_field('usa_widget_option_2_reason')?>could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 2"
-                    data-monthly="<?php the_field('usa_widget_option_2_reason_monthly')?>could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 2 monthly"
-                >
-                    <span class="currency">$</span
-                    ><span class="giving-widget__options-amount"><?php the_field('usa_widget_option_2_amount_monthly')?>25</span>
-                </div>
+                        <div
+                            class="giving-widget__options-option"
+                            data-amount="<?php the_field('usa_widget_option_2_amount')?>"
+                            data-amountmonthly="<?php the_field('usa_widget_option_2_amount_monthly')?>"
+                            data-reason="<?php the_field('usa_widget_option_2_reason')?>"
+                            data-monthly="<?php the_field('usa_widget_option_2_reason_monthly')?>"
+                        >
+                            <span class="currency">$</span
+                            ><span class="giving-widget__options-amount"><?php the_field('usa_widget_option_2_amount_monthly')?></span>
+                        </div>
 
-                <div
-                    class="giving-widget__options-option"
-                    data-amount="<?php the_field('usa_widget_option_3_amount')?>50"
-                    data-amountmonthly="<?php the_field('usa_widget_option_3_amount_monthly')?>52"
-                    data-reason="<?php the_field('usa_widget_option_3_reason')?>could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 3"
-                    data-monthly="<?php the_field('usa_widget_option_3_reason_monthly')?>could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 3 monthly"
-                >
-                    <span class="currency">$</span
-                    ><span class="giving-widget__options-amount"><?php the_field('usa_widget_option_3_amount_monthly')?>50</span>
-                </div>
+                        <div
+                            class="giving-widget__options-option"
+                            data-amount="<?php the_field('usa_widget_option_3_amount')?>"
+                            data-amountmonthly="<?php the_field('usa_widget_option_3_amount_monthly')?>"
+                            data-reason="<?php the_field('usa_widget_option_3_reason')?>"
+                            data-monthly="<?php the_field('usa_widget_option_3_reason_monthly')?>"
+                        >
+                            <span class="currency">$</span
+                            ><span class="giving-widget__options-amount"><?php the_field('usa_widget_option_3_amount_monthly')?></span>
+                        </div>
 
-                <div
-                    class="giving-widget__options-option giving-widget__options-option--active"
-                    data-amount="<?php the_field('usa_widget_option_4_amount')?>100"
-                    data-amountmonthly="<?php the_field('usa_widget_option_4_amount_monthly')?>102"
-                    data-reason="<?php the_field('usa_widget_option_4_reason')?>could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 4"
-                    data-monthly="<?php the_field('usa_widget_option_4_reason_monthly')?>could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 4 monthly"
-                >
-                    <span class="currency">$</span
-                    ><span class="giving-widget__options-amount"><?php the_field('usa_widget_option_4_amount_monthly')?>100</span>
-                </div>
+                        <div
+                            class="giving-widget__options-option giving-widget__options-option--active"
+                            data-amount="<?php the_field('usa_widget_option_4_amount')?>"
+                            data-amountmonthly="<?php the_field('usa_widget_option_4_amount_monthly')?>"
+                            data-reason="<?php the_field('usa_widget_option_4_reason')?>"
+                            data-monthly="<?php the_field('usa_widget_option_4_reason_monthly')?>"
+                        >
+                            <span class="currency">$</span
+                            ><span class="giving-widget__options-amount"><?php the_field('usa_widget_option_4_amount_monthly')?></span>
+                        </div>
 
-                <div
-                    class="giving-widget__options-option"
-                    data-amount="<?php the_field('usa_widget_option_5_amount')?>250"
-                    data-amountmonthly="<?php the_field('usa_widget_option_5_amount_monthly')?>252"
-                    data-reason="<?php the_field('usa_widget_option_5_reason')?>could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 5"
-                    data-monthly="<?php the_field('usa_widget_option_5_reason_monthly')?>could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 5 monthly"
-                >
-                    <span class="currency">$</span
-                    ><span class="giving-widget__options-amount"><?php the_field('usa_widget_option_5_amount_monthly')?>250</span>
-                </div>
+                        <div
+                            class="giving-widget__options-option"
+                            data-amount="<?php the_field('usa_widget_option_5_amount')?>"
+                            data-amountmonthly="<?php the_field('usa_widget_option_5_amount_monthly')?>"
+                            data-reason="<?php the_field('usa_widget_option_5_reason')?>"
+                            data-monthly="<?php the_field('usa_widget_option_5_reason_monthly')?>"
+                        >
+                            <span class="currency">$</span
+                            ><span class="giving-widget__options-amount"><?php the_field('usa_widget_option_5_amount_monthly')?></span>
+                        </div>
 
-                <div
-                    class="giving-widget__options-option giving-widget__options-option--custom"
-                    data-amount="custom"
-                    data-reason="<?php the_field('usa_widget_option_6_reason')?>Your giving could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 6"
-                    data-monthly="<?php the_field('usa_widget_option_6_reason_monthly')?>could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 6 monthly"
-                >
-                    <span class="text">Custom<br />Amount</span>
-                    <span class="currency">$</span>
-                    <input
-                        id="customAmount"
-                        style="display: none"
-                        type="number"
-                        name="customAmount"
-                    />
-                </div>
-            </div>
+                        <div
+                            class="giving-widget__options-option giving-widget__options-option--custom"
+                            data-amount="custom"
+                            data-reason="<?php the_field('usa_widget_option_6_reason')?>"
+                            data-monthly="<?php the_field('usa_widget_option_6_reason_monthly')?>"
+                        >
+                            <span class="text">Custom<br />Amount</span>
+                            <span class="currency">$</span>
+                            <input
+                                id="customAmount"
+                                style="display: none"
+                                type="number"
+                                name="customAmount"
+                            />
+                        </div>
+                    </div>
 
-            <p class="giving-widget__text">
-                <span class="color-red"
-                    ><b
-                        ><span class="giving-widget__text-currency">$</span
-                        ><span class="giving-widget__text-amount"></span></b
-                    ></span
-                >
-                <span class="giving-widget__text-freq">monthly</span>
-                <span id="reason"></span>
-            </p>
+                    <p class="giving-widget__text">
+                        <span class="color-red"
+                            ><b
+                                ><span class="giving-widget__text-currency">$</span
+                                ><span class="giving-widget__text-amount"></span></b
+                            ></span
+                        >
+                        <span class="giving-widget__text-freq">monthly</span>
+                        <span id="reason"></span>
+                    </p>
 
-            <div class="giving-widget__other-ways">
-                <a href="<?php the_field('usa_widget_other_ways_link')?>">Other ways to give</a>
-                <div class="giving-widget__other-ways-divider">|</div>
-                <a id="changeCurrency">Change currency</a>
-            </div>
+                    <div class="giving-widget__other-ways">
+                        <a href="<?php the_field('usa_widget_other_ways_link')?>">Other ways to give</a>
+                        <div class="giving-widget__other-ways-divider">|</div>
+                        <a data-toggle="modal" data-target="#modal" id="changeCurrency">Change currency</a>
+                    </div>
 
-            <div class="giving-widget__button">
-                Donate
-                <span class="giving-widget__button-currency currency">$</span
-                ><span class="giving-widget__button-amount"></span>
-                <span class="giving-widget__button-freq"></span>
-            </div>
-        </div>
-
-        <?php } elseif (
-            ($GLOBALS["userInfo"] &&
-                in_array($GLOBALS["userInfo"], $GLOBALS["norway"])) ||
-            $currency == "NOK"
-        ) { ?>
-
-        <div class="donate-new__giving-widget giving-widget">
-            <div class="giving-widget__freq">
-                <div class="giving-widget__freq-option giving-widget__freq-option--active" data-freq="once">
-                    &nbsp;Once
-                </div>
-                <div
-                    id="norwayMonthly"
-                    class="giving-widget__freq-option"
-                    data-freq="monthly"
-                >
-                    &nbsp;Monthly
-                </div>
-            </div>
-
-            <h2 class="font-fk giving-widget__title">
-                BECOME A <span class="color-red">GUARDIAN</span>
-            </h2>
-
-            <h2 class="font-fk giving-widget__title giving-widget__title--once">
-                FUND <span class="color-red">FREEDOM</span>
-            </h2>
-
-            <p class="giving-widget__text giving-widget__top-text">
-                <?php the_field('widget_guardian_text')?>
-                GUARDIANS are part of our community of regular givers who know
-                that rescue is not an event, it is a process. Let’s rebuild
-                lives, together.
-            </p>
-
-            <p class="giving-widget__text giving-widget__top-text--once">
-                <?php the_field('widget_once_text')?>
-                ONCE are part of our community of regular givers who know
-                that rescue is not an event, it is a process. Let’s rebuild
-                lives, together.
-            </p>
-
-
-            <div class="giving-widget__options">
-                <div
-                    class="giving-widget__options-option"
-                    data-amount="10"
-                    data-amountmonthly="12"
-                    data-reason="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 1"
-                    data-monthly="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 1 monthly"
-                >
-                    <span class="giving-widget__options-amount">10</span>
-                    <span class="currency">Kr</span>
+                    <div class="giving-widget__button">
+                        Donate
+                        <span class="giving-widget__button-currency currency">$</span
+                        ><span class="giving-widget__button-amount"></span>
+                        <span class="giving-widget__button-freq"></span>
+                    </div>
                 </div>
 
-                <div
-                    class="giving-widget__options-option"
-                    data-amount="25"
-                    data-amountmonthly="27"
-                    data-reason="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 2"
-                    data-monthly="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 2 monthly"
-                >
-                    <span class="giving-widget__options-amount">25</span>
-                    <span class="currency">Kr</span>
+                <?php $default_form = false; ?>
+
+            <?php } ?>
+
+        <?php } ?>
+
+        <?php if (($GLOBALS["userInfo"] && in_array($GLOBALS["userInfo"], $GLOBALS["norway"])) || $currency == 'NOK') { ?>
+
+            <?php if ($currency != 'USD' && $currency != 'GBP') { ?>
+
+                <!-- Norway -->
+                <div data-currency="NOK" class="donate-new__giving-widget giving-widget">
+                    <div class="giving-widget__freq">
+                        <div class="giving-widget__freq-option giving-widget__freq-option--active" data-freq="once">
+                            &nbsp;Once
+                        </div>
+                        <div
+                            id="norwayMonthly"
+                            class="giving-widget__freq-option"
+                            data-freq="monthly"
+                            data-link="<?php the_field('no_widget_monthly_link')?>"
+                        >
+                            &nbsp;Monthly
+                        </div>
+                    </div>
+
+                    <h2 class="font-fk giving-widget__title">
+                        <?php the_field('no_widget_once_title')?>
+                        
+                    </h2>
+
+                    <h2 class="font-fk giving-widget__title giving-widget__title--once">
+                        <?php the_field('no_widget_once_title')?>
+                                    </h2>
+
+                    <p class="giving-widget__text giving-widget__top-text">
+                        <?php the_field('no_widget_once_text')?>
+                        
+                    </p>
+
+                    <p class="giving-widget__text giving-widget__top-text--once">
+                        <?php the_field('no_widget_once_text')?>
+                        
+                    </p>
+
+                    <div class="giving-widget__options">
+                        <div
+                            class="giving-widget__options-option"
+                            data-amount="<?php the_field('no_widget_option_1_amount')?>"
+                            data-amountmonthly="<?php the_field('no_widget_option_1_amount')?>"
+                            data-reason="<?php the_field('no_widget_option_1_reason')?>"
+                            data-monthly="<?php the_field('no_widget_option_1_reason')?>"
+                        >
+                            <span class="giving-widget__options-amount"><?php the_field('no_widget_option_1_amount')?></span><span class="currency">Kr</span
+                            >
+                        </div>
+
+                        <div
+                            class="giving-widget__options-option"
+                            data-amount="<?php the_field('no_widget_option_2_amount')?>"
+                            data-amountmonthly="<?php the_field('no_widget_option_2_amount')?>"
+                            data-reason="<?php the_field('no_widget_option_2_reason')?>"
+                            data-monthly="<?php the_field('no_widget_option_2_reason')?>"
+                        >
+                            <span class="giving-widget__options-amount"><?php the_field('no_widget_option_2_amount')?></span><span class="currency">Kr</span
+                            >
+                        </div>
+
+                        <div
+                            class="giving-widget__options-option"
+                            data-amount="<?php the_field('no_widget_option_3_amount')?>"
+                            data-amountmonthly="<?php the_field('no_widget_option_3_amount')?>"
+                            data-reason="<?php the_field('no_widget_option_3_reason')?>"
+                            data-monthly="<?php the_field('no_widget_option_3_reason')?>"
+                        >
+                            <span class="giving-widget__options-amount"><?php the_field('no_widget_option_3_amount')?></span><span class="currency">Kr</span
+                            >
+                        </div>
+
+                        <div
+                            class="giving-widget__options-option giving-widget__options-option--active"
+                            data-amount="<?php the_field('no_widget_option_4_amount')?>"
+                            data-amountmonthly="<?php the_field('no_widget_option_4_amount')?>"
+                            data-reason="<?php the_field('no_widget_option_4_reason')?>"
+                            data-monthly="<?php the_field('no_widget_option_4_reason')?>"
+                        >
+                            <span class="giving-widget__options-amount"><?php the_field('no_widget_option_4_amount')?></span><span class="currency">Kr</span
+                            >
+                        </div>
+
+                        <div
+                            class="giving-widget__options-option"
+                            data-amount="<?php the_field('no_widget_option_5_amount')?>"
+                            data-amountmonthly="<?php the_field('no_widget_option_5_amount')?>"
+                            data-reason="<?php the_field('no_widget_option_5_reason')?>"
+                            data-monthly="<?php the_field('no_widget_option_5_reason')?>"
+                        >
+                            <span class="giving-widget__options-amount"><?php the_field('no_widget_option_5_amount')?></span><span class="currency">Kr</span
+                            >
+                        </div>
+
+                        <div
+                            class="giving-widget__options-option giving-widget__options-option--custom"
+                            data-amount="custom"
+                            data-reason="<?php the_field('no_widget_option_6_reason')?>"
+                            data-monthly="<?php the_field('no_widget_option_6_reason')?>"
+                        >
+                            <span class="text">Custom<br />Amount</span>
+                            
+                            <input
+                                id="customAmount"
+                                style="display: none"
+                                type="number"
+                                name="customAmount"
+                            />
+                            <span class="currency currency--norway">Kr</span>
+                        </div>
+                    </div>
+
+                    <p class="giving-widget__text">
+                        <span class="color-red"
+                            ><b
+                                ><span class="giving-widget__text-amount">100</span><span class="giving-widget__text-currency">Kr</span
+                                ></b
+                            ></span
+                        >
+                        <span id="reason"></span>
+                    </p>
+
+                    <div class="giving-widget__other-ways">
+                        <a href="<?php the_field('no_widget_other_ways_link')?>">Other ways to give</a>
+                        <div class="giving-widget__other-ways-divider">|</div>
+                        <a data-toggle="modal" data-target="#modal" id="changeCurrency">Change currency</a>
+                    </div>
+
+                    <div class="giving-widget__button">
+                        Donate
+                        <span class="giving-widget__button-amount"></span><span class="giving-widget__button-currency currency">Kr</span
+                        >
+                        <span class="giving-widget__button-freq"></span>
+                    </div>
                 </div>
 
-                <div
-                    class="giving-widget__options-option"
-                    data-amount="50"
-                    data-amountmonthly="52"
-                    data-reason="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 3"
-                    data-monthly="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 3 monthly"
-                >
-                    <span class="giving-widget__options-amount">50</span>
-                    <span class="currency">Kr</span>
+                <?php $default_form = false; ?>
+
+            <?php } ?>
+
+        <?php } ?>
+
+        <?php if ($default_form) { ?>
+
+            <!-- (else) UK + others -->
+            <div data-currency="GBP" class="donate-new__giving-widget giving-widget">
+                <div class="giving-widget__freq">
+                    <div class="giving-widget__freq-option" data-freq="once">
+                        &nbsp;Once
+                    </div>
+                    <div
+                        class="giving-widget__freq-option giving-widget__freq-option--active"
+                        data-freq="monthly"
+                    >
+                        &nbsp;Monthly
+                    </div>
                 </div>
 
-                <div
-                    class="giving-widget__options-option giving-widget__options-option--active"
-                    data-amount="100"
-                    data-amountmonthly="102"
-                    data-reason="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 4"
-                    data-monthly="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 4 monthly"
-                >
-                    <span class="giving-widget__options-amount">100</span>
-                    <span class="currency">Kr</span>
-                </div>
-
-                <div
-                    class="giving-widget__options-option"
-                    data-amount="250"
-                    data-amountmonthly="252"
-                    data-reason="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 5"
-                    data-monthly="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 5 monthly"
-                >
-                    <span class="giving-widget__options-amount">250</span>
-                    <span class="currency">Kr</span>
-                </div>
-
-                <div
-                    class="giving-widget__options-option giving-widget__options-option--custom"
-                    data-amount="custom"
-                    data-reason="Your giving could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 6"
-                    data-monthly="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 6 monthly"
-                >
-                    <span class="text">Custom<br />Amount</span>
+                <h2 class="font-fk giving-widget__title">
+                    <?php the_field('uk_widget_guardian_title')?>
                     
-                    <input
-                        id="customAmount"
-                        style="display: none"
-                        type="number"
-                        name="customAmount"
-                    />
-                    <span class="currency currency--norway">Kr</span>
+                </h2>
+
+                <h2 class="font-fk giving-widget__title giving-widget__title--once">
+                    <?php the_field('uk_widget_once_title')?>
+                                </h2>
+
+                <p class="giving-widget__text giving-widget__top-text">
+                    <?php the_field('uk_widget_guardian_text')?>
+                    
+                </p>
+
+                <p class="giving-widget__text giving-widget__top-text--once">
+                    <?php the_field('uk_widget_once_text')?>
+                    
+                </p>
+
+                <div class="giving-widget__options">
+                    <div
+                        class="giving-widget__options-option"
+                        data-amount="<?php the_field('uk_widget_option_1_amount')?>"
+                        data-amountmonthly="<?php the_field('uk_widget_option_1_amount_monthly')?>"
+                        data-reason="<?php the_field('uk_widget_option_1_reason')?>"
+                        data-monthly="<?php the_field('uk_widget_option_1_reason_monthly')?>"
+                    >
+                        <span class="currency">£</span
+                        ><span class="giving-widget__options-amount"><?php the_field('uk_widget_option_1_amount_monthly')?></span>
+                    </div>
+
+                    <div
+                        class="giving-widget__options-option"
+                        data-amount="<?php the_field('uk_widget_option_2_amount')?>"
+                        data-amountmonthly="<?php the_field('uk_widget_option_2_amount_monthly')?>"
+                        data-reason="<?php the_field('uk_widget_option_2_reason')?>"
+                        data-monthly="<?php the_field('uk_widget_option_2_reason_monthly')?>"
+                    >
+                        <span class="currency">£</span
+                        ><span class="giving-widget__options-amount"><?php the_field('uk_widget_option_2_amount_monthly')?></span>
+                    </div>
+
+                    <div
+                        class="giving-widget__options-option"
+                        data-amount="<?php the_field('uk_widget_option_3_amount')?>"
+                        data-amountmonthly="<?php the_field('uk_widget_option_3_amount_monthly')?>"
+                        data-reason="<?php the_field('uk_widget_option_3_reason')?>"
+                        data-monthly="<?php the_field('uk_widget_option_3_reason_monthly')?>"
+                    >
+                        <span class="currency">£</span
+                        ><span class="giving-widget__options-amount"><?php the_field('uk_widget_option_3_amount_monthly')?></span>
+                    </div>
+
+                    <div
+                        class="giving-widget__options-option giving-widget__options-option--active"
+                        data-amount="<?php the_field('uk_widget_option_4_amount')?>"
+                        data-amountmonthly="<?php the_field('uk_widget_option_4_amount_monthly')?>"
+                        data-reason="<?php the_field('uk_widget_option_4_reason')?>"
+                        data-monthly="<?php the_field('uk_widget_option_4_reason_monthly')?>"
+                    >
+                        <span class="currency">£</span
+                        ><span class="giving-widget__options-amount"><?php the_field('uk_widget_option_4_amount_monthly')?></span>
+                    </div>
+
+                    <div
+                        class="giving-widget__options-option"
+                        data-amount="<?php the_field('uk_widget_option_5_amount')?>"
+                        data-amountmonthly="<?php the_field('uk_widget_option_5_amount_monthly')?>"
+                        data-reason="<?php the_field('uk_widget_option_5_reason')?>"
+                        data-monthly="<?php the_field('uk_widget_option_5_reason_monthly')?>"
+                    >
+                        <span class="currency">£</span
+                        ><span class="giving-widget__options-amount"><?php the_field('uk_widget_option_5_amount_monthly')?></span>
+                    </div>
+
+                    <div
+                        class="giving-widget__options-option giving-widget__options-option--custom"
+                        data-amount="custom"
+                        data-reason="<?php the_field('uk_widget_option_6_reason')?>"
+                        data-monthly="<?php the_field('uk_widget_option_6_reason_monthly')?>"
+                    >
+                        <span class="text">Custom<br />Amount</span>
+                        <span class="currency">£</span>
+                        <input
+                            id="customAmount"
+                            style="display: none"
+                            type="number"
+                            name="customAmount"
+                        />
+                    </div>
+                </div>
+
+                <p class="giving-widget__text">
+                    <span class="color-red"
+                        ><b
+                            ><span class="giving-widget__text-currency">£</span
+                            ><span class="giving-widget__text-amount"></span></b
+                        ></span
+                    >
+                    <span class="giving-widget__text-freq">monthly</span>
+                    <span id="reason"></span>
+                </p>
+
+                <div class="giving-widget__other-ways">
+                    <a href="<?php the_field('uk_widget_other_ways_link')?>">Other ways to give</a>
+                    <div class="giving-widget__other-ways-divider">|</div>
+                    <a data-toggle="modal" data-target="#modal" id="changeCurrency">Change currency</a>
+                </div>
+
+                <div class="giving-widget__button">
+                    Donate
+                    <span class="giving-widget__button-currency currency">£</span
+                    ><span class="giving-widget__button-amount"></span>
+                    <span class="giving-widget__button-freq"></span>
                 </div>
             </div>
-
-            <p class="giving-widget__text">
-                <span class="color-red"
-                    ><b
-                        ><span class="giving-widget__text-amount">100</span><span class="giving-widget__text-currency">Kr</span
-                        ></b
-                    ></span
-                >
-                <span class="giving-widget__text-freq">monthly</span>
-                <span id="reason"></span>
-            </p>
-
-            <div class="giving-widget__other-ways">
-                <a>Other ways to give</a>
-                <div class="giving-widget__other-ways-divider">|</div>
-                <a id="changeCurrency">Change currency</a>
-            </div>
-
-            <div class="giving-widget__button">
-                Donate
-                <span class="giving-widget__button-amount">100</span><span class="giving-widget__button-currency currency">Kr</span
-                >
-                <span class="giving-widget__button-freq">monthly</span>
-            </div>
-        </div>
-        <?php } else { ?>
-
-        <div class="donate-new__giving-widget giving-widget">
-            <div class="giving-widget__freq">
-                <div class="giving-widget__freq-option" data-freq="once">
-                    &nbsp;Once
-                </div>
-                <div
-                    class="giving-widget__freq-option giving-widget__freq-option--active"
-                    data-freq="monthly"
-                >
-                    &nbsp;Monthly
-                </div>
-            </div>
-
-            <h2 class="font-fk giving-widget__title">
-                BECOME A <span class="color-red">GUARDIAN</span>
-            </h2>
-
-            <h2 class="font-fk giving-widget__title giving-widget__title--once">
-                FUND <span class="color-red">FREEDOM</span>
-            </h2>
-
-            <p class="giving-widget__text giving-widget__top-text">
-                <?php the_field('widget_guardian_text')?>
-                GUARDIANS are part of our community of regular givers who know
-                that rescue is not an event, it is a process. Let’s rebuild
-                lives, together.
-            </p>
-
-            <p class="giving-widget__text giving-widget__top-text--once">
-                <?php the_field('widget_once_text')?>
-                ONCE are part of our community of regular givers who know
-                that rescue is not an event, it is a process. Let’s rebuild
-                lives, together.
-            </p>
-
-            <div class="giving-widget__options">
-                <div
-                    class="giving-widget__options-option"
-                    data-amount="10"
-                    data-amountmonthly="12"
-                    data-reason="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 1"
-                    data-monthly="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 1 monthly"
-                >
-                    <span class="currency">£</span
-                    ><span class="giving-widget__options-amount">10</span>
-                </div>
-
-                <div
-                    class="giving-widget__options-option"
-                    data-amount="25"
-                    data-amountmonthly="27"
-                    data-reason="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 2"
-                    data-monthly="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 2 monthly"
-                >
-                    <span class="currency">£</span
-                    ><span class="giving-widget__options-amount">25</span>
-                </div>
-
-                <div
-                    class="giving-widget__options-option"
-                    data-amount="50"
-                    data-amountmonthly="52"
-                    data-reason="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 3"
-                    data-monthly="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 3 monthly"
-                >
-                    <span class="currency">£</span
-                    ><span class="giving-widget__options-amount">50</span>
-                </div>
-
-                <div
-                    class="giving-widget__options-option giving-widget__options-option--active"
-                    data-amount="100"
-                    data-amountmonthly="102"
-                    data-reason="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 4"
-                    data-monthly="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 4 monthly"
-                >
-                    <span class="currency">£</span
-                    ><span class="giving-widget__options-amount">100</span>
-                </div>
-
-                <div
-                    class="giving-widget__options-option"
-                    data-amount="250"
-                    data-amountmonthly="252"
-                    data-reason="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 5"
-                    data-monthly="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 5 monthly"
-                >
-                    <span class="currency">£</span
-                    ><span class="giving-widget__options-amount">250</span>
-                </div>
-
-                <div
-                    class="giving-widget__options-option giving-widget__options-option--custom"
-                    data-amount="custom"
-                    data-reason="Your giving could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 6"
-                    data-monthly="could help rescue a child from human trafficking by enabling our investigation team to locate children at risk 6 monthly"
-                >
-                    <span class="text">Custom<br />Amount</span>
-                    <span class="currency">£</span>
-                    <input
-                        id="customAmount"
-                        style="display: none"
-                        type="number"
-                        name="customAmount"
-                    />
-                </div>
-            </div>
-
-            <p class="giving-widget__text">
-                <span class="color-red"
-                    ><b
-                        ><span class="giving-widget__text-currency">£</span
-                        ><span class="giving-widget__text-amount">100</span></b
-                    ></span
-                >
-                <span class="giving-widget__text-freq">monthly</span>
-                <span id="reason"></span>
-            </p>
-
-            <div class="giving-widget__other-ways">
-                <a>Other ways to give</a>
-                <div class="giving-widget__other-ways-divider">|</div>
-                <a id="changeCurrency">Change currency</a>
-            </div>
-
-            <div class="giving-widget__button">
-                Donate
-                <span class="giving-widget__button-currency currency">£</span
-                ><span class="giving-widget__button-amount">100</span>
-                <span class="giving-widget__button-freq">monthly</span>
-            </div>
-        </div>
 
         <?php } ?>
 
@@ -499,7 +504,22 @@ $sizes = wp_get_attachment_image_sizes($post_thumbnail_id);
             <div class="picture-description__close"></div>
         </div>
     </div>
-</div>
+</main>
+
+<!-- 
+-- 
+-- currency modal
+-- 
+--> 
+<?php get_template_part(
+    'partials/content',
+    'modal',
+    array(
+        'type' => 'currency-select',
+        'id' => 'modal'
+    )
+); ?>
+
 
 <?php
 endwhile;
