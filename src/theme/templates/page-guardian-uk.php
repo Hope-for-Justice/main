@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Template Name: Guardian UK
  *
@@ -6,6 +7,43 @@
  */
 
 get_header('', array( 'page_class' => 'site--full') ); ?>
+
+<div style="font-size:2em;">
+<?php 
+$campaignPassed = $_COOKIE["wordpress_hfjcampaign"];
+
+echo "campaign cookie: ";
+echo $campaignPassed;
+echo "<p><br></p>";
+
+$matched_widget;
+if( have_rows('campaigns_and_widgets') ):
+while ( have_rows('campaigns_and_widgets') ) : the_row();
+    $campaign = get_sub_field('campaign_name');
+    $widget = get_sub_field('widget_id');
+
+    if($campaignPassed == $campaign) {
+        $matched_widget = $widget;
+    }
+
+    
+    
+endwhile;
+else :
+    // no rows found
+endif; 
+
+if ($matched_widget) {
+  echo $matched_widget;  
+} else {
+  echo "e170a6bc-383e-6f05-b282-ff00004460b4";
+}
+
+?>
+
+
+</div>
+
 
 <div class="main site-main donorfy-donate">
     <div class="full-grid">
@@ -220,6 +258,10 @@ get_header('', array( 'page_class' => 'site--full') ); ?>
                 <input type="hidden" id="BlockedTags" value="" />
                 <!-- Do not change these values --->
                 <input type="hidden" id="TenantCode" value="GO66X0NEL4" />
+
+
+
+
                 <input type="hidden" id="WidgetId" value="e170a6bc-383e-6f05-b282-ff00004460b4" />
 
                 <div id="PaymentScheduleRow" style="display:none;">    
