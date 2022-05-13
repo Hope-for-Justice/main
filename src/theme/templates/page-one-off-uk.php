@@ -5,21 +5,53 @@
  * @package Hope_for_Justice_2021
  */
 
-get_header(); ?>
+get_header('', array( 'page_class' => 'site--full') ); ?>
+
+<?php 
+$campaignPassed = $_COOKIE["wordpress_hfjcampaign"];
+
+$matched_widget;
+if( have_rows('campaigns_and_widgets') ):
+while ( have_rows('campaigns_and_widgets') ) : the_row();
+    $campaign = get_sub_field('campaign_name');
+    $widget = get_sub_field('widget_id');
+
+    if($campaignPassed == $campaign) {
+        $matched_widget = $widget;
+    }
+
+    
+    
+endwhile;
+else :
+    // no rows found
+endif; 
+?>
+
 
 
 <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
 <script src="https://www.google.com/recaptcha/api.js?render=6LeSscYZAAAAABIur1rDAvJtDiR7SayCuAylTV2q"></script>
 
 <div class="main site-main donorfy-donate">
-    <div class="grid">
+    <div class="full-grid">
         
         <div class="donorfy-donate__forms">
-            
+        
             <!-- form 1 -->
-            <form class="donorfy-donate__form" id="formOne"> 
+            <form id="formOne"> 
 
-                <h2 class="font-fk">Your details:</h2>  
+                <h2>Your details:</h2>
+
+                <div class="donorfy-donate__amount donorfy-donate__input donorfy-donate__amount--uk">
+                    <label class="donorfy-donate__hidden" for="Amount">Amount I would like to give each month</label>
+                    <input type="text" name="Amount" class="required numberOnly form-control" id="Amount" maxlength="10" 
+                    <?php if($_GET['Amount']){ ?> 
+                        value="<?php echo $_GET['Amount']?>" 
+                    <?php } ?>>
+                </div> 
+
+                <label class="donorfy-donate__hidden" for="Title">Title</label>
 
                 <div class="donorfy-donate__select">
                     <select type="text" name="Title" id="Title">
@@ -35,15 +67,26 @@ get_header(); ?>
                 </div>
 
                 <div class="donorfy-donate__flex">
-                    <input type="text" name="FirstName" class="required" id="FirstName" placeholder="First Name" maxlength="50"> 
-                    <input type="text" name="LastName" class="required" id="LastName" placeholder="Last Name"maxlength="50"> 
+                    <div class="donorfy-donate__input">
+                        <label class="donorfy-donate__hidden" for="FirstName">First Name*</label>
+                        <input type="text" name="FirstName" class="required" id="FirstName" placeholder="First Name" maxlength="50"> 
+                    </div>
+                    <div class="donorfy-donate__input">
+                        <label class="donorfy-donate__hidden" for="LastName">Last Name*</label>
+                        <input type="text" name="LastName" class="required" id="LastName" placeholder="Last Name"maxlength="50"> 
+                    </div>
                 </div>
 
-                <input type="text" name="Email" class="required" type="email" id="Email" maxlength="50" placeholder="Email"> 
+                <div class="donorfy-donate__input">
+                    <label class="donorfy-donate__hidden" for="Email">Email*</label>
+                    <input type="text" name="Email" class="required" type="email" id="Email" maxlength="50" placeholder="Email"> 
+                </div>
 
-                <!-- <div id="testButton" class="button">test</div> -->
-
-                <input type="text" name="Phone" class="" id="Phone" maxlength="50" placeholder="Phone"> 
+        
+                <div class="donorfy-donate__input">
+                    <label class="donorfy-donate__hidden" for="Phone">Phone</label>
+                    <input type="text" name="Phone" class="" id="Phone" maxlength="50" placeholder="Phone"> 
+                </div>
 
                 <div id="toStepTwo" class="button button--red">Next</div>
             </form>
@@ -51,19 +94,32 @@ get_header(); ?>
 
 
             <!-- form 2 -->
-            <form class="donorfy-donate__form" id="formTwo">
-                <h2 class="font-fk">Address details:</h2> 
+            <form id="formTwo">
+                <h2>Address details:</h2> 
 
-                <input type="text" name="Address1" class="" id="Address1" maxlength="50" placeholder="Address 1"> 
+                <div class="donorfy-donate__input">
+                    <label class="donorfy-donate__hidden" for="Address1">Address</label>
+                    <input type="text" name="Address1" class="required" id="Address1" maxlength="50" placeholder="Address 1">
+                </div>
                 
-                <input type="text" name="Address2" class="" id="Address2" maxlength="50" placeholder="Address 2 (optional)"> 
-
-                <div class="donorfy-donate__flex">
-                    <input type="text" name="Town" class="" id="Town" maxlength="50" placeholder="City"> 
-                    <input type="text" name="County" class="" id="County" maxlength="50" placeholder="State"> 
+                <div class="donorfy-donate__input">
+                    <input type="text" name="Address2" class="" id="Address2" maxlength="50" placeholder="Address 2">
                 </div>
 
-                <input type="text" name="Postcode" class="" id="Postcode" maxlength="10" placeholder="ZIP code"> 
+                <div class="donorfy-donate__flex">
+                    <div class="donorfy-donate__input">
+                        <label class="donorfy-donate__hidden" for="Town">Town</label>
+                        <input type="text" name="Town" class="required" id="Town" maxlength="50" placeholder="Town/City">
+                    </div>
+
+                    <div class="donorfy-donate__input">
+                        <label class="donorfy-donate__hidden" for="Postcode">Postcode</label>
+                        <input type="text" name="Postcode" class="required" id="Postcode" maxlength="10" placeholder="Postcode">
+                    </div>
+                </div>
+
+                <label class="donorfy-donate__hidden" for="County">County</label>
+                <input class="donorfy-donate__hidden" type="text" name="County" class="" id="County" maxlength="50">
 
                 <div class="donorfy-donate__select">
                     <select name="Country" class="" id="Country" placeholder="Country">
@@ -86,20 +142,41 @@ get_header(); ?>
                         <option value="Australia">Australia</option>
                     </select>
                 </div>
+
+                <div class="donorfy-donate__buttons">
+                    <div id="backToStepOne" class="button button--white">Previous</div>
+                    <div id="toStepThree" class="button">Next</div>
+                </div>
             
             </form>
             <!-- /form 2 -->
                  
 
             <!-- form 3 -->
-            <form class="donorfy-donate__form" id="formThree">
+            <form id="CreditCardForm">
 
-                <h2 class="font-fk">Payment details:</h2>  
+               <h2>Gift Aid:</h2>
 
-                <div class="donorfy-donate__amount donorfy-donate__amount--uk">
-                    <input type="text" name="Amount" class="required numberOnly form-control donate-uk__amount" id="Amount" maxlength="10" placeholder="18.00" value="18.00">
+                <div class="donorfy-donate__select">
+                    <select id="GiftAidSelect" class="required">
+                        <option value="">-- Select option --</option>
+                        <option value="true">Yes please</option>
+                        <option value="false">No thank you</option>
+                    </select>
                 </div>
+                <p class="donorfy-donate__larger"><b>Hope for Justice will claim 25p on every £1 I donate.</b></p>
+                <p>
+                    <br>
+                    Please add Gift Aid to all donations I’ve made to Hope for Justice in the past four years and all donations in future until I notify Hope for Justice otherwise.
+                    <br><br>
+                    By selecting 'Yes', I confirm that I am a UK taxpayer and understand that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my donations in the tax year, it is my responsibility to pay any difference. I confirm that this is my own money and I am not paying over donations made by third parties such as monies collected at an event, a company donation or a donation from a friend or family member. I am not receiving anything in return for my donation such as a book, prize or ticket. I am not making a donation as part of a sweepstake, raffle or lottery.
+                </p>
+
+                <hr> 
                 
+
+                <h2>Card Details:</h2> 
+
                 <div id="card-number" class="donorfy-donate__input"></div>
 
                 <div class="donorfy-donate__flex">
@@ -107,14 +184,89 @@ get_header(); ?>
                     <div id="card-cvc" class="donorfy-donate__input"></div>
                 </div>
 
-                <input type="text" name="Comment" id="Comment" placeholder="What has inspired you to donate?">
+                <hr> 
+
+                <h2>Your communication preferences:</h2>
+
+                <div class="donorfy-donate__preferences">
+                    <div class="donorfy-donate__preference">
+                        <p class="donorfy-donate__select-text">Email:</p>
+                        <div class="donorfy-donate__select donorfy-donate__select--preference">  
+                            <select id="emailSelect" class="required" name="emailSelect">
+                                <option value="">Select</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="donorfy-donate__preference">
+                        <p class="donorfy-donate__select-text">Post:</p>
+                        <div class="donorfy-donate__select donorfy-donate__select--preference">      
+                            <select id="postSelect" class="required" name="postSelect">
+                                <option value="">Select</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="donorfy-donate__preference">
+                        <p class="donorfy-donate__select-text">SMS:</p>
+                        <div class="donorfy-donate__select donorfy-donate__select--preference">         
+                            <select id="smsSelect" class="required" name="smsSelect">
+                                <option value="">Select</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="donorfy-donate__preference">
+                        <p class="donorfy-donate__select-text">Phone:</p>
+                        <div class="donorfy-donate__select donorfy-donate__select--preference">
+                            <select id="phoneSelect" class="required" name="phoneSelect">
+                                <option value="">Select</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="donorfy-donate__larger"><b>These are the preferences we have for this email address.</b></p>
+                <p>
+                    <br>
+                    Select 'Yes' if you wish Hope for Justice to contact you via that method for the following purposes: To keep you informed of our ongoing activities, news, campaigns and appeals; and to invite you to events we think might interest you. You can unsubscribe from receiving communications at any time, or change your preferences, at: <a>hopeforjustice.org/manage-your-preferences</a>
+                    <br><br>
+                    We will always store your personal information securely. We will use it to provide the service(s) you have requested, and communicate with you in the way(s) you have agreed to. We will only allow your information to be used by third parties working on our behalf. We will share your information if required to do so by law. For details see our <a>Privacy Policy</a>.
+                    <br><br>
+                    <br><br>
+                </p>
+
+                <div class="donorfy-donate__hidden">
+                    <input id="emailPreference" type="checkbox" value="2" class="KeepInTouch">
+                    &nbsp;Email
+                    <input id="postPreference" type="checkbox" value="4" class="KeepInTouch">&nbsp;Post
+                    <input id="smsPreference" type="checkbox" value="8" class="KeepInTouch">&nbsp;Sms
+                    <input id="phonePreference" type="checkbox" value="16" class="KeepInTouch">&nbsp;Phone
+                </div>
+
+                <!-- <label class="donorfy-donate__hidden" for="Comment">Comments</label>
+                <textarea rows="2" cols="40" class="" name="Comment" id="Comment" title="Optional comments you may wish to make regarding this payment"></textarea>
+                 -->
 
                 <div id="ErrorContainer" class="ErrorContainer">
-                <div style="color: red; font-size: 1.5em;" id="Errors"></div>
+                    <div style="color: red; font-size: 1.5em;" id="Errors"></div>
                 </div>
+
                 <div id="PleaseWait" style="display:none">Please wait ...</div>
-                <input class="button button--solid button--red" type="submit" value="Donate" id="submitButton">   
                 
+                
+                <div class="donorfy-donate__buttons">
+                    <div id="backToStepTwo" class="button button--white">Previous</div>
+                    <div id="submitButton" class="button">Donate</div>
+                </div>
 
 
                 <div style="display: none;">
@@ -128,31 +280,20 @@ get_header(); ?>
                     <input type="radio" id="AnnualPayment" name="PaymentSchedule" value="Annually"> 
                 </div>
 
-              
-                <div>
-                    <input id="emailPreference" type="checkbox" value="2" class="KeepInTouch">
-                    &nbsp;Email
-                    <input id="postPreference" type="checkbox" value="4" class="KeepInTouch">&nbsp;Post
-                    <input id="smsPreference" type="checkbox" value="8" class="KeepInTouch">&nbsp;Sms
-                    <input id="phonePreference" type="checkbox" value="16" class="KeepInTouch">&nbsp;Phone
-                </div>
-
-
-                <div id="ErrorContainer" class="ErrorContainer">
-                    <div style="color: red; font-size: 16px" id="Errors"></div>
-                </div>
-                <div id="PleaseWait" style="display:none; font-size:14px">Please wait ...</div>  
 
 
                 <!-- Hidden fields for tags -->
                 <input type="hidden" id="ActiveTags" value="" />
                 <input type="hidden" id="BlockedTags" value="" />
                 <!-- Do not change these values -->
-                <input type="hidden" id="PublishableKey" value="pk_live_WMJp57zos3PJGIUIaXRYMY8I002yTFVYpi" />
-                <input type="hidden" id="TenantCode" value="HM9DCVXJ56" />
-                <input type="hidden" id="WidgetId" value="ee383a63-9733-ea11-8454-00155d5613f8" />
+                <input type="hidden" id="PublishableKey" value="pk_live_SFebjgG48FeTTASNalyWIAHF" />
+                <input type="hidden" id="TenantCode" value="GO66X0NEL4" />
+                
+                <input type="hidden" id="WidgetId" value="<?php if ($matched_widget) {echo $matched_widget;}else{echo 'e116d9bc-383e-6f05-b282-ff00004460b4';}?>" />
+
+
                 <input type="hidden" id="DonationPageId" value="" />
-                <input type="hidden" id="RedirectToPage" value="http://hopeforjustice.org/thank-you-usa-regular" />
+                <!-- <input type="hidden" id="RedirectToPage" value="http://hopeforjustice.org/thank-you-usa-regular" /> -->
                 <input type="hidden" id="ReCaptchaSiteKey" value="6LeSscYZAAAAABIur1rDAvJtDiR7SayCuAylTV2q" />
                 <input type="hidden" id="ReCaptchaAction" value="Donorfy" />
             

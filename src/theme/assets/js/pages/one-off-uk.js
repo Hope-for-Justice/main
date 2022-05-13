@@ -3,45 +3,41 @@ jQuery(document).ready(function($) {
 $('#formOne').validate({
     // rules
     rules: {
-        field1: {
-            required: true
+        Email: {
+          required: true,
+          email: true
         }
     }
 });
 
 $('#formTwo').validate({
     // rules
-    rules: {
-        field2: {
-            required: true
-        }
-    }
 });
 
 $('#formThree').validate({
-    // rules,
-    rules: {
-        field3: {
-            required: true
-        }
-    },
+    // rules
 });
 
+// $('#formOne').hide();
+// $('#formTwo').hide();
+// $('#formThree').show();
+
+$("#GiftAidSelect").on('change', function(){
+    if ($(this).val() == "true") {
+        $("#GiftAid").prop('checked', true);
+    }
+})
 
 $('#toStepTwo').click(function(){
   if ($('#formOne').valid()) {
     $('#formOne').hide();
     $('#formTwo').show();
-  }
-});
-
-
-
-$('#testButton').click(function(){ 
-
     $.ajax({
-        method : 'GET',
-        url : '/build/themes/hope-for-justice-2020/duplicate-check.php',
+        method : 'POST',
+        url : '/wp-content/themes/hope-for-justice-2020/duplicate-check.php',
+        // /wp-content/ wp-engine
+        // /build/ local
+        data : {Email: email},
         success: function(output) {
             let obj = $.parseJSON(output)
             let id = obj[0].ConstituentId;
@@ -54,13 +50,34 @@ $('#testButton').click(function(){
         }
     });
 
+  }
 });
+
+$('#backToStepOne').click(function(){
+    $('#formOne').show();
+    $('#formTwo').hide();
+});
+
+$('#toStepThree').click(function(){
+    if ($('#formTwo').valid()) {
+        $('#CreditCardForm').show();
+        $('#formTwo').hide();
+    }
+});
+
+$('#backToStepTwo').click(function(){
+    $('#formTwo').show();
+    $('#CreditCardForm').hide();
+});
+
 
 function getPreferences(id) {
 
     $.ajax({
         method : 'POST',
-        url : '/build/themes/hope-for-justice-2020/get-preferences.php',
+        url : '/wp-content/themes/hope-for-justice-2020/get-preferences.php',
+        // /wp-content/ wp-engine
+        // /build/ local
         data : {ConstituentId: id},
         success: function(output) {
             let obj = $.parseJSON(output);
@@ -92,9 +109,32 @@ function getPreferences(id) {
 }
 
 function setPreferences(email, mail, phone, sms) {
+    console.log("setting preferences...");
     if (email) {
-      $('#emailPreference').prop('checked', true);
+      $('#emailSelect').val("true").change();
+    } else if (email == false) {
+        $('#emailSelect').val("false").change();
+
     }
+
+    if (mail) {
+        $('#postPreference').val("true").change();
+    } else if (mail == false) {
+        $('#postSelect').val("false").change();
+    }
+
+    if (phone) {
+      $('#phoneSelect').val("true").change();
+    } else if (phone == false) {
+        $('#phoneSelect').val("false").change();
+    }
+
+    if (sms) {
+      $('#smsSelect').val("true").change();
+    } else if (sms == false) {
+        $('#smsSelect').val("false").change();
+    }
+
 }
 
 });

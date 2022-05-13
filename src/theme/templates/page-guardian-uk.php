@@ -32,13 +32,6 @@ endwhile;
 else :
     // no rows found
 endif; 
-
-if ($matched_widget) {
-  echo $matched_widget;  
-} else {
-  echo "e170a6bc-383e-6f05-b282-ff00004460b4";
-}
-
 ?>
 
 
@@ -262,7 +255,17 @@ if ($matched_widget) {
 
 
 
-                <input type="hidden" id="WidgetId" value="e170a6bc-383e-6f05-b282-ff00004460b4" />
+                <input type="hidden" id="WidgetId" 
+                value="
+                <?php 
+                    if ($matched_widget) {
+                      echo $matched_widget;  
+                    } else {
+                      echo 'e170a6bc-383e-6f05-b282-ff00004460b4';
+                    }
+                ?>
+                "
+                />
 
                 <div id="PaymentScheduleRow" style="display:none;">    
                     <label class="" for="MonthlyPayment">I would like to donate*</label><br>

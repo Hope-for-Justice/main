@@ -1,7 +1,11 @@
 .donorfy-donate {
 
-	#formTwo, #DirectDebitForm{
+	#formTwo, #DirectDebitForm, #formOne{
 		display:none;
+	}
+
+	.StripeElement {
+		background-color:#ffffff;
 	}
 
 	background-color: #FAFAFA;
@@ -57,9 +61,8 @@
 		&:before {
 			content:"USD $";
 			position: absolute;
-			top:50%;
+			top:20px;
 			left:20px;
-			transform: translateY(-50%);
 			font-size: 16px;
 		}
 		input {

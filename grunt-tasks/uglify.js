@@ -28,12 +28,6 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 	];
 
-	uglifyFilesObject[distTheme + jsDir + 'pages/donorfy-webhooks.js'] = [
-
-		devTheme + jsDir + 'pages/donorfy-webhooks.js',
-
-
-	];
 
 	uglifyFilesObject[distTheme + jsDir + 'pages/donate.js'] = [
 
