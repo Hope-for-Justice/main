@@ -273,6 +273,18 @@ function DisplayErrors(errors) {
 function RedirectToGoCardless(redirectUrl) {
     //redirect to GoCardless payment pages
     if (redirectUrl) {
+        let date = new Date();
+        let minutes = 15;
+        let amount = jQuery('#Amount').val();
+        date.setTime(date.getTime() + (minutes * 60 * 1000));
+
+        //set cookie for amount
+        Cookies.set('wordpress_guardian_amount', amount, { path: '/', expires: date });
+
+        //set cookie for tid
+        let tid = makeid(8);
+        Cookies.set('wordpress_guardian_tid', tid, { path: '/', expires: date });
+
         window.location = redirectUrl;
     } else {
         var errors = [];

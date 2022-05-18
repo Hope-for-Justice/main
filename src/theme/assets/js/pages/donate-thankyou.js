@@ -28,20 +28,50 @@ console.log(id);
 
 dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
 
-dataLayer.push({
-  event: "purchase",
-  ecommerce: {
-      transaction_id: id,
-      value: amount,
-      currency: currency,
-      items: [
-       {
-        item_name: type,
-        price: amount,
+
+let guardianAmount = Cookies.get('wordpress_guardian_amount');
+let guardianTid = Cookies.get('wordpress_guardian_tid');
+
+
+
+if (guardianAmount) {
+
+    dataLayer.push({
+    event: "purchase",
+    ecommerce: {
+        transaction_id: guardianTid,
+        value: guardianAmount,
+        currency: "GBP",
+        items: [
+         {
+          item_name: "UK Guardian",
+          price: guardianAmount,
+          currency: "GBP",
+          quantity: 1
+        }]
+    }
+  });
+
+} else {
+
+  dataLayer.push({
+    event: "purchase",
+    ecommerce: {
+        transaction_id: id,
+        value: amount,
         currency: currency,
-        quantity: 1
-      }]
-  }
-});
+        items: [
+         {
+          item_name: type,
+          price: amount,
+          currency: currency,
+          quantity: 1
+        }]
+    }
+  });
+
+}
+
+
 
 });
