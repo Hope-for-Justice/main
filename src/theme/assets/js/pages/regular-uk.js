@@ -155,7 +155,7 @@ function setPreferences(email, mail, phone, sms) {
     }
 
     if (mail) {
-      	$('#postPreference').val("true").change();
+      	$('#postSelect').val("true").change();
     } else if (mail == false) {
     	$('#postSelect').val("false").change();
     }
