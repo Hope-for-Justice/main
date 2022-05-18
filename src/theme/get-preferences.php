@@ -3,10 +3,19 @@
 require_once('donorfy.php');
 
 $username='James';
-$password= DONORFY_TOKEN_UK;
+$currency= $_POST['Currency'];
 $id = $_POST['ConstituentId'];
 
-$URL='https://data.donorfy.com/api/v1/GO66X0NEL4/constituents/' . $id . '/Preferences';
+if ($currency == 'NOK') {
+	$password= DONORFY_TOKEN_NORWAY;
+	$tenant= 'N2SOZ58ZN2';
+} else {
+	$password= DONORFY_TOKEN_UK;
+	$tenant= 'GO66X0NEL4';
+} 
+
+
+$URL='https://data.donorfy.com/api/v1/' . $tenant . '/constituents/' . $id . '/Preferences';
 
 
 

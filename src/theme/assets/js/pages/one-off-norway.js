@@ -72,7 +72,7 @@ $('#toStepTwo').click(function(){
         url : '/wp-content/themes/hope-for-justice-2020/duplicate-check.php',
         // /wp-content/ wp-engine
         // /build/ local
-        data : {Email: email},
+        data : {Email: email, Currency: 'NOK'},
         success: function(output) {
             let obj = $.parseJSON(output)
             let id = obj[0].ConstituentId;
@@ -113,7 +113,7 @@ function getPreferences(id) {
         url : '/wp-content/themes/hope-for-justice-2020/get-preferences.php',
         // /wp-content/ wp-engine
         // /build/ local
-        data : {ConstituentId: id},
+        data : {ConstituentId: id, Currency: 'NOK'},
         success: function(output) {
             let obj = $.parseJSON(output);
             console.log(obj);

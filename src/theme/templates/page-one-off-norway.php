@@ -440,7 +440,6 @@ endif;
                     <br><br>
                     We will always store your personal information securely. We will use it to provide the service(s) you have requested, and communicate with you in the way(s) you have agreed to. We will only allow your information to be used by third parties working on our behalf. We will share your information if required to do so by law. For details see our <a>Privacy Policy</a>.
                     <br><br>
-                    <br><br>
                 </p>
 
                 <div class="donorfy-donate__input donorfy-donate__comment">

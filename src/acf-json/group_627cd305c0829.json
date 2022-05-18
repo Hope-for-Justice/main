@@ -69,6 +69,34 @@
                 "operator": "==",
                 "value": "templates\/page-guardian-uk.php"
             }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates\/page-guardian-usa.php"
+            }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates\/page-one-off-norway.php"
+            }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates\/page-one-off-uk.php"
+            }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates\/page-one-off-usa.php"
+            }
         ]
     ],
     "menu_order": 0,
@@ -80,5 +108,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1652348967
+    "modified": 1652878665
 }

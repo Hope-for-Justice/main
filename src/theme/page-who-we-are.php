@@ -183,7 +183,7 @@ get_header();
 		-- people senior leadership
 		-- 
 		--> 
-		<div class="people">
+		<div style="display: none;" class="people">
 			<h2 class="people__title people__title--double-margin font-canela">
 				<?php echo $senior_leadership['title']?>	
 			</h2>
@@ -207,7 +207,7 @@ get_header();
 			</div>
 		</div>
 
-		<div class="line line--full"></div>
+		<div style="display: none;" class="line line--full"></div>
 
 		<!-- 
 		-- 
