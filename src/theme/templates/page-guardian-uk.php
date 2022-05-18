@@ -12,10 +12,6 @@ get_header('', array( 'page_class' => 'site--full') ); ?>
 <?php 
 $campaignPassed = $_COOKIE["wordpress_hfjcampaign"];
 
-echo "campaign cookie: ";
-echo $campaignPassed;
-echo "<p><br></p>";
-
 $matched_widget;
 if( have_rows('campaigns_and_widgets') ):
 while ( have_rows('campaigns_and_widgets') ) : the_row();
@@ -72,13 +68,18 @@ endif;
                 <div class="donorfy-donate__select">
                     <select type="text" name="Title" id="Title">
                         <option value="">-- Title (Optional) --</option>
-                        <option value="Mrs">Mrs.</option>
+                        <option value="Mr">Mr</option>
+                        <option value="Mrs">Mrs</option>
                         <option value="Miss">Miss</option>
-                        <option value="Ms">Ms.</option>
-                        <option value="Mr">Mr.</option>
-                        <option value="Dr">Dr.</option>
+                        <option value="Ms">Ms</option>
+                        <option value="Dr">Dr</option>
+                        <option value="Bishop">Bishop</option>
+                        <option value="Friar">Friar</option>
+                        <option value="Councillor">Councillor</option>
                         <option value="Professor">Professor</option>
-                        <option value="Rev">None of the above</option>              
+                        <option value="Sir">Sir</option>
+                        <option value="Lady">Lady</option>
+                        <!-- <option value="Rev">None of the above</option>      -->         
                     </select>
                 </div>
             
@@ -132,6 +133,13 @@ endif;
 
                 <label class="donorfy-donate__hidden" for="County">County</label>
                 <input class="donorfy-donate__hidden" type="text" name="County" class="" id="County" maxlength="50">
+
+                <div class="donorfy-donate__select">
+                    <select name="Country" class="required" id="Country" placeholder="Country">
+                        <option disabled value=""> -- Country select -- </option>
+                        <option selected value="United Kingdom">United Kingdom</option>
+                    </select>
+                </div>
 
                 <div class="donorfy-donate__buttons">
                     <div id="backToStepOne" class="button button--white">Previous</div>
@@ -217,6 +225,24 @@ endif;
                     <br><br>
                     <br><br>
                 </p>
+
+                <label for="inspiration_question">What inspired you to give?</label>
+                <div class="donorfy-donate__select">
+                    <select name="inspiration_question" id="inspiration_question">
+                        <option value="">-- Select option (optional) --</option>
+                        <option value="Faith">Faith Based</option>
+                        <option value="Social media">Social media</option>
+                        <option value="Staff Contact">I know a Hope for Justice staff member/ volunteer</option>
+                        <option value="Celebration">Gift of celebration</option>
+                        <option value="Cause">Passion to end modern slavery</option>
+                        <option value="Event">Event or talk</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="donorfy-donate__input donorfy-donate__comment">
+                    <textarea rows="2" cols="40" class="" name="Comment" id="Comment" placeholder="Tell us more"></textarea>
+                </div>
                 
                 <div class="donorfy-donate__hidden">
                     <input id="emailPreference" type="checkbox" value="2" class="KeepInTouch">
@@ -252,20 +278,12 @@ endif;
                 <!-- Do not change these values --->
                 <input type="hidden" id="TenantCode" value="GO66X0NEL4" />
 
+                <input type="hidden" id="currency" value="GBP" />
+                <input type="hidden" id="type" value="UK+Guardian" />
+                <input type="hidden" id="zapierUrl" value="https://hooks.zapier.com/hooks/catch/8597852/bk64mw8/">
 
 
-
-                <input type="hidden" id="WidgetId" 
-                value="
-                <?php 
-                    if ($matched_widget) {
-                      echo $matched_widget;  
-                    } else {
-                      echo 'e170a6bc-383e-6f05-b282-ff00004460b4';
-                    }
-                ?>
-                "
-                />
+                <input type="hidden" id="WidgetId" value="<?php if ($matched_widget) {echo $matched_widget;} else {echo 'e170a6bc-383e-6f05-b282-ff00004460b4';}?>"/>
 
                 <div id="PaymentScheduleRow" style="display:none;">    
                     <label class="" for="MonthlyPayment">I would like to donate*</label><br>

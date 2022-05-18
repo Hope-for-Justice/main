@@ -1,7 +1,11 @@
 .donorfy-donate {
 
-	#formTwo, #DirectDebitForm, #formOne{
+	#formTwo, #DirectDebitForm, #CreditCardForm{
 		display:none;
+	}
+
+	&__comment {
+		display: none;
 	}
 
 	.StripeElement {

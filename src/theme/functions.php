@@ -95,13 +95,13 @@ function hope_for_justice_2021_scripts() {
 	global $wp_styles;
 
 
-	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202229' );
+	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202235' );
 
 	wp_enqueue_script('jquery'); 
-	// wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202229', true );
+	// wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202235', true );
 
 
-    wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202229', true );
+    wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202235', true );
 
 
 }
@@ -123,27 +123,29 @@ function page_scripts() {
     global $post;
 
 
-    wp_register_script( 'homepage', get_template_directory_uri() . '/assets/js/pages/homepage.js', array('jquery'), '202229', true);
+    wp_register_script( 'homepage', get_template_directory_uri() . '/assets/js/pages/homepage.js', array('jquery'), '202235', true);
 
-    wp_register_script( 'donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '202229', true);
+    wp_register_script( 'donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '202235', true);
 
-    wp_register_script( 'donate-new', get_template_directory_uri() . '/assets/js/pages/donate-new.js', array('jquery'), '202229', true);
+    wp_register_script( 'donate-new', get_template_directory_uri() . '/assets/js/pages/donate-new.js', array('jquery'), '202235', true);
 
-    wp_register_script( 'donate-thankyou', get_template_directory_uri() . '/assets/js/pages/donate-thankyou.js', array('jquery'), '202229', true);
+    wp_register_script( 'donate-thankyou', get_template_directory_uri() . '/assets/js/pages/donate-thankyou.js', array('jquery'), '202235', true);
 
-    wp_register_script( 'donorfy-stripe', get_template_directory_uri() . '/assets/js/pages/donorfy-stripe.js', array('jquery'), '202229', true);
+    wp_register_script( 'donorfy-stripe', get_template_directory_uri() . '/assets/js/pages/donorfy-stripe.js', array('jquery'), '202235', true);
 
-    wp_register_script( 'regular-uk', get_template_directory_uri() . '/assets/js/pages/regular-uk.js', array('jquery'), '202229', true);
+    wp_register_script( 'regular-uk', get_template_directory_uri() . '/assets/js/pages/regular-uk.js', array('jquery'), '202235', true);
 
-    wp_register_script( 'donorfy-gocardless', get_template_directory_uri() . '/assets/js/pages/donorfy-gocardless.js', array('jquery'), '202229', true);
+    wp_register_script( 'donorfy-gocardless', get_template_directory_uri() . '/assets/js/pages/donorfy-gocardless.js', array('jquery'), '202235', true);
 
-    wp_register_script( 'one-off-uk', get_template_directory_uri() . '/assets/js/pages/one-off-uk.js', array('jquery'), '202229', true);
+    wp_register_script( 'one-off-uk', get_template_directory_uri() . '/assets/js/pages/one-off-uk.js', array('jquery'), '202235', true);
 
-    wp_register_script( 'donorfy-webhooks', get_template_directory_uri() . '/assets/js/pages/donorfy-webhooks.js', array('jquery'), '202229', true);
+    wp_register_script( 'one-off-usa', get_template_directory_uri() . '/assets/js/pages/one-off-usa.js', array('jquery'), '202235', true);
 
-    wp_register_script( 'training', get_template_directory_uri() . '/assets/js/pages/training.js', array('jquery'), '202229', true);
+    wp_register_script( 'donorfy-webhooks', get_template_directory_uri() . '/assets/js/pages/donorfy-webhooks.js', array('jquery'), '202235', true);
 
-    wp_register_script( 'freedom-run', get_template_directory_uri() . '/assets/js/pages/freedom-run.js', array('jquery'), '202229', true);
+    wp_register_script( 'training', get_template_directory_uri() . '/assets/js/pages/training.js', array('jquery'), '202235', true);
+
+    wp_register_script( 'freedom-run', get_template_directory_uri() . '/assets/js/pages/freedom-run.js', array('jquery'), '202235', true);
 
     $themeVars = array( 'template_directory_uri' => get_template_directory_uri() );
 
@@ -164,10 +166,15 @@ function page_scripts() {
     }
     if (is_page_template('templates/page-guardian-usa.php')) {
       wp_enqueue_script('donorfy-stripe');
+      wp_enqueue_script('one-off-usa');
     }
     if (is_page_template('templates/page-one-off-uk.php')) {
       wp_enqueue_script('donorfy-stripe');
       wp_enqueue_script('one-off-uk');
+    }
+    if (is_page_template('templates/page-one-off-usa.php')) {
+      wp_enqueue_script('donorfy-stripe');
+      wp_enqueue_script('one-off-usa');
     }
     if (is_page_template('templates/page-guardian-uk.php')) {
       wp_enqueue_script('regular-uk');

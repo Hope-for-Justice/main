@@ -189,6 +189,28 @@ jQuery(document).ready(function($) {
         }
     });
 
+    $('#inspiration_question').on('change', function(){
+    if ($(this).val() == 'Faith'){
+        $('#Comment').attr('placeholder', 'Please tell us the name of you place of worship');
+    } else if ($(this).val() == 'Social Media'){
+        $('#Comment').attr('placeholder', 'Please tell us which platform inspired you');
+    } else if ($(this).val() == 'Natalie Grant'){
+        $('#Comment').attr('placeholder', 'Further details');
+    } else if ($(this).val() == 'Staff Contact'){
+        $('#Comment').attr('placeholder', 'Please tell us who you know');
+    } else if ($(this).val() == 'Celebration'){
+        $('#Comment').attr('placeholder', 'Please let us know what you are celebrating');
+    } else if ($(this).val() == 'Cause'){
+        $('#Comment').attr('placeholder', 'Further details');
+    } else if ($(this).val() == 'Event'){
+        $('#Comment').attr('placeholder', 'Please tell us where');
+    } else {
+        $('#Comment').attr('placeholder', 'Please tell us more');
+    }
+    $('.donorfy-donate__comment').show()
+    
+    });
+
 }); /* end of as page load scripts */
 
 

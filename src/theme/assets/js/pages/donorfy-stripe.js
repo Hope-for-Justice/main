@@ -419,15 +419,20 @@ function makeid(length) {
 }
 
 function Completed() {
-    zapier();
+    
+
+    let currency = $('#currency').val();
+    let type = $('#type').val();
+    let zapierUrl = $('#zapierUrl').val();
+    zapier(zapierUrl);
     var urlAmount = jQuery('#Amount').val();
     var urlId = makeid(8);
-    var redirectToPage = `https://hopeforjustice.org/donation-thank-you/?tid=${urlId}&amount=${urlAmount}&type=USA+Guardian&currency=USD`; 
+    var redirectToPage = `https://hopeforjustice.org/donation-thank-you/?tid=${urlId}&amount=${urlAmount}&type=${type}&currency=${currency}`; 
     window.location = redirectToPage;
 }
 
 
-function zapier() {
+function zapier(url) {
     var data = {
         email : jQuery('#Email').val(),
         firstname : jQuery('#FirstName').val(),
@@ -435,7 +440,7 @@ function zapier() {
     };
     jQuery.ajax({
         type : 'POST',
-        url : 'https://hooks.zapier.com/hooks/catch/8597852/bkb1mzw/',  
+        url : url,  
         data: JSON.stringify(data),
         success:function (data) {
             console.log('sent to zapier');

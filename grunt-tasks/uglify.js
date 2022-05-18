@@ -75,6 +75,15 @@ module.exports = function (distTheme, devTheme, jsDir) {
 	];
 
 
+	uglifyFilesObject[distTheme + jsDir + 'pages/one-off-usa.js'] = [
+
+		devTheme + jsDir + 'pages/one-off-usa.js',
+
+
+	];
+
+
+
 	uglifyFilesObject[distTheme + jsDir + 'pages/donate-thankyou.js'] = [
 
 		devTheme + jsDir + 'pages/donate-thankyou.js',

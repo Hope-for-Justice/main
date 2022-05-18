@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Guardian USA
+ * Template Name: One off Norway
  *
  * @package Hope_for_Justice_2021
  */
@@ -43,27 +43,13 @@ endif;
 
                 <h2>Your details:</h2>
 
-                <div class="donorfy-donate__amount donorfy-donate__input donorfy-donate__amount--usa">
+                <div class="donorfy-donate__amount donorfy-donate__input donorfy-donate__amount--norway">
                     <label class="donorfy-donate__hidden" for="Amount">Amount I would like to give each month</label>
                     <input type="text" name="Amount" class="required numberOnly form-control" id="Amount" maxlength="10" 
                     <?php if($_GET['Amount']){ ?> 
                         value="<?php echo $_GET['Amount']?>" 
                     <?php } ?>>
                 </div> 
-
-                <label class="donorfy-donate__hidden" for="Title">Title</label>
-
-                <div class="donorfy-donate__select">
-                    <select type="text" name="Title" id="Title">
-                        <option value="">-- Title (Optional) --</option>
-                        <option value="Mr">Mr.</option>
-                        <option value="Mrs">Mrs.</option>
-                        <option value="Miss">Miss.</option>
-                        <option value="Ms">Ms.</option>
-                        <option value="Dr">Dr.</option>
-                        <!-- <option value="Rev">None of the above</option>      -->         
-                    </select>
-                </div>
 
                 <div class="donorfy-donate__flex">
                     <div class="donorfy-donate__input">
@@ -112,71 +98,13 @@ endif;
                     </div>
 
                     <div class="donorfy-donate__input">
-                        <label class="donorfy-donate__hidden" for="Postcode">Zip</label>
-                        <input type="text" name="Postcode" class="required" id="Postcode" maxlength="10" placeholder="Zip">
+                        <label class="donorfy-donate__hidden" for="Postcode">Postcode</label>
+                        <input type="text" name="Postcode" class="required" id="Postcode" maxlength="10" placeholder="Postcode">
                     </div>
                 </div>
 
-                <label for="County">State</label>
-                <div class="donorfy-donate__select">
-                    <select name="County" class="required" id="County">
-                        <option value="" disabled="" selected="">-- Select Option --</option>
-                        <option>Alabama</option>
-                        <option>Alaska</option>
-                        <option>Arizona</option>
-                        <option>Arkansas</option>
-                        <option>California</option>
-                        <option>Colorado</option>
-                        <option>Connecticut</option>
-                        <option>Delaware</option>
-                        <option>District of Columbia</option>
-                        <option>Florida</option>
-                        <option>Georgia</option>
-                        <option>Hawaii</option>
-                        <option>Idaho</option>
-                        <option>Illinois</option>
-                        <option>Indiana</option>
-                        <option>Iowa</option>
-                        <option>Kansas</option>
-                        <option>Kentucky</option>
-                        <option>Louisiana</option>
-                        <option>Maine</option>
-                        <option>Maryland</option>
-                        <option>Massachusetts</option>
-                        <option>Michigan</option>
-                        <option>Minnesota</option>
-                        <option>Mississippi</option>
-                        <option>Missouri</option>
-                        <option>Montana</option>
-                        <option>Nebraska</option>
-                        <option>Nevada</option>
-                        <option>New Hampshire</option>
-                        <option>New Jersey</option>
-                        <option>New Mexico</option>
-                        <option>New York</option>
-                        <option>North Carolina</option>
-                        <option>North Dakota</option>
-                        <option>Ohio</option>
-                        <option>Oklahoma</option>
-                        <option>Oregon</option>
-                        <option>Pennsylvania</option>
-                        <option>Rhode Island</option>
-                        <option>South Carolina</option>
-                        <option>South Dakota</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Utah</option>
-                        <option>Vermont</option>
-                        <option>Virginia</option>
-                        <option>Washington</option>
-                        <option>West Virginia</option>
-                        <option>Wisconsin</option>
-                        <option>Wyoming</option>
-                        <option>Armed Forces Americas</option>
-                        <option>Armed Forces Europe</option>
-                        <option>Armed Forces Pacific</option>
-                    </select>
-                </div>
+                <label class="donorfy-donate__hidden" for="County">County</label>
+                <input class="donorfy-donate__hidden" type="text" name="County" class="" id="County" maxlength="50">
 
                 <div class="donorfy-donate__select">
                     <select name="Country" class="required" id="Country" placeholder="Country">
@@ -345,7 +273,7 @@ endif;
                         <option value="Norfolk Island">Norfolk Island</option>
                         <option value="North Korea">North Korea</option>
                         <option value="Northern Mariana Islands">Northern Mariana Islands</option>
-                        <option value="Norway">Norway</option>
+                        <option selected value="Norway">Norway</option>
                         <option value="Oman">Oman</option>
                         <option value="Pakistan">Pakistan</option>
                         <option value="Palau">Palau</option>
@@ -417,7 +345,7 @@ endif;
                         <option value="United Arab Emirates">United Arab Emirates</option>
                         <option value="United Kingdom">United Kingdom</option>
                         <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
-                        <option selected value="United States">United States</option>
+                        <option value="United States">United States</option>
                         <option value="Uruguay">Uruguay</option>
                         <option value="Uzbekistan">Uzbekistan</option>
                         <option value="Vanuatu">Vanuatu</option>
@@ -445,27 +373,7 @@ endif;
 
             <!-- form 3 -->
             <form id="CreditCardForm">
-
-<!--                <h2>Gift Aid:</h2>
-
-                <div class="donorfy-donate__select">
-                    <select id="GiftAidSelect" class="required">
-                        <option value="">-- Select option --</option>
-                        <option value="true">Yes please</option>
-                        <option value="false">No thank you</option>
-                    </select>
-                </div>
-                <p class="donorfy-donate__larger"><b>Hope for Justice will claim 25p on every £1 I donate.</b></p>
-                <p>
-                    <br>
-                    Please add Gift Aid to all donations I’ve made to Hope for Justice in the past four years and all donations in future until I notify Hope for Justice otherwise.
-                    <br><br>
-                    By selecting 'Yes', I confirm that I am a UK taxpayer and understand that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my donations in the tax year, it is my responsibility to pay any difference. I confirm that this is my own money and I am not paying over donations made by third parties such as monies collected at an event, a company donation or a donation from a friend or family member. I am not receiving anything in return for my donation such as a book, prize or ticket. I am not making a donation as part of a sweepstake, raffle or lottery.
-                </p>
-
-                <hr>  -->
                 
-
                 <h2>Card Details:</h2> 
 
                 <div id="card-number" class="donorfy-donate__input"></div>
@@ -475,8 +383,9 @@ endif;
                     <div id="card-cvc" class="donorfy-donate__input"></div>
                 </div>
 
+                <hr> 
 
-<!--                 <h2>Your communication preferences:</h2>
+                <h2>Your communication preferences:</h2>
 
                 <div class="donorfy-donate__preferences">
                     <div class="donorfy-donate__preference">
@@ -532,36 +441,20 @@ endif;
                     We will always store your personal information securely. We will use it to provide the service(s) you have requested, and communicate with you in the way(s) you have agreed to. We will only allow your information to be used by third parties working on our behalf. We will share your information if required to do so by law. For details see our <a>Privacy Policy</a>.
                     <br><br>
                     <br><br>
-                </p> -->
-
-                
-
-                <label for="inspiration_question">What inspired you to give?</label>
-                <div class="donorfy-donate__select">
-                    <select name="inspiration_question" id="inspiration_question">
-                        <option value="">-- Select option (optional) --</option>
-                        <option value="Faith">Faith Based</option>
-                        <option value="Social Media">Social media</option>
-                        <option value="Staff Contact">I know a Hope for Justice staff member/ volunteer</option>
-                        <option value="Natalie Grant">Natalie Grant</option>
-                        <option value="Celebration">Gift of celebration</option>
-                        <option value="Cause">Passion to end modern slavery</option>
-                        <option value="Event">Event or talk</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
+                </p>
 
                 <div class="donorfy-donate__input donorfy-donate__comment">
-                    <textarea rows="2" cols="40" class="" name="Comment" id="Comment" placeholder="Tell us more"></textarea>
+                    <textarea rows="2" cols="40" class="" name="Comment" id="Comment" placeholder="What inspired you to give?"></textarea>
                 </div>
 
+                <hr>
 
                 <div class="donorfy-donate__hidden">
-                    <input id="emailPreference" type="checkbox" value="2" class="KeepInTouch" checked>
+                    <input id="emailPreference" type="checkbox" value="2" class="KeepInTouch">
                     &nbsp;Email
-                    <input id="postPreference" type="checkbox" value="4" class="KeepInTouch" checked>&nbsp;Post
-                    <input id="smsPreference" type="checkbox" value="8" class="KeepInTouch" checked>&nbsp;Sms
-                    <input id="phonePreference" type="checkbox" value="16" class="KeepInTouch" checked>&nbsp;Phone
+                    <input id="postPreference" type="checkbox" value="4" class="KeepInTouch">&nbsp;Post
+                    <input id="smsPreference" type="checkbox" value="8" class="KeepInTouch">&nbsp;Sms
+                    <input id="phonePreference" type="checkbox" value="16" class="KeepInTouch">&nbsp;Phone
                 </div>
 
                 <div id="ErrorContainer" class="ErrorContainer">
@@ -573,17 +466,17 @@ endif;
                 
                 <div class="donorfy-donate__buttons">
                     <div id="backToStepTwo" class="button button--white">Previous</div>
-                    <div id="submitButton" class="button">Donate monthly</div>
+                    <div id="submitButton" class="button">Donate</div>
                 </div>
 
 
                 <div style="display: none;">
-                    <input type="radio" id="OneOffPayment" name="PaymentType" value="OneOff">
-                    <input type="radio" id="RecurringPayment" name="PaymentType" value="Recurring" checked="checked">
+                    <input type="radio" id="OneOffPayment" name="PaymentType" value="OneOff" checked="checked">
+                    <input type="radio" id="RecurringPayment" name="PaymentType" value="Recurring">
                 </div>
 
                 <div id="PaymentScheduleRow" style="display: none;">   
-                    <input type="radio" id="MonthlyPayment" name="PaymentSchedule" value="Monthly" checked="checked">
+                    <input type="radio" id="MonthlyPayment" name="PaymentSchedule" value="Monthly">
                     <input type="radio" id="QuarterlyPayment" name="PaymentSchedule" value="Quarterly">
                     <input type="radio" id="AnnualPayment" name="PaymentSchedule" value="Annually"> 
                 </div>
@@ -594,10 +487,10 @@ endif;
                 <input type="hidden" id="ActiveTags" value="" />
                 <input type="hidden" id="BlockedTags" value="" />
                 <!-- Do not change these values -->
-                <input type="hidden" id="PublishableKey" value="pk_live_WMJp57zos3PJGIUIaXRYMY8I002yTFVYpi" />
-                <input type="hidden" id="TenantCode" value="HM9DCVXJ56" />
+                <input type="hidden" id="PublishableKey" value="pk_live_516S0p5DOK0OXJCvhKeBNMXaSLRz4CicqeGgZXBezPFFs0ZIOeLQ5Qvv74uQ6yI2T8AWRhyYrQ3nOQaOne3ziOZle00dp3xEgeZ" />
+                <input type="hidden" id="TenantCode" value="N2SOZ58ZN2" />
                 
-                <input type="hidden" id="WidgetId" value="<?php if ($matched_widget) {echo $matched_widget;}else{echo 'ee383a63-9733-ea11-8454-00155d5613f8';}?>" />
+                <input type="hidden" id="WidgetId" value="<?php if ($matched_widget) {echo $matched_widget;}else{echo 'f248ca1a-d8d2-ec11-bea1-0003ff443d07';}?>" />
 
 
                 <input type="hidden" id="DonationPageId" value="" />
@@ -605,9 +498,9 @@ endif;
                 <input type="hidden" id="ReCaptchaSiteKey" value="6LeSscYZAAAAABIur1rDAvJtDiR7SayCuAylTV2q" />
                 <input type="hidden" id="ReCaptchaAction" value="Donorfy" />
                 
-                <input type="hidden" id="currency" value="USD" />
-                <input type="hidden" id="type" value="USA+Guardian" />
-                <input type="hidden" id="zapierUrl" value="https://hooks.zapier.com/hooks/catch/8597852/bkb1mzw/" />
+                <input type="hidden" id="currency" value="NOK" />
+                <input type="hidden" id="type" value="Norway+one-off" />
+                <input type="hidden" id="zapierUrl" value="https://hooks.zapier.com/hooks/catch/8597852/bk7nv5v/" />
 
                 <div class="donorfy-donate__hidden">
                     <input id="GiftAid" type="checkbox" />

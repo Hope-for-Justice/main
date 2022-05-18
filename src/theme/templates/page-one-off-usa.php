@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Guardian USA
+ * Template Name: One off USA
  *
  * @package Hope_for_Justice_2021
  */
@@ -573,17 +573,17 @@ endif;
                 
                 <div class="donorfy-donate__buttons">
                     <div id="backToStepTwo" class="button button--white">Previous</div>
-                    <div id="submitButton" class="button">Donate monthly</div>
+                    <div id="submitButton" class="button">Donate</div>
                 </div>
 
 
                 <div style="display: none;">
-                    <input type="radio" id="OneOffPayment" name="PaymentType" value="OneOff">
-                    <input type="radio" id="RecurringPayment" name="PaymentType" value="Recurring" checked="checked">
+                    <input type="radio" id="OneOffPayment" name="PaymentType" value="OneOff" checked="checked">
+                    <input type="radio" id="RecurringPayment" name="PaymentType" value="Recurring">
                 </div>
 
                 <div id="PaymentScheduleRow" style="display: none;">   
-                    <input type="radio" id="MonthlyPayment" name="PaymentSchedule" value="Monthly" checked="checked">
+                    <input type="radio" id="MonthlyPayment" name="PaymentSchedule" value="Monthly">
                     <input type="radio" id="QuarterlyPayment" name="PaymentSchedule" value="Quarterly">
                     <input type="radio" id="AnnualPayment" name="PaymentSchedule" value="Annually"> 
                 </div>
@@ -597,7 +597,7 @@ endif;
                 <input type="hidden" id="PublishableKey" value="pk_live_WMJp57zos3PJGIUIaXRYMY8I002yTFVYpi" />
                 <input type="hidden" id="TenantCode" value="HM9DCVXJ56" />
                 
-                <input type="hidden" id="WidgetId" value="<?php if ($matched_widget) {echo $matched_widget;}else{echo 'ee383a63-9733-ea11-8454-00155d5613f8';}?>" />
+                <input type="hidden" id="WidgetId" value="<?php if ($matched_widget) {echo $matched_widget;}else{echo 'd3d7824d-9733-ea11-8454-00155d5613f8';}?>" />
 
 
                 <input type="hidden" id="DonationPageId" value="" />
@@ -606,8 +606,8 @@ endif;
                 <input type="hidden" id="ReCaptchaAction" value="Donorfy" />
                 
                 <input type="hidden" id="currency" value="USD" />
-                <input type="hidden" id="type" value="USA+Guardian" />
-                <input type="hidden" id="zapierUrl" value="https://hooks.zapier.com/hooks/catch/8597852/bkb1mzw/" />
+                <input type="hidden" id="type" value="USA+one-off" />
+                <input type="hidden" id="zapierUrl" value="https://hooks.zapier.com/hooks/catch/8597852/bk78p29/" />
 
                 <div class="donorfy-donate__hidden">
                     <input id="GiftAid" type="checkbox" />

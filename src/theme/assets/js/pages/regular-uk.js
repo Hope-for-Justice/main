@@ -23,10 +23,44 @@ $('#formThree').validate({
 // $('#formThree').show();
 
 $("#GiftAidSelect").on('change', function(){
-	if ($(this).val() == "true") {
-		$("#GiftAid").prop('checked', true);
-	}
-})
+    if ($(this).val() == "true") {
+        $("#GiftAid").prop('checked', true);
+    } else {
+       $("#GiftAid").prop('checked', false); 
+    }
+});
+
+$("#emailSelect").on('change', function(){
+    if ($(this).val() == "true") {
+        $("#emailPreference").prop('checked', true);
+    } else {
+       $("#emailPreference").prop('checked', false); 
+    }
+});
+
+$("#postSelect").on('change', function(){
+    if ($(this).val() == "true") {
+        $("#postPreference").prop('checked', true);
+    } else {
+       $("#postPreference").prop('checked', false); 
+    }
+});
+
+$("#smsSelect").on('change', function(){
+    if ($(this).val() == "true") {
+        $("#smsPreference").prop('checked', true);
+    } else {
+       $("#smsPreference").prop('checked', false); 
+    }
+});
+
+$("#phoneSelect").on('change', function(){
+    if ($(this).val() == "true") {
+        $("#phonePreference").prop('checked', true);
+    } else {
+       $("#phonePreference").prop('checked', false); 
+    }
+});
 
 $('#toStepTwo').click(function(){
   if ($('#formOne').valid()) {
