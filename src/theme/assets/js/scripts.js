@@ -27,6 +27,10 @@ jQuery(document).ready(function($) {
         }, 500);
     });
 
+    $('.button--spinner').click(function(){
+        $(this).html('<span>•</span> <span>•</span> <span>•</span>');
+    });
+
     //url param function
     var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = window.location.search.substring(1),

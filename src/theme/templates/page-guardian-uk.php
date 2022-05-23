@@ -104,7 +104,7 @@ endif;
                     <input type="text" name="Phone" class="required numberOnly" id="Phone" maxlength="50" placeholder="Phone">
                 </div>
 
-                <div id="toStepTwo" class="button">Next</div>
+                <div id="toStepTwo" class="button button--spinner">Next</div>
             </form>
                 
             <form id="formTwo">
@@ -142,8 +142,8 @@ endif;
                 </div>
 
                 <div class="donorfy-donate__buttons">
-                    <div id="backToStepOne" class="button button--white">Previous</div>
-                    <div id="toStepThree" class="button">Next</div>
+                    <div id="backToStepOne" class="button button--white button--spinner">Previous</div>
+                    <div id="toStepThree" class="button button--spinner">Next</div>
                 </div>
             </form>
 
@@ -263,8 +263,8 @@ endif;
                 <div id="PleaseWait" style="display:none">Please wait ...</div>
 
                 <div class="donorfy-donate__buttons">
-                    <div id="backToStepTwo" class="button button--white">Previous</div>
-                    <div id="submitButton" class="button">Setup Direct Debit</div>
+                    <div id="backToStepTwo" class="button button--white button--spinner">Previous</div>
+                    <div id="submitButton" class="button button--spinner">Setup Direct Debit</div>
                 </div>
                 
                 <div class="donorfy-donate__hidden">

@@ -7,104 +7,180 @@ $('#formOne').validate({
           required: true,
           email: true
         }
+    },
+    invalidHandler: function(form, validator) {
+        var errors = validator.numberOfInvalids();
+        if (errors) {                    
+            validator.errorList[0].element.focus();
+        }
     }
 });
 
 $('#formTwo').validate({
-    // rules
+    invalidHandler: function(form, validator) {
+        var errors = validator.numberOfInvalids();
+        if (errors) {                    
+            validator.errorList[0].element.focus();
+        }
+    }
 });
 
 $('#formThree').validate({
-    // rules
+    invalidHandler: function(form, validator) {
+        var errors = validator.numberOfInvalids();
+        if (errors) {                    
+            validator.errorList[0].element.focus();
+        }
+    }
+});
+
+$('#formFour').validate({
+    invalidHandler: function(form, validator) {
+        var errors = validator.numberOfInvalids();
+        if (errors) {                    
+            validator.errorList[0].element.focus();
+        }
+    }
 });
 
 // $('#formOne').hide();
 // $('#formTwo').hide();
-// $('#formThree').show();
+// $('#CreditCardForm').show();
 
-$("#GiftAidSelect").on('change', function(){
-    if ($(this).val() == "true") {
-        $("#GiftAid").prop('checked', true);
-    } else {
-       $("#GiftAid").prop('checked', false); 
-    }
-});
 
-$("#emailSelect").on('change', function(){
-    if ($(this).val() == "true") {
-        $("#emailPreference").prop('checked', true);
-    } else {
-       $("#emailPreference").prop('checked', false); 
-    }
-});
-
-$("#postSelect").on('change', function(){
-    if ($(this).val() == "true") {
-        $("#postPreference").prop('checked', true);
-    } else {
-       $("#postPreference").prop('checked', false); 
-    }
-});
-
-$("#smsSelect").on('change', function(){
-    if ($(this).val() == "true") {
-        $("#smsPreference").prop('checked', true);
-    } else {
-       $("#smsPreference").prop('checked', false); 
-    }
-});
-
-$("#phoneSelect").on('change', function(){
-    if ($(this).val() == "true") {
-        $("#phonePreference").prop('checked', true);
-    } else {
-       $("#phonePreference").prop('checked', false); 
-    }
-});
 
 $('#toStepTwo').click(function(){
-  if ($('#formOne').valid()) {
-    $('#formOne').hide();
-    $('#formTwo').show();
-    let email = $('#Email').val();
-    $.ajax({
-        method : 'POST',
-        url : '/wp-content/themes/hope-for-justice-2020/duplicate-check.php',
-        // /wp-content/ wp-engine
-        // /build/ local
-        data : {Email: email},
-        success: function(output) {
-            let obj = $.parseJSON(output)
-            let id = obj[0].ConstituentId;
-            console.log(output);
+    setTimeout(
+    function() {
+          if ($('#formOne').valid()) {
+            $('#formOne').hide();
+            $('#formTwo').show();
+            $('#dotOne').toggleClass('donorfy-donate__dot--active');
+            $('#dotTwo').toggleClass('donorfy-donate__dot--active');
+            let email = $('#Email').val();
+            $.ajax({
+                method : 'POST',
+                url : '/wp-content/themes/hope-for-justice-2020/duplicate-check.php',
+                // /wp-content/ wp-engine
+                // /build/ local
+                data : {Email: email},
+                success: function(output) {
+                    let obj = $.parseJSON(output)
 
-            if(id) {
-              getPreferences(id);
-            }
+                    if (obj.length !== 0) {
+                        let id = obj[0].ConstituentId;
+                        console.log(output);
+                        getPreferences(id);
+                        $('#preferenceText').html('These are the preferences we hold for ');
+                        $('#emailText').show();  
 
-        }
-    });
+                    } else {
+                        resetPreferences();
+                        $('#preferenceText').html('Here about how your money is making a difference');
+                        $('#emailText').hide();
+                    }
 
-  }
+                },
+                error: function() {
+                    $('#preferenceText').html('Here about how your money is making a difference');
+                    $('#emailText').hide();
+                }
+            });
+            $(window).scrollTop(0);
+          }
+          $('#toStepTwo').html("Next");
+    },400);
 });
 
 $('#backToStepOne').click(function(){
-    $('#formOne').show();
-    $('#formTwo').hide();
+    setTimeout(
+    function() {
+        $('#formOne').show();
+        $('#formTwo').hide();
+        $('#dotOne').toggleClass('donorfy-donate__dot--active');
+        $('#dotTwo').toggleClass('donorfy-donate__dot--active');
+        $('#backToStepOne').html("Previous");
+        $(window).scrollTop(0);
+    },400);
 });
 
 $('#toStepThree').click(function(){
-    if ($('#formTwo').valid()) {
-        $('#CreditCardForm').show();
-        $('#formTwo').hide();
-    }
+    setTimeout(
+    function() {
+        if ($('#formTwo').valid()) {
+            $('#formThree').show();
+            $('#formTwo').hide();
+            $('#dotTwo').toggleClass('donorfy-donate__dot--active');
+            $('#dotThree').toggleClass('donorfy-donate__dot--active');
+            $(window).scrollTop(0);
+        }
+        $('#toStepThree').html("Next");
+    },400);
 });
 
 $('#backToStepTwo').click(function(){
-    $('#formTwo').show();
-    $('#CreditCardForm').hide();
+    setTimeout(
+    function() {
+        $('#formTwo').show();
+        $('#formThree').hide();
+        $('#dotTwo').toggleClass('donorfy-donate__dot--active');
+        $('#dotThree').toggleClass('donorfy-donate__dot--active');
+        $('#backToStepTwo').html("Previous");
+        $(window).scrollTop(0);
+    },400);
 });
 
+$('#toStepFour').click(function(){
+    setTimeout(
+    function() {
+        if ($('#formThree').valid()) {
+            $('#formFour').show();
+            $('#formThree').hide();
+            $('#dotFour').toggleClass('donorfy-donate__dot--active');
+            $('#dotThree').toggleClass('donorfy-donate__dot--active');
+            $(window).scrollTop(0);
+        }
+        $('#toStepFour').html("Next");
+    },400);
+});
+
+$('#backToStepThree').click(function(){
+    setTimeout(
+    function() {
+        $('#formThree').show();
+        $('#formFour').hide();
+        $('#dotFour').toggleClass('donorfy-donate__dot--active');
+        $('#dotThree').toggleClass('donorfy-donate__dot--active');
+        $('#backToStepThree').html("Previous");
+        $(window).scrollTop(0);
+    },400);
+});
+
+$('#toStepFive').click(function(){
+    setTimeout(
+    function() {
+        if ($('#formFour').valid()) {
+            $('#CreditCardForm').show();
+            $('#formFour').hide();
+            $('#dotFour').toggleClass('donorfy-donate__dot--active');
+            $('#dotFive').toggleClass('donorfy-donate__dot--active');
+            $(window).scrollTop(0);
+        }
+        $('#toStepFive').html("Next");
+    },400);
+});
+
+$('#backToStepFour').click(function(){
+    setTimeout(
+    function() {
+        $('#formFour').show();
+        $('#CreditCardForm').hide();
+        $('#dotFive').toggleClass('donorfy-donate__dot--active');
+        $('#dotFour').toggleClass('donorfy-donate__dot--active');
+        $('#backToStepFour').html("Previous");
+        $(window).scrollTop(0);
+    },400);
+});
 
 function getPreferences(id) {
 
@@ -168,6 +244,13 @@ function setPreferences(email, mail, phone, sms) {
         $('#smsSelect').val("false").change();
     }
 
+}
+
+function resetPreferences() {
+    $('#emailSelect').val("").change();
+    $('#postSelect').val("").change();
+    $('#phoneSelect').val("").change();
+    $('#smsSelect').val("").change();
 }
 
 });

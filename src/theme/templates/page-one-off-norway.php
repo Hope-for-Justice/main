@@ -73,7 +73,7 @@ endif;
                     <input type="text" name="Phone" class="" id="Phone" maxlength="50" placeholder="Phone"> 
                 </div>
 
-                <div id="toStepTwo" class="button button--red">Next</div>
+                <div id="toStepTwo" class="button button--red button--spinner">Next</div>
             </form>
             <!-- /form 1 -->
 
@@ -363,8 +363,8 @@ endif;
                 </div>
 
                 <div class="donorfy-donate__buttons">
-                    <div id="backToStepOne" class="button button--white">Previous</div>
-                    <div id="toStepThree" class="button">Next</div>
+                    <div id="backToStepOne" class="button button--white button--spinner">Previous</div>
+                    <div id="toStepThree" class="button button--spinner">Next</div>
                 </div>
             
             </form>
@@ -464,8 +464,8 @@ endif;
                 
                 
                 <div class="donorfy-donate__buttons">
-                    <div id="backToStepTwo" class="button button--white">Previous</div>
-                    <div id="submitButton" class="button">Donate</div>
+                    <div id="backToStepTwo" class="button button--white button--spinner">Previous</div>
+                    <div id="submitButton" class="button button--spinner">Donate</div>
                 </div>
 
 

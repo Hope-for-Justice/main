@@ -46,6 +46,7 @@ input[type="submit"] {
 
 .ginput_container select, select {
   appearance: none;
+  -webkit-appearance:none;
   position: relative;
 }
 

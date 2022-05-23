@@ -36,6 +36,8 @@ function load() {
         loadScript('https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js');
     }
 
+    ResetErrorMessage();
+
     var code = jQuery('#TenantCode').val();
     var id = jQuery('#WidgetId').val();
     if (id === "") {
@@ -80,7 +82,8 @@ function load() {
 
                     } else {
                         EnableSubmitButton();
-                        DisplayErrorMessage('please scroll up to see the details');
+                        jQuery('#Errors').show();
+                        DisplayErrorMessage('Error - Please scroll up to see the details');
                     }
                     ev.preventDefault();
                     return false;
@@ -180,7 +183,14 @@ function Initialise() {
 }
 
 function ValidateForm() {
-    jQuery('#CreditCardForm').validate().settings.ignore = ':disabled,:hidden';
+    jQuery('#CreditCardForm').validate({
+        invalidHandler: function(form, validator) {
+            var errors = validator.numberOfInvalids();
+            if (errors) {                    
+                validator.errorList[0].element.focus();
+            }
+        }
+    }).settings.ignore = ':disabled,:hidden';
     return jQuery('#CreditCardForm').valid();
 }
 
@@ -303,6 +313,7 @@ function EnableSubmitButton() {
         jQuery('#submitButton').button('reset');
     }
     jQuery('#PleaseWait').hide();
+    jQuery(submitButton).html("Donate");
 }
 
 function DisableSubmitButton() {
@@ -421,9 +432,9 @@ function makeid(length) {
 function Completed() {
     
 
-    let currency = $('#currency').val();
-    let type = $('#type').val();
-    let zapierUrl = $('#zapierUrl').val();
+    let currency = jQuery('#currency').val();
+    let type = jQuery('#type').val();
+    let zapierUrl = jQuery('#zapierUrl').val();
     zapier(zapierUrl);
     var urlAmount = jQuery('#Amount').val();
     var urlId = makeid(8);

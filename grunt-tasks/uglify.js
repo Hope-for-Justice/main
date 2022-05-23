@@ -43,6 +43,12 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 	];
 
+	uglifyFilesObject[distTheme + jsDir + 'pages/donorfy-donate.js'] = [
+
+		devTheme + jsDir + 'pages/donorfy-donate.js',
+
+
+	];
 
 	uglifyFilesObject[distTheme + jsDir + 'pages/donorfy-stripe.js'] = [
 

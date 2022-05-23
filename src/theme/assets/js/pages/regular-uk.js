@@ -7,15 +7,31 @@ $('#formOne').validate({
           required: true,
           email: true
         }
+    },
+    invalidHandler: function(form, validator) {
+        var errors = validator.numberOfInvalids();
+        if (errors) {                    
+            validator.errorList[0].element.focus();
+        }
     }
 });
 
 $('#formTwo').validate({
-    // rules
+    invalidHandler: function(form, validator) {
+        var errors = validator.numberOfInvalids();
+        if (errors) {                    
+            validator.errorList[0].element.focus();
+        }
+    }
 });
 
 $('#formThree').validate({
-    // rules
+    invalidHandler: function(form, validator) {
+        var errors = validator.numberOfInvalids();
+        if (errors) {                    
+            validator.errorList[0].element.focus();
+        }
+    }
 });
 
 // $('#formOne').hide();
@@ -63,48 +79,67 @@ $("#phoneSelect").on('change', function(){
 });
 
 $('#toStepTwo').click(function(){
-  if ($('#formOne').valid()) {
-  	$('#formOne').hide();
-	$('#formTwo').show();
-	let email = $('#Email').val();
-    let paymentDay = $('#paymentDay').val();
-    console.log(paymentDay)
-	$.ajax({
-        method : 'POST',
-        url : '/wp-content/themes/hope-for-justice-2020/duplicate-check.php',
-        // /wp-content/ wp-engine
-        // /build/ local
-        data : {Email: email},
-        success: function(output) {
-            let obj = $.parseJSON(output)
-            let id = obj[0].ConstituentId;
-            console.log(output);
+setTimeout(
+    function() {
+        if ($('#formOne').valid()) {
+          	$('#formOne').hide();
+        	$('#formTwo').show();
+        	let email = $('#Email').val();
+            let paymentDay = $('#paymentDay').val();
+            console.log(paymentDay)
+        	$.ajax({
+                method : 'POST',
+                url : '/wp-content/themes/hope-for-justice-2020/duplicate-check.php',
+                // /wp-content/ wp-engine
+                // /build/ local
+                data : {Email: email},
+                success: function(output) {
+                    let obj = $.parseJSON(output)
+                    let id = obj[0].ConstituentId;
+                    console.log(output);
 
-            if(id) {
-              getPreferences(id);
-            }
+                    if(id) {
+                      getPreferences(id);
+                    }
 
+                }
+            });
+            $(window).scrollTop(0);
         }
-    });
-
-  }
+        $('#toStepTwo').html("Next");
+    },400);
 });
 
 $('#backToStepOne').click(function(){
-  	$('#formOne').show();
-	$('#formTwo').hide();
+    setTimeout(
+    function() {
+        $('#formOne').show();
+        $('#formTwo').hide();
+        $('#backToStepOne').html("Previous");
+        $(window).scrollTop(0);
+    },400);
 });
 
 $('#toStepThree').click(function(){
-	if ($('#formTwo').valid()) {
-  		$('#DirectDebitForm').show();
-		$('#formTwo').hide();
-	}
+    setTimeout(
+    function() {
+        if ($('#formTwo').valid()) {
+            $('#DirectDebitForm').show();
+            $('#formTwo').hide();
+            $(window).scrollTop(0);
+        }
+        $('#toStepThree').html("Next");
+    },400);
 });
 
 $('#backToStepTwo').click(function(){
-  	$('#formTwo').show();
-	$('#DirectDebitForm').hide();
+    setTimeout(
+    function() {
+        $('#formTwo').show();
+        $('#DirectDebitForm').hide();
+        $('#backToStepTwo').html("Previous");
+        $(window).scrollTop(0);
+    },400);
 });
 
 

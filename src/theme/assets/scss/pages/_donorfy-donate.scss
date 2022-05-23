@@ -1,7 +1,100 @@
 .donorfy-donate {
 
-	#formTwo, #DirectDebitForm, #CreditCardForm{
+	//#formOne, 
+	#formTwo, 
+	#formThree, 
+	#formFour, 
+	#DirectDebitForm, 
+	#CreditCardForm
+	{
 		display:none;
+	}
+
+	&__grid {
+		display:grid;
+		grid-template-columns: 
+		[form-start] minmax(0, 100%)
+		[form-end photo-start] minmax(0, 0)[photo-end];
+	}
+
+	&__inner-grid {
+		grid-column: form;
+	}
+
+	&__forms {
+		grid-column: col2/col12;
+		margin-bottom: 60px;
+		h2{
+			margin-bottom: 0.5em;
+			font-size: 37px;
+			font-weight: normal;
+		}
+	}
+
+	&__dots {
+		display: flex;
+		margin: 35px 0;
+	}
+
+	&__dot {
+		width: 6px;
+		height: 6px;
+		background-color: #706F70;
+		opacity: 30%;
+		border-radius: 100%;
+		margin-right: 25px;
+		&--active {
+			opacity: 80%;
+		}
+	}
+
+	&__giving-text {
+		font-size: 14px;
+		margin-bottom: 20px;
+		a{
+			text-decoration: underline;
+			color: black;
+		}
+	}
+
+	&__photo {
+		grid-column: photo;
+		background-size: cover;
+		position: relative;
+		display: none;
+		&-text {
+			position: absolute;
+			bottom: 50px;
+			left: 70px;
+			color: white;
+			text-transform: none;
+			margin-bottom: 0;
+			letter-spacing: 0;
+			font-size: 52px;
+			line-height: 1.2;
+			z-index: 1;
+		}
+		&:after {
+			content: "";
+			display: block;
+			position: absolute;
+			bottom:0;
+			left:0;
+			width:100%;
+			height:40%;
+			opacity: 0.4;
+			background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+			z-index: 0;
+		}
+	}
+
+	#ErrorContainer {
+		display: inline-block;
+		padding: 4px 8px;
+		background-color: #d6001c9e;
+		border-radius: 10px;
+		margin-bottom: 10px;
+		#Errors {color: white !important;}
 	}
 
 	&__comment {
@@ -10,13 +103,14 @@
 
 	.StripeElement {
 		background-color:#ffffff;
+		margin-bottom: 10px;
 	}
 
 	background-color: #FAFAFA;
 	width:100%;
 	//min-height: 60vh;
 
-	p {font-size: 14px; color: #909190;}
+	p {font-size: 13px; color: #909190;}
 
 	.donorfy-donate__larger { font-size: 16px; color: $black; }
 
@@ -41,7 +135,7 @@
 
 	&__select{
 	  position: relative; 
-	  margin-bottom: 16px; 
+	  margin-bottom: 6px; 
 	  &:after {
 	  content: '▾';
 	  font-size: 16px;
@@ -58,9 +152,18 @@
 			border-radius: 10px;
 			margin-top: 4px;
 		}
+		&--preference-green select{
+			background-color:#C5E0D1;
+			color: #508D6B;	
+		}
+		&--preference-red select{
+			background-color:#F3C8CD;
+			color: #9F505B;	
+		}
 	}
 
 	&__amount {
+		display: none;
 		position: relative;
 		&:before {
 			content:"USD $";
@@ -80,18 +183,9 @@
 		}
 	}
 
-	&__forms {
-		margin:40px 0;
-		grid-column: main;
-		h2{
-			margin-bottom: 0.5em;
-			font-size: 21px;
-			font-weight: bold;
-		}
-	}
 
 	&__input {
-		margin-bottom: 16px;
+		margin-bottom: 6px;
 		width:100%;
 		input {margin-bottom: 4px;}
 		label.error {
@@ -108,30 +202,74 @@
 		flex-wrap: wrap;
 		justify-content: space-between;
 		width: 100%;
+		margin-top: 40px;
 	}
 
 	&__preferences {
 		display: flex;
 		flex-wrap: wrap;
 		.donorfy-donate__preference {
+			width:100%;
 			min-width: 120px;
 			margin-right: 20px;
 		}
+		&-preview-text {
+			margin-bottom: 40px;
+		}
+	}
+
+	&__secure {
+		grid-column: col2/col12;
+		text-align: center;
+		margin-bottom: 50px;
+		font-size: 12px;
+		display: flex;
+		align-items:center;
+		justify-content: center;
+		opacity: 60%;
+		svg {margin-right: 10px; margin-top: -3px;}
+	}
+
+	&__small-text {
+		margin-bottom: 40px;
 	}
 }
+
+
+
+
+
+
 
 @include mq($from: tablet) {
 
 .donorfy-donate {
 
+	&__dots {
+		display: flex;
+		margin: 80px 0 60px 0;
+	}
+
 	label {font-size: 16px;}
 
 	&__flex {
 		display:flex;
-		input, div {margin-left: 10px;}
+		input, div {margin-left: 5px;}
 		input:nth-of-type(1), div:nth-of-type(1) {
-			margin-right: 10px;
+			margin-right: 5px;
 			margin-left: 0;
+		}
+	}
+
+	&__preferences {
+		.donorfy-donate__preference {
+			width:auto;
+		}
+	}
+
+	&__forms {
+		h2{
+			font-size: 52px;
 		}
 	}
 }
@@ -140,24 +278,40 @@
 
 @include mq($from: desktop) {
 	.donorfy-donate {
-		&__forms {
-			margin: 80px 0;
-			h2{
-				font-size: 26px;
-			}
-		}
 
 	}
 }
 
+@include mq($from: desktopLarge) {
+	.donorfy-donate {
+		&__grid {
+			display:grid;
+			grid-template-columns: 
+			[form-start] 50%
+			[form-end photo-start] 1fr[photo-end];
+		}
 
+		&__photo {
+			display: block;
+		}
+		
+		&__inner-grid {
+			min-height: 90vh;
+			align-items: center;
+		}
 
+		&__forms { 
+			grid-column: col3/col11;
+			//min-height: 77vh;
+		}
+	}
+}
 
 @include mq($from: extraWide) {
 
 .donorfy-donate {
 	&__forms {
-		margin:80px 160px;
+
 	}
 }
 

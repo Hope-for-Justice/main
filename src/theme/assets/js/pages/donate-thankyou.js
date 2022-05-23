@@ -33,26 +33,9 @@ let guardianAmount = Cookies.get('wordpress_guardian_amount');
 let guardianTid = Cookies.get('wordpress_guardian_tid');
 
 
+//if amount exists in url do the normal data layer stuff
 
-if (guardianAmount) {
-
-    dataLayer.push({
-    event: "purchase",
-    ecommerce: {
-        transaction_id: guardianTid,
-        value: guardianAmount,
-        currency: "GBP",
-        items: [
-         {
-          item_name: "UK Guardian",
-          price: guardianAmount,
-          currency: "GBP",
-          quantity: 1
-        }]
-    }
-  });
-
-} else {
+if (amount){
 
   dataLayer.push({
     event: "purchase",
@@ -70,7 +53,28 @@ if (guardianAmount) {
     }
   });
 
-}
+//if guardian cookie exists and no amount in url do the uk guardian data later stuff
+
+
+} else if (guardianAmount) {
+
+    dataLayer.push({
+    event: "purchase",
+    ecommerce: {
+        transaction_id: guardianTid,
+        value: guardianAmount,
+        currency: "GBP",
+        items: [
+         {
+          item_name: "UK Guardian",
+          price: guardianAmount,
+          currency: "GBP",
+          quantity: 1
+        }]
+    }
+  });
+
+} 
 
 
 

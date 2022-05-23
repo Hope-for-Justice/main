@@ -76,6 +76,7 @@ function load() {
 
         }
         // Prevent the form from submitting with the default action
+        jQuery('#submitButton').html('Setup Direct Debit');
         return false;
     });
 
@@ -134,7 +135,13 @@ function ValidateForm() {
             phoneSelect: {
               required: true
             }
-        }
+        },
+        invalidHandler: function(form, validator) {
+            var errors = validator.numberOfInvalids();
+            if (errors) {                    
+                validator.errorList[0].element.focus();
+            }
+        } 
 
     }).settings.ignore = ':disabled,:hidden';
 
@@ -163,11 +170,13 @@ function PostPayment() {
             jQuery('#submitButton').removeAttr('disabled');
             jQuery('#PleaseWait').hide();
             DisplayErrors(data.Errors);
+            jQuery('#submitButton').html('Setup Direct Debit');
         }
 
     }).fail(function (jqXHR, textStatus, errorThrown) {
 
         jQuery('#submitButton').removeAttr('disabled');
+        jQuery('#submitButton').html('Setup Direct Debit');
         jQuery('#PleaseWait').hide();
         DisplayErrors(GetErrorArray(jqXHR))
     });
@@ -298,9 +307,10 @@ function zapier() {
     var data = {
         email : jQuery('#Email').val(),
         Amount : jQuery('#Amount').val(),
-        collectionDay: 12,
-        giftAid : true,
+        collectionDay: jQuery('#paymentDay').val(),
+        giftAid : jQuery('#GiftAid').is(':checked'),
         comments : jQuery('#Comment').val(),
+        campaign: jQuery('#Campaign').val(),
         id: zapId,
     };
 
