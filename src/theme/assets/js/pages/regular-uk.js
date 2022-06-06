@@ -95,14 +95,29 @@ setTimeout(
                 data : {Email: email},
                 success: function(output) {
                     let obj = $.parseJSON(output)
-                    let id = obj[0].ConstituentId;
-                    console.log(output);
 
-                    if(id) {
-                      getPreferences(id);
+                    if (obj.length !== 0) {
+                        let id = obj[0].ConstituentId;
+                        console.log(output);
+                        getPreferences(id);
+                        $('#preferenceText').html('These are the preferences we hold for ');
+                        $('#emailText').show();
+                        $('#emailAppend').show();
+
+                    } else {
+                        resetPreferences();
+                        $('#preferenceText').html('We would love for you to hear about the life-changing difference that your donation will make and more ways you can support this work. Can we contact you via:');
+                        $('#emailText').hide();
+                        $('#emailAppend').hide();
                     }
 
+                },
+                error: function() {
+                    $('#preferenceText').html('We would love for you to hear about the life-changing difference that your donation will make and more ways you can support this work. Can we contact you via:');
+                    $('#emailText').hide();
+                    $('#emailAppend').hide();
                 }
+
             });
             $(window).scrollTop(0);
         }
@@ -229,6 +244,13 @@ function setPreferences(email, mail, phone, sms) {
     	$('#smsSelect').val("false").change();
     }
 
+}
+
+function resetPreferences() {
+    $('#emailSelect').val("").change();
+    $('#postSelect').val("").change();
+    $('#phoneSelect').val("").change();
+    $('#smsSelect').val("").change();
 }
 
 });

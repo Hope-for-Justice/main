@@ -7,6 +7,9 @@ jQuery(document).ready(function ($) {
 	);
 	let currency = $(".giving-widget").data('currency');
 
+	$('.customAmountNorway').on('input',function(e) {
+	  $(this).val($(this).val().replace(/[^0-9\,]/, ''));
+	});
 
 	// Norway monthly click
 
@@ -223,6 +226,7 @@ jQuery(document).ready(function ($) {
 			}
 		} else if (currency=='NOK') {
 			url += '/donate-NOK-once/'
+			urlAmount = amount;
 		}
 
 		window.location.href = url + `?Amount=${urlAmount}`;

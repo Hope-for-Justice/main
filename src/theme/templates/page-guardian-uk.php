@@ -299,7 +299,7 @@ endif;
                         There is a problem with your payment -
                         <div id="Errors"></div>
                     </div>
-                    <div id="PleaseWait" style="display:none">Please wait ...</div>
+                    <!-- <div id="PleaseWait" style="display:none">Please wait ...</div> -->
 
                     <div class="donorfy-donate__buttons">
                         <div id="backToStepThree" class="button button--white button--spinner">Previous</div>

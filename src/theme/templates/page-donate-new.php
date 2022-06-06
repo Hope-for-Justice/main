@@ -287,8 +287,9 @@ $sizes = wp_get_attachment_image_sizes($post_thumbnail_id);
                             <input
                                 id="customAmount"
                                 style="display: none"
-                                type="number"
+                                type="text"
                                 name="customAmount"
+                                class="customAmountNorway"
                             />
                             <span class="currency currency--norway">Kr</span>
                         </div>

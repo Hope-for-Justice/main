@@ -285,6 +285,8 @@ function RedirectToGoCardless(redirectUrl) {
         let date = new Date();
         let minutes = 15;
         let amount = jQuery('#Amount').val();
+        let name = jQuery('#FirstName').val();
+        let signup = jQuery('#emailSelect').val();
         date.setTime(date.getTime() + (minutes * 60 * 1000));
 
         //set cookie for amount
@@ -293,6 +295,12 @@ function RedirectToGoCardless(redirectUrl) {
         //set cookie for tid
         let tid = makeid(8);
         Cookies.set('wordpress_guardian_tid', tid, { path: '/', expires: date });
+
+        //set cookie for name
+        Cookies.set('wordpress_guardian_name', name, { path: '/', expires: date });
+
+        //set cookie for signup
+        Cookies.set('wordpress_guardian_signup', signup, { path: '/', expires: date });
 
         window.location = redirectUrl;
     } else {
@@ -312,6 +320,9 @@ function zapier() {
         comments : jQuery('#Comment').val(),
         campaign: jQuery('#Campaign').val(),
         id: zapId,
+        firstname : jQuery('#FirstName').val(),
+        lastname : jQuery('#LastName').val(),
+        emailUpdates : jQuery("#emailPreference").is(':checked')
     };
 
     jQuery.ajax({

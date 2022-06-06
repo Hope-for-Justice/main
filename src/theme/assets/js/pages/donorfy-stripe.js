@@ -444,6 +444,9 @@ function Completed() {
     let zapierUrl = jQuery('#zapierUrl').val();
     zapier(zapierUrl);
     var urlAmount = jQuery('#Amount').val();
+    if(currency == 'NOK') {
+      urlAmount = jQuery('#NorwayAmount').val(); 
+    }
     var urlId = makeid(8);
     var redirectToPage = `https://${host}/donate-thankyou/?tid=${urlId}&amount=${urlAmount}&type=${type}&currency=${currency}&Name=${Name}&signup=${signup}`; 
     

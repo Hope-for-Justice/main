@@ -16,6 +16,17 @@ get_header( '', array( 'page_class' => 'site--full') );
 $amount = $_GET['amount'];
 $type = $_GET['type'];
 $signup = $_GET['signup'];
+$name = $_GET['Name'];
+
+$guardianAmount = $_COOKIE['wordpress_guardian_amount'];
+$guardianName = $_COOKIE['wordpress_guardian_name'];
+$guardianSignup = $_COOKIE['wordpress_guardian_signup'];
+
+if($guardianAmount) {
+  $type = 'UK Guardian'; 
+  $signup = $guardianSignup;
+  $name = $guardianName;
+}
 
 $thumbnail = "";
 
@@ -39,7 +50,7 @@ $sizes = wp_get_attachment_image_sizes($post_thumbnail_id);
             <img src="<?php echo $src[0]; ?>" srcset="<?php echo $srcset; ?>" />
         </div>
 
-        <h1 class="donation-thankyou__title font-canela">Thank you <?php echo $_GET['Name']?>!</h1>
+        <h1 class="donation-thankyou__title font-canela">Thank you <?php echo $name ?>!</h1>
         
         <div class="donation-thankyou__text">
 
@@ -56,7 +67,7 @@ $sizes = wp_get_attachment_image_sizes($post_thumbnail_id);
             case 'UK Guardian': ?>
 
                 <p>
-                Your donation of <b>£<?php echo $amount; ?></b> a month will help end slavery and change lives. You will receive a receipt via email shortly.
+                Your donation of <b>£<?php echo $guardianAmount; ?></b> a month will help end slavery and change lives. You will receive a receipt via email shortly.
                 </p>
                 
             <?php break;
