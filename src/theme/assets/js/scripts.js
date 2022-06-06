@@ -1,5 +1,17 @@
-/* Page load scripts */
+//format postcode function
+function formatPostcode(string) {
+  if (string) {
+    string = string.replace(/\s+/g, '');
+    string = string.split(/(?=.{3}$)/).join(' ');
+    string = string.toUpperCase();
+    return string;
+  }
+  string = "";
+  return string;
+}
 
+
+/* Page load scripts */
 jQuery(document).ready(function($) {
 
     let cookies = Cookies.get('wordpress_hfjcookies');
@@ -193,27 +205,22 @@ jQuery(document).ready(function($) {
         }
     });
 
-    $('#inspiration_question').on('change', function(){
-    if ($(this).val() == 'Faith'){
-        $('#Comment').attr('placeholder', 'Please tell us the name of you place of worship');
-    } else if ($(this).val() == 'Social Media'){
-        $('#Comment').attr('placeholder', 'Please tell us which platform inspired you');
-    } else if ($(this).val() == 'Natalie Grant'){
-        $('#Comment').attr('placeholder', 'Further details');
-    } else if ($(this).val() == 'Staff Contact'){
-        $('#Comment').attr('placeholder', 'Please tell us who you know');
-    } else if ($(this).val() == 'Celebration'){
-        $('#Comment').attr('placeholder', 'Please let us know what you are celebrating');
-    } else if ($(this).val() == 'Cause'){
-        $('#Comment').attr('placeholder', 'Further details');
-    } else if ($(this).val() == 'Event'){
-        $('#Comment').attr('placeholder', 'Please tell us where');
-    } else {
-        $('#Comment').attr('placeholder', 'Please tell us more');
-    }
-    $('.donorfy-donate__comment').show()
-    
+
+    //capitalize function
+    jQuery.fn.capitalize = function() {
+    $(this[0]).keyup(function(event) {
+        var box = event.target;
+        var txt = $(this).val();
+        var stringStart = box.selectionStart;
+        var stringEnd = box.selectionEnd;
+        $(this).val(txt.replace(/^(.)|(\s|\-)(.)/g, function($word) {
+            return $word.toUpperCase();
+        }));
+        box.setSelectionRange(stringStart , stringEnd);
     });
+        return this;
+    }
+
 
 }); /* end of as page load scripts */
 

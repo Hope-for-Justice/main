@@ -25,6 +25,10 @@
 		background-color:#f2f2f2;
 		border-radius: 20px;
 		position:relative;
+		&--less-padding {
+			padding:25px;
+			padding-top:30px;
+		}
 		&--video{
 			height:0;
 			padding-bottom: 56.25%;
@@ -133,7 +137,7 @@
 		background-color: #EBEBEB;
 		color: #BCBCBC;
 		padding: 1em;
-		font-size: 20px;
+		font-size: 16px;
 		border-radius: 10px;
 		font-weight: bold;
 		margin-right: 10px;
@@ -145,7 +149,7 @@
 		font-size: 21px;
 		font-weight: bold;
 		text-align: center;
-		margin-bottom: 12px;
+		margin-bottom: 20px;
 	}
 	&__text {
 		font-size: 16px;
@@ -204,8 +208,12 @@
 }
 
 .modal-currency{
+
 	&__text {
-		padding: 0 40px;
+		padding: 0 60px;
+	}
+	&__currency {
+		font-size: 20px;
 	}
 }
 

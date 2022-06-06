@@ -5,6 +5,8 @@
 
 jQuery(document).ready(function($) {
 
+let donorEmail = Cookies.get('wordpress_donor_email');
+
 // function to get url params
 $.urlParam = function(name){
     var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -18,8 +20,34 @@ $.urlParam = function(name){
 let amount = parseFloat(decodeURIComponent($.urlParam('amount')).replace(/[^0-9.]/g, '')); 
 
 let currency = $.urlParam('currency');
+let Name = $.urlParam('Name');
 let type = decodeURIComponent($.urlParam('type')).replace("+", " ");
 let id = $.urlParam('tid');
+
+
+$("#signUpButton").click(function(){
+  setTimeout(
+  function() {
+    $("#signUpButton").hide();
+    $(".modal__text").html("Thank you for signing up to our mailing list!");
+  },400);
+    var data = {
+        email : donorEmail,
+        currency : currency,
+        name : Name
+    };
+    jQuery.ajax({
+        type : 'POST',
+        url : "https://hooks.zapier.com/hooks/catch/8597852/bfnvkey/",  
+        data: JSON.stringify(data),
+        success:function (data) {
+            console.log('sent to zapier');
+        },
+        error: function(xhr, status, error) {
+            console.log('failed to send to zapier');
+        }
+    });
+});
 
 console.log(amount);
 console.log(currency);
@@ -31,7 +59,6 @@ dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
 
 let guardianAmount = Cookies.get('wordpress_guardian_amount');
 let guardianTid = Cookies.get('wordpress_guardian_tid');
-
 
 //if amount exists in url do the normal data layer stuff
 
@@ -52,6 +79,7 @@ if (amount){
         }]
     }
   });
+
 
 //if guardian cookie exists and no amount in url do the uk guardian data later stuff
 
@@ -75,7 +103,6 @@ if (amount){
   });
 
 } 
-
 
 
 });

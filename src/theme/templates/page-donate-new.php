@@ -32,8 +32,11 @@ $sizes = wp_get_attachment_image_sizes($post_thumbnail_id);
 
 <main class="main site-main donate-new">
     <div class="full-grid">
-        <div class="donate-new__hero-image">
-            <img src="<?php echo $src[0]; ?>" srcset="<?php echo $srcset; ?>" />
+        <div class="donate-new__hero-image donate-new__hero-image--main">
+            <img src="<?php echo $src[0]; ?>" srcset="<?php echo $srcset; ?>" alt=""/>
+        </div>
+        <div class="donate-new__hero-image donate-new__hero-image--hidden donate-new__hero-image--alt">
+            <img <?php acf_responsive_image(get_field( 'alternate_image' ),'full','100vw'); ?> alt="" />
         </div>
 
         <!-- giving widget -->
@@ -456,7 +459,7 @@ $sizes = wp_get_attachment_image_sizes($post_thumbnail_id);
 
         <?php } ?>
 
-        <div class="donate-new__picture-description picture-description">
+        <div style="display: none;" class="donate-new__picture-description picture-description">
             <div class="picture-description__svg">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -496,9 +499,7 @@ $sizes = wp_get_attachment_image_sizes($post_thumbnail_id);
             </div>
             <div class="picture-description__text">
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
+                    Photo shows the joyful moment that a family in Ethiopia were reunited as Hope for Justice brought their daughter home to them.
                 </p>
             </div>
             <div class="picture-description__close"></div>

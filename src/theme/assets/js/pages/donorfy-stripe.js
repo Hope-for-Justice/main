@@ -431,23 +431,34 @@ function makeid(length) {
 
 function Completed() {
     
+    let signup = 'false';
 
+    if (jQuery("#emailPreference").is(':checked')){
+        signup = 'true';
+    }
+
+    let host = window.location.hostname;
     let currency = jQuery('#currency').val();
+    let Name = jQuery('#FirstName').val();
     let type = jQuery('#type').val();
     let zapierUrl = jQuery('#zapierUrl').val();
     zapier(zapierUrl);
     var urlAmount = jQuery('#Amount').val();
     var urlId = makeid(8);
-    var redirectToPage = `https://hopeforjustice.org/donation-thank-you/?tid=${urlId}&amount=${urlAmount}&type=${type}&currency=${currency}`; 
+    var redirectToPage = `https://${host}/donate-thankyou/?tid=${urlId}&amount=${urlAmount}&type=${type}&currency=${currency}&Name=${Name}&signup=${signup}`; 
+    
     window.location = redirectToPage;
 }
 
 
 function zapier(url) {
     var data = {
+        id: makeid(8),
+        amount: jQuery('#Amount').val(),
         email : jQuery('#Email').val(),
         firstname : jQuery('#FirstName').val(),
-        lastname : jQuery('#LastName').val()
+        lastname : jQuery('#LastName').val(),
+        emailUpdates : jQuery("#emailPreference").is(':checked')
     };
     jQuery.ajax({
         type : 'POST',

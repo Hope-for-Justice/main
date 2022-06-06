@@ -1,0 +1,140 @@
+/*
+*
+* _DONATION-THANKYOU.SCSS
+*
+*/
+
+.donation-thankyou {
+	padding-bottom: 60px;
+	&__photo {
+		grid-column: full;
+		grid-row-start: 1;
+		overflow: hidden;
+		position: relative;
+		height: 325px;
+		img {
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			max-width: none;
+			width:150%;
+		}
+	}
+	&__title {
+		grid-column: main;
+		grid-row-start: 1;
+		color:white;
+		z-index: 1;
+		align-self: end;
+	}
+
+	&__text {
+		grid-column: main;
+		margin-top: 30px;
+		&--smaller p {
+			font-size: 14px;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			grid-column: main;
+		}
+	}
+
+	&__button {
+		grid-column: main;
+	}
+}
+
+// phablet
+//////////////////////////////////////////////////////////////////
+
+@include mq($from: phablet) { 
+
+.donation-thankyou {
+	padding-bottom:0;
+	.full-grid {
+		grid-template-rows: 50% 50%;
+	}
+	.thankyou__socials {
+		justify-content: space-between;
+		width:280px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	&__photo {
+		height: 91vh;
+		grid-row:span 2;
+		grid-row:1 /span 2;
+		img {
+			height: auto;
+			min-height: 100%;
+			min-width: 100vw;
+			width:auto;
+		}
+	}
+	&__title {
+		text-align: center;
+		font-size: 54px;
+		margin-top: 21vw;
+	}
+	&__text {
+		max-width: 450px;
+		justify-self:center;
+		grid-row-start:2;
+		z-index: 1;
+		color: white;
+		text-align: center;
+		margin-top: 0;
+		p{font-size: 18px;}
+		&--smaller {
+			grid-row-start:1;
+			z-index: 1;
+			color: white;
+			max-width: 350px;
+			margin: 0 auto;
+			p {font-size: 14px;}
+		}
+	}
+	&__button {
+		margin-top: 30px;
+	}
+}
+
+}
+
+// phablet
+//////////////////////////////////////////////////////////////////
+
+@include mq($from: desktop) { 
+
+.donation-thankyou {
+	&__photo {
+		img {
+			margin-top: -10vw;
+			height: auto;
+			min-height: calc(100% + 10vw);
+			min-width: 100vw;
+			width:auto;
+		}
+	}
+	&__title {
+		margin-top: 10vw;
+	}
+	&__text {
+		max-width: 500px;
+		p{font-size: 20px;}
+		&--smaller {
+			max-width: 420px;
+			p {font-size: 16px;}
+		}
+	}
+	&__button {
+	}
+}
+
+}
+
+
+
+
+

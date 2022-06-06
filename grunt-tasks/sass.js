@@ -1,7 +1,9 @@
 module.exports = function (distTheme, devTheme, scssDir) {
+  const sass = require('dart-sass');
   return {
     build: {
       options: {
+        implementation: sass,
         outputStyle: 'compressed',
         sourceMap: false
       },        

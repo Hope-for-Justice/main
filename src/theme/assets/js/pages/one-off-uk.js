@@ -72,18 +72,21 @@ $('#toStepTwo').click(function(){
                         console.log(output);
                         getPreferences(id);
                         $('#preferenceText').html('These are the preferences we hold for ');
-                        $('#emailText').show();  
+                        $('#emailText').show();
+                        $('#emailAppend').show();
 
                     } else {
                         resetPreferences();
-                        $('#preferenceText').html('Here about how your money is making a difference');
+                        $('#preferenceText').html('We would love for you to hear about the life-changing difference that your donation will make and more ways you can support this work. Can we contact you via:');
                         $('#emailText').hide();
+                        $('#emailAppend').hide();
                     }
 
                 },
                 error: function() {
-                    $('#preferenceText').html('Here about how your money is making a difference');
+                    $('#preferenceText').html('We would love for you to hear about the life-changing difference that your donation will make and more ways you can support this work. Can we contact you via:');
                     $('#emailText').hide();
+                    $('#emailAppend').hide();
                 }
             });
             $(window).scrollTop(0);

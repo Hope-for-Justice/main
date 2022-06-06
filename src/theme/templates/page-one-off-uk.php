@@ -118,13 +118,18 @@ endif;
                 <form id="formTwo">
                     <h2 class="font-canela">Address details:</h2> 
 
+                    <p class="donorfy-donate__larger donorfy-donate__larger--mb">
+                        We need this to process your payment. We will not send you anything in the post unless you choose to hear from us in this way.
+                    </p>
+
                     <div class="donorfy-donate__input">
                         <label class="donorfy-donate__hidden" for="Address1">Address</label>
                         <input type="text" name="Address1" class="required" id="Address1" maxlength="50" placeholder="Address 1">
                     </div>
                     
                     <div class="donorfy-donate__input">
-                        <input type="text" name="Address2" class="" id="Address2" maxlength="50" placeholder="Address 2">
+                        <label class="donorfy-donate__hidden" for="Address1">Address 2</label>
+                        <input type="text" name="Address2" class="" id="Address2" maxlength="50" placeholder="Address 2 (optional)">
                     </div>
 
                     <div class="donorfy-donate__flex">
@@ -410,6 +415,9 @@ endif;
                 <!-- form 3 -->
                 <form id="formThree">
                     <h2 class="font-canela">Gift Aid:</h2>
+
+                    <p class="donorfy-donate__larger donorfy-donate__larger--mb">Boost your donation by 25p for every £1 you donate, at no extra cost to you. Do you want to Gift Aid this donation?</p>
+
                     <div class="donorfy-donate__select">
                         <select id="GiftAidSelect" class="required">
                             <option value="">-- Select option --</option>
@@ -417,7 +425,7 @@ endif;
                             <option value="false">No thank you</option>
                         </select>
                     </div>
-                    <p class="donorfy-donate__larger"><b>Hope for Justice will claim 25p on every £1 I donate.</b></p>
+                    
                     <p class="donorfy-donate__small-text">
                         <br>
                         Please add Gift Aid to all donations I’ve made to Hope for Justice in the past four years and all donations in future until I notify Hope for Justice otherwise.
@@ -435,8 +443,8 @@ endif;
                 <!-- form 4 -->
                 <form id="formFour">
 
-                    <h2 class="font-canela">Keep in touch:</h2>
-                    <p class="donorfy-donate__larger donorfy-donate__preferences-preview-text"><span id="preferenceText">Here about how your money is making a difference</span> <span style="display: none" id="emailText"></span></p>
+                    <h2 class="font-canela">Hear about your impact:</h2>
+                    <p class="donorfy-donate__larger donorfy-donate__preferences-preview-text"><span id="preferenceText">We would love for you to hear about the life-changing difference that your donation will make and more ways you can support this work. Can we contact you via:</span> <span style="display: none; text-decoration: underline; font-weight: bold;" id="emailText">james.holt@hopeforjustice.org</span> <span id="emailAppend">for how we can contact you about the work of Hope for Justice and how your support is making a difference:</span></p>
 
                     <div class="donorfy-donate__preferences">
                         <div class="donorfy-donate__preference">
@@ -485,6 +493,11 @@ endif;
                     </div>
 
                     <p class="donorfy-donate__small-text">
+                        <span style="display: none;" id="emailNo">
+                            <br>
+                            By choosing ‘No’ to email, you will receive no further emails from Hope for Justice about the impact of your gift or the fight against modern slavery and human trafficking. We will still send you emails when necessary for administrative reasons, including a receipt confirming your donation.
+                            <br>
+                        </span>
                         <br>
                         Select 'Yes' if you wish Hope for Justice to contact you via that method for the following purposes: To keep you informed of our ongoing activities, news, campaigns and appeals; and to invite you to events we think might interest you. You can unsubscribe from receiving communications at any time, or change your preferences, at: <a>hopeforjustice.org/manage-your-preferences</a>
                         <br><br>
@@ -516,19 +529,31 @@ endif;
                     <div class="donorfy-donate__select">
                         <select name="inspiration_question" id="inspiration_question">
                             <option value="">What inspired you to give? (optional)</option>
-                            <option value="Faith">Faith Based</option>
-                            <option value="Social media">Social media</option>
-                            <option value="Staff Contact">I know a Hope for Justice staff member/ volunteer</option>
-                            <option value="Celebration">Gift of celebration</option>
-                            <option value="Cause">Passion to end modern slavery</option>
-                            <option value="Event">Event or talk</option>
-                            <option value="Other">Other</option>
+                            <option value="Inspiration_Faith">Faith based</option>
+                            <option value="Inspiration_SocialMedia">Social media</option>
+                            <option value="Inspiration_StaffContact">I know a Hope for Justice staff member/ volunteer</option>
+                            <option value="Inspiration_Celebration">Gift of celebration</option>
+                            <option value="Inspiration_Cause">Passion to end modern slavery</option>
+                            <option value="Inspiration_Event">Event or talk</option>
+                            <option value="Inspiration_Other">Other</option>
                         </select>
                     </div>
 
                     <div class="donorfy-donate__input donorfy-donate__comment">
                         <textarea rows="2" cols="40" class="" name="Comment" id="Comment" placeholder="Tell us more"></textarea>
                     </div>
+
+                    
+                    <h3 class="donorfy-donate__summary-title">Giving Summary</h3>
+                    <div class="donorfy-donate__summary-hr"><hr></div>
+                    <div class="donorfy-donate__summary-text">
+                        Donation total: <b>£<span id="donationTotalConfirm"><?php echo $_GET['Amount']?></span></b>
+                        <br>
+                        Giving frequency: <b><span id="givingFrequencyConfirm">One-time gift</span></b>
+                        <br>
+                        Gift Aid: <b><span id="giftAidConfirm">Yes</span></b>
+                    </div>
+
 
                     <div class="donorfy-donate__hidden">
                         <input id="emailPreference" type="checkbox" value="2" class="KeepInTouch">

@@ -13,6 +13,9 @@
 			top:-10%;
 			max-width: none;
 		}
+		&--hidden {
+			display: none;
+		}
 	}
 	&__giving-widget {
 		grid-column:full;

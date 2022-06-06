@@ -29,11 +29,19 @@
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
 	<!-- Google Tag Manager -->
-	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	<script>
+	let host = window.location.hostname;
+
+	if(host != "hfj.local"){
+
+	(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-	})(window,document,'script','dataLayer','GTM-T7PSM4L');</script>
+	})(window,document,'script','dataLayer','GTM-T7PSM4L');
+
+	}
+	</script>
 	<!-- End Google Tag Manager -->
 
 	<link rel="preload" href="/wp-content/themes/hope-for-justice-2020/assets/fonts/canela-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">

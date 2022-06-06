@@ -72,15 +72,23 @@ jQuery(document).ready(function ($) {
 			"giving-widget__freq-option--active"
 		);
 
+
+
 		$(this).addClass("giving-widget__freq-option--active");
 		freq = $(this).data("freq");
 		if (freq == "monthly") {
+			$(".picture-description").hide();
+			$(".donate-new__hero-image--main").show();
+			$(".donate-new__hero-image--alt").hide();
 			$(".giving-widget__button-freq").show();
 			$(".giving-widget__button-freq").text(freq);
 			$(".giving-widget__text-freq").show();
 		} else {
+			$(".donate-new__hero-image--alt").show();
+			$(".donate-new__hero-image--main").hide();
 			$(".giving-widget__button-freq").hide();
 			$(".giving-widget__text-freq").hide();
+			$(".picture-description").show();
 		}
 
 		if (freq == "monthly") {
@@ -203,18 +211,18 @@ jQuery(document).ready(function ($) {
 
 		if(currency=='GBP') {
 			if(freq=='monthly') {
-				url += '/regular-uk/'
+				url += '/donate-GBP-regular/'
 			} else {
-				url += '/one-off-uk/'
+				url += '/donate-GBP-once/'
 			}
 		} else if (currency=='USD') {
 			if(freq=='monthly'){
-				url += '/regular-usa/'
+				url += '/donate-USD-regular/'
 			} else {
-				url += '/one-off-usa/'
+				url += '/donate-USD-once/'
 			}
 		} else if (currency=='NOK') {
-			url += '/one-off-norge/'
+			url += '/donate-NOK-once/'
 		}
 
 		window.location.href = url + `?Amount=${urlAmount}`;
