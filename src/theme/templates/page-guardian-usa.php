@@ -493,7 +493,7 @@ endif;
                     <div class="donorfy-donate__summary-text">
                         Donation total: <b>$<span id="donationTotalConfirm"><?php echo $_GET['Amount']?></span></b>
                         <br>
-                        Giving frequency: <b><span id="givingFrequencyConfirm">One-time gift</span></b>
+                        Giving frequency: <b><span id="givingFrequencyConfirm">Monthly gift</span></b>
                     </div>
 
 

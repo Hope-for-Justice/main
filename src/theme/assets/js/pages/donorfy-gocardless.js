@@ -111,7 +111,7 @@ function load() {
 
 function ValidateForm() {
 
-    jQuery('#DirectDebitForm').validate({
+    jQuery('#formFour').validate({
 
         groups: {
             sortcodeGroup: 'SortCode1 SortCode2 SortCode3'
@@ -146,7 +146,7 @@ function ValidateForm() {
     }).settings.ignore = ':disabled,:hidden';
 
 
-    return jQuery('#DirectDebitForm').valid();
+    return jQuery('#formFour').valid();
 }
 
 

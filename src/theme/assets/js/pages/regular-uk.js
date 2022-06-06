@@ -124,7 +124,7 @@ $('#toStepThree').click(function(){
     setTimeout(
     function() {
         if ($('#formTwo').valid()) {
-            $('#DirectDebitForm').show();
+            $('#formThree').show();
             $('#formTwo').hide();
             $(window).scrollTop(0);
         }
@@ -136,8 +136,30 @@ $('#backToStepTwo').click(function(){
     setTimeout(
     function() {
         $('#formTwo').show();
-        $('#DirectDebitForm').hide();
+        $('#formThree').hide();
         $('#backToStepTwo').html("Previous");
+        $(window).scrollTop(0);
+    },400);
+});
+
+$('#toStepFour').click(function(){
+    setTimeout(
+    function() {
+        if ($('#formThree').valid()) {
+            $('#formFour').show();
+            $('#formThree').hide();
+            $(window).scrollTop(0);
+        }
+        $('#toStepFour').html("Next");
+    },400);
+});
+
+$('#backToStepThree').click(function(){
+    setTimeout(
+    function() {
+        $('#formThree').show();
+        $('#formFour').hide();
+        $('#backToStepThree').html("Previous");
         $(window).scrollTop(0);
     },400);
 });
