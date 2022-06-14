@@ -12,7 +12,7 @@ function changeAmount() {
 
     let original = $('#NorwayAmount').val();
     let transformed = original.replace(",", ".");
-    $("#Amount").val(transformed);
+    $("#Amount").val(parseFloat(transformed).toFixed(2));
 
 }
 changeAmount();

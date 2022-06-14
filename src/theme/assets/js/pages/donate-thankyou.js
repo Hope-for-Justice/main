@@ -16,13 +16,25 @@ $.urlParam = function(name){
     return decodeURI(results[1]) || 0;
 }
 
-//replace characters and parse float for amount
-let amount = parseFloat(decodeURIComponent($.urlParam('amount')).replace(/[^0-9.]/g, '')); 
-
+let guardianAmount = Cookies.get('wordpress_guardian_amount');
+let guardianTid = Cookies.get('wordpress_guardian_tid');
+let amount = $.urlParam('amount');
 let currency = $.urlParam('currency');
 let Name = $.urlParam('Name');
 let type = decodeURIComponent($.urlParam('type')).replace("+", " ");
 let id = $.urlParam('tid');
+
+if (currency == 'NOK') {
+  amount = amount.replace(",",".");
+}
+
+if (! guardianAmount) {
+  //replace characters and parse float for amount
+  amount = parseFloat(decodeURIComponent(amount.replace(/[^0-9.]/g, ''))).toFixed(2); 
+} else {
+  //replace characters and parse float for amount
+  guardianAmount = parseFloat(decodeURIComponent(guardianAmount.replace(/[^0-9.]/g, ''))).toFixed(2); 
+}
 
 
 $("#signUpButton").click(function(){
@@ -56,10 +68,6 @@ console.log(id);
 
 dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
 
-
-let guardianAmount = Cookies.get('wordpress_guardian_amount');
-let guardianTid = Cookies.get('wordpress_guardian_tid');
-
 //if amount exists in url do the normal data layer stuff
 
 if (amount){
@@ -81,11 +89,11 @@ if (amount){
   });
 
 
-//if guardian cookie exists and no amount in url do the uk guardian data later stuff
+//if guardian cookie exists and no amount in url do the uk guardian data layer stuff
 
 
 } else if (guardianAmount) {
-
+  console.log("guardian signup", guardianAmount, guardianTid);
     dataLayer.push({
     event: "purchase",
     ecommerce: {

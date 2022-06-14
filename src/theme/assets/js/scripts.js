@@ -117,12 +117,14 @@ jQuery(document).ready(function($) {
         if (isOpen == false) {
             $(this).find('.burger').toggleClass('open');
             $('#menu').toggleClass('menu--open');
+            $('#site-header').toggleClass('header--open');
             $(".menu__inner").css("opacity", "1");  
             isOpen = true;
         } else {
             $(this).find('.burger').toggleClass('open');
             $(".menu__inner").css("opacity", "0");
             $('#menu').toggleClass('menu--open');
+            $('#site-header').toggleClass('header--open');
             isOpen = false;
         }
     });
@@ -249,39 +251,39 @@ jQuery(document).on('gform_post_render', function(event, form_id, current_page){
         jQuery(this).val("");
     });
 
-    //postcode anywhere with regex matching
-    var e = {
-        key: "DN97-JG93-ZJ46-EW48" //PCA API key
-    },
-    d = [{
-        element: "search", // use the field named 'search' to search
-        field: "",
-        mode: pca.fieldMode.SEARCH
-    }, {
-        element: "^input_[0-9]{1,}_[0-9]{1,}_1$",
-        field: "Line1",
-        mode: pca.fieldMode.POPULATE
-    }, {
-        element: "^input_[0-9]{1,}_[0-9]{1,}_2$",
-        field: "Line2",
-        mode: pca.fieldMode.POPULATE
-    }, {
-        element: "^input_[0-9]{1,}_[0-9]{1,}_3$",
-        field: "City",
-        mode: pca.fieldMode.POPULATE
-    }, {
-        element: "^input_[0-9]{1,}_[0-9]{1,}_4$",
-        field: "Province",
-        mode: pca.fieldMode.POPULATE
-    }, {
-        element: "^input_[0-9]{1,}_[0-9]{1,}_5$",
-        field: "PostalCode",
-        mode: pca.fieldMode.POPULATE
-    }],
-    o = new pca.Address(d, e);
-    o.listen("populate", function() {
-        jQuery(".address-search input").val(jQuery(".address_line_1 input").val() + "...");
-    }), o.load()
+    // //postcode anywhere with regex matching
+    // var e = {
+    //     key: "DN97-JG93-ZJ46-EW48" //PCA API key
+    // },
+    // d = [{
+    //     element: "search", // use the field named 'search' to search
+    //     field: "",
+    //     mode: pca.fieldMode.SEARCH
+    // }, {
+    //     element: "^input_[0-9]{1,}_[0-9]{1,}_1$",
+    //     field: "Line1",
+    //     mode: pca.fieldMode.POPULATE
+    // }, {
+    //     element: "^input_[0-9]{1,}_[0-9]{1,}_2$",
+    //     field: "Line2",
+    //     mode: pca.fieldMode.POPULATE
+    // }, {
+    //     element: "^input_[0-9]{1,}_[0-9]{1,}_3$",
+    //     field: "City",
+    //     mode: pca.fieldMode.POPULATE
+    // }, {
+    //     element: "^input_[0-9]{1,}_[0-9]{1,}_4$",
+    //     field: "Province",
+    //     mode: pca.fieldMode.POPULATE
+    // }, {
+    //     element: "^input_[0-9]{1,}_[0-9]{1,}_5$",
+    //     field: "PostalCode",
+    //     mode: pca.fieldMode.POPULATE
+    // }],
+    // o = new pca.Address(d, e);
+    // o.listen("populate", function() {
+    //     jQuery(".address-search input").val(jQuery(".address_line_1 input").val() + "...");
+    // }), o.load()
 
 });
 

@@ -17,11 +17,11 @@
 //lib
 @import "lib/_mq.scss";
 @import "lib/_newsticker.scss";
-@import "lib/_pca.scss";
+//@import "lib/_pca.scss";
 @import "lib/_bootstrap-modal.scss";
 @import "lib/_animate.scss";
 @import "lib/_flexslider.scss";
-@import "lib/FA/_all.scss";
+//@import "lib/FA/_all.scss";
 
 // typography
 @import "base/_type.scss";
@@ -111,7 +111,7 @@
 @import "pages/_donorfy-donate.scss";
 @import "pages/_donate-new.scss";
 @import "pages/_donation-thankyou.scss";
-
+@import "pages/_men-are-victims.scss";
 
 //country specifics
 @import "other/_country-specifics.scss";

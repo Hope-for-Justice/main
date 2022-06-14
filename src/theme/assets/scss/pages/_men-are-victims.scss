@@ -1,0 +1,173 @@
+/*
+*
+* _MEN-ARE-VICTIMS.SCSS
+*
+*/
+
+.men-are-victims {
+
+	padding-bottom: 100vh;
+	overflow-x: hidden;
+
+	&__text {
+		grid-column: main;
+		color:white;
+	}
+
+	&.loading {
+		div {opacity: 0;}
+	}
+	&__pictures {
+		height:90vh;
+		overflow: hidden;
+		grid-column: full;
+		grid-row-start: 1;
+		position:relative;
+		display: flex;
+		justify-content: center;
+		align-items:center;
+	}
+
+	&__picture {
+		background-position: center;
+		background-size:cover;
+		min-width:110%;
+		min-height:110%;
+	}
+	&__logo {
+		opacity: 0;
+		transform: translateY(100px);
+		grid-row-start: 1;
+		grid-column: main;
+		align-self: center;
+		justify-self: center;
+		max-width: 350px;
+		svg {
+			width:100%;
+		}
+	}
+	&__divider {
+		z-index: 1;
+		grid-column: full;
+		background-color: #000;
+		svg {
+			path {fill: #000;}
+			width:110%; 
+			margin-left: -5%;
+			margin-top: -50px;
+		}
+		&--red {
+			grid-column:full;
+			padding: 0 20px;
+			position: relative;
+			margin-top: 30px;
+			margin-bottom: 30px;
+			svg {
+				width:100%;
+				path {fill: $red;}
+				height:80px;
+			}
+			p {
+				position: absolute;
+				top:50%;
+				left:0;
+				padding: 0 50px;
+				transform: translateY(-50%);
+				color: white;
+				text-align: center;
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+			}
+		}
+		&--bottom {
+			svg {
+				path {fill: #000;}
+				width:110%; 
+				margin-left: -5%;
+				margin-top: 50px;
+				margin-bottom: -20px;
+			}
+		}
+	}
+
+	&__title {
+		grid-column:main;
+		font-size: 52px;
+		max-width: 700px;
+		line-height: 1;
+		color: white;
+		margin-bottom: 30px;
+		&--black {
+			color:black;
+		}
+	}
+
+	&__video {
+		grid-column:main;
+		border-radius: 10px;
+		padding-top:56.25%;
+		background-color:white;
+		opacity: 1;
+		margin-bottom: 30px;
+		background-size: cover;
+	}
+
+	&__video-text {
+		z-index: 1;
+		grid-column: main;
+		max-width: 700px;
+		margin: 0 auto;
+		color:white;
+		text-align: left;
+	}
+
+	&__cta {
+		z-index: 2;
+		grid-column:main;
+		margin-top: 30px;
+		&-donate, &-download {
+			width:100%;
+			padding: 20px 16px;
+			outline: 2px solid #707070;
+			border-radius: 77px;
+			color: white;
+			font-size: 16px;
+			display: block;
+			text-align: center;
+			margin-bottom: 10px;
+		}
+
+		&-form {
+			label {display: none;}
+			input[type="email"] {
+				//important use for overiding gravity forms
+				border-radius: 77px !important;
+				outline: 2px solid #707070 !important;
+				border:none !important;
+				width:100%;
+				color:white;
+				background-color: transparent;
+				margin-bottom: 20px;
+				padding-left:30px !important;
+			}
+		}
+
+	}
+
+	&__white {
+		background-color: #fff;
+		grid-column: full;
+		padding-top: 60px;
+	}
+
+	&__accordian {
+		grid-column:main;
+		&-item {
+			display: flex;
+			align-items: center;
+			margin-bottom: 20px;
+			svg {margin-right: 10px;}
+		}
+	}
+
+}

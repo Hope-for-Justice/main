@@ -19,16 +19,6 @@ jQuery(document).ready(function($) {
         };
         getInvolved = bodymovin.loadAnimation(animData);
 
-
-        // //waypoint
-        // var waypoint = new Waypoint({
-        // element: document.getElementById('getInvolved'),
-        //   handler: function(direction) {
-        //     getInvolved.play();
-        //   },
-        //   offset: '50%'
-        // }); 
-
     }
 
     //pillars

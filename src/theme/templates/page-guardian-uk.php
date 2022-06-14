@@ -63,18 +63,6 @@ endif;
                             value="<?php echo $_GET['Amount']?>" 
                         <?php } ?>>   
                     </div>
-
-                    <label class="donorfy-donate__hidden" for="paymentDay">Payment day:</label>
-                    <div class="donorfy-donate__select">
-                        <select type="text" class="required" name="paymentDay" id="paymentDay">
-                            <option value="">-- Select payment day --</option>
-                            <option value="1">1</option>
-                            <option value="15">15</option>
-                            <option value="25">25</option>
-                            <option value="30">30</option>        
-                        </select>
-                    </div>
-                    
                                 
                     <label class="donorfy-donate__hidden" for="Title">Title</label>
 
@@ -117,6 +105,19 @@ endif;
                         <input type="text" name="Phone" class="required numberOnly" id="Phone" maxlength="50" placeholder="Phone">
                     </div>
 
+                    <label for="paymentDay">On what date each month would you like your payment to be taken?</label>
+                    <div class="donorfy-donate__select">
+                        <select type="text" class="required" name="paymentDay" id="paymentDay">
+                            <option value="">-- Select date --</option>
+                            <option value="1">1st</option>
+                            <option value="15">15th</option>
+                            <option value="25">25th</option>
+                            <option value="30">30th</option>        
+                        </select>
+                    </div>
+
+                    <p style="margin-bottom: 20px;">Please note: The exact date that your gift will be taken by Direct Debit can depend on your bank and other factors, including weekends and bank holidays.</p>
+
                     <div id="toStepTwo" class="button button--spinner">Next</div>
                 </form>
                     
@@ -124,7 +125,7 @@ endif;
                     <h2 class="font-canela">Address details:</h2>
 
                     <p class="donorfy-donate__larger donorfy-donate__larger--mb">
-                        We need this to process your payment. We will not send you anything in the post unless you choose to hear from us in this way.
+                        We need this to set up your monthly Direct Debit gift. We will not send you anything in the post unless you choose to hear from us in this way.
                     </p>
                     
                     <div class="donorfy-donate__input">
@@ -168,7 +169,7 @@ endif;
                 <form id="formThree">
                     <h2 class="font-canela">Gift Aid:</h2>
 
-                    <p class="donorfy-donate__larger donorfy-donate__larger--mb">Boost your donation by 25p for every £1 you donate, at no extra cost to you. Do you want to Gift Aid this donation?</p>
+                    <p class="donorfy-donate__larger donorfy-donate__larger--mb">Boost your monthly gifts by 25p for every £1 you donate, at no extra cost to you. Do you want to Gift Aid your monthly donation?</p>
 
                     <div class="donorfy-donate__select">
                         <select id="GiftAidSelect" class="required">
@@ -246,7 +247,7 @@ endif;
                     <p class="donorfy-donate__small-text">
                         <span style="display: none;" id="emailNo">
                             <br>
-                            By choosing ‘No’ to email, you will receive no further emails from Hope for Justice about the impact of your gift or the fight against modern slavery and human trafficking. We will still send you emails when necessary for administrative reasons, including a receipt confirming your donation.
+                            By choosing ‘No’ to email, you will receive no further emails from Hope for Justice about the impact of your giving or the fight against modern slavery and human trafficking. We will still send you emails when necessary for administrative reasons, including a receipt confirming your Direct Debit details.
                             <br>
                         </span>
                         <br>
@@ -303,7 +304,7 @@ endif;
 
                     <div class="donorfy-donate__buttons">
                         <div id="backToStepThree" class="button button--white button--spinner">Previous</div>
-                        <div id="submitButton" class="button button--spinner">Setup Direct Debit</div>
+                        <div id="submitButton" class="button button--spinner">Set up Direct Debit</div>
                     </div>
                          
                     <!-- Hidden fields for tags --->

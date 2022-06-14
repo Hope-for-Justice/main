@@ -1,5 +1,11 @@
 jQuery(document).ready(function($) {
 
+$('#Country').on('change', function() {
+  if( this.value != 'United States') {
+    $('#County').removeClass('required').parent().hide();
+  }
+});
+
 $('#formOne').validate({
     // rules
     rules: {

@@ -99,8 +99,9 @@ endif;
                         <label class="donorfy-donate__hidden" for="Phone">Phone</label>
                         <input type="text" name="Phone" class="" id="Phone" maxlength="50" placeholder="Phone"> 
                     </div>
-
-                    <div id="toStepTwo" class="button button--red button--spinner">Next</div>
+                    <div class="donorfy-donate__buttons">
+                        <div id="toStepTwo" class="button button--red button--spinner">Next</div>
+                    </div>
                 </form>
                 <!-- /form 1 -->
 
@@ -128,67 +129,6 @@ endif;
                             <label class="donorfy-donate__hidden" for="Postcode">Zip</label>
                             <input type="text" name="Postcode" class="required justCapsPostcode" id="Postcode" maxlength="10" placeholder="Zip">
                         </div>
-                    </div>
-
-                    <label class="donorfy-donate__hidden" for="County">State</label>
-                    <div class="donorfy-donate__select">
-                        <select name="County" class="required" id="County">
-                            <option value="" disabled="" selected="">State</option>
-                            <option>Alabama</option>
-                            <option>Alaska</option>
-                            <option>Arizona</option>
-                            <option>Arkansas</option>
-                            <option>California</option>
-                            <option>Colorado</option>
-                            <option>Connecticut</option>
-                            <option>Delaware</option>
-                            <option>District of Columbia</option>
-                            <option>Florida</option>
-                            <option>Georgia</option>
-                            <option>Hawaii</option>
-                            <option>Idaho</option>
-                            <option>Illinois</option>
-                            <option>Indiana</option>
-                            <option>Iowa</option>
-                            <option>Kansas</option>
-                            <option>Kentucky</option>
-                            <option>Louisiana</option>
-                            <option>Maine</option>
-                            <option>Maryland</option>
-                            <option>Massachusetts</option>
-                            <option>Michigan</option>
-                            <option>Minnesota</option>
-                            <option>Mississippi</option>
-                            <option>Missouri</option>
-                            <option>Montana</option>
-                            <option>Nebraska</option>
-                            <option>Nevada</option>
-                            <option>New Hampshire</option>
-                            <option>New Jersey</option>
-                            <option>New Mexico</option>
-                            <option>New York</option>
-                            <option>North Carolina</option>
-                            <option>North Dakota</option>
-                            <option>Ohio</option>
-                            <option>Oklahoma</option>
-                            <option>Oregon</option>
-                            <option>Pennsylvania</option>
-                            <option>Rhode Island</option>
-                            <option>South Carolina</option>
-                            <option>South Dakota</option>
-                            <option>Tennessee</option>
-                            <option>Texas</option>
-                            <option>Utah</option>
-                            <option>Vermont</option>
-                            <option>Virginia</option>
-                            <option>Washington</option>
-                            <option>West Virginia</option>
-                            <option>Wisconsin</option>
-                            <option>Wyoming</option>
-                            <option>Armed Forces Americas</option>
-                            <option>Armed Forces Europe</option>
-                            <option>Armed Forces Pacific</option>
-                        </select>
                     </div>
 
                     <div class="donorfy-donate__select">
@@ -447,6 +387,68 @@ endif;
                         </select>
                     </div>
 
+
+                    <label class="donorfy-donate__hidden" for="County">State</label>
+                    <div class="donorfy-donate__select">
+                        <select name="County" class="required" id="County">
+                            <option value="" disabled="" selected="">-- State select --</option>
+                            <option>Alabama</option>
+                            <option>Alaska</option>
+                            <option>Arizona</option>
+                            <option>Arkansas</option>
+                            <option>California</option>
+                            <option>Colorado</option>
+                            <option>Connecticut</option>
+                            <option>Delaware</option>
+                            <option>District of Columbia</option>
+                            <option>Florida</option>
+                            <option>Georgia</option>
+                            <option>Hawaii</option>
+                            <option>Idaho</option>
+                            <option>Illinois</option>
+                            <option>Indiana</option>
+                            <option>Iowa</option>
+                            <option>Kansas</option>
+                            <option>Kentucky</option>
+                            <option>Louisiana</option>
+                            <option>Maine</option>
+                            <option>Maryland</option>
+                            <option>Massachusetts</option>
+                            <option>Michigan</option>
+                            <option>Minnesota</option>
+                            <option>Mississippi</option>
+                            <option>Missouri</option>
+                            <option>Montana</option>
+                            <option>Nebraska</option>
+                            <option>Nevada</option>
+                            <option>New Hampshire</option>
+                            <option>New Jersey</option>
+                            <option>New Mexico</option>
+                            <option>New York</option>
+                            <option>North Carolina</option>
+                            <option>North Dakota</option>
+                            <option>Ohio</option>
+                            <option>Oklahoma</option>
+                            <option>Oregon</option>
+                            <option>Pennsylvania</option>
+                            <option>Rhode Island</option>
+                            <option>South Carolina</option>
+                            <option>South Dakota</option>
+                            <option>Tennessee</option>
+                            <option>Texas</option>
+                            <option>Utah</option>
+                            <option>Vermont</option>
+                            <option>Virginia</option>
+                            <option>Washington</option>
+                            <option>West Virginia</option>
+                            <option>Wisconsin</option>
+                            <option>Wyoming</option>
+                            <option>Armed Forces Americas</option>
+                            <option>Armed Forces Europe</option>
+                            <option>Armed Forces Pacific</option>
+                        </select>
+                    </div>
+
                     <div class="donorfy-donate__buttons">
                         <div id="backToStepOne" class="button button--white button--spinner">Previous</div>
                         <div id="toStepThree" class="button button--spinner">Next</div>
@@ -473,12 +475,12 @@ endif;
                     <div class="donorfy-donate__select">
                         <select name="inspiration_question" id="inspiration_question">
                             <option value="">-- Select option (optional) --</option>
-                            <option value="Inspiration_Faith">Faith Based</option>
+                            <option value="Inspiration_Faith">Faith based</option>
                             <option value="Inspiration_SocialMedia">Social media</option>
-                            <option value="Inspiration_StaffContact">I know a Hope for Justice staff member/ volunteer</option>
+                            <option value="Inspiration_StaffContact">I know a Hope for Justice team member/ volunteer</option>
                             <option value="Inspiration_NatalieGrant">Natalie Grant</option>
                             <option value="Inspiration_Celebration">Gift of celebration</option>
-                            <option value="Inspiration_Cause">Passion to end modern slavery</option>
+                            <option value="Inspiration_Cause">Passion to end human trafficking</option>
                             <option value="Inspiration_Event">Event or talk</option>
                             <option value="Inspiration_Other">Other</option>
                         </select>

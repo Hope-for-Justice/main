@@ -210,7 +210,14 @@ jQuery(document).ready(function ($) {
 		console.log(amount, freq, currency);
 
 		let url = window.location.origin;
-		let urlAmount = parseFloat(amount).toFixed(2);
+		let urlAmount;
+
+		if (currency == 'NOK') {
+			amount = amount.toString().replace(",", ".");
+			urlAmount = parseFloat(amount).toFixed(2);
+		} else {
+			urlAmount = parseFloat(amount).toFixed(2);
+		}
 
 		if(currency=='GBP') {
 			if(freq=='monthly') {
@@ -226,9 +233,9 @@ jQuery(document).ready(function ($) {
 			}
 		} else if (currency=='NOK') {
 			url += '/donate-NOK-once/'
-			urlAmount = amount;
+			urlAmount = urlAmount.replace(".", ",");
 		}
-
+		
 		window.location.href = url + `?Amount=${urlAmount}`;
 	});
 

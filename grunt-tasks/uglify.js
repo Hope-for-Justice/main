@@ -12,7 +12,7 @@ module.exports = function (distTheme, devTheme, jsDir) {
 		devTheme + jsDir + 'plugins/gsap.js',
 		devTheme + jsDir + 'plugins/draggable.js',
 		devTheme + jsDir + 'plugins/headroom.js',
-		devTheme + jsDir + 'plugins/pca.js',
+		//devTheme + jsDir + 'plugins/pca.js',
 		devTheme + jsDir + 'plugins/flexslider.js',
 		devTheme + jsDir + 'plugins/fitvids.js',
 		//devTheme + jsDir + 'plugins/bootstrap-flags.js',
@@ -32,6 +32,14 @@ module.exports = function (distTheme, devTheme, jsDir) {
 	uglifyFilesObject[distTheme + jsDir + 'pages/donate.js'] = [
 
 		devTheme + jsDir + 'pages/donate.js',
+
+
+	];
+
+	uglifyFilesObject[distTheme + jsDir + 'pages/men-are-victims.js'] = [
+
+		devTheme + jsDir + 'plugins/scrolltrigger.js',
+		devTheme + jsDir + 'pages/men-are-victims.js',
 
 
 	];
