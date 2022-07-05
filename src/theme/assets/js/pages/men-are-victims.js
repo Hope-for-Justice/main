@@ -61,7 +61,7 @@ jQuery(document).ready(function($) {
 
 	$('input[type="submit"]').val("Join the fight");
 
-	const logo = $(".men-are-victims__logo");
+	const logo = $("#mavLogo");
 	const pictures = $(".men-are-victims__picture");
 	const width = window.innerWidth;
 
@@ -102,6 +102,16 @@ jQuery(document).ready(function($) {
 		}); 
 	});
 
+	gsap.to(".men-are-victims__bottom-img", 1, {
+	  	scrollTrigger: {
+   			trigger: ".men-are-victims__bottom-img",
+    		//scrub: true,
+  		}, 
+		y: 0,
+		marginBottom:-100,
+		autoAlpha: 1,
+	}); 
+
 	
 	gsap.to(gsapStagger, 1, {
 	  	scrollTrigger: {
@@ -113,6 +123,22 @@ jQuery(document).ready(function($) {
 		stagger: 0.3
 	}); 
 
+	$(".men-are-victims__accordian-item").click( function(){
+		$(this).children("svg").toggleClass("men-are-victims__accordian-svg--active");
+		$(this).next().toggleClass("men-are-victims__accordian-text--active");
+	});
+
+	$("#resources").click(function(){
+		dataLayer.push({event: "men_are_victims_download_click"});
+	});
+
+	$('input[type="submit"]').click(function(){
+		dataLayer.push({event: "men_are_victims_signup_click"});
+	});
+
+	$("#donateButton").click(function(){
+		dataLayer.push({event: "men_are_victims_donate_click"});
+	});
 
 });
 

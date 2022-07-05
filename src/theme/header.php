@@ -153,7 +153,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				</svg>
 			</a>
 			<div class="header__navigation">
-				<a class="button button--red button--nav bold" href="/donate">DONATE</a>
+				<a class="button button--red button--nav bold" 
+				href="<?php if ($args['donate-link']) { 
+					echo $args['donate-link']; 
+				} else {
+					echo "/donate";
+				}?>">DONATE</a>
 				<div id="burger-menu" class="header__burger">
 					<div class="burger">
 					  <span></span>

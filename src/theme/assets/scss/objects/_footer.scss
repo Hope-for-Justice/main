@@ -71,7 +71,10 @@
 		grid-column:col2/col12;
 		opacity: 0.5;
 		margin-bottom: 3em;
-		img{margin-bottom: 2em;}
+		img{
+			margin-bottom: 2em;
+			object-fit: contain;
+		}
 		.fr-reg {
 			width:190px;
 		}

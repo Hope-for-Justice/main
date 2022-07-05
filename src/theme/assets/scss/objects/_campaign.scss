@@ -38,6 +38,11 @@
 	.header .burger span{
 		background-color:white;
 	}
+	.header--open {
+		.burger span {
+			background-color: $black;
+		}
+	}
 }
 
 }

@@ -7,47 +7,15 @@
 
 get_header('', array( 'page_class' => 'site--full campaign-page') ); ?>
 
-<main style="background-color: #000;" id="main" class="site-main men-are-victims loading" role="main">
+<main style="background-color: #212322;" id="main" class="site-main men-are-victims loading" role="main">
 
 	<div class="full-grid">
 		<h1 style="display: none;">Men are victims</h1>
 		<div class="men-are-victims__pictures">
 			<div class="men-are-victims__picture"></div>
 		</div>
-		<div class="men-are-victims__logo">
-			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="512.254" height="617.15" viewBox="0 0 512.254 617.15">
-			  <defs>
-			    <clipPath id="clip-path">
-			      <rect id="Rectangle_2365" data-name="Rectangle 2365" width="512.254" height="617.15" fill="none"/>
-			    </clipPath>
-			  </defs>
-			  <g id="Group_7304" data-name="Group 7304" transform="translate(0 0)">
-			    <path id="Path_17053" data-name="Path 17053" d="M183.546,0,169.832,90.724h-2.109L154.008,0H119.195V168.79h27.429l-2.109-78.066h2.109l11.6,78.066h21.1l11.6-78.066h2.109l-2.109,78.066H218.36V0Z" transform="translate(14.194 0)" fill="#f1f0f1"/>
-			    <path id="Path_17054" data-name="Path 17054" d="M215.348,0V168.79h56.967V141.362H247V97.055H269.15V69.626H247v-42.2h25.318V0Z" transform="translate(25.643 0)" fill="#f1f0f1"/>
-			    <path id="Path_17055" data-name="Path 17055" d="M316.594,0l3.165,84.4h-2.109L299.714,0H272.286V168.79h29.538l-3.164-84.4h2.109l17.933,84.4h27.429V0Z" transform="translate(32.424 0)" fill="#f1f0f1"/>
-			    <path id="Path_17056" data-name="Path 17056" d="M102.289,163.015,118.113,329.7v2.111H88.575l-3.588-40.088H73.172l-3.587,40.088H40.047V329.7l15.824-166.68ZM84.777,264.289l-4.642-58.022H78.025l-4.642,58.022Z" transform="translate(4.769 19.412)" fill="#f1f0f1"/>
-			    <g id="Group_7245" data-name="Group 7245" transform="translate(0 0)">
-			      <g id="Group_7244" data-name="Group 7244" clip-path="url(#clip-path)">
-			        <path id="Path_17057" data-name="Path 17057" d="M145.745,163.015c26.585,0,46.84,18.568,46.84,51.27,0,21.1-6.331,32.914-17.934,44.309l15.824,71.1v2.111H159.881l-12.027-64.141H144.69l1.477,64.141H114.518V163.015Zm.422,82.286h1.055c7.385,0,13.714-5.7,13.714-16.879V205.213c0-11.183-6.329-16.879-13.714-16.879h-1.055Z" transform="translate(13.637 19.412)" fill="#f1f0f1"/>
-			        <path id="Path_17058" data-name="Path 17058" d="M246.524,163.015v27.429H221.2v42.2h22.154v27.429H221.2v44.307h25.319v27.429H189.557V163.015Z" transform="translate(22.572 19.412)" fill="#f1f0f1"/>
-			        <path id="Path_17059" data-name="Path 17059" d="M273.923,163.015l17.934,84.4h2.11l-3.165-84.4h29.539V331.806H292.913l-17.934-84.4h-2.109l3.165,84.4H246.494V163.015Z" transform="translate(29.352 19.412)" fill="#f1f0f1"/>
-			        <path id="Path_17060" data-name="Path 17060" d="M321.911,196.773V163.015h24.264v32.7l-11.6,32.7h-8.44v-2.109l5.274-29.539Z" transform="translate(38.333 19.412)" fill="#f1f0f1"/>
-			        <path id="Path_17061" data-name="Path 17061" d="M424.6,163.015v27.429H403.5V331.806H371.856V190.444h-21.1V163.015Z" transform="translate(41.768 19.412)" fill="#f1f0f1"/>
-			        <path id="Path_17062" data-name="Path 17062" d="M1.262,328.137v-2.111H32.909L39.24,415.7h2.109l6.33-89.671H79.328v2.111L62.448,494.817H18.141Z" transform="translate(0.15 38.823)" fill="#f1f0f1"/>
-			        <rect id="Rectangle_2361" data-name="Rectangle 2361" width="31.649" height="168.791" transform="translate(84.751 364.85)" fill="#f1f0f1"/>
-			        <path id="Path_17063" data-name="Path 17063" d="M153.886,324.141c25.318,0,38.821,20.044,38.821,51.693a51.661,51.661,0,0,0,1.055,11.6v2.109H162.115a34.541,34.541,0,0,1-1.055-9.494V359.166c0-5.908-2.533-9.706-7.6-9.706s-8.229,3.8-8.229,10.76v99.8c0,6.963,3.165,10.76,8.229,10.76s7.6-3.8,7.6-9.706V440.185a34.542,34.542,0,0,1,1.055-9.494h31.648V432.8c-1.055,3.8-1.055,7.806-1.055,12.658,0,31.649-13.5,51.694-38.821,51.694-27.429,0-43.464-22.154-43.464-80.177V404.317c0-58.022,16.035-80.176,43.464-80.176" transform="translate(13.149 38.598)" fill="#f1f0f1"/>
-			        <path id="Path_17064" data-name="Path 17064" d="M259.269,326.027v27.429h-21.1V494.818H206.523V353.456h-21.1V326.027Z" transform="translate(22.08 38.823)" fill="#f1f0f1"/>
-			        <rect id="Rectangle_2362" data-name="Rectangle 2362" width="31.649" height="168.791" transform="translate(287.256 364.85)" fill="#f1f0f1"/>
-			        <path id="Path_17065" data-name="Path 17065" d="M327.324,326.027l13.714,90.725h2.109l13.714-90.725h34.813V494.818H364.247l2.109-78.066h-2.109l-11.6,78.066h-21.1l-11.606-78.066H317.83l2.108,78.066H292.511V326.027Z" transform="translate(34.832 38.823)" fill="#f1f0f1"/>
-			        <path id="Path_17066" data-name="Path 17066" d="M414.553,437.02c1.054,2.109,1.266,5.908,1.266,9.494v15.613c0,6.54,2.954,10.76,7.807,10.76,5.064,0,8.017-4.22,8.017-11.6,0-13.5-8.861-25.953-18.145-38.188l-6.118-8.018c-14.348-18.778-20.255-31.227-20.255-49.793,0-24.264,14.558-41.143,38.4-41.143,24.263,0,37.555,16.879,37.555,43.674,0,5.065.211,8.862,1.267,12.238v2.109H435.862a28.644,28.644,0,0,1-1.266-9.494V358.533c0-6.751-3.165-10.128-7.6-10.128-4.641,0-8.227,3.376-8.227,11.815,0,12.449,6.54,21.31,15.824,33.126l6.33,8.017c14.558,18.356,22.365,32.914,22.365,53.59,0,25.741-14.558,42.2-37.556,42.2-25.741,0-38.821-16.668-38.821-46.207,0-5.064-.212-8.65-1.267-11.815V437.02Z" transform="translate(45.923 38.598)" fill="#f1f0f1"/>
-			        <path id="Path_17083" data-name="Path 17083" d="M242.3,254.916a3.519,3.519,0,0,0,2.61.978,2.991,2.991,0,0,0-2.61-.978" transform="translate(28.853 30.353)" fill="#cf0028"/>
-			        <path id="Path_17084" data-name="Path 17084" d="M244.654,255.8s.009-.009.013-.009a.3.3,0,0,1-.031-.009c0,.009.013.009.018.018" transform="translate(29.131 30.459)" fill="#cf0028"/>
-			        <path id="Path_17085" data-name="Path 17085" d="M412.6,220.48c-.242.018-.522.041-.8.064a2.114,2.114,0,0,0,.8-.064" transform="translate(49.037 26.255)" fill="#cf0028"/>
-			        <path id="Path_17086" data-name="Path 17086" d="M292.142,261.628l.123-1.344c2.3-.059.7,1.522,2.825,1.157.8-1.916,3.542.132,4.259-.888-.013.151,1.033.188.978.782.3-1.033,1.07-.256,1.723-.53.233-.292-.182-.307-.366-.612l1.5-.388c.6.319.754.922.114,1.046,3.944.3,22.878.955,27.111.37-.558-.773-1.86-.225-2.377-1.436,1.106-.708,1.654.21,2.134-.52.467,1.814,2.478.393,3.355,2.22l.305-1.037.567.622c4.917-1.156,1.119-.544,5.5-.375,2.527-.2,3.706-1.654,5.123-1.151-.206-.009-.777-.631-.123-.905.123.905,1.731-.676,2.066.228.643-.123,2.724-.04,2-1.266.362.608,2.221.832,1.129,1.385.627.027,1.234.2,1.682-.083l-.809-.333c2.112-.215,3.281.722,4.639-.421l-.79-.48c1.261-.1,2.317-.21,2.838,1.006l-1.294.4a13.5,13.5,0,0,0,5.1-.851l-.622-.022c2.2-1.261,13.839-2.477,15.864-4.044l-.96-.932,1.75-.833c-.21-.009-.8,3.1-.978,2.793,3.78-.155,23.437-1.234,26.942-.654,1.417.5.279,1.5.265,1.654,1.709-.384.722-1.019,2.18-.965.4.164-.068.745-.288.887.635-.124,1.233.191,1.275-.252-.8-.329-.489-1.513-.84-2.276l1.878.074-.068.744c.415.015,1.024-2.057,2.875-1.686,3.112.27,6.485-.05,9.611.064-.041.449-.69.723-1.344,1,.421.018,1.056-.11,1.449.206-.772-.778,1.3-.549.7-.874,2.257-1.855,5.251-.246,7.248-1.516.147-1.642,3.834-28.181,3.8-30.123a3.527,3.527,0,0,1,1.448.206c-.169-.457-1.407-.654-2.06-.379l-.092,1.046c-1.5.389-.366-.617-1.838-.52-.091-.85,1.261-1.055,2.45-1.156-1.074-.083-2.156-.686-2.577.255-1.015-.338.1-1.042-1.129-1.389-.859.27-1.983,1.125-2.989.636l.019-.151c-2.436-.837-3.68,1.357-5.905.525l.233-.288c-.79-.48-2.317.21-3.733-.292.406.164.763.777-.083.891-1.627-.507-2.724.05-3.921-.594l-1.119.855c-5.645-.064-27.906,1.513-33.573,1.746l.219-.142c-8.624.572-26.352.814-35.254,2.121-1.394-.795-3.3-.571-4.739-.777.809.329.544.919-.083.9-4.387-.019-.283.575-4.716,1-5.1.855-24.661.325-29.209-.3-2.417,1.258-5.475.394-7.847,1.2l.238-.293c-2.555.5-17.088-.366-20.06.119l.4.164c-2.583.8-2.254-.534-4.305-.909.292,1.353-1.92,2.165-2.77,2.281l.027-.3c-1.275.252-4.154,1.485-6.266,1.7l.068-.749c-1.746.832-5.068.557-6.334.658-2.9-.256-7.395-1.476-11.252-.425l-2.54-2.075-.366.215s-3.583,25.68,1.632,31.045l-.068.74,1.009-.11c1.221.344,1.765-.525,1.7.215l-1.663-.059c1.224.192.379.6-.083,1.028a3.961,3.961,0,0,1,1.417.366c.238-.292-.182-.307-.374-.467.654-.27,1.553-.987,2.358-.658,1.252.05.1,1.2,1.558,1.257,7.7.443,15.165,1.171,22.93.868.182.307-.028.3-.252.439,2.336-.36,4.419-.279,6.544-.649a2.253,2.253,0,0,1,.946,1.083c-.36-.612,11.759-.882,11.956-.722" transform="translate(28.738 26.141)" fill="#d9000d"/>
-			      </g>
-			    </g>
-			  </g>
-			</svg>
+		<div id="mavLogo" class="men-are-victims__logo">
+			<img src="https://hopeforjustice.org/wp-content/uploads/2022/06/logo-mav.svg" alt="">
 		</div>
 
 		<div class="men-are-victims__divider">
@@ -58,12 +26,17 @@ get_header('', array( 'page_class' => 'site--full campaign-page') ); ?>
 			</svg>
 		</div>
 
-		<h2 class="gsapReveal font-fk men-are-victims__title">Over 10 million victims of modern slavery are men</h2>
+		<h2 class="gsapReveal font-fk men-are-victims__title men-are-victims__title--a">Over 10 million victims of modern slavery are men</h2>
 
-		<div class="men-are-victims__video gsapReveal" style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2022/06/Video-Preview-1.jpg');">
+		<div data-toggle="modal" data-target="#video-modal" data-src="https://player.vimeo.com/video/721431463?h=abdb8c870e&badge=0&autopause=0&player_id=0&app_id=58479%22&autoplay=1" class="video-trigger men-are-victims__video gsapReveal" style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2022/06/Video-Preview-1.jpg');">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 36">
+			 	 <path id="Polygon_2" data-name="Polygon 2" d="M16.257,3.1a2,2,0,0,1,3.486,0l14.58,25.921A2,2,0,0,1,32.58,32H3.42a2,2,0,0,1-1.743-2.981Z" transform="translate(32) rotate(90)" fill="#fff" opacity="0.88"/>
+			</svg>
 		</div>
 
-		<p class="men-are-victims__video-text gsapReveal">And even more male victims are likely to be hidden away, uncounted. We want to raise awareness about this often-overlooked group of victims. Why? Because we want to live in a world where everyone is free from human trafficking.  We will continue to fight to ensure that all victims are seen, but we can’t do it alone. We need you.</p>
+		<p class="men-are-victims__video-text men-are-victims__text gsapReveal"><span class="men-are-victims__video-caption">Watch A Call from Home, our new film inspired by stories of male modern-slavery survivors... stories filled with phrases we hear all too often, such as "I wanted to provide for my family" or "I needed a job".</span>
+		<br>
+		And even more male victims are likely to be hidden away, uncounted. We want to raise awareness about this often-overlooked group of victims. Why? Because we want to live in a world where everyone is free from human trafficking.  We will continue to fight to ensure that all victims are seen, but we can’t do it alone. We need you.</p>
 
 		<div class="men-are-victims__divider--red gsapReveal">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 333.995 75.216" preserveAspectRatio="none">
@@ -76,19 +49,19 @@ get_header('', array( 'page_class' => 'site--full campaign-page') ); ?>
 			</p>
 		</div>
 
-		<h2 class="gsapReveal font-fk men-are-victims__title">What can you <br>do to help?</h2>
+		<h2 class="men-are-victims__cta-title gsapReveal font-fk men-are-victims__title men-are-victims__title--b">What can you <br>do to help?</h2>
 
-		<p class="men-are-victims__text gsapReveal">By donatating to Hope for Justice you will enable us to Prevent Exploitation Rescue Victims, Restore Lives and Reform Society. Joining our mailing list will allow us to send you information on how you can combat the issue.
+		<p class="men-are-victims__cta-text men-are-victims__text gsapReveal">By donating to Hope for Justice you will Prevent Exploitation, Rescue Victims, Restore Lives and Reform Society. Joining our mailing list will allow us to send you information on how you can combat the issue. 
 		</p>
 
 		<div class="men-are-victims__cta gsapStagger">
-			<a class="men-are-victims__cta-donate cta">Donate</a>
-			<a class="men-are-victims__cta-download cta">Download resources</a>
-			<div class="men-are-victims__cta-form cta"><?php echo do_shortcode('[gravityform id="33" title="false"]')?></div>
+			<a id="donateButton" href="/donate/?campaign=mav22" class="men-are-victims__cta-donate cta">Donate</a>
+			<a href="/resources-and-statistics/men-are-victims-resources/" id="resources" class="men-are-victims__cta-download cta">Download resources</a>
+			<div class="men-are-victims__cta-form cta"><!-- 39 on live 33 local --><?php echo do_shortcode('[gravityform id="39" title="false"]')?></div>
 		</div>
 
 		<div class="men-are-victims__divider men-are-victims__divider--bottom">
-			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1114.092 104.113">
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none"viewBox="0 0 1114.092 104.113">
 			  <g id="Group_7249" data-name="Group 7249">
 			    <path id="Path_17089" data-name="Path 17089" d="M294.441,88.338l.7-2.989c13.342-.028,4.068,3.423,16.37,2.706,4.61-4.233,20.512.454,24.653-1.785-.076.336,5.984.466,5.673,1.787,1.737-2.288,6.192-.523,9.973-1.1,1.344-.64-1.06-.691-2.126-1.381l8.679-.8c3.471.738,4.379,2.089.674,2.337,22.84.849,132.493,3.161,156.995,2.051-3.243-1.748-10.773-.585-13.781-3.307,6.394-1.528,9.58.544,12.352-1.063,2.724,4.063,14.352.987,19.454,5.1l1.757-2.3,3.293,1.412c28.46-2.353,6.474-1.161,31.833-.587,14.63-.335,21.443-3.518,29.653-2.334-1.192-.029-4.5-1.441-.724-2.023.724,2.023,10.017-1.428,11.965.6,3.725-.245,15.772.033,11.571-2.73,2.1,1.37,12.873,1.953,6.555,3.138,3.629.088,7.15.492,9.739-.108l-4.689-.78c12.226-.383,19.009,1.757,26.856-.728l-4.581-1.105c7.3-.165,13.411-.364,16.446,2.37l-7.486.827c12.149-.057,19.452-.225,29.5-1.665l-3.6-.078c12.744-2.711,80.1-4.892,91.815-8.294l-5.571-2.121,10.125-1.776c-1.218-.029-4.6,6.868-5.63,6.18,21.888-.176,135.7-1.691,156-.238,8.21,1.184,1.632,3.361,1.556,3.7,9.891-.778,4.167-2.239,12.612-2.051,2.329.385-.386,1.658-1.654,1.964,3.673-.248,7.144.482,7.378-.5-4.664-.769-2.85-3.393-4.894-5.11l10.874.25-.386,1.655c2.4.049,5.9-4.537,16.628-3.628,18.025.742,37.552.181,55.653.577-.235,1-3.99,1.58-7.771,2.161,2.437.059,6.117-.2,8.394.524-4.48-1.768,7.537-1.165,4.066-1.916,13.048-4.032,30.4-.311,41.954-3.051.829-3.651,21.863-62.619,21.658-66.949,3.623.081,7.252.159,8.388.524-.984-1.025-8.153-1.52-11.935-.938l-.519,2.327c-8.7.8-2.126-1.39-10.647-1.243-.535-1.9,7.29-2.294,14.171-2.465-6.222-.233-12.5-1.626-14.921.452-5.882-.8.545-2.317-6.555-3.146-4.974.562-11.469,2.416-17.3,1.281l.109-.336c-14.118-1.975-21.291,2.858-34.19.9l1.344-.63c-4.581-1.105-13.411.364-21.622-.82,2.354.385,4.429,1.765-.468,1.981-9.429-1.2-15.772-.011-22.714-1.5l-6.47,1.854c-32.687-.4-161.58,2.109-194.393,2.372l1.269-.307c-49.93.884-152.587.621-204.122,3.131-8.084-1.833-19.091-1.421-27.453-1.945,4.689.77,3.16,2.072-.469,1.994-25.4-.241-1.632,1.269-27.3,2.016-29.5,1.675-142.8-.392-169.144-1.984-13.982,2.693-31.7.63-45.425,2.326l1.377-.643C301.173,11.386,217,8.794,199.8,9.74l2.335.385C187.193,11.79,189.082,8.833,177.2,7.9c1.708,3.025-11.094,4.738-16.011,4.954l.152-.66c-7.378.5-24.037,3.121-36.262,3.514l.386-1.665c-10.1,1.774-29.342,1.013-36.67,1.18-16.806-.7-42.839-3.623-65.164-1.456L8.895,9.034,6.778,9.5S-13.663,66.553,16.6,78.746l-.386,1.645,5.844-.2c7.074.821,10.213-1.09,9.82.555l-9.63-.207c7.092.484,2.2,1.351-.467,2.288a54.646,54.646,0,0,1,8.208.879c1.377-.64-1.06-.691-2.17-1.057,3.781-.571,8.983-2.129,13.646-1.36,7.252.169.6,2.683,9.036,2.871,44.6,1.336,87.828,3.294,132.784,2.972,1.066.692-.152.662-1.446.966,13.52-.7,25.587-.421,37.889-1.15a11.92,11.92,0,0,1,5.489,2.456c-2.094-1.38,68.084-1.433,69.226-1.068" transform="translate(0.268 7.767)" fill="#212322"/>
 			  </g>
@@ -99,62 +72,106 @@ get_header('', array( 'page_class' => 'site--full campaign-page') ); ?>
 
 			<div class="full-grid">
 
-				<h2 class="gsapReveal font-fk men-are-victims__title men-are-victims__title--black">Why are male victims overlooked?</h2>
+				<div class="men-are-victims__flex men-are-victims__flex--dl">
+					<div class="men-are-victims__flex-item--dl">
+						<h2 class="gsapReveal font-fk men-are-victims__title men-are-victims__title--black">Why are male victims overlooked?</h2>
 
-				<div class="men-are-victims__accordian">
-				<div class="men-are-victims__accordian-item">
-					<svg xmlns="http://www.w3.org/2000/svg" width="31.886" height="31.886" viewBox="0 0 31.886 31.886">
-					  <g id="Group_7307" data-name="Group 7307" transform="translate(312 -1515.921)">
-					    <g id="Ellipse_13" data-name="Ellipse 13" transform="translate(-312 1515.921)" fill="none" stroke="rgba(112,112,112,0.5)" stroke-width="1">
-					      <ellipse cx="15.943" cy="15.943" rx="15.943" ry="15.943" stroke="none"/>
-					      <ellipse cx="15.943" cy="15.943" rx="15.443" ry="15.443" fill="none"/>
-					    </g>
-					    <g id="Group_7306" data-name="Group 7306" transform="translate(-300.151 1527.77)">
-					      <line id="Line_1" data-name="Line 1" y2="8.146" transform="translate(4.073 0)" fill="none" stroke="#212322" stroke-width="1"/>
-					      <line id="Line_2" data-name="Line 2" y2="8.146" transform="translate(8.146 4.073) rotate(90)" fill="none" stroke="#212322" stroke-width="1"/>
-					    </g>
-					  </g>
-					</svg>
-					<p>Shame</p>
+				
+						<div class="men-are-victims__accordian">
+						<div class="gsapReveal men-are-victims__accordian-item">
+							<svg class="men-are-victims__accordian-svg" xmlns="http://www.w3.org/2000/svg" width="31.886" height="31.886" viewBox="0 0 31.886 31.886">
+							  <g id="Group_7307" data-name="Group 7307" transform="translate(312 -1515.921)">
+							    <g id="Ellipse_13" data-name="Ellipse 13" transform="translate(-312 1515.921)" fill="none" stroke="rgba(112,112,112,0.5)" stroke-width="1">
+							      <ellipse cx="15.943" cy="15.943" rx="15.943" ry="15.943" stroke="none"/>
+							      <ellipse cx="15.943" cy="15.943" rx="15.443" ry="15.443" fill="none"/>
+							    </g>
+							    <g id="Group_7306" data-name="Group 7306" transform="translate(-300.151 1527.77)">
+							      <line id="Line_1" data-name="Line 1" y2="8.146" transform="translate(4.073 0)" fill="none" stroke="#212322" stroke-width="1"/>
+							      <line id="Line_2" data-name="Line 2" y2="8.146" transform="translate(8.146 4.073) rotate(90)" fill="none" stroke="#212322" stroke-width="1"/>
+							    </g>
+							  </g>
+							</svg>
+							<p>Shame</p>
+						</div>
+
+						<p class="men-are-victims__accordian-text">Research shows that male victims often do not want to come forward because of feelings of embarrassment as there is a stigma around asking for help. The traditional “masculine” stereotype can stand in the way of male victims asking for help, and disclosing such information can often bring about feelings of shame or can trigger flashbacks.
+						<br><br>
+						We have seen cases of men not wanting to return home empty handed, and so do not want to contact their families even once they have been helped out of exploitation.</p>
+
+						<div class="gsapReveal men-are-victims__accordian-item">
+							<svg class="men-are-victims__accordian-svg" xmlns="http://www.w3.org/2000/svg" width="31.886" height="31.886" viewBox="0 0 31.886 31.886">
+							  <g id="Group_7307" data-name="Group 7307" transform="translate(312 -1515.921)">
+							    <g id="Ellipse_13" data-name="Ellipse 13" transform="translate(-312 1515.921)" fill="none" stroke="rgba(112,112,112,0.5)" stroke-width="1">
+							      <ellipse cx="15.943" cy="15.943" rx="15.943" ry="15.943" stroke="none"/>
+							      <ellipse cx="15.943" cy="15.943" rx="15.443" ry="15.443" fill="none"/>
+							    </g>
+							    <g id="Group_7306" data-name="Group 7306" transform="translate(-300.151 1527.77)">
+							      <line id="Line_1" data-name="Line 1" y2="8.146" transform="translate(4.073 0)" fill="none" stroke="#212322" stroke-width="1"/>
+							      <line id="Line_2" data-name="Line 2" y2="8.146" transform="translate(8.146 4.073) rotate(90)" fill="none" stroke="#212322" stroke-width="1"/>
+							    </g>
+							  </g>
+							</svg>
+							<p>Support</p>
+						</div>
+
+						<p class="men-are-victims__accordian-text"> Male survivors of trafficking need access to comprehensive and culturally appropriate assistance to meet their needs. Assistance such as: housing, health, legal support, and employment assistance.
+						<br><br>
+						While some governments have made progress to improve the anti-trafficking response for male victims, there is a still a long way to go to make sure men and boys are not overlooked victims in our societies.</p>
+
+						</div>
+					</div>
+
+					<div class="men-are-victims__flex-item--dl gsapReveal men-are-victims__second-img" style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2022/06/mav-second-img.jpg');"></div>
 				</div>
 
-				<p>Research shows that male victims often do not want to come forward because of feelings of embarrassment as there is a stigma around asking for help. The traditional “masculine” stereotype can stand in the way of male victims asking for help, and disclosing such information can often bring about feelings of shame or can trigger flashbacks.
-				<br><br>
-				We have seen cases of men not wanting to return home empty handed, and so do not want to contact their families even once they have been helped out of exploitation.</p>
-
-				<div class="men-are-victims__accordian-item">
-					<svg xmlns="http://www.w3.org/2000/svg" width="31.886" height="31.886" viewBox="0 0 31.886 31.886">
-					  <g id="Group_7307" data-name="Group 7307" transform="translate(312 -1515.921)">
-					    <g id="Ellipse_13" data-name="Ellipse 13" transform="translate(-312 1515.921)" fill="none" stroke="rgba(112,112,112,0.5)" stroke-width="1">
-					      <ellipse cx="15.943" cy="15.943" rx="15.943" ry="15.943" stroke="none"/>
-					      <ellipse cx="15.943" cy="15.943" rx="15.443" ry="15.443" fill="none"/>
-					    </g>
-					    <g id="Group_7306" data-name="Group 7306" transform="translate(-300.151 1527.77)">
-					      <line id="Line_1" data-name="Line 1" y2="8.146" transform="translate(4.073 0)" fill="none" stroke="#212322" stroke-width="1"/>
-					      <line id="Line_2" data-name="Line 2" y2="8.146" transform="translate(8.146 4.073) rotate(90)" fill="none" stroke="#212322" stroke-width="1"/>
-					    </g>
-					  </g>
-					</svg>
-					<p>Support</p>
-				</div>
-
-				<p> Male survivors of trafficking need access to comprehensive and culturally appropriate assistance to meet their needs. Assistance such as: housing, health, legal support, and employment assistance.
-				<br><br>
-				While some governments have made progress to improve the anti-trafficking response for male victims, there is a still a long way to go to make sure men and boys are not overlooked victims in our societies.</p>
 
 			</div>
-
-
-			</div>
-
-
 
 		</div>
+
+		<div class="men-are-victims__divider">
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1114.092 104.113">
+			  <g id="Group_7249" data-name="Group 7249">
+			    <path id="Path_17089" data-name="Path 17089" d="M294.441,88.338l.7-2.989c13.342-.028,4.068,3.423,16.37,2.706,4.61-4.233,20.512.454,24.653-1.785-.076.336,5.984.466,5.673,1.787,1.737-2.288,6.192-.523,9.973-1.1,1.344-.64-1.06-.691-2.126-1.381l8.679-.8c3.471.738,4.379,2.089.674,2.337,22.84.849,132.493,3.161,156.995,2.051-3.243-1.748-10.773-.585-13.781-3.307,6.394-1.528,9.58.544,12.352-1.063,2.724,4.063,14.352.987,19.454,5.1l1.757-2.3,3.293,1.412c28.46-2.353,6.474-1.161,31.833-.587,14.63-.335,21.443-3.518,29.653-2.334-1.192-.029-4.5-1.441-.724-2.023.724,2.023,10.017-1.428,11.965.6,3.725-.245,15.772.033,11.571-2.73,2.1,1.37,12.873,1.953,6.555,3.138,3.629.088,7.15.492,9.739-.108l-4.689-.78c12.226-.383,19.009,1.757,26.856-.728l-4.581-1.105c7.3-.165,13.411-.364,16.446,2.37l-7.486.827c12.149-.057,19.452-.225,29.5-1.665l-3.6-.078c12.744-2.711,80.1-4.892,91.815-8.294l-5.571-2.121,10.125-1.776c-1.218-.029-4.6,6.868-5.63,6.18,21.888-.176,135.7-1.691,156-.238,8.21,1.184,1.632,3.361,1.556,3.7,9.891-.778,4.167-2.239,12.612-2.051,2.329.385-.386,1.658-1.654,1.964,3.673-.248,7.144.482,7.378-.5-4.664-.769-2.85-3.393-4.894-5.11l10.874.25-.386,1.655c2.4.049,5.9-4.537,16.628-3.628,18.025.742,37.552.181,55.653.577-.235,1-3.99,1.58-7.771,2.161,2.437.059,6.117-.2,8.394.524-4.48-1.768,7.537-1.165,4.066-1.916,13.048-4.032,30.4-.311,41.954-3.051.829-3.651,21.863-62.619,21.658-66.949,3.623.081,7.252.159,8.388.524-.984-1.025-8.153-1.52-11.935-.938l-.519,2.327c-8.7.8-2.126-1.39-10.647-1.243-.535-1.9,7.29-2.294,14.171-2.465-6.222-.233-12.5-1.626-14.921.452-5.882-.8.545-2.317-6.555-3.146-4.974.562-11.469,2.416-17.3,1.281l.109-.336c-14.118-1.975-21.291,2.858-34.19.9l1.344-.63c-4.581-1.105-13.411.364-21.622-.82,2.354.385,4.429,1.765-.468,1.981-9.429-1.2-15.772-.011-22.714-1.5l-6.47,1.854c-32.687-.4-161.58,2.109-194.393,2.372l1.269-.307c-49.93.884-152.587.621-204.122,3.131-8.084-1.833-19.091-1.421-27.453-1.945,4.689.77,3.16,2.072-.469,1.994-25.4-.241-1.632,1.269-27.3,2.016-29.5,1.675-142.8-.392-169.144-1.984-13.982,2.693-31.7.63-45.425,2.326l1.377-.643C301.173,11.386,217,8.794,199.8,9.74l2.335.385C187.193,11.79,189.082,8.833,177.2,7.9c1.708,3.025-11.094,4.738-16.011,4.954l.152-.66c-7.378.5-24.037,3.121-36.262,3.514l.386-1.665c-10.1,1.774-29.342,1.013-36.67,1.18-16.806-.7-42.839-3.623-65.164-1.456L8.895,9.034,6.778,9.5S-13.663,66.553,16.6,78.746l-.386,1.645,5.844-.2c7.074.821,10.213-1.09,9.82.555l-9.63-.207c7.092.484,2.2,1.351-.467,2.288a54.646,54.646,0,0,1,8.208.879c1.377-.64-1.06-.691-2.17-1.057,3.781-.571,8.983-2.129,13.646-1.36,7.252.169.6,2.683,9.036,2.871,44.6,1.336,87.828,3.294,132.784,2.972,1.066.692-.152.662-1.446.966,13.52-.7,25.587-.421,37.889-1.15a11.92,11.92,0,0,1,5.489,2.456c-2.094-1.38,68.084-1.433,69.226-1.068" transform="translate(0.268 7.767)" fill="#212322"/>
+			  </g>
+			</svg>
+			<div class="men-are-victims__globe" style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2022/06/globe.jpg')"></div>
+		</div>
+
+		<h2 class="gsapReveal font-fk men-are-victims__title men-are-victims__title--mt men-are-victims__title--zi">It’s happening in our own towns and cities. It could be on your doorstep.</h2>
+
+		<div class="men-are-victims__flex men-are-victims__flex--mw men-are-victims__zi">
+			<p class="men-are-victims__flex-item men-are-victims__text men-are-victims__text--mb gsapReveal">
+			We want to raise awareness about modern slavery across the world and educate more people on the issue, so that they can spot the signs and play a part in ending human trafficking.
+			</p>
+			<!-- 39 on live 33 local-->
+			<div class="men-are-victims__flex-item men-are-victims__cta-form gsapReveal"><?php echo do_shortcode('[gravityform id="39" title="false"]')?></div>
+		</div>
+
+		<div class="men-are-victims__bottom-img men-are-victims__zi" style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2022/06/mav-bottom.jpg');">
+			<div class="men-are-victims__logo men-are-victims__logo--bottom">
+				<img src="https://hopeforjustice.org/wp-content/uploads/2022/06/logo-mav.svg" alt="">
+			</div>
+		</div> 
 
 	</div>
 
 
 </main>
+
+<!-- 
+-- 
+-- video modal
+-- 
+--> 
+<?php get_template_part(
+    'partials/content',
+    'modal',
+    array(
+        'type' => 'video',
+        'id' => 'video-modal'
+    )
+); ?>
 
 
 

@@ -350,7 +350,7 @@ function GetPaymentPostData(stripeToken) {
         recurring: jQuery('#RecurringPayment').is(':checked'),
         paymentSchedule: jQuery('input:radio[name=PaymentSchedule]:checked').val(),
         donationPageId: jQuery('#DonationPageId').val(),
-        comment: jQuery('#Comment').val(),
+        comment: jQuery('#inspiration_question').val() + " " + jQuery('#Comment').val(),
         quantity: jQuery('#Quantity').length > 0 ? jQuery('#Quantity').val() : '1',
         additionalTitle: jQuery('#AdditionalTitle').length > 0 ? jQuery('#AdditionalTitle').val() : '',
         additionalFirstName: jQuery('#AdditionalFirstName').length > 0 ? jQuery('#AdditionalFirstName').val() : '',

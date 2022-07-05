@@ -84,6 +84,8 @@ setTimeout(
         if ($('#formOne').valid()) {
           	$('#formOne').hide();
         	$('#formTwo').show();
+            $('#dotOne').toggleClass('donorfy-donate__dot--active');
+            $('#dotTwo').toggleClass('donorfy-donate__dot--active');
         	let email = $('#Email').val();
             let paymentDay = $('#paymentDay').val();
             console.log(paymentDay)
@@ -130,6 +132,8 @@ $('#backToStepOne').click(function(){
     function() {
         $('#formOne').show();
         $('#formTwo').hide();
+        $('#dotOne').toggleClass('donorfy-donate__dot--active');
+        $('#dotTwo').toggleClass('donorfy-donate__dot--active');
         $('#backToStepOne').html("Previous");
         $(window).scrollTop(0);
     },400);
@@ -139,6 +143,8 @@ $('#toStepThree').click(function(){
     setTimeout(
     function() {
         if ($('#formTwo').valid()) {
+            $('#dotThree').toggleClass('donorfy-donate__dot--active');
+            $('#dotTwo').toggleClass('donorfy-donate__dot--active');
             $('#formThree').show();
             $('#formTwo').hide();
             $(window).scrollTop(0);
@@ -150,6 +156,8 @@ $('#toStepThree').click(function(){
 $('#backToStepTwo').click(function(){
     setTimeout(
     function() {
+        $('#dotThree').toggleClass('donorfy-donate__dot--active');
+        $('#dotTwo').toggleClass('donorfy-donate__dot--active');
         $('#formTwo').show();
         $('#formThree').hide();
         $('#backToStepTwo').html("Previous");
@@ -161,6 +169,8 @@ $('#toStepFour').click(function(){
     setTimeout(
     function() {
         if ($('#formThree').valid()) {
+            $('#dotThree').toggleClass('donorfy-donate__dot--active');
+            $('#dotFour').toggleClass('donorfy-donate__dot--active');
             $('#formFour').show();
             $('#formThree').hide();
             $(window).scrollTop(0);
@@ -172,6 +182,8 @@ $('#toStepFour').click(function(){
 $('#backToStepThree').click(function(){
     setTimeout(
     function() {
+        $('#dotThree').toggleClass('donorfy-donate__dot--active');
+        $('#dotFour').toggleClass('donorfy-donate__dot--active');
         $('#formThree').show();
         $('#formFour').hide();
         $('#backToStepThree').html("Previous");

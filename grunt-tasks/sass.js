@@ -16,8 +16,10 @@ module.exports = function (distTheme, devTheme, scssDir) {
         { src: devTheme + scssDir + 'resources-template.scss', dest: distTheme  + '/assets/css/resources-template.css'},
         { src: devTheme + scssDir + 'volunteering-opportunities.scss',dest: distTheme  + '/assets/css/volunteering-opportunities.css'},
         { src: devTheme + scssDir + 'events.scss', dest: distTheme  + '/assets/css/events.css'},
-         { src: devTheme + scssDir + 'case-studies.scss', dest: distTheme  + '/assets/css/case-studies.css'},
-         { src: devTheme + scssDir + 'lib/bootstrap/scss/bootstrap.scss', dest: distTheme  + '/assets/css/bootstrap.css'},
+        { src: devTheme + scssDir + 'case-studies.scss', dest: distTheme  + '/assets/css/case-studies.css'},
+        { src: devTheme + scssDir + 'lib/bootstrap/scss/bootstrap.scss', dest: distTheme  + '/assets/css/bootstrap.css'},
+        //page specific
+        { src: devTheme + scssDir + 'pages/men-are-victims.scss', dest: distTheme  + '/men-are-victims.css'},
       
       ]
     }

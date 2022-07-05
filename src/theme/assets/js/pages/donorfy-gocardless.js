@@ -317,7 +317,7 @@ function zapier() {
         Amount : jQuery('#Amount').val(),
         collectionDay: jQuery('#paymentDay').val(),
         giftAid : jQuery('#GiftAid').is(':checked'),
-        comments : jQuery('#Comment').val(),
+        comments : jQuery('#inspiration_question').val() + " " + jQuery('#Comment').val(),
         campaign: jQuery('#Campaign').val(),
         id: zapId,
         firstname : jQuery('#FirstName').val(),
