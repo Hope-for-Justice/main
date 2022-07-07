@@ -28,6 +28,29 @@
             "placeholder": ""
         },
         {
+            "key": "field_62c54823a1491",
+            "label": "Match funded",
+            "name": "uk_widget_match_funded",
+            "type": "checkbox",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "Is matchfunded?": "Is matchfunded?"
+            },
+            "allow_custom": 0,
+            "default_value": [],
+            "layout": "vertical",
+            "toggle": 0,
+            "return_format": "value",
+            "save_custom": 0
+        },
+        {
             "key": "field_627a8397dea75",
             "label": "Title (Guardian)",
             "name": "uk_widget_guardian_title",
@@ -216,6 +239,33 @@
             "maxlength": ""
         },
         {
+            "key": "field_62c54936ea8a8",
+            "label": "Match funded reason 1 (One off)",
+            "name": "uk_widget_option_1_reason_match",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_62c54823a1491",
+                        "operator": "==",
+                        "value": "Is matchfunded?"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_627a8397dea9d",
             "label": "Option 2 (Monthly)",
             "name": "uk_widget_option_2_amount_monthly",
@@ -300,6 +350,33 @@
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_62c549edea8aa",
+            "label": "Match funded reason 2 (One off)",
+            "name": "uk_widget_option_2_reason_match",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_62c54823a1491",
+                        "operator": "==",
+                        "value": "Is matchfunded?"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -408,6 +485,33 @@
             "maxlength": ""
         },
         {
+            "key": "field_62c54b46ea8ab",
+            "label": "Match funded reason 3 (One off)",
+            "name": "uk_widget_option_3_reason_match",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_62c54823a1491",
+                        "operator": "==",
+                        "value": "Is matchfunded?"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_627a8397deac1",
             "label": "Option 4 (Monthly)",
             "name": "uk_widget_option_4_amount_monthly",
@@ -492,6 +596,33 @@
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_62c54b6cea8ac",
+            "label": "Match funded reason 4 (One off)",
+            "name": "uk_widget_option_4_reason_match",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_62c54823a1491",
+                        "operator": "==",
+                        "value": "Is matchfunded?"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -600,6 +731,33 @@
             "maxlength": ""
         },
         {
+            "key": "field_62c54b8aea8ad",
+            "label": "Match funded reason 5 (One off)",
+            "name": "uk_widget_option_5_reason_match",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_62c54823a1491",
+                        "operator": "==",
+                        "value": "Is matchfunded?"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_627a8397deae6",
             "label": "Custom reason (Guardian)",
             "name": "uk_widget_option_6_reason_monthly",
@@ -690,5 +848,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1656324044
+    "modified": 1657097224
 }

@@ -13,6 +13,7 @@ get_header( '', array( 'page_class' => 'site--full') );
 
 <?php
 
+$campaign = $_COOKIE['wordpress_hfjcampaign'];
 $amount = $_GET['amount'];
 $type = $_GET['type'];
 $signup = $_GET['signup'];
@@ -26,6 +27,14 @@ if($guardianAmount) {
   $type = 'UK Guardian'; 
   $signup = $guardianSignup;
   $name = $guardianName;
+}
+
+if($campaign == 'StHelens') {
+    global $wpdb;
+    $table = $wpdb->prefix .'goats_milk';
+    $data = array('amount' => $amount);
+    $format = array('%f');
+    $wpdb->insert($table,$data,$format); 
 }
 
 $thumbnail = "";

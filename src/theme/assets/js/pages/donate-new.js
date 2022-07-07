@@ -7,19 +7,19 @@ jQuery(document).ready(function ($) {
 	);
 	let currency = $(".giving-widget").data('currency');
 
-	$('.customAmountNorway').on('input',function(e) {
-	  $(this).val($(this).val().replace(/[^0-9\,]/, ''));
+	$('.customAmountNorway').on('input', function (e) {
+		$(this).val($(this).val().replace(/[^0-9\,]/, ''));
 	});
 
 	// Norway monthly click
 
-	$('#norwayMonthly').click(function(){
+	$('#norwayMonthly').click(function () {
 		let link = $(this).data('link');
 		window.location.href = link;
 	})
 
 	//modal currency click
-	$('.modal-currency__currency').click(function(){
+	$('.modal-currency__currency').click(function () {
 		let data = $(this).data('currency');
 		let url = window.location.origin + window.location.pathname;
 		window.location.href = url + `?Currency=${data}`;
@@ -41,10 +41,10 @@ jQuery(document).ready(function ($) {
 			$(this).children(".giving-widget__options-amount").text(textAmount);
 		});
 		$(".giving-widget__top-text").show();
-		$(".giving-widget__top-text--once").hide(); 
+		$(".giving-widget__top-text--once").hide();
 		$(".giving-widget__title").show();
 		$(".giving-widget__title--once").hide();
-		$(".giving-widget__button-freq").text(freq); 
+		$(".giving-widget__button-freq").text(freq);
 	} else {
 		$("#reason").text(reason);
 		amount = $(".giving-widget__options-option--active").data("amount");
@@ -53,10 +53,10 @@ jQuery(document).ready(function ($) {
 			$(this).children(".giving-widget__options-amount").text(textAmount);
 		});
 		$(".giving-widget__top-text").hide();
-		$(".giving-widget__top-text--once").show(); 
+		$(".giving-widget__top-text--once").show();
 		$(".giving-widget__title").hide();
-		$(".giving-widget__title--once").show(); 
-		$(".giving-widget__button-freq").hide(); 
+		$(".giving-widget__title--once").show();
+		$(".giving-widget__button-freq").hide();
 	}
 
 	$(".giving-widget__text-amount").text(amount);
@@ -106,17 +106,17 @@ jQuery(document).ready(function ($) {
 					.text(textAmount);
 			});
 			$(".giving-widget__top-text").show();
-			$(".giving-widget__top-text--once").hide(); 
+			$(".giving-widget__top-text--once").hide();
 			$(".giving-widget__title").show();
-			$(".giving-widget__title--once").hide(); 
+			$(".giving-widget__title--once").hide();
 
 		} else {
 			$("#reason").text(reason);
 
 			$(".giving-widget__top-text").hide();
-			$(".giving-widget__top-text--once").show(); 
+			$(".giving-widget__top-text--once").show();
 			$(".giving-widget__title").hide();
-			$(".giving-widget__title--once").show();  
+			$(".giving-widget__title--once").show();
 			amount = $(".giving-widget__options-option--active").data("amount");
 			$(".giving-widget__options-option").each(function () {
 				let textAmount = $(this).data("amount");
@@ -126,7 +126,7 @@ jQuery(document).ready(function ($) {
 			});
 		}
 
-		if($('.giving-widget__options-option--custom').hasClass('giving-widget__options-option--active')) {
+		if ($('.giving-widget__options-option--custom').hasClass('giving-widget__options-option--active')) {
 			amount = $('.giving-widget__options-option--custom').children('input').val();
 			$(".giving-widget__text-freq").hide();
 		}
@@ -206,7 +206,7 @@ jQuery(document).ready(function ($) {
 	});
 
 
-	$('.giving-widget__button').click(function(){
+	$('.giving-widget__button').click(function () {
 		console.log(amount, freq, currency);
 
 		let url = window.location.origin;
@@ -219,23 +219,23 @@ jQuery(document).ready(function ($) {
 			urlAmount = parseFloat(amount).toFixed(2);
 		}
 
-		if(currency=='GBP') {
-			if(freq=='monthly') {
+		if (currency == 'GBP') {
+			if (freq == 'monthly') {
 				url += '/donate-GBP-regular/'
 			} else {
 				url += '/donate-GBP-once/'
 			}
-		} else if (currency=='USD') {
-			if(freq=='monthly'){
+		} else if (currency == 'USD') {
+			if (freq == 'monthly') {
 				url += '/donate-USD-regular/'
 			} else {
 				url += '/donate-USD-once/'
 			}
-		} else if (currency=='NOK') {
+		} else if (currency == 'NOK') {
 			url += '/donate-NOK-once/'
 			urlAmount = urlAmount.replace(".", ",");
 		}
-		
+
 		window.location.href = url + `?Amount=${urlAmount}`;
 	});
 

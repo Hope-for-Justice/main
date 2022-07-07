@@ -1,0 +1,132 @@
+@import "../base/_variables.scss";
+@import "../lib/_mq.scss";
+
+.goats-milk {
+    .giving-widget {
+        position: relative;
+        overflow: visible;
+        margin-top: 0;
+        margin-bottom: 0;
+
+        &__title {
+            margin-top: 55px;
+        }
+    }
+
+    &__small-text {
+        font-size: 0.8em;
+        opacity: 0.4;
+    }
+
+    .donate-new__hero-image {
+        height: 100vw;
+
+        img {
+            width: 190%;
+            left: -5%;
+            top: 0;
+        }
+    }
+
+    &__logo {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100px;
+        height: 100px;
+        border-radius: 100%;
+        overflow: hidden;
+        padding: 10px;
+        background-color: white;
+        ;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__content {
+        grid-column: main;
+        margin: 40px 0;
+
+        &-inner {
+            grid-column: col1/col12-end;
+        }
+
+        h2 {
+            font-family: 'canela-medium', serif;
+        }
+    }
+}
+
+@include mq($from: phablet) {
+
+    .goats-milk {
+        .giving-widget {
+            margin-top: -200px;
+        }
+    }
+
+}
+
+@include mq($from: desktop) {
+
+    .goats-milk {
+        &__content {
+            margin: 60px 0;
+        }
+
+        &__logo {
+            width: 120px;
+            height: 120px;
+        }
+
+        .giving-widget {
+            margin-top: 200px;
+
+            &__title {
+                margin-top: 65px;
+            }
+        }
+
+        .donate-new__hero-image {
+            height: 100vh;
+
+            img {
+                width: auto;
+                height: 100%;
+                left: -20%;
+                top: 0;
+            }
+        }
+    }
+
+}
+
+@include mq($from: desktopLarge) {
+
+    .goats-milk {
+        &__content {
+            margin: 80px 0;
+
+            &-inner {
+                grid-column: col2/col12;
+            }
+        }
+
+        .donate-new__hero-image {
+            img {
+                left: 0%;
+                min-width: 100%;
+                min-height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+}
+
+
+@include mq($from: desktopExtraLarge) {}

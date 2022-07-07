@@ -5,7 +5,7 @@
 */
 
 .campaign {
-	background-color:black;
+	background-color: black;
 	padding-bottom: 20em;
 }
 
@@ -13,18 +13,29 @@
 	.site-content {
 		margin-top: 0;
 	}
+
 	.header {
-		background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
-		g#Group_4 path, g#Group_4 rect {fill:white;}
+		background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+
+		g#Group_4 path,
+		g#Group_4 rect {
+			fill: white;
+		}
+
 		box-shadow: none;
 
 		// .burger span {
 		// 	background-color: white;
 		// }
 		&--open {
-			background:none;
+			background: none;
 			background-color: white;
-			g#Group_4 path, g#Group_4 rect {fill:$black;}
+
+			g#Group_4 path,
+			g#Group_4 rect {
+				fill: $black;
+			}
+
 			.burger span {
 				background-color: $black;
 			}
@@ -34,15 +45,16 @@
 
 @include mq($from: tablet) {
 
-.campaign-page {
-	.header .burger span{
-		background-color:white;
-	}
-	.header--open {
-		.burger span {
-			background-color: $black;
+	.campaign-page {
+		.header .burger span {
+			background-color: white;
+		}
+
+		.header--open {
+			.burger span {
+				background-color: $black;
+			}
 		}
 	}
-}
 
 }
