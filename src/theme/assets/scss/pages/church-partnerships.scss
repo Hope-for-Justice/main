@@ -1,0 +1,247 @@
+/*
+*
+* _CHURCH-PARTNERSHIPS.SCSS
+*
+*/
+
+@import "../base/_variables.scss";
+@import "../lib/_mq.scss";
+@import "../base/_mixins.scss";
+
+.church-partnerships {
+
+    &__title {
+        grid-column: main;
+        grid-row-start: 1;
+        align-self: self-end;
+        color: white;
+    }
+
+    &__heading {
+        grid-column: main;
+
+        &--margin-top {
+            margin-top: 50px;
+        }
+
+        &--center {
+            text-align: center;
+        }
+
+        &--fk {
+            font-size: 63px;
+            letter-spacing: 0;
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+    }
+
+    &__hero-img {
+        grid-column: full;
+        grid-row-start: 1;
+
+        img {
+            width: 100%
+        }
+    }
+
+    &__text {
+        grid-column: main;
+        margin-top: 25px;
+
+        &--no-margin {
+            margin: 0;
+        }
+
+        &--center {
+            text-align: center;
+        }
+    }
+
+    &__button {
+        grid-column: main;
+        margin-top: 25px;
+
+        &--center {
+            text-align: center;
+        }
+    }
+
+    &__image {
+        grid-column: full;
+        margin-left: 20%;
+        height: 190px;
+        background-size: cover;
+        border-radius: 20px 0 0 20px;
+        margin-top: 50px;
+        z-index: 2;
+
+        &--reverse {
+            border-radius: 0 20px 20px 0;
+            margin-left: 0;
+            margin-right: 20%;
+        }
+
+        &--full {
+            grid-column: full;
+            margin: 0;
+            background-position: center;
+            border-radius: 0 0 0 0;
+            height: 320px;
+        }
+    }
+
+    &__text-container {
+        grid-column: main;
+        background: #FAFAFA;
+        padding: 16.6vw 8.6vw 8.6vw 0;
+        position: relative;
+        z-index: 1;
+        margin-top: -8vw;
+        border-radius: 0 20px 20px 0;
+
+        &::before {
+            content: "";
+            width: 100%;
+            height: 100%;
+            background: #FAFAFA;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translateX(-8.6vw);
+            z-index: -1;
+            border-radius: 20px 0 0 20px;
+        }
+
+        &--reverse {
+            padding: 16.6vw 0 8.6vw 8.6vw;
+            border-radius: 0 0 0 20px;
+
+            &::before {
+                transform: translateX(8.6vw);
+            }
+        }
+
+        span {
+            display: block;
+            height: 0;
+            overflow: hidden;
+        }
+    }
+
+    &__see-more {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        &--margin-top {
+            margin-top: 20px;
+        }
+
+        &--open {
+            .church-partnerships__see-more-button {
+
+                &::before,
+                &::after {
+                    transform: translate(-50%, -50%) rotate(135deg);
+                }
+            }
+        }
+
+        &-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            background-color: white;
+            @include box-shadow;
+            position: relative;
+
+            &::before,
+            &::after {
+                transform-origin: center;
+                content: "";
+                position: absolute;
+                width: 10px;
+                height: 2px;
+                background-color: black;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            &::after {
+                width: 2px;
+                height: 10px;
+            }
+        }
+
+        p {
+            font-weight: bold;
+        }
+
+        h4 {
+            color: white;
+            font-size: 20px;
+        }
+    }
+
+    &__flex {
+        grid-column: full;
+
+        &-text {
+            padding: 8.6vw;
+        }
+    }
+
+    &__act {
+        grid-column: full;
+        margin: 0 2vw;
+        border-radius: 20px;
+        padding: 6.6vw;
+        background-size: cover;
+        background-position: center;
+
+        h3 {
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        p {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        span {
+            color: white;
+            display: block;
+            height: 0;
+            overflow: hidden;
+        }
+    }
+
+    &__video {
+        grid-column: full;
+        background-color: $red;
+        border-radius: 20px;
+        height: 0;
+        padding-top: 56%;
+        position: relative;
+        margin: 60px 2vw;
+
+        &-play {
+            width: 20px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        &-svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+        }
+    }
+
+}

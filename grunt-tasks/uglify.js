@@ -41,6 +41,11 @@ module.exports = function (distTheme, devTheme, jsDir) {
 		devTheme + jsDir + 'plugins/scrolltrigger.js',
 		devTheme + jsDir + 'pages/men-are-victims.js',
 
+	];
+
+	uglifyFilesObject[distTheme + jsDir + 'pages/church-partnerships.js'] = [
+
+		devTheme + jsDir + 'pages/church-partnerships.js',
 
 	];
 
@@ -148,13 +153,13 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 
 	return {
-	// Process JavaScript
-	  default: {
-	    files: uglifyFilesObject,
-	    options: {
-	      sourceMap: true,
-	      sourceMapIncludeSources: true,
-	    },
-	  },
+		// Process JavaScript
+		default: {
+			files: uglifyFilesObject,
+			options: {
+				sourceMap: true,
+				sourceMapIncludeSources: true,
+			},
+		},
 	}
 }

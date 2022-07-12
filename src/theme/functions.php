@@ -136,7 +136,6 @@ function page_scripts() {
 
     wp_register_script( 'donorfy-gocardless', get_template_directory_uri() . '/assets/js/pages/donorfy-gocardless.js', array('jquery'), '202268', true);
 
-
     wp_register_script( 'donorfy-donate', get_template_directory_uri() . '/assets/js/pages/donorfy-donate.js', array('jquery'), '202268', true);
 
     wp_register_script( 'one-off-uk', get_template_directory_uri() . '/assets/js/pages/one-off-uk.js', array('jquery'), '202268', true);
@@ -147,6 +146,8 @@ function page_scripts() {
 
 
     wp_register_script( 'donorfy-webhooks', get_template_directory_uri() . '/assets/js/pages/donorfy-webhooks.js', array('jquery'), '202268', true);
+
+    wp_register_script( 'church-partnerships', get_template_directory_uri() . '/assets/js/pages/church-partnerships.js', array('jquery'), '202268', true);
 
     wp_register_script( 'training', get_template_directory_uri() . '/assets/js/pages/training.js', array('jquery'), '202268', true);
 
@@ -210,6 +211,10 @@ function page_scripts() {
     if (is_page_template('templates/page-goats-milk.php')) {
       wp_enqueue_script('donate-new');
       wp_enqueue_style( 'goats-milk', get_template_directory_uri() . '/goats-milk.css', array(), '202268' );
+    }
+    if (is_page_template('templates/page-church-partnerships.php')) {
+      wp_enqueue_script('church-partnerships');
+      wp_enqueue_style( 'church-partnerships', get_template_directory_uri() . '/church-partnerships.css', array(), '202268' );
     }
 
 

@@ -21,6 +21,7 @@ module.exports = function (distTheme, devTheme, scssDir) {
         //page specific
         { src: devTheme + scssDir + 'pages/men-are-victims.scss', dest: distTheme + '/men-are-victims.css' },
         { src: devTheme + scssDir + 'pages/goats-milk.scss', dest: distTheme + '/goats-milk.css' },
+        { src: devTheme + scssDir + 'pages/church-partnerships.scss', dest: distTheme + '/church-partnerships.css' },
 
       ]
     }
