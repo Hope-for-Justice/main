@@ -237,6 +237,10 @@
     }
 
     &__video {
+        &:hover {
+            cursor: pointer;
+        }
+
         grid-column: full;
         background-color: $red;
         border-radius: 20px;
