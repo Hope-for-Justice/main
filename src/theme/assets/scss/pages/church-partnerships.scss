@@ -10,11 +10,17 @@
 
 .church-partnerships {
 
+    h2 {
+        margin-bottom: 0.6em;
+        line-height: 1.1;
+    }
+
     &__title {
         grid-column: main;
         grid-row-start: 1;
         align-self: self-end;
         color: white;
+        margin-bottom: 50px;
     }
 
     &__heading {
@@ -39,9 +45,13 @@
     &__hero-img {
         grid-column: full;
         grid-row-start: 1;
+        height: 300px;
+        overflow: hidden;
 
         img {
-            width: 100%
+            width: 100%;
+            min-height: 100%;
+            object-fit: cover;
         }
     }
 
@@ -56,6 +66,12 @@
         &--center {
             text-align: center;
         }
+    }
+
+    &__hero-text {
+        margin-top: 182px;
+        grid-row-start: 1;
+        align-self: self-end;
     }
 
     &__button {
@@ -187,6 +203,7 @@
 
     &__flex {
         grid-column: full;
+        margin-top: 20px;
 
         &-text {
             padding: 8.6vw;
@@ -229,7 +246,7 @@
         margin: 60px 2vw;
 
         &-play {
-            width: 20px;
+            width: 40px;
             position: absolute;
             top: 20px;
             left: 20px;
@@ -240,8 +257,380 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 30px;
+            width: 10%;
         }
     }
 
+    &__cards {
+        grid-column: main;
+        margin: 60px 0;
+
+        .cards {
+            &__card {
+                background-color: transparent;
+                box-shadow: none;
+                margin-bottom: -20px;
+            }
+
+            &__info {
+                padding: 0;
+                width: 85%;
+                margin: 0 auto;
+                background-color: #F4F4F4;
+                border-radius: 77px;
+                z-index: 1;
+                @include box-shadow;
+                transform: translateY(-50%);
+
+                .resources__download {
+                    border-radius: 100%;
+                }
+            }
+
+            &__text {
+                display: flex;
+                align-items: center;
+                padding: 10px 15px 10px 25px;
+            }
+
+            &__excerpt {
+                margin-right: 10px;
+                font-size: 12px;
+            }
+
+            &__img-container {
+                padding-top: 100%;
+                border-radius: 20px;
+                @include box-shadow;
+            }
+        }
+    }
+
+}
+
+@include mq($from: phablet) {
+    .church-partnerships {
+        &__image {
+            height: 350px;
+        }
+    }
+}
+
+@include mq($from: tablet) {
+
+    .church-partnerships {
+        &__hero-img {
+            height: 400px;
+            //margin-right: 40px;
+            border-radius: 0 0 60px 0;
+            overflow: hidden;
+            grid-column: full-start/ main-end;
+            //img {}
+        }
+
+        &__image {
+            border-radius: 60px 0 0 60px;
+            grid-column: main-start/ full-end;
+            margin-left: 0;
+            margin-right: 0;
+            margin-top: 80px;
+            height: 400px;
+
+            &--reverse {
+                border-radius: 0 60px 60px 0;
+                grid-column: full-start/ main-end;
+            }
+
+            &--full {
+                border-radius: 0;
+                margin-top: 0px;
+            }
+        }
+
+        &__title {
+            grid-row-start: auto;
+            color: black;
+            margin-top: 0;
+            margin-bottom: 0.4em;
+        }
+
+        &__button {
+            margin-top: 40px;
+        }
+
+        &__heading {
+            &--larger {
+                font-size: 5.4em;
+                max-width: 700px;
+                margin: 0 auto;
+            }
+        }
+
+        &__text {
+            margin-top: 0;
+
+            &--max-width {
+                max-width: 640px;
+                margin: 0 auto;
+            }
+        }
+
+        &__hero-text {
+            margin-top: 60px;
+            grid-row-start: auto;
+        }
+
+        &__cards {
+            margin: 100px 0;
+
+            .cards {
+                &__excerpt {
+                    font-size: 14px;
+                }
+
+                &__text {
+                    padding: 15px 20px 15px 30px;
+                }
+            }
+        }
+
+        &__heading {
+            &--margin-top {
+                margin-top: 100px;
+            }
+        }
+
+        &__flex {
+            grid-column: main;
+            background-color: #F4F4F4;
+            border-radius: 40px 40px 0 0;
+            overflow: hidden;
+
+            &--not-top {
+                margin-top: 0;
+                border-radius: 0;
+            }
+        }
+
+        &__act {
+            grid-column: main;
+            margin: 0;
+            border-radius: 0 0 40px 40px;
+
+            p {
+                max-width: 500px;
+                margin-bottom: 50px;
+            }
+        }
+
+        &__video {
+            grid-column: main;
+            margin: 0;
+            border-radius: 40px;
+            margin-top: 100px;
+
+            &-play {
+                top: 40px;
+                left: 40px;
+            }
+        }
+
+        &__see-more {
+            gap: 20px;
+
+            h4 {
+                font-size: 34px;
+            }
+        }
+
+
+
+    }
+}
+
+
+@include mq($from: desktop) {
+
+    .church-partnerships {
+        &__hero-img {
+            height: 0;
+            position: relative;
+            //margin-right: 40px;
+            overflow: hidden;
+            grid-column: full;
+            width: 50%;
+            padding-top: 50%;
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                min-height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        &__title {}
+
+        &__hero-text {
+            grid-row-start: 1;
+            padding-left: 8.6vw;
+            margin-left: 50%;
+            margin-top: 100px;
+            align-self: center;
+        }
+
+        &__image {
+            width: 450px;
+            height: 450px;
+            justify-self: end;
+            background-position: center;
+
+            &--reverse {
+                justify-self: start;
+            }
+
+            &--full {
+                width: 100%;
+                margin: 0;
+            }
+
+        }
+
+        &__text-container {
+            margin-top: -380px;
+            padding: 100px 450px 100px 0;
+            border-radius: 0 60px 60px 0;
+
+            &--reverse {
+                padding: 100px 0px 100px 450px;
+                border-radius: 60px 0 0 60px;
+            }
+        }
+
+        &__heading {
+            &--margin-top {
+                margin-top: 200px;
+            }
+
+            &--fk {
+                font-size: 80px;
+            }
+        }
+
+    }
+
+}
+
+@include mq($from: desktopLarge) {
+
+    .church-partnerships {
+
+        &__hero-text {
+            margin-top: 0px;
+        }
+
+        &__image {
+            width: 650px;
+            height: 650px;
+            margin-bottom: -50px;
+            margin-top: 160px;
+        }
+
+        &__text-container {
+            margin-top: -550px;
+            padding: 100px 650px 100px 0;
+
+            &--reverse {
+                padding: 100px 0px 100px 650px;
+
+            }
+        }
+
+        &__flex {
+            display: flex;
+            flex-direction: row-reverse;
+
+            &--not-top {
+                flex-direction: row;
+            }
+
+            &-text {
+                padding: 100px;
+            }
+
+            div {
+                width: 50%;
+                margin: 0;
+                height: auto;
+            }
+        }
+
+        &__cards {
+            .cards__excerpt {
+                font-size: 16px;
+            }
+        }
+
+        &__act {
+            &-flex {
+                display: flex;
+                flex-wrap: wrap;
+
+                &-child {
+                    width: 50%;
+                }
+            }
+
+        }
+
+        &__video {
+            margin: 100px 100px -50px 100px;
+        }
+
+    }
+}
+
+@include mq($from: extraWide) {
+    .church-partnerships {
+        &__image {
+            grid-column: main;
+            border-radius: 60px;
+            height: 800px;
+            width: 800px;
+        }
+
+        &__text-container {
+            grid-column: main;
+            border-radius: 60px 0 0 60px;
+            margin-right: 800px;
+            margin-top: -700px;
+            padding: 150px;
+
+            &::before {
+                transform: translateX(8.6vw);
+                border-radius: 60px;
+            }
+
+            &--reverse {
+                border-radius: 0 60px 60px 0;
+                margin-right: 0px;
+                margin-left: 800px;
+
+                &::before {
+                    transform: translateX(-8.6vw);
+                }
+            }
+        }
+
+        &__flex {
+            div {
+                border-radius: 0;
+            }
+
+            &-text {
+                padding: 150px;
+            }
+        }
+    }
 }

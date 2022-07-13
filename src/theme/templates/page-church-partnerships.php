@@ -35,49 +35,26 @@ $sizes = wp_get_attachment_image_sizes($post_thumbnail_id);
             <img src="<?php echo $src[0]; ?>" srcset="<?php echo $srcset; ?>" alt="" />
         </div>
 
-        <div class="church-partnerships__title">
-            <h3>Your role is vital</h3>
-            <h1 class="font-canela">Church Partners</h1>
+
+
+        <div class="church-partnerships__text church-partnerships__hero-text">
+            <div class="church-partnerships__title">
+                <h3><?php the_field('subtitle')?></h3>
+                <h1 class="font-canela"><?php the_title()?></h1>
+            </div>
+            <?php the_content()?>
+
         </div>
 
-        <p class="church-partnerships__text">The church has a vital role to play in helping to end modern slavery and
-            human trafficking. No
-            person or organisation will be able to eradicate this evil by working in isolation. But when the church
-            stands
-            together – united in prayer and action – we believe we will see God move in power.
-        </p>
 
-        <div class="church-partnerships__button">
-            <a class="button button--green">How your
-                <br>Church can help
-            </a>
-        </div>
 
         <div class="church-partnerships__image"
-            style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2022/07/DSC03897.webp');">
+            style="background-image: url('<?php the_field('second_image')?>');">
         </div>
 
         <div class="church-partnerships__text-container">
-            <h2 class="font-canela">What does the Bible say about modern slavery?</h2>
-            <p>The Bible speaks of a God who sets the oppressed free. He is a refuge for the oppressed (Psalm 9:9), He
-                proclaims freedom for the prisoners (Luke 4:18), He is close to the broken-hearted (Psalm 34:18), He is
-                a voice for the voiceless (Proverbs 31:8), He makes right decisions for the downtrodden (Isaiah 11:4),
-                He restores people (1 Peter 5:10).
-                <span class="gsap-no-height">
-                    <br>
-                    Deuteronomy 13:5 describes the Lord who brought the Israelites out of the land of Egypt and
-                    “redeemed
-                    them from the house of slavery.”
-                    <br><br>
-                    We believe in a God who saves, sets free, binds up, helps, heals, delivers, restores. Hope for
-                    Justice’s
-                    work is centred around a model that has these Christian values at its core. Our four-pillar approach
-                    aims to restore lives that have been affected by modern slavery and ultimately, to prevent this evil
-                    from happening in the first place: prevent, rescue, restore, reform (include link to What we do |
-                    Hope
-                    for Justice).
-                </span>
-            </p>
+            <h2 class="font-canela"><?php the_field('second_title')?></h2>
+            <?php the_field('second_content')?>
             <div class="church-partnerships__see-more church-partnerships__see-more--margin-top">
                 <div class="church-partnerships__see-more-button"></div>
                 <p>Read more</p>
@@ -85,152 +62,82 @@ $sizes = wp_get_attachment_image_sizes($post_thumbnail_id);
         </div>
 
         <div class="church-partnerships__image church-partnerships__image--reverse"
-            style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2022/07/DSC04339.webp');">
+            style="background-image: url('<?php the_field('third_image')?>');">
         </div>
 
         <div class="church-partnerships__text-container church-partnerships__text-container--reverse">
-            <h2 class="font-canela">What role does the church play?</h2>
-            <p>God has given us a mandate to follow His example. We are called to “act justly and to love mercy and to
-                walk humbly with [our] God” (Micah 6:8, NIV).
-                <br><br>
-                Hope for Justice exists to live in a world free from slavery. This is a big vision which needs every
-                person to play their part.
-                <span class="gsap-no-height">
-                    <br>
-                    From the very day Hope for Justice was founded back in 2008, churches have been instrumental in
-                    supporting our work – being trained to spot the signs, praying, through regular giving, fundraising
-                    and by playing a key role in raising awareness about modern-day slavery and human trafficking in our
-                    world. The global scale of the problem has been met with a wave of unity across church communities
-                    who have committed themselves to stand with us in ending slavery and changing lives.
-                    <br><br>
-                    The church was pivotal in identifying the first known victims of the largest modern slavery gang in
-                    UK history, sparking a four-year investigation. It was one of Hope for Justice’s staff, working
-                    alongside a support worker – an advisor from a church group who had received training from the
-                    charity on how to spot the signs of modern slavery – who first recognised there were victims in his
-                    area within the Polish community. Hope for Justice and West Midlands Police identified 92 victims as
-                    part of the investigation, designated Operation Fort, but believe there were as many as 400 in
-                    total. Hope for Justice has supported many of the victims in their recovery and as they bravely gave
-                    evidence against the gang. Eleven people have been jailed so far, most recently in September 2021.
-                    <br><br>
-                    This case alone shows that it is vital that we train the church in how to identify potential
-                    victims, where they are most likely to come into contact with them, and what steps to take if you
-                    suspect modern slavery.
-                </span>
-            </p>
+            <h2 class="font-canela"><?php the_field('third_title')?></h2>
+            <?php the_field('third_content')?>
             <div class="church-partnerships__see-more church-partnerships__see-more--margin-top">
                 <div class="church-partnerships__see-more-button"></div>
                 <p>Read more</p>
             </div>
         </div>
 
-        <h2
-            class="church-partnerships__heading church-partnerships__heading--margin-top church-partnerships__heading--center font-canela">
-            How your Church can help Hope&nbsp;for&nbsp;Justice</h2>
+        <h2 id="scrollToHere"
+            class="church-partnerships__heading church-partnerships__heading--margin-top church-partnerships__heading--larger church-partnerships__heading--center font-canela">
+            <?php the_field('fourth_title')?></h2>
 
         <div class="church-partnerships__flex">
             <div class="church-partnerships__image church-partnerships__image--full"
-                style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2022/07/Outreach-UK-commuity-work-15.webp');">
+                style="background-image: url('<?php the_field('fourth_image')?>');">
             </div>
             <div class="church-partnerships__flex-text">
-                <h3 class="font-fk church-partnerships__heading church-partnerships__heading--fk">Inform</h3>
-                <p>In order to make wise decisions for the good of those who are affected by modern day slavery and
-                    human
-                    trafficking,
-                    we need to be informed.
-                    <br><br>
-                    Many of our day-to-day buying habits as consumers impact the people who are at the bottom of supply
-                    chains –
-                    the weak, the marginalised, those vulnerable to modern slavery.
-                    <br><br>
-                    Hope for Justice delivers Modern Slavery Training that is relevant for anyone involved in policing
-                    and
-                    law
-                    enforcement; central or local government; healthcare and social work; or non-governmental work in
-                    the
-                    community, such as food banks, drop-in centres, community organisations and outreach, and those
-                    working
-                    with
-                    vulnerable people.
-                    <br><br>
-                    <a>Find out more here.</a>
-                </p>
+                <h3 class="font-fk church-partnerships__heading church-partnerships__heading--fk"><?php the_field('fifth_title')?></h3>
+                <?php the_field('fourth_content')?>
             </div>
         </div>
 
-        <div class="church-partnerships__flex">
+        <div class="church-partnerships__flex church-partnerships__flex--not-top">
             <div class="church-partnerships__image church-partnerships__image--full"
-                style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2022/07/pray.webp');">
+                style="background-image: url('<?php the_field('fifth_image')?>');">
             </div>
             <div class="church-partnerships__flex-text">
-                <h3 class="font-fk church-partnerships__heading church-partnerships__heading--fk">Pray</h3>
-                <p>We have a live prayer page, which is regularly updated with news, information, requests and answers
-                    to prayer from across our organisation. Please join with us in praying for these specific areas.
-                    <br><br>
-                    We would love you to partner with us to pray for breakthrough for victims and survivors of modern
-                    day slavery and human trafficking, as well as for the traffickers who are oppressing them – that
-                    their hearts would be changed.
-                    <br><br>
-                    We would love you to pray for governments and key decision makers as they change existing, and
-                    introduce new, legislation and reform.
-                    We meet every Wednesday evening to pray together about the issue of modern slavery.
-                    <br><br>
-                    Please email <a>supporters@hopeforjustice.org</a>
-                    for more information.
-                </p>
+                <h3 class="font-fk church-partnerships__heading church-partnerships__heading--fk"><?php the_field('sixth_title')?></h3>
+                <?php the_field('fifth_content')?>
             </div>
         </div>
 
         <div class="church-partnerships__act"
-            style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2022/07/cp12.webp');">
-            <h3 class="font-fk church-partnerships__heading church-partnerships__heading--fk">Act</h3>
-            <div class="church-partnerships__see-more church-partnerships__see-more--below">
-                <div class="church-partnerships__see-more-button"></div>
-                <h4 class="font-canela">Spot the Signs</h4>
-            </div>
-            <p>
-                <span class="gsap-no-height">
-                    Learn to spot the signs of modern day slavery and human trafficking. This makes it harder for the
-                    traffickers to hide their crimes.
-                </span>
-            </p>
+            style="background-image: url('<?php the_field('sixth_image')?>');">
+            <h3 class="font-fk church-partnerships__heading church-partnerships__heading--fk"><?php the_field('seventh_title')?></h3>
+            
+            <div class="church-partnerships__act-flex">
+                <div class="church-partnerships__act-flex-child">
+                    <div class="church-partnerships__see-more church-partnerships__see-more--below">
+                        <div class="church-partnerships__see-more-button"></div>
+                        <h4 class="font-canela"><?php the_field('eighth_title')?></h4>
+                    </div>
+                    <?php the_field('sixth_content')?>
+                </div>
 
-            <div class="church-partnerships__see-more church-partnerships__see-more--below">
-                <div class="church-partnerships__see-more-button"></div>
-                <h4 class="font-canela">Support Hope for Justice</h4>
-            </div>
-            <p>
-                <span class="gsap-no-height">
-                    You can invite a Hope for Justice speaker to come to your church to deliver an inspirational talk.
-                    Find out more about how Hope for Justice is fighting human trafficking and helping victims and
-                    survivors all around the world.
-                </span>
-            </p>
+                <div class="church-partnerships__act-flex-child">
+                    <div class="church-partnerships__see-more church-partnerships__see-more--below">
+                        <div class="church-partnerships__see-more-button"></div>
+                        <h4 class="font-canela"><?php the_field('ninth_title')?></h4>
+                    </div>
+                    <?php the_field('seventh_content')?>
+                </div>
 
-            <div class="church-partnerships__see-more church-partnerships__see-more--below">
-                <div class="church-partnerships__see-more-button"></div>
-                <h4 class="font-canela">Host a Hope Sunday</h4>
-            </div>
-            <p>
-                <span class="gsap-no-height">
-                    Donate today to ensure we can see more people rescued and restored from exploitation. Here are 40
-                    ways that you can fundraise for us.
-                </span>
-            </p>
+                <div class="church-partnerships__act-flex-child">
+                    <div class="church-partnerships__see-more church-partnerships__see-more--below">
+                        <div class="church-partnerships__see-more-button"></div>
+                        <h4 class="font-canela"><?php the_field('tenth_title')?></h4>
+                    </div>
+                    <?php the_field('eighth_content')?>
+                </div>
 
-            <div class="church-partnerships__see-more church-partnerships__see-more--below">
-                <div class="church-partnerships__see-more-button"></div>
-                <h4 class="font-canela">Join an Abolition Group</h4>
+                <div class="church-partnerships__act-flex-child">
+                    <div class="church-partnerships__see-more church-partnerships__see-more--below">
+                        <div class="church-partnerships__see-more-button"></div>
+                        <h4 class="font-canela"><?php the_field('eleventh_title')?></h4>
+                    </div>
+                    <?php the_field('ninth_content')?>
+                </div>
             </div>
-            <p>
-                <span class="gsap-no-height">
-                    Become a part of the Hope for Justice family by joining an Abolition Group – a pool of churches and
-                    individuals who educate others on the issue of modern slavery, raise much-needed funds for our work,
-                    and become leaders in the anti-slavery movement through their words and actions.
-                </span>
-            </p>
         </div>
 
-        <div class="church-partnerships__video">
+        <div data-toggle="modal" data-target="#video-modal" data-src="<?php the_field('video_source'); ?>" class="church-partnerships__video video-trigger">
             <div class="church-partnerships__video-play">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.488 15.607">
                     <path id="Polygon_37" data-name="Polygon 37"
@@ -293,64 +200,67 @@ $sizes = wp_get_attachment_image_sizes($post_thumbnail_id);
             </svg>
         </div>
 
-        <h2 class="church-partnerships__heading church-partnerships__heading--center font-canela">Use Your Voice</h2>
-        <p class="church-partnerships__text church-partnerships__text--center church-partnerships__text--no-margin">
-            We’ve created some graphics you can download and use for free!
-            Share our content on social media to make others aware of the issue.
+        <h2 class="church-partnerships__heading church-partnerships__heading--margin-top church-partnerships__heading--center font-canela"><?php the_field('twelfth_title')?></h2>
+        <p class="church-partnerships__text church-partnerships__text--max-width church-partnerships__text--center church-partnerships__text--no-margin">
+            <?php the_field('tenth_content')?>
         </p>
 
         <div class="church-partnerships__button church-partnerships__button--center">
-            <a class="button button--grey">download all
+            <a href="<?php the_field('download_all_link')?>" class="button button--grey" download>download all
             </a>
         </div>
 
-        <?php
-			$select_resources_template = get_field('select_resources_template');
-		    $args=array(
-		      'post_type' => 'resources_template',
-		      'post_status' => 'publish',
-		      'posts_per_page' => -1,
+        <div class="church-partnerships__cards cards sub-grid">
+            <?php
+                $select_resources_template = get_field('select_resources_template');
+                $args=array(
+                'post_type' => 'resources_template',
+                'post_status' => 'publish',
+                'posts_per_page' => -1,
 
-		    
-		      );
-		    $query = null;
-		    $query = new WP_Query($args);
-		    $resources_template = get_field('select_resources_template');
+                
+                );
+                $query = null;
+                $query = new WP_Query($args);
+                $resources_template = get_field('select_resources_template');
 
-		    // if have posts 
-		    if( $select_resources_template ) { ?>
+                // if have posts 
+                if( $select_resources_template ) { ?>
 
-            <!-- while there is posts display them -->
-            <?php foreach( $resources_template as $rpost ): ?>
-                <?php 
-					if(get_field('choose_between', $rpost->ID) == 'pdf') {
-						$field = get_field('upload_pdf',$rpost->ID); 
-					} elseif(get_field('choose_between', $rpost->ID) == 'link') { 
-						$field = get_field('link',$rpost->ID); 
-					}
-					?>
+                <!-- while there is posts display them -->
+                <?php foreach( $resources_template as $rpost ): ?>
+                    <?php 
+                        if(get_field('choose_between', $rpost->ID) == 'pdf') {
+                            $field = get_field('upload_pdf',$rpost->ID); 
+                        } elseif(get_field('choose_between', $rpost->ID) == 'link') { 
+                            $field = get_field('link',$rpost->ID); 
+                        }
+                        ?>
 
-					<div class="cards__card">
-						<a target="_blank" href="<?php echo $field; ?>" download>
-							<div class="cards__content" >
-								<div class="cards__img-container">
-									<img src="<?php echo get_the_post_thumbnail_url($rpost->ID); ?>" class="cards__img">
-								</div>
-							  	<div class="cards__info">
-							    	<div class="cards__text">
-							    		<span class="cards__excerpt">
-							    			<?php echo get_the_excerpt($rpost->ID); ?>
-							    		</span>
-							    		<?php if( ! get_field('no_download', $rpost->ID) ) { ?>	
-					    				<img class="resources__download" src="<?php echo get_template_directory_uri().'/assets/img/download.svg'; ?>" alt="">
-					    				<?php } ?>		
-							    	</div>
-							  	</div>
-							</div>
-						</a>
-					</div>
+                        <div class="cards__card">
+                            <a target="_blank" href="<?php echo $field; ?>" download>
+                                <div class="cards__content" >
+                                    <div class="cards__img-container">
+                                        <img src="<?php echo get_the_post_thumbnail_url($rpost->ID); ?>" class="cards__img">
+                                    </div>
+                                    <div class="cards__info">
+                                        <div class="cards__text">
+                                            <span class="cards__excerpt">
+                                                <?php echo get_the_excerpt($rpost->ID); ?>
+                                            </span>
+                                            <?php if( ! get_field('no_download', $rpost->ID) ) { ?>	
+                                            <img class="resources__download" src="<?php echo get_template_directory_uri().'/assets/img/download.svg'; ?>" alt="">
+                                            <?php } ?>		
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
 
-            <?php endforeach; } ?>
+                <?php endforeach; } ?>
+            </div>
+
+
         </div>
 </main>
 
@@ -360,5 +270,19 @@ $sizes = wp_get_attachment_image_sizes($post_thumbnail_id);
 endwhile;
 // end of the loop.
 ?>
+
+	<!-- 
+	-- 
+	-- video modal
+	-- 
+	--> 
+	<?php get_template_part(
+	    'partials/content',
+	    'modal',
+	    array(
+	        'type' => 'video',
+	        'id' => 'video-modal'
+	    )
+	); ?>
 
 <?php get_footer(); ?>

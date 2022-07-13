@@ -12,6 +12,12 @@ jQuery(document).ready(function ($) {
         $(this).toggleClass("church-partnerships__see-more--open");
     });
 
+    $("#scrollto").click(function () {
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#scrollToHere").offset().top - 100
+        }, 400);
+    });
+
     function showMore(el) {
         let below = $(el).hasClass("church-partnerships__see-more--below");
         if (below) {

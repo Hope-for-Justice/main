@@ -14,7 +14,7 @@ $mq-breakpoints: (
     mobileMedium: 375px,
     mobileLarge: 480px,
     phablet: 550px,
-    tablet:  768px,
+    tablet: 768px,
     desktop: 1024px,
     desktopLarge: 1366px,
     desktopExtraLarge: 1680px,
@@ -22,10 +22,22 @@ $mq-breakpoints: (
     max: 1921px,
     extraWide: 2300px,
 
-) !default;
+    ) !default;
 
 // Show breakpoints 
-//$mq-show-breakpoints: (mobile, mobileMedium, mobileLarge, phablet, tablet, desktop, desktopLarge, desktopExtraLarge, wide, max, extraWide);
+$mq-show-breakpoints: (
+    mobile,
+    mobileMedium,
+    mobileLarge,
+    phablet,
+    tablet,
+    desktop,
+    desktopLarge,
+    desktopExtraLarge,
+    wide,
+    max,
+    extraWide
+);
 
 // Colors
 ///////////////////////////////////////////////////////////////////////////////
@@ -44,7 +56,7 @@ $green: #5CAA7F;
 $blue: #8BBEE8;
 $yellow: #FFC845;
 $fields: #E5E5E5;
-$fields-border:#D8D8D8;
+$fields-border: #D8D8D8;
 
 //z-index
 ///////////////////////////////////////////////////////////////////////////////
@@ -54,5 +66,4 @@ $z-ticker: 700;
 
 //others maybe needed
 
-$z-body:600;
-
+$z-body: 600;
