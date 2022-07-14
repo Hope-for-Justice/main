@@ -18,6 +18,8 @@ get_header();
 					<?php echo get_the_title(); ?>
 				</h2>
 
+
+				<!-- breadcrumbs -->
 				<?php global $post;
 				  if ( $post->post_parent ) { ?>
 				    <ul class="breadcrumbs">
@@ -48,7 +50,7 @@ get_header();
 			// die(print_r($select_resources_template));
 			// query arguments
 		    $args=array(
-		      'post_type' => 'resources_template',
+		      'post_type' => 'resources',
 		      'post_status' => 'publish',
 		      'posts_per_page' => -1,
 

@@ -3,6 +3,13 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 
 	uglifyFilesObject[distTheme + jsDir + 'footer.js'] = [
+
+		devTheme + jsDir + 'scripts.js',
+
+	];
+
+	uglifyFilesObject[distTheme + jsDir + 'pages/plugins.js'] = [
+
 		// plugins
 		devTheme + jsDir + 'plugins/bootstrap.modal.js',
 		devTheme + jsDir + 'plugins/utm-tracking.js',
@@ -16,7 +23,7 @@ module.exports = function (distTheme, devTheme, jsDir) {
 		devTheme + jsDir + 'plugins/flexslider.js',
 		devTheme + jsDir + 'plugins/fitvids.js',
 		//devTheme + jsDir + 'plugins/bootstrap-flags.js',
-		devTheme + jsDir + 'scripts.js',
+
 
 	];
 
