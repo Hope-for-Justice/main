@@ -150,6 +150,10 @@
         align-items: center;
         gap: 10px;
 
+        &:hover {
+            cursor: pointer;
+        }
+
         &--margin-top {
             margin-top: 20px;
         }
