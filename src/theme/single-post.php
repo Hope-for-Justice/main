@@ -34,7 +34,7 @@ $query = new WP_Query($args);
 <!-- Page container -->
 <div class="news-inner grid news-inner-cat-<?php echo $category_id ?>">
 	<!-- container for post --> 
-	<div class="news-inner__post">
+	<main class="news-inner__post">
 		<!-- Post image -->
 		<div class="news-inner__img-container">
 			<img class="news-inner__hero-img" src="<?php echo get_the_post_thumbnail_url(); ?>">
@@ -82,13 +82,14 @@ $query = new WP_Query($args);
 					</div>
 			</div><!-- /row -->
 		</div><!-- /container -->
-	</div>
+	</main>
 	<?php endwhile; ?>
 	<?php endif; ?>
 
+	
 	<?php if( $query->have_posts() ) { ?>
 	<!-- Cards for more news-->		 	
-	<div class="news-inner__cards scategory_<?php echo $category_id; ?>" >
+	<aside class="news-inner__cards scategory_<?php echo $category_id; ?>" >
 		<h2 class="font-canela b-title--smaller">
 			<?php echo $category_name; ?>
 		</h2>
@@ -149,7 +150,7 @@ $query = new WP_Query($args);
   		</div>
 
 
-	</div>
+	</aside>
 
 
 	<?php } ?>
