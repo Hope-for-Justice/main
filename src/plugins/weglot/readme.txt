@@ -2,9 +2,9 @@
 Contributors: remyb92, gmulti, wysija, wpr0ck, glx77
 Tags: translate, multilingual, language, translation, localization, multilingual SEO, languages, translator, website translation, multilanguage, international, traduction
 Requires at least: 4.5
-Tested up to: 5.9
+Tested up to: 6.0
 Requires PHP: 5.6
-Stable tag: 3.6.1
+Stable tag: 3.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -210,11 +210,10 @@ See changelog for upgrade changes.
 
 == Changelog ==
 
-= 3.6.1 (02/03/2022) =
-
-* Bugfix: Fix hide button option on switcher menu
-* Bugfix: Fix bug VE not translated
-* Bugfix: Fix bug add Custom full name for orginal language
+= 3.7.3 (05/07/2022) =
+* Bugfix: Remove mod_rewrite check with apache_get_module()
+* Bugfix: Fix problem with empty switcher from switcher editor
+* Bugfix: Compatibility with gravitform upload input
 
 = Older versions =
 

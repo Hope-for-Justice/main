@@ -1,0 +1,29 @@
+.site {
+    visibility: hidden;
+}
+
+
+@supports (display: grid) {
+
+    .site {
+        visibility: visible;
+    }
+
+    .upgrade-browser {
+        display: none;
+    }
+
+    @import "base/_variables.scss";
+    @import "lib/_mq.scss";
+    @import "base/_mixins.scss";
+    @import "better-base/_better-base.scss";
+
+    // type
+    @import "better-base/_better-type.scss";
+
+    // better objects
+    @import "better-objects/better-grid.scss";
+    @import "better-objects/full-header.scss";
+
+
+}

@@ -1,6 +1,5 @@
 @import "_colors.scss";
 @import "_flags.scss";
-@import "third/mega_max_menu.scss";
 $heightSelector: 37px;
 $lineHeight: 36px;
 
@@ -53,6 +52,10 @@ li.weglot-hide,
 	li {
 		margin: 0px;
 		padding: 0px;
+	}
+
+	&.weglot-custom-switcher-ajax{
+		display: none;
 	}
 
 	&.weglot-dropdown {

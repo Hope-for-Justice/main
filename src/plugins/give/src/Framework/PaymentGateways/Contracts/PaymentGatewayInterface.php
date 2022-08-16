@@ -2,16 +2,16 @@
 
 namespace Give\Framework\PaymentGateways\Contracts;
 
+use Give\Donations\Models\Donation;
 use Give\Framework\Exceptions\Primitives\Exception;
 use Give\Framework\PaymentGateways\Commands\GatewayCommand;
+use Give\Framework\PaymentGateways\Commands\RedirectOffsite;
 use Give\Framework\PaymentGateways\Exceptions\PaymentGatewayException;
-use Give\PaymentGateways\DataTransferObjects\GatewayPaymentData;
-use Give\PaymentGateways\DataTransferObjects\GatewaySubscriptionData;
 
 /**
  * @since 2.18.0
  */
-interface PaymentGatewayInterface
+interface PaymentGatewayInterface extends SubscriptionModuleInterface
 {
     /**
      * Return a unique identifier for the gateway
@@ -20,7 +20,7 @@ interface PaymentGatewayInterface
      *
      * @return string
      */
-    public static function id();
+    public static function id(): string;
 
     /**
      * Return a unique identifier for the gateway
@@ -29,7 +29,7 @@ interface PaymentGatewayInterface
      *
      * @return string
      */
-    public function getId();
+    public function getId(): string;
 
     /**
      * Returns a human-readable name for the gateway
@@ -38,7 +38,7 @@ interface PaymentGatewayInterface
      *
      * @return string - Translated text
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * Returns a human-readable label for use when a donor selects a payment method to use
@@ -47,7 +47,7 @@ interface PaymentGatewayInterface
      *
      * @return string - Translated text
      */
-    public function getPaymentMethodLabel();
+    public function getPaymentMethodLabel(): string;
 
     /**
      * Determines if subscriptions are supported
@@ -56,57 +56,29 @@ interface PaymentGatewayInterface
      *
      * @return bool
      */
-    public function supportsSubscriptions();
+    public function supportsSubscriptions(): bool;
 
     /**
      * Create a payment with gateway
+     * Note: You can use "givewp_new_payment_{$gatewayId}_gateway_data" filter hook to pass additional data for gateway which helps/require to process transaction.
+     *       This filter will help to add additional arguments to this function which should be optional otherwise you will get PHP fatal error.
      *
+     * @since 2.21.2 Add second param to function to pass gateway data to process transaction
      * @since 2.18.0
      *
-     * @param  GatewayPaymentData  $paymentData
+     * @return GatewayCommand|RedirectOffsite|void
      *
-     * @return GatewayCommand
-     * @throws PaymentGatewayException|Exception
-     *
+     * @throws PaymentGatewayException
+     * @throws Exception
      */
-    public function createPayment(GatewayPaymentData $paymentData);
+    public function createPayment(Donation $donation, $gatewayData);
 
     /**
-     * Handle creating a payment with gateway
+     * @since 2.20.0
      *
-     * @since 2.18.0
+     * @param Donation $donation
      *
-     * @param  GatewayPaymentData  $gatewayPaymentData
-     * @return void
+     * @return mixed
      */
-    public function handleCreatePayment(GatewayPaymentData $gatewayPaymentData);
-
-    /**
-     * Create a subscription with gateway
-     *
-     * @since 2.18.0
-     *
-     * @param  GatewayPaymentData  $paymentData
-     * @param  GatewaySubscriptionData  $subscriptionData
-     *
-     * @return GatewayCommand
-     * @throws PaymentGatewayException|Exception
-     *
-     */
-    public function createSubscription(GatewayPaymentData $paymentData, GatewaySubscriptionData $subscriptionData);
-
-    /**
-     * Handle creating a subscription with gateway
-     *
-     * @since 2.18.0
-     *
-     * @param  GatewayPaymentData  $paymentData
-     * @param  GatewaySubscriptionData  $subscriptionData
-     *
-     * @return void
-     */
-    public function handleCreateSubscription(
-        GatewayPaymentData $paymentData,
-        GatewaySubscriptionData $subscriptionData
-    );
+    public function refundDonation(Donation $donation);
 }

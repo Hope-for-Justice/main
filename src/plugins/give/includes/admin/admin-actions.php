@@ -76,10 +76,12 @@ function give_redirect_to_clean_url_admin_pages() {
 	if ( $redirect ) {
 		// Redirect.
 		wp_redirect(
-			remove_query_arg(
-				[ '_wp_http_referer', '_wpnonce' ],
-				wp_unslash( $_SERVER['REQUEST_URI'] )
-			)
+            esc_url_raw(
+                remove_query_arg(
+                    [ '_wp_http_referer', '_wpnonce' ],
+                    wp_unslash( $_SERVER['REQUEST_URI'] )
+                )
+            )
 		);
 		exit;
 	}
@@ -638,6 +640,22 @@ function give_import_page_link_callback() {
 	?>
 	<a href="<?php echo esc_url( give_import_page_url() ); ?>"
 	   class="page-import-action page-title-action"><?php _e( 'Import Donations', 'give' ); ?></a>
+    <script>
+        function showReactTable () {
+            fetch( '<?php echo esc_url_raw(rest_url('give-api/v2/admin/donations/view?isLegacy=0')) ?>', {
+                method: 'GET',
+                headers: {
+                    ['X-WP-Nonce']: '<?php echo wp_create_nonce('wp_rest') ?>'
+                }
+            })
+            .then((res) => {
+                window.location.reload();
+            });
+        }
+    </script>
+    <button onclick="showReactTable()" class="page-title-action">
+        <?php _e('Switch to New View', 'give') ?>
+    </button>
 
 	<?php
 	// Check if view donation single page only.
@@ -1592,5 +1610,15 @@ function give_render_form_theme_setting_panel() {
 
 add_action( 'give_post_form_template_options_settings', 'give_render_form_theme_setting_panel' );
 
+/**
+ * Add Custom setting view for form grid setting panel
+ *
+ * @since 2.20.0
+ */
+function give_render_form_grid_setting_panel() {
+    require_once GIVE_PLUGIN_DIR . 'src/Views/Admin/Form/FormGrid-Settings.php';
+}
+
+add_action( 'give_post_form_grid_options_settings', 'give_render_form_grid_setting_panel' );
 
 

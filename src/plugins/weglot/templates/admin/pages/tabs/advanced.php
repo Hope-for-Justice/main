@@ -10,48 +10,53 @@ use Weglot\Util\Regex\RegexEnum;
 use WeglotWP\Helpers\Helper_Tabs_Admin_Weglot;
 use WeglotWP\Helpers\Helper_Excluded_Type;
 
-$options_available = [
-	'exclude_urls'     => [
+$options_available = array(
+	'exclude_urls'       => array(
 		'key'         => 'exclude_urls',
 		'label'       => __( 'Exclusion URL', 'weglot' ),
 		'description' => __( 'Add URL that you want to exclude from translations. You can use regular expression to match multiple URLs. ', 'weglot' ),
-	],
-	'exclude_blocks'   => [
+	),
+	'exclude_blocks'     => array(
 		'key'         => 'exclude_blocks',
 		'label'       => __( 'Exclusion Blocks', 'weglot' ),
 		'description' => __( 'Enter the CSS selector of blocks you don\'t want to translate (like a sidebar, a menu, a paragraph, etc...)', 'weglot' ),
-	],
-	'auto_redirect'    => [
+	),
+	'auto_redirect'      => array(
 		'key'         => 'auto_redirect',
 		'label'       => __( 'Auto redirection', 'weglot' ),
 		'description' => __( 'Check if you want to redirect users based on their browser language.', 'weglot' ),
-	],
-	'email_translate'  => [
+	),
+	'email_translate'    => array(
 		'key'         => 'email_translate',
 		'label'       => __( 'Translate email', 'weglot' ),
 		'description' => __( 'Check to translate all emails who use function wp_mail', 'weglot' ),
-	],
-	'translate_amp'    => [
+	),
+	'translate_amp'      => array(
 		'key'         => 'translate_amp',
 		'label'       => __( 'Translate AMP', 'weglot' ),
 		'description' => __( 'Translate AMP page', 'weglot' ),
-	],
-	'active_search'    => [
+	),
+	'active_search'      => array(
 		'key'         => 'active_search',
 		'label'       => __( 'Search WordPress', 'weglot' ),
 		'description' => __( 'Allow your users to search in the language they use.', 'weglot' ),
-	],
-	'private_mode'     => [
+	),
+	'private_mode'       => array(
 		'key'         => 'private_mode',
 		'label'       => __( 'Private mode', 'weglot' ),
 		'description' => __( 'Check if your only want admin users to see the translations', 'weglot' ),
-	],
-	'active_wc_reload' => [
+	),
+	'active_wc_reload'   => array(
 		'key'         => 'active_wc_reload',
 		'label'       => __( '[WooCommerce] : Prevent reload cart', 'weglot' ),
 		'description' => __( 'You should only enable this option if you have translation errors on your cart widget.', 'weglot' ),
-	]
-];
+	),
+	'page_views_enabled' => array(
+		'key'         => 'page_views_enabled',
+		'label'       => __( 'Page views tracking (beta)', 'weglot' ),
+		'description' => __( 'You can enable tracking of page views. This will save the country and browser language of visitors.', 'weglot' ),
+	),
+);
 
 ?>
 
@@ -97,7 +102,7 @@ $options_available = [
 								<span class="dashicons dashicons-minus"></span>
 							</button>
 						</div>
-					<?php
+						<?php
 					endforeach;
 				endif;
 				?>
@@ -176,6 +181,23 @@ $options_available = [
 				<?php checked( $this->options[ $options_available['active_search']['key'] ], 1 ); ?>
 			>
 			<p class="description"><?php echo esc_html( $options_available['active_search']['description'] ); ?></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<th scope="row" class="titledesc">
+			<label for="<?php echo esc_attr( $options_available['page_views_enabled']['key'] ); ?>">
+				<?php echo esc_html( $options_available['page_views_enabled']['label'] ); ?>
+			</label>
+			<p class="sub-label"><?php echo esc_html( $options_available['page_views_enabled']['description'] ); ?></p>
+		</th>
+		<td class="forminp forminp-text">
+
+			<?php if ( $this->options['page_views_enabled'] ) : ?>
+				<p class="description"><a target="_blank" href="https://dashboard.weglot.com/statistics/page-views/" title="Page views tracking is activated">Page views tracking</a> is <b>activated</b></p>
+			<?php else : ?>
+				<p class="description"><a target="_blank" href="https://dashboard.weglot.com/statistics/page-views/" title="Page views tracking is deactivated">Page views tracking</a> is <b>deactivated</b></p>
+			<?php endif; ?>
+			<p><small><span class="wp-menu-image dashicons-before dashicons-welcome-comments"></span><?php esc_html_e( 'When you enable page views tracking, Weglot plugin will send statistics about your visitors\' browser language and country. You can then view this data in your Weglot account, for example your visitors\' most common country or most common language. Note that these statistics are completely anonymous.', 'weglot' ); ?></small></p>
 		</td>
 	</tr>
 	</tbody>

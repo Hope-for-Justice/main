@@ -23,6 +23,8 @@ module.exports = function (distTheme, devTheme, scssDir) {
         { src: devTheme + scssDir + 'pages/goats-milk.scss', dest: distTheme + '/goats-milk.css' },
         { src: devTheme + scssDir + 'pages/church-partnerships.scss', dest: distTheme + '/church-partnerships.css' },
 
+        //better styles for design system
+        { src: devTheme + scssDir + 'better-styles.scss', dest: distTheme + '/better-styles.css' },
       ]
     }
   }

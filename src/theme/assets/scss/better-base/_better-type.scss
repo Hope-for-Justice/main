@@ -1,0 +1,60 @@
+/*
+*
+* _BETTER-TYPE.SCSS
+*
+*/
+
+.small {
+    font-size: 0.75rem;
+}
+
+p {
+    font-size: 1rem;
+}
+
+.large {
+    font-size: 1.33rem;
+}
+
+h4 {
+    font-size: 1.77rem;
+}
+
+h3 {
+    font-size: 2.63rem;
+}
+
+h2 {
+    font-size: 3.15rem;
+}
+
+h1 {
+    font-size: 4.20rem;
+}
+
+.large-title {
+    font-size: 5.61rem;
+}
+
+.super-title {
+    font-size: 7.46rem;
+}
+
+
+//768
+@include mq($from: phablet) {}
+
+//768
+@include mq($from: tablet) {}
+
+//1024
+@include mq($from: desktop) {}
+
+//1366
+@include mq($from: desktopLarge) {}
+
+//1680
+@include mq($from: desktopExtraLarge) {}
+
+//1920
+@include mq($from: wide) {}

@@ -46,10 +46,11 @@ class Replace_Link_Service_Weglot {
 	 * @since 2.0
 	 * @param string $url
 	 * @param LanguageEntry $language
+	 * @param Bool $evenExcluded
 	 * @return string
 	 */
-	public function replace_url( $url, $language ) {
-		$replaced_url = apply_filters( 'weglot_replace_url', $this->request_url_services->create_url_object( $url )->getForLanguage( $language, true ), $url, $language );
+	public function replace_url( $url, $language, $evenExcluded = true ) {
+		$replaced_url = apply_filters( 'weglot_replace_url', $this->request_url_services->create_url_object( $url )->getForLanguage( $language, $evenExcluded ), $url, $language );
 		if ( $replaced_url ) {
 			return $replaced_url;
 		} else {
@@ -153,7 +154,7 @@ class Replace_Link_Service_Weglot {
 	 */
 	public function replace_form( $translated_page, $current_url, $quote1, $quote2, $sometags = null, $sometags2 = null ) {
 		$current_language = $this->request_url_services->get_current_language();
-		$translated_page  = preg_replace( '/<form' . preg_quote( $sometags, '/' ) . 'action=' . preg_quote( $quote1 . $current_url . $quote2, '/' ) . '/', '<form ' . $sometags . 'action=' . $quote1 . $this->replace_url( $current_url, $current_language ) . $quote2, $translated_page );
+		$translated_page  = preg_replace( '/<form' . preg_quote( $sometags, '/' ) . 'action=' . preg_quote( $quote1 . $current_url . $quote2, '/' ) . '/', '<form ' . $sometags . 'action=' . $quote1 . $this->replace_url( $current_url, $current_language, false ) . $quote2, $translated_page );
 
 		return $translated_page;
 	}

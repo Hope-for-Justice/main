@@ -3,44 +3,45 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
 use WeglotWP\Helpers\Helper_Tabs_Admin_Weglot;
 use WeglotWP\Helpers\Helper_Flag_Type;
 
 $options_available = [
-	'type_flags' => [
+	'type_flags'      => [
 		'key'         => 'type_flags',
 		'label'       => __( 'Type of flags', 'weglot' ),
 		'description' => '',
 	],
-	'is_fullname' => [
+	'is_fullname'     => [
 		'key'         => 'is_fullname',
 		'label'       => __( 'Is fullname', 'weglot' ),
 		'description' => __( "Check if you want the name of the language. Don't check if you want the language code.", 'weglot' ),
 	],
-	'with_name' => [
+	'with_name'       => [
 		'key'         => 'with_name',
 		'label'       => __( 'With name', 'weglot' ),
 		'description' => __( 'Check if you want to display the name of languages.', 'weglot' ),
 	],
-	'is_dropdown' => [
+	'is_dropdown'     => [
 		'key'         => 'is_dropdown',
 		'label'       => __( 'Is dropdown', 'weglot' ),
 		'description' => __( 'Check if you want the button to be a dropdown box.', 'weglot' ),
 	],
-	'with_flags' => [
+	'with_flags'      => [
 		'key'         => 'with_flags',
 		'label'       => __( 'With flags', 'weglot' ),
 		'description' => __( 'Check if you want flags in the language button.', 'weglot' ),
 	],
-	'override_css' => [
+	'override_css'    => [
 		'key'         => 'override_css',
 		'label'       => __( 'Override CSS', 'weglot' ),
 		'description' => __( "Don't change it unless you want a specific style for your button.", 'weglot' ),
 	],
-	'flag_css' => [
-		'key'         => 'flag_css',
+	'flag_css'        => [
+		'key' => 'flag_css',
 	],
-	'switcher_editor'  => [
+	'switcher_editor' => [
 		'key'         => 'switcher_editor',
 		'label'       => __( 'Custom position?', 'weglot' ),
 		'description' => __( 'You can place the button anywhere in your site using our switcher editor in your Weglot Dashboard', 'weglot' ),
@@ -51,17 +52,17 @@ $options_available = [
 <style id="weglot-css-flag-css"></style>
 <style id="weglot-css-inline"></style>
 <?php if ( empty( $this->option_services->get_switchers_editor_button() ) ) { ?>
-<h3>
-	<?php echo esc_html__( 'Language button design', 'weglot' ) . ' ' . esc_html__( '(Optional)', 'weglot' ); ?>
-</h3>
-<hr />
+	<h3>
+		<?php echo esc_html__( 'Language button design', 'weglot' ) . ' ' . esc_html__( '(Optional)', 'weglot' ); ?>
+	</h3>
+	<hr/>
 
-<table class="form-table">
-	<tbody>
+	<table class="form-table">
+		<tbody>
 		<tr valign="top">
 			<th scope="row" class="titledesc">
 				<label>
-				<?php echo esc_html__( 'Button preview', 'weglot' ); ?>
+					<?php echo esc_html__( 'Button preview', 'weglot' ); ?>
 				</label>
 			</th>
 			<td class="forminp forminp-text">
@@ -142,7 +143,9 @@ $options_available = [
 					</option>
 				</select>
 				<div class="flag-style-openclose"><?php esc_html_e( 'Change country flags', 'weglot' ); ?></div>
-				<p id="custom_flag_tips">You are still using old flags. To use new SVG flags, make sure you are using the default flags (if you have some custom CSS related to background-position or background-image, remove it). Then save your settings and you will be using the flags</p>
+				<p id="custom_flag_tips">You are still using old flags. To use new SVG flags, make sure you are using
+					the default flags (if you have some custom CSS related to background-position or background-image,
+					remove it). Then save your settings and you will be using the flags</p>
 				<div class="flag-style-wrapper" style="display:none;">
 					<select class="flag-en-type wg-input-select">
 						<option value=0><?php esc_html_e( 'Choose English flag:', 'weglot' ); ?></option>
@@ -222,7 +225,9 @@ $options_available = [
 					</select>
 					<p><?php esc_html_e( 'If you want to use a different flag, just ask us.', 'weglot' ); ?></p>
 				</div>
-				<textarea id="flag_css" name="<?php echo esc_attr( sprintf( '%s[%s]', WEGLOT_SLUG, $options_available['flag_css']['key'] ) ); ?>" style="display:none;"><?php echo esc_attr( $this->options['flag_css'] ); ?></textarea>
+				<textarea id="flag_css"
+						  name="<?php echo esc_attr( sprintf( '%s[%s]', WEGLOT_SLUG, $options_available['flag_css']['key'] ) ); ?>"
+						  style="display:none;"><?php echo esc_attr( $this->options['flag_css'] ); ?></textarea>
 			</td>
 		</tr>
 		<tr valign="top">
@@ -249,9 +254,9 @@ $options_available = [
 			</th>
 			<td class="forminp forminp-text">
 				<input
-				name="<?php echo esc_attr( sprintf( '%s[custom_settings][button_style][full_name]', WEGLOT_SLUG ) ); ?>"
-				id="<?php echo esc_attr( $options_available['is_fullname']['key'] ); ?>"
-				type="checkbox"
+					name="<?php echo esc_attr( sprintf( '%s[custom_settings][button_style][full_name]', WEGLOT_SLUG ) ); ?>"
+					id="<?php echo esc_attr( $options_available['is_fullname']['key'] ); ?>"
+					type="checkbox"
 					<?php checked( $this->options[ $options_available['is_fullname']['key'] ], 1 ); ?>
 				>
 				<p class="description"><?php echo esc_html( $options_available['is_fullname']['description'] ); ?></p>
@@ -262,8 +267,8 @@ $options_available = [
 				<label for="<?php echo esc_attr( $options_available['override_css']['key'] ); ?>">
 					<?php echo esc_html( $options_available['override_css']['label'] ); ?>
 				</label>
-		<p class="sub-label"><?php echo esc_html( $options_available['override_css']['description'] ); ?></p>
-		</td>
+				<p class="sub-label"><?php echo esc_html( $options_available['override_css']['description'] ); ?></p>
+			</td>
 			</th>
 			<td class="forminp forminp-text">
 				<textarea
@@ -272,18 +277,19 @@ $options_available = [
 					type="text"
 					rows="10"
 					cols="30"
-					name="<?php echo esc_attr( sprintf( '%s[custom_settings][button_style][custom_css]', WEGLOT_SLUG ) ); ?>" placeholder=".country-selector {
+					name="<?php echo esc_attr( sprintf( '%s[custom_settings][button_style][custom_css]', WEGLOT_SLUG ) ); ?>"
+					placeholder=".country-selector {
   margin-bottom: 20px;
 }"><?php echo $this->options[ $options_available['override_css']['key'] ]; //phpcs:ignore?></textarea>
 		</tr>
-	</tbody>
-</table>
+		</tbody>
+	</table>
 <?php } ?>
 
 <h3>
 	<?php echo esc_html_e( 'Language button position', 'weglot' ) . ' ' . esc_html__( '(Optional)', 'weglot' ); ?>
 </h3>
-<hr />
+<hr/>
 
 <p><?php esc_html_e( 'Where will the language button be on my website? By default, bottom right.', 'weglot' ); ?></p>
 
@@ -303,11 +309,12 @@ $options_available = [
 					checked
 					style="display:inline-block;"
 				>
-				<div class="notice notice-error is-dismissible" style="display: inline-block; position: relative; width: 80%; vertical-align: middle;">
+				<div class="notice notice-error is-dismissible"
+					 style="display: inline-block; position: relative; width: 80%; vertical-align: middle;">
 					<p>
 						<?php
-							// translators: 1 HTML Tag, 2 HTML Tag
-							echo esc_html__( 'Warning, this feature will be depreciated. We strongly advise you to uncheck the option and use and use the functionality: "In menu".', 'weglot' );
+						// translators: 1 HTML Tag, 2 HTML Tag
+						echo esc_html__( 'Warning, this feature will be depreciated. We strongly advise you to uncheck the option and use and use the functionality: "In menu".', 'weglot' );
 						?>
 					</p>
 				</div>
@@ -318,13 +325,13 @@ $options_available = [
 	<tr valign="top">
 		<th scope="row"><?php esc_html_e( 'In menu?', 'weglot' ); ?></th>
 		<td>
-			<?php echo sprintf( esc_html__( 'You can place the button in a menu area. Go to %1$sAppearance → Menus%2$s and drag and drop the Weglot Translate Custom link where you want.' , 'weglot' ), '<a href="' . esc_url( admin_url( 'nav-menus.php' ) ) . '">', '</a>' ); ?>
+			<?php echo sprintf( esc_html__( 'You can place the button in a menu area. Go to %1$sAppearance → Menus%2$s and drag and drop the Weglot Translate Custom link where you want.', 'weglot' ), '<a href="' . esc_url( admin_url( 'nav-menus.php' ) ) . '">', '</a>' ); ?>
 		</td>
 	</tr>
 	<tr valign="top">
 		<th scope="row"><?php esc_html_e( 'As a widget?', 'weglot' ); ?></th>
 		<td>
-			<?php echo sprintf ( esc_html__ ( 'You can place the button in a widget area. Go to %1$sAppearance → Widgets%2$s and drag and drop the Weglot Translate widget where you want.', 'weglot' ), '<a href="' . esc_url( admin_url( 'widgets.php' ) ) . '">', '</a>' ); ?>
+			<?php echo sprintf( esc_html__( 'You can place the button in a widget area. Go to %1$sAppearance → Widgets%2$s and drag and drop the Weglot Translate widget where you want.', 'weglot' ), '<a href="' . esc_url( admin_url( 'widgets.php' ) ) . '">', '</a>' ); ?>
 		</td>
 	</tr>
 	<tr valign="top">
@@ -340,20 +347,21 @@ $options_available = [
 		</td>
 	</tr>
 
-	<!--<tr valign="top">
+	<tr valign="top">
 		<th scope="row" class="titledesc">
-			<label for="<?php /*echo esc_attr( $options_available['switcher_editor']['key'] ); */?>">
-				<?php /*echo esc_html( $options_available['switcher_editor']['label'] ); */?>
+			<label for="<?php echo esc_attr( $options_available['switcher_editor']['key'] ); ?>">
+				<?php echo esc_html( $options_available['switcher_editor']['label'] ); ?>
 			</label>
-			<p class="sub-label"><?php /*echo esc_html( $options_available['switcher_editor']['description'] ); */?></p>
+			<p class="sub-label"><?php echo esc_html( $options_available['switcher_editor']['description'] ); ?></p>
 		</th>
 		<td class="forminp forminp-text">
-			<a 	class="btn btn-soft"
-				href="https://dashboard.weglot.com/settings/language-switcher/editor?url=<?php /*echo esc_url( get_home_url() ); */?>" target="_blank"><span
-					class="dashicons dashicons-admin-generic"></span> <?php /*esc_html_e( 'Use switcher editor', 'weglot' ); */?>
+			<a class="btn btn-soft"
+			   href="https://dashboard.weglot.com/settings/language-switcher/editor?url=<?php echo esc_url( get_home_url() ); ?>"
+			   target="_blank"><span
+					class="dashicons dashicons-admin-generic"></span> <?php esc_html_e( 'Use switcher editor', 'weglot' ); ?>
 			</a>
 		</td>
-	</tr>-->
+	</tr>
 </table>
 
 <template id="li-button-tpl">

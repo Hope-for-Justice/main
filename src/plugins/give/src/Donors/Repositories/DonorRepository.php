@@ -3,12 +3,15 @@
 namespace Give\Donors\Repositories;
 
 use Exception;
+use Give\Donations\ValueObjects\DonationMetaKeys;
+use Give\Donors\Exceptions\FailedDonorUpdateException;
 use Give\Donors\Models\Donor;
 use Give\Donors\ValueObjects\DonorMetaKeys;
 use Give\Framework\Database\DB;
 use Give\Framework\Exceptions\Primitives\InvalidArgumentException;
 use Give\Framework\Models\ModelQueryBuilder;
 use Give\Framework\Support\Facades\DateTime\Temporal;
+use Give\Helpers\Hooks;
 use Give\Log\Log;
 
 /**
@@ -32,10 +35,9 @@ class DonorRepository
      *
      * @since 2.19.6
      *
-     * @param  int  $donorId
-     * @return ModelQueryBuilder
+     * @return ModelQueryBuilder<Donor>
      */
-    public function queryById($donorId)
+    public function queryById(int $donorId): ModelQueryBuilder
     {
         return $this->prepareQuery()
             ->where('id', $donorId);
@@ -46,10 +48,9 @@ class DonorRepository
      *
      * @since 2.19.6
      *
-     * @param  int  $donorId
      * @return Donor|null
      */
-    public function getById($donorId)
+    public function getById(int $donorId)
     {
         return $this->queryById($donorId)->get();
     }
@@ -59,10 +60,9 @@ class DonorRepository
      *
      * @since 2.19.6
      *
-     * @param  int  $userId
      * @return Donor|null
      */
-    public function getByWpUserId($userId)
+    public function getByWpUserId(int $userId)
     {
         // user_id can technically be 0 so make sure to return null
         if (!$userId) {
@@ -77,10 +77,9 @@ class DonorRepository
     /**
      * @since 2.19.6
      *
-     * @param  int  $donorId
      * @return array|bool
      */
-    public function getAdditionalEmails($donorId)
+    public function getAdditionalEmails(int $donorId)
     {
         $additionalEmails = DB::table('give_donormeta')
             ->select(['meta_value', 'email'])
@@ -96,28 +95,28 @@ class DonorRepository
     }
 
     /**
+     * @since 2.21.0 add actions givewp_donor_creating and givewp_donor_created
+     * @since 2.20.0 mutate model and return void
      * @since 2.19.6
      *
-     * @param  Donor  $donor
-     *
-     * @return Donor
+     * @return void
      * @throws Exception
      */
     public function insert(Donor $donor)
     {
         $this->validateDonor($donor);
 
-        $date = $donor->createdAt ? Temporal::getFormattedDateTime(
-            $donor->createdAt
-        ) : Temporal::getCurrentFormattedDateForDatabase();
+        Hooks::doAction('givewp_donor_creating', $donor);
+
+        $dateCreated = Temporal::withoutMicroseconds($donor->createdAt ?: Temporal::getCurrentDateTime());
 
         DB::query('START TRANSACTION');
 
         try {
             DB::table('give_donors')
                 ->insert([
-                    'date_created' => $date,
-                    'user_id' => isset($donor->userId) ? $donor->userId : 0,
+                    'date_created' => Temporal::getFormattedDateTime($dateCreated),
+                    'user_id' => $donor->userId ?? 0,
                     'email' => $donor->email,
                     'name' => $donor->name
                 ]);
@@ -153,19 +152,26 @@ class DonorRepository
 
         DB::query('COMMIT');
 
-        return $this->getById($donorId);
+        $donor->id = $donorId;
+        $donor->createdAt = $dateCreated;
+
+        Hooks::doAction('givewp_donor_created', $donor);
     }
 
     /**
+     *
+     * @since 2.21.0 add actions givewp_donor_updating and givewp_donor_updated
+     * @since 2.20.0 return void
      * @since 2.19.6
      *
-     * @param  Donor  $donor
-     * @return Donor
+     * @return void
      * @throws Exception
      */
     public function update(Donor $donor)
     {
         $this->validateDonor($donor);
+
+        Hooks::doAction('givewp_donor_updating', $donor);
 
         DB::query('START TRANSACTION');
 
@@ -195,23 +201,20 @@ class DonorRepository
 
             Log::error('Failed updating a donor', compact('donor'));
 
-            throw new $exception('Failed updating a donor');
+            throw new FailedDonorUpdateException($donor, 0, $exception);
         }
 
         DB::query('COMMIT');
 
-        return $donor;
+        Hooks::doAction('givewp_donor_updated', $donor);
     }
 
     /**
      * @since 2.19.6
      *
-     * @param  int  $donorId
-     * @param  array  $columns
-     * @return bool
      * @throws Exception
      */
-    public function updateLegacyColumns($donorId, $columns)
+    public function updateLegacyColumns(int $donorId, array $columns): bool
     {
         DB::query('START TRANSACTION');
 
@@ -239,33 +242,27 @@ class DonorRepository
     }
 
     /**
+     *
+     * @since 2.21.0 add actions givewp_donor_deleting and givewp_donor_deleted
+     * @since 2.20.0 consolidate meta deletion into a single query
+     * @since 2.19.6
+     *
      * @throws Exception
      */
-    public function delete(Donor $donor)
+    public function delete(Donor $donor): bool
     {
         DB::query('START TRANSACTION');
+
+        Hooks::doAction('givewp_donor_deleting', $donor);
 
         try {
             DB::table('give_donors')
                 ->where('id', $donor->id)
                 ->delete();
 
-            foreach ($this->getCoreDonorMeta($donor) as $metaKey => $metaValue) {
-                DB::table('give_donormeta')
-                    ->where('donor_id', $donor->id)
-                    ->where('meta_key', $metaKey)
-                    ->delete();
-            }
-
-            if (isset($donor->additionalEmails)) {
-                foreach ($donor->additionalEmails as $additionalEmail) {
-                    DB::table('give_donormeta')
-                        ->where('donor_id', $donor->id)
-                        ->where('meta_key', DonorMetaKeys::ADDITIONAL_EMAILS)
-                        ->where('meta_value', $additionalEmail)
-                        ->delete();
-                }
-            }
+            DB::table('give_donormeta')
+                ->where('donor_id', $donor->id)
+                ->delete();
         } catch (Exception $exception) {
             DB::query('ROLLBACK');
 
@@ -276,28 +273,26 @@ class DonorRepository
 
         DB::query('COMMIT');
 
+        Hooks::doAction('givewp_donor_deleted', $donor);
+
         return true;
     }
 
     /**
      * @since 2.19.6
-     *
-     * @param  Donor  $donor
-     * @return array
      */
-    private function getCoreDonorMeta(Donor $donor)
+    private function getCoreDonorMeta(Donor $donor): array
     {
         return [
             DonorMetaKeys::FIRST_NAME => $donor->firstName,
             DonorMetaKeys::LAST_NAME => $donor->lastName,
-            DonorMetaKeys::PREFIX => isset($donor->prefix) ? $donor->prefix : null,
+            DonorMetaKeys::PREFIX => $donor->prefix ?? null,
         ];
     }
 
     /**
      * @since 2.19.6
      *
-     * @param  Donor  $donor
      * @return void
      */
     private function validateDonor(Donor $donor)
@@ -310,27 +305,34 @@ class DonorRepository
     }
 
     /**
-     * @param  string  $email
-     * @return Donor
+     * @since 2.21.1 optimize query by skipping prepareQuery until found
+     * @since 2.19.6
+     *
+     * @return Donor|null
      */
-    public function getByEmail($email)
+    public function getByEmail(string $email)
     {
-        $donorObjectByPrimaryEmail = $this->prepareQuery()
+        $queryByPrimaryEmail = DB::table('give_donors')
+            ->select(
+                'id',
+                'email'
+            )
             ->where('email', $email)
             ->get();
 
-        if (!$donorObjectByPrimaryEmail) {
-            return $this->getByAdditionalEmail($email);
+        if ($queryByPrimaryEmail) {
+            return $this->queryById($queryByPrimaryEmail->id)->get();
         }
 
-        return $donorObjectByPrimaryEmail;
+        return $this->getByAdditionalEmail($email);
     }
 
     /**
-     * @param  string  $email
-     * @return Donor
+     * @since 2.19.6
+     *
+     * @return Donor|null
      */
-    public function getByAdditionalEmail($email)
+    public function getByAdditionalEmail(string $email)
     {
         $donorMetaObject = DB::table('give_donormeta')
             ->select(['donor_id', 'id'])
@@ -346,9 +348,11 @@ class DonorRepository
     }
 
     /**
+     * @since 2.19.6
+     *
      * @return ModelQueryBuilder<Donor>
      */
-    public function prepareQuery()
+    public function prepareQuery(): ModelQueryBuilder
     {
         $builder = new ModelQueryBuilder(Donor::class);
 
@@ -380,7 +384,6 @@ class DonorRepository
      *
      * @since 2.19.6
      *
-     * @param  Donor  $donor
      * @return void
      */
     private function updateAdditionalEmails(Donor $donor)
@@ -402,5 +405,85 @@ class DonorRepository
                     'meta_value' => $additionalEmail,
                 ]);
         }
+    }
+
+    /**
+     * @since 2.20.0
+     *
+     * @return string|null
+     */
+    public function getDonorLatestDonationDate(int $donorId)
+    {
+        $donation = DB::table('posts')
+            ->select('post_date')
+            ->leftJoin('give_donationmeta', 'ID', 'donation_id')
+            ->where('post_type', 'give_payment')
+            ->where('meta_key', DonationMetaKeys::DONOR_ID)
+            ->where('meta_value', $donorId)
+            ->orderBy('ID', 'DESC')
+            ->limit(1)
+            ->get();
+
+        if ($donation) {
+            return $donation->post_date;
+        }
+
+        return null;
+    }
+
+    /**
+     * @since 2.20.0
+     *
+     * @return string|null
+     */
+    public function getDonorType(int $donorId)
+    {
+        $donor = DB::table('give_donors')
+            ->select(
+                'id',
+                ['purchase_count', 'donationCount'],
+                ['payment_ids', 'paymentIds']
+            )
+            ->where('id', $donorId)
+            ->get();
+
+        if (!$donor) {
+            return null;
+        }
+
+        if (!$donor->donationCount) {
+            return 'new';
+        }
+
+        // Donation IDs
+        $ids = strpos($donor->paymentIds, ',')
+            ? explode(',', $donor->paymentIds)
+            : [$donor->paymentIds];
+
+        // Recurring
+        $recurringDonations = DB::table('posts')
+            ->leftJoin('give_donationmeta', 'id', 'donation_id')
+            ->whereIn('donation_id', $ids)
+            ->where('meta_key', DonationMetaKeys::IS_RECURRING)
+            ->where('meta_value', '1')
+            ->count();
+
+        if ($recurringDonations) {
+            return 'subscriber';
+        }
+
+        if ((int)$donor->donationCount > 1) {
+            return 'repeat';
+        }
+
+        return 'single';
+    }
+
+    /**
+     * @since 2.20.0
+     */
+    public function getDonorsCount(): int
+    {
+        return DB::table('give_donors')->count();
     }
 }

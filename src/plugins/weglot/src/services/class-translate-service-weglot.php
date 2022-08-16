@@ -133,15 +133,13 @@ class Translate_Service_Weglot {
 	 * @return boolean
 	 */
 	public function check_404_exclusion_before_treat() {
-
 		if ( http_response_code() == 404 ) {
 			$excluded_urls = $this->option_services->get_exclude_urls();
-			foreach ( $excluded_urls as $url ) {
-				if ( in_array( '^/404$', $url ) ) {
+			foreach ( $excluded_urls as $item ) {
+				if($item[0] === '^/404$'){
 					return true;
 				}
 			}
-
 			return false;
 		} else {
 			return false;
@@ -180,7 +178,14 @@ class Translate_Service_Weglot {
 			|| $this->check_404_exclusion_before_treat()
 			|| $this->check_ajax_exclusion_before_treat()
 			|| ! $this->request_url_services->get_weglot_url()->getForLanguage( $this->request_url_services->get_current_language(), false ) ) {
-			return $this->weglot_render_dom( $content, $canonical );
+
+			// if type is xml we render the content without treatment.
+			if($type === 'xml'){
+				return $content;
+			}else{
+				return $this->weglot_render_dom( $content, $canonical );
+			}
+
 		}
 
 		$parser = $this->parser_services->get_parser();
@@ -276,7 +281,6 @@ class Translate_Service_Weglot {
 				$dom = preg_replace( '/<link rel="canonical"(.*?)?href=(\"|\')([^\s\>]+?)(\"|\')/', '<link rel="canonical" href="' . esc_url ( $current_url->getForLanguage( $this->language_services->get_original_language() )  ) . '"', $dom );
 			}
 		}
-
 		return apply_filters( 'weglot_render_dom', $dom );
 	}
 }

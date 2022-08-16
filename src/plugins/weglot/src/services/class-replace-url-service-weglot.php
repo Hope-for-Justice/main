@@ -208,6 +208,7 @@ class Replace_Url_Service_Weglot {
 	 * @return boolean
 	 */
 	public function is_link_a_file( $current_url ) {
+
 		$files = [
 			'pdf',
 			'rar',
@@ -223,10 +224,12 @@ class Replace_Url_Service_Weglot {
 			'zip',
 			'mp4',
 			'xlsx',
+			'txt',
+			'eps',
 		];
 
 		foreach ( $files as $file ) {
-			if ( self::ends_with( $current_url, '.' . $file ) ) {
+			if ( self::ends_with( strtolower( $current_url ), '.' . $file ) ) {
 				return true;
 			}
 		}

@@ -83,7 +83,7 @@ class Search_Weglot implements Hooks_Interface_Weglot {
 		}
 
 		$original_language = $this->language_services->get_original_language()->getInternalCode();
-		$current_language  = $this->request_url_services->get_current_language()->getInternalCode();
+		$current_language  = $this->request_url_services->get_current_language()->getEnglishName();
 
 		if ( $original_language === $current_language ) {
 			return;

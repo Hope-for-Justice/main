@@ -8,13 +8,13 @@
 ///////////////////////////////////////////////////////////////////////////
 
 .header {
-	padding:0.8em;
+	padding: 8px;
 	z-index: $z-header;
 	position: fixed;
-	top:0;
-	width:100%;
+	top: 0;
+	width: 100%;
 	max-width: 2560px;
-	left:0;
+	left: 0;
 	margin: 0 auto;
 	background-color: $white;
 	@include box-shadow;
@@ -34,14 +34,16 @@
 	}
 
 	&__inner {
-		display:flex;
+		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		max-width: 1920px;
-		margin:0 auto;
+		margin: 0 auto;
 	}
 
-	&__logo {width:43vw;}
+	&__logo {
+		width: 43vw;
+	}
 
 	&__navigation {
 		display: flex;
@@ -49,7 +51,7 @@
 	}
 
 	&__burger {
-		padding: 1.2em 1.9em 1em 1.3em;
+		padding: 12px 19px 10px 13px;
 		border-radius: 0 77px 77px 0;
 		background-color: $light-grey;
 		@include box-shadow;
@@ -58,13 +60,23 @@
 
 
 @keyframes headerSlideUp {
-  	from {transform: translateY(0);}
-  	to {transform: translateY(-135px);}
+	from {
+		transform: translateY(0);
+	}
+
+	to {
+		transform: translateY(-135px);
+	}
 }
 
 @keyframes headerSlideDown {
-  	from {transform: translateY(-135px);}
-  	to {transform: translateY(0px);}
+	from {
+		transform: translateY(-135px);
+	}
+
+	to {
+		transform: translateY(0px);
+	}
 }
 
 
@@ -73,11 +85,13 @@
 
 @include mq($from: mobile) {
 
-.header {
-	padding:0.8em 1.2em 1em 0.8em;
+	.header {
+		padding: 8px 12px 10px 8px;
 
-	&__logo {width:48vw;}
-}
+		&__logo {
+			width: 48vw;
+		}
+	}
 
 }
 
@@ -87,9 +101,11 @@
 
 @include mq($from: mobileMedium) {
 
-.header{
-	&__logo {width:195px;}
-}
+	.header {
+		&__logo {
+			width: 195px;
+		}
+	}
 
 }
 
@@ -98,16 +114,18 @@
 
 @include mq($from: tablet) {
 
-.header{
-	padding:1em;
-	&__burger {
-		box-shadow:none;
-		background-color:transparent;
+	.header {
+		padding: 10px;
+
+		&__burger {
+			box-shadow: none;
+			background-color: transparent;
+		}
+
+		&__logo {
+			width: 235px;
+		}
 	}
-	&__logo {
-		width:235px;
-	}
-}
 
 }
 
@@ -116,22 +134,18 @@
 
 @include mq($from: desktop) {
 
-.header{
-	padding:1.2em;
-	&__burger {
-		box-shadow:none;
-		background-color:transparent;
+	.header {
+		padding: 12px;
+
+		&__burger {
+			box-shadow: none;
+			background-color: transparent;
+		}
+
+		&__logo {
+			width: 255px;
+		}
 	}
-	&__logo {
-		width:255px;
-	}
-}
 
 
 }
-
-
-
-
-
-

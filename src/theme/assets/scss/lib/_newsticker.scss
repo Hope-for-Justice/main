@@ -6,35 +6,36 @@
  */
 .newsticker {
   visibility: hidden;
-  position:fixed;
-  bottom:0;
-  width:100%;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   z-index: $z-ticker;
   max-width: 2560px;
-  left:0;
+  left: 0;
   @include box-shadow-reverse;
   opacity: 0;
   transition: all 0.5s ease-out;
 }
 
-.newsticker__item{
+.newsticker__item {
   color: $black;
-  font-size: 1.2em;
+  font-size: 12px;
+
   &::after {
-    content:" | ";
-    margin:0 1em;
-    color:$red;
+    content: " | ";
+    margin: 0 10px;
+    color: $red;
   }
 }
 
 .eocjs-newsticker {
-  padding: 0.6em 0 0.4em 0;
+  padding: 6px 0 4px 0;
   background-color: $light-grey;
 }
 
 .eocjs-newsticker .eocjs-newsticker-container {
   position: relative;
-  height: 2em;
+  height: 20px;
   overflow: hidden;
 }
 
@@ -43,8 +44,8 @@
   position: absolute;
   left: 0;
   top: 0;
-  height: 2em;
-  line-height: 2em;
+  height: 20px;
+  line-height: 20px;
   white-space: nowrap;
 }
 
@@ -69,15 +70,17 @@
 
 @include mq($from: tablet) {
 
-.newsticker {
-  visibility: visible;
-}
+  .newsticker {
+    visibility: visible;
+  }
 
-.newsticker__item{font-size: 1.8em;}
+  .newsticker__item {
+    font-size: 18px;
+  }
 
-.eocjs-newsticker {
-  padding: 1em 0 0.8em 0;
-  background-color: #f2f2f2;
-}
+  .eocjs-newsticker {
+    padding: 10px 0 8px 0;
+    background-color: #f2f2f2;
+  }
 
 }

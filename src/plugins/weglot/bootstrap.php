@@ -53,6 +53,7 @@ abstract class Context_Weglot
 			'\WeglotWP\Services\Regex_Checkers_Service_Weglot',
 			'\WeglotWP\Services\Generate_Switcher_Service_Weglot',
 			'\WeglotWP\Services\Email_Translate_Service_Weglot',
+			'\WeglotWP\Services\Pdf_Translate_Service_Weglot',
 			'\WeglotWP\Services\Translate_Service_Weglot',
 			'\WeglotWP\Services\Private_Language_Service_Weglot',
 			'\WeglotWP\Services\Href_Lang_Service_Weglot',
@@ -64,6 +65,7 @@ abstract class Context_Weglot
 			'\WeglotWP\Third\Gravityforms\Gf_Active',
 			'\WeglotWP\Third\NinjaForms\Ninja_Active',
 			'\WeglotWP\Third\Woocommerce\Wc_Active',
+			'\WeglotWP\Third\Woocommercepdf\Wcpdf_Active',
 			'\WeglotWP\Third\WPForms\Wpforms_Active',
 			'\WeglotWP\Third\UnderConstructionPage\Ucp_Active',
 			'\WeglotWP\Third\Maintenance\Maintenance_Active',
@@ -106,6 +108,8 @@ abstract class Context_Weglot
 			'\WeglotWP\Third\Woocommerce\WC_Filter_Urls_Weglot',
 			'\WeglotWP\Third\Woocommerce\WC_Cart_Reload_Weglot',
 			'\WeglotWP\Third\Woocommerce\WC_Mail_Weglot',
+			'\WeglotWP\Third\Woocommerce\WC_Mail_Weglot',
+			'\WeglotWP\Third\Woocommercepdf\WCPDF_Weglot',
 			'\WeglotWP\Third\UnderConstructionPage\Ucp_Tracking',
 			'\WeglotWP\Third\Maintenance\Maintenance_Tracking',
 			'\WeglotWP\Third\TheEventsCalendar\Theeventscalendar_Words',
@@ -130,8 +134,11 @@ abstract class Context_Weglot
  */
 function weglot_init()
 {
-	if (function_exists('apache_get_modules') && !in_array('mod_rewrite', apache_get_modules())) { //phpcs:ignore
-		add_action('admin_notices', array('\WeglotWP\Notices\Rewrite_Module_Weglot', 'admin_notice'));
+	//add filter to prevent load weglot if not needed
+	$cancel_init = apply_filters( 'weglot_cancel_init', false );
+
+	if( $cancel_init ){
+		return;
 	}
 
 	if (!function_exists('curl_version') || !function_exists('curl_exec')) {

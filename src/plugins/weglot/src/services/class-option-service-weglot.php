@@ -26,7 +26,7 @@ class Option_Service_Weglot {
 	protected $slugs_cache = null;
 
 	protected $options_from_api = null;
-	protected $slugs_from_api = null;
+	protected $slugs_from_api   = null;
 
 	const NO_OPTIONS = 'OPTIONS_NOT_FOUND';
 
@@ -59,6 +59,7 @@ class Option_Service_Weglot {
 			'active_wc_reload' => true,
 			'flag_css'         => '',
 		),
+		'page_views_enabled'      => false,
 		'allowed'                 => true,
 		'has_first_settings'      => true,
 		'show_box_first_settings' => false,
@@ -169,7 +170,7 @@ class Option_Service_Weglot {
 
 	/**
 	 * @param string $api_key
-	 * @param array $destinations_languages
+	 * @param array  $destinations_languages
 	 *
 	 * @return array
 	 * @since 3.0.0
@@ -261,7 +262,7 @@ class Option_Service_Weglot {
 	}
 
 	/**
-	 * @param string $api_key
+	 * @param string                 $api_key
 	 * @param $destinations_languages
 	 *
 	 * @return array
@@ -393,10 +394,12 @@ class Option_Service_Weglot {
 		$api_key_private = $this->get_api_key_private();
 		$options         = null;
 
-		if ( Helper_Is_Admin::is_wp_admin() && $api_key_private ) {
+		$is_weglot_settings_page = isset( $_GET['page']) && strpos( $_GET['page'], 'weglot-settings' ) !== false; //phpcs:ignore
+
+		if ( Helper_Is_Admin::is_wp_admin() && $api_key_private && $is_weglot_settings_page ) {
 			$response = $this->get_options_from_api_with_api_key( $api_key_private );
 		} else {
-			if ( ! Helper_Is_Admin::is_wp_admin() && $api_key ) {
+			if ( ( ! Helper_Is_Admin::is_wp_admin() && $api_key ) || ( Helper_Is_Admin::is_wp_admin() && ! $is_weglot_settings_page ) ) {
 				$response = $this->get_options_from_cdn_with_api_key( $api_key );
 			} else {
 				return $this->get_options_from_v2();
@@ -422,10 +425,10 @@ class Option_Service_Weglot {
 
 		$destinations_languages = array_column( $options['destination_language'], 'language_to' );
 
-		if ( Helper_Is_Admin::is_wp_admin() && $api_key_private ) {
+		if ( Helper_Is_Admin::is_wp_admin() && $api_key_private && $is_weglot_settings_page ) {
 			$slugs = $this->get_slugs_from_api_with_api_key( $api_key_private, $destinations_languages );
 		} else {
-			if ( ! Helper_Is_Admin::is_wp_admin() && $api_key ) {
+			if ( ( ! Helper_Is_Admin::is_wp_admin() && $api_key ) || ( Helper_Is_Admin::is_wp_admin() && ! $is_weglot_settings_page ) ) {
 				$slugs = $this->get_slugs_from_cache_with_api_key( $api_key_private, $destinations_languages );
 			}
 		}
@@ -580,7 +583,7 @@ class Option_Service_Weglot {
 
 	/**
 	 * @param string $key
-	 * @param array $switcher
+	 * @param array  $switcher
 	 *
 	 * @return string|boolean|int
 	 * @throws Exception
@@ -769,7 +772,7 @@ class Option_Service_Weglot {
 	/**
 	 *
 	 * @param string $key
-	 * @param mixed $value
+	 * @param mixed  $value
 	 *
 	 * @return Option_Service_Weglot
 	 */

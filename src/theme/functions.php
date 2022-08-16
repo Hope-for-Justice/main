@@ -222,6 +222,14 @@ function page_scripts() {
       wp_enqueue_style( 'church-partnerships', get_template_directory_uri() . '/church-partnerships.css', array(), '202275' );
     }
 
+    if (
+      //better styles
+      is_page_template('templates/page-anti-slavery-day.php')
+
+      ) {
+      wp_enqueue_style( 'better-styles', get_template_directory_uri() . '/better-styles.css', array('hope-for-justice-2021-style'), '202275' );
+    }
+
 
 }
 

@@ -2,10 +2,12 @@
 
 namespace Give\PaymentGateways\Gateways\TestGateway;
 
+use Give\Donations\Models\Donation;
+use Give\Framework\Exceptions\Primitives\Exception;
+use Give\Framework\PaymentGateways\Commands\GatewayCommand;
 use Give\Framework\PaymentGateways\Commands\PaymentComplete;
 use Give\Framework\PaymentGateways\PaymentGateway;
 use Give\Helpers\Form\Utils as FormUtils;
-use Give\PaymentGateways\DataTransferObjects\GatewayPaymentData;
 use Give\PaymentGateways\Gateways\TestGateway\Views\LegacyFormFieldMarkup;
 
 /**
@@ -17,7 +19,7 @@ class TestGateway extends PaymentGateway
     /**
      * @inheritDoc
      */
-    public static function id()
+    public static function id(): string
     {
         return 'test-gateway';
     }
@@ -25,7 +27,7 @@ class TestGateway extends PaymentGateway
     /**
      * @inheritDoc
      */
-    public function getId()
+    public function getId(): string
     {
         return self::id();
     }
@@ -33,7 +35,7 @@ class TestGateway extends PaymentGateway
     /**
      * @inheritDoc
      */
-    public function getName()
+    public function getName(): string
     {
         return __('Test Gateway', 'give');
     }
@@ -41,7 +43,7 @@ class TestGateway extends PaymentGateway
     /**
      * @inheritDoc
      */
-    public function getPaymentMethodLabel()
+    public function getPaymentMethodLabel(): string
     {
         return __('Test Gateway', 'give');
     }
@@ -49,10 +51,10 @@ class TestGateway extends PaymentGateway
     /**
      * @inheritDoc
      */
-    public function getLegacyFormFieldMarkup($formId, $args)
+    public function getLegacyFormFieldMarkup(int $formId, array $args): string
     {
         if (FormUtils::isLegacyForm($formId)) {
-            return false;
+            return '';
         }
 
         /** @var LegacyFormFieldMarkup $legacyFormFieldMarkup */
@@ -64,10 +66,20 @@ class TestGateway extends PaymentGateway
     /**
      * @inheritDoc
      */
-    public function createPayment(GatewayPaymentData $paymentData)
+    public function createPayment(Donation $donation, $gatewayData = null): GatewayCommand
     {
-        $transactionId = "test-gateway-transaction-id-{$paymentData->donationId}";
+        $transactionId = "test-gateway-transaction-id-{$donation->id}";
 
         return new PaymentComplete($transactionId);
+    }
+
+    /**
+     * @since 2.20.0
+     * @inerhitDoc
+     * @throws Exception
+     */
+    public function refundDonation(Donation $donation)
+    {
+        throw new Exception('Method has not been implemented yet. Please use the legacy method in the meantime.');
     }
 }

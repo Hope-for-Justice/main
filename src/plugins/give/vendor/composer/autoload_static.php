@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd58e2e07061bcc780cd8da4805e074c8
+class ComposerStaticInitebe3aefe49d19c1b9a1f8f4524105815
 {
     public static $files = array (
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
@@ -30,6 +30,7 @@ class ComposerStaticInitd58e2e07061bcc780cd8da4805e074c8
         'M' => 
         array (
             'MyCLabs\\Enum\\' => 13,
+            'Money\\' => 6,
         ),
         'G' => 
         array (
@@ -79,6 +80,10 @@ class ComposerStaticInitd58e2e07061bcc780cd8da4805e074c8
         array (
             0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
         ),
+        'Money\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/moneyphp/money/src',
+        ),
         'Give\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
@@ -125,9 +130,9 @@ class ComposerStaticInitd58e2e07061bcc780cd8da4805e074c8
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd58e2e07061bcc780cd8da4805e074c8::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd58e2e07061bcc780cd8da4805e074c8::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd58e2e07061bcc780cd8da4805e074c8::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitebe3aefe49d19c1b9a1f8f4524105815::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitebe3aefe49d19c1b9a1f8f4524105815::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitebe3aefe49d19c1b9a1f8f4524105815::$classMap;
 
         }, null, ClassLoader::class);
     }

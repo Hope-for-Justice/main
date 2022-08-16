@@ -2,6 +2,7 @@
 
 namespace Give\Framework\PaymentGateways;
 
+use Give\Donations\Models\Donation;
 use Give\Framework\Exceptions\Primitives\Exception;
 use Give\Framework\FieldsAPI\Exceptions\TypeNotSupported;
 use Give\Framework\LegacyPaymentGateways\Contracts\LegacyPaymentGatewayInterface;
@@ -18,83 +19,95 @@ use Give\Framework\PaymentGateways\Commands\RedirectOffsite;
 use Give\Framework\PaymentGateways\Commands\RespondToBrowser;
 use Give\Framework\PaymentGateways\Commands\SubscriptionComplete;
 use Give\Framework\PaymentGateways\Contracts\PaymentGatewayInterface;
-use Give\Framework\PaymentGateways\Contracts\SubscriptionModuleInterface;
+use Give\Framework\PaymentGateways\Contracts\Subscription\SubscriptionAmountEditable;
+use Give\Framework\PaymentGateways\Contracts\Subscription\SubscriptionDashboardLinkable;
+use Give\Framework\PaymentGateways\Contracts\Subscription\SubscriptionPaymentMethodEditable;
+use Give\Framework\PaymentGateways\Contracts\Subscription\SubscriptionTransactionsSynchronizable;
 use Give\Framework\PaymentGateways\Exceptions\PaymentGatewayException;
 use Give\Framework\PaymentGateways\Log\PaymentGatewayLog;
 use Give\Framework\PaymentGateways\Routes\RouteSignature;
 use Give\Framework\PaymentGateways\Traits\HandleHttpResponses;
+use Give\Framework\PaymentGateways\Traits\HasRouteMethods;
+use Give\Framework\Support\ValueObjects\Money;
 use Give\Helpers\Call;
-use Give\PaymentGateways\DataTransferObjects\GatewayPaymentData;
-use Give\PaymentGateways\DataTransferObjects\GatewaySubscriptionData;
+use Give\Subscriptions\Models\Subscription;
+use ReflectionException;
+use ReflectionMethod;
 
 use function Give\Framework\Http\Response\response;
 
 /**
  * @since 2.18.0
  */
-abstract class PaymentGateway implements PaymentGatewayInterface, LegacyPaymentGatewayInterface
+abstract class PaymentGateway implements PaymentGatewayInterface,
+                                         LegacyPaymentGatewayInterface,
+                                         SubscriptionDashboardLinkable,
+                                         SubscriptionAmountEditable,
+                                         SubscriptionPaymentMethodEditable,
+                                         SubscriptionTransactionsSynchronizable
 {
     use HandleHttpResponses;
+    use HasRouteMethods {
+        supportsMethodRoute as protected SupportsOwnMethodRoute;
+        callRouteMethod as protected CallOwnRouteMethod;
+    }
 
     /**
-     * Route methods are used to extend the gateway api.
-     * By adding a custom routeMethod, you are effectively
-     * registering a new public route url that will resolve itself and
-     * call your method.
-     *
-     * @var string[]
-     */
-    public $routeMethods = [];
-
-    /**
-     * Secure Route methods are used to extend the gateway api with an additional wp_nonce.
-     * By adding a custom secureRouteMethod, you are effectively
-     * registering a new route url that will resolve itself and
-     * call your method after validating the nonce.
-     *
-     * @var string[]
-     */
-    public $secureRouteMethods = [];
-
-    /**
-     * @var SubscriptionModuleInterface $subscriptionModule
+     * @since 2.20.0 Change variable type to SubscriptionModule.
+     * @var SubscriptionModule $subscriptionModule
      */
     public $subscriptionModule;
 
     /**
+     * @since 2.20.0 Change first argument type to SubscriptionModule abstract class.
      * @since 2.18.0
      *
-     * @param SubscriptionModuleInterface|null $subscriptionModule
+     * @param SubscriptionModule|null $subscriptionModule
      */
-    public function __construct(SubscriptionModuleInterface $subscriptionModule = null)
+    public function __construct(SubscriptionModule $subscriptionModule = null)
     {
+        if ($subscriptionModule !== null) {
+            $subscriptionModule->setGateway($this);
+        }
+
         $this->subscriptionModule = $subscriptionModule;
     }
 
     /**
      * @inheritDoc
      */
-    public function supportsSubscriptions()
+    public function supportsSubscriptions(): bool
     {
         return isset($this->subscriptionModule);
     }
 
     /**
+     * @since 2.21.2 Add new filter hook to provide gateway data before donation is processed by the gateway.
+     * @since 2.21.0 Handle PHP exception.
      * @since 2.19.0
-     *
-     * @inheritDoc
      */
-    public function handleCreatePayment(GatewayPaymentData $gatewayPaymentData)
+    public function handleCreatePayment(Donation $donation)
     {
         try {
-            $command = $this->createPayment($gatewayPaymentData);
-            $this->handleGatewayPaymentCommand($command, $gatewayPaymentData);
-        } catch (Exception $exception) {
+            /**
+             * Filter hook to provide gateway data before transaction is processed by the gateway.
+             *
+             * @since 2.21.2
+             */
+            $gatewayData = apply_filters(
+                "givewp_new_payment_{$donation->gatewayId}_gateway_data",
+                null,
+                $donation
+            );
+
+            $command = $this->createPayment($donation, $gatewayData);
+            $this->handleGatewayPaymentCommand($command, $donation);
+        } catch (\Exception $exception) {
             PaymentGatewayLog::error(
                 $exception->getMessage(),
                 [
                     'Payment Gateway' => $this->getId(),
-                    'Donation Data' => $gatewayPaymentData
+                    'Donation' => $donation,
                 ]
             );
 
@@ -108,22 +121,35 @@ abstract class PaymentGateway implements PaymentGatewayInterface, LegacyPaymentG
     }
 
     /**
+     * @since 2.21.2 Add filter hook to provide gateway data before subscription is processed by the gateway.
+     * @since 2.21.0 Handle PHP exception.
      * @since 2.19.0
      *
-     * @inheritDoc
      */
-    public function handleCreateSubscription(GatewayPaymentData $paymentData, GatewaySubscriptionData $subscriptionData)
+    public function handleCreateSubscription(Donation $donation, Subscription $subscription)
     {
         try {
-            $command = $this->createSubscription($paymentData, $subscriptionData);
-            $this->handleGatewaySubscriptionCommand($command, $paymentData, $subscriptionData);
-        } catch (Exception $exception) {
+            /**
+             * Filter hook to provide gateway data before initial transaction for subscription is processed by the gateway.
+             *
+             * @since 2.21.2
+             */
+            $gatewayData = apply_filters(
+                "givewp_new_subscription_{$donation->gatewayId}_gateway_data",
+                null,
+                $donation,
+                $subscription
+            );
+
+            $command = $this->createSubscription($donation, $subscription, $gatewayData);
+            $this->handleGatewaySubscriptionCommand($command, $donation, $subscription);
+        } catch (\Exception $exception) {
             PaymentGatewayLog::error(
                 $exception->getMessage(),
                 [
                     'Payment Gateway' => $this->getId(),
-                    'Donation Data' => $paymentData,
-                    'Subscription Data' => $subscriptionData
+                    'Donation' => $donation,
+                    'Subscription' => $subscription,
                 ]
             );
 
@@ -142,9 +168,138 @@ abstract class PaymentGateway implements PaymentGatewayInterface, LegacyPaymentG
      *
      * @inheritDoc
      */
-    public function createSubscription(GatewayPaymentData $paymentData, GatewaySubscriptionData $subscriptionData)
+    public function createSubscription(
+        Donation $donation,
+        Subscription $subscription,
+        $gatewayData = null
+    ): GatewayCommand {
+        return $this->subscriptionModule->createSubscription($donation, $subscription, $gatewayData);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function cancelSubscription(Subscription $subscription)
     {
-        return $this->subscriptionModule->createSubscription($paymentData, $subscriptionData);
+        $this->subscriptionModule->cancelSubscription($subscription);
+    }
+
+    /**
+     * @since 2.21.2
+     * @inheritDoc
+     * @throws ReflectionException
+     */
+    public function canSyncSubscriptionWithPaymentGateway(): bool
+    {
+        if ($this->subscriptionModule) {
+            return $this->subscriptionModule->canSyncSubscriptionWithPaymentGateway();
+        }
+
+        return $this->isFunctionImplementedInGatewayClass('synchronizeSubscription');
+    }
+
+    /**
+     * @since 2.21.2
+     * @inheritDoc
+     * @throws ReflectionException
+     */
+    public function canUpdateSubscriptionAmount(): bool
+    {
+        if ($this->subscriptionModule) {
+            return $this->subscriptionModule->canUpdateSubscriptionAmount();
+        }
+
+        return $this->isFunctionImplementedInGatewayClass('updateSubscriptionAmount');
+    }
+
+    /**
+     * @since 2.21.2
+     * @inheritDoc
+     * @throws ReflectionException
+     */
+    public function canUpdateSubscriptionPaymentMethod(): bool
+    {
+        if ($this->subscriptionModule) {
+            return $this->subscriptionModule->canUpdateSubscriptionPaymentMethod();
+        }
+
+        return $this->isFunctionImplementedInGatewayClass('updateSubscriptionPaymentMethod');
+    }
+
+    /**
+     * @since 2.21.2
+     * @since 2.21.2
+     * @throws Exception
+     */
+    public function hasGatewayDashboardSubscriptionUrl(): bool
+    {
+        if ($this->subscriptionModule) {
+            return $this->subscriptionModule->hasGatewayDashboardSubscriptionUrl();
+        }
+
+        throw new Exception('Method has not been implemented yet.');
+    }
+
+    /**
+     * @since 2.21.2
+     * @inheritDoc
+     * @throws Exception
+     */
+    public function synchronizeSubscription(Subscription $subscription)
+    {
+        if ($this->subscriptionModule instanceof SubscriptionTransactionsSynchronizable) {
+            $this->subscriptionModule->synchronizeSubscription($subscription);
+
+            return;
+        }
+
+        throw new Exception('Gateway does not support syncing subscriptions.');
+    }
+
+    /**
+     * @since 2.21.2
+     * @inheritDoc
+     * @throws Exception
+     */
+    public function updateSubscriptionAmount(Subscription $subscription, Money $newRenewalAmount)
+    {
+        if ($this->subscriptionModule instanceof SubscriptionAmountEditable) {
+            $this->subscriptionModule->updateSubscriptionAmount($subscription, $newRenewalAmount);
+
+            return;
+        }
+
+        throw new Exception('Gateway does not support updating the subscription amount.');
+    }
+
+    /**
+     * @since 2.21.2
+     * @inheritDoc
+     * @throws Exception
+     */
+    public function updateSubscriptionPaymentMethod(Subscription $subscription, $gatewayData)
+    {
+        if ($this->subscriptionModule instanceof SubscriptionPaymentMethodEditable) {
+            $this->subscriptionModule->updateSubscriptionPaymentMethod($subscription, $gatewayData);
+
+            return;
+        }
+
+        throw new Exception('Gateway does not support updating the subscription payment method.');
+    }
+
+    /**
+     * @since 2.21.2
+     * @inheritDoc
+     * @throws Exception
+     */
+    public function gatewayDashboardSubscriptionUrl(Subscription $subscription): string
+    {
+        if ($this->subscriptionModule instanceof SubscriptionDashboardLinkable) {
+            return $this->subscriptionModule->gatewayDashboardSubscriptionUrl($subscription);
+        }
+
+        throw new Exception('Gateway does not support providing a dashboard link.');
     }
 
     /**
@@ -152,19 +307,17 @@ abstract class PaymentGateway implements PaymentGatewayInterface, LegacyPaymentG
      *
      * @since 2.18.0
      *
-     * @param GatewayCommand $command
-     * @param GatewayPaymentData $gatewayPaymentData
-     *
      * @throws TypeNotSupported
+     * @throws Exception
      */
-    public function handleGatewayPaymentCommand(GatewayCommand $command, GatewayPaymentData $gatewayPaymentData)
+    public function handleGatewayPaymentCommand(GatewayCommand $command, Donation $donation)
     {
         if ($command instanceof PaymentComplete) {
             $handler = new PaymentCompleteHandler($command);
 
-            $handler->handle($gatewayPaymentData->donationId);
+            $handler->handle($donation);
 
-            $response = response()->redirectTo($gatewayPaymentData->redirectUrl);
+            $response = response()->redirectTo(give_get_success_page_uri());
 
             $this->handleResponse($response);
         }
@@ -172,9 +325,9 @@ abstract class PaymentGateway implements PaymentGatewayInterface, LegacyPaymentG
         if ($command instanceof PaymentProcessing) {
             $handler = new PaymentProcessingHandler($command);
 
-            $handler->handle($gatewayPaymentData->donationId);
+            $handler->handle($donation);
 
-            $response = response()->redirectTo($gatewayPaymentData->redirectUrl);
+            $response = response()->redirectTo(give_get_success_page_uri());
 
             $this->handleResponse($response);
         }
@@ -202,28 +355,31 @@ abstract class PaymentGateway implements PaymentGatewayInterface, LegacyPaymentG
     /**
      * Handle gateway subscription command
      *
+     * @since 2.21.0 Handle RedirectOffsite response.
      * @since 2.18.0
-     *
-     * @param GatewayCommand $command
-     * @param GatewayPaymentData $gatewayPaymentData
-     * @param GatewaySubscriptionData $gatewaySubscriptionData
      *
      * @throws TypeNotSupported
      */
     public function handleGatewaySubscriptionCommand(
         GatewayCommand $command,
-        GatewayPaymentData $gatewayPaymentData,
-        GatewaySubscriptionData $gatewaySubscriptionData
+        Donation $donation,
+        Subscription $subscription
     ) {
         if ($command instanceof SubscriptionComplete) {
             Call::invoke(
                 SubscriptionCompleteHandler::class,
                 $command,
-                $gatewaySubscriptionData->subscriptionId,
-                $gatewayPaymentData->donationId
+                $subscription,
+                $donation
             );
 
-            $response = response()->redirectTo($gatewayPaymentData->redirectUrl);
+            $response = response()->redirectTo(give_get_success_page_uri());
+
+            $this->handleResponse($response);
+        }
+
+        if ($command instanceof RedirectOffsite) {
+            $response = Call::invoke(RedirectOffsiteHandler::class, $command);
 
             $this->handleResponse($response);
         }
@@ -241,14 +397,8 @@ abstract class PaymentGateway implements PaymentGatewayInterface, LegacyPaymentG
      *
      * @since 2.18.0
      * @since 2.19.0 remove $donationId param in favor of args
-     *
-     * @param string $gatewayMethod
-     * @param array|null $args
-     *
-     * @return string
-     *
      */
-    public function generateGatewayRouteUrl($gatewayMethod, $args = null)
+    public function generateGatewayRouteUrl(string $gatewayMethod, array $args = []): string
     {
         return Call::invoke(GenerateGatewayRouteUrl::class, $this->getId(), $gatewayMethod, $args);
     }
@@ -259,15 +409,8 @@ abstract class PaymentGateway implements PaymentGatewayInterface, LegacyPaymentG
      * @since 2.19.5 replace nonce with hash and expiration
      * @since 2.19.4 replace RouteSignature args with unique donationId
      * @since 2.19.0
-     *
-     * @param  string  $gatewayMethod
-     * @param  int  $donationId
-     * @param  array|null  $args
-     *
-     * @return string
-     *
      */
-    public function generateSecureGatewayRouteUrl($gatewayMethod, $donationId, $args = null)
+    public function generateSecureGatewayRouteUrl(string $gatewayMethod, int $donationId, array $args = []): string
     {
         $signature = new RouteSignature($this->getId(), $gatewayMethod, $donationId);
 
@@ -288,13 +431,10 @@ abstract class PaymentGateway implements PaymentGatewayInterface, LegacyPaymentG
      * 1. Redirect to donation form if donation form submit.
      * 2. Return json response if processing payment on ajax.
      *
+     * @since 2.21.0 Handle PHP exception.
      * @since 2.19.0
-     *
-     * @param  Exception|PaymentGatewayException  $exception
-     * @param  string  $message
-     * @return void
      */
-    private function handleExceptionResponse($exception, $message)
+    private function handleExceptionResponse(\Exception $exception, string $message)
     {
         if ($exception instanceof PaymentGatewayException) {
             $message = $exception->getMessage();
@@ -306,5 +446,46 @@ abstract class PaymentGateway implements PaymentGatewayInterface, LegacyPaymentG
 
         give_set_error('PaymentGatewayException', $message);
         give_send_back_to_checkout();
+    }
+
+    /**
+     * @since 2.20.0
+     */
+    public function supportsMethodRoute(string $method): bool
+    {
+        if ($this->subscriptionModule && $this->subscriptionModule->supportsMethodRoute($method)) {
+            return true;
+        }
+
+        return $this->supportsOwnMethodRoute($method);
+    }
+
+    /**
+     * @since 2.20.0
+     *
+     * @param string $method
+     *
+     * @throws Exception
+     */
+    public function callRouteMethod($method, $queryParams)
+    {
+        if ($this->subscriptionModule && $this->subscriptionModule->supportsMethodRoute($method)) {
+            return $this->subscriptionModule->callRouteMethod($method, $queryParams);
+        }
+
+        return $this->callOwnRouteMethod($method, $queryParams);
+    }
+
+    /**
+     * Checks to see if the provided method is being used by the child gateway class. This is used as a helper in the "can" methods
+     * to see if the gateway is implementing a recurring feature without using a subscription module.
+     *
+     * @since 2.21.2
+     * @throws ReflectionException
+     */
+    private function isFunctionImplementedInGatewayClass(string $methodName): bool
+    {
+        $reflector = new ReflectionMethod($this, $methodName);
+        return ($reflector->getDeclaringClass()->getName() === get_class($this));
     }
 }

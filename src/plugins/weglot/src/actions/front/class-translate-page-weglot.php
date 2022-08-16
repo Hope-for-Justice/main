@@ -119,6 +119,9 @@ class Translate_Page_Weglot implements Hooks_Interface_Weglot {
 				'oxy_render_nav_menu', // Oxygen.
 				'hotel_booking_ajax_add_to_cart', // Hotel booking plugin.
 				'imagify_get_admin_bar_profile', // Imagify Admin Bar.
+				'el_check_user_login', // Event list plugin.
+				'wcfm_ajax_controller', // wcfm_ajax_controller.
+				'jet_ajax_search', // jet_ajax_search.
 			)
 		);
 

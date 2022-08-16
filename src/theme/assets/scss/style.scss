@@ -1,122 +1,123 @@
-.site{visibility: hidden;}
+.site {
+    visibility: hidden;
+}
 
 
 @supports (display: grid) {
 
-.site {visibility: visible;}
-.upgrade-browser {display: none;}
+    .site {
+        visibility: visible;
+    }
 
-// base styles
-@import "base/_variables.scss";
-@import "base/_base.scss";
-@import "base/_mixins.scss";
-@import "base/_fonts.scss";
+    .upgrade-browser {
+        display: none;
+    }
 
+    // base styles
+    @import "base/_variables.scss";
+    @import "base/_base.scss";
+    @import "base/_mixins.scss";
+    @import "base/_fonts.scss";
 
+    //lib
+    @import "lib/_mq.scss";
+    @import "lib/_newsticker.scss";
+    //@import "lib/_pca.scss";
+    @import "lib/_bootstrap-modal.scss";
+    @import "lib/_animate.scss";
+    @import "lib/_flexslider.scss";
+    //@import "lib/FA/_all.scss";
 
-//lib
-@import "lib/_mq.scss";
-@import "lib/_newsticker.scss";
-//@import "lib/_pca.scss";
-@import "lib/_bootstrap-modal.scss";
-@import "lib/_animate.scss";
-@import "lib/_flexslider.scss";
-//@import "lib/FA/_all.scss";
+    // typography
+    @import "base/_type.scss";
 
-// typography
-@import "base/_type.scss";
-
-// layout
-@import "base/_layout.scss";
-
-
-// objects
-@import "objects/_forms.scss";
-@import "objects/_menu.scss";
-@import "objects/_grid.scss";
-@import "objects/_color-block.scss";
-@import "objects/_button.scss";
-@import "objects/_toggle.scss";
-@import "objects/_dots.scss";
-@import "objects/_header.scss";
-@import "objects/_burger.scss";
-@import "objects/_hero-split.scss";
-@import "objects/_modal.scss";
-@import "objects/_giving-widget.scss";
-@import "objects/_get-involved.scss";
-@import "objects/_freedom-wall.scss";
-@import "objects/_drag-cards.scss";
-@import "objects/_line.scss";
-@import "objects/_text-slider.scss";
-@import "objects/_reference.scss";
-@import "objects/_number-stats.scss";
-@import "objects/_plain-text.scss";
-@import "objects/_cross-circle.scss";
-@import "objects/_drop-cards.scss";
-@import "objects/_cards.scss";
-@import "objects/_career-cards.scss";
-@import "objects/_hero.scss";
-@import "objects/_campaign.scss";
-@import "objects/_inline-giving.scss";
-@import "objects/_statement-and-text.scss";
-@import "objects/_image-and-text.scss";
-@import "objects/_people.scss";
-@import "objects/_hero-full.scss";
-@import "objects/_email-updates.scss";
-@import "objects/_footer.scss";
-@import "objects/_get-help.scss";
-@import "objects/_dropdown.scss";
-@import "objects/_statement.scss";
-@import "objects/_weglot.scss";
-@import "objects/_map.scss";
-@import "objects/_picture-quote.scss";
-@import "objects/_breadcrumbs.scss";
-@import "objects/_action-block.scss";
-@import "objects/_cookie-notice.scss";
-@import "objects/_email-push.scss";
-@import "objects/_full-grid.scss";
-@import "objects/_push-banner.scss";
-@import "objects/_picture-description.scss";
+    // layout
+    @import "base/_layout.scss";
 
 
-// pages
-@import "pages/_homepage.scss";
-@import "pages/_default-page.scss";
-@import "pages/_single.scss";
-@import "pages/_news-page.scss";
-@import "pages/_news-inner.scss";
-@import "pages/_form-page.scss";
-@import "pages/_archive-page.scss";
-@import "pages/_404.scss";
-@import "pages/_careers.scss";
-@import "pages/_fundraise.scss";
-@import "pages/_contact.scss";
-@import "pages/_gpf.scss";
-@import "pages/_resources.scss";
-@import "pages/_donate.scss";
-@import "pages/_who-we-are.scss";
-@import "pages/_events.scss";
-@import "pages/_get-involved-page.scss";
-@import "pages/_thank-you.scss";
-@import "pages/_protect-business.scss";
-@import "pages/_spot-the-signs.scss";
-@import "pages/_how-we-change-lives.scss";
-@import "pages/_prevention-month.scss";
-@import "pages/_simple-page.scss";
-@import "pages/_training.scss";
-@import "pages/_freedom-run.scss";
-@import "pages/_page-form-picture.scss";
-@import "pages/_ukraine-crisis.scss";
-@import "pages/_natalie-grant.scss";
-@import "pages/_donorfy-donate.scss";
-@import "pages/_donate-new.scss";
-@import "pages/_donation-thankyou.scss";
-//@import "pages/_men-are-victims.scss"; //enqued on page
+    // objects
+    @import "objects/_forms.scss";
+    @import "objects/_menu.scss";
+    @import "objects/_grid.scss";
+    @import "objects/_color-block.scss";
+    @import "objects/_button.scss";
+    @import "objects/_toggle.scss";
+    @import "objects/_dots.scss";
+    @import "objects/_header.scss";
+    @import "objects/_burger.scss";
+    @import "objects/_hero-split.scss";
+    @import "objects/_modal.scss";
+    @import "objects/_giving-widget.scss";
+    @import "objects/_get-involved.scss";
+    @import "objects/_freedom-wall.scss";
+    @import "objects/_drag-cards.scss";
+    @import "objects/_line.scss";
+    @import "objects/_text-slider.scss";
+    @import "objects/_reference.scss";
+    @import "objects/_number-stats.scss";
+    @import "objects/_plain-text.scss";
+    @import "objects/_cross-circle.scss";
+    @import "objects/_drop-cards.scss";
+    @import "objects/_cards.scss";
+    @import "objects/_career-cards.scss";
+    @import "objects/_hero.scss";
+    @import "objects/_campaign.scss";
+    @import "objects/_inline-giving.scss";
+    @import "objects/_statement-and-text.scss";
+    @import "objects/_image-and-text.scss";
+    @import "objects/_people.scss";
+    @import "objects/_hero-full.scss";
+    @import "objects/_email-updates.scss";
+    @import "objects/_footer.scss";
+    @import "objects/_get-help.scss";
+    @import "objects/_dropdown.scss";
+    @import "objects/_statement.scss";
+    @import "objects/_weglot.scss";
+    @import "objects/_map.scss";
+    @import "objects/_picture-quote.scss";
+    @import "objects/_breadcrumbs.scss";
+    @import "objects/_action-block.scss";
+    @import "objects/_cookie-notice.scss";
+    @import "objects/_email-push.scss";
+    @import "objects/_full-grid.scss";
+    @import "objects/_push-banner.scss";
+    @import "objects/_picture-description.scss";
 
-//country specifics
-@import "other/_country-specifics.scss";
+    // pages
+    @import "pages/_homepage.scss";
+    @import "pages/_default-page.scss";
+    @import "pages/_single.scss";
+    @import "pages/_news-page.scss";
+    @import "pages/_news-inner.scss";
+    @import "pages/_form-page.scss";
+    @import "pages/_archive-page.scss";
+    @import "pages/_404.scss";
+    @import "pages/_careers.scss";
+    @import "pages/_fundraise.scss";
+    @import "pages/_contact.scss";
+    @import "pages/_gpf.scss";
+    @import "pages/_resources.scss";
+    @import "pages/_donate.scss";
+    @import "pages/_who-we-are.scss";
+    @import "pages/_events.scss";
+    @import "pages/_get-involved-page.scss";
+    @import "pages/_thank-you.scss";
+    @import "pages/_protect-business.scss";
+    @import "pages/_spot-the-signs.scss";
+    @import "pages/_how-we-change-lives.scss";
+    @import "pages/_prevention-month.scss";
+    @import "pages/_simple-page.scss";
+    @import "pages/_training.scss";
+    @import "pages/_freedom-run.scss";
+    @import "pages/_page-form-picture.scss";
+    @import "pages/_ukraine-crisis.scss";
+    @import "pages/_natalie-grant.scss";
+    @import "pages/_donorfy-donate.scss";
+    @import "pages/_donate-new.scss";
+    @import "pages/_donation-thankyou.scss";
+    //@import "pages/_men-are-victims.scss"; //enqued on page
+
+    //country specifics
+    @import "other/_country-specifics.scss";
 
 }
-
-
-

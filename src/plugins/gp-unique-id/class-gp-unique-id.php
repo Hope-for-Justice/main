@@ -347,6 +347,16 @@ class GP_Unique_ID extends GP_Plugin {
 			}
 
 			$unique = $prefix . $unique . $suffix;
+
+			/**
+			 * Determine actual form to look up when getting field value
+			 * In relation with getting unique id's actual prefix or suffix value
+			 * The original_form_id value is used by the Shared Sequential ID snippet
+			 * Snippet reference: https://github.com/gravitywiz/snippet-library/blob/master/gp-unique-id/gpuid-shared-sequences.php
+			 *
+			 */
+			$form_id = isset( $atts['original_form_id'] ) ? $atts['original_form_id'] : $form_id;
+
 			$unique = GFCommon::replace_variables( $unique, GFAPI::get_form( $form_id ), $entry, false, true, false, 'text' );
 			$unique = apply_filters( 'gpui_unique_id', $unique, $form_id, $field_id );
 

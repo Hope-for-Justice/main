@@ -7,7 +7,7 @@ Author: Weglot Translate team
 Author URI: https://weglot.com/
 Text Domain: weglot
 Domain Path: /languages/
-Version: 3.6.1
+Version: 3.7.3
 */
 
 /**
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'WEGLOT_NAME', 'Weglot' );
 define( 'WEGLOT_SLUG', 'weglot-translate' );
 define( 'WEGLOT_OPTION_GROUP', 'group-weglot-translate' );
-define( 'WEGLOT_VERSION', '3.6.1' );
+define( 'WEGLOT_VERSION', '3.7.3' );
 define( 'WEGLOT_PHP_MIN', '5.6' );
 define( 'WEGLOT_BNAME', plugin_basename( __FILE__ ) );
 define( 'WEGLOT_DIR', __DIR__ );
@@ -67,7 +67,6 @@ if ( file_exists( $dir_yoast_premium . '/wp-seo-premium.php' ) ) {
 		require_once __DIR__ . '/vendor/autoload.php';
 		require_once __DIR__ . '/bootstrap.php';
 		require_once __DIR__ . '/weglot-functions.php';
-
 		include_once __DIR__ . '/src/third/yoast/redirect-premium.php';
 	}
 }

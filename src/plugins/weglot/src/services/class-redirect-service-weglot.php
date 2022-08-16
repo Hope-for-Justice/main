@@ -116,6 +116,10 @@ class Redirect_Service_Weglot {
 
 		// We add the original in the list of available languages.
 		$available_languages[] = $this->language_services->get_original_language()->getExternalCode();
+
+		// We check if user add a custom languages code
+		$navigator_languages = apply_filters('weglot_navigator_language', $navigator_languages);
+
 		if ( ! empty( $navigator_languages ) ) {
 			$destination_languages_external = array_map( 'strtolower', $available_languages );
 			foreach ( $navigator_languages as $navigator_language ) {

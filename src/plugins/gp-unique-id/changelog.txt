@@ -1,6 +1,11 @@
 
 # Changelog
 
+## 1.4.5
+
+	- Fixed issue where sequential IDs would not work as expected when using the Shared Sequential ID snippet with prefixes/suffixes.
+	- Added "Update URI" to plugin header to improve security.
+
 ## 1.4.4
 
 	- Fixed issue where sequential IDs were limited to `4294967295`. They can now go up to `18446744073709551615` (MySQL BIGINT maximum).

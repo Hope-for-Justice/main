@@ -128,6 +128,12 @@ class Generate_Switcher_Service_Weglot {
 				if ( strpos( $dom, '<div data-wg-position="' . $key . '"></div>' ) !== false ) {
 					$dom           = str_replace( '<div data-wg-position="' . $key . '"></div>', $button_html, $dom );
 					$find_location = true;
+				} elseif ( strpos( $dom, '<div data-wg-position="' . $key . '" data-wg-ajax="true"></div>' ) !== false ) {
+					$attr_target      = ! empty( $location['target'] ) ? $location['target'] : '';
+					$attr_sibling     = ! empty( $location['sibling'] ) ? $location['sibling'] : '';
+					$button_ajax_html = $this->button_services->get_html( 'weglot-custom-switcher-ajax', $switcher, $attr_target, $attr_sibling );
+					$dom              = str_replace( '<div data-wg-position="' . $key . '" data-wg-ajax="true"></div>', $button_ajax_html, $dom );
+					$find_location    = true;
 				}
 			}
 		}
