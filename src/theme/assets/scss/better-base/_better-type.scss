@@ -4,16 +4,30 @@
 *
 */
 
+.large,
+h4,
+h3,
+h2,
+h1,
+.large-title .super-title {
+    line-height: 1.1;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
 .small {
     font-size: 0.75rem;
+    line-height: 1.5;
 }
 
 p {
     font-size: 1rem;
+    line-height: 1.5;
 }
 
 .large {
     font-size: 1.33rem;
+    line-height: 1.5;
 }
 
 h4 {
@@ -21,7 +35,7 @@ h4 {
 }
 
 h3 {
-    font-size: 2.63rem;
+    font-size: 2.36rem;
 }
 
 h2 {
@@ -40,12 +54,55 @@ h1 {
     font-size: 7.46rem;
 }
 
+//<480
+@include mq($until: mobileLarge) {
+
+    .p-to-mob-l {
+        font-size: 1rem;
+    }
+
+    .h4-to-mob-l {
+        font-size: 1.77rem;
+    }
+
+    .h3-to-mob-l {
+        font-size: 2.36rem;
+    }
+
+    .h2-to-mob-l {
+        font-size: 3.15rem;
+    }
+
+    .h1-to-mob-l {
+        font-size: 4.20rem;
+    }
+
+}
+
+//480
+@include mq($from: mobileLarge, $until: tablet) {
+
+    .h1-to-tab {
+        font-size: 4.20rem;
+    }
+
+    .large-title-to-tab {
+        font-size: 5.61rem;
+    }
+
+
+}
+
+
 
 //768
-@include mq($from: phablet) {}
+@include mq($from: tablet, $until: desktop) {
 
-//768
-@include mq($from: tablet) {}
+    .large-title-to-desk {
+        font-size: 5.61rem;
+    }
+
+}
 
 //1024
 @include mq($from: desktop) {}

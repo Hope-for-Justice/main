@@ -6,17 +6,34 @@
 
 // thin 280
 ///////////////////////////////////////////////////////////////////////////
-.site-content {margin-top: 5.59em;}
+.site-content {
+	margin-top: 55.9px;
+}
 
+.full-width {
+	grid-column: col1 / col12-end;
+}
 
+.half {
+	grid-column: span 12;
+}
 
+.space-bottom {
+	margin-bottom: 40px;
+}
+
+.mb-24 {
+	margin-bottom: 24px;
+}
 
 // mobile
 ///////////////////////////////////////////////////////////////////////////
 
 @include mq($from: mobile) {
 
-.site-content {margin-top: 6.4em;}
+	.site-content {
+		margin-top: 64px;
+	}
 
 }
 
@@ -25,7 +42,9 @@
 
 @include mq($from: mobileMedium) {
 
-.site-content {margin-top: 7.642em;}
+	.site-content {
+		margin-top: 76.5px;
+	}
 
 }
 
@@ -35,7 +54,13 @@
 
 @include mq($from: tablet) {
 
-.site-content {margin-top: 9.04em;}
+	.site-content {
+		margin-top: 90px;
+	}
+
+	.space-bottom {
+		margin-bottom: 80px;
+	}
 
 }
 
@@ -44,33 +69,42 @@
 
 @include mq($from: desktop) {
 
-.site-content {margin-top: 10.04em;}
-	
-.site{ 
-	max-width: 1920px;
-	margin: 0 auto;
-}
+	.site-content {
+		margin-top: 100px;
+	}
 
-.site--full {
-	max-width: 2560px;
-}
-
-}
-
-
-// max
-//////////////////////////////////////////////////////////////////////////////////
-
-@include mq($from: max) {
 	.site {
-		//border: 1px solid $lines;
+		max-width: 1920px;
+		margin: 0 auto;
+	}
+
+	.site--full {
+		max-width: 2560px;
+	}
+
+	.full-width {
+		grid-column: col1 / col9;
+	}
+
+}
+
+// 1366
+@include mq($from: desktopLarge) {
+	.half {
+		grid-column: span 6;
+		padding-left: 5%;
+
+		&:nth-of-type(odd) {
+			padding-right: 5%;
+			padding-left: 0;
+		}
 	}
 }
+
+// 1680
+@include mq($from: desktopExtraLarge) {}
 
 // extraWide
 //////////////////////////////////////////////////////////////////////////////////
 
-@include mq($from: extraWide) {
-
-
-}
+@include mq($from: extraWide) {}
