@@ -4,6 +4,13 @@
  *
  * @package Hope_for_Justice_2021
  */
+if (!isset($_GET['campaign'])) {
+        
+    $url = 'https://' . $_SERVER['HTTP_HOST']; // Get the server
+    $url .= '/st-helens-farm/?campaign=StHelens';
+    wp_redirect($url);
+    exit;
+}
 
 get_header("", ["page_class" =>
 "site--full campaign-page", "donate-link" => "#"]); 

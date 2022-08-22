@@ -677,7 +677,7 @@ function remove_block_css(){
   add_action( 'wp_enqueue_scripts', 'remove_block_css', 100 );
 
 
-add_action('wp_print_styles', 'my_custom_override_iframe_template_styles', 10);
+//add_action('wp_print_styles', 'my_custom_override_iframe_template_styles', 10);
 
 //acf issue updating fix
 add_filter( 'https_ssl_verify', '__return_false' );
