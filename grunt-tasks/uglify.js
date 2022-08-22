@@ -22,6 +22,11 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 	];
 
+	uglifyFilesObject[distTheme + jsDir + 'block-scripts.js'] = [
+		devTheme + jsDir + 'block-scripts.js',
+
+	];
+
 	uglifyFilesObject[distTheme + jsDir + 'pages/plugins.js'] = [
 
 

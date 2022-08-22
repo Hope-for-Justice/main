@@ -6,9 +6,13 @@
 
 .large,
 h4,
+.h4,
 h3,
+.h3,
 h2,
+.h2,
 h1,
+.h1,
 .large-title .super-title {
     line-height: 1.1;
     letter-spacing: 0;
@@ -20,7 +24,8 @@ h1,
     line-height: 1.5;
 }
 
-p {
+p,
+.p {
     font-size: 1rem;
     line-height: 1.5;
 }
@@ -30,19 +35,23 @@ p {
     line-height: 1.5;
 }
 
-h4 {
+h4,
+.h4 {
     font-size: 1.77rem;
 }
 
-h3 {
+h3,
+.h3 {
     font-size: 2.36rem;
 }
 
-h2 {
+h2,
+.h2 {
     font-size: 3.15rem;
 }
 
-h1 {
+h1,
+.h1 {
     font-size: 4.20rem;
 }
 
@@ -54,41 +63,83 @@ h1 {
     font-size: 7.46rem;
 }
 
-//<480
-@include mq($until: mobileLarge) {
+h3.block-title {
+    font-size: 1.33rem;
+}
 
-    .p-to-mob-l {
-        font-size: 1rem;
-    }
+h3.block-title {
+    font-size: 1.77rem;
+}
 
-    .h4-to-mob-l {
+h2.block-title {
+    font-size: 2.36rem;
+}
+
+h1.block-title {
+    font-size: 3.15rem;
+}
+
+
+
+//mobile large
+@media screen and (min-width: 480px) {
+
+
+    h4.block-title {
         font-size: 1.77rem;
     }
 
-    .h3-to-mob-l {
+    h3.block-title {
         font-size: 2.36rem;
     }
 
-    .h2-to-mob-l {
+    h2.block-title {
         font-size: 3.15rem;
     }
 
-    .h1-to-mob-l {
+    h1.block-title {
         font-size: 4.20rem;
     }
+
+
+
+}
+
+//<480
+@include mq($until: mobileLarge) {
+
+    // .p-to-mob-l {
+    //     font-size: 1rem;
+    // }
+
+    // .h4-to-mob-l {
+    //     font-size: 1.77rem;
+    // }
+
+    // .h3-to-mob-l {
+    //     font-size: 2.36rem;
+    // }
+
+    // .h2-to-mob-l {
+    //     font-size: 3.15rem;
+    // }
+
+    // .h1-to-mob-l {
+    //     font-size: 4.20rem;
+    // }
 
 }
 
 //480
 @include mq($from: mobileLarge, $until: tablet) {
 
-    .h1-to-tab {
-        font-size: 4.20rem;
-    }
+    // .h1-to-tab {
+    //     font-size: 4.20rem;
+    // }
 
-    .large-title-to-tab {
-        font-size: 5.61rem;
-    }
+    // .large-title-to-tab {
+    //     font-size: 5.61rem;
+    // }
 
 
 }

@@ -10,21 +10,21 @@
 	margin-top: 55.9px;
 }
 
-.full-width {
-	grid-column: col1 / col12-end;
-}
+// .full-width {
+// 	grid-column: col1 / col12-end;
+// }
 
-.half {
-	grid-column: span 12;
-}
+// .half {
+// 	grid-column: span 12;
+// }
 
-.space-bottom {
-	margin-bottom: 40px;
-}
+// .space-bottom {
+// 	margin-bottom: 40px;
+// }
 
-.mb-24 {
-	margin-bottom: 24px;
-}
+// .mb-24 {
+// 	margin-bottom: 24px;
+// }
 
 // mobile
 ///////////////////////////////////////////////////////////////////////////
@@ -58,9 +58,6 @@
 		margin-top: 90px;
 	}
 
-	.space-bottom {
-		margin-bottom: 80px;
-	}
 
 }
 
@@ -82,24 +79,10 @@
 		max-width: 2560px;
 	}
 
-	.full-width {
-		grid-column: col1 / col9;
-	}
-
 }
 
 // 1366
-@include mq($from: desktopLarge) {
-	.half {
-		grid-column: span 6;
-		padding-left: 5%;
-
-		&:nth-of-type(odd) {
-			padding-right: 5%;
-			padding-left: 0;
-		}
-	}
-}
+@include mq($from: desktopLarge) {}
 
 // 1680
 @include mq($from: desktopExtraLarge) {}

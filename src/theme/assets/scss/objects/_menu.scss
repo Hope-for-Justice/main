@@ -5,84 +5,107 @@
 */
 
 .menu {
-	width:100%;
+	width: 100%;
 	height: calc(100vh - 80px);
 	overflow-y: scroll;
 	max-height: 0;
 	transition: all 0.4s ease;
-	/* no scrollbar */ 
-	scrollbar-width: none; /* Firefox */
-  	-ms-overflow-style: none;  /* IE 10+ */
-	&::-webkit-scrollbar { /* WebKit */
+	/* no scrollbar */
+	scrollbar-width: none;
+	/* Firefox */
+	-ms-overflow-style: none;
+
+	/* IE 10+ */
+	&::-webkit-scrollbar {
+		/* WebKit */
 		width: 0px;
 	}
-	
+
+	&__legals {
+		font-size: 14px;
+	}
+
 	&--open {
-		padding-top: 2em;
-		margin-top: 1em;
+		padding-top: 20px;
+		margin-top: 10px;
 		max-height: 200vh;
 	}
 
 	&__inner {
 		transition: all 0.4s ease;
 		opacity: 0;
-		width:100%;
-		padding: 0 3em;
+		width: 100%;
+		padding: 0 30px;
 	}
 
 	&__primary {
 		font-family: fk-screamer;
 		text-transform: uppercase;
-		margin: 0 0 2em 0;
-		padding:0;
+		margin: 0 0 20px 0;
+		padding: 0;
 		list-style: none;
 		line-height: 1.3;
-		width:100%;
+		width: 100%;
 		z-index: 10;
-		a {color: $black;}
-		ul {margin:0; padding:0;}
+
+		a {
+			color: $black;
+		}
+
+		ul {
+			margin: 0;
+			padding: 0;
+		}
+
 		li {
 			border-bottom: 1px solid $lines;
-			font-size: 3.8em;
+			font-size: 38px;
 			list-style: none;
 		}
 	}
 
 	&__secondary {
-		margin: 0 0 3em 0;
-		padding:0;
+		margin: 0 0 30px 0;
+		padding: 0;
 		list-style: none;
 		line-height: 1.3;
-		width:100%;
+		width: 100%;
 
-		a {color: $black;}
-		ul {margin:0; padding:0;}
+		a {
+			color: $black;
+		}
+
+		ul {
+			margin: 0;
+			padding: 0;
+		}
+
 		li {
 			list-style: none;
-			padding-top: 1em;
-			font-size: 1.6em;
+			padding-top: 20px;
+			font-size: 16px;
 		}
 	}
 
-	&__line{
+	&__line {
 		height: 1px;
-		background-color:$lines;
+		background-color: $lines;
 		width: 100%;
-		margin-bottom: 3em;
+		margin-bottom: 30px;
 	}
 
 	&__button {
 		display: flex;
-		width:100%;
+		width: 100%;
 		justify-content: flex-start;
-		margin-bottom: 3em;
+		margin-bottom: 30px;
 	}
 
 	&__footer {
 		position: relative;
-		width:100%;
-		margin-top: .5em;
-		margin-bottom: 4em;
+		width: 100%;
+		margin-top: 5px;
+		margin-bottom: 40px;
 	}
 }
 
@@ -92,28 +115,35 @@
 
 @include mq($from: tablet) {
 
-.menu {
-	&__inner {
-		display: flex;
-		flex-wrap: wrap;
-		padding:2em 16em 10em 16em;
-		justify-content: center;
-	}
+	.menu {
+		&__inner {
+			display: flex;
+			flex-wrap: wrap;
+			padding: 20px 160px 100px 160px;
+			justify-content: center;
+		}
 
-	&__primary {
-		li {font-size: 6em;}
-	}
+		&__primary {
+			li {
+				font-size: 60px;
+			}
+		}
 
-	&__secondary {
-		margin: 0 0 4em 0;
-		li {font-size: 2em;}
-	}
+		&__secondary {
+			margin: 0 0 40px 0;
 
-	&__button {
-		justify-content: flex-start;
-	}
+			li {
+				font-size: 20px;
+			}
+		}
 
-	&__footer {display: block;}
+		&__button {
+			justify-content: flex-start;
+		}
+
+		&__footer {
+			display: block;
+		}
 	}
 
 }
@@ -123,9 +153,11 @@
 
 @include mq($from: desktop) {
 
-.menu {
-	&__inner {padding:2em 25em 10em 25em;}
-}
+	.menu {
+		&__inner {
+			padding: 20px 250px 100px 250px;
+		}
+	}
 
 }
 
@@ -133,26 +165,30 @@
 //////////////////////////////////////////////////////////////////////////////////
 @include mq($from: desktopLarge) {
 
-.menu {
-	display:flex;
-	align-items:center;
-	&__inner {
-		padding: 4em 20em 10em 20em;
-	}
-	&__primary {
-		width:40%;
-	}
-	&__secondary {
-		width:60%;
-		padding-left:10%;
-		line-height: 1.1;
-	}
-	&__button {
-		justify-content: flex-end;
-		margin-top: -6em;
-	}
+	.menu {
+		display: flex;
+		align-items: center;
 
-}
+		&__inner {
+			padding: 40px 200px 100px 200px;
+		}
+
+		&__primary {
+			width: 40%;
+		}
+
+		&__secondary {
+			width: 60%;
+			padding-left: 10%;
+			line-height: 1.1;
+		}
+
+		&__button {
+			justify-content: flex-end;
+			margin-top: -60px;
+		}
+
+	}
 
 
 }
@@ -161,12 +197,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 @include mq($from: wide) {
 
-.menu {
-	&__inner {
-		max-width: 180em;
-		margin: 0 auto;
+	.menu {
+		&__inner {
+			max-width: 1800px;
+			margin: 0 auto;
+		}
 	}
-}
 
 
 }
@@ -197,8 +233,3 @@
 // }
 
 // }
-
-
-
-
-

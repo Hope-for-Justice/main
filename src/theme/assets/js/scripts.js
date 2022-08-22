@@ -223,6 +223,11 @@ jQuery(document).ready(function ($) {
         return this;
     }
 
+    $('.wp-block-columns').each(function () {
+        let children = $(this).children().length;
+        $(this).addClass('block-' + children + '-columns');
+    })
+
 
 }); /* end of as page load scripts */
 

@@ -94,14 +94,20 @@ add_action( 'after_setup_theme', 'hope_for_justice_2021_setup' );
 function hope_for_justice_2021_scripts() {
 	global $wp_styles;
 
-
-	wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202275' );
-
+  if (! is_page_template('templates/page-block-template.php')) {
+	  wp_enqueue_style( 'hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202275' );
+    // remove block scripts
+    function remove_block_css(){
+      wp_dequeue_style( 'wp-block-library' );
+      }
+      add_action( 'wp_enqueue_scripts', 'remove_block_css', 100 );
+  } else {
+    wp_enqueue_style( 'hope-for-justice-base-styles', get_template_directory_uri() . '/block-base-styles.css', array(), '202275' );
+  }
+  
 	wp_enqueue_script('jquery'); 
 	// wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202275', true );
-
-
-    wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202275', true );
+  wp_enqueue_script( 'hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202275', true );
 
 
 }
@@ -221,15 +227,6 @@ function page_scripts() {
       wp_enqueue_script('church-partnerships');
       wp_enqueue_style( 'church-partnerships', get_template_directory_uri() . '/church-partnerships.css', array(), '202275' );
     }
-
-    if (
-      //better styles
-      is_page_template('templates/page-anti-slavery-day.php')
-
-      ) {
-      wp_enqueue_style( 'better-styles', get_template_directory_uri() . '/better-styles.css', array('hope-for-justice-2021-style'), '202275' );
-    }
-
 
 }
 
@@ -362,23 +359,12 @@ function news_page_scripts() {
 add_action( 'wp_enqueue_scripts', 'news_page_scripts', 1 );
 
 
-
-
-
 function custom_excerpt_length( $length ) {
     return 14;
 }
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
 
-// add_action( 'wp_ajax_nopriv_ajax_news_video',  'ajax_news_video' );
-// add_action( 'wp_ajax_ajax_news_video','ajax_news_video' );
-// function ajax_news_video() {
-// 	$src = $_POST['src'];
-// 	$iframe = '<iframe class="video" src="'.$src.'?autoplay=1"  width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
-	
-// 	echo $iframe;
-//     exit();
-// }
+
 if( function_exists('acf_add_local_field_group') ):
 
 	acf_add_local_field_group(array(
@@ -624,60 +610,8 @@ function add_custom_taxonomies() {
 add_action( 'init', 'add_custom_taxonomies', 0 );
 
 
-// function update_featured_events() {
-
-//   global $posts;
-//   global $post;
-  
-//   // Get other post marked as featured
-//   $posts = get_posts([
-//   // Array of posts to check  
-//   'post_type' => ['events'],
-//   'meta_key' => 'pin_event',
-//   'meta_value' => 1,
-//   'post__not_in' => [$post->ID]
-//   ]);
-
-//   // Remove previous featured posts
-//   if ( get_field( 'pin_event' ) ) {
-//   	foreach( $posts as $p ) {
-
-//   		update_field('pin_event', 0, $p->ID);
-//     }
-//   } return;
-
-// }
-// add_action('acf/save_post', 'update_featured_events', 20);
 
 
-/**
- *  The multi-step form template and the donor dashboard load in an iframe, which prevents theme styles from interfering with their styles.
- *  To style them, use this PHP snippet to add a custom stylesheet that styles the form or the donor dashboard.
- *  
- *  Make sure you create the givewp-iframes-styles.css file with the CSS styles you'll use.
- */
-
-
-// function my_custom_override_iframe_template_styles() {
-//     wp_enqueue_style(
-//         'givewp-iframes-styles',
-//         get_template_directory_uri() . '/givewp-iframes-styles.css',
-//         /**
-//          *  Below, use give-sequoia-template-css to style the multi-step donation form
-//          *  or use give-donor-dashboards-app to style the donor dashboard
-//          */
-//         'give-sequoia-template-css'
-//     );
-// }
-
-//remove block scripts
-function remove_block_css(){
-  wp_dequeue_style( 'wp-block-library' );
-  }
-  add_action( 'wp_enqueue_scripts', 'remove_block_css', 100 );
-
-
-add_action('wp_print_styles', 'my_custom_override_iframe_template_styles', 10);
 
 //acf issue updating fix
 add_filter( 'https_ssl_verify', '__return_false' );
@@ -693,284 +627,9 @@ include('custom-shortcodes.php');
 add_shortcode('dropdown', 'dropdown_function');
 
 
-/**
- * AUTO-POPULATE AMOUNT, NAME, and EMAIL FROM URL STRING
- *
- * This jQuery snippet will auto-populate the Give form amount,
- * first and last name, and email address from a URL you provide
- * EXAMPLE: https://example.com/donations/give-form/?amount=46.00&first=Peter&last=Joseph&email=testing@givewp.com
- *
- * Hooking into the single form view.
- *
- * CAVEATS:
- * -- Your form must support custom amounts
- * -- This snippet only supports one form per page as-is
- */
-function my_custom_give_populate_amount_name_email() {
-    ?>
-    <script>
-        ( function( window, document, $, undefined ) {
-            'use strict';
-    var giveCustom = {};
-
-    giveCustom.init = function() {
-
-        // Are we passed a form ID?
-        var form_id = giveCustom.getQueryVariable( 'form_id' ) !== false ? decodeURI( giveCustom.getQueryVariable( 'form_id' ) ) : '';
-
-        if ( form_id !== '' ) {
-            // Make to jQuery object.
-            var giveForm = $( '.give-form' + giveCustom.getQueryVariable( 'form_id' ) )
-        } else {
-            // Fallback.
-            giveForm = $( '.give-form' );
-        }
-
-        // Get the amount from the URL
-        var amount = giveCustom.getQueryVariable( 'amount' ) !== false ? decodeURI( giveCustom.getQueryVariable( 'amount' ) ) : '';
-
-        // Update the amount
-        var formattedAmount = Give.fn.formatCurrency( amount, {
-            symbol: Give.form.fn.getInfo( 'currency_symbol', giveForm ),
-            position: Give.form.fn.getInfo( 'currency_position', giveForm )
-        }, giveForm );
-
-        // Unformatted amount (for data).
-        var unformattedAmount = Give.fn.unFormatCurrency( amount, Give.form.fn.getInfo( 'decimal_separator', giveForm ) );
-
-        // Update the total amount.
-        if ( amount ) {
-            giveForm.find( '.give-final-total-amount' ).attr( 'data-total', unformattedAmount )
-                .text( formattedAmount );
-            giveForm.find( '.give-amount-top' ).val(unformattedAmount);
-        }
-
-        // Fill personal info fields.
-
-        var firstNamePassedVal = giveCustom.getQueryVariable( 'first' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'first' ) ) : '';
-        var lastNamePassedVal = giveCustom.getQueryVariable( 'last' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'last' ) ) : '';
-        var emailPassedVal = giveCustom.getQueryVariable( 'email' ) !== false ? decodeURIComponent( giveCustom.getQueryVariable( 'email' ) ) : '';
-        var campaignPassedVal = decodeURIComponent( getCookie("wordpress_hfjcampaign").replace(/\+/g, '%20'));
-
-        var firstNameInput = giveForm.find( '#give-first-name-wrap input.give-input' );
-        var lastNameInput = giveForm.find( '#give-last-name-wrap input.give-input' );
-        var emailInput = giveForm.find( '#give-email-wrap input.give-input' );
-
-        //UK
-
-        //campaigns reg/once
-        var campaignInput = giveForm.find( "#give-campaign-1069-14" );
-        var campaignInput2 = giveForm.find( "#give-campaign-314-13" );
-        //recruitment campaign reg/once
-        var campaignInput3 = giveForm.find( "#give-recruitment_campaign-1069-20" );
-        var campaignInput4 = giveForm.find( "#give-recruitment_campaign-314-19" );
-
-        //US
-
-        //campaigns reg/once
-        var campaignInput5 = giveForm.find( "#give-campaign-1098-6" );
-        var campaignInput6 = giveForm.find( "#give-campaign-1062-6" );
-        //recruitment campaigns reg/once
-        var campaignInput7 = giveForm.find( "#give-recruitment_campaign-1098-12" );
-        var campaignInput8 = giveForm.find( "#give-recruitment_campaign-1062-12" );
-        
-        //Norway
-
-        //once only recruitment campaign and campaign
-        var campaignInput9 = giveForm.find( "#give-campaign-1119-11" );
-        var campaignInput10 = giveForm.find( "#give-recruitment_campaign-1119-17" );
-
-        //AU - not yet
-
-        //local give-campaign-334-13 once
-        //var campaignInput11 = giveForm.find( "#give-campaign-334-13" );
-
-        if ( firstNamePassedVal !== false && firstNameInput.length > 0 ) {
-            firstNameInput.val( firstNamePassedVal );
-        }
-        if ( lastNamePassedVal !== false && lastNameInput.length > 0 ) {
-            lastNameInput.val( lastNamePassedVal );
-        }
-        if ( emailPassedVal !== false && emailInput.length > 0 ) {
-            emailInput.val( emailPassedVal );
-        }
-        if ( campaignPassedVal !== false) {
-            campaignInput.val( campaignPassedVal );
-            campaignInput2.val( campaignPassedVal );
-            campaignInput3.val( campaignPassedVal );
-            campaignInput4.val( campaignPassedVal );
-            campaignInput5.val( campaignPassedVal );
-            campaignInput6.val( campaignPassedVal );
-            campaignInput7.val( campaignPassedVal );
-            campaignInput8.val( campaignPassedVal );
-            campaignInput9.val( campaignPassedVal );
-            campaignInput10.val( campaignPassedVal );
-            //campaignInput11.val( campaignPassedVal );
-        }
-    };
-
-    /**
-     * Get Query Variable from URL.
-     *
-     * @param variable
-     * @returns {string|boolean}
-     */
-    giveCustom.getQueryVariable = function( variable ) {
-        var query = window.location.search.substring( 1 );
-        var vars = query.split( '&' );
-        for ( var i = 0; i < vars.length; i ++ ) {
-            var pair = vars[ i ].split( '=' );
-            if ( pair[ 0 ] == variable ) {
-                return pair[ 1 ];
-            }
-        }
-        return false;
-    };
-
-    // get cookie
-    function getCookie(cname) {
-      let name = cname + "=";
-      let decodedCookie = decodeURIComponent(document.cookie);
-      let ca = decodedCookie.split(';');
-      for(let i = 0; i <ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-          c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-          return c.substring(name.length, c.length);
-        }
-      }
-      return false;
-    }
-
-    giveCustom.init();
-
-        } )( window, document, jQuery );
-    </script>
-    <?php
-}
-
 add_action( 'give_post_form_output', 'my_custom_give_populate_amount_name_email' );
 
-/**
- * A local translation snippet for making text changes to only one of the forms.
- * Change 'YOUR TEXT HERE' to your desired text, and the "964" to the form ID you'd like to modify.
- *
- * Also, ensure that all functions here have unique names to avoid conflicts.
- *
- * @param $translations
- * @param $text
- * @param $domain
- *
- * @return mixed|string
- */
-function my_give_picky_text_switcher( $translations, $text, $domain ) {
 
-    // Only for the 'give' text domain.
-    if ( $domain == 'give' && $text == 'First Name' ) {
-        return __( 'Fornavn', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'Last Name' ) {
-        return __( 'Etternavn', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'Email Address' ) {
-        return __( 'E-post', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'Card Number' ) {
-        return __( 'Kortnummer', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'Cardholder Name' ) {
-        return __( 'Kortholders navn', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'Secure Donation' ) {
-        return __( 'Sikker Donasjon', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'This is a secure SSL encrypted payment.' ) {
-        return __( 'Sikker Donasjon', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'Share on Facebook' ) {
-        return __( 'Del på Facebook', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'Share on Twitter' ) {
-        return __( 'Del på Twitter', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'Add your information' ) {
-        return __( 'Legg til din informasjon', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'A great big thank you' ) {
-        return __( 'Tusen takk', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'Choose an amount' ) {
-        return __( 'Velg et beløp', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'Continue' ) {
-        return __( 'Neste', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'Donation Details' ) {
-        return __( 'Donordetaljer', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'Donor name' ) {
-        return __( 'Navn på donor', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'EMAIL ADDRESS' ) {
-        return __( 'E-mailadresse', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'PAYMENT METHOD' ) {
-        return __( 'Betalingsmetode', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'PAYMENT STATUS' ) {
-        return __( 'Status på betaling', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'Complete' ) {
-        return __( 'Gjennomført', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'DONATION AMOUNT' ) {
-        return __( 'Donasjonsbeløp', 'give' );
-    }
-
-    if ( $domain == 'give' && $text == 'DONATION TOTAL' ) {
-        return __( 'Donasjoner totalt', 'give' );
-    }
-
-
-    return $translations;
-    
-}
-
-/**
- * Conditional for gettext.
- *
- * @param $form_id
- */
-function my_give_confirm_form( $form_id ) {
-
-    // Customize form title here or remove conditional for all forms.
-    if ( $form_id == 1119 || $form_id == 2341) {
-        add_filter( 'gettext', 'my_give_picky_text_switcher', 10, 3 );
-    }
-}
-
-add_action( 'give_pre_form_output', 'my_give_confirm_form', 10, 1 );
 
 
 /**
@@ -1004,3 +663,221 @@ add_filter( 'max_srcset_image_width', 'awesome_acf_max_srcset_image_width', 10 ,
 function awesome_acf_max_srcset_image_width() {
   return 2560;
 } 
+
+// function for css for custom blocks - only load whats needed
+// usage 
+// $name = "block-content-image";
+// <section class="block-content-images">
+// <?php loadStyles( __DIR__, $name ); 
+// </section> 
+
+// function loadStyles($path, $name, $file_name = 'style', $echo = true){
+//   global $blocksLoaded;
+
+//   if (!in_array($name, $blocksLoaded)) {
+//       $html = '';
+//       $file = "$path/$file_name.css";
+
+//       if (file_exists($file)) {
+//           $style_content = file_get_contents($file);
+
+//           if ($style_content !== '') {
+//               $html = '<style>' . $style_content .'</style>';
+//               array_push($blocksLoaded, $name);
+
+//               if ($echo) {
+//                   echo $html;
+//               } else {
+//                   return $html;
+//               }
+
+//           }
+//       }
+//   }
+// }
+
+
+
+function remove_default_blocks($allowed_blocks){
+ 
+    // Get all registered blocks
+    $registered_blocks = WP_Block_Type_Registry::get_instance()->get_all_registered();
+    
+    // Remove all blocks that are prefixed with core/rss
+    $filtered_blocks = array();
+    foreach($registered_blocks as $block) {
+     
+      if(strpos($block->name , 'core/rss') === false) { 
+        array_push($filtered_blocks, $block->name);
+      }
+    }
+    
+    return $filtered_blocks;
+}
+
+//remove editor styles
+// add_action('enqueue_block_editor_assets', function () {
+//   // Remove editor style resets
+//   wp_deregister_style('wp-reset-editor-styles');
+// }, 102);
+
+// Remove default WP blocks editor styles
+// add_action('after_setup_theme', function() {
+//   remove_editor_styles();
+//   add_theme_support('editor-styles');
+//   add_editor_style('editor-styles.css');
+// });
+
+//add new category
+add_filter( 'block_categories_all' , function( $categories ) {
+
+  // Adding a new category.
+$categories[] = array(
+  'slug'  => 'hfj-design-system',
+  'title' => 'HfJ Design System'
+);
+
+return $categories;
+} );
+
+add_filter('allowed_block_types', 'remove_default_blocks');
+add_theme_support( 'align-wide' );
+
+add_action( 'enqueue_block_editor_assets', function() {
+  wp_enqueue_style( 'hope-for-justice-base-styles', get_template_directory_uri() . '/editor-block-base-styles.css', array(), '202275' );
+} );
+
+//acf block types
+add_action('acf/init', 'my_acf_init_block_types');
+function my_acf_init_block_types() {
+
+    // Check function exists.
+    if( function_exists('acf_register_block_type') ) {
+
+
+        // // register grid block.
+        // acf_register_block_type(array(
+        //     'name'              => 'grid',
+        //     'title'             => __('Grid 12 col'),
+        //     'description'       => __('Custom HfJ block. Grid for layout.'),
+        //     'render_template'   => 'template-parts/blocks/grid/grid.php',
+        //     'category'          => 'hfj-design-system',
+        //     'icon'              => 'grid-view',
+        //     'keywords'          => array( 'grid', 'layout',),
+        //     'align'           => 'wide', 
+        //     'supports'		=> [
+        //       'anchor'		=> true,
+        //       'customClassName'	=> true,
+        //       'jsx' 			=> true,
+        //     ]         
+        // ));
+
+      //   // register grid-inner block.
+      //   acf_register_block_type(array(
+      //       'name'              => 'grid-inner',
+      //       'title'             => __('Grid inner'),
+      //       'description'       => __('Custom HfJ block. Grid inner for layout.'),
+      //       'render_template'   => 'template-parts/blocks/grid/grid-inner.php',
+      //       'category'          => 'hfj-design-system',
+      //       'icon'              => 'grid-view',
+      //       'keywords'          => array( 'grid', 'layout',),
+      //       'align'           => 'wide', 
+      //       'enqueue_assets'    => 'grid_inner_assets',
+      //       'supports'		=> [
+      //         'anchor'		=> true,
+      //         'customClassName'	=> true,
+      //         'jsx' 			=> true,
+      //       ]         
+      //   ));
+
+      //   function grid_inner_assets(){
+      //     wp_enqueue_style('grid-inner', get_template_directory_uri() . '/template-parts/blocks/grid-inner.css');
+      // }
+      
+        // register full-header-fk-screamer block.
+        acf_register_block_type(array(
+            'name'              => 'full-header-fk-screamer',
+            'title'             => __('Full header - FK Screamer'),
+            'description'       => __('Custom HfJ block. Full header for the top of a page'),
+            'render_template'   => 'template-parts/blocks/full-header-fk-screamer/full-header-fk-screamer.php',
+            'category'          => 'hfj-design-system',
+            'icon'              => 'cover-image',
+            'keywords'          => array( 'full header', 'header', 'title' ),
+            'enqueue_assets'    => 'full_header_fk_assets',
+            'align'           => 'wide',           
+        ));
+
+        function full_header_fk_assets(){
+            wp_enqueue_style('full-header-fk-screamer', get_template_directory_uri() . '/template-parts/blocks/block-full-header-fk-screamer.css');
+        }
+
+        // register full-width-text block.
+        acf_register_block_type(array(
+          'name'              => 'text',
+          'title'             => __('Text'),
+          'description'       => __('Custom HfJ block. Full width text with max width'),
+          'render_template'   => 'template-parts/blocks/text/text.php',
+          'category'          => 'hfj-design-system',
+          'icon'              => 'text',
+          'enqueue_assets'    => 'text_assets',        
+        ));
+
+        function text_assets(){
+            wp_enqueue_style('full-width-text', get_template_directory_uri() . '/template-parts/blocks/block-text.css');
+        }
+
+        //register title block.
+        acf_register_block_type(array(
+          'name'              => 'title',
+          'title'             => __('Title'),
+          'description'       => __('Custom HfJ block. For all types of titles'),
+          'render_template'   => 'template-parts/blocks/title/title.php',
+          'category'          => 'hfj-design-system',
+          'icon'              => 'text', 
+          'enqueue_assets'    => 'title_assets',        
+        ));
+
+        function title_assets(){
+            wp_enqueue_style('title-assets', get_template_directory_uri() . '/template-parts/blocks/block-title.css');
+        }
+
+        //register two-col-title-and-text block.
+        acf_register_block_type(array(
+          'name'              => 'two-col-title-and-text',
+          'title'             => __('Title and text - 2 columns'),
+          'description'       => __('Custom HfJ block. Two titles and two bits of text.'),
+          'render_template'   => 'template-parts/blocks/title-and-text/two-col-title-and-text.php',
+          'category'          => 'hfj-design-system',
+          'icon'              => 'text', 
+          'enqueue_assets'    => 'title_and_text_2col_assets',        
+        ));
+
+        function title_and_text_2col_assets(){
+            wp_enqueue_style('title_and_text_2col_assets', get_template_directory_uri() . '/template-parts/blocks/two-col-title-and-text.css');
+        }
+
+        //register card block.
+        acf_register_block_type(array(
+          'name'              => 'cards-thirds',
+          'title'             => __('Cards - Thirds'),
+          'description'       => __('Custom HfJ cards. Best to have either 3 or 6 cards.'),
+          'render_template'   => 'template-parts/blocks/card/cards-thirds.php',
+          'category'          => 'hfj-design-system',
+          'icon'              => 'cover-image', 
+          'enqueue_assets'    => 'card_third_assets',        
+        ));
+
+        function card_third_assets(){
+            wp_enqueue_style('card_third_assets', get_template_directory_uri() . '/template-parts/blocks/card-thirds.css');
+        }
+    
+
+    }
+}
+
+// function custom_block_styles() {
+
+//   wp_enqueue_script( 'block-scripts',  get_template_directory_uri() . '/assets/js/block-scripts.js' );
+//   wp_enqueue_style( 'block-styles',  get_template_directory_uri() . '/block-styles.css' );
+// }
+// add_action( 'after_setup_theme', 'custom_block_styles' );

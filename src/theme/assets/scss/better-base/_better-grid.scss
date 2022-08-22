@@ -13,12 +13,15 @@
     width: 100vw;
 }
 
+
+
 // mob l 480
 //////////////////////////////////////////////////////////////////////////////////
 @include mq($from: mobileLarge) {
     .better-grid {
         padding: 0 40px;
     }
+
 }
 
 // tablet
@@ -35,7 +38,6 @@
 
 // desktop
 //////////////////////////////////////////////////////////////////////////////////
-
 @include mq($from: desktopExtraLarge) {
 
     .better-grid {

@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////
 
 body {
-	font-family: apercu-reg, sans-serif;
+	font-family: 'apercu-reg', sans-serif;
 	color: $black;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -16,7 +16,7 @@ body {
 }
 
 .font-fk {
-	font-family: fk-screamer, sans-serif;
+	font-family: 'fk-screamer', sans-serif;
 	text-transform: uppercase;
 
 	&--normal-case {
@@ -25,11 +25,15 @@ body {
 }
 
 .font-canela {
-	font-family: canela-medium, serif;
+	font-family: 'canela-medium', serif;
+}
+
+.font-apercu {
+	font-family: 'apercu-reg', sans-serif;
 }
 
 .bold {
-	font-family: apercu-bold, sans-serif;
+	font-family: 'apercu-bold', sans-serif;
 }
 
 .uppercase {

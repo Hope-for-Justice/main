@@ -1,0 +1,25 @@
+.two-col-title-and-text {
+
+    &__col-a,
+    &__col-b {
+        grid-column: span 12;
+    }
+}
+
+//desktop
+@media screen and (min-width: 1440px) {
+
+    .two-col-title-and-text {
+
+        &__col-a {
+            grid-column: span 6;
+            padding-right: 16px;
+        }
+
+        &__col-b {
+            grid-column: span 6;
+            padding-left: 16px;
+        }
+    }
+
+}

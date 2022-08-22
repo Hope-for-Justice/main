@@ -1,0 +1,15 @@
+.block-title {
+    margin: 0;
+    font-weight: normal;
+    grid-column: span 12;
+    max-width: 960px;
+}
+
+
+
+//desktop
+@media screen and (min-width: 1024px) {
+
+    .block-title {}
+
+}
