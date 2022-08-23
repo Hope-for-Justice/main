@@ -21,10 +21,17 @@ $font = get_field('font') ?: 'font-canela';
 $margin_bottom = get_field('margin_bottom') ?: '24px';
 $size = get_field('size') ?: 'h3';
 $width = get_field('width') ?: 'block-title--full';
+$weight = get_field('title_weight') ?: 'regular';
 ?>
 
 <div class="better-grid">
+    
     <<?php echo $size; ?> id="<?php echo esc_attr($id); ?>" style="margin-bottom: <?php echo $margin_bottom; ?>;"
-    class="<?php echo $font; ?> block-title <?php echo $width; ?>"><?php echo $title ?></<?php echo $size; ?>>
+    class="<?php echo $font; ?> block-title <?php echo $width; ?>">
+    <?php if ($weight == 'bold') echo '<b>'?>
+    <?php echo $title ?>
+    <?php if ($weight == 'bold') echo '</b>'?>
+    </<?php echo $size; ?>>
+    
 </div>
 

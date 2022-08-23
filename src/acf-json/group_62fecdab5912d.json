@@ -22,6 +22,74 @@
             "maxlength": ""
         },
         {
+            "key": "field_6304090111aa8",
+            "label": "",
+            "name": "title_weight",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "bold": "Bold",
+                "regular": "Regular"
+            },
+            "allow_null": 0,
+            "default_value": "regular",
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
+            "key": "field_630115872b8ff",
+            "label": "",
+            "name": "size",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "h4": "h4",
+                "h3": "h3",
+                "h2": "h2",
+                "h1": "h1"
+            },
+            "allow_null": 0,
+            "default_value": "h3",
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
+            "key": "field_63036f93d2d0d",
+            "label": "",
+            "name": "font",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "font-canela": "Canela",
+                "font-apercu": "Apercu"
+            },
+            "allow_null": 0,
+            "default_value": "font-canela",
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
             "key": "field_62ffb4503153e",
             "label": "Margin bottom",
             "name": "margin_bottom",
@@ -53,58 +121,6 @@
             "return_format": "value",
             "ajax": 0,
             "placeholder": ""
-        },
-        {
-            "key": "field_630115872b8ff",
-            "label": "Size",
-            "name": "size",
-            "type": "select",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "choices": {
-                "h4": "h4",
-                "h3": "h3",
-                "h2": "h2",
-                "h1": "h1"
-            },
-            "default_value": "h3",
-            "allow_null": 0,
-            "multiple": 0,
-            "ui": 0,
-            "return_format": "value",
-            "ajax": 0,
-            "placeholder": ""
-        },
-        {
-            "key": "field_63036f93d2d0d",
-            "label": "Font",
-            "name": "font",
-            "type": "select",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "choices": {
-                "font-canela": "Canela",
-                "font-apercu": "Apercu"
-            },
-            "default_value": "font-canela",
-            "allow_null": 0,
-            "multiple": 0,
-            "ui": 0,
-            "return_format": "value",
-            "ajax": 0,
-            "placeholder": ""
         }
     ],
     "location": [
@@ -125,5 +141,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1661169721
+    "modified": 1661209724
 }

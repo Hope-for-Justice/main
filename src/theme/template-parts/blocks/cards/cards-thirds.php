@@ -24,11 +24,11 @@ if( !empty($block['anchor']) ) {
 
 //count the cards initially
 //$i=1; while (have_rows('drop_cards')) : the_row(); $i++; endwhile; 
-$count = get_field('third_cards');
+$count = count(get_field('third_cards'));
 ?>
 
 
-<div class="better-grid has-<?php echo $count ?>-cards">
+<div class="better-grid has-<?php echo $count ?>-cards card-thirds">
 
 
 <?php while (have_rows('third_cards')) : the_row(); ?>

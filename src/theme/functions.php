@@ -861,14 +861,14 @@ function my_acf_init_block_types() {
           'name'              => 'cards-thirds',
           'title'             => __('Cards - Thirds'),
           'description'       => __('Custom HfJ cards. Best to have either 3 or 6 cards.'),
-          'render_template'   => 'template-parts/blocks/card/cards-thirds.php',
+          'render_template'   => 'template-parts/blocks/cards/cards-thirds.php',
           'category'          => 'hfj-design-system',
           'icon'              => 'cover-image', 
           'enqueue_assets'    => 'card_third_assets',        
         ));
 
         function card_third_assets(){
-            wp_enqueue_style('card_third_assets', get_template_directory_uri() . '/template-parts/blocks/card-thirds.css');
+            wp_enqueue_style('card_third_assets', get_template_directory_uri() . '/template-parts/blocks/cards-thirds.css');
         }
     
 
