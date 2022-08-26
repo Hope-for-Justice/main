@@ -5,11 +5,15 @@
     max-width: 960px;
 }
 
-
+.block-title-parent {
+    margin-bottom: var(--margin-bottom-mobile);
+}
 
 //desktop
 @media screen and (min-width: 1024px) {
 
-    .block-title {}
+    .block-title-parent {
+        margin-bottom: var(--margin-bottom-desktop);
+    }
 
 }

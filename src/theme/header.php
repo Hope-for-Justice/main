@@ -146,7 +146,8 @@ if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])){
             <div class="header__inner">
                 <a style="margin-bottom: -5px" href="/">
                     <!-- inline style - remove space from the bottom of the logo -->
-                    <svg class="header__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 173.806 52.08">
+                    <svg aria-labelledby="logoSVGTitle" class="header__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 173.806 52.08">
+                    <title id="logoSVGTitle">Logo and home button</title>
                         <g id="Group_6902" data-name="Group 6902" transform="translate(-131.194 -13.459)">
                             <g id="Group_4" data-name="Group 4" transform="translate(184.492 30.51)">
                                 <path id="Path_32" data-name="Path 32"

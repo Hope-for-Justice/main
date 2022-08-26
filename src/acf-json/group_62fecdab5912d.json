@@ -91,10 +91,43 @@
         },
         {
             "key": "field_62ffb4503153e",
-            "label": "Margin bottom",
-            "name": "margin_bottom",
+            "label": "Margin bottom mobile",
+            "name": "margin_bottom_mobile",
             "type": "select",
-            "instructions": "How much space to add below the title.",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "8px": "8px",
+                "16px": "16px",
+                "24px": "24px",
+                "32px": "32px",
+                "40px": "40px",
+                "48px": "48px",
+                "56px": "56px",
+                "64px": "64px",
+                "72px": "72px",
+                "80px": "80px"
+            },
+            "default_value": "24px",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_63069c59e8487",
+            "label": "Margin bottom desktop",
+            "name": "margin_bottom_desktop",
+            "type": "select",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -141,5 +174,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1661209724
+    "modified": 1661378510
 }

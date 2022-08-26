@@ -22,11 +22,13 @@ $margin_bottom = get_field('margin_bottom') ?: '24px';
 $size = get_field('size') ?: 'h3';
 $width = get_field('width') ?: 'block-title--full';
 $weight = get_field('title_weight') ?: 'regular';
+$margin_bottom_mobile = get_field('margin_bottom_mobile')?: '24px';
+$margin_bottom_desktop = get_field('margin_bottom_desktop')?: '24px';
 ?>
 
-<div class="better-grid">
+<div class="better-grid hfj-block block-title-parent" style="--margin-bottom-mobile:<?php echo $margin_bottom_mobile ?>; --margin-bottom-desktop: <?php echo $margin_bottom_desktop ?>;">
     
-    <<?php echo $size; ?> id="<?php echo esc_attr($id); ?>" style="margin-bottom: <?php echo $margin_bottom; ?>;"
+    <<?php echo $size; ?> id="<?php echo esc_attr($id); ?>" 
     class="<?php echo $font; ?> block-title <?php echo $width; ?>">
     <?php if ($weight == 'bold') echo '<b>'?>
     <?php echo $title ?>

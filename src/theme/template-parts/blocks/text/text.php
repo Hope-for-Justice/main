@@ -26,11 +26,14 @@ if( !empty($block['anchor']) ) {
 
 // Load values and assign defaults.
 $text = get_field('text') ?: 'Add some text';
+$margin_bottom_mobile = get_field('margin_bottom_mobile') ?: '40px';
+$margin_bottom_desktop = get_field('margin_bottom_desktop') ?: '80px';
 ?>
 
 
-<div id="<?php echo esc_attr($id); ?>" class="better-grid">
-    <p style="" class="block-text">
+<div id="<?php echo esc_attr($id); ?>" class="better-grid hfj-block block-text" 
+style="--margin-bottom-mobile:<?php echo $margin_bottom_mobile ?>; --margin-bottom-desktop: <?php echo $margin_bottom_desktop ?>;">
+    <p style="" class="font-apercu">
         <?php echo $text ?>
     </p>
 </div>

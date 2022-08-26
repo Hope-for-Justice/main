@@ -10,39 +10,36 @@
  */
 
 // Create id attribute allowing for custom "anchor" value.
-$id = 'title-' . $block['id'];
+$id = 'cards-thirds-' . $block['id'];
 if( !empty($block['anchor']) ) {
     $id = $block['anchor'];
 }
 
 // Load values and assign defaults.
-//$title = get_field('title') ?: 'Add a title';
-//$text = get_field('margin_bottom') ?: '24px';
-// $size = get_field('size') ?: 'h3';
-// $width = get_field('width') ?: 'block-title--full';
-
-
-//count the cards initially
-//$i=1; while (have_rows('drop_cards')) : the_row(); $i++; endwhile; 
 $count = count(get_field('third_cards'));
+$block_margin_bottom_desktop = get_field('block_margin_bottom_desktop') ?: '80px';
+$block_margin_bottom_mobile = get_field('block_margin_bottom_mobile') ?: '40px';
 ?>
 
 
-<div class="better-grid has-<?php echo $count ?>-cards card-thirds">
+<div class="better-grid has-<?php echo $count ?>-cards card-thirds hfj-block" style="--margin-bottom-mobile:<?php echo $block_margin_bottom_mobile ?>; --margin-bottom-desktop: <?php echo $block_margin_bottom_desktop ?>;">
 
 
 <?php while (have_rows('third_cards')) : the_row(); ?>
-
-    <div class="block-card">
+    <?php 
+    $link_url = get_sub_field('link', ['url']); 
+    $link_target = get_sub_field('link', ['target']); 
+    ?>
+    <a target="<?php echo $link_target ?>" href="<?php echo $link_url ?>" class="block-card">
         <div class="block-card__image-container">
-            <?php $image = get_sub_field('image');
+            <?php $image = get_sub_field('image') ?: '309';
             echo wp_get_attachment_image( $image, 'full' ) ?>
         </div>
         <div class="block-card__content">
             <h4 class="block-title block-card__title"><b><?php echo (get_sub_field('title'))?></b></h4>
             <p><?php echo (get_sub_field('text'))?></p>
         </div>
-    </div>
+    </a>
 
 <?php endwhile; ?>
 

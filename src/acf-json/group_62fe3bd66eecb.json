@@ -1,6 +1,6 @@
 {
     "key": "group_62fe3bd66eecb",
-    "title": "Block: Full header - FK Screamer",
+    "title": "Block: Full header",
     "fields": [
         {
             "key": "field_62fe3c56881a0",
@@ -46,6 +46,109 @@
             "maxlength": ""
         },
         {
+            "key": "field_63053d3ffd5fe",
+            "label": "",
+            "name": "title_size",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "h4": "h4",
+                "h3": "h3",
+                "h2": "h2",
+                "h1": "h1",
+                "full-header__title--large": "Large"
+            },
+            "allow_null": 0,
+            "default_value": "full-header__title--large",
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
+            "key": "field_63053df7fd5ff",
+            "label": "",
+            "name": "title_weight",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "regular": "Regular",
+                "bold": "Bold"
+            },
+            "allow_null": 0,
+            "default_value": "regular",
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
+            "key": "field_63053e35fd600",
+            "label": "",
+            "name": "title_font",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "font-fk": "FK Screamer",
+                "font-canela": "Canela",
+                "font-apercu": "Apercu"
+            },
+            "allow_null": 0,
+            "default_value": "font-fk",
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
+            "key": "field_63053f79fd603",
+            "label": "Title margin bottom",
+            "name": "title_margin_bottom",
+            "type": "select",
+            "instructions": "How much space to add to the bottom of the title",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "8px": "8px",
+                "16px": "16px",
+                "24px": "24px",
+                "32px": "32px",
+                "40px": "40px",
+                "48px": "48px",
+                "56px": "56px",
+                "64px": "64px",
+                "72px": "72px",
+                "80px": "80px"
+            },
+            "default_value": "16px",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
             "key": "field_62fe3bff8819d",
             "label": "Description",
             "name": "description",
@@ -63,6 +166,50 @@
             "maxlength": "",
             "rows": "",
             "new_lines": ""
+        },
+        {
+            "key": "field_63053ed9fd601",
+            "label": "",
+            "name": "description_size",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "large": "Large",
+                "regular": "Standard"
+            },
+            "allow_null": 0,
+            "default_value": "regular",
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
+            "key": "field_63053f0dfd602",
+            "label": "",
+            "name": "description_weight",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "bold": "Bold",
+                "regular": "regular"
+            },
+            "allow_null": 0,
+            "default_value": "regular",
+            "layout": "horizontal",
+            "return_format": "value"
         },
         {
             "key": "field_62fe527b02ed5",
@@ -85,7 +232,7 @@
         },
         {
             "key": "field_62fe52a502ed6",
-            "label": "Gradient Colour A",
+            "label": "Gradient colour A",
             "name": "gradient_color",
             "type": "color_picker",
             "instructions": "",
@@ -102,7 +249,7 @@
         },
         {
             "key": "field_62feb70dff87a",
-            "label": "Gradient Colour B",
+            "label": "Gradient colour B",
             "name": "gradient_color_b",
             "type": "color_picker",
             "instructions": "",
@@ -119,8 +266,8 @@
         },
         {
             "key": "field_62fe53be02ed7",
-            "label": "Text Colour",
-            "name": "text_color",
+            "label": "Text colour moblie",
+            "name": "text_color_mobile",
             "type": "color_picker",
             "instructions": "",
             "required": 0,
@@ -133,6 +280,47 @@
             "default_value": "#ffffff",
             "enable_opacity": 0,
             "return_format": "string"
+        },
+        {
+            "key": "field_63060578e4406",
+            "label": "Text colour desktop",
+            "name": "text_color_desktop",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#ffffff",
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_63060591e4407",
+            "label": "Split on text and image on mobile?",
+            "name": "split_on_mobile",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "full-header--split-on-mobile": "Split",
+                "full-header--normal": "Don't split"
+            },
+            "allow_null": 0,
+            "other_choice": 0,
+            "default_value": "full-header--normal",
+            "layout": "vertical",
+            "return_format": "value",
+            "save_other_choice": 0
         }
     ],
     "location": [
@@ -140,7 +328,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/full-header-fk-screamer"
+                "value": "acf\/full-header"
             }
         ]
     ],
@@ -153,5 +341,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1660861193
+    "modified": 1661344818
 }

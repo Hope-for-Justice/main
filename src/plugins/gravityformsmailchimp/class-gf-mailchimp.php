@@ -244,7 +244,9 @@ class GFMailChimp extends GFFeedAddOn {
 		parent::init_admin();
 
 		add_action( 'admin_init', array( $this, 'maybe_update_auth_creds' ) );
-		add_action( 'admin_init', array( $this, 'warn_for_deprecated_key' ) );
+		if ( GFForms::is_gravity_page() ) {
+			add_action( 'admin_init', array( $this, 'warn_for_deprecated_key' ) );
+		}
 		add_action( 'admin_post_' . self::POST_ACTION, array( $this, 'handle_disconnection' ) );
 	}
 
@@ -282,7 +284,7 @@ class GFMailChimp extends GFFeedAddOn {
 				'version' => $this->_version,
 				'enqueue' => array(
 					array(
-						'admin_page' => array( 'plugin_settings' ),
+						'admin_page' => array( 'plugin_settings', 'form_settings' ),
 						'tab'        => $this->_slug,
 					),
 				),
@@ -433,12 +435,17 @@ class GFMailChimp extends GFFeedAddOn {
 				// translators: %1 is an opening <a> tag, and %2 is a closing </a> tag.
 				'description' => '<p>' . sprintf( esc_html__( 'Mailchimp makes it easy to send email newsletters to your customers, manage your subscriber audiences, and track campaign performance. Use Gravity Forms to collect customer information and automatically add it to your Mailchimp subscriber audience. If you don\'t have a Mailchimp account, you can %1$ssign up for one here.%2$s', 'gravityformsmailchimp' ), '<a href="http://www.mailchimp.com/" target="_blank">', '</a>' ) . '</p>',
 				'fields'      => array(
+
 					array(
 						'name'              => 'connection',
 						'type'              => 'html',
 						'feedback_callback' => array( $this, 'initialize_api' ),
 						'html'              => array( $this, 'render_connection_button' ),
 						'callback'          => array( $this, 'render_connection_button' ),
+					),
+					array(
+						'type' => 'save',
+						'class'  => 'hidden',
 					),
 				),
 			),
@@ -726,7 +733,10 @@ class GFMailChimp extends GFFeedAddOn {
 							esc_html__( 'When conditional logic is enabled, form submissions will only be exported to Mailchimp when the conditions are met. When disabled all form submissions will be exported.', 'gravityformsmailchimp' )
 						),
 					),
-					array( 'type' => 'save' ),
+					array(
+						'type'       => 'save',
+						'dependency' => 'mailchimpList',
+					),
 				),
 			),
 		);
@@ -1132,7 +1142,7 @@ class GFMailChimp extends GFFeedAddOn {
 		$is_enabled                = $this->get_setting( $condition_enabled_setting ) == '1';
 		$container_style           = ! $is_enabled ? "style='display:none;'" : '';
 
-		$str = "<div id='{$setting_name_root}_condition_container' {$container_style} class='condition_container'>" .
+		$str = "<div id='{$setting_name_root}_condition_container' {$container_style} class='condition_container gform-settings-field__conditional-logic'>" .
 		       esc_html__( 'Assign to group:', 'gravityformsmailchimp' ) . ' ';
 
 		$str .= $this->settings_select(
@@ -1160,7 +1170,7 @@ class GFMailChimp extends GFFeedAddOn {
 
 		$conditional_style = $decision == 'always' ? "style='display:none;'" : '';
 
-		$str .= '   <span id="' . $setting_name_root . '_decision_container" class="gform-settings-simple-condition" ' . $conditional_style . '><br />' .
+		$str .= '   <span id="' . $setting_name_root . '_decision_container" class="gform-settings-simple-condition gf_conditional_logic_rules_container" ' . $conditional_style . '><br />' .
 		        $this->simple_condition( $setting_name_root, $is_enabled ) .
 		        '   </span>' .
 
@@ -1266,7 +1276,7 @@ class GFMailChimp extends GFFeedAddOn {
 		$container_style           = ! $is_enabled ? "style='display:none;'" : '';
 
 		$str = sprintf(
-			'<div id="%s_condition_container" %s class="condition_container gf_animate_sub_settings"><span id="%s_condition_label" class="condition_label">%s</span>',
+			'<div id="%s_condition_container" %s class="condition_container gf_animate_sub_settings gform-settings-field__conditional-logic"><span id="%s_condition_label" class="condition_label">%s</span>',
 			$setting_name_root,
 			$container_style,
 			$setting_name_root,
@@ -1274,7 +1284,7 @@ class GFMailChimp extends GFFeedAddOn {
 		);
 
 
-		$str .= '   <span id="' . $setting_name_root . '_decision_container" class="gform-settings-simple-condition"><br />' .
+		$str .= '   <span id="' . $setting_name_root . '_decision_container" class="gform-settings-simple-condition gf_conditional_logic_rules_container"><br />' .
 		        $this->simple_condition( $setting_name_root, $is_enabled ) .
 		        '   </span>' .
 
@@ -3039,21 +3049,28 @@ class GFMailChimp extends GFFeedAddOn {
 	 * @return void
 	 */
 	public function warn_for_deprecated_key() {
-		$api_key     = $this->get_plugin_setting( 'apiKey' );
-		$initialized = $this->initialize_api();
-
-		if ( ! $initialized || ! isset( $api_key ) ) {
+		$api_key = $this->get_plugin_setting( 'apiKey' );
+		if ( empty( $api_key ) ) {
 			return;
 		}
 
-		add_action( 'admin_notices', function () {
-			$settings_url = admin_url( 'admin.php?page=gf_settings&subview=' . $this->_slug );
+		$initialized = $this->initialize_api();
 
-			// translators: %1 is an opening <a> tag, and %2 is a closing </a> tag.
-			$message = sprintf( __( 'It looks like you\'re using an API Key to connect to Mailchimp. Please visit the %1$sMailchimp settings page%2$s in order to connect to the Mailchimp API.', 'gravityformsmailchimp' ), "<a href='${settings_url}'>", '</a>' );
+		if ( ! $initialized ) {
+			return;
+		}
 
-			printf( '<div class="notice below-h1 notice-error gf-notice"><p>%1$s</p></div>', $message );
-		} );
+		add_action(
+			'admin_notices',
+			function () {
+				$settings_url = admin_url( 'admin.php?page=gf_settings&subview=' . $this->_slug );
+
+				// translators: %1 is an opening <a> tag, and %2 is a closing </a> tag.
+				$message = sprintf( __( 'It looks like you\'re using an API Key to connect to Mailchimp. Please visit the %1$sMailchimp settings page%2$s in order to connect to the Mailchimp API.', 'gravityformsmailchimp' ), "<a href='${settings_url}'>", '</a>' );
+
+				printf( '<div class="notice below-h1 notice-error gf-notice"><p>%1$s</p></div>', $message );
+			}
+		);
 
 		$this->log_error( __METHOD__ . ': user has API Key but has not connected to oAuth.' );
 	}

@@ -1,0 +1,338 @@
+{
+    "key": "group_6304dc2046e12",
+    "title": "Block: Big image card",
+    "fields": [
+        {
+            "key": "field_6304e7bb8bba3",
+            "label": "Image",
+            "name": "image",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
+            "key": "field_6304dc3754d2e",
+            "label": "Title",
+            "name": "title",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_6304dc4c54d2f",
+            "label": "",
+            "name": "title_size",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "h4": "h4",
+                "h3": "h3",
+                "h2": "h2",
+                "h1": "h1",
+                "big-image-card__title--large": "Large"
+            },
+            "allow_null": 0,
+            "default_value": "big-image-card__title--large",
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
+            "key": "field_6304dd0d54d30",
+            "label": "",
+            "name": "title_font",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "font-fk": "FK Screamer",
+                "font-canela": "Canela",
+                "font-apercu": "Apercu"
+            },
+            "allow_null": 0,
+            "default_value": "font-fk",
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
+            "key": "field_6304dd9054d31",
+            "label": "",
+            "name": "font_weight",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "regular": "Regular",
+                "bold": "Bold"
+            },
+            "allow_null": 0,
+            "default_value": "regular",
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
+            "key": "field_6304e7ca8bba4",
+            "label": "Title margin bottom",
+            "name": "title_margin_bottom",
+            "type": "select",
+            "instructions": "How much space to add to the bottom of the title",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "8px": "8px",
+                "16px": "16px",
+                "24px": "24px",
+                "32px": "32px",
+                "40px": "40px",
+                "48px": "48px",
+                "56px": "56px",
+                "64px": "64px",
+                "72px": "72px",
+                "80px": "80px"
+            },
+            "default_value": "16px",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6304e7530a260",
+            "label": "Text",
+            "name": "text",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": "",
+            "new_lines": "br"
+        },
+        {
+            "key": "field_6304e985c6d4e",
+            "label": "Text margin bottom",
+            "name": "text_margin_bottom",
+            "type": "select",
+            "instructions": "How much space to add to the bottom of the text",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "8px": "8px",
+                "16px": "16px",
+                "24px": "24px",
+                "32px": "32px",
+                "40px": "40px",
+                "48px": "48px",
+                "56px": "56px",
+                "64px": "64px",
+                "72px": "72px",
+                "80px": "80px"
+            },
+            "default_value": "24px",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6304f119c747d",
+            "label": "Button link",
+            "name": "link",
+            "type": "link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
+            "key": "field_6304ec7541dd4",
+            "label": "Gradient Colour A",
+            "name": "gradient_a",
+            "type": "color_picker",
+            "instructions": "A subtle gradient makes text easier to read.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "rgba(0, 0, 0, 1)",
+            "enable_opacity": 1,
+            "return_format": "string"
+        },
+        {
+            "key": "field_6304ed6441dd5",
+            "label": "Gradient Colour B",
+            "name": "gradient_b",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "rgba(0, 0, 0, 0)",
+            "enable_opacity": 1,
+            "return_format": "string"
+        },
+        {
+            "key": "field_6306b8244e68d",
+            "label": "Block margin bottom mobile",
+            "name": "block_margin_bottom_mobile",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "8px": "8px",
+                "16px": "16px",
+                "24px": "24px",
+                "32px": "32px",
+                "40px": "40px",
+                "48px": "48px",
+                "56px": "56px",
+                "64px": "64px",
+                "72px": "72px",
+                "80px": "80px"
+            },
+            "default_value": "40px",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6306b8544e68e",
+            "label": "Block margin bottom desktop",
+            "name": "block_margin_bottom_desktop",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "8px": "8px",
+                "16px": "16px",
+                "24px": "24px",
+                "32px": "32px",
+                "40px": "40px",
+                "48px": "48px",
+                "56px": "56px",
+                "64px": "64px",
+                "72px": "72px",
+                "80px": "80px"
+            },
+            "default_value": "40px",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/big-image-card"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1661384802
+}

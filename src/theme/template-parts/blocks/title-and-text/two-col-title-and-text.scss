@@ -1,8 +1,24 @@
 .two-col-title-and-text {
+    margin-bottom: var(--margin-bottom-mobile);
 
     &__col-a,
     &__col-b {
+        .block-title {
+            margin-bottom: var(--margin-bottom-mobile);
+        }
+
         grid-column: span 12;
+    }
+
+    &__col-a p {
+        margin-bottom: 40px;
+    }
+}
+
+//tablet
+@media screen and (min-width: 768px) {
+    .two-col-title-and-text__col-a p {
+        margin-bottom: 80px;
     }
 }
 
@@ -10,14 +26,26 @@
 @media screen and (min-width: 1440px) {
 
     .two-col-title-and-text {
+        margin-bottom: var(--margin-bottom-desktop);
+
+        &__col-a,
+        &__col-b {
+            .block-title {
+                margin-bottom: var(--margin-bottom-desktop);
+            }
+
+            grid-column: span 6;
+        }
 
         &__col-a {
-            grid-column: span 6;
             padding-right: 16px;
+
+            p {
+                margin-bottom: 0;
+            }
         }
 
         &__col-b {
-            grid-column: span 6;
             padding-left: 16px;
         }
     }

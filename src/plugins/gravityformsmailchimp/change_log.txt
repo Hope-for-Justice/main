@@ -1,5 +1,12 @@
+### 5.1 | 2022-05-11
+- Fixed an issue where the save settings button isn't visible when creating or editing a feed.
+- Fixed a display issue with some conditional logic feed settings.
+- Fixed an issue where API calls are being made on all admin pages when checking for deprecated keys.
+
+
 ### 5.0 | 2021-09-29
 - Updated the authorization flow to connect to the Mailchimp API via Oauth.
+
 
 ### 4.9 | 2021-04-28
 - Fixed an issue where conditional logic is not correctly identifying matching selections when forms contain a multi-select field.

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Class Folders Replace Media
+ *
+ * @author  : Premio <contact@premio.io>
+ * @license : GPL2
+ * */
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class folders_replace_media {
@@ -22,7 +29,7 @@ class folders_replace_media {
         if($this->is_enabled) {
 
             add_action('admin_menu', array($this, 'admin_menu'));
-//
+
             add_filter('media_row_actions', array($this, 'add_media_action'), 10, 2);
 
             add_action('add_meta_boxes', function () {
@@ -56,6 +63,13 @@ class folders_replace_media {
 	    add_action('admin_notices', array($this, 'admin_notices'));
     }
 
+    /**
+     * Add admin notice
+     *
+     * @since 2.6.3
+     * @access public
+     *
+     */
     public function admin_notices() {
         if(isset($_REQUEST['premio_message']) && $_REQUEST['premio_message'] == "success") { ?>
             <div class="notice notice-success is-dismissible">
@@ -158,6 +172,13 @@ class folders_replace_media {
         <?php }
     }
 
+    /**
+     * Add Metabox to replace file name with title
+     *
+     * @since 2.6.3
+     * @access public
+     *
+     */
 	public function change_file_name_box($post) { ?>
 		<p class="upgrade-bottom">
 			<label for="change_file_name"><input disabled type="checkbox" id="change_file_name" name="premio_change_file_name" value="yes"> <?php esc_html_e("Change file name according to title", "folders") ?></label>
@@ -168,6 +189,13 @@ class folders_replace_media {
 		<?php
 	}
 
+    /**
+     * Add Js and CSS files for replace file name with title
+     *
+     * @since 2.6.3
+     * @access public
+     *
+     */
 	public function replace_media_file_script() {
 		wp_enqueue_script('folders-replace-media', WCP_FOLDER_URL . 'assets/js/replace-file-name.js', array('jquery'), WCP_FOLDER_VERSION, true);
 		wp_localize_script('folders-replace-media', 'replace_media_options', array(
@@ -203,7 +231,14 @@ class folders_replace_media {
       </style>';
 	}
 
-	public function attachment_replace_name_with_title($form_fields, $post)
+    /**
+     * Replace file name with title
+     *
+     * @since 2.6.3
+     * @access public
+     *
+     */
+	public function attachment_replace_name_with_title($formFields, $post)
 	{
 		$screen = null;
 		if (function_exists('get_current_screen'))
@@ -211,19 +246,26 @@ class folders_replace_media {
 			$screen = get_current_screen();
 
 			if(! is_null($screen) && $screen->id == 'attachment') // hide on edit attachment screen.
-				return $form_fields;
+				return $formFields;
 		}
 
-		$form_fields["replace_file_name"] = array(
+		$formFields["replace_file_name"] = array(
 			"label" => esc_html__("Replace media", "folders"),
 			"input" => "html",
 			"html" => "<label for='attachment_title_{$post->ID}' data-post='{$post->ID}' data-nonce='".wp_create_nonce('change_attachment_title_'.$post->ID)."'><input id='attachment_title_{$post->ID}' type='checkbox' class='folder-replace-checkbox' value='{$post->ID}'>".esc_html__("Update file name with title")."</label><a href='".$this->upgradeLink."' target='_blank' style='background: {$this->button_color}; border-color: {$this->button_color}; color:#ffffff' type='button' class='button update-name-with-title' >".esc_html__("Upgrade to Pro", "folders")."</a>",
 			"helps" => ""
 		);
 
-		return $form_fields;
+		return $formFields;
 	}
 
+    /**
+     * Add Js and CSS files for replace file screen
+     *
+     * @since 2.6.3
+     * @access public
+     *
+     */
     public function folders_admin_css_and_js($page) {
 	    if($page == "media_page_folders-replace-media" || $page == "admin_page_folders-replace-media") {
             wp_enqueue_style('folders-media', plugin_dir_url(dirname(__FILE__)) . 'assets/css/replace-media.css', array(), WCP_FOLDER_VERSION);
@@ -231,6 +273,14 @@ class folders_replace_media {
         }
     }
 
+    /**
+     * Add file replace menu in admin
+     *
+     * @since 2.6.3
+     * @access public
+     * @return $string
+     *
+     */
     public function admin_menu() {
         add_submenu_page(null,
             esc_html__("Replace media", "folders"),
@@ -241,6 +291,14 @@ class folders_replace_media {
         );
     }
 
+    /**
+     * Add file replacement screen
+     *
+     * @since 2.6.3
+     * @access public
+     * @return $string
+     *
+     */
     public function folders_replace_media() {
         global $plugin_page;
         $action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : '';
@@ -265,6 +323,14 @@ class folders_replace_media {
         include_once dirname(dirname(__FILE__)) . WCP_DS . "/templates" . WCP_DS . "admin" . WCP_DS . "media-replace.php";
     }
 
+    /**
+     * Add action for file replacement
+     *
+     * @since 2.6.3
+     * @access public
+     * @return $actions
+     *
+     */
     public function add_media_action($actions, $post) {
         if(!$this->is_enabled) {
 	        return array_merge($actions);
@@ -285,6 +351,14 @@ class folders_replace_media {
 	    return $actions;
     }
 
+    /**
+     * Get URL for file Replacement
+     *
+     * @since 2.6.3
+     * @access public
+     * @return $url
+     *
+     */
     public function getMediaReplaceURL($attach_id) {
         $url = admin_url( "upload.php");
         $url = add_query_arg(array(
@@ -297,6 +371,14 @@ class folders_replace_media {
         return $url;
     }
 
+    /**
+     * Get file size
+     *
+     * @since 2.6.3
+     * @access public
+     * @return $size
+     *
+     */
     public function replace_meta_box($post) {
 	    if (wp_attachment_is('image', $post->ID)) {
 		    $link = $this->getMediaReplaceURL($post->ID);
@@ -306,7 +388,15 @@ class folders_replace_media {
 	    }
     }
 
-    public function attachment_editor($form_fields, $post)
+    /**
+     * Get file size
+     *
+     * @since 2.6.3
+     * @access public
+     * @return $size
+     *
+     */
+    public function attachment_editor($formFields, $post)
     {
         $screen = null;
         if (function_exists('get_current_screen'))
@@ -314,18 +404,18 @@ class folders_replace_media {
             $screen = get_current_screen();
 
             if(! is_null($screen) && $screen->id == 'attachment') // hide on edit attachment screen.
-                return $form_fields;
+                return $formFields;
         }
 	    if (wp_attachment_is('image', $post->ID)) {
 		    $link                   = $this->getMediaReplaceURL( $post->ID );
-		    $form_fields["folders"] = array(
+		    $formFields["folders"] = array(
 			    "label" => esc_html__( "Replace media", "folders" ),
 			    "input" => "html",
 			    "html"  => "<a style='background: {$this->button_color}; border-color: {$this->button_color}; color:#ffffff' href='" . $link . "' class='button-secondary'>" . esc_html__( "Upload a new file", "folders" ) . "</a>",
 			    "helps" => esc_html__( "Click on the button to replace the file with another file", "folders" )
 		    );
 	    } else {
-		    $form_fields["folders"] = array(
+		    $formFields["folders"] = array(
 			    "label" => esc_html__( "Replace media", "folders" ),
 			    "input" => "html",
 			    "html"  => "<div style='border: solid 1px #c0c0c0; padding: 10px; border-radius: 2px; background: #ececec;'><a style='color: {$this->button_color}; font-weight: 500' target='_blank' href='" . $this->upgradeLink . "' >" . esc_html__( "Upgrade to Pro", "folders" ) . "</a> ".esc_html__( "to replace media files other than images", "folders" ) . "</div>",
@@ -333,9 +423,17 @@ class folders_replace_media {
 		    );
 	    }
 
-        return $form_fields;
+        return $formFields;
     }
 
+    /**
+     * Get file size
+     *
+     * @since 2.6.3
+     * @access public
+     * @return $size
+     *
+     */
     public function getFileSize($attachment_id) {
         $size = filesize( get_attached_file( $attachment_id ));
         if($size > 1000000) {
@@ -368,6 +466,14 @@ class folders_replace_media {
     public $is_new_image = 0;
     public $attachment_id;
 
+
+    /**
+     * Upload file and Replace it
+     *
+     * @since 2.6.3
+     * @access public
+     *
+     */
     public function handle_folders_file_upload() {
         global $wpdb;
         if(isset($_FILES['new_media_file'])) {
@@ -547,6 +653,13 @@ class folders_replace_media {
         }
     }
 
+    /**
+     * Check for filename
+     *
+     * @since 2.6.3
+     * @access public
+     *
+     */
     public function checkForFileName($fileName, $filePath, $postFix = 0) {
         $new_file_name = $fileName;
         if(!empty($postFix)) {
@@ -562,6 +675,14 @@ class folders_replace_media {
 
     public $replace_items = array();
 
+
+    /**
+     * Check and Remove Thumb image in wp-content
+     *
+     * @since 2.6.3
+     * @access public
+     *
+     */
     public function removeThumbImages() {
         if(!empty($this->old_image_meta) && isset($this->old_image_meta['sizes']) && !empty($this->upload_dir) && isset($this->upload_dir['path'])) {
             $path = $this->upload_dir['path'].DIRECTORY_SEPARATOR;
@@ -573,6 +694,14 @@ class folders_replace_media {
         }
     }
 
+    /**
+     * Search and Replace files in Database
+     *
+     * @since 2.6.3
+     * @access public
+     * @return $string
+     *
+     */
     public function searchAndReplace() {
         if (wp_attachment_is('image', $this->attachment_id)) {
             $this->is_new_image = 1;
@@ -626,6 +755,14 @@ class folders_replace_media {
         }
     }
 
+    /**
+     * Replace URL in Database tables
+     *
+     * @since 2.6.3
+     * @access public
+     * @return $string
+     *
+     */
     function replaceURL() {
         /* check in post content */
         $this->checkInPostContent();
@@ -641,6 +778,14 @@ class folders_replace_media {
         }
     }
 
+    /**
+     * Checking image URLs in Post Content
+     *
+     * @since 2.6.3
+     * @access public
+     * @return $string
+     *
+     */
     function checkInPostContent() {
         global $wpdb;
         $post_table = $wpdb->prefix."posts";
@@ -663,6 +808,14 @@ class folders_replace_media {
         }
     }
 
+    /**
+     * Checking image URLs in MetaData
+     *
+     * @since 2.6.3
+     * @access public
+     * @return $string
+     *
+     */
     function checkInOptions() {
         global $wpdb;
         $post_table = $wpdb->prefix."options";
@@ -685,6 +838,14 @@ class folders_replace_media {
         }
     }
 
+    /**
+     * Checking image URLs in MetaData
+     *
+     * @since 2.6.3
+     * @access public
+     * @return $string
+     *
+     */
     function checkInMetaData() {
         $tables = array(
             array(
@@ -731,21 +892,32 @@ class folders_replace_media {
         }
     }
 
-    function findAndReplaceContent($content, $search, $replace, $in_deep = false) {
+    /**
+     * Checking for Array Key
+     *
+     * @since 2.6.3
+     * @access public
+     * @return $json
+     * Forked from Enable Media Replace
+     *
+     */
+    function findAndReplaceContent($content, $search, $replace, $depth = false) {
         $content = maybe_unserialize($content);
-        $isJson = $this->isJSON($content);
 
+        // Checking for JSON Data
+        $isJson = $this->isJSON($content);
         if ($isJson) {
             $content = json_decode($content);
         }
 
+        // Replace content if content is String
         if (is_string($content)) {
             $content = str_replace($search, $replace, $content);
         }
-        else if(is_wp_error($content)) {
+        else if(is_wp_error($content)) {   // Return if error in data
 
         }
-        else if(is_array($content)) {
+        else if(is_array($content)) {   // Replace content if content is Array
             foreach($content as $index => $value) {
                 $content[$index] = $this->findAndReplaceContent($value, $search, $replace, true);
                 if (is_string($index))  {
@@ -755,34 +927,51 @@ class folders_replace_media {
                 }
             }
         }
-        else if(is_object($content)) {
+        else if(is_object($content)) {   // Replace content if content is Object
             foreach($content as $key => $value) {
                 $content->{$key} = $this->findAndReplaceContent($value, $search, $replace, true);
             }
         }
 
-        if ($isJson && $in_deep === false) {
+        if ($isJson && $depth === false) {
             $content = json_encode($content, JSON_UNESCAPED_SLASHES);
         }
-        else if($in_deep === false && (is_array($content) || is_object($content))) {
+        else if($depth === false && (is_array($content) || is_object($content))) {
             $content = maybe_serialize($content);
         }
 
         return $content;
     }
 
+    /**
+     * Checking for Array Key
+     *
+     * @since 2.6.3
+     * @access public
+     * @return $json
+     *
+     */
     function changeArrayKey($array, $set) {
         if (is_array($array) && is_array($set)) {
-            $newArr = array();
+            $newArray = array();
             foreach ($array as $k => $v) {
                 $key = array_key_exists( $k, $set) ? $set[$k] : $k;
-                $newArr[$key] = is_array($v) ? $this->changeArrayKey($v, $set) : $v;
+                $newArray[$key] = is_array($v) ? $this->changeArrayKey($v, $set) : $v;
             }
-            return $newArr;
+            return $newArray;
         }
         return $array;
     }
 
+    /**
+     * Check if it is JSON or not
+     *
+     * @since 2.6.3
+     * @access public
+     * Forked from Enable Media Replace
+     * @return $json
+     *
+     */
     function isJSON($content)
     {
         if (is_array($content) || is_object($content))

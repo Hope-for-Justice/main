@@ -91,8 +91,41 @@
         },
         {
             "key": "field_63036a638e128",
-            "label": "Title A margin bottom",
-            "name": "margin_bottom_a",
+            "label": "Title A margin bottom mobile",
+            "name": "margin_bottom_a_mobile",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "8px": "8px",
+                "16px": "16px",
+                "24px": "24px",
+                "32px": "32px",
+                "40px": "40px",
+                "48px": "48px",
+                "56px": "56px",
+                "64px": "64px",
+                "72px": "72px",
+                "80px": "80px"
+            },
+            "default_value": "24px",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6306ac66345f9",
+            "label": "Title A margin bottom desktop",
+            "name": "margin_bottom_a_desktop",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -230,8 +263,41 @@
         },
         {
             "key": "field_63036bd48e12c",
-            "label": "Title B margin bottom",
-            "name": "margin_bottom_b",
+            "label": "Title B margin bottom mobile",
+            "name": "margin_bottom_b_mobile",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "8px": "8px",
+                "16px": "16px",
+                "24px": "24px",
+                "32px": "32px",
+                "40px": "40px",
+                "48px": "48px",
+                "56px": "56px",
+                "64px": "64px",
+                "72px": "72px",
+                "80px": "80px"
+            },
+            "default_value": "24px",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6306ac3d345f8",
+            "label": "Title B margin bottom desktop",
+            "name": "margin_bottom_b_desktop",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -279,6 +345,72 @@
             "maxlength": "",
             "rows": "",
             "new_lines": ""
+        },
+        {
+            "key": "field_6306ab90345f5",
+            "label": "Block margin bottom mobile",
+            "name": "block_margin_bottom_mobile",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "8px": "8px",
+                "16px": "16px",
+                "24px": "24px",
+                "32px": "32px",
+                "40px": "40px",
+                "48px": "48px",
+                "56px": "56px",
+                "64px": "64px",
+                "72px": "72px",
+                "80px": "80px"
+            },
+            "default_value": "40px",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6306abe4345f6",
+            "label": "Block margin bottom desktop",
+            "name": "block_margin_bottom_desktop",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "8px": "8px",
+                "16px": "16px",
+                "24px": "24px",
+                "32px": "32px",
+                "40px": "40px",
+                "48px": "48px",
+                "56px": "56px",
+                "64px": "64px",
+                "72px": "72px",
+                "80px": "80px"
+            },
+            "default_value": "80px",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
         }
     ],
     "location": [
@@ -299,5 +431,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1661209680
+    "modified": 1661381833
 }

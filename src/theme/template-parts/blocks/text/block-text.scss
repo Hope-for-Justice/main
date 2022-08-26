@@ -1,12 +1,15 @@
 .block-text {
-    line-height: 1.5;
-    margin: 0;
-    font-weight: normal;
-    font-size: 16px;
-    grid-column: span 12;
-    margin-bottom: 40px;
-    max-width: 960px;
+    margin-bottom: var(--margin-bottom-mobile);
 
+    p {
+        line-height: 1.5;
+        margin: 0;
+        font-weight: normal;
+        font-size: 16px;
+        grid-column: span 12;
+        max-width: 960px;
+
+    }
 }
 
 // tablet
@@ -15,8 +18,12 @@
 @media screen and (min-width: 768px) {
 
     .block-text {
-        font-size: 18px;
-        margin-bottom: 80px;
+        margin-bottom: var(--margin-bottom-desktop);
+
+        p {
+            font-size: 18px;
+
+        }
     }
 
 }

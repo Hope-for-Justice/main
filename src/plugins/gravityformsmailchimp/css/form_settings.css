@@ -51,7 +51,15 @@
 	padding-top: .5rem;
 
 }
-.condition_container > select {
+
+.gaddon-mailchimp-category .gform-settings-field__conditional-logic .gf_conditional_logic_rules_container,
+.gaddon-mailchimp-permission .gform-settings-field__conditional-logic .gf_conditional_logic_rules_container {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+}
+
+.condition_container select {
 
 	width: auto !important;
 
@@ -65,15 +73,12 @@
 
 }
 
- #tab_gravityformsmailchimp .gform-settings-save-container,
- #tab_gravityformsmailchimp .gaddon-submit {
-	display: none;
-}
-
  #tab_gravityformsmailchimp #gaddon-setting-row-connection > th {
 	display: none;
  }
 
- #tab_gravityformsmailchimp .gform-status-indicator {
-	 padding-left: 0.5rem;
+
+
+ html[dir=rtl] .gform-settings-field__conditional-logic .gf_conditional_logic_rules_container select:first-child {
+	 margin-left: 2px;
  }

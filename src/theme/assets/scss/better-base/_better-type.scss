@@ -63,6 +63,10 @@ h1,
     font-size: 7.46rem;
 }
 
+h4.block-title {
+    font-size: 1.33rem;
+}
+
 h3.block-title {
     font-size: 1.33rem;
 }
@@ -76,14 +80,34 @@ h2.block-title {
 }
 
 h1.block-title {
-    font-size: 3.15rem;
+    font-size: 2.36rem;
 }
 
 
 
-//mobile large
-@media screen and (min-width: 480px) {
+//<480
+@include mq($from: mobileLarge) {
 
+    // h4.block-title {
+    //     font-size: 1.77rem;
+    // }
+
+    // h3.block-title {
+    //     font-size: 2.36rem;
+    // }
+
+    // h2.block-title {
+    //     font-size: 3.15rem;
+    // }
+
+    // h1.block-title {
+    //     font-size: 4.20rem;
+    // }
+
+}
+
+//<768
+@include mq($from: tablet) {
 
     h4.block-title {
         font-size: 1.77rem;
@@ -100,33 +124,6 @@ h1.block-title {
     h1.block-title {
         font-size: 4.20rem;
     }
-
-
-
-}
-
-//<480
-@include mq($until: mobileLarge) {
-
-    // .p-to-mob-l {
-    //     font-size: 1rem;
-    // }
-
-    // .h4-to-mob-l {
-    //     font-size: 1.77rem;
-    // }
-
-    // .h3-to-mob-l {
-    //     font-size: 2.36rem;
-    // }
-
-    // .h2-to-mob-l {
-    //     font-size: 3.15rem;
-    // }
-
-    // .h1-to-mob-l {
-    //     font-size: 4.20rem;
-    // }
 
 }
 

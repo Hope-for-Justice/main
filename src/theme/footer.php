@@ -107,22 +107,22 @@
             <ul class="footer__social-icons">
                 <li class="footer__social-icon">
                     <a href="<?php echo the_field('linked_in_link', 'option'); ?>" target="_blank">
-                        <img src="<?php echo get_template_directory_uri().'/assets/img/li-white.svg'; ?>" alt="">
+                        <img alt="linkedin link" src="<?php echo get_template_directory_uri().'/assets/img/li-white.svg'; ?>" alt="">
                     </a>
                 </li>
                 <li class="footer__social-icon">
                     <a href="<?php echo the_field('instagram_link', 'option'); ?>" target="_blank">
-                        <img src="<?php echo get_template_directory_uri().'/assets/img/in-white.svg'; ?>" alt="">
+                        <img alt="instagram link" src="<?php echo get_template_directory_uri().'/assets/img/in-white.svg'; ?>" alt="">
                     </a>
                 </li>
                 <li class="footer__social-icon">
                     <a href="<?php echo the_field('twitter_link', 'option'); ?>" target="_blank">
-                        <img src="<?php echo get_template_directory_uri().'/assets/img/tw-white.svg'; ?>" alt="">
+                        <img alt="twitter link" src="<?php echo get_template_directory_uri().'/assets/img/tw-white.svg'; ?>" alt="">
                     </a>
                 </li>
                 <li class="footer__social-icon">
                     <a href="<?php echo the_field('facebook_link', 'option'); ?>" target="_blank">
-                        <img src="<?php echo get_template_directory_uri().'/assets/img/fb-white.svg'; ?>" alt="">
+                        <img alt="facebook link" src="<?php echo get_template_directory_uri().'/assets/img/fb-white.svg'; ?>" alt="">
                     </a>
                 </li>
             </ul>
@@ -159,11 +159,11 @@
             <?php echo the_field('footer_text', 'option'); ?>
         </p>
         <div class="footer__logos">
-            <img class="fr-reg" src="<?php echo get_template_directory_uri().'/assets/img/fr-reg@2x.png'; ?>">
-            <img class="guidestar" src="<?php echo get_template_directory_uri().'/assets/img/guidestar@2x.png'; ?>">
+            <img alt="Fundraising regulator Logo" class="fr-reg" src="<?php echo get_template_directory_uri().'/assets/img/fr-reg@2x.png'; ?>">
+            <img alt="Guidestar logo" class="guidestar" src="<?php echo get_template_directory_uri().'/assets/img/guidestar@2x.png'; ?>">
         </div>
         <div class="footer__branding">
-            <img class="footer__branding-logo"
+            <img alt="Hope for Justice Logo" class="footer__branding-logo"
                 src="<?php echo get_template_directory_uri().'/assets/img/logo-white-stack.svg'; ?>">
         </div>
     </div>

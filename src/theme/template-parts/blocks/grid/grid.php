@@ -1,7 +1,7 @@
 <?php
 
 /**
- * grid
+ * full-header
  *
  * @param   array $block The block settings and attributes.
  * @param   string $content The block inner HTML (empty).
@@ -9,13 +9,15 @@
  * @param   (int|string) $post_id The post ID this block is saved to.
  */
 
-// Create id attribute allowing for custom "anchor" value.
-$id = 'grid-' . $block['id'];
-if( !empty($block['anchor']) ) {
-    $id = $block['anchor'];
-}
+
+
+// Load values and assign defaults.
+
+
 ?>
 
-<div id="<?php echo esc_attr($id); ?>" class="better-grid">
-    <InnerBlocks />
+
+<!-- grid -->
+<div class="better-grid">
+    <InnerBlocks class="better-grid__inner-block" />
 </div>
