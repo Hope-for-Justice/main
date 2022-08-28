@@ -11,39 +11,10 @@
 
 // Create id attribute allowing for custom "anchor" value.
 $id = 'two-col-title-and-text-' . $block['id'];
-if( !empty($block['anchor']) ) {
+if (!empty($block['anchor'])) {
     $id = $block['anchor'];
 }
 
-// Load values and assign defaults.
-
-//a
-$title_a = get_field('title_a') ?: 'Add a title (A)';
-$title_a_font = get_field('title_a_font') ?: 'font-canela';
-$margin_bottom_a_mobile = get_field('margin_bottom_a_mobile') ?: '24px';
-$margin_bottom_a_desktop = get_field('margin_bottom_a_desktop') ?: '24px';
-$size_a = get_field('size_a') ?: 'h3';
-$text_a = get_field('text_a') ?: 'Add some text (A)';
-$text_margin_bottom_a_mobile = get_field('margin_bottom_b_mobile') ?: '24px';
-$text_margin_bottom_a_desktop = get_field('margin_bottom_b_desktop') ?: '24px';
-$a_has_button = get_field('b_has_button') ?: false;
-$a_link = get_field('a_link');
-$a_button_color = get_field('a_button_color');
-$a_button_text_color = get_field('a_button_text_color');
-
-//b
-$title_b = get_field('title_b') ?: 'Add a title (B)';
-$title_b_font = get_field('title_b_font') ?: 'font-canela';
-$margin_bottom_b_mobile = get_field('margin_bottom_b_mobile') ?: '24px';
-$margin_bottom_b_desktop = get_field('margin_bottom_b_desktop') ?: '24px';
-$size_b = get_field('size_b') ?: 'h3';
-$text_b = get_field('text_b') ?: 'Add some text (B)';
-$text_margin_bottom_b_mobile = get_field('margin_bottom_b_mobile') ?: '24px';
-$text_margin_bottom_b_desktop = get_field('margin_bottom_b_desktop') ?: '24px';
-$b_has_button = get_field('b_has_button') ?: false;
-$b_link = get_field('b_link');
-$b_button_color = get_field('a_button_color');
-$b_button_text_color = get_field('a_button_text_color');
 
 //block
 $block_margin_bottom_mobile = get_field('block_margin_bottom_mobile') ?: '40px';
@@ -51,50 +22,58 @@ $block_margin_bottom_desktop = get_field('block_margin_bottom_desktop') ?: '80px
 ?>
 
 <div id="<?php echo esc_attr($id); ?>" class="better-grid two-col-title-and-text hfj-block" style="--margin-bottom-mobile:<?php echo $block_margin_bottom_mobile ?>; --margin-bottom-desktop: <?php echo $block_margin_bottom_desktop ?>;">
-    <div class="two-col-title-and-text__col-a">
-       <!-- a title -->
-        <<?php echo $size_a; ?> style="--margin-bottom-mobile:<?php echo $margin_bottom_a_mobile ?>; --margin-bottom-desktop: <?php echo $margin_bottom_a_desktop ?>;"
-        class="<?php echo $title_a_font; ?> block-title">
-            <?php echo $title_a ?><!-- a title text -->
-        </<?php echo $size_a; ?>>
-        <!-- a text -->
-        <p class="font-apercu" style="--margin-bottom-mobile:<?php echo $text_margin_bottom_a_mobile ?>; --margin-bottom-desktop:<?php echo $text_margin_bottom_a_desktop ?>; ">
-            <?php echo $text_a ?>
-        </p>
-        <!-- a button -->
-        <?php if ($a_has_button) {
-            $link_target_a = $a_link['target'];
-            $link_url_a = $a_link['url'];
-            $link_text_a = $a_link['text'];
+
+    <?php while (have_rows('cols')) : the_row();
+
+        //repeater
+        $title = get_sub_field('title') ?: 'Add a title';
+        $title_font = get_sub_field('title_font') ?: 'font-canela';
+        $title_weight = get_sub_field('title_weight') ?: 'standard';
+        $title_margin_bottom_mobile = get_sub_field('title_margin_bottom_mobile') ?: '24px';
+        $title_margin_bottom_desktop = get_sub_field('title_margin_bottom_desktop') ?: '24px';
+        $title_size = get_sub_field('title_size') ?: 'h3';
+        $text = get_sub_field('text') ?: 'Add some text';
+        $text_margin_bottom_mobile = get_sub_field('text_margin_bottom_mobile') ?: '24px';
+        $text_margin_bottom_desktop = get_sub_field('text_margin_bottom_desktop') ?: '24px';
+        $has_button = get_sub_field('has_button') ?: false;
+        $link = get_sub_field('link');
+        $button_color = get_sub_field('button_color');
+        $button_text_color = get_sub_field('button_text_color');
+        $button_margin_bottom_mobile = get_sub_field('button_margin_bottom_mobile');
+        $button_margin_bottom_desktop = get_sub_field('button_margin_bottom_mobile');
+
+    ?>
+
+
+        <div class="two-col-title-and-text__col">
+
+            <!-- title -->
+            <<?php echo $title_size; ?> style="--margin-bottom-mobile:<?php echo $title_margin_bottom_mobile ?>; --margin-bottom-desktop: <?php echo $title_margin_bottom_desktop ?>;" class="<?php echo $title_font; ?> block-title">
+                <?php if ($title_weight == 'bold') echo '<b>' ?>
+                <?php echo $title ?>
+                <?php if ($title_weight == 'bold') echo '</b>' ?>
+            </<?php echo $title_size; ?>>
+
+            <!-- text -->
+            <p class="font-apercu" style="--margin-bottom-mobile:<?php echo $text_margin_bottom_mobile ?>; --margin-bottom-desktop:<?php echo $text_margin_bottom_desktop ?>; ">
+                <?php echo $text ?>
+            </p>
+
+            <!-- button -->
+            <?php if ($has_button) {
+                $link_target = $link['target'];
+                $link_url = $link['url'];
+                $link_text = $link['title'];
             ?>
-            <div class="two-col-title-and-text__button">
-                <a target="<?php echo $link_target_a ?>" href="<?php echo $link_url_a ?>" 
-                class="button">
-                    <?php echo $link_text_a ?>
-                </a>
-            </div>
-        <?php } ?>
-    </div>
-    <div class="two-col-title-and-text__col-b">
+                <div class="two-col-title-and-text__button" style="--margin-bottom-mobile:<?php echo $button_margin_bottom_mobile ?>; --margin-bottom-desktop:<?php echo $button_margin_bottom_desktop ?>;">
+                    <a target="<?php echo $link_target ?>" href="<?php echo $link_url ?>" class="button" style="color:<?php echo $button_text_color ?>; background-color:<?php echo $button_color ?>;">
+                        <?php echo $link_text ?>
+                    </a>
+                </div>
+            <?php } ?>
 
-        <<?php echo $size_b; ?> style="--margin-bottom-mobile:<?php echo $margin_bottom_b_mobile ?>; --margin-bottom-desktop: <?php echo $margin_bottom_b_desktop ?>;"
-        class="<?php echo $title_b_font; ?> block-title">
-            <?php echo $title_b ?>
-        </<?php echo $size_b; ?>>
+        </div>
 
-        <p class="font-apercu" 
-        style="--margin-bottom-mobile:<?php echo $text_margin_bottom_b_mobile ?>; --margin-bottom-desktop:<?php echo $text_margin_bottom_b_desktop ?>; ">
-            <?php echo $text_b ?>
-        </p>
+    <?php endwhile; ?>
 
-        <?php if ($b_has_button) {
-            $link_target_b = $b_link['target'];
-            $link_url_b = $b_link['url'];
-            $link_text_b = $b_link['text'];
-            ?>
-            <div class="two-col-title-and-text__button">
-                <a target="<?php echo $link_target_b ?>" href="<?php echo $link_url_b ?>" class="button"><?php echo $link_text_b ?></a>
-            </div>                   
-        <?php } ?>
-    </div>
 </div>

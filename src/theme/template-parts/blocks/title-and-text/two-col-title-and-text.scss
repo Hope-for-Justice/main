@@ -1,25 +1,35 @@
 .two-col-title-and-text {
     margin-bottom: var(--margin-bottom-mobile);
 
-    &__col-a,
-    &__col-b {
+
+    &__col {
+        &:nth-child(1) {
+            margin-bottom: 40px;
+        }
+
+        grid-column: span 12;
+
         .block-title {
             margin-bottom: var(--margin-bottom-mobile);
         }
 
-        grid-column: span 12;
-    }
-
-    &__col-a p {
-        margin-bottom: 40px;
+        p {
+            margin: 0;
+            margin-bottom: var(--margin-bottom-mobile);
+        }
     }
 }
 
 //tablet
 @media screen and (min-width: 768px) {
-    .two-col-title-and-text__col-a p {
-        margin-bottom: 80px;
+    .two-col-title-and-text {
+        margin-bottom: var(--margin-bottom-desktop);
+
+        &__col:nth-child(1) {
+            margin-bottom: 80px;
+        }
     }
+
 }
 
 //desktop
@@ -28,26 +38,31 @@
     .two-col-title-and-text {
         margin-bottom: var(--margin-bottom-desktop);
 
-        &__col-a,
-        &__col-b {
+        &__col {
+            &:nth-child(1) {
+                margin-bottom: 0px;
+            }
+
             .block-title {
                 margin-bottom: var(--margin-bottom-desktop);
             }
 
-            grid-column: span 6;
-        }
-
-        &__col-a {
-            padding-right: 16px;
-
             p {
-                margin-bottom: 0;
+                margin-bottom: var(--margin-bottom-desktop);
+            }
+
+            grid-column: span 6;
+
+            &:nth-child(1) {
+                padding-right: 16px;
+            }
+
+            &:nth-child(2) {
+                padding-left: 16px;
             }
         }
 
-        &__col-b {
-            padding-left: 16px;
-        }
+
     }
 
 }

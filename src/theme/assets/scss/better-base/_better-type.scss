@@ -3,6 +3,9 @@
 * _BETTER-TYPE.SCSS
 *
 */
+b {
+    font-weight: bold;
+}
 
 .large,
 h4,
@@ -17,6 +20,7 @@ h1,
     line-height: 1.1;
     letter-spacing: 0;
     text-transform: none;
+    margin: 0;
 }
 
 .small {

@@ -1,12 +1,13 @@
 <?php
+
 /**
  * Template Name: Block template
  *
  * @package Hope_for_Justice_2021
  */
 
-get_header("",["page_class" =>
-"site--full"]); 
+get_header("", ["page_class" =>
+"site--full"]);
 
 ?>
 
@@ -17,9 +18,9 @@ get_header("",["page_class" =>
 
 <main class="main site-main block-template">
 
-    <?php while (have_posts()): the_post(); 
-     the_content(); 
-    endwhile;?>
+    <?php while (have_posts()) : the_post();
+        the_content();
+    endwhile; ?>
 
 </main>
 
