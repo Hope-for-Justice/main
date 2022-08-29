@@ -98,7 +98,7 @@ function hope_for_justice_2021_scripts()
   global $wp_styles;
 
   if (!is_page_template('templates/page-block-template.php')) {
-    wp_enqueue_style('hope-for-justice-2021-style', get_stylesheet_uri(), array(), '202277');
+    wp_enqueue_style('hope-for-justice-2021-style', get_stylesheet_uri(), array(), '280922');
     // remove block scripts
     function remove_block_css()
     {
@@ -106,12 +106,12 @@ function hope_for_justice_2021_scripts()
     }
     add_action('wp_enqueue_scripts', 'remove_block_css', 100);
   } else {
-    wp_enqueue_style('hope-for-justice-base-styles', get_template_directory_uri() . '/block-base-styles.css', array(), '202277');
+    wp_enqueue_style('hope-for-justice-base-styles', get_template_directory_uri() . '/block-base-styles.css', array(), '280922');
   }
 
   wp_enqueue_script('jquery');
-  // wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '202277', true );
-  wp_enqueue_script('hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '202277', true);
+  // wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '280922', true );
+  wp_enqueue_script('hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '280922', true);
 }
 
 /**
@@ -132,40 +132,40 @@ function page_scripts()
 {
   global $post;
 
-  // wp_register_script( 'plugins', get_template_directory_uri() . '/assets/js/pages/plugins.js', array('jquery'), '202277', true);
+  // wp_register_script( 'plugins', get_template_directory_uri() . '/assets/js/pages/plugins.js', array('jquery'), '280922', true);
 
-  wp_register_script('homepage', get_template_directory_uri() . '/assets/js/pages/homepage.js', array('jquery'), '202277', true);
+  wp_register_script('homepage', get_template_directory_uri() . '/assets/js/pages/homepage.js', array('jquery'), '280922', true);
 
-  wp_register_script('donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '202277', true);
+  wp_register_script('donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '280922', true);
 
-  wp_register_script('donate-new', get_template_directory_uri() . '/assets/js/pages/donate-new.js', array('jquery'), '202277', true);
+  wp_register_script('donate-new', get_template_directory_uri() . '/assets/js/pages/donate-new.js', array('jquery'), '280922', true);
 
-  wp_register_script('donate-thankyou', get_template_directory_uri() . '/assets/js/pages/donate-thankyou.js', array('jquery'), '202277', true);
+  wp_register_script('donate-thankyou', get_template_directory_uri() . '/assets/js/pages/donate-thankyou.js', array('jquery'), '280922', true);
 
-  wp_register_script('donorfy-stripe', get_template_directory_uri() . '/assets/js/pages/donorfy-stripe.js', array('jquery'), '202277', true);
+  wp_register_script('donorfy-stripe', get_template_directory_uri() . '/assets/js/pages/donorfy-stripe.js', array('jquery'), '280922', true);
 
-  wp_register_script('regular-uk', get_template_directory_uri() . '/assets/js/pages/regular-uk.js', array('jquery'), '202277', true);
+  wp_register_script('regular-uk', get_template_directory_uri() . '/assets/js/pages/regular-uk.js', array('jquery'), '280922', true);
 
-  wp_register_script('donorfy-gocardless', get_template_directory_uri() . '/assets/js/pages/donorfy-gocardless.js', array('jquery'), '202277', true);
+  wp_register_script('donorfy-gocardless', get_template_directory_uri() . '/assets/js/pages/donorfy-gocardless.js', array('jquery'), '280922', true);
 
-  wp_register_script('donorfy-donate', get_template_directory_uri() . '/assets/js/pages/donorfy-donate.js', array('jquery'), '202277', true);
+  wp_register_script('donorfy-donate', get_template_directory_uri() . '/assets/js/pages/donorfy-donate.js', array('jquery'), '280922', true);
 
-  wp_register_script('one-off-uk', get_template_directory_uri() . '/assets/js/pages/one-off-uk.js', array('jquery'), '202277', true);
+  wp_register_script('one-off-uk', get_template_directory_uri() . '/assets/js/pages/one-off-uk.js', array('jquery'), '280922', true);
 
-  wp_register_script('one-off-usa', get_template_directory_uri() . '/assets/js/pages/one-off-usa.js', array('jquery'), '202277', true);
+  wp_register_script('one-off-usa', get_template_directory_uri() . '/assets/js/pages/one-off-usa.js', array('jquery'), '280922', true);
 
-  wp_register_script('one-off-norway', get_template_directory_uri() . '/assets/js/pages/one-off-norway.js', array('jquery'), '202277', true);
+  wp_register_script('one-off-norway', get_template_directory_uri() . '/assets/js/pages/one-off-norway.js', array('jquery'), '280922', true);
 
 
-  wp_register_script('donorfy-webhooks', get_template_directory_uri() . '/assets/js/pages/donorfy-webhooks.js', array('jquery'), '202277', true);
+  wp_register_script('donorfy-webhooks', get_template_directory_uri() . '/assets/js/pages/donorfy-webhooks.js', array('jquery'), '280922', true);
 
-  wp_register_script('church-partnerships', get_template_directory_uri() . '/assets/js/pages/church-partnerships.js', array('jquery'), '202277', true);
+  wp_register_script('church-partnerships', get_template_directory_uri() . '/assets/js/pages/church-partnerships.js', array('jquery'), '280922', true);
 
-  wp_register_script('training', get_template_directory_uri() . '/assets/js/pages/training.js', array('jquery'), '202277', true);
+  wp_register_script('training', get_template_directory_uri() . '/assets/js/pages/training.js', array('jquery'), '280922', true);
 
-  wp_register_script('freedom-run', get_template_directory_uri() . '/assets/js/pages/freedom-run.js', array('jquery'), '202277', true);
+  wp_register_script('freedom-run', get_template_directory_uri() . '/assets/js/pages/freedom-run.js', array('jquery'), '280922', true);
 
-  wp_register_script('men-are-victims', get_template_directory_uri() . '/assets/js/pages/men-are-victims.js', array('jquery'), '202277', true);
+  wp_register_script('men-are-victims', get_template_directory_uri() . '/assets/js/pages/men-are-victims.js', array('jquery'), '280922', true);
 
 
   $themeVars = array('template_directory_uri' => get_template_directory_uri());
@@ -221,15 +221,15 @@ function page_scripts()
   }
   if (is_page_template('templates/page-men-are-victims.php')) {
     wp_enqueue_script('men-are-victims');
-    wp_enqueue_style('men-are-victims', get_template_directory_uri() . '/men-are-victims.css', array(), '202277');
+    wp_enqueue_style('men-are-victims', get_template_directory_uri() . '/men-are-victims.css', array(), '280922');
   }
   if (is_page_template('templates/page-goats-milk.php')) {
     wp_enqueue_script('donate-new');
-    wp_enqueue_style('goats-milk', get_template_directory_uri() . '/goats-milk.css', array(), '202277');
+    wp_enqueue_style('goats-milk', get_template_directory_uri() . '/goats-milk.css', array(), '280922');
   }
   if (is_page_template('templates/page-church-partnerships.php')) {
     wp_enqueue_script('church-partnerships');
-    wp_enqueue_style('church-partnerships', get_template_directory_uri() . '/church-partnerships.css', array(), '202277');
+    wp_enqueue_style('church-partnerships', get_template_directory_uri() . '/church-partnerships.css', array(), '280922');
   }
 }
 
@@ -816,7 +816,7 @@ add_filter('block_categories_all', function ($categories) {
 add_theme_support('align-wide');
 
 add_action('enqueue_block_editor_assets', function () {
-  wp_enqueue_style('hope-for-justice-base-styles', get_template_directory_uri() . '/editor-block-base-styles.css', array(), '202277');
+  wp_enqueue_style('hope-for-justice-base-styles', get_template_directory_uri() . '/editor-block-base-styles.css', array(), '280922');
 });
 
 //acf block types
@@ -889,7 +889,7 @@ function my_acf_init_block_types()
 
     function full_header()
     {
-      wp_enqueue_style('full-header', get_template_directory_uri() . '/template-parts/blocks/full-header.css', array(), '202277');
+      wp_enqueue_style('full-header', get_template_directory_uri() . '/template-parts/blocks/full-header.css', array(), '280922');
     }
 
     // register full-width-text block.
@@ -905,7 +905,7 @@ function my_acf_init_block_types()
 
     function text_assets()
     {
-      wp_enqueue_style('text', get_template_directory_uri() . '/template-parts/blocks/block-text.css', array(), '202277');
+      wp_enqueue_style('block-text', get_template_directory_uri() . '/template-parts/blocks/block-text.css', array(), '280922');
     }
 
     //register title block.
@@ -921,7 +921,7 @@ function my_acf_init_block_types()
 
     function title_assets()
     {
-      wp_enqueue_style('title-assets', get_template_directory_uri() . '/template-parts/blocks/block-title.css', array(), '202277');
+      wp_enqueue_style('title-assets', get_template_directory_uri() . '/template-parts/blocks/block-title.css', array(), '280922');
     }
 
     //register two-col-title-and-text block.
@@ -937,7 +937,7 @@ function my_acf_init_block_types()
 
     function title_and_text_2col_assets()
     {
-      wp_enqueue_style('title_and_text_2col_assets', get_template_directory_uri() . '/template-parts/blocks/two-col-title-and-text.css', array(), '202277');
+      wp_enqueue_style('title_and_text_2col_assets', get_template_directory_uri() . '/template-parts/blocks/two-col-title-and-text.css', array(), '280922');
     }
 
     //register cards thirds block.
@@ -953,7 +953,7 @@ function my_acf_init_block_types()
 
     function card_third_assets()
     {
-      wp_enqueue_style('card_third_assets', get_template_directory_uri() . '/template-parts/blocks/cards-thirds.css', array(), '202277');
+      wp_enqueue_style('card_third_assets', get_template_directory_uri() . '/template-parts/blocks/cards-thirds.css', array(), '280922');
     }
 
     //register big image card block.
@@ -969,7 +969,7 @@ function my_acf_init_block_types()
 
     function big_image_card_assets()
     {
-      wp_enqueue_style('big_image_card_assets', get_template_directory_uri() . '/template-parts/blocks/big-image-card.css', array(), '202277');
+      wp_enqueue_style('big_image_card_assets', get_template_directory_uri() . '/template-parts/blocks/big-image-card.css', array(), '280922');
     }
 
     //register button block.
@@ -985,7 +985,7 @@ function my_acf_init_block_types()
 
     function button_assets()
     {
-      wp_enqueue_style('button_assets', get_template_directory_uri() . '/template-parts/blocks/button.css', array(), '202277');
+      wp_enqueue_style('button_assets', get_template_directory_uri() . '/template-parts/blocks/button.css', array(), '280922');
     }
 
     //register card half block.
@@ -1001,7 +1001,7 @@ function my_acf_init_block_types()
 
     function card_half_assets()
     {
-      wp_enqueue_style('card_half_assets', get_template_directory_uri() . '/template-parts/blocks/cards-half.css', array(), '202277');
+      wp_enqueue_style('card_half_assets', get_template_directory_uri() . '/template-parts/blocks/cards-half.css', array(), '280922');
     }
   }
 }
@@ -1021,35 +1021,35 @@ function register_acf_block_styles(): void
 {
 
   if (has_block('acf/full-header')) {
-    wp_enqueue_style('full-header', get_template_directory_uri() . '/template-parts/blocks/full-header.css', array(), '202277');
+    wp_enqueue_style('full-header', get_template_directory_uri() . '/template-parts/blocks/full-header.css', array(), '280922');
   }
 
   if (has_block('acf/text')) {
-    wp_enqueue_style('block-text', get_template_directory_uri() . '/template-parts/blocks/block-text.css', array(), '202277');
+    wp_enqueue_style('block-text', get_template_directory_uri() . '/template-parts/blocks/block-text.css', array(), '280922');
   }
 
   if (has_block('acf/title')) {
-    wp_enqueue_style('title-assets', get_template_directory_uri() . '/template-parts/blocks/block-title.css', array(), '202277');
+    wp_enqueue_style('title-assets', get_template_directory_uri() . '/template-parts/blocks/block-title.css', array(), '280922');
   }
 
   if (has_block('acf/two-col-title-and-text')) {
-    wp_enqueue_style('title_and_text_2col_assets', get_template_directory_uri() . '/template-parts/blocks/two-col-title-and-text.css', array(), '202277');
+    wp_enqueue_style('title_and_text_2col_assets', get_template_directory_uri() . '/template-parts/blocks/two-col-title-and-text.css', array(), '280922');
   }
 
   if (has_block('acf/cards-thirds')) {
-    wp_enqueue_style('card_third_assets', get_template_directory_uri() . '/template-parts/blocks/cards-thirds.css', array(), '202277');
+    wp_enqueue_style('card_third_assets', get_template_directory_uri() . '/template-parts/blocks/cards-thirds.css', array(), '280922');
   }
 
   if (has_block('acf/big-image-card')) {
-    wp_enqueue_style('big_image_card_assets', get_template_directory_uri() . '/template-parts/blocks/big-image-card.css', array(), '202277');
+    wp_enqueue_style('big_image_card_assets', get_template_directory_uri() . '/template-parts/blocks/big-image-card.css', array(), '280922');
   }
 
   if (has_block('acf/button')) {
-    wp_enqueue_style('button_assets', get_template_directory_uri() . '/template-parts/blocks/button.css', array(), '202277');
+    wp_enqueue_style('button_assets', get_template_directory_uri() . '/template-parts/blocks/button.css', array(), '280922');
   }
 
   if (has_block('acf/cards-half')) {
-    wp_enqueue_style('card_half_assets', get_template_directory_uri() . '/template-parts/blocks/cards-half.css', array(), '202277');
+    wp_enqueue_style('card_half_assets', get_template_directory_uri() . '/template-parts/blocks/cards-half.css', array(), '280922');
   }
 }
 
