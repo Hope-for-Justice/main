@@ -1,0 +1,89 @@
+//file for only base styes 
+//block styles enqued when used
+//could be smaller but this is ok
+
+.site {
+    visibility: hidden;
+}
+
+body {
+    //brand 
+    --red: #D6001C;
+    --red-tint: #FACCD2;
+    --pink: #FEF5F6;
+    --white: #ffffff;
+    --black: #212322;
+    --almost-white: #FDFDFD;
+    --light-grey: #FAFAFA;
+    --lines: #CBCBCB;
+    --battleship-grey: #8E949E;
+    --green: #5CAA7F;
+    --blue: #8BBEE8;
+    --yellow: #FFC845;
+    --fields: #E5E5E5;
+    --fields-border: #D8D8D8;
+
+    //z-index
+    ///////////////////////////////////////////////////////////////////////////////
+    --z-modals: 900;
+    --z-header: 800;
+    --z-ticker: 700;
+
+    //others maybe needed
+
+    --z-body: 600;
+}
+
+@supports (display: grid) {
+
+    .site {
+        visibility: visible;
+    }
+
+    .upgrade-browser {
+        display: none;
+    }
+
+    // base styles
+    @import "base/_variables.scss";
+    @import "base/_base.scss";
+    @import "base/_mixins.scss";
+    @import "base/_fonts.scss";
+    @import "lib/_mq.scss";
+    @import "lib/_newsticker.scss";
+    @import "lib/_bootstrap-modal.scss";
+    @import "base/_type.scss";
+    @import "better-base/_better-base.scss";
+    @import "better-base/_better-type.scss";
+    @import "better-base/_better-grid.scss";
+
+    // layout
+    @import "base/_layout.scss";
+
+    // global objects
+    // @import "objects/_get-help.scss";
+    // @import "objects/_modal.scss";
+    @import "objects/_line.scss";
+    @import "objects/_button.scss";
+    @import "objects/_menu.scss";
+    @import "objects/_grid.scss";
+    @import "objects/_forms.scss";
+    @import "objects/_menu.scss";
+    @import "objects/_grid.scss";
+    @import "objects/_header.scss";
+    @import "objects/_burger.scss";
+    @import "objects/_cookie-notice.scss";
+    @import "objects/_footer.scss";
+
+    html :where(.wp-block) {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+    }
+
+
+    .block-editor-post-preview__button-resize {
+        display: none;
+    }
+
+}

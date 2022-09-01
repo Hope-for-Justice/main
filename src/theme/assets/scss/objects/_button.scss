@@ -4,7 +4,9 @@
 *
 */
 
-.button {
+.button,
+.better-grid .button {
+	line-height: 1.5;
 	color: white;
 	background-color: $red;
 	@include box-shadow;
@@ -138,7 +140,8 @@ input[type="submit"] {
 
 @include mq($from: tablet) {
 
-	.button {
+	.button,
+	.better-grid .button {
 		font-size: 18px;
 
 		&--nav {
@@ -160,7 +163,8 @@ input[type="submit"] {
 
 @include mq($from: desktop) {
 
-	.button {
+	.button,
+	.better-grid .button {
 		&--nav {
 			font-size: 18px;
 		}
@@ -178,7 +182,8 @@ input[type="submit"] {
 
 @include mq($from: desktopLarge) {
 
-	.button {
+	.button,
+	.better-grid .button {
 		&--nav {
 			font-size: 18px;
 		}
@@ -193,7 +198,8 @@ input[type="submit"] {
 
 @include mq($from: wide) {
 
-	.button {
+	.button,
+	.better-grid .button {
 
 		//font-size: 2em;
 		&--nav {

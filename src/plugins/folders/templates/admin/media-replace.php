@@ -38,10 +38,15 @@ if(isset($customize_folders['show_folder_in_settings']) && $customize_folders['s
 	$upgradeURL = admin_url("admin.php?page=folders-upgrade-to-pro");
 }
 $current_date = date_i18n('d/M/Y H:i', strtotime($attachment->post_date) )
+
+/*
+ * Forked from Enable Media Replace
+ *
+ * */
 ?>
 <div class="wrap">
     <h2><?php esc_html_e("Replace Media", "folders"); ?></h2>
-    <form enctype="multipart/form-data" method="POST" action="<?php echo esc_url($form_action) ?>">
+    <form enctype="multipart/form-data" method="POST" action="">
         <div class="replace-media-page">
             <p><b><?php esc_html_e("Current File", "folders") ?></b>: <?php echo esc_attr($file_name) ?></p>
             <p><?php esc_html_e("Upload a new file instead of the current one", "folders") ?></p>
@@ -100,39 +105,39 @@ $current_date = date_i18n('d/M/Y H:i', strtotime($attachment->post_date) )
                 <div class="media-bottom-pro">
                     <div class="media-bottom-box-left">
                         <div class="media-setting">
-                            <div class="media-title"><?php esc_html_e("Replacement Options", "folders") ?></div>
+                            <div class="media-title"><?php esc_html_e("Replace Files", "folders") ?></div>
                             <div class="media-form">
                                 <div class="media-option">
-                                    <label for="replace_only_file"><input type="radio" checked name="replacement_option" value="replace_only_file" id="replace_only_file" /> <?php esc_html_e("Just replace the file", "folders") ?></label>
+                                    <label for="replace_only_file"><input type="radio" checked name="replacement_option" value="replace_only_file" id="replace_only_file" /> <?php esc_html_e("Replace File Only", "folders") ?></label>
                                 </div>
                                 <div class="media-note">
-                                    <?php esc_html_e("Note: This option requires you to upload a file of the same type (png) as the one you are replacing. The name of the attachment will stay the same (image.png) no matter what the file you upload is called.", "folders"); ?>
+                                    <?php printf(esc_html__("%s Please upload a file with the same extension (jpg, jpeg, png etc). The file name will remain the same as the file being replaced.", "folders"), "<b>".esc_html__("Note:", "folders")."</b>" ); ?>
                                 </div>
                                 <div class="media-option">
-                                    <label for="replace_file_with_name"><input type="radio" name="replacement_option" value="replace_file_with_name" id="replace_file_with_name" /> <?php esc_html_e("Replace the file, use new file name and update all links", "folders") ?></label>
+                                    <label for="replace_file_with_name"><input type="radio" name="replacement_option" value="replace_file_with_name" id="replace_file_with_name" /> <?php esc_html_e("Replace File and Update URLs with New File name", "folders") ?></label>
                                 </div>
                                 <div class="media-note">
-                                    <?php esc_html_e("Note: If you check this option, the name and type of the file you are about to upload will replace the old file. All links pointing to the current file (image.png) will be updated to point to the new file name. (If any other websites link to the file directly, those links will no longer work. Be careful.)", "folders"); ?>
+                                    <?php printf(esc_html__("%s After selecting this option, the new file name will be retained, and all the URLs pointing to the current file will be revised to the new file. If the file URL has been shared on external web pages, the links may not work.", "folders"), "<b>".esc_html__("Warning:", "folders")."</b>"); ?>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="media-bottom-box-right">
                         <div class="media-setting">
-                            <div class="media-title"><?php esc_html_e("Date Options", "folders") ?></div>
+                            <div class="media-title"><?php esc_html_e("File Date", "folders") ?></div>
                             <div class="media-form">
                                 <div class="media-note">
-                                    <?php esc_html_e("When replacing the media, do you want to:", "folders"); ?>
+                                    <?php esc_html_e("After swapping the old file with the new one:", "folders"); ?>
                                 </div>
                                 <ul>
                                     <li>
-                                        <label for="replace_date"><input type="radio" name="date_options" value="replace_date" id="replace_date" /> <?php esc_html_e("Replace the date", "folders") ?></label>
+                                        <label for="replace_date"><input type="radio" name="date_options" value="replace_date" id="replace_date" /> <?php esc_html_e("Set the date of upload of the new file", "folders") ?></label>
                                     </li>
                                     <li>
-                                        <label for="keep_date"><input type="radio" checked name="date_options" value="keep_date" id="keep_date" /> <?php esc_html_e("Keep the date", "folders") ?> <small>(<?php echo esc_attr($current_date) ?>)</small></label>
+                                        <label for="keep_date"><input type="radio" checked name="date_options" value="keep_date" id="keep_date" /> <?php esc_html_e("Keep the old file's date of the upload", "folders") ?> <small>(<?php echo esc_attr($current_date) ?>)</small></label>
                                     </li>
                                     <li>
-                                        <label for="select_custom_date"><input type="radio" name="date_options" value="custom_date" id="select_custom_date" /> <?php esc_html_e("Set a Custom Date", "folders") ?></label>
+                                        <label for="select_custom_date"><input type="radio" name="date_options" value="custom_date" id="select_custom_date" /> <?php esc_html_e("Set a date", "folders") ?></label>
                                     </li>
                                 </ul>
                                 <div class="custom-date" id="custom-date">

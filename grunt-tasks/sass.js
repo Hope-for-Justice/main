@@ -24,7 +24,21 @@ module.exports = function (distTheme, devTheme, scssDir) {
         { src: devTheme + scssDir + 'pages/church-partnerships.scss', dest: distTheme + '/church-partnerships.css' },
 
         //better styles for design system
-        { src: devTheme + scssDir + 'better-styles.scss', dest: distTheme + '/better-styles.css' },
+        { src: devTheme + scssDir + 'block-base-styles.scss', dest: distTheme + '/block-base-styles.css' },
+
+        //block editor styles
+        { src: devTheme + scssDir + 'editor-block-base-styles.scss', dest: distTheme + '/editor-block-base-styles.css' },
+
+        { src: devTheme + scssDir + 'block-styles.scss', dest: distTheme + '/block-styles.css' },
+
+        {
+          expand: true, // Recursive
+          flatten: true,
+          //cwd: distTheme,
+          src: devTheme + '/template-parts/blocks/' + '**/*.scss', // Source files
+          dest: distTheme + '/template-parts/blocks/', // Destination
+          ext: '.css' // File extension 
+        }
       ]
     }
   }

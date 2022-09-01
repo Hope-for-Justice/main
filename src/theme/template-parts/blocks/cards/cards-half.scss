@@ -1,0 +1,142 @@
+.cards-half {
+    grid-gap: 16px;
+    margin-bottom: var(--margin-bottom-mobile);
+
+
+    .block-card {
+        box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.16);
+        -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.16);
+        min-height: 50px;
+        border-radius: 16px;
+        background-color: #FAFAFA;
+        font-family: 'apercu-reg', sans-serif;
+        overflow: hidden;
+        color: var(--black);
+
+        grid-column: span 12;
+
+        &__image-container {
+            height: 0;
+            padding-top: 50%;
+            position: relative;
+
+            img {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        &__content {
+            padding: 24px;
+
+            p {
+                margin: 0;
+            }
+        }
+
+        &__title {
+            margin-bottom: 16px;
+            //font-size: 1.33rem;
+        }
+
+        &:hover {
+            cursor: pointer;
+
+            .block-card__title {
+                text-decoration: underline;
+            }
+        }
+
+    }
+
+
+}
+
+// mobile L
+//////////////////////////////////////////////////////////////////////////////////
+
+@media screen and (min-width: 550px) {
+
+    .cards-half {
+
+        .block-card {
+            display: flex;
+
+            &__image-container {
+                height: 100%;
+                flex: 1;
+                padding-top: 0;
+            }
+
+            &__content {
+                flex: 2;
+            }
+
+            &__title {
+                margin-bottom: 24px;
+                //font-size: 1.77rem;
+            }
+
+            &__content {
+                padding: 32px;
+            }
+
+        }
+    }
+}
+
+
+// tablet
+//////////////////////////////////////////////////////////////////////////////////
+
+@media screen and (min-width: 768px) {
+    .cards-half {
+        margin-bottom: var(--margin-bottom-desktop);
+        grid-gap: 32px;
+
+        .block-card {
+            &__content {
+                padding: 40px;
+            }
+        }
+    }
+}
+
+// desktop
+//////////////////////////////////////////////////////////////////////////////////
+
+@media screen and (min-width: 960px) {
+
+    .cards-half {
+        .block-card {
+            display: block;
+            grid-column: span 6;
+
+            &__image-container {
+                height: 0;
+                padding-top: 50%;
+            }
+        }
+    }
+
+}
+
+// desktop large
+//////////////////////////////////////////////////////////////////////////////////
+
+@media screen and (min-width: 1680px) {
+
+    .cards-half {
+        .block-card {
+            &__image-container {
+                padding-top: 60%;
+            }
+        }
+    }
+
+}

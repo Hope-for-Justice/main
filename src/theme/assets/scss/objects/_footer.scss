@@ -6,7 +6,7 @@
 
 .footer {
 	width: 100%;
-	background-color: $battleship-grey;
+	background-color: $black;
 
 	.grid {
 		max-width: 1920px;
@@ -25,7 +25,7 @@
 		margin-top: 8.6vw;
 		width: 100%;
 		justify-content: space-between;
-		max-width: 25em;
+		max-width: 250px;
 
 		img {
 			width: 32px;
@@ -48,7 +48,7 @@
 	&__section {
 		grid-column: col1/col12-end;
 		color: white;
-		margin-bottom: 3em;
+		margin-bottom: 30px;
 
 		&-title {
 			font-size: 28px;
@@ -60,7 +60,7 @@
 
 	&__menu {
 		.menu-item {
-			margin-bottom: 1em;
+			margin-bottom: 10px;
 		}
 
 		a {
@@ -73,7 +73,7 @@
 		font-size: 12px;
 		grid-column: col2/col12;
 		color: white;
-		margin-bottom: 5em;
+		margin-bottom: 50px;
 
 		a {
 			text-decoration: underline;
@@ -86,10 +86,10 @@
 		flex-direction: column;
 		grid-column: col2/col12;
 		opacity: 0.5;
-		margin-bottom: 3em;
+		margin-bottom: 30px;
 
 		img {
-			margin-bottom: 2em;
+			margin-bottom: 20px;
 			object-fit: contain;
 		}
 
@@ -108,7 +108,7 @@
 
 		&-logo {
 			width: 125px;
-			margin-bottom: 5em;
+			margin-bottom: 50px;
 		}
 	}
 }
@@ -123,7 +123,7 @@
 			flex-direction: row;
 			align-items: center;
 			justify-content: space-between;
-			margin-top: 5em;
+			margin-top: 50px;
 		}
 
 		&__social-icons,
@@ -132,7 +132,7 @@
 		}
 
 		&__line {
-			margin: 5em 0;
+			margin: 50px 0;
 		}
 
 		&__section {
@@ -141,20 +141,20 @@
 
 		&__logos {
 			flex-direction: row;
-			margin-bottom: 5em;
+			margin-bottom: 50px;
 
 			img {
 				margin-bottom: 0em;
-				margin-right: 3em;
+				margin-right: 30px;
 			}
 		}
 
 		&__small {
-			margin-top: 5em;
+			margin-top: 50px;
 		}
 
 		&__branding {
-			margin-bottom: 10em;
+			margin-bottom: 100px;
 		}
 	}
 
@@ -168,7 +168,7 @@
 
 	.footer {
 		&__social-email {
-			margin-top: 10em;
+			margin-top: 100px;
 			align-items: flex-end;
 		}
 
@@ -177,7 +177,7 @@
 		}
 
 		&__small {
-			margin-top: 3em;
+			margin-top: 30px;
 
 			.no-desktop {
 				display: none;
