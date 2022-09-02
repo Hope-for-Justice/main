@@ -1,0 +1,184 @@
+/* General */
+.classy-org-widget
+{
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    margin-bottom: 30px;
+}
+
+.classy-org-widget h3.title
+{
+    font-size: 1.2em;
+}
+
+
+/* Campaign Overview Tiles */
+.classy-org-overview
+{
+    text-align: center;
+}
+
+.classy-org-overview_item
+{
+    border-radius: 3px;
+    display: inline-block;
+    margin: 10px 10px 0 0;
+    width: 120px;
+    min-height: 100px;
+    padding: 15px;
+    background-color: #f0f0f0;
+    vertical-align: top;
+}
+
+.classy-org-overview_item-stat
+{
+    display: block;
+    font-size: 1.2em;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.classy-org-overview_item-label
+{
+    display: block;
+    font-size: 0.8em;
+}
+
+
+/* Campaign Overview Widget */
+
+.classy-org-sidebar div.classy-org-overview_item
+{
+    color: red;
+    display: block;
+    width: 100%;
+    min-height: 0;
+}
+
+/* Leaderboards */
+
+.classy-org-leaderboard_item
+{
+    margin-bottom: 10px;
+}
+
+.classy-org-leaderboard_item-info
+{
+    margin-left: 10px;
+}
+
+.classy-org-leaderboard_item-info, .classy-org-leaderboard_item-image
+{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.classy-org-leaderboard_item-image
+{
+    background-color: #fff;
+    border-radius: 5px;
+    width: 50px;
+    height: 50px;
+    display: table;
+    float: left;
+    overflow: hidden;
+}
+
+.classy-org-leaderboard_item-image i,img
+{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.classy-org-leaderboard_item-image i
+{
+    background-color: #303030;
+}
+
+.classy-org-leaderboard_item-info-label
+{
+    display: block;
+}
+
+.classy-org-leaderboard_item-info-metric
+{
+    color: #909090;
+    display: block;
+}
+
+
+/* Progress Bars */
+.classy-org-widget
+{
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+}
+
+.classy-org-progress::after
+{
+    clear: both;
+    content: "";
+    display: table;
+}
+
+.classy-org-progress_raised
+{
+    font-weight: 700;
+    color: #232a2f;
+    font-size: 1.5em;
+}
+
+.classy-org-progress_goal
+{
+    font-size: .75em;
+    color: #727e83;
+}
+
+.classy-org-progress_bar-mask
+{
+    width: 100%;
+    height: 15px;
+    background-color: #e2e2e2;
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 10px 0 0;
+}
+
+.classy-org-progress_bar-value
+{
+    height: 100%;
+    background-color: #303030;
+    border-radius: 15px;
+    transition: width 300ms ease;
+}
+
+
+/* Overview table */
+table.classy-org-overview-table {
+    border: none;
+    border-collapse: collapse;
+    width: 100%
+}
+
+table.classy-org-overview-table > tbody > tr > td {
+    border-bottom: 1px solid #e2e2e2;
+}
+
+table.classy-org-overview-table > tbody > tr > td.classy-org-overview-table_metric {
+    color: #303030;
+    padding-left: 20px;
+    text-align: right;
+}
+
+table.classy-org-overview-table > tbody > tr > td.classy-org-overview-table_label {
+    font-weight: 700;
+}
+
+
+
+
+
+
+
+
+
