@@ -2,7 +2,7 @@
 
 /**
  * Template Name: Block template
- *
+ * Template Post Type: post, page, events
  * @package Hope_for_Justice_2021
  */
 

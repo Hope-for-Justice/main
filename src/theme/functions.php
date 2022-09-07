@@ -8,6 +8,11 @@
  * @package Hope_for_Justice_2021
  */
 
+if (!defined('_S_VERSION')) {
+  // Replace the version number of the theme on each release.
+  define('_S_VERSION', '5.1.0');
+}
+
 if (!function_exists('hope_for_justice_2021_setup')) :
   /**
    * Sets up theme defaults and registers support for various WordPress features.
@@ -98,7 +103,7 @@ function hope_for_justice_2021_scripts()
   global $wp_styles;
 
   if (!is_page_template('templates/page-block-template.php')) {
-    wp_enqueue_style('hope-for-justice-2021-style', get_stylesheet_uri(), array(), '280922');
+    wp_enqueue_style('hope-for-justice-2021-style', get_stylesheet_uri(), array(), _S_VERSION);
     // remove block scripts
     function remove_block_css()
     {
@@ -106,12 +111,12 @@ function hope_for_justice_2021_scripts()
     }
     add_action('wp_enqueue_scripts', 'remove_block_css', 100);
   } else {
-    wp_enqueue_style('hope-for-justice-base-styles', get_template_directory_uri() . '/block-base-styles.css', array(), '280922');
+    wp_enqueue_style('hope-for-justice-base-styles', get_template_directory_uri() . '/block-base-styles.css', array(), _S_VERSION);
   }
 
   wp_enqueue_script('jquery');
-  // wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), '280922', true );
-  wp_enqueue_script('hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), '280922', true);
+  // wp_enqueue_script( 'justice-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.modal.js', array(), _S_VERSION, true );
+  wp_enqueue_script('hopeforjustice-2021-footer', get_template_directory_uri() . '/assets/js/footer.js', array(), _S_VERSION, true);
 }
 
 /**
@@ -132,40 +137,40 @@ function page_scripts()
 {
   global $post;
 
-  // wp_register_script( 'plugins', get_template_directory_uri() . '/assets/js/pages/plugins.js', array('jquery'), '280922', true);
+  // wp_register_script( 'plugins', get_template_directory_uri() . '/assets/js/pages/plugins.js', array('jquery'), _S_VERSION, true);
 
-  wp_register_script('homepage', get_template_directory_uri() . '/assets/js/pages/homepage.js', array('jquery'), '280922', true);
+  wp_register_script('homepage', get_template_directory_uri() . '/assets/js/pages/homepage.js', array('jquery'), _S_VERSION, true);
 
-  wp_register_script('donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), '280922', true);
+  wp_register_script('donate', get_template_directory_uri() . '/assets/js/pages/donate.js', array('jquery'), _S_VERSION, true);
 
-  wp_register_script('donate-new', get_template_directory_uri() . '/assets/js/pages/donate-new.js', array('jquery'), '280922', true);
+  wp_register_script('donate-new', get_template_directory_uri() . '/assets/js/pages/donate-new.js', array('jquery'), _S_VERSION, true);
 
-  wp_register_script('donate-thankyou', get_template_directory_uri() . '/assets/js/pages/donate-thankyou.js', array('jquery'), '280922', true);
+  wp_register_script('donate-thankyou', get_template_directory_uri() . '/assets/js/pages/donate-thankyou.js', array('jquery'), _S_VERSION, true);
 
-  wp_register_script('donorfy-stripe', get_template_directory_uri() . '/assets/js/pages/donorfy-stripe.js', array('jquery'), '280922', true);
+  wp_register_script('donorfy-stripe', get_template_directory_uri() . '/assets/js/pages/donorfy-stripe.js', array('jquery'), _S_VERSION, true);
 
-  wp_register_script('regular-uk', get_template_directory_uri() . '/assets/js/pages/regular-uk.js', array('jquery'), '280922', true);
+  wp_register_script('regular-uk', get_template_directory_uri() . '/assets/js/pages/regular-uk.js', array('jquery'), _S_VERSION, true);
 
-  wp_register_script('donorfy-gocardless', get_template_directory_uri() . '/assets/js/pages/donorfy-gocardless.js', array('jquery'), '280922', true);
+  wp_register_script('donorfy-gocardless', get_template_directory_uri() . '/assets/js/pages/donorfy-gocardless.js', array('jquery'), _S_VERSION, true);
 
-  wp_register_script('donorfy-donate', get_template_directory_uri() . '/assets/js/pages/donorfy-donate.js', array('jquery'), '280922', true);
+  wp_register_script('donorfy-donate', get_template_directory_uri() . '/assets/js/pages/donorfy-donate.js', array('jquery'), _S_VERSION, true);
 
-  wp_register_script('one-off-uk', get_template_directory_uri() . '/assets/js/pages/one-off-uk.js', array('jquery'), '280922', true);
+  wp_register_script('one-off-uk', get_template_directory_uri() . '/assets/js/pages/one-off-uk.js', array('jquery'), _S_VERSION, true);
 
-  wp_register_script('one-off-usa', get_template_directory_uri() . '/assets/js/pages/one-off-usa.js', array('jquery'), '280922', true);
+  wp_register_script('one-off-usa', get_template_directory_uri() . '/assets/js/pages/one-off-usa.js', array('jquery'), _S_VERSION, true);
 
-  wp_register_script('one-off-norway', get_template_directory_uri() . '/assets/js/pages/one-off-norway.js', array('jquery'), '280922', true);
+  wp_register_script('one-off-norway', get_template_directory_uri() . '/assets/js/pages/one-off-norway.js', array('jquery'), _S_VERSION, true);
 
 
-  wp_register_script('donorfy-webhooks', get_template_directory_uri() . '/assets/js/pages/donorfy-webhooks.js', array('jquery'), '280922', true);
+  wp_register_script('donorfy-webhooks', get_template_directory_uri() . '/assets/js/pages/donorfy-webhooks.js', array('jquery'), _S_VERSION, true);
 
-  wp_register_script('church-partnerships', get_template_directory_uri() . '/assets/js/pages/church-partnerships.js', array('jquery'), '280922', true);
+  wp_register_script('church-partnerships', get_template_directory_uri() . '/assets/js/pages/church-partnerships.js', array('jquery'), _S_VERSION, true);
 
-  wp_register_script('training', get_template_directory_uri() . '/assets/js/pages/training.js', array('jquery'), '280922', true);
+  wp_register_script('training', get_template_directory_uri() . '/assets/js/pages/training.js', array('jquery'), _S_VERSION, true);
 
-  wp_register_script('freedom-run', get_template_directory_uri() . '/assets/js/pages/freedom-run.js', array('jquery'), '280922', true);
+  wp_register_script('freedom-run', get_template_directory_uri() . '/assets/js/pages/freedom-run.js', array('jquery'), _S_VERSION, true);
 
-  wp_register_script('men-are-victims', get_template_directory_uri() . '/assets/js/pages/men-are-victims.js', array('jquery'), '280922', true);
+  wp_register_script('men-are-victims', get_template_directory_uri() . '/assets/js/pages/men-are-victims.js', array('jquery'), _S_VERSION, true);
 
 
   $themeVars = array('template_directory_uri' => get_template_directory_uri());
@@ -221,15 +226,15 @@ function page_scripts()
   }
   if (is_page_template('templates/page-men-are-victims.php')) {
     wp_enqueue_script('men-are-victims');
-    wp_enqueue_style('men-are-victims', get_template_directory_uri() . '/men-are-victims.css', array(), '280922');
+    wp_enqueue_style('men-are-victims', get_template_directory_uri() . '/men-are-victims.css', array(), _S_VERSION);
   }
   if (is_page_template('templates/page-goats-milk.php')) {
     wp_enqueue_script('donate-new');
-    wp_enqueue_style('goats-milk', get_template_directory_uri() . '/goats-milk.css', array(), '280922');
+    wp_enqueue_style('goats-milk', get_template_directory_uri() . '/goats-milk.css', array(), _S_VERSION);
   }
   if (is_page_template('templates/page-church-partnerships.php')) {
     wp_enqueue_script('church-partnerships');
-    wp_enqueue_style('church-partnerships', get_template_directory_uri() . '/church-partnerships.css', array(), '280922');
+    wp_enqueue_style('church-partnerships', get_template_directory_uri() . '/church-partnerships.css', array(), _S_VERSION);
   }
 }
 
@@ -468,7 +473,11 @@ function new_excerpt_more($more)
 }
 add_filter('excerpt_more', 'new_excerpt_more');
 
-function gpf_create_post_type()
+
+/**
+ * Custom post types
+ */
+function create_post_types()
 {
 
   register_post_type(
@@ -528,21 +537,36 @@ function gpf_create_post_type()
 
     )
   );
-  // register_post_type( 'events',
-  //   array(
-  //     'labels' => array(
-  //       'name' => __( 'Events' ),
-  //       'singular_name' => __( 'Event' )
-  //     ),
-  //     'public' => true,
-  //     'has_archive' => true,
-  //     'rewrite' => array('slug' => 'event'),
-  //     'show_in_rest' => true,
-  //     'menu_icon' => 'dashicons-groups',
-  //     'supports' => array('thumbnail','title','editor')
 
-  //   )
-  // );
+  //events
+  register_post_type(
+    'events',
+    array(
+      'labels' => array(
+        'name' => __('Events'),
+        'singular_name' => __('Event'),
+        'add_new_item' => __('Add Event'),
+        'add_new' => __('Add Event'),
+        'edit_item' => __('Edit Event'),
+        'featured_image' => __('Event Image'),
+        'set_featured_image' => __('Upload Event Image'),
+        'remove_featured_image' => __('Remove Event Image'),
+        'menu_name' => __('Manage Events'),
+      ),
+      'public' => true,
+      'has_archive' => true,
+      'rewrite' => array(
+        'slug' => 'events',
+        'with_front' => FALSE
+      ),
+      'show_in_rest' => true,
+      'menu_icon' => 'dashicons-calendar',
+      'supports' => array('thumbnail', 'title', 'editor')
+
+    )
+  );
+
+  //stories and case studies
   register_post_type(
     'stories_case_studies',
     array(
@@ -563,13 +587,62 @@ function gpf_create_post_type()
     )
   );
 }
-add_action('init', 'gpf_create_post_type');
+add_action('init', 'create_post_types');
 
+
+/**
+ * Custom taxonomies
+ */
 function add_custom_taxonomies()
 {
+  //events
+  register_taxonomy('event_categories', 'events', array(
 
+    'hierarchical' => true,
 
+    'labels' => array(
 
+      'name' => _x('Categories', 'taxonomy general name'),
+
+      'singular_name' => _x('Category', 'taxonomy singular name'),
+
+      'search_items' =>  __('Search Category'),
+
+      'all_items' => __('All Categories'),
+
+      'parent_item' => __('Parent'),
+
+      'parent_item_colon' => __('Parent:'),
+
+      'edit_item' => __('Edit Category'),
+
+      'update_item' => __('Update Category'),
+
+      'add_new_item' => __('Add New Category'),
+
+      'new_item_name' => __('New Category'),
+
+      'menu_name' => __('Categories'),
+
+    ),
+
+    'show_in_nav_menus' => false,
+
+    // Control the slugs used for this taxonomy
+
+    'rewrite' => array(
+
+      'slug' => 'categories', // This controls the base slug that will display before each term
+
+      'with_front' => false, // Don't display the category base before "/locations/"
+
+      'hierarchical' => true // This will allow URL's like "/locations/boston/cambridge/"
+
+    ),
+
+  ));
+
+  //gov_pol_fund
   register_taxonomy('categories', 'gov_pol_fund', array(
 
 
@@ -755,52 +828,6 @@ function my_acf_input_admin_footer()
 
 add_action('acf/input/admin_footer', 'my_acf_input_admin_footer');
 
-// function for css for custom blocks - only load whats needed
-// usage 
-// $name = "block-content-image";
-// <section class="block-content-images">
-// <?php loadStyles( __DIR__, $name ); 
-// </section> 
-
-// function loadStyles($path, $name, $file_name = 'style', $echo = true){
-//   global $blocksLoaded;
-
-//   if (!in_array($name, $blocksLoaded)) {
-//       $html = '';
-//       $file = "$path/$file_name.css";
-
-//       if (file_exists($file)) {
-//           $style_content = file_get_contents($file);
-
-//           if ($style_content !== '') {
-//               $html = '<style>' . $style_content .'</style>';
-//               array_push($blocksLoaded, $name);
-
-//               if ($echo) {
-//                   echo $html;
-//               } else {
-//                   return $html;
-//               }
-
-//           }
-//       }
-//   }
-// }
-
-
-//remove editor styles
-// add_action('enqueue_block_editor_assets', function () {
-//   // Remove editor style resets
-//   wp_deregister_style('wp-reset-editor-styles');
-// }, 102);
-
-// Remove default WP blocks editor styles
-// add_action('after_setup_theme', function() {
-//   remove_editor_styles();
-//   add_theme_support('editor-styles');
-//   add_editor_style('editor-styles.css');
-// });
-
 //add new category
 add_filter('block_categories_all', function ($categories) {
 
@@ -815,255 +842,5 @@ add_filter('block_categories_all', function ($categories) {
 
 add_theme_support('align-wide');
 
-add_action('enqueue_block_editor_assets', function () {
-  wp_enqueue_style('hope-for-justice-base-styles', get_template_directory_uri() . '/editor-block-base-styles.css', array(), '280922');
-});
-
-//acf block types
-add_action('acf/init', 'my_acf_init_block_types');
-function my_acf_init_block_types()
-{
-  // Check function exists.
-  if (function_exists('acf_register_block_type')) {
-
-
-    // // register grid block.
-    // acf_register_block_type(array(
-    //     'name'              => 'grid',
-    //     'title'             => __('Grid 12 col'),
-    //     'description'       => __('Custom HfJ block. Grid for layout.'),
-    //     'render_template'   => 'template-parts/blocks/grid/grid.php',
-    //     'category'          => 'hfj-design-system',
-    //     'icon'              => 'grid-view',
-    //     'keywords'          => array( 'grid', 'layout',),
-    //     'align'           => 'wide', 
-    //     'acf_block_version' => 2,
-    //     'supports'		=> [
-    //       'anchor'		=> true,
-    //       'jsx' 			=> true,
-    //     ]         
-    // ));
-
-    // //no inner block on front-end
-    // add_filter( 'acf/blocks/wrap_frontend_innerblocks', 'acf_should_wrap_innerblocks', 10, 2 );
-    //   function acf_should_wrap_innerblocks( $wrap, $name ) {
-    //       if ( $name == 'acf/test-block' ) {
-    //           return true;
-    //       }
-    //       return false;
-    // }
-
-    //   // register grid-inner block.
-    //   acf_register_block_type(array(
-    //       'name'              => 'grid-inner',
-    //       'title'             => __('Grid inner'),
-    //       'description'       => __('Custom HfJ block. Grid inner for layout.'),
-    //       'render_template'   => 'template-parts/blocks/grid/grid-inner.php',
-    //       'category'          => 'hfj-design-system',
-    //       'icon'              => 'grid-view',
-    //       'keywords'          => array( 'grid', 'layout',),
-    //       'align'           => 'wide', 
-    //       'enqueue_assets'    => 'grid_inner_assets',
-    //       'supports'		=> [
-    //         'anchor'		=> true,
-    //         'customClassName'	=> true,
-    //         'jsx' 			=> true,
-    //       ]         
-    //   ));
-
-    //   function grid_inner_assets(){
-    //     wp_enqueue_style('grid-inner', get_template_directory_uri() . '/template-parts/blocks/grid-inner.css');
-    // }
-
-    // register full-header-fk-screamer block.
-    acf_register_block_type(array(
-      'name'              => 'full-header',
-      'title'             => __('Full header'),
-      'description'       => __('Custom HfJ block. Full header for the top of a page'),
-      'render_template'   => 'template-parts/blocks/full-header/full-header.php',
-      'category'          => 'hfj-design-system',
-      'icon'              => 'cover-image',
-      'keywords'          => array('full header', 'header', 'title'),
-      'enqueue_assets'    => 'full_header',
-    ));
-
-    function full_header()
-    {
-      wp_enqueue_style('full-header', get_template_directory_uri() . '/template-parts/blocks/full-header.css', array(), '280922');
-    }
-
-    // register full-width-text block.
-    acf_register_block_type(array(
-      'name'              => 'text',
-      'title'             => __('Text'),
-      'description'       => __('Custom HfJ block. Full width text with max width'),
-      'render_template'   => 'template-parts/blocks/text/text.php',
-      'category'          => 'hfj-design-system',
-      'icon'              => 'text',
-      'enqueue_assets'    => 'text_assets',
-    ));
-
-    function text_assets()
-    {
-      wp_enqueue_style('block-text', get_template_directory_uri() . '/template-parts/blocks/block-text.css', array(), '280922');
-    }
-
-    //register title block.
-    acf_register_block_type(array(
-      'name'              => 'title',
-      'title'             => __('Title'),
-      'description'       => __('Custom HfJ block. For all types of titles'),
-      'render_template'   => 'template-parts/blocks/title/title.php',
-      'category'          => 'hfj-design-system',
-      'icon'              => 'text',
-      'enqueue_assets'    => 'title_assets',
-    ));
-
-    function title_assets()
-    {
-      wp_enqueue_style('title-assets', get_template_directory_uri() . '/template-parts/blocks/block-title.css', array(), '280922');
-    }
-
-    //register two-col-title-and-text block.
-    acf_register_block_type(array(
-      'name'              => 'two-col-title-and-text',
-      'title'             => __('Title and text - 2 columns'),
-      'description'       => __('Custom HfJ block. Two titles and two bits of text.'),
-      'render_template'   => 'template-parts/blocks/title-and-text/two-col-title-and-text.php',
-      'category'          => 'hfj-design-system',
-      'icon'              => 'text',
-      'enqueue_assets'    => 'title_and_text_2col_assets',
-    ));
-
-    function title_and_text_2col_assets()
-    {
-      wp_enqueue_style('title_and_text_2col_assets', get_template_directory_uri() . '/template-parts/blocks/two-col-title-and-text.css', array(), '280922');
-    }
-
-    //register cards thirds block.
-    acf_register_block_type(array(
-      'name'              => 'cards-thirds',
-      'title'             => __('Cards - Thirds'),
-      'description'       => __('Custom HfJ cards. Best to have either 3 or 6 cards.'),
-      'render_template'   => 'template-parts/blocks/cards/cards-thirds.php',
-      'category'          => 'hfj-design-system',
-      'icon'              => 'cover-image',
-      'enqueue_assets'    => 'card_third_assets',
-    ));
-
-    function card_third_assets()
-    {
-      wp_enqueue_style('card_third_assets', get_template_directory_uri() . '/template-parts/blocks/cards-thirds.css', array(), '280922');
-    }
-
-    //register big image card block.
-    acf_register_block_type(array(
-      'name'              => 'big-image-card',
-      'title'             => __('Big Image Card'),
-      'description'       => __('Custom HfJ card. Big Image Card.'),
-      'render_template'   => 'template-parts/blocks/cards/big-image-card.php',
-      'category'          => 'hfj-design-system',
-      'icon'              => 'cover-image',
-      'enqueue_assets'    => 'big_image_card_assets',
-    ));
-
-    function big_image_card_assets()
-    {
-      wp_enqueue_style('big_image_card_assets', get_template_directory_uri() . '/template-parts/blocks/big-image-card.css', array(), '280922');
-    }
-
-    //register button block.
-    acf_register_block_type(array(
-      'name'              => 'button',
-      'title'             => __('Button'),
-      'description'       => __('Custom HfJ button.'),
-      'render_template'   => 'template-parts/blocks/button/button.php',
-      'category'          => 'hfj-design-system',
-      'icon'              => 'button',
-      'enqueue_assets'    => 'button_assets',
-    ));
-
-    function button_assets()
-    {
-      wp_enqueue_style('button_assets', get_template_directory_uri() . '/template-parts/blocks/button.css', array(), '280922');
-    }
-
-    //register card half block.
-    acf_register_block_type(array(
-      'name'              => 'cards-half',
-      'title'             => __('Cards - Halves'),
-      'description'       => __('Custom HfJ cards. Best to have either a multiple of 2.'),
-      'render_template'   => 'template-parts/blocks/cards/cards-half.php',
-      'category'          => 'hfj-design-system',
-      'icon'              => 'cover-image',
-      'enqueue_assets'    => 'card_half_assets',
-    ));
-
-    function card_half_assets()
-    {
-      wp_enqueue_style('card_half_assets', get_template_directory_uri() . '/template-parts/blocks/cards-half.css', array(), '280922');
-    }
-  }
-}
-
-
-/**
- * Register the styles (CSS) for the blocks outside
- * acf_register_block_type() as loading styles
- * using acf_register_block_type() will load the
- * styles in the footer and not in <head> causing
- * CLS issues 
- */
-add_action('wp_enqueue_scripts', 'register_acf_block_styles');
-add_action('admin_enqueue_scripts', 'register_acf_block_styles');
-
-function register_acf_block_styles(): void
-{
-
-  if (has_block('acf/full-header')) {
-    wp_enqueue_style('full-header', get_template_directory_uri() . '/template-parts/blocks/full-header.css', array(), '280922');
-  }
-
-  if (has_block('acf/text')) {
-    wp_enqueue_style('block-text', get_template_directory_uri() . '/template-parts/blocks/block-text.css', array(), '280922');
-  }
-
-  if (has_block('acf/title')) {
-    wp_enqueue_style('title-assets', get_template_directory_uri() . '/template-parts/blocks/block-title.css', array(), '280922');
-  }
-
-  if (has_block('acf/two-col-title-and-text')) {
-    wp_enqueue_style('title_and_text_2col_assets', get_template_directory_uri() . '/template-parts/blocks/two-col-title-and-text.css', array(), '280922');
-  }
-
-  if (has_block('acf/cards-thirds')) {
-    wp_enqueue_style('card_third_assets', get_template_directory_uri() . '/template-parts/blocks/cards-thirds.css', array(), '280922');
-  }
-
-  if (has_block('acf/big-image-card')) {
-    wp_enqueue_style('big_image_card_assets', get_template_directory_uri() . '/template-parts/blocks/big-image-card.css', array(), '280922');
-  }
-
-  if (has_block('acf/button')) {
-    wp_enqueue_style('button_assets', get_template_directory_uri() . '/template-parts/blocks/button.css', array(), '280922');
-  }
-
-  if (has_block('acf/cards-half')) {
-    wp_enqueue_style('card_half_assets', get_template_directory_uri() . '/template-parts/blocks/cards-half.css', array(), '280922');
-  }
-}
-
-//register grid block in new way acf 6.0
-// function register_test_block() {
-//   register_block_type(get_template_directory_uri() . 'template-parts/blocks/block.json');
-// }
-// add_action('init', 'register_test_block');
-
-
-
-// function custom_block_styles() {
-
-//   wp_enqueue_script( 'block-scripts',  get_template_directory_uri() . '/assets/js/block-scripts.js' );
-//   wp_enqueue_style( 'block-styles',  get_template_directory_uri() . '/block-styles.css' );
-// }
-// add_action( 'after_setup_theme', 'custom_block_styles' );
+//get acf blocks file
+require_once(__DIR__  . '/acf-blocks.php');
