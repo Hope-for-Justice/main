@@ -13,54 +13,6 @@ function my_acf_init_block_types()
     if (function_exists('acf_register_block_type')) {
 
 
-        // // register grid block.
-        // acf_register_block_type(array(
-        //     'name'              => 'grid',
-        //     'title'             => __('Grid 12 col'),
-        //     'description'       => __('Custom HfJ block. Grid for layout.'),
-        //     'render_template'   => 'template-parts/blocks/grid/grid.php',
-        //     'category'          => 'hfj-design-system',
-        //     'icon'              => 'grid-view',
-        //     'keywords'          => array( 'grid', 'layout',),
-        //     'align'           => 'wide', 
-        //     'acf_block_version' => 2,
-        //     'supports'		=> [
-        //       'anchor'		=> true,
-        //       'jsx' 			=> true,
-        //     ]         
-        // ));
-
-        // //no inner block on front-end
-        // add_filter( 'acf/blocks/wrap_frontend_innerblocks', 'acf_should_wrap_innerblocks', 10, 2 );
-        //   function acf_should_wrap_innerblocks( $wrap, $name ) {
-        //       if ( $name == 'acf/test-block' ) {
-        //           return true;
-        //       }
-        //       return false;
-        // }
-
-        //   // register grid-inner block.
-        //   acf_register_block_type(array(
-        //       'name'              => 'grid-inner',
-        //       'title'             => __('Grid inner'),
-        //       'description'       => __('Custom HfJ block. Grid inner for layout.'),
-        //       'render_template'   => 'template-parts/blocks/grid/grid-inner.php',
-        //       'category'          => 'hfj-design-system',
-        //       'icon'              => 'grid-view',
-        //       'keywords'          => array( 'grid', 'layout',),
-        //       'align'           => 'wide', 
-        //       'enqueue_assets'    => 'grid_inner_assets',
-        //       'supports'		=> [
-        //         'anchor'		=> true,
-        //         'customClassName'	=> true,
-        //         'jsx' 			=> true,
-        //       ]         
-        //   ));
-
-        //   function grid_inner_assets(){
-        //     wp_enqueue_style('grid-inner', get_template_directory_uri() . '/template-parts/blocks/grid-inner.css');
-        // }
-
         // register full-header-fk-screamer block.
         acf_register_block_type(array(
             'name'              => 'full-header',
@@ -78,7 +30,7 @@ function my_acf_init_block_types()
             wp_enqueue_style('full-header', get_template_directory_uri() . '/template-parts/blocks/full-header.css', array(), _S_VERSION);
         }
 
-        // register full-width-text block.
+        // register text block.
         acf_register_block_type(array(
             'name'              => 'text',
             'title'             => __('Text'),
@@ -190,20 +142,34 @@ function my_acf_init_block_types()
             wp_enqueue_style('card_half_assets', get_template_directory_uri() . '/template-parts/blocks/cards-half.css', array(), _S_VERSION);
         }
 
-        //register card half block.
+        //register event header block
         acf_register_block_type(array(
             'name'              => 'event-header',
             'title'             => __('Event - Header'),
             'description'       => __('Use to show the title, time and location of the current event post'),
             'render_template'   => 'template-parts/blocks/event-header/event-header.php',
             'category'          => 'hfj-design-system',
-            'icon'              => 'block',
             'enqueue_assets'    => 'event_header_assets',
         ));
 
-        function card_half_assets()
+        function event_header_assets()
         {
             wp_enqueue_style('event_header_assets', get_template_directory_uri() . '/template-parts/blocks/event-header.css', array(), _S_VERSION);
+        }
+
+        //register event categories block
+        acf_register_block_type(array(
+            'name'              => 'event-categories',
+            'title'             => __('Event - Categories'),
+            'description'       => __('Use to show the title, time and location of the current event post'),
+            'render_template'   => 'template-parts/blocks/event-categories/event-categories.php',
+            'category'          => 'hfj-design-system',
+            'enqueue_assets'    => 'event_header_assets',
+        ));
+
+        function event_categories_assets()
+        {
+            wp_enqueue_style('event_categories_assets', get_template_directory_uri() . '/template-parts/blocks/event-categories.css', array(), _S_VERSION);
         }
     }
 }
@@ -221,18 +187,15 @@ add_action('admin_enqueue_scripts', 'register_acf_block_styles');
 
 function register_acf_block_styles(): void
 {
+    //allways enqueue block-title and block text
+    wp_enqueue_style('block-text', get_template_directory_uri() . '/template-parts/blocks/block-text.css', array(), _S_VERSION);
+    wp_enqueue_style('title-assets', get_template_directory_uri() . '/template-parts/blocks/block-title.css', array(), _S_VERSION);
+
 
     if (has_block('acf/full-header')) {
         wp_enqueue_style('full-header', get_template_directory_uri() . '/template-parts/blocks/full-header.css', array(), _S_VERSION);
     }
 
-    if (has_block('acf/text')) {
-        wp_enqueue_style('block-text', get_template_directory_uri() . '/template-parts/blocks/block-text.css', array(), _S_VERSION);
-    }
-
-    if (has_block('acf/title')) {
-        wp_enqueue_style('title-assets', get_template_directory_uri() . '/template-parts/blocks/block-title.css', array(), _S_VERSION);
-    }
 
     if (has_block('acf/two-col-title-and-text')) {
         wp_enqueue_style('title_and_text_2col_assets', get_template_directory_uri() . '/template-parts/blocks/two-col-title-and-text.css', array(), _S_VERSION);
@@ -256,6 +219,10 @@ function register_acf_block_styles(): void
 
     if (has_block('acf/event-header')) {
         wp_enqueue_style('event_header_assets', get_template_directory_uri() . '/template-parts/blocks/event-header.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/event-categories')) {
+        wp_enqueue_style('event_categories_assets', get_template_directory_uri() . '/template-parts/blocks/event-categories.css', array(), _S_VERSION);
     }
 }
 

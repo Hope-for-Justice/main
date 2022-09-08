@@ -1,32 +1,3 @@
-body {
-    //brand 
-    --red: #D6001C;
-    --red-tint: #FACCD2;
-    --pink: #FEF5F6;
-    --white: #ffffff;
-    --black: #212322;
-    --almost-white: #FDFDFD;
-    --light-grey: #FAFAFA;
-    --lines: #CBCBCB;
-    --battleship-grey: #8E949E;
-    --green: #5CAA7F;
-    --blue: #8BBEE8;
-    --yellow: #FFC845;
-    --fields: #E5E5E5;
-    --fields-border: #D8D8D8;
-
-    //z-index
-    ///////////////////////////////////////////////////////////////////////////////
-    --z-modals: 900;
-    --z-header: 800;
-    --z-ticker: 700;
-
-    //others maybe needed
-
-    --z-body: 600;
-}
-
-
 // base styles
 @import "base/_variables.scss";
 @import "base/_base.scss";

@@ -1,0 +1,48 @@
+.event-header {
+    background-color: var(--medium-grey);
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+
+    &__info,
+    &__title {
+        grid-column: span 12;
+        max-width: 960px;
+    }
+
+    &__title {
+        margin-bottom: 24px;
+    }
+
+    &__info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        row-gap: 10px;
+    }
+
+    &__time,
+    &__location {
+        display: flex;
+        align-items: center;
+    }
+
+    &__clock,
+    &__globe,
+    &__balloon {
+        margin-top: -3px;
+        width: 15px;
+        height: 15px;
+        margin-right: 10px;
+    }
+}
+
+// tablet
+//////////////////////////////////////////////////////////////////////////////////
+
+@media screen and (min-width: 768px) {
+    .event-header {
+        padding-top: 80px;
+        margin-bottom: 40px;
+    }
+}

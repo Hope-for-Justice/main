@@ -1,0 +1,32 @@
+.event-categories {
+    grid-column: span 12;
+    margin-bottom: 40px;
+
+    &__categories {
+        display: flex;
+        gap: 10px;
+    }
+
+    &__text {
+        margin-bottom: 12px;
+    }
+
+    &__category {
+        display: flex;
+        align-items: center;
+        background-color: var(--red-tint);
+        border-radius: 16px;
+        color: var(--black);
+        justify-content: flex-start;
+        padding: 6px 24px;
+
+        svg {
+            height: 10px;
+            margin-left: 10px;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

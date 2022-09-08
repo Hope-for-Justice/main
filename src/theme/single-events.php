@@ -27,7 +27,7 @@ get_header();
 
     ?>
 
-        <h1><?php the_title(); ?></h1>
+        <h3><?php the_title(); ?></h3>
 
         <!-- display event dates -->
         <?php if ($range_of_dates) { ?>
@@ -54,7 +54,9 @@ get_header();
 
 
         <!-- display categories with links to the category page -->
-        <?php if ($terms) {
+        <?php
+        $terms = get_the_terms($post->ID, 'event_categories');
+        if ($terms) {
             foreach ($terms as $term) { ?>
                 <p>
                     <a href="<?php echo get_term_link($term->term_id, 'event_categories'); ?>">
