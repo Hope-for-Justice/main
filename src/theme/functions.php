@@ -543,32 +543,32 @@ function create_post_types()
   );
 
   //events
-  register_post_type(
-    'events',
-    array(
-      'labels' => array(
-        'name' => __('Events'),
-        'singular_name' => __('Event'),
-        'add_new_item' => __('Add Event'),
-        'add_new' => __('Add Event'),
-        'edit_item' => __('Edit Event'),
-        'featured_image' => __('Event Image'),
-        'set_featured_image' => __('Upload Event Image'),
-        'remove_featured_image' => __('Remove Event Image'),
-        'menu_name' => __('Manage Events'),
-      ),
-      'public' => true,
-      'has_archive' => true,
-      'rewrite' => array(
-        'slug' => 'events',
-        'with_front' => FALSE
-      ),
-      'show_in_rest' => true,
-      'menu_icon' => 'dashicons-calendar',
-      'supports' => array('thumbnail', 'title', 'editor')
+  // register_post_type(
+  //   'events',
+  //   array(
+  //     'labels' => array(
+  //       'name' => __('Events'),
+  //       'singular_name' => __('Event'),
+  //       'add_new_item' => __('Add Event'),
+  //       'add_new' => __('Add Event'),
+  //       'edit_item' => __('Edit Event'),
+  //       'featured_image' => __('Event Image'),
+  //       'set_featured_image' => __('Upload Event Image'),
+  //       'remove_featured_image' => __('Remove Event Image'),
+  //       'menu_name' => __('Manage Events'),
+  //     ),
+  //     'public' => true,
+  //     'has_archive' => true,
+  //     'rewrite' => array(
+  //       'slug' => 'events',
+  //       'with_front' => FALSE
+  //     ),
+  //     'show_in_rest' => true,
+  //     'menu_icon' => 'dashicons-calendar',
+  //     'supports' => array('thumbnail', 'title', 'editor')
 
-    )
-  );
+  //   )
+  // );
 
   //stories and case studies
   register_post_type(
@@ -600,51 +600,51 @@ add_action('init', 'create_post_types');
 function add_custom_taxonomies()
 {
   //events
-  register_taxonomy('event_categories', 'events', array(
+  // register_taxonomy('event_categories', 'events', array(
 
-    'hierarchical' => true,
+  //   'hierarchical' => true,
 
-    'labels' => array(
+  //   'labels' => array(
 
-      'name' => _x('Categories', 'taxonomy general name'),
+  //     'name' => _x('Categories', 'taxonomy general name'),
 
-      'singular_name' => _x('Category', 'taxonomy singular name'),
+  //     'singular_name' => _x('Category', 'taxonomy singular name'),
 
-      'search_items' =>  __('Search Category'),
+  //     'search_items' =>  __('Search Category'),
 
-      'all_items' => __('All Categories'),
+  //     'all_items' => __('All Categories'),
 
-      'parent_item' => __('Parent'),
+  //     'parent_item' => __('Parent'),
 
-      'parent_item_colon' => __('Parent:'),
+  //     'parent_item_colon' => __('Parent:'),
 
-      'edit_item' => __('Edit Category'),
+  //     'edit_item' => __('Edit Category'),
 
-      'update_item' => __('Update Category'),
+  //     'update_item' => __('Update Category'),
 
-      'add_new_item' => __('Add New Category'),
+  //     'add_new_item' => __('Add New Category'),
 
-      'new_item_name' => __('New Category'),
+  //     'new_item_name' => __('New Category'),
 
-      'menu_name' => __('Categories'),
+  //     'menu_name' => __('Categories'),
 
-    ),
+  //   ),
 
-    'show_in_nav_menus' => false,
+  //   'show_in_nav_menus' => false,
 
-    // Control the slugs used for this taxonomy
+  //   // Control the slugs used for this taxonomy
 
-    'rewrite' => array(
+  //   'rewrite' => array(
 
-      'slug' => 'categories', // This controls the base slug that will display before each term
+  //     'slug' => 'categories', // This controls the base slug that will display before each term
 
-      'with_front' => false, // Don't display the category base before "/locations/"
+  //     'with_front' => false, // Don't display the category base before "/locations/"
 
-      'hierarchical' => true // This will allow URL's like "/locations/boston/cambridge/"
+  //     'hierarchical' => true // This will allow URL's like "/locations/boston/cambridge/"
 
-    ),
+  //   ),
 
-  ));
+  // ));
 
   //gov_pol_fund
   register_taxonomy('categories', 'gov_pol_fund', array(
