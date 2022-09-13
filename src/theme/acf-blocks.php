@@ -171,6 +171,23 @@ function my_acf_init_block_types()
         {
             wp_enqueue_style('event_categories_assets', get_template_directory_uri() . '/template-parts/blocks/event-categories.css', array(), _S_VERSION);
         }
+
+        //register event categories block
+        acf_register_block_type(array(
+            'name'              => 'donate-block',
+            'title'             => __('Donate block'),
+            'description'       => __('International donate widget'),
+            'render_template'   => 'template-parts/blocks/donate-block/donate-block.php',
+            'category'          => 'hfj-design-system',
+            'enqueue_assets'    => 'donate_block_assets'
+        ));
+
+        function donate_block_assets()
+        {
+            wp_enqueue_style('donate_block_styles', get_template_directory_uri() . '/template-parts/blocks/donate-block.css', array(), _S_VERSION);
+
+            wp_enqueue_script('donate_block_scripts', get_template_directory_uri() . '/template-parts/blocks/donate-block/donate-block.js', array('jquery'), _S_VERSION);
+        }
     }
 }
 
@@ -223,6 +240,12 @@ function register_acf_block_styles(): void
 
     if (has_block('acf/event-categories')) {
         wp_enqueue_style('event_categories_assets', get_template_directory_uri() . '/template-parts/blocks/event-categories.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/donate-block')) {
+        wp_enqueue_style('donate_block_assets', get_template_directory_uri() . '/template-parts/blocks/donate-block.css', array(), _S_VERSION);
+
+        wp_enqueue_script('donate_block_scripts', get_template_directory_uri() . '/template-parts/blocks/donate-block/donate-block.js', array(), _S_VERSION);
     }
 }
 

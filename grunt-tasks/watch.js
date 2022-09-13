@@ -1,4 +1,4 @@
-module.exports = function (distTheme, devTheme, distPlugins, devPlugins, jsDir, fontsDir, imgDir, iconsDir, scssDir) {
+module.exports = function (distTheme, devTheme, distPlugins, devPlugins, jsDir, fontsDir, imgDir, iconsDir, scssDir, devBlocks) {
 	return {
 		dev_php: {
 			files: [devTheme + '/**/*.php'],
@@ -13,7 +13,7 @@ module.exports = function (distTheme, devTheme, distPlugins, devPlugins, jsDir, 
 			tasks: ['img_changed'],
 		},
 		dev_js: {
-			files: [devTheme + jsDir + '**/*'],
+			files: [devTheme + jsDir + '**/*', devBlocks + '/**/*.js'],
 			tasks: ['js_changed'],
 		},
 		dev_scss: {

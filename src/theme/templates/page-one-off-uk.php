@@ -1,31 +1,35 @@
 <?php
+
 /**
  * Template Name: One off UK
  *
  * @package Hope_for_Justice_2021
  */
 
-get_header('', array( 'page_class' => 'site--full') ); ?>
+get_header('', array('page_class' => 'site--full')); ?>
 
-<?php 
+<?php
 $campaignPassed = $_COOKIE["wordpress_hfjcampaign"];
+$urlWidget = $_GET["wid"];
 
 $matched_widget;
-if( have_rows('campaigns_and_widgets') ):
-while ( have_rows('campaigns_and_widgets') ) : the_row();
-    $campaign = get_sub_field('campaign_name');
-    $widget = get_sub_field('widget_id');
+if (have_rows('campaigns_and_widgets')) :
+    while (have_rows('campaigns_and_widgets')) : the_row();
+        $campaign = get_sub_field('campaign_name');
+        $widget = get_sub_field('widget_id');
 
-    if($campaignPassed == $campaign) {
-        $matched_widget = $widget;
-    }
+        if ($campaignPassed == $campaign) {
+            $matched_widget = $widget;
+        }
 
-    
-    
-endwhile;
-else :
-    // no rows found
-endif; 
+
+
+    endwhile;
+endif;
+
+if ($urlWidget) :
+    $matched_widget = $urlWidget;
+endif;
 ?>
 
 
@@ -37,7 +41,7 @@ endif;
     <div class="donorfy-donate__grid">
         <div class="grid donorfy-donate__inner-grid">
             <div class="donorfy-donate__forms">
-                
+
                 <div class="donorfy-donate__dots">
                     <div id="dotOne" class="donorfy-donate__dot donorfy-donate__dot--active"></div>
                     <div id="dotTwo" class="donorfy-donate__dot"></div>
@@ -52,18 +56,15 @@ endif;
                 <form id="formOne">
 
                     <div class="donorfy-donate__giving-text">
-                        You’re giving £<span id="textAmount"><?php echo $_GET['Amount']?></span>
-                         <a id="changeAmount">Change amount</a>
+                        You’re giving £<span id="textAmount"><?php echo $_GET['Amount'] ?></span>
+                        <a id="changeAmount">Change amount</a>
                     </div>
                     <h2 class="font-canela">Your details:</h2>
 
                     <div class="donorfy-donate__amount donorfy-donate__input donorfy-donate__amount--uk">
                         <label class="donorfy-donate__hidden" for="Amount">Amount I would like to give each month</label>
-                        <input type="text" name="Amount" class="required numberOnly form-control" id="Amount" maxlength="10" 
-                        <?php if($_GET['Amount']){ ?> 
-                            value="<?php echo $_GET['Amount']?>" 
-                        <?php } ?>>
-                    </div> 
+                        <input type="text" name="Amount" class="required numberOnly form-control" id="Amount" maxlength="10" <?php if ($_GET['Amount']) { ?> value="<?php echo $_GET['Amount'] ?>" <?php } ?>>
+                    </div>
 
                     <label class="donorfy-donate__hidden" for="Title">Title</label>
 
@@ -81,30 +82,30 @@ endif;
                             <option value="Professor">Professor</option>
                             <option value="Sir">Sir</option>
                             <option value="Lady">Lady</option>
-                            <!-- <option value="Rev">None of the above</option>      -->         
+                            <!-- <option value="Rev">None of the above</option>      -->
                         </select>
                     </div>
 
                     <div class="donorfy-donate__flex">
                         <div class="donorfy-donate__input">
                             <label class="donorfy-donate__hidden" for="FirstName">First Name*</label>
-                            <input type="text" name="FirstName" class="required" id="FirstName" placeholder="First Name" maxlength="50"> 
+                            <input type="text" name="FirstName" class="required" id="FirstName" placeholder="First Name" maxlength="50">
                         </div>
                         <div class="donorfy-donate__input">
                             <label class="donorfy-donate__hidden" for="LastName">Last Name*</label>
-                            <input type="text" name="LastName" class="required" id="LastName" placeholder="Last Name"maxlength="50"> 
+                            <input type="text" name="LastName" class="required" id="LastName" placeholder="Last Name" maxlength="50">
                         </div>
                     </div>
 
                     <div class="donorfy-donate__input">
                         <label class="donorfy-donate__hidden" for="Email">Email*</label>
-                        <input type="text" name="Email" class="required" type="email" id="Email" maxlength="50" placeholder="Email"> 
+                        <input type="text" name="Email" class="required" type="email" id="Email" maxlength="50" placeholder="Email">
                     </div>
 
-            
+
                     <div class="donorfy-donate__input">
                         <label class="donorfy-donate__hidden" for="Phone">Phone</label>
-                        <input type="text" name="Phone" class="" id="Phone" maxlength="50" placeholder="Phone"> 
+                        <input type="text" name="Phone" class="" id="Phone" maxlength="50" placeholder="Phone">
                     </div>
 
                     <div class="donorfy-donate__buttons">
@@ -116,7 +117,7 @@ endif;
 
                 <!-- form 2 -->
                 <form id="formTwo">
-                    <h2 class="font-canela">Address details:</h2> 
+                    <h2 class="font-canela">Address details:</h2>
 
                     <p class="donorfy-donate__larger donorfy-donate__larger--mb">
                         We need this to process your payment. We will not send you anything in the post unless you choose to hear from us in this way.
@@ -126,7 +127,7 @@ endif;
                         <label class="donorfy-donate__hidden" for="Address1">Address</label>
                         <input type="text" name="Address1" class="required" id="Address1" maxlength="50" placeholder="Address 1">
                     </div>
-                    
+
                     <div class="donorfy-donate__input">
                         <label class="donorfy-donate__hidden" for="Address1">Address 2</label>
                         <input type="text" name="Address2" class="" id="Address2" maxlength="50" placeholder="Address 2 (optional)">
@@ -407,10 +408,10 @@ endif;
                         <div id="backToStepOne" class="button button--spinner button--white">Previous</div>
                         <div id="toStepThree" class="button button--spinner">Next</div>
                     </div>
-                
+
                 </form>
                 <!-- /form 2 -->
-                     
+
 
                 <!-- form 3 -->
                 <form id="formThree">
@@ -425,7 +426,7 @@ endif;
                             <option value="false">No thank you</option>
                         </select>
                     </div>
-                    
+
                     <p class="donorfy-donate__small-text">
                         <br>
                         Please add Gift Aid to all donations I’ve made to Hope for Justice in the past four years and all donations in future until I notify Hope for Justice otherwise.
@@ -449,7 +450,7 @@ endif;
                     <div class="donorfy-donate__preferences">
                         <div class="donorfy-donate__preference">
                             <p class="donorfy-donate__select-text">Email:</p>
-                            <div class="donorfy-donate__select donorfy-donate__select--preference">  
+                            <div class="donorfy-donate__select donorfy-donate__select--preference">
                                 <select id="emailSelect" class="required" name="emailSelect">
                                     <option value="">Select</option>
                                     <option value="true">Yes</option>
@@ -460,7 +461,7 @@ endif;
 
                         <div class="donorfy-donate__preference">
                             <p class="donorfy-donate__select-text">Post:</p>
-                            <div class="donorfy-donate__select donorfy-donate__select--preference">      
+                            <div class="donorfy-donate__select donorfy-donate__select--preference">
                                 <select id="postSelect" class="required" name="postSelect">
                                     <option value="">Select</option>
                                     <option value="true">Yes</option>
@@ -471,7 +472,7 @@ endif;
 
                         <div class="donorfy-donate__preference">
                             <p class="donorfy-donate__select-text">SMS:</p>
-                            <div class="donorfy-donate__select donorfy-donate__select--preference">         
+                            <div class="donorfy-donate__select donorfy-donate__select--preference">
                                 <select id="smsSelect" class="required" name="smsSelect">
                                     <option value="">Select</option>
                                     <option value="true">Yes</option>
@@ -508,7 +509,7 @@ endif;
                         <div id="backToStepThree" class="button button--spinner button--white">Previous</div>
                         <div id="toStepFive" class="button button--spinner">Next</div>
                     </div>
-                    
+
                 </form>
 
 
@@ -516,7 +517,7 @@ endif;
                 <form id="CreditCardForm">
 
 
-                    <h2 class="font-canela">Card Details:</h2> 
+                    <h2 class="font-canela">Card Details:</h2>
 
                     <div id="card-number" class="donorfy-donate__input"></div>
 
@@ -543,11 +544,13 @@ endif;
                         <textarea rows="2" cols="40" class="" name="Comment" id="Comment" placeholder="Tell us more"></textarea>
                     </div>
 
-                    
+
                     <h3 class="donorfy-donate__summary-title">Giving Summary</h3>
-                    <div class="donorfy-donate__summary-hr"><hr></div>
+                    <div class="donorfy-donate__summary-hr">
+                        <hr>
+                    </div>
                     <div class="donorfy-donate__summary-text">
-                        Donation total: <b>£<span id="donationTotalConfirm"><?php echo $_GET['Amount']?></span></b>
+                        Donation total: <b>£<span id="donationTotalConfirm"><?php echo $_GET['Amount'] ?></span></b>
                         <br>
                         Giving frequency: <b><span id="givingFrequencyConfirm">One-time gift</span></b>
                         <br>
@@ -568,8 +571,8 @@ endif;
                     </div>
 
                     <!-- <div id="PleaseWait" style="display:none">Please wait ...</div> -->
-                    
-                    
+
+
                     <div class="donorfy-donate__buttons">
                         <div id="backToStepFour" class="button button--white button--spinner">Previous</div>
                         <div id="submitButton" class="button button--spinner">Donate</div>
@@ -581,10 +584,10 @@ endif;
                         <input type="radio" id="RecurringPayment" name="PaymentType" value="Recurring">
                     </div>
 
-                    <div id="PaymentScheduleRow" style="display: none;">   
+                    <div id="PaymentScheduleRow" style="display: none;">
                         <input type="radio" id="MonthlyPayment" name="PaymentSchedule" value="Monthly">
                         <input type="radio" id="QuarterlyPayment" name="PaymentSchedule" value="Quarterly">
-                        <input type="radio" id="AnnualPayment" name="PaymentSchedule" value="Annually"> 
+                        <input type="radio" id="AnnualPayment" name="PaymentSchedule" value="Annually">
                     </div>
 
 
@@ -595,15 +598,19 @@ endif;
                     <!-- Do not change these values -->
                     <input type="hidden" id="PublishableKey" value="pk_live_SFebjgG48FeTTASNalyWIAHF" />
                     <input type="hidden" id="TenantCode" value="GO66X0NEL4" />
-                    
-                    <input type="hidden" id="WidgetId" value="<?php if ($matched_widget) {echo $matched_widget;}else{echo 'e116d9bc-383e-6f05-b282-ff00004460b4';}?>" />
+
+                    <input type="hidden" id="WidgetId" value="<?php if ($matched_widget) {
+                                                                    echo $matched_widget;
+                                                                } else {
+                                                                    echo 'e116d9bc-383e-6f05-b282-ff00004460b4';
+                                                                } ?>" />
 
 
                     <input type="hidden" id="DonationPageId" value="" />
                     <!-- <input type="hidden" id="RedirectToPage" value="http://hopeforjustice.org/thank-you-usa-regular" /> -->
                     <input type="hidden" id="ReCaptchaSiteKey" value="6LeSscYZAAAAABIur1rDAvJtDiR7SayCuAylTV2q" />
                     <input type="hidden" id="ReCaptchaAction" value="Donorfy" />
-                    
+
                     <input type="hidden" id="currency" value="GBP" />
                     <input type="hidden" id="type" value="UK+one-off" />
                     <input type="hidden" id="zapierUrl" value="https://hooks.zapier.com/hooks/catch/8597852/bk78xmf/" />
@@ -611,7 +618,7 @@ endif;
                     <div class="donorfy-donate__hidden">
                         <input id="GiftAid" type="checkbox" />
                     </div>
-                
+
                 </form>
                 <!-- /form 3 -->
 
@@ -619,30 +626,30 @@ endif;
 
             <div class="donorfy-donate__secure">
                 <svg xmlns="http://www.w3.org/2000/svg" width="10.667" height="14" viewBox="0 0 10.667 14">
-                  <g id="Group_7324" data-name="Group 7324" transform="translate(-160 -720)">
-                    <g id="Group_7323" data-name="Group 7323" transform="translate(160 720)">
-                      <path id="Path_17203" data-name="Path 17203" d="M2,0H8.667a2,2,0,0,1,2,2V7.333a2,2,0,0,1-2,2H2a2,2,0,0,1-2-2V2A2,2,0,0,1,2,0Z" transform="translate(0 4.667)" fill="#212322"/>
-                      <path id="Union_1" data-name="Union 1" d="M5.333,7.334V3.467a2.072,2.072,0,0,0-2-2.134,2.072,2.072,0,0,0-2,2.134V7.334h4M6.666,8.667H0v-5.2A3.4,3.4,0,0,1,3.333,0,3.4,3.4,0,0,1,6.666,3.467Z" transform="translate(2 0)" fill="#212322"/>
+                    <g id="Group_7324" data-name="Group 7324" transform="translate(-160 -720)">
+                        <g id="Group_7323" data-name="Group 7323" transform="translate(160 720)">
+                            <path id="Path_17203" data-name="Path 17203" d="M2,0H8.667a2,2,0,0,1,2,2V7.333a2,2,0,0,1-2,2H2a2,2,0,0,1-2-2V2A2,2,0,0,1,2,0Z" transform="translate(0 4.667)" fill="#212322" />
+                            <path id="Union_1" data-name="Union 1" d="M5.333,7.334V3.467a2.072,2.072,0,0,0-2-2.134,2.072,2.072,0,0,0-2,2.134V7.334h4M6.666,8.667H0v-5.2A3.4,3.4,0,0,1,3.333,0,3.4,3.4,0,0,1,6.666,3.467Z" transform="translate(2 0)" fill="#212322" />
+                        </g>
                     </g>
-                  </g>
                 </svg>
                 <div>SSL Secure donation</div>
             </div>
         </div><!-- /inner-grid -->
 
         <div style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2022/05/donate-pic.jpg);" class="donorfy-donate__photo">
-           <!-- replace with responsive image markup -->
-           <h3 class="donorfy-donate__photo-text font-canela">End Slavery.<br>Change Lives.</h3>
+            <!-- replace with responsive image markup -->
+            <h3 class="donorfy-donate__photo-text font-canela">End Slavery.<br>Change Lives.</h3>
         </div>
 
     </div><!-- /grid -->
-     
+
 </div>
 
 <script>
-function InitialiseForm() {}
+    function InitialiseForm() {}
 </script>
 
 
-    
+
 <?php get_footer(); ?>

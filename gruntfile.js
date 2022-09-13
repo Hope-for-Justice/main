@@ -58,7 +58,7 @@ module.exports = function (grunt) {
     copy: require('./grunt-tasks/copy')(dir.distTheme, dir.devTheme, dir.distPlugins, dir.devPlugins, dir.fontsDir, dir.imgDir, dir.jsDir, theme.name, theme.description, theme.version, dir.wpTmp + dir.wpName, dir.wpDir, dir.devBlocks),
     sass: require('./grunt-tasks/sass')(dir.distTheme, dir.devTheme, dir.scssDir),
     uglify: require('./grunt-tasks/uglify')(dir.distTheme, dir.devTheme, dir.jsDir),
-    watch: require('./grunt-tasks/watch')(dir.distTheme, dir.devTheme, dir.distPlugins, dir.devPlugins, dir.jsDir, dir.fontsDir, dir.imgDir, dir.iconsDir, dir.scssDir),
+    watch: require('./grunt-tasks/watch')(dir.distTheme, dir.devTheme, dir.distPlugins, dir.devPlugins, dir.jsDir, dir.fontsDir, dir.imgDir, dir.iconsDir, dir.scssDir, dir.devBlocks),
     'sftp-deploy': require('./grunt-tasks/sftp-deploy')(dir.deployBase, theme.name),
     curl: require('./grunt-tasks/curl')(dir.wpCurl, dir.wpTmp + dir.wpZip),
     unzip: require('./grunt-tasks/unzip')(dir.wpTmp + dir.wpZip, dir.wpTmp),
@@ -77,7 +77,7 @@ module.exports = function (grunt) {
   grunt.registerTask('fonts_changed', ['clean:fonts', 'copy:fonts']);
   grunt.registerTask('img_changed', ['clean:img', 'copy:img']);
   grunt.registerTask('scss_changed', ['clean:css', 'sass']);
-  grunt.registerTask('js_changed', ['clean:js', 'copy:tmpl', 'uglify']);
+  grunt.registerTask('js_changed', ['clean:js', 'copy:theme', 'copy:tmpl', 'uglify']);
 
   // install Wordpress latest
   grunt.registerTask('wp-install', ['clean:wpTmp', 'curl', 'unzip', 'clean:install', 'copy:install', 'clean:wpTmp']);
