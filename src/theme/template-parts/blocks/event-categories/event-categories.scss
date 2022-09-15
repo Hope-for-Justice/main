@@ -1,6 +1,9 @@
 .event-categories {
     grid-column: span 12;
-    margin-bottom: 40px;
+
+    &__parent {
+        margin-bottom: 40px;
+    }
 
     &__categories {
         display: flex;

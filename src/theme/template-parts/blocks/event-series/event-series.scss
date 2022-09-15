@@ -1,0 +1,8 @@
+.event-series {
+    &__big-card {
+        grid-column: span 12;
+        background-color: var(--black);
+        color: white;
+        border-radius: 8px;
+    }
+}

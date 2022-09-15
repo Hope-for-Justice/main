@@ -7,7 +7,7 @@
 
 
 
-<div class="better-grid">
+<div class="better-grid event-categories__parent">
     <div class="event-categories">
         <div class="event-categories__text">Event categories:</div>
         <div class="event-categories__categories">

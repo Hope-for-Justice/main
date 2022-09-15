@@ -188,6 +188,42 @@ function my_acf_init_block_types()
 
             wp_enqueue_script('donate_block_scripts', get_template_directory_uri() . '/template-parts/blocks/donate-block/donate-block.js', array('jquery'), _S_VERSION);
         }
+
+        //register form block
+        acf_register_block_type(array(
+            'name'              => 'form-block',
+            'title'             => __('Form'),
+            'description'       => __('Custom form block. Put a gravity form inside this block'),
+            'render_template'   => 'template-parts/blocks/form-block/form-block.php',
+            'category'          => 'hfj-design-system',
+            'enqueue_assets'    => 'form_block_assets',
+            'supports'          => [
+                'jsx'  => true,
+            ]
+        ));
+
+        function form_block_assets()
+        {
+            wp_enqueue_style('form_block_styles', get_template_directory_uri() . '/template-parts/blocks/form-block.css', array(), _S_VERSION);
+        }
+
+        //register event series block
+        acf_register_block_type(array(
+            'name'              => 'event-series',
+            'title'             => __('Event Series'),
+            'description'       => __('Shows upcoming events in a category with an advert for that category'),
+            'render_template'   => 'template-parts/blocks/event-series/event-series.php',
+            'category'          => 'hfj-design-system',
+            'enqueue_assets'    => 'event_series_assets',
+            'supports'          => [
+                'jsx'  => true,
+            ]
+        ));
+
+        function event_series_assets()
+        {
+            wp_enqueue_style('event_series_styles', get_template_directory_uri() . '/template-parts/blocks/event-series.css', array(), _S_VERSION);
+        }
     }
 }
 
@@ -246,6 +282,14 @@ function register_acf_block_styles(): void
         wp_enqueue_style('donate_block_assets', get_template_directory_uri() . '/template-parts/blocks/donate-block.css', array(), _S_VERSION);
 
         wp_enqueue_script('donate_block_scripts', get_template_directory_uri() . '/template-parts/blocks/donate-block/donate-block.js', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/form-block')) {
+        wp_enqueue_style('form_block_styles', get_template_directory_uri() . '/template-parts/blocks/form-block.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/event-series')) {
+        wp_enqueue_style('event_series_styles', get_template_directory_uri() . '/template-parts/blocks/event-series.css', array(), _S_VERSION);
     }
 }
 
