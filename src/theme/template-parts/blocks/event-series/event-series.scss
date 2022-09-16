@@ -4,5 +4,34 @@
         background-color: var(--black);
         color: white;
         border-radius: 8px;
+        padding: 30px;
+        background-size: cover;
+        background-position: top 100px center;
+        background-repeat: no-repeat;
+        min-height: 317px;
+        position: relative;
+        z-index: 0;
+
+        &-gradient {
+            background: linear-gradient(180deg, var(--black) 0%, rgba(0, 0, 0, 0) 100%);
+            position: absolute;
+            top: 100px;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            z-index: -1;
+        }
+
+        &-text {
+            margin: 0;
+            margin-bottom: 24px;
+
+        }
+
+        &-title {
+            font-weight: bold;
+            margin-bottom: 16px;
+
+        }
     }
 }

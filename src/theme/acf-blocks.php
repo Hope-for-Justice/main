@@ -224,6 +224,21 @@ function my_acf_init_block_types()
         {
             wp_enqueue_style('event_series_styles', get_template_directory_uri() . '/template-parts/blocks/event-series.css', array(), _S_VERSION);
         }
+
+        //register event series block
+        acf_register_block_type(array(
+            'name'              => 'hfj-spacer',
+            'title'             => __('Spacer'),
+            'description'       => __('HfJ responsive spacer'),
+            'render_template'   => 'template-parts/blocks/spacer/spacer.php',
+            'category'          => 'hfj-design-system',
+            'enqueue_assets'    => 'spacer_assets'
+        ));
+
+        function spacer_assets()
+        {
+            wp_enqueue_style('spacer_assets', get_template_directory_uri() . '/template-parts/blocks/event-series.css', array(), _S_VERSION);
+        }
     }
 }
 
