@@ -92,6 +92,8 @@ $reason_monthly_f = $set['reason_monthly_f'];
 $link = $set['norway_link'];
 //default level
 $default_level = $set['default_level'] ?: 'c';
+//default level
+$other_ways_link = $set['other_ways'];
 ?>
 
 <div class="donate-block__container" style="--margin-bottom-mobile:<?php echo $margin_bottom_mobile ?>; --margin-bottom-desktop: <?php echo $margin_bottom_desktop ?>;">
