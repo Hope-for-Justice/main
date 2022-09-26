@@ -1,7 +1,3 @@
-//file for only base styes 
-//block styles enqued when used
-//could be smaller but this is ok
-
 .site {
     visibility: hidden;
 }
@@ -46,6 +42,7 @@
     @import "objects/_burger.scss";
     @import "objects/_cookie-notice.scss";
     @import "objects/_footer.scss";
+    @import "objects/_breadcrumbs.scss";
 
     html :where(.wp-block) {
         max-width: none;

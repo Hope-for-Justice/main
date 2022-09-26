@@ -1,0 +1,144 @@
+.event-series--btc {
+
+    .event-series {
+
+        //dont use styles here use the parent --btc
+        &__big-card {
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            background-color: transparent;
+            ;
+
+            &-image {
+                position: relative;
+                //width: 50%;
+                height: 200px;
+                max-height: 50%;
+                top: 0;
+
+                &::after {
+                    display: none;
+                }
+            }
+
+            &-links {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 100%;
+            }
+
+            &-content {
+                //width: 50%;
+                display: flex;
+                flex-direction: column;
+                min-height: 50%;
+                background-color: var(--red);
+                color: white;
+                padding: 24px;
+
+                svg {
+                    align-self: flex-start;
+                    margin-bottom: 24px;
+                    height: 60px;
+                    max-width: 100%;
+                }
+            }
+
+            &-text {
+                font-size: 1rem;
+                max-width: none;
+            }
+        }
+
+        &__event {
+
+
+            &-content {
+                padding: 24px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                margin-top: 0;
+                height: 100%;
+            }
+
+
+            &-time {
+                margin-bottom: 0;
+                padding: 0;
+            }
+
+            &-title {
+                margin: 0;
+            }
+        }
+
+        &__time-location {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+
+            svg {
+                margin-top: -3px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width:600px) {
+
+    .event-series--btc {
+
+        .event-series {
+
+            //dont use styles here use the parent --btc
+            &__big-card {
+                flex-direction: row;
+
+                &-image {
+                    height: 100%;
+                    width: 50%;
+                    max-height: none;
+                }
+
+                &-content {
+
+                    padding: 40px;
+                    width: 50%;
+
+                    svg {
+                        height: 70px;
+                        margin-bottom: 32px;
+                    }
+                }
+            }
+
+            &__event {
+                min-height: 180px;
+
+                // &-content {
+                //     display: flex;
+                //     flex-direction: column;
+                //     justify-content: space-between;
+                //     margin-top: 0;
+                //     height: 100%;
+                // }
+
+
+                // &-time {
+                //     margin-bottom: 0;
+                //     padding: 0;
+                // }
+
+                // &-title {
+                //     margin: 0;
+                // }
+            }
+
+        }
+    }
+
+}

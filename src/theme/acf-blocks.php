@@ -225,7 +225,7 @@ function my_acf_init_block_types()
             wp_enqueue_style('event_series_styles', get_template_directory_uri() . '/template-parts/blocks/event-series.css', array(), _S_VERSION);
         }
 
-        //register event series block
+        //register spacer block
         acf_register_block_type(array(
             'name'              => 'hfj-spacer',
             'title'             => __('Spacer'),
@@ -237,7 +237,55 @@ function my_acf_init_block_types()
 
         function spacer_assets()
         {
-            wp_enqueue_style('spacer_assets', get_template_directory_uri() . '/template-parts/blocks/event-series.css', array(), _S_VERSION);
+            wp_enqueue_style('spacer_assets', get_template_directory_uri() . '/template-parts/blocks/spacer.css', array(), _S_VERSION);
+        }
+
+        //register btc event series
+        acf_register_block_type(array(
+            'name'              => 'btc-event-series',
+            'title'             => __('BTC Event series'),
+            'description'       => __('Displays BTC events'),
+            'render_template'   => 'template-parts/blocks/btc-event-series/btc-event-series.php',
+            'category'          => 'hfj-design-system',
+            'enqueue_assets'    => 'btc_event_series_assets'
+        ));
+
+        function btc_event_series_assets()
+        {
+            wp_enqueue_style('event_series_styles', get_template_directory_uri() . '/template-parts/blocks/event-series.css', array(), _S_VERSION);
+            wp_enqueue_style('btc_event_series_assets', get_template_directory_uri() . '/template-parts/blocks/btc-event-series.css', array(), _S_VERSION);
+        }
+
+        //register events block
+        acf_register_block_type(array(
+            'name'              => 'events',
+            'title'             => __('Events Block'),
+            'description'       => __('Displays events'),
+            'render_template'   => 'template-parts/blocks/events/events.php',
+            'category'          => 'hfj-design-system',
+            'enqueue_assets'    => 'events_assets'
+        ));
+
+        function events_assets()
+        {
+            wp_enqueue_style('events_styles', get_template_directory_uri() . '/template-parts/blocks/events.css', array(), _S_VERSION);
+            wp_enqueue_style('event_series_styles', get_template_directory_uri() . '/template-parts/blocks/event-series.css', array(), _S_VERSION);
+            wp_enqueue_style('btc_event_series_assets', get_template_directory_uri() . '/template-parts/blocks/btc-event-series.css', array(), _S_VERSION);
+        }
+
+        //register btc event series
+        acf_register_block_type(array(
+            'name'              => 'btc-header',
+            'title'             => __('BTC Header'),
+            'description'       => __('BTC page header'),
+            'render_template'   => 'template-parts/blocks/btc-header/btc-header.php',
+            'category'          => 'hfj-design-system',
+            'enqueue_assets'    => 'btc_header_assets'
+        ));
+
+        function btc_header_assets()
+        {
+            wp_enqueue_style('events_styles', get_template_directory_uri() . '/template-parts/blocks/btc-header.css', array(), _S_VERSION);
         }
     }
 }
@@ -305,6 +353,25 @@ function register_acf_block_styles(): void
 
     if (has_block('acf/event-series')) {
         wp_enqueue_style('event_series_styles', get_template_directory_uri() . '/template-parts/blocks/event-series.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/hfj-spacer')) {
+        wp_enqueue_style('spacer_assets', get_template_directory_uri() . '/template-parts/blocks/spacer.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/btc-event-series')) {
+        wp_enqueue_style('event_series_styles', get_template_directory_uri() . '/template-parts/blocks/event-series.css', array(), _S_VERSION);
+        wp_enqueue_style('btc_event_series_assets', get_template_directory_uri() . '/template-parts/blocks/btc-event-series.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/events')) {
+        wp_enqueue_style('events_styles', get_template_directory_uri() . '/template-parts/blocks/events.css', array(), _S_VERSION);
+        wp_enqueue_style('event_series_styles', get_template_directory_uri() . '/template-parts/blocks/event-series.css', array(), _S_VERSION);
+        wp_enqueue_style('btc_event_series_assets', get_template_directory_uri() . '/template-parts/blocks/btc-event-series.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/btc-header')) {
+        wp_enqueue_style('events_styles', get_template_directory_uri() . '/template-parts/blocks/btc-header.css', array(), _S_VERSION);
     }
 }
 

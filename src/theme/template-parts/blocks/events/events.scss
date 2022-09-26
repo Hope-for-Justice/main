@@ -1,0 +1,23 @@
+.events {
+    grid-gap: 16px;
+
+    &__archive {
+        margin: 40px 0;
+    }
+
+    &__archive-title {
+        grid-column: span 12;
+    }
+}
+
+@media screen and(min-width: 768px) {
+
+    .events {
+        grid-gap: 32px;
+
+        &__archive {
+            margin: 80px 0;
+        }
+    }
+
+}

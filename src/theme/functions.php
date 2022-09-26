@@ -103,7 +103,7 @@ function hope_for_justice_2021_scripts()
   global $wp_styles;
 
   // if it's using the block template
-  if (is_page_template('templates/page-block-template.php')) {
+  if (is_page_template('templates/page-block-template.php') || is_tax('event_categories')) {
 
     wp_enqueue_style('hope-for-justice-base-styles', get_template_directory_uri() . '/block-base-styles.css', array(), _S_VERSION);
   } else {
@@ -240,6 +240,11 @@ function page_scripts()
     wp_enqueue_script('church-partnerships');
     wp_enqueue_style('church-partnerships', get_template_directory_uri() . '/church-partnerships.css', array(), _S_VERSION);
   }
+  if (is_tax('event_categories')) {
+    wp_enqueue_style('events_styles', get_template_directory_uri() . '/template-parts/blocks/events.css', array(), _S_VERSION);
+    wp_enqueue_style('event_series_styles', get_template_directory_uri() . '/template-parts/blocks/event-series.css', array(), _S_VERSION);
+    wp_enqueue_style('btc_event_series_assets', get_template_directory_uri() . '/template-parts/blocks/btc-event-series.css', array(), _S_VERSION);
+  }
 }
 
 add_action('wp_enqueue_scripts', 'page_scripts', 1);
@@ -339,6 +344,22 @@ new GWUnrequire();
  */
 add_filter('gform_stripe_enable_rate_limits', '__return_false');
 
+
+// archive titles
+add_filter('get_the_archive_title', function ($title) {
+  if (is_category()) {
+    $title = single_cat_title('', false);
+  } elseif (is_tag()) {
+    $title = single_tag_title('', false);
+  } elseif (is_author()) {
+    $title = '<span class="vcard">' . get_the_author() . '</span>';
+  } elseif (is_tax()) { //for custom post types
+    $title = sprintf(__('%1$s'), single_term_title('', false));
+  } elseif (is_post_type_archive()) {
+    $title = post_type_archive_title('', false);
+  }
+  return $title;
+});
 
 function news_page_scripts()
 {

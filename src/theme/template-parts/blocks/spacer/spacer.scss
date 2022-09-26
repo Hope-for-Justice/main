@@ -1,0 +1,19 @@
+.spacer-block {
+    height: var(--mobile);
+}
+
+@media screen and (min-width: 768px) {
+
+    .spacer-block {
+        height: var(--tablet);
+    }
+
+}
+
+@media screen and (min-width: 1024px) {
+
+    .spacer-block {
+        height: var(--desktop);
+    }
+
+}

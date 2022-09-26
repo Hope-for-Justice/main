@@ -5,18 +5,25 @@
 */
 
 .breadcrumbs {
-	font-size: 1.6em;
+	font-size: 16px;
 	display: flex;
 	color: black;
-	margin-bottom: 2em;
+	margin-bottom: 20px;
 	flex-wrap: wrap;
-	&__crumb {
+	grid-column: span 12;
 
-	}
-	&__link {
+	&__crumb {}
 
-	}
+	&__link {}
+
 	&__seperator {
-		margin: 0 1em;
+		margin: 0 10px;
+	}
+}
+
+@media screen and (min-width: 768px) {
+
+	.breadcrumbs {
+		font-size: 18px;
 	}
 }
