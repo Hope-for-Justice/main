@@ -26,9 +26,10 @@ $link_target = $link['target'] ? $link['target'] : '_self';
 
 $margin_bottom_mobile = get_field('margin_bottom_mobile') ?: '40px';
 $margin_bottom_desktop = get_field('margin_bottom_desktop') ?: '80px';
+$indent = get_field('indent');
 ?>
 
 
 <div id="<?php esc_attr($id) ?>" class="better-grid hfj-block block-button" style="--margin-bottom-mobile:<?php echo $margin_bottom_mobile ?>; --margin-bottom-desktop: <?php echo $margin_bottom_desktop ?>;">
-    <div class="block-button__inner"><a href="<?php echo $link_url ?>" target="<?php echo $link_target ?>" style="background-color: <?php echo $color ?>; color: <?php echo $text_color ?>" class="button button--tighter"><?php echo $link_title ?></a></div>
+    <div class="block-button__inner <?php if ($indent) echo 'block-button_inner--indent' ?>"><a href="<?php echo $link_url ?>" target="<?php echo $link_target ?>" style="background-color: <?php echo $color ?>; color: <?php echo $text_color ?>" class="button button--tighter"><?php echo $link_title ?></a></div>
 </div>

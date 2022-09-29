@@ -2,7 +2,8 @@
     grid-gap: 16px;
 
     &__archive {
-        margin: 40px 0;
+        margin-top: 40px;
+        margin-bottom: 40px;
     }
 
     &__archive-title {
@@ -16,8 +17,21 @@
         grid-gap: 32px;
 
         &__archive {
-            margin: 80px 0;
+            margin-top: 80px;
+            margin-bottom: 80px;
         }
     }
 
+}
+
+@media screen and (min-width:1200px) {
+    .events {
+        .event-series {
+            &__event {
+                &:last-of-type {
+                    display: block;
+                }
+            }
+        }
+    }
 }

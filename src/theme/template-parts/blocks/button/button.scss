@@ -11,3 +11,9 @@
         margin-bottom: var(--margin-bottom-desktop);
     }
 }
+
+@media screen and (min-width:1680px) {
+    .block-button_inner--indent {
+        grid-column: 2 / 10;
+    }
+}

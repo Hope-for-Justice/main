@@ -17,3 +17,11 @@
     }
 
 }
+
+@media screen and (min-width: 1680px) {
+
+    .block-title--indent {
+        grid-column: 2/10;
+    }
+
+}

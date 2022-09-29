@@ -285,7 +285,53 @@ function my_acf_init_block_types()
 
         function btc_header_assets()
         {
-            wp_enqueue_style('events_styles', get_template_directory_uri() . '/template-parts/blocks/btc-header.css', array(), _S_VERSION);
+            wp_enqueue_style('btc_header_styles', get_template_directory_uri() . '/template-parts/blocks/btc-header.css', array(), _S_VERSION);
+        }
+
+        //register image and text
+        acf_register_block_type(array(
+            'name'              => 'image-and-text',
+            'title'             => __('Image and Text'),
+            'description'       => __('Block for image and text'),
+            'render_template'   => 'template-parts/blocks/image-and-text/image-and-text.php',
+            'category'          => 'hfj-design-system',
+            'enqueue_assets'    => 'image_text_assets'
+        ));
+
+        function image_text_assets()
+        {
+            wp_enqueue_style('image_text_styles', get_template_directory_uri() . '/template-parts/blocks/image-and-text.css', array(), _S_VERSION);
+        }
+
+        //register image
+        acf_register_block_type(array(
+            'name'              => 'image',
+            'title'             => __('Image'),
+            'description'       => __('Block for image'),
+            'render_template'   => 'template-parts/blocks/image/image.php',
+            'category'          => 'hfj-design-system',
+            'enqueue_assets'    => 'image_assets'
+        ));
+
+        function image_assets()
+        {
+            wp_enqueue_style('image_styles', get_template_directory_uri() . '/template-parts/blocks/image.css', array(), _S_VERSION);
+        }
+
+        //register dropdown
+        acf_register_block_type(array(
+            'name'              => 'dropdown',
+            'title'             => __('Dropdown'),
+            'description'       => __('Block for a dropdown'),
+            'render_template'   => 'template-parts/blocks/dropdown/dropdown.php',
+            'category'          => 'hfj-design-system',
+            'enqueue_assets'    => 'dropdown_assets'
+        ));
+
+        function dropdown_assets()
+        {
+            wp_enqueue_style('dropdown_styles', get_template_directory_uri() . '/template-parts/blocks/dropdown.css', array(), _S_VERSION);
+            wp_enqueue_script('dropdown_scripts', get_template_directory_uri() . '/template-parts/blocks/dropdown/dropdown.js', array('jquery'), _S_VERSION);
         }
     }
 }
@@ -372,6 +418,19 @@ function register_acf_block_styles(): void
 
     if (has_block('acf/btc-header')) {
         wp_enqueue_style('events_styles', get_template_directory_uri() . '/template-parts/blocks/btc-header.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/image-and-text')) {
+        wp_enqueue_style('image_text_styles', get_template_directory_uri() . '/template-parts/blocks/image-and-text.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/image')) {
+        wp_enqueue_style('image_styles', get_template_directory_uri() . '/template-parts/blocks/image.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/dropdown')) {
+        wp_enqueue_style('dropdown_styles', get_template_directory_uri() . '/template-parts/blocks/dropdown.css', array(), _S_VERSION);
+        wp_enqueue_script('dropdown_scripts', get_template_directory_uri() . '/template-parts/blocks/dropdown/dropdown.js', array('jquery'), _S_VERSION);
     }
 }
 

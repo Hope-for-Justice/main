@@ -66,3 +66,16 @@
     }
 
 }
+
+@media screen and (min-width:1680px) {
+    .two-col-title-and-text--indent {
+
+        .two-col-title-and-text__col {
+            grid-column: 2 / 6;
+
+            &:nth-child(2) {
+                grid-column: 6/ 13;
+            }
+        }
+    }
+}

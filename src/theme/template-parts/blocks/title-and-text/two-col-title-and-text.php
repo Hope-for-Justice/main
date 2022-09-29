@@ -19,9 +19,10 @@ if (!empty($block['anchor'])) {
 //block
 $block_margin_bottom_mobile = get_field('block_margin_bottom_mobile') ?: '40px';
 $block_margin_bottom_desktop = get_field('block_margin_bottom_desktop') ?: '80px';
+$indent = get_field('indent');
 ?>
 
-<div id="<?php echo esc_attr($id); ?>" class="better-grid two-col-title-and-text hfj-block" style="--margin-bottom-mobile:<?php echo $block_margin_bottom_mobile ?>; --margin-bottom-desktop: <?php echo $block_margin_bottom_desktop ?>;">
+<div id="<?php echo esc_attr($id); ?>" class="better-grid two-col-title-and-text hfj-block <?php if ($indent) echo 'two-col-title-and-text--indent' ?>" style="--margin-bottom-mobile:<?php echo $block_margin_bottom_mobile ?>; --margin-bottom-desktop: <?php echo $block_margin_bottom_desktop ?>;">
 
     <?php while (have_rows('cols')) : the_row();
 
