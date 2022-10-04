@@ -68,7 +68,7 @@ $the_query = new WP_Query(array(
                                     <path id="Path_17203" data-name="Path 17203" d="M7.04,7.109H6.969a.4.4,0,0,1-.4-.4V3.567a.4.4,0,0,1,.4-.4H7.04a.4.4,0,0,1,.4.4V6.711a.4.4,0,0,1-.4.4" transform="translate(-1.095 -0.528)" fill="#212322" />
                                     <path id="Path_17204" data-name="Path 17204" d="M6.569,7.237l.089-.1a.367.367,0,0,1,.519-.021L8.949,8.754a.367.367,0,0,1,.021.518l-.091.1a.365.365,0,0,1-.517.021L6.589,7.755a.366.366,0,0,1-.02-.518" transform="translate(-1.078 -1.17)" fill="#212322" />
                                 </svg>
-                                <p><?php if ($event_start_end) echo $start_date_mod . ' - ' ?><?php echo $end_date_mod ?></p>
+                                <p><?php if ($event_date_start) echo $start_date_mod . ' - ' ?><?php echo $end_date_mod ?></p>
                             </div>
                             <div class="event-series__event-location">
                                 <?php if ($event_type == 'online') { ?>
@@ -120,7 +120,7 @@ $the_query = new WP_Query(array(
                                     <path id="Path_17203" data-name="Path 17203" d="M7.04,7.109H6.969a.4.4,0,0,1-.4-.4V3.567a.4.4,0,0,1,.4-.4H7.04a.4.4,0,0,1,.4.4V6.711a.4.4,0,0,1-.4.4" transform="translate(-1.095 -0.528)" fill="#212322" />
                                     <path id="Path_17204" data-name="Path 17204" d="M6.569,7.237l.089-.1a.367.367,0,0,1,.519-.021L8.949,8.754a.367.367,0,0,1,.021.518l-.091.1a.365.365,0,0,1-.517.021L6.589,7.755a.366.366,0,0,1-.02-.518" transform="translate(-1.078 -1.17)" fill="#212322" />
                                 </svg>
-                                <p><?php if ($event_start_end) echo $start_date_mod . ' - ' ?><?php echo $end_date_mod ?></p>
+                                <p><?php if ($event_date_start) echo $start_date_mod . ' - ' ?><?php echo $end_date_mod ?></p>
                             </div>
                         </div>
                         <p class="event-series__event-title">

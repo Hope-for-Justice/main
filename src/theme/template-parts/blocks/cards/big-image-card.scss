@@ -66,6 +66,17 @@
         }
     }
 
+    &__date {
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+
+        svg {
+            margin-right: 10px;
+            width: 11px;
+        }
+    }
+
 }
 
 // mobile L
@@ -95,6 +106,13 @@
         &__title {
             &--large {
                 font-size: 4.20rem;
+            }
+        }
+
+        &__date {
+            svg {
+                width: 15px;
+                margin-top: -2px;
             }
         }
 

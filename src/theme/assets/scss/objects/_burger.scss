@@ -6,7 +6,7 @@
 
 .burger {
   width: 14px;
-  height:16px;
+  height: 16px;
   position: relative;
   transform: rotate(0deg);
   transition: .5s ease-in-out;
@@ -19,7 +19,7 @@
   height: 1px;
   width: 100%;
   background: $black;
-  border-radius:0px;
+  border-radius: 0px;
   opacity: 1;
   left: 0;
   transform: rotate(0deg);
@@ -30,7 +30,8 @@
   top: 0px;
 }
 
-.burger span:nth-child(2),.burger span:nth-child(3) {
+.burger span:nth-child(2),
+.burger span:nth-child(3) {
   top: 5px;
 }
 
@@ -63,35 +64,36 @@
 
 @include mq($from: tablet) {
 
-.burger {
-  width: 20px;
-  height:20px;
-}
+  .burger {
+    width: 20px;
+    height: 20px;
+  }
 
-.burger span {
-  height: 2px;
-}
+  .burger span {
+    height: 2px;
+  }
 
 
-.burger span:nth-child(2),.burger span:nth-child(3) {
-  top: 7px;
-}
+  .burger span:nth-child(2),
+  .burger span:nth-child(3) {
+    top: 7px;
+  }
 
-.burger span:nth-child(4) {
-  top: 14px;
-}
+  .burger span:nth-child(4) {
+    top: 14px;
+  }
 
-.burger.open span:nth-child(1) {
-  top: 14px;
-  width: 0%;
-  left: 50%;
-}
+  .burger.open span:nth-child(1) {
+    top: 14px;
+    width: 0%;
+    left: 50%;
+  }
 
-.burger.open span:nth-child(4) {
-  top: 13px;
-  width: 0%;
-  left: 50%;
-}
+  .burger.open span:nth-child(4) {
+    top: 13px;
+    width: 0%;
+    left: 50%;
+  }
 
 
 }

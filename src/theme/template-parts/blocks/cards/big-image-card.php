@@ -28,6 +28,8 @@ $title_size = get_field('title_size') ?: 'big-image-card__title--large';
 $title_font = get_field('title_font') ?: 'font-fk';
 $title_font_weight = get_field('title_font_weight') ?: 'regular';
 $title_margin_bottom = get_field('title_margin_bottom') ?: '16px';
+$date = get_field('date');
+$date_mod = date("M j", strtotime($date));
 //$button_text = get_field('button_text') ?: 'Button text';
 
 $block_margin_bottom_desktop = get_field('block_margin_bottom_desktop') ?: '80px';
@@ -47,11 +49,22 @@ $block_margin_bottom_mobile = get_field('block_margin_bottom_mobile') ?: '40px';
         </div>
 
         <div class="big-image-card__content">
+            <?php if ($date) { ?>
+                <div class="big-image-card__date">
+                    <svg id="Group_7762" data-name="Group 7762" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.819 11.82">
+                        <path id="Path_17202" data-name="Path 17202" d="M5.91,11.819a5.91,5.91,0,1,1,5.91-5.91,5.916,5.916,0,0,1-5.91,5.91M5.91.985A4.925,4.925,0,1,0,10.834,5.91,4.93,4.93,0,0,0,5.91.985" transform="translate(0 0)" fill="#ffffff" />
+                        <path id="Path_17203" data-name="Path 17203" d="M7.04,7.109H6.969a.4.4,0,0,1-.4-.4V3.567a.4.4,0,0,1,.4-.4H7.04a.4.4,0,0,1,.4.4V6.711a.4.4,0,0,1-.4.4" transform="translate(-1.095 -0.528)" fill="#ffffff" />
+                        <path id="Path_17204" data-name="Path 17204" d="M6.569,7.237l.089-.1a.367.367,0,0,1,.519-.021L8.949,8.754a.367.367,0,0,1,.021.518l-.091.1a.365.365,0,0,1-.517.021L6.589,7.755a.366.366,0,0,1-.02-.518" transform="translate(-1.078 -1.17)" fill="#ffffff" />
+                    </svg>
+                    <p><?php echo $date_mod ?></p>
+                </div>
+            <?php } ?>
+
             <<?php if ($title_size == 'big-image-card__title--large') {
                     echo 'h1';
                 } else {
                     echo $title_size;
-                } ?> style="margin-bottom:<?php echo $title_margin_bottom ?>" class="<?php if ($title_size == 'big-image-card__title--large') echo $title_size ?> big-image-card__title <?php echo $title_font ?>">
+                } ?> style="margin-bottom:<?php echo $title_margin_bottom ?>" class="<?php if ($title_size == 'big-image-card__title--large') echo $title_size ?> big-image-card__title block-title <?php echo $title_font ?>">
                 <?php echo $title ?>
             </<?php if ($title_size == 'big-image-card__title--large') {
                     echo 'h1';
