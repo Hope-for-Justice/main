@@ -1,16 +1,17 @@
 .donorfy-donate {
 
 	//#formOne, 
-	#formTwo, 
-	#formThree, 
-	#formFour, 
-	#DirectDebitForm, 
-	#CreditCardForm
-	{
-		display:none;
+	#formTwo,
+	#formThree,
+	#formFour,
+	#DirectDebitForm,
+	#CreditCardForm {
+		display: none;
 	}
-    
-    #toStepTwo {margin-left: auto;}
+
+	#toStepTwo {
+		margin-left: auto;
+	}
 
 	//capitalise
 	// #FirstName, #LastName, #Address1, #Address2 {
@@ -18,10 +19,9 @@
 	// }
 
 	&__grid {
-		display:grid;
-		grid-template-columns: 
-		[form-start] minmax(0, 100%)
-		[form-end photo-start] minmax(0, 0)[photo-end];
+		display: grid;
+		grid-template-columns:
+			[form-start] minmax(0, 100%) [form-end photo-start] minmax(0, 0)[photo-end];
 	}
 
 	&__inner-grid {
@@ -31,7 +31,8 @@
 	&__forms {
 		grid-column: col2/col12;
 		margin-bottom: 60px;
-		h2{
+
+		h2 {
 			margin-bottom: 0.3em;
 			font-size: 37px;
 			font-weight: normal;
@@ -50,6 +51,7 @@
 		opacity: 30%;
 		border-radius: 100%;
 		margin-right: 25px;
+
 		&--active {
 			opacity: 80%;
 		}
@@ -58,7 +60,8 @@
 	&__giving-text {
 		font-size: 14px;
 		margin-bottom: 20px;
-		a{
+
+		a {
 			text-decoration: underline;
 			color: black;
 		}
@@ -70,6 +73,7 @@
 		background-position: top center;
 		position: relative;
 		display: none;
+
 		&-text {
 			position: absolute;
 			bottom: 50px;
@@ -82,16 +86,17 @@
 			line-height: 1.2;
 			z-index: 1;
 		}
+
 		&:after {
 			content: "";
 			display: block;
 			position: absolute;
-			bottom:0;
-			left:0;
-			width:100%;
-			height:40%;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 40%;
 			opacity: 0.6;
-			background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+			background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
 			z-index: 0;
 		}
 	}
@@ -102,7 +107,10 @@
 		background-color: #d6001c9e;
 		border-radius: 10px;
 		margin-bottom: 10px;
-		#Errors {color: white !important;}
+
+		#Errors {
+			color: white !important;
+		}
 	}
 
 	&__comment {
@@ -110,7 +118,7 @@
 	}
 
 	.StripeElement {
-		background-color:#ffffff;
+		background-color: #ffffff;
 		margin-bottom: 10px;
 	}
 
@@ -118,17 +126,23 @@
 	width:100%;
 	//min-height: 60vh;
 
-	p {font-size: 13px; color: #909190;}
+	p {
+		font-size: 13px;
+		color: #909190;
+	}
 
-	.donorfy-donate__larger { 
-		font-size: 16px; color: $black;
+	.donorfy-donate__larger {
+		font-size: 16px;
+		color: $black;
+
 		&--mb {
 			margin-bottom: 30px;
 		}
 	}
 
-	input, select {
-		width:100%;
+	input,
+	select {
+		width: 100%;
 		margin-bottom: 4px;
 	}
 
@@ -136,71 +150,94 @@
 		width: auto;
 	}
 
-	input.error, select.error {
+	input.error,
+	select.error {
 		background-color: #d6001c17;
 	}
 
-	hr {margin: 40px 0}
+	hr {
+		margin: 40px 0
+	}
 
-	label {font-size: 14px;}
+	label {
+		font-size: 14px;
+	}
 
-	&__hidden {display:none;}
+	&__hidden {
+		display: none;
+	}
 
-	&__select{
-	  position: relative; 
-	  margin-bottom: 6px; 
-	  &:after {
-	  content: '▾';
-	  font-size: 16px;
-	  position: absolute;
-	  right: 1.5em;
-	  top:20px;
-	  pointer-events: none;
-	  opacity: 0.5;
-	  }
-	  label.error {
+	&__select {
+		position: relative;
+		margin-bottom: 6px;
+
+		&:after {
+			content: '▾';
+			font-size: 16px;
+			position: absolute;
+			right: 1.5em;
+			top: 20px;
+			pointer-events: none;
+			opacity: 0.5;
+		}
+
+		label.error {
 			background-color: #d6001c9e;
 			padding: 4px 8px;
 			color: white;
 			border-radius: 10px;
 			margin-top: 4px;
 		}
-		&--preference-green select{
-			background-color:#C5E0D1;
-			color: #508D6B;	
+
+		&--preference-green select {
+			background-color: #C5E0D1;
+			color: #508D6B;
 		}
-		&--preference-red select{
-			background-color:#F3C8CD;
-			color: #9F505B;	
+
+		&--preference-red select {
+			background-color: #F3C8CD;
+			color: #9F505B;
 		}
 	}
 
 	&__amount {
 		display: none;
 		position: relative;
+
 		&:before {
-			content:"USD $";
+			content: "USD $";
 			position: absolute;
-			top:20px;
-			left:20px;
+			top: 20px;
+			left: 20px;
 			font-size: 16px;
 		}
+
 		input {
 			padding-left: 80px !important;
 		}
+
 		&--uk:before {
 			content: "GBP £"
 		}
+
 		&--norway:before {
 			content: "NOK Kr"
+		}
+
+		&--aud:before {
+			content: "AUD $"
 		}
 	}
 
 
 	&__input {
 		margin-bottom: 6px;
-		width:100%;
-		input {margin-bottom: 4px;}
+		width: 100%;
+
+		input {
+			margin-bottom: 4px;
+		}
+
 		label.error {
 			background-color: #d6001c9e;
 			padding: 4px 8px;
@@ -221,11 +258,13 @@
 	&__preferences {
 		display: flex;
 		flex-wrap: wrap;
+
 		.donorfy-donate__preference {
-			width:100%;
+			width: 100%;
 			min-width: 120px;
 			margin-right: 20px;
 		}
+
 		&-preview-text {
 			margin-bottom: 40px;
 		}
@@ -237,10 +276,14 @@
 		margin-bottom: 50px;
 		font-size: 12px;
 		display: flex;
-		align-items:center;
+		align-items: center;
 		justify-content: center;
 		opacity: 60%;
-		svg {margin-right: 10px; margin-top: -3px;}
+
+		svg {
+			margin-right: 10px;
+			margin-top: -3px;
+		}
 	}
 
 	&__small-text {
@@ -256,9 +299,11 @@
 			margin-bottom: 0;
 			margin-top: 30px;
 		}
+
 		&-hr hr {
 			margin: 20px 0;
 		}
+
 		&-text {
 			font-size: 16px;
 			opacity: 0.6;
@@ -274,64 +319,69 @@
 
 @include mq($from: tablet) {
 
-.donorfy-donate {
+	.donorfy-donate {
 
-	&__dots {
-		display: flex;
-		margin: 80px 0 60px 0;
-	}
+		&__dots {
+			display: flex;
+			margin: 80px 0 60px 0;
+		}
 
-	label {font-size: 16px;}
+		label {
+			font-size: 16px;
+		}
 
-	&__flex {
-		display:flex;
-		input, div {margin-left: 5px;}
-		input:nth-of-type(1), div:nth-of-type(1) {
-			margin-right: 5px;
-			margin-left: 0;
+		&__flex {
+			display: flex;
+
+			input,
+			div {
+				margin-left: 5px;
+			}
+
+			input:nth-of-type(1),
+			div:nth-of-type(1) {
+				margin-right: 5px;
+				margin-left: 0;
+			}
+		}
+
+		&__preferences {
+			.donorfy-donate__preference {
+				width: auto;
+			}
+		}
+
+		&__forms {
+			h2 {
+				font-size: 52px;
+			}
 		}
 	}
-
-	&__preferences {
-		.donorfy-donate__preference {
-			width:auto;
-		}
-	}
-
-	&__forms {
-		h2{
-			font-size: 52px;
-		}
-	}
-}
 
 }
 
 @include mq($from: desktop) {
-	.donorfy-donate {
-
-	}
+	.donorfy-donate {}
 }
 
 @include mq($from: desktopLarge) {
 	.donorfy-donate {
 		&__grid {
-			display:grid;
-			grid-template-columns: 
-			[form-start] 50%
-			[form-end photo-start] 1fr[photo-end];
+			display: grid;
+			grid-template-columns:
+				[form-start] 50% [form-end photo-start] 1fr[photo-end];
 		}
 
 		&__photo {
 			display: block;
 		}
-		
+
 		&__inner-grid {
 			min-height: 90vh;
 			align-items: center;
 		}
 
-		&__forms { 
+		&__forms {
 			grid-column: col3/col11;
 			//min-height: 77vh;
 		}
@@ -340,10 +390,8 @@
 
 @include mq($from: extraWide) {
 
-.donorfy-donate {
-	&__forms {
-
+	.donorfy-donate {
+		&__forms {}
 	}
-}
 
 }

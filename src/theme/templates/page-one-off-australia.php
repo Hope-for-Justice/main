@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template Name: One off UK
+ * Template Name: One off Australia
  *
  * @package Hope_for_Justice_2021
  */
@@ -47,7 +47,7 @@ endif;
                     <div id="dotTwo" class="donorfy-donate__dot"></div>
                     <div id="dotThree" class="donorfy-donate__dot"></div>
                     <div id="dotFour" class="donorfy-donate__dot"></div>
-                    <div id="dotFive" class="donorfy-donate__dot"></div>
+                    <!-- <div id="dotFive" class="donorfy-donate__dot"></div> -->
                 </div>
 
 
@@ -56,12 +56,12 @@ endif;
                 <form id="formOne">
 
                     <div class="donorfy-donate__giving-text">
-                        You’re giving £<span id="textAmount"><?php echo $_GET['Amount'] ?></span>
+                        You’re giving AUD $<span id="textAmount"><?php echo $_GET['Amount'] ?></span>
                         <a id="changeAmount">Change amount</a>
                     </div>
                     <h2 class="font-canela">Your details:</h2>
 
-                    <div class="donorfy-donate__amount donorfy-donate__input donorfy-donate__amount--uk">
+                    <div class="donorfy-donate__amount donorfy-donate__input donorfy-donate__amount--aud">
                         <label class="donorfy-donate__hidden" for="Amount">Amount I would like to give</label>
                         <input type="text" name="Amount" class="required numberOnly form-control" id="Amount" maxlength="10" <?php if ($_GET['Amount']) { ?> value="<?php echo $_GET['Amount'] ?>" <?php } ?>>
                     </div>
@@ -414,7 +414,7 @@ endif;
 
 
                 <!-- form 3 -->
-                <form id="formThree">
+                <!-- <form id="formThree">
                     <h2 class="font-canela">Gift Aid:</h2>
 
                     <p class="donorfy-donate__larger donorfy-donate__larger--mb">Boost your donation by 25p for every £1 you donate, at no extra cost to you. Do you want to Gift Aid this donation?</p>
@@ -438,11 +438,11 @@ endif;
                         <div id="backToStepTwo" class="button button--spinner button--white">Previous</div>
                         <div id="toStepFour" class="button button--spinner">Next</div>
                     </div>
-                </form>
+                </form> -->
 
 
                 <!-- form 4 -->
-                <form id="formFour">
+                <form id="formThree">
 
                     <h2 class="font-canela">Hear about your impact:</h2>
                     <p class="donorfy-donate__larger donorfy-donate__preferences-preview-text"><span id="preferenceText">We would love for you to hear about the life-changing difference that your donation will make and more ways you can support this work. Can we contact you via:</span> <span style="display: none; text-decoration: underline; font-weight: bold;" id="emailText">james.holt@hopeforjustice.org</span> <span id="emailAppend">for how we can contact you about the work of Hope for Justice and how your support is making a difference:</span></p>
@@ -506,8 +506,8 @@ endif;
                     </p>
 
                     <div class="donorfy-donate__buttons">
-                        <div id="backToStepThree" class="button button--spinner button--white">Previous</div>
-                        <div id="toStepFive" class="button button--spinner">Next</div>
+                        <div id="backToStepTwo" class="button button--spinner button--white">Previous</div>
+                        <div id="toStepFour" class="button button--spinner">Next</div>
                     </div>
 
                 </form>
@@ -550,11 +550,11 @@ endif;
                         <hr>
                     </div>
                     <div class="donorfy-donate__summary-text">
-                        Donation total: <b>£<span id="donationTotalConfirm"><?php echo $_GET['Amount'] ?></span></b>
+                        Donation total: <b>AUD $<span id="donationTotalConfirm"><?php echo $_GET['Amount'] ?></span></b>
                         <br>
                         Giving frequency: <b><span id="givingFrequencyConfirm">One-time gift</span></b>
-                        <br>
-                        Gift Aid: <b><span id="giftAidConfirm">Yes</span></b>
+                        <!-- <br> -->
+                        <!-- Gift Aid: <b><span id="giftAidConfirm">Yes</span></b> -->
                     </div>
 
 
@@ -574,7 +574,7 @@ endif;
 
 
                     <div class="donorfy-donate__buttons">
-                        <div id="backToStepFour" class="button button--white button--spinner">Previous</div>
+                        <div id="backToStepThree" class="button button--white button--spinner">Previous</div>
                         <div id="submitButton" class="button button--spinner">Donate</div>
                     </div>
 
@@ -596,13 +596,13 @@ endif;
                     <input type="hidden" id="ActiveTags" value="" />
                     <input type="hidden" id="BlockedTags" value="" />
                     <!-- Do not change these values -->
-                    <input type="hidden" id="PublishableKey" value="pk_live_SFebjgG48FeTTASNalyWIAHF" />
-                    <input type="hidden" id="TenantCode" value="GO66X0NEL4" />
+                    <input type="hidden" id="PublishableKey" value="pk_live_51HZG3RAZOiwCG0i7czuHlB3neEN3gc8GHSI8ANJ7YN1O6yxKMbPoLbsqBHaWf7N6D4jLUoucQ1GlaBe5vQbDGHZt00LqLMKdnj" />
+                    <input type="hidden" id="TenantCode" value="H63DOW9MT2" />
 
                     <input type="hidden" id="WidgetId" value="<?php if ($matched_widget) {
                                                                     echo $matched_widget;
                                                                 } else {
-                                                                    echo 'e116d9bc-383e-6f05-b282-ff00004460b4';
+                                                                    echo '5e85f8c3-5046-ed11-97b0-0003ff44376b';
                                                                 } ?>" />
 
 
@@ -611,9 +611,9 @@ endif;
                     <input type="hidden" id="ReCaptchaSiteKey" value="6LeSscYZAAAAABIur1rDAvJtDiR7SayCuAylTV2q" />
                     <input type="hidden" id="ReCaptchaAction" value="Donorfy" />
 
-                    <input type="hidden" id="currency" value="GBP" />
-                    <input type="hidden" id="type" value="UK+one-off" />
-                    <!-- <input type="hidden" id="zapierUrl" value="https://hooks.zapier.com/hooks/catch/8597852/bk78xmf/" /> -->
+                    <input type="hidden" id="currency" value="AUD" />
+                    <input type="hidden" id="type" value="Australia+one-off" />
+                    <input type="hidden" id="zapierUrl" value="https://hooks.zapier.com/hooks/catch/8597852/b013c8p/" />
 
                     <div class="donorfy-donate__hidden">
                         <input id="GiftAid" type="checkbox" />

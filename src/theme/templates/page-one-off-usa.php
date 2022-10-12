@@ -54,7 +54,7 @@ endif;
                 <!-- form 1 -->
                 <form id="formOne">
                     <div class="donorfy-donate__giving-text">
-                        You’re giving $<span id="textAmount"><?php echo $_GET['Amount'] ?></span>
+                        You’re giving USD $<span id="textAmount"><?php echo $_GET['Amount'] ?></span>
                         <a id="changeAmount">Change amount</a>
                     </div>
 
@@ -496,7 +496,7 @@ endif;
                         <hr>
                     </div>
                     <div class="donorfy-donate__summary-text">
-                        Donation total: <b>$<span id="donationTotalConfirm"><?php echo $_GET['Amount'] ?></span></b>
+                        Donation total: <b>USD $<span id="donationTotalConfirm"><?php echo $_GET['Amount'] ?></span></b>
                         <br>
                         Giving frequency: <b><span id="givingFrequencyConfirm">One-time gift</span></b>
                     </div>

@@ -9,7 +9,7 @@ $margin_bottom_mobile = get_field('margin_bottom_mobile');
 $margin_bottom_desktop = get_field('margin_bottom_desktop');
 
 if ( //if they are in the USA array or they want to give in $
-    ($GLOBALS["userInfo"] && in_array($GLOBALS["userInfo"], $GLOBALS["usa"]) && $currency != 'NOK' && $currency != 'GBP')
+    ($GLOBALS["userInfo"] && in_array($GLOBALS["userInfo"], $GLOBALS["usa"]) && $currency != 'NOK' && $currency != 'GBP' && $currency != 'AUD')
     || $currency == 'USD'
 ) {
     $currency = 'USD';
@@ -17,12 +17,21 @@ if ( //if they are in the USA array or they want to give in $
     $symbol = '$';
 } else if (
     // if they are in Norway or want to give in Kr
-    ($GLOBALS["userInfo"] && in_array($GLOBALS["userInfo"], $GLOBALS["norway"]) && $currency != 'USD' && $currency != 'GBP')
+    ($GLOBALS["userInfo"] && in_array($GLOBALS["userInfo"], $GLOBALS["norway"]) && $currency != 'USD' && $currency != 'GBP' && $currency != 'AUD')
     || $currency == 'NOK'
 ) {
     $currency = 'NOK';
     $settings = 'no_donate';
     $symbol = 'Kr';
+} else if (
+    // if they are in Norway or want to give in Kr
+    ($GLOBALS["userInfo"] && in_array($GLOBALS["userInfo"], $GLOBALS["au"]) && $currency != 'USD' && $currency != 'GBP' && $currency != 'NOK')
+    || $currency == 'AUD'
+) {
+    $currency = 'AUD';
+    $settings = 'au_donate';
+    $symbol = '$';
+    $frequency = 'once';
 } else {
     // fallback to UK
     $currency = 'GBP';
@@ -41,6 +50,9 @@ if (is_admin()) {
     } else if ($settings == 'no_donate') {
         $currency = 'NOK';
         $symbol = 'Kr';
+    } else if ($settings == 'au_donate') {
+        $currency = 'AUD';
+        $symbol = '$';
     } else {
         $currency = 'USD';
         $symbol = '$';
@@ -105,11 +117,11 @@ $other_ways_link = $set['other_ways'];
         <div data-currency="<?php echo $currency; ?>" class="donate-block" <?php if ($widget_id_once) { ?> data-widgetidonce="<?php echo $widget_id_once ?>" <?php } ?> <?php if ($widget_id_monthly) { ?> data-widgetidmonthly="<?php echo $widget_id_monthly ?>" <?php } ?>>
 
 
-            <div style="<?php if ($frequency == 'once') echo 'display:none;' ?>" class="donate-block__freq">
-                <div class="donate-block__freq-option <?php if ($frequency == 'once' || $frequency_start == 'once' || $currency == 'NOK') echo 'donate-block__freq-option--active' ?>" data-freq="once">
+            <div style="<?php if ($frequency == 'once' || $currency == 'AUD') echo 'display:none;' ?>" class="donate-block__freq">
+                <div class="donate-block__freq-option <?php if ($frequency == 'once' || $frequency_start == 'once' || $currency == 'NOK' || $currency == 'AUD') echo 'donate-block__freq-option--active' ?>" data-freq="once">
                     &nbsp;Once
                 </div>
-                <div class="donate-block__freq-option <?php if ($frequency != 'once' && $frequency_start == 'monthly' && $currency != 'NOK') echo 'donate-block__freq-option--active' ?>" data-freq="monthly" data-link="<?php echo $link ?>">
+                <div class="donate-block__freq-option <?php if ($frequency != 'once' && $frequency_start == 'monthly' && $currency != 'NOK' && $currency != 'AUD') echo 'donate-block__freq-option--active' ?>" data-freq="monthly" data-link="<?php echo $link ?>">
                     &nbsp;Monthly
                 </div>
             </div>
@@ -176,7 +188,7 @@ $other_ways_link = $set['other_ways'];
 
             <p class="donate-block__text">
                 <span class="color-red">
-                    <b><span class="donate-block__text-currency"><?php echo $symbol ?></span><span class="donate-block__text-amount"></span></b>
+                    <b><span class="donate-block__text-currency"><?php echo $currency ?> <?php echo $symbol ?></span><span class="donate-block__text-amount"></span></b>
                 </span>
                 <span class="donate-block__text-freq">monthly</span>
                 <span id="reason"></span>
@@ -190,7 +202,7 @@ $other_ways_link = $set['other_ways'];
 
             <div class="donate-block__button">
                 Donate
-                <span class="donate-block__button-currency currency"><?php echo $symbol ?></span><span class="donate-block__button-amount"></span>
+                <span class="donate-block__button-currency currency"><?php echo $currency ?> <?php echo $symbol ?></span><span class="donate-block__button-amount"></span>
                 <span class="donate-block__button-freq"></span>
             </div>
         </div>

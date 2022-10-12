@@ -122,6 +122,13 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 	];
 
+	uglifyFilesObject[distTheme + jsDir + 'pages/one-off-australia.js'] = [
+
+		devTheme + jsDir + 'pages/one-off-australia.js',
+
+
+	];
+
 
 
 	uglifyFilesObject[distTheme + jsDir + 'pages/donate-thankyou.js'] = [

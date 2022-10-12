@@ -60,10 +60,10 @@ jQuery(document).ready(function ($) {
                     let email = $('#Email').val();
                     $.ajax({
                         method: 'POST',
-                        url: '/wp-content/themes/hope-for-justice-2020/duplicate-check.php',
+                        url: '/build/themes/hope-for-justice-2020/duplicate-check.php',
                         // /wp-content/ wp-engine
                         // /build/ local
-                        data: { Email: email },
+                        data: { Email: email, Currency: 'AUD' },
                         success: function (output) {
                             let obj = $.parseJSON(output)
 
@@ -137,7 +137,7 @@ jQuery(document).ready(function ($) {
         setTimeout(
             function () {
                 if ($('#formThree').valid()) {
-                    $('#formFour').show();
+                    $('#CreditCardForm').show();
                     $('#formThree').hide();
                     $('#dotFour').toggleClass('donorfy-donate__dot--active');
                     $('#dotThree').toggleClass('donorfy-donate__dot--active');
@@ -151,7 +151,7 @@ jQuery(document).ready(function ($) {
         setTimeout(
             function () {
                 $('#formThree').show();
-                $('#formFour').hide();
+                $('#CreditCardForm').hide();
                 $('#dotFour').toggleClass('donorfy-donate__dot--active');
                 $('#dotThree').toggleClass('donorfy-donate__dot--active');
                 $('#backToStepThree').html("Previous");
@@ -189,10 +189,10 @@ jQuery(document).ready(function ($) {
 
         $.ajax({
             method: 'POST',
-            url: '/wp-content/themes/hope-for-justice-2020/get-preferences.php',
+            url: '/build/themes/hope-for-justice-2020/get-preferences.php',
             // /wp-content/ wp-engine
             // /build/ local
-            data: { ConstituentId: id },
+            data: { ConstituentId: id, Currency: 'AUD' },
             success: function (output) {
                 let obj = $.parseJSON(output);
                 console.log(obj);

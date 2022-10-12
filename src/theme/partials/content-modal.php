@@ -1,6 +1,6 @@
 <?php
 // modal.php template.
- 
+
 // Set defaults.
 $args = wp_parse_args(
     $args,
@@ -12,214 +12,215 @@ $args = wp_parse_args(
 ?>
 
 
-<?php if ( ( $args['type'] ) == "basic") { ?>
-    
+<?php if (($args['type']) == "basic") { ?>
+
     <!--
     --
     --  basic
     --
-    --> 
-    <div class="modal fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
-          <div class="modal__dialog">
-                <div class="modal__content">
-                    <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt deserunt veritatis tempore alias quasi totam consectetur enim, at ea obcaecati velit pariatur amet distinctio culpa perferendis saepe suscipit illo! Pariatur.</p>
-                    <a href="#" data-dismiss="modal" class="gi-close modal__close">&times;<span class="accessibility">Close</span></a>
-                </div>
-         </div>
+    -->
+    <div class="modal fade" id="<?php echo esc_html($args['id']); ?>" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal__dialog">
+            <div class="modal__content">
+                <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt deserunt veritatis tempore alias quasi totam consectetur enim, at ea obcaecati velit pariatur amet distinctio culpa perferendis saepe suscipit illo! Pariatur.</p>
+                <a href="#" data-dismiss="modal" class="gi-close modal__close">&times;<span class="accessibility">Close</span></a>
+            </div>
+        </div>
     </div>
 
-<?php } else if ( ( $args['type'] ) == "reference") { ?>
-    
+<?php } else if (($args['type']) == "reference") { ?>
+
     <!--
     --
     --  reference
     --
-    --> 
-    <div class="modal fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
-          <div class="modal__dialog">
-                <div class="modal__content modal__content--yellow">
-                    <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--yellow">&times;<span class="accessibility">Close</span></a>
-                </div>
-         </div>
+    -->
+    <div class="modal fade" id="<?php echo esc_html($args['id']); ?>" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal__dialog">
+            <div class="modal__content modal__content--yellow">
+                <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--yellow">&times;<span class="accessibility">Close</span></a>
+            </div>
+        </div>
     </div>
 
 
 
-<?php } else if ( ( $args['type'] ) == "video") { ?>
-    
+<?php } else if (($args['type']) == "video") { ?>
+
     <!--
     --
     --  video
     --
     -->
-    <div class="modal modal--video fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
-          <div class="modal__dialog modal__dialog--video">
-                <div class="modal__content modal__content--video video-container">
-                    <iframe class="video" src="" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    <div class="modal modal--video fade" id="<?php echo esc_html($args['id']); ?>" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal__dialog modal__dialog--video">
+            <div class="modal__content modal__content--video video-container">
+                <iframe class="video" src="" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
 
-                    <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--video">&times;<span class="accessibility">Close</span></a>
+                <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--video">&times;<span class="accessibility">Close</span></a>
 
-                </div>
-         </div>
+            </div>
+        </div>
     </div>
 
-<?php } else if ( ( $args['type'] ) == "splash") { ?>
-    
+<?php } else if (($args['type']) == "splash") { ?>
+
     <!--
     --
     --  splash
     --
     -->
-    <div class="modal modal--splash fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
-          <div class="modal__dialog modal__dialog--splash">
-                <div class="modal__content modal__content--splash">
-                    <h3>Our new brand</h3>
-                    <h2 class="font-fk modal__title modal__title--splash">New look<br> <span class="text-red">Same mission</span></h2>
-                    <p class="modal__text modal__text--splash">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi possimus, provident ea ipsam temporibus consequuntur quidem.</p>
-                    <a href="#" data-dismiss="modal" class="button button--red">
-                        <div class="button__inner">
-                            <div class="button__text bold">Continue<br>to website</div>
-                        </div>
-                    </a>
-                    <a href="#" data-dismiss="modal" class="gi-close modal__close">&times;<span class="accessibility">Close</span></a>
+    <div class="modal modal--splash fade" id="<?php echo esc_html($args['id']); ?>" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal__dialog modal__dialog--splash">
+            <div class="modal__content modal__content--splash">
+                <h3>Our new brand</h3>
+                <h2 class="font-fk modal__title modal__title--splash">New look<br> <span class="text-red">Same mission</span></h2>
+                <p class="modal__text modal__text--splash">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi possimus, provident ea ipsam temporibus consequuntur quidem.</p>
+                <a href="#" data-dismiss="modal" class="button button--red">
+                    <div class="button__inner">
+                        <div class="button__text bold">Continue<br>to website</div>
+                    </div>
+                </a>
+                <a href="#" data-dismiss="modal" class="gi-close modal__close">&times;<span class="accessibility">Close</span></a>
 
-                </div>
-         </div>
+            </div>
+        </div>
     </div>
 
-<?php } else if ( ( $args['type'] ) == "payment-once") { ?>
-    
+<?php } else if (($args['type']) == "payment-once") { ?>
+
     <!--
     --
     --  payment once
     --
     -->
-    <div class="modal modal--payment fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
-          <div class="modal__dialog modal__dialog--payment">
-                <div class="modal__content modal__content--payment">
-                    <?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){ ?>
+    <div class="modal modal--payment fade" id="<?php echo esc_html($args['id']); ?>" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal__dialog modal__dialog--payment">
+            <div class="modal__content modal__content--payment">
+                <?php if ($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['usa'])) { ?>
 
-                        <!-- usa form -->
-                        <div id="usaForm"><?php echo do_shortcode("[give_form id=\"328\"]"); ?></div>
+                    <!-- usa form -->
+                    <div id="usaForm"><?php echo do_shortcode("[give_form id=\"328\"]"); ?></div>
 
-                    <?php } else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])){ ?>
+                <?php } else if ($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])) { ?>
 
-                        <!-- norway form -->
-                        <div id="norwayForm"><?php echo do_shortcode("[give_form id=\"332\"]"); ?></div>
-                        
-                    <?php } else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['aus'])){ ?> 
-                        
-                        <!-- aus form -->
-                        <div id="ausForm"><?php echo do_shortcode("[give_form id=\"333\"]"); ?></div>
+                    <!-- norway form -->
+                    <div id="norwayForm"><?php echo do_shortcode("[give_form id=\"332\"]"); ?></div>
 
-                    <?php } else { ?>
+                <?php } else if ($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['aus'])) { ?>
 
-                        <!-- uk form --> 
-                        <div id="ukForm"><?php echo do_shortcode("[give_form id=\"314\"]"); ?></div>
+                    <!-- aus form -->
+                    <div id="ausForm"><?php echo do_shortcode("[give_form id=\"333\"]"); ?></div>
 
-                    <?php } ?> 
-                    <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--payment">&times;<span class="accessibility">Close</span></a>
+                <?php } else { ?>
 
-                </div>
-         </div>
+                    <!-- uk form -->
+                    <div id="ukForm"><?php echo do_shortcode("[give_form id=\"314\"]"); ?></div>
+
+                <?php } ?>
+                <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--payment">&times;<span class="accessibility">Close</span></a>
+
+            </div>
+        </div>
     </div>
 
-<?php } else if ( ( $args['type'] ) == "payment-regular") { ?>
+<?php } else if (($args['type']) == "payment-regular") { ?>
 
     <!--
     --
     --  payment regular
     --
     -->
-    <div class="modal modal--payment fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
-          <div class="modal__dialog modal__dialog--payment">
-                <div class="modal__content modal__content--payment">
-                    <?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['uk'])){ ?>
+    <div class="modal modal--payment fade" id="<?php echo esc_html($args['id']); ?>" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal__dialog modal__dialog--payment">
+            <div class="modal__content modal__content--payment">
+                <?php if ($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['uk'])) { ?>
 
-                        <!-- uk form reg -->
-                        <?php echo do_shortcode("[give_form id=\"334\"]"); ?>
+                    <!-- uk form reg -->
+                    <?php echo do_shortcode("[give_form id=\"334\"]"); ?>
 
-                    <?php } else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])){ ?>
+                <?php } else if ($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])) { ?>
 
-                        <!-- norway form redirect to solidus -->
-                        
-                    <?php } else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['aus'])){ ?> 
-                        
-                        <!-- aus form -->
-                        <?php echo do_shortcode("[give_form id=\"336\"]"); ?>
+                    <!-- norway form redirect to solidus -->
 
-                    <?php } else { ?>
+                <?php } else if ($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['aus'])) { ?>
 
-                        <!-- usa form --> 
-                        <?php echo do_shortcode("[give_form id=\"335\"]"); ?> 
+                    <!-- aus form -->
+                    <?php echo do_shortcode("[give_form id=\"336\"]"); ?>
 
-                    <?php } ?> 
-                    <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--payment">&times;<span class="accessibility">Close</span></a>
+                <?php } else { ?>
 
-                </div>
-         </div>
+                    <!-- usa form -->
+                    <?php echo do_shortcode("[give_form id=\"335\"]"); ?>
+
+                <?php } ?>
+                <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--payment">&times;<span class="accessibility">Close</span></a>
+
+            </div>
+        </div>
     </div>
-<?php } else if ( ( $args['type'] ) == "country") { ?>
-    
+<?php } else if (($args['type']) == "country") { ?>
+
     <!--
     --
     --  reference
     --
-    --> 
-    <div class="modal fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
-          <div class="modal__dialog">
-                <div class="modal__content">
-                    <h2 class="modal__title modal__title--country">Lorem ipsum dolor</h2>
-                    <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <a href="#" data-dismiss="modal" class="gi-close modal__close">&times;<span class="accessibility">Close</span></a>
-                </div>
-         </div>
+    -->
+    <div class="modal fade" id="<?php echo esc_html($args['id']); ?>" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal__dialog">
+            <div class="modal__content">
+                <h2 class="modal__title modal__title--country">Lorem ipsum dolor</h2>
+                <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <a href="#" data-dismiss="modal" class="gi-close modal__close">&times;<span class="accessibility">Close</span></a>
+            </div>
+        </div>
     </div>
 
-<?php } else if ( ( $args['type'] ) == "get-help") { ?>
+<?php } else if (($args['type']) == "get-help") { ?>
 
     <!--
     --
     --  get help
     --
     -->
-    <div class="modal get-help-modal fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal get-help-modal fade" id="<?php echo esc_html($args['id']); ?>" tabindex="-1" role="dialog" aria-hidden="false">
         <a href="#" data-dismiss="modal" class="gi-close modal__close">&times;<span class="accessibility">Close</span></a>
-          <div class="modal__dialog get-help-modal__dialog">
-                <div class="modal__content modal__content--yellow get-help-modal__content">
-                        <?php if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['uk'])){
-                            echo do_shortcode("[gravityform id=\"33\" title=\"false\" ajax=\"true\" description=\"true\"]"); 
-                        } else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])){
-                            echo do_shortcode("[gravityform id=\"34\" title=\"false\" ajax=\"true\" description=\"true\"]"); 
-                        } else if($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['usa'])){
-                            echo do_shortcode("[gravityform id=\"35\" title=\"false\" ajax=\"true\" description=\"true\"]"); 
-                        }?>
+        <div class="modal__dialog get-help-modal__dialog">
+            <div class="modal__content modal__content--yellow get-help-modal__content">
+                <?php if ($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['uk'])) {
+                    echo do_shortcode("[gravityform id=\"33\" title=\"false\" ajax=\"true\" description=\"true\"]");
+                } else if ($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])) {
+                    echo do_shortcode("[gravityform id=\"34\" title=\"false\" ajax=\"true\" description=\"true\"]");
+                } else if ($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['usa'])) {
+                    echo do_shortcode("[gravityform id=\"35\" title=\"false\" ajax=\"true\" description=\"true\"]");
+                } ?>
 
-                </div>
-         </div>
+            </div>
+        </div>
     </div>
 
-<?php } else if ( ( $args['type'] ) == "currency-select") { ?>
+<?php } else if (($args['type']) == "currency-select") { ?>
 
     <!--
     --
     --  currency select
     --
-    --> 
-    <div class="modal fade" id="<?php echo esc_html( $args['id'] ); ?>" tabindex="-1" role="dialog" aria-hidden="false">
-          <div class="modal__dialog">
-                <div class="modal__content modal__content--white modal__content--less-padding">
-                    <h2 class="modal-currency__title modal-currency__title--mb">Select a currency</h2>
-                    <div class="modal-currency">
-                        <a data-currency="GBP" class="modal-currency__currency">GBP £</a>
-                        <a data-currency="USD" class="modal-currency__currency">USD $</a>
-                        <a data-currency="NOK" class="modal-currency__currency">NOK Kr</a>
-                    </div>
-                    <p style="margin-top: 20px" class="modal-currency__text">If you would like to donate in a currency not shown here, please <a href="/contact">contact us</a></p>
-                    <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--white">&times;<span class="accessibility">Close</span></a>
+    -->
+    <div class="modal fade" id="<?php echo esc_html($args['id']); ?>" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal__dialog">
+            <div class="modal__content modal__content--white modal__content--less-padding">
+                <h2 class="modal-currency__title modal-currency__title--mb">Select a currency</h2>
+                <div class="modal-currency">
+                    <a data-currency="GBP" class="modal-currency__currency">GBP £</a>
+                    <a data-currency="USD" class="modal-currency__currency">USD $</a>
+                    <a data-currency="NOK" class="modal-currency__currency">NOK Kr</a>
+                    <a data-currency="AUD" class="modal-currency__currency">AUD $</a>
                 </div>
-         </div>
-    </div>   
+                <p style="margin-top: 20px" class="modal-currency__text">If you would like to donate in a currency not shown here, please <a href="/contact">contact us</a></p>
+                <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--white">&times;<span class="accessibility">Close</span></a>
+            </div>
+        </div>
+    </div>
 
 <?php } ?>

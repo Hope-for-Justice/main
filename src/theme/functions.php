@@ -165,6 +165,7 @@ function page_scripts()
 
   wp_register_script('one-off-norway', get_template_directory_uri() . '/assets/js/pages/one-off-norway.js', array('jquery'), _S_VERSION, true);
 
+  wp_register_script('one-off-australia', get_template_directory_uri() . '/assets/js/pages/one-off-australia.js', array('jquery'), _S_VERSION, true);
 
   wp_register_script('donorfy-webhooks', get_template_directory_uri() . '/assets/js/pages/donorfy-webhooks.js', array('jquery'), _S_VERSION, true);
 
@@ -215,6 +216,11 @@ function page_scripts()
   if (is_page_template('templates/page-one-off-norway.php')) {
     wp_enqueue_script('donorfy-stripe');
     wp_enqueue_script('one-off-norway');
+    wp_enqueue_script('donorfy-donate');
+  }
+  if (is_page_template('templates/page-one-off-australia.php')) {
+    wp_enqueue_script('donorfy-stripe');
+    wp_enqueue_script('one-off-australia');
     wp_enqueue_script('donorfy-donate');
   }
   if (is_page_template('templates/page-guardian-uk.php')) {

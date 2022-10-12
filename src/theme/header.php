@@ -68,9 +68,9 @@ if (isset($_GET['campaign'])) {
     // Norwegian countries - I've put this into an array because we'll no doubt add other Scandinavian countries at some point
     $GLOBALS['norway'] = array('NO');
 
-    $GLOBALS['uk'] = array('GB', 'AU');
+    $GLOBALS['uk'] = array('GB');
 
-    //$GLOBALS['aus'] = array('AU');
+    $GLOBALS['au'] = array('AU, NZ');
 
     $GLOBALS['help'] = array('GB', 'NO', 'US');
 
