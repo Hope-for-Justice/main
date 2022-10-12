@@ -60,7 +60,7 @@ jQuery(document).ready(function ($) {
                     let email = $('#Email').val();
                     $.ajax({
                         method: 'POST',
-                        url: '/build/themes/hope-for-justice-2020/duplicate-check.php',
+                        url: '/wp-content/themes/hope-for-justice-2020/duplicate-check.php',
                         // /wp-content/ wp-engine
                         // /build/ local
                         data: { Email: email, Currency: 'AUD' },
@@ -189,7 +189,7 @@ jQuery(document).ready(function ($) {
 
         $.ajax({
             method: 'POST',
-            url: '/build/themes/hope-for-justice-2020/get-preferences.php',
+            url: '/wp-content/themes/hope-for-justice-2020/get-preferences.php',
             // /wp-content/ wp-engine
             // /build/ local
             data: { ConstituentId: id, Currency: 'AUD' },
