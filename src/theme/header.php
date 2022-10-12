@@ -70,7 +70,7 @@ if (isset($_GET['campaign'])) {
 
     $GLOBALS['uk'] = array('GB');
 
-    $GLOBALS['au'] = array('AU, NZ');
+    $GLOBALS['au'] = array('AU', 'NZ');
 
     $GLOBALS['help'] = array('GB', 'NO', 'US');
 
