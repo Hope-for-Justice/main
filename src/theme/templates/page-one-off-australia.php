@@ -553,6 +553,8 @@ endif;
                         Donation total: <b>AUD $<span id="donationTotalConfirm"><?php echo $_GET['Amount'] ?></span></b>
                         <br>
                         Giving frequency: <b><span id="givingFrequencyConfirm">One-time gift</span></b>
+                        <br><br>
+                        <p style="font-size: 12px; color: #212322;">Hope for Justice (Australia) Ltd, ABN 28 639 382 782, is a registered charity with the Australian Charities and Not-for-profits Commission (<a href="https://www.acnc.gov.au/">ACNC</a>) and granted public benevolent institution (PBI) status. Donations of $2 or more are fully tax deductible in Australia as allowed by law. </p>
                         <!-- <br> -->
                         <!-- Gift Aid: <b><span id="giftAidConfirm">Yes</span></b> -->
                     </div>
@@ -620,7 +622,7 @@ endif;
                     </div>
 
                 </form>
-                <!-- /form 3 -->
+
 
             </div>
 
