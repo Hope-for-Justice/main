@@ -145,9 +145,6 @@ endif;
                         </div>
                     </div>
 
-                    <label class="donorfy-donate__hidden" for="County">County</label>
-                    <input class="donorfy-donate__hidden" type="text" name="County" class="" id="County" maxlength="50">
-
                     <div class="donorfy-donate__select">
                         <select name="Country" class="required" id="Country" placeholder="Country">
                             <option disabled value=""> -- Country select -- </option>
@@ -401,6 +398,21 @@ endif;
                             <option value="Zambia">Zambia</option>
                             <option value="Zimbabwe">Zimbabwe</option>
                             <option value="Åland Islands">Åland Islands</option>
+                        </select>
+                    </div>
+
+                    <label class="donorfy-donate__hidden" for="County">County</label>
+                    <div class="donorfy-donate__select">
+                        <select required class="" type="text" name="County" class="required" id="County">
+                            <option value=""> -- State select -- </option>
+                            <option value="Australian Capital Territory">Australian Capital Territory</option>
+                            <option value="New South Wales">New South Wales</option>
+                            <option value="Northern Territory">Northern Territory</option>
+                            <option value="Queensland">Queensland</option>
+                            <option value="South Australia">South Australia</option>
+                            <option value="Tasmania">Tasmania</option>
+                            <option value="Victoria">Victoria</option>
+                            <option value="Western Australia">Western Australia</option>
                         </select>
                     </div>
 
