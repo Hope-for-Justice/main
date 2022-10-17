@@ -127,7 +127,7 @@ $expiry = get_field('expiry');
 
                             </div>
                             <p class="event-series__event-title">
-                                <b><?php echo $title ?><span class="event-series__event-arrow">&nbsp;<img src="<?php echo get_template_directory_uri() . '/assets/img/link-arrow.svg'; ?>"></span>
+                                <b><?php echo $title ?><span class="event-series__event-arrow">&nbsp;<img alt="arrow" src="<?php echo get_template_directory_uri() . '/assets/img/link-arrow.svg'; ?>"></span>
                                 </b>
                             </p>
                         </div>
