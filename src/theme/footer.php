@@ -53,25 +53,11 @@ if (!get_field('no_news')) { ?>
         <?php if (is_page() && (!is_page_template('templates/page-block-template.php'))) { ?>
             <!-- get help -->
             <div class="get-help">
-                <a data-toggle="modal" data-target="#get-help-modal" class="get-help__help-button">
+                <a href="/get-help/" class="get-help__help-button">
                     Get&nbsp;Help
                 </a>
                 <a href="http://google.com" class="get-help__quick-exit"><span>Quick&nbsp;Exit</span></a>
             </div>
-
-            <!-- 
-			-- 
-			-- get help modal
-			-- 
-			-->
-            <?php get_template_part(
-                'partials/content',
-                'modal',
-                array(
-                    'type' => 'get-help',
-                    'id' => 'get-help-modal'
-                )
-            ); ?>
 
         <?php } ?>
 
