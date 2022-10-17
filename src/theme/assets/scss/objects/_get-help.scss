@@ -72,10 +72,11 @@
     max-width: 100vw;
 
     &__title {
-        font-family: 'fk-screamer', sans-serif;
-        text-transform: uppercase;
+        //font-family: 'fk-screamer', sans-serif;
+        //text-transform: uppercase;
         line-height: 1;
-        font-size: 74px;
+        font-size: 32px;
+        font-weight: bold;
     }
 
     &__text {
@@ -125,6 +126,7 @@
     &__number,
     &__email {
         color: $black;
+        font-size: 16px;
 
         b {
             text-decoration: underline;
@@ -133,10 +135,10 @@
 
     &__number {
         font-family: fk-screamer, sans-serif;
-        font-size: 22px;
+        font-size: 32px;
 
         &:before {
-            font-size: 8px;
+            font-size: 16px;
             content: "\f095";
             font-family: font-awesome-solid;
             text-decoration: none;
@@ -146,7 +148,7 @@
     }
 
     &__email:before {
-        font-size: 8px;
+        font-size: 16px;
         content: "\f0e0";
         font-family: font-awesome-solid;
         text-decoration: none;
@@ -155,7 +157,7 @@
     }
 
     &__or {
-        margin-left: 10px
+        margin: 0 10px
     }
 
 }
@@ -172,13 +174,20 @@
 
     .get-help-modal {
         &__number {
-            font-size: 27px;
+            font-size: 42px;
+
+            &:before {
+                font-size: 28px;
+                position: relative;
+                top: -5px;
+            }
         }
 
         &__email {
-            font-size: 13px;
+            font-size: 21px;
         }
     }
+
 
 
 }
@@ -208,6 +217,21 @@
 
         &__email {
             font-size: 18px;
+            margin-top: -8px;
+
+            &::before {
+                font-size: 26px;
+                margin-right: 20px;
+                margin-left: 20px;
+                position: relative;
+                top: 5px;
+            }
+        }
+
+        &__title {
+            font-size: 42px;
+            margin-top: 20px;
+            margin-bottom: 24px;
         }
 
         &__country-flag {
