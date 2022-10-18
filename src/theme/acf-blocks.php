@@ -348,6 +348,15 @@ function my_acf_init_block_types()
         {
             wp_enqueue_style('social_styles', get_template_directory_uri() . '/template-parts/blocks/social.css', array(), _S_VERSION);
         }
+        //register test
+        acf_register_block_type(array(
+            'name'              => 'test',
+            'title'             => __('test'),
+            'description'       => __('test'),
+            'render_template'   => 'template-parts/blocks/test/test.php',
+            'category'          => 'hfj-design-system',
+            'enqueue_assets'    => 'test_assets'
+        ));
     }
 }
 
