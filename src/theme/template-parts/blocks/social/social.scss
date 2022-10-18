@@ -1,0 +1,47 @@
+.social-block {
+    &__inner {
+        grid-column: span 12;
+        border-radius: 8px;
+        padding: 16px;
+    }
+
+    &__content {
+        width: 100%;
+        display: flex;
+        gap: 32px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__text {
+        display: none;
+    }
+
+
+    &__icons {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        margin-bottom: -8px;
+    }
+
+    &__icon {}
+}
+
+@media screen and (min-width:768px) {
+
+    .social-block {
+
+        &__content {
+            width: 100%;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        &__text {
+            display: block;
+        }
+
+    }
+}

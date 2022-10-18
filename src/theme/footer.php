@@ -95,22 +95,22 @@ if (!get_field('no_email_push')) {
             <ul class="footer__social-icons">
                 <li class="footer__social-icon">
                     <a href="<?php echo the_field('linked_in_link', 'option'); ?>" target="_blank">
-                        <img alt="linkedin link" src="<?php echo get_template_directory_uri() . '/assets/img/li-white.svg'; ?>" alt="">
+                        <img alt="linkedin link" src="<?php echo get_template_directory_uri() . '/assets/img/li-white.svg'; ?>">
                     </a>
                 </li>
                 <li class="footer__social-icon">
                     <a href="<?php echo the_field('instagram_link', 'option'); ?>" target="_blank">
-                        <img alt="instagram link" src="<?php echo get_template_directory_uri() . '/assets/img/in-white.svg'; ?>" alt="">
+                        <img alt="instagram link" src="<?php echo get_template_directory_uri() . '/assets/img/in-white.svg'; ?>">
                     </a>
                 </li>
                 <li class="footer__social-icon">
                     <a href="<?php echo the_field('twitter_link', 'option'); ?>" target="_blank">
-                        <img alt="twitter link" src="<?php echo get_template_directory_uri() . '/assets/img/tw-white.svg'; ?>" alt="">
+                        <img alt="twitter link" src="<?php echo get_template_directory_uri() . '/assets/img/tw-white.svg'; ?>">
                     </a>
                 </li>
                 <li class="footer__social-icon">
                     <a href="<?php echo the_field('facebook_link', 'option'); ?>" target="_blank">
-                        <img alt="facebook link" src="<?php echo get_template_directory_uri() . '/assets/img/fb-white.svg'; ?>" alt="">
+                        <img alt="facebook link" src="<?php echo get_template_directory_uri() . '/assets/img/fb-white.svg'; ?>">
                     </a>
                 </li>
             </ul>

@@ -333,6 +333,21 @@ function my_acf_init_block_types()
             wp_enqueue_style('dropdown_styles', get_template_directory_uri() . '/template-parts/blocks/dropdown.css', array(), _S_VERSION);
             wp_enqueue_script('dropdown_scripts', get_template_directory_uri() . '/template-parts/blocks/dropdown/dropdown.js', array('jquery'), _S_VERSION);
         }
+
+        //register social
+        acf_register_block_type(array(
+            'name'              => 'social',
+            'title'             => __('Socials'),
+            'description'       => __('Block for a socials'),
+            'render_template'   => 'template-parts/blocks/social/social.php',
+            'category'          => 'hfj-design-system',
+            'enqueue_assets'    => 'social_assets'
+        ));
+
+        function social_assets()
+        {
+            wp_enqueue_style('social_styles', get_template_directory_uri() . '/template-parts/blocks/social.css', array(), _S_VERSION);
+        }
     }
 }
 
@@ -431,6 +446,10 @@ function register_acf_block_styles(): void
     if (has_block('acf/dropdown')) {
         wp_enqueue_style('dropdown_styles', get_template_directory_uri() . '/template-parts/blocks/dropdown.css', array(), _S_VERSION);
         wp_enqueue_script('dropdown_scripts', get_template_directory_uri() . '/template-parts/blocks/dropdown/dropdown.js', array('jquery'), _S_VERSION);
+    }
+
+    if (has_block('acf/social')) {
+        wp_enqueue_style('social_styles', get_template_directory_uri() . '/template-parts/blocks/social.css', array(), _S_VERSION);
     }
 }
 

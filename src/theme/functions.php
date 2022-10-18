@@ -631,6 +631,8 @@ function add_custom_taxonomies()
 
     'hierarchical' => true,
 
+    'show_in_rest' => true,
+
     'labels' => array(
 
       'name' => _x('Categories', 'taxonomy general name'),
