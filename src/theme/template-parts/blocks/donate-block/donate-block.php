@@ -7,6 +7,8 @@ $frequency_start = get_field('frequency_start');
 $image = get_field('image');
 $margin_bottom_mobile = get_field('margin_bottom_mobile');
 $margin_bottom_desktop = get_field('margin_bottom_desktop');
+$extra_graphic = get_field('extra_graphic');
+$thank_you = urlencode(get_field('custom_thankyou'));
 
 if ( //if they are in the USA array or they want to give in $
     ($GLOBALS["userInfo"] && in_array($GLOBALS["userInfo"], $GLOBALS["usa"]) && $currency != 'NOK' && $currency != 'GBP' && $currency != 'AUD')
@@ -112,9 +114,15 @@ $other_ways_link = $set['other_ways'];
 
     <div class="donate-block__img" style="background-image: url('<?php echo $image ?>');"></div>
 
+    <?php if ($extra_graphic) { ?>
+        <div class="donate-block__extra-graphic">
+            <?php echo wp_get_attachment_image($extra_graphic, 'full'); ?>
+        </div>
+    <?php } ?>
+
     <div class="better-grid donate-block__grid">
 
-        <div data-currency="<?php echo $currency; ?>" class="donate-block" <?php if ($widget_id_once) { ?> data-widgetidonce="<?php echo $widget_id_once ?>" <?php } ?> <?php if ($widget_id_monthly) { ?> data-widgetidmonthly="<?php echo $widget_id_monthly ?>" <?php } ?>>
+        <div data-thankyou="<?php echo $thank_you ?>" data-currency="<?php echo $currency; ?>" class="donate-block" <?php if ($widget_id_once) { ?> data-widgetidonce="<?php echo $widget_id_once ?>" <?php } ?> <?php if ($widget_id_monthly) { ?> data-widgetidmonthly="<?php echo $widget_id_monthly ?>" <?php } ?>>
 
 
             <div style="<?php if ($frequency == 'once' || $currency == 'AUD') echo 'display:none;' ?>" class="donate-block__freq">

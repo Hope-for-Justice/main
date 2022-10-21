@@ -1,7 +1,7 @@
 <?php
 
 /**
- * text and form
+ * form
  *
  */
 

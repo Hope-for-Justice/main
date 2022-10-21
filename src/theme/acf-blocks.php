@@ -39,6 +39,9 @@ function my_acf_init_block_types()
             'category'          => 'hfj-design-system',
             'icon'              => 'text',
             'enqueue_assets'    => 'text_assets',
+            'supports' => array(
+                'align' => array('center'),
+            ),
         ));
 
         function text_assets()
@@ -55,6 +58,9 @@ function my_acf_init_block_types()
             'category'          => 'hfj-design-system',
             'icon'              => 'text',
             'enqueue_assets'    => 'title_assets',
+            'supports' => array(
+                'align' => array('center'),
+            ),
         ));
 
         function title_assets()
@@ -310,7 +316,10 @@ function my_acf_init_block_types()
             'description'       => __('Block for image'),
             'render_template'   => 'template-parts/blocks/image/image.php',
             'category'          => 'hfj-design-system',
-            'enqueue_assets'    => 'image_assets'
+            'enqueue_assets'    => 'image_assets',
+            'supports' => array(
+                'align' => array('center'),
+            ),
         ));
 
         function image_assets()
@@ -350,13 +359,21 @@ function my_acf_init_block_types()
         }
         //register test
         acf_register_block_type(array(
-            'name'              => 'test',
-            'title'             => __('test'),
-            'description'       => __('test'),
-            'render_template'   => 'template-parts/blocks/test/test.php',
+            'name'              => 'geo-target',
+            'title'             => __('Geo-target'),
+            'description'       => __('Geo-target content inside this block'),
+            'render_template'   => 'template-parts/blocks/geo-target/geo-target.php',
             'category'          => 'hfj-design-system',
-            'enqueue_assets'    => 'test_assets'
+            'enqueue_assets'    => 'geo_target_assets',
+            'supports'          => [
+                'jsx'  => true,
+            ]
         ));
+
+        function geo_target_assets()
+        {
+            wp_enqueue_style('geo_target_styles', get_template_directory_uri() . '/template-parts/blocks/geo-target.css', array(), _S_VERSION);
+        }
     }
 }
 
@@ -459,6 +476,10 @@ function register_acf_block_styles(): void
 
     if (has_block('acf/social')) {
         wp_enqueue_style('social_styles', get_template_directory_uri() . '/template-parts/blocks/social.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/geo-target')) {
+        wp_enqueue_style('geo_target_styles', get_template_directory_uri() . '/template-parts/blocks/geo-target.css', array(), _S_VERSION);
     }
 }
 

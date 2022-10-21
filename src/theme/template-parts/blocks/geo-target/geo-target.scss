@@ -1,0 +1,34 @@
+.geo-target {
+    position: relative;
+
+    &__admin-text {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translateY(-100%);
+        line-height: 1;
+        margin: 0;
+        z-index: 1;
+        color: white;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &--uk {
+            background-color: blue;
+        }
+
+        &--usa {
+            background-color: red;
+        }
+
+        &--au {
+            background-color: rgb(28, 164, 4);
+        }
+
+        &--nok {
+            background-color: rgb(77, 77, 77);
+        }
+    }
+}

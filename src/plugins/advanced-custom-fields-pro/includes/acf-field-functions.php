@@ -223,6 +223,7 @@ function acf_validate_field( $field = array() ) {
 			'key'               => '',
 			'label'             => '',
 			'name'              => '',
+			'aria-label'        => '',
 			'prefix'            => '',
 			'type'              => 'text',
 			'value'             => null,
@@ -745,7 +746,7 @@ function acf_render_field_wrap( $field, $element = 'div', $instruction = 'label'
 	if ( $element !== 'td' ) {
 		echo "<$inner_element class=\"acf-label\">" . "\n";
 			acf_render_field_label( $field );
-		if ( $instruction == 'label' ) {
+		if ( $instruction == 'label' && ! ( $field_setting && 'name' === $field['_name'] ) ) {
 			acf_render_field_instructions( $field, $field_setting );
 		}
 			echo "</$inner_element>" . "\n";
@@ -756,6 +757,11 @@ function acf_render_field_wrap( $field, $element = 'div', $instruction = 'label'
 		acf_render_field_instructions( $field );
 	}
 		echo "</$inner_element>" . "\n";
+
+	if ( 'name' === $field['_name'] && $field_setting ) {
+		acf_render_field_instructions( $field, $field_setting );
+	}
+
 	if ( $field_setting && $instruction == 'field' ) {
 		acf_render_field_instructions( $field );
 	}
@@ -912,6 +918,14 @@ function acf_render_field_setting( $field, $setting, $global = false ) {
 	$setting['wrapper']['class']   .= ' acf-field-setting-' . $setting['name'];
 	if ( ! $global ) {
 		$setting['wrapper']['data-setting'] = $field['type'];
+	}
+
+	// Add classes for appended and prepended fields.
+	if ( ! empty( $setting['append'] ) ) {
+		$setting['wrapper']['class'] .= ' acf-field-appended';
+	}
+	if ( ! empty( $setting['prepend'] ) ) {
+		$setting['wrapper']['class'] .= ' acf-field-prepended';
 	}
 
 	// Copy across prefix.

@@ -63,6 +63,7 @@ function acf_handle_json_block_registration( $settings, $metadata ) {
 			'supports'          => array(),
 			'attributes'        => array(),
 			'acf_block_version' => 2,
+			'api_version'       => 2,
 		)
 	);
 
@@ -492,23 +493,12 @@ function acf_render_block_callback( $attributes, $content = '', $wp_block = null
 	$post_id    = get_the_ID();
 
 	// Set preview flag to true when rendering for the block editor.
-	if ( acf_block_is_preview() ) {
+	if ( is_admin() && acf_is_block_editor() ) {
 		$is_preview = true;
 	}
 
 	// Return rendered block HTML.
 	return acf_rendered_block( $attributes, $content, $is_preview, $post_id, $wp_block );
-}
-
-/**
- * Returns true if we're in a regular backend load of the block preview.
- *
- * @since 6.0.0
- *
- * @return bool
- */
-function acf_block_is_preview() {
-	return ( is_admin() && acf_is_block_editor() && ! ( doing_filter( 'render_block' ) || doing_filter( 'the_content' ) ) );
 }
 
 /**
@@ -589,7 +579,7 @@ function acf_rendered_block( $attributes, $content = '', $is_preview = false, $p
 		if ( $wp_block && $wp_block->block_type->acf_block_version > 1 && apply_filters( 'acf/blocks/wrap_frontend_innerblocks', true, $attributes['name'] ) ) {
 			// Check for a class (or className) provided in the template to become the InnerBlocks wrapper class.
 			$matches = array();
-			if ( preg_match( '/<InnerBlocks(?:[^<]+?)(?:(?:className)|(?:class))=["\']([\S\s]+?)["\'](?:[\s]*?)\/>/', $html, $matches ) ) {
+			if ( preg_match( '/<InnerBlocks(?:[^<]+?)(?:class|className)=(?:["\']\W+\s*(?:\w+)\()?["\']([^\'"]+)[\'"]/', $html, $matches ) ) {
 				$class = isset( $matches[1] ) ? $matches[1] : 'acf-innerblocks-container';
 			} else {
 				$class = 'acf-innerblocks-container';

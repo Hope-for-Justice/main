@@ -7,6 +7,14 @@
 
 .block-title-parent {
     margin-bottom: var(--margin-bottom-mobile);
+
+    &--align-center {
+        text-align: center;
+
+        .block-title {
+            margin: 0 auto;
+        }
+    }
 }
 
 //desktop

@@ -22,6 +22,7 @@
         let currency = $(".donate-block").data('currency');
         let widgetIdOnce = $(".donate-block").data('widgetidonce');
         let widgetIdMonthly = $(".donate-block").data('widgetidmonthly');
+        let thankyou = $(".donate-block").data('thankyou');
         if (currency == 'NOK') {
             $('.donate-block__options-option').each(function () {
                 $(this).children('.currency').insertAfter($(this).children('.donate-block__options-amount'));
@@ -272,12 +273,18 @@
             }
 
             if (widgetIdMonthly && freq == 'monthly') {
-                window.location.href = url + `?Amount=${urlAmount}&wid=${widgetIdMonthly}`;
+                url += `?Amount=${urlAmount}&wid=${widgetIdMonthly}`;
             } else if (widgetIdOnce && freq != 'monthly') {
-                window.location.href = url + `?Amount=${urlAmount}&wid=${widgetIdOnce}`;
+                url += `?Amount=${urlAmount}&wid=${widgetIdOnce}`;
             } else {
-                window.location.href = url + `?Amount=${urlAmount}`;
+                url += `?Amount=${urlAmount}`;
             }
+
+            if (thankyou) {
+                url += `&thankyou=${thankyou}`
+            }
+
+            window.location.href = url;
         });
     }
 

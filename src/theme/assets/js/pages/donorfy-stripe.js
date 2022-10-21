@@ -27,7 +27,7 @@ if (typeof jQuery === 'undefined') {
 }
 
 function GetBaseServiceUrl() {
-       return "https://api.donorfy.com/api/stripe/";
+    return "https://api.donorfy.com/api/stripe/";
 }
 
 function load() {
@@ -48,7 +48,7 @@ function load() {
         url: GetBaseServiceUrl() + 'P0?id=' + id + '&code=' + code,
         method: 'POST',
         type: 'POST'
-    }).done(function(data) {
+    }).done(function (data) {
 
         if (data.OK) {
             jQuery('#spinner').hide();
@@ -67,7 +67,7 @@ function load() {
 
             submitButton = document.getElementById('submitButton');
             submitButton.addEventListener('click',
-                function(ev) {
+                function (ev) {
                     DisableSubmitButton();
                     ResetErrorMessage();
                     if (ValidateForm()) {
@@ -91,7 +91,7 @@ function load() {
 
 
             jQuery('input.numberOnly[type=text]').on('keypress',
-                function(e) {
+                function (e) {
                     if (e.which !== 8 &&
                         e.which !== 44 &&
                         e.which !== 45 &&
@@ -103,7 +103,7 @@ function load() {
                     return true;
                 });
 
-            jQuery('input#Amount').blur(function() {
+            jQuery('input#Amount').blur(function () {
 
                 if (this.value) {
                     var amt = parseFloat(this.value);
@@ -113,7 +113,7 @@ function load() {
 
 
             jQuery("input[name='PaymentType']").on("click",
-                function() {
+                function () {
 
                     if (jQuery(this).val() === 'Recurring') {
                         jQuery('#PaymentScheduleRow').show();
@@ -130,7 +130,7 @@ function load() {
         } else {
             DisplayErrors(data.Errors);
         }
-    }).fail(function(jqXHR, textStatus, errorThrown) {
+    }).fail(function (jqXHR, textStatus, errorThrown) {
         DisplayErrors(GetErrorArray(jqXHR));
         return "";
     });
@@ -168,14 +168,14 @@ function Initialise() {
         url: GetBaseServiceUrl() + 'P0?id=' + id + '&code=' + code,
         method: 'POST',
         type: 'POST'
-    }).done(function(data) {
+    }).done(function (data) {
 
         if (data.OK) {
             return data.RequestData;
         } else {
             DisplayErrors(data.Errors);
         }
-    }).fail(function(jqXHR, textStatus, errorThrown) {
+    }).fail(function (jqXHR, textStatus, errorThrown) {
         DisplayErrors(GetErrorArray(jqXHR));
         return "";
     });
@@ -184,9 +184,9 @@ function Initialise() {
 
 function ValidateForm() {
     jQuery('#CreditCardForm').validate({
-        invalidHandler: function(form, validator) {
+        invalidHandler: function (form, validator) {
             var errors = validator.numberOfInvalids();
-            if (errors) {                    
+            if (errors) {
                 validator.errorList[0].element.focus();
             }
         }
@@ -221,8 +221,8 @@ function Process() {
     var action = jQuery('#ReCaptchaAction').val();
 
     try {
-        grecaptcha.ready(function() {
-            grecaptcha.execute(siteKey, { action: action }).then(function(token) {
+        grecaptcha.ready(function () {
+            grecaptcha.execute(siteKey, { action: action }).then(function (token) {
                 jQuery.ajax({
                     dataType: 'json',
                     url: GetBaseServiceUrl() +
@@ -240,7 +240,7 @@ function Process() {
                         token,
                     method: 'POST',
                     type: 'POST'
-                }).done(function(data) {
+                }).done(function (data) {
                     if (data.OK) {
                         jQuery('#submitButton').attr('data-secret', data.RequestData);
                         stripe.handleCardPayment(data.RequestData,
@@ -261,19 +261,19 @@ function Process() {
                                         }
                                     }
                                 }
-                            }).then(function(result) {
-                            if (result.error) {
-                                DisplayErrorMessage(result.error.message);
-                            } else {
-                                PostPayment(result.paymentIntent.id);
-                            }
-                        });
+                            }).then(function (result) {
+                                if (result.error) {
+                                    DisplayErrorMessage(result.error.message);
+                                } else {
+                                    PostPayment(result.paymentIntent.id);
+                                }
+                            });
                         var requestData = data.RequestData;
                         return requestData;
                     } else {
                         DisplayErrors(data.Errors);
                     }
-                }).fail(function(jqXHR, textStatus, errorThrown) {
+                }).fail(function (jqXHR, textStatus, errorThrown) {
                     DisplayErrors(GetErrorArray(jqXHR));
                 });
             });
@@ -420,20 +420,31 @@ function DisplayErrorMessage(errorMessage) {
 }
 
 function makeid(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-   }
-   return result;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
 }
 
+jQuery.urlParam = function (name) {
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results == null) {
+        return null;
+    }
+    return decodeURI(results[1]) || 0;
+}
+
+let thankyou = jQuery.urlParam('thankyou');
+let thankyouURL = decodeURIComponent(thankyou);
+
 function Completed() {
-    
+
     let signup = 'false';
 
-    if (jQuery("#emailPreference").is(':checked')){
+    if (jQuery("#emailPreference").is(':checked')) {
         signup = 'true';
     }
 
@@ -444,12 +455,17 @@ function Completed() {
     let zapierUrl = jQuery('#zapierUrl').val();
     zapier(zapierUrl);
     var urlAmount = jQuery('#Amount').val();
-    if(currency == 'NOK') {
-      urlAmount = jQuery('#NorwayAmount').val(); 
+    if (currency == 'NOK') {
+        urlAmount = jQuery('#NorwayAmount').val();
     }
     var urlId = makeid(8);
-    var redirectToPage = `https://${host}/donate-thankyou/?tid=${urlId}&amount=${urlAmount}&type=${type}&currency=${currency}&Name=${Name}&signup=${signup}`; 
-    
+
+    if (thankyouURL) {
+        var redirectToPage = `${thankyouURL}?tid=${urlId}&amount=${urlAmount}&type=${type}&currency=${currency}&Name=${Name}&signup=${signup}`;
+    } else {
+        var redirectToPage = `https://${host}/donate-thankyou/?tid=${urlId}&amount=${urlAmount}&type=${type}&currency=${currency}&Name=${Name}&signup=${signup}`;
+    }
+
     window.location = redirectToPage;
 }
 
@@ -458,19 +474,19 @@ function zapier(url) {
     var data = {
         id: makeid(8),
         amount: jQuery('#Amount').val(),
-        email : jQuery('#Email').val(),
-        firstname : jQuery('#FirstName').val(),
-        lastname : jQuery('#LastName').val(),
-        emailUpdates : jQuery("#emailPreference").is(':checked')
+        email: jQuery('#Email').val(),
+        firstname: jQuery('#FirstName').val(),
+        lastname: jQuery('#LastName').val(),
+        emailUpdates: jQuery("#emailPreference").is(':checked')
     };
     jQuery.ajax({
-        type : 'POST',
-        url : url,  
+        type: 'POST',
+        url: url,
         data: JSON.stringify(data),
-        success:function (data) {
+        success: function (data) {
             console.log('sent to zapier');
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.log('failed to send to zapier');
         }
     });

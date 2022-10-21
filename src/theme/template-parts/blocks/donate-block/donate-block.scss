@@ -21,6 +21,7 @@
         width: 100%;
         min-height: 80vh;
         margin-bottom: var(--margin-bottom-mobile);
+        position: relative;
     }
 
     &__img {
@@ -29,6 +30,13 @@
         overflow: hidden;
         background-size: cover;
         background-position: top center;
+    }
+
+    &__extra-graphic {
+        position: absolute;
+        top: 50px;
+        right: 20px;
+        width: 153px;
     }
 
     &__grid {
@@ -245,6 +253,17 @@
     }
 }
 
+// bigger mobiles
+//////////////////////////////////////////////////////////////////////////////////
+@media screen and(min-width: 374px) {
+    .donate-block {
+        &__extra-graphic {
+
+            width: 173px;
+        }
+    }
+}
+
 // phablet
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -260,6 +279,12 @@
 
         &__img {
             height: 50vw;
+        }
+
+        &__extra-graphic {
+            top: 56px;
+            right: 56px;
+            width: 250px;
         }
 
         &__freq {
@@ -373,6 +398,12 @@
         margin: 0;
         grid-column: span 11;
 
+        &__extra-graphic {
+            top: auto;
+            right: auto;
+            bottom: 40px;
+            left: 40px;
+        }
 
         &__container {
             min-height: 90vh;
@@ -400,6 +431,12 @@
 @media screen and(min-width: 1366px) {
     .donate-block {
         max-width: 530px;
+
+        &__extra-graphic {
+            width: 300px;
+            bottom: 64px;
+            left: 64px;
+        }
     }
 }
 

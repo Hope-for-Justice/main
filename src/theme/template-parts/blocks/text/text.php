@@ -20,9 +20,9 @@ if (!empty($block['anchor'])) {
 // if( !empty($block['className']) ) {
 //     $className .= ' ' . $block['className'];
 // }
-// if( !empty($block['align']) ) {
-//     $className .= ' align' . $block['align'];
-// }
+if (!empty($block['align'])) {
+    $align = 'block-text--align-' . $block['align'];
+}
 
 // Load values and assign defaults.
 $text = get_field('text') ?: 'Add some text';
@@ -32,7 +32,7 @@ $indent = get_field('indent');
 ?>
 
 
-<div id="<?php echo esc_attr($id); ?>" class="better-grid hfj-block block-text <?php if ($indent) echo 'block-text--indent' ?>" style="--margin-bottom-mobile:<?php echo $margin_bottom_mobile ?>; --margin-bottom-desktop: <?php echo $margin_bottom_desktop ?>;">
+<div id="<?php echo esc_attr($id); ?>" class="better-grid hfj-block block-text <?php echo $align ?> <?php if ($indent) echo 'block-text--indent' ?>" style="--margin-bottom-mobile:<?php echo $margin_bottom_mobile ?>; --margin-bottom-desktop: <?php echo $margin_bottom_desktop ?>;">
     <p style="" class="font-apercu ">
         <?php echo $text ?>
     </p>
