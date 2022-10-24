@@ -460,7 +460,7 @@ function Completed() {
     }
     var urlId = makeid(8);
 
-    if (thankyouURL) {
+    if (thankyou) {
         var redirectToPage = `${thankyouURL}?tid=${urlId}&amount=${urlAmount}&type=${type}&currency=${currency}&Name=${Name}&signup=${signup}`;
     } else {
         var redirectToPage = `https://${host}/donate-thankyou/?tid=${urlId}&amount=${urlAmount}&type=${type}&currency=${currency}&Name=${Name}&signup=${signup}`;
