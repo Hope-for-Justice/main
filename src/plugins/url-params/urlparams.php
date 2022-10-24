@@ -20,29 +20,31 @@ Copyright (C) 2011-2022 Jeremy Shapiro
 add_shortcode("urlparam", "urlparam");
 add_shortcode("ifurlparam", "ifurlparam");
 
-function urlparam($attributes, $content) {
+function urlparam($attributes, $content)
+{
     $defaults = array(
         'param'          => '',
         'default'        => '',
-        'dateformat'	 => '',
+        'dateformat'     => '',
         'attr'           => '',
         'htmltag'        => false,
+        'double'        => false,
     );
 
     // We used to use shortcode_atts(), but that would nuke an extra attributes that we don't know about but want. array_merge() keeps them all.
     $attributes = array_merge($defaults, $attributes);
 
-    $params = preg_split('/,\s*/',$attributes['param']);
+    $params = preg_split('/,\s*/', $attributes['param']);
 
     $return = false;
 
-    foreach($params as $param)
-    {
-        if(!$return
+    foreach ($params as $param) {
+        if (
+            !$return
             && array_key_exists($param, $_REQUEST)
             && ($rawText = $_REQUEST[$param])
         ) {
-            if(($attributes['dateformat'] != '')
+            if (($attributes['dateformat'] != '')
                 && strtotime($rawText)
             ) {
                 $return = date($attributes['dateformat'], strtotime($rawText));
@@ -52,30 +54,34 @@ function urlparam($attributes, $content) {
         }
     }
 
-    if(!$return) {
+    if (!$return) {
         $return = $attributes['default'];
     }
 
-    if($attributes['attr']) {
+    if ($attributes['attr']) {
         $return = ' ' . $attributes['attr'] . '="' . $return . '" ';
 
-        if($attributes['htmltag']) {
+        if ($attributes['htmltag']) {
             $tagName = $attributes['htmltag'];
 
-            foreach(array_keys($defaults) as $key) {
+            foreach (array_keys($defaults) as $key) {
                 unset($attributes[$key]);
             }
 
             $otherAttributes = "";
-            foreach($attributes as $key => $val) {
+            foreach ($attributes as $key => $val) {
                 $otherAttributes .= " $key=\"$val\"";
             }
 
-            $return = "<$tagName $otherAttributes $return".($content ? ">$content</$tagName>" : "/>");
+            $return = "<$tagName $otherAttributes $return" . ($content ? ">$content</$tagName>" : "/>");
         }
     }
 
-    return $return;
+    if ($attributes['double']) {
+        return $return * 2;
+    } else {
+        return $return;
+    }
 }
 
 /*
@@ -84,23 +90,22 @@ function urlparam($attributes, $content) {
  * If 'param' is not found and 'empty' is set, display the content between the tags
  *
  */
-function ifurlparam($attributes, $content) {
+function ifurlparam($attributes, $content)
+{
     $attributes = shortcode_atts(array(
         'param'           => '',
         'empty'          => false,
         'is'            => false,
     ), $attributes);
 
-    $params = preg_split('/,\s*/',$attributes['param']);
+    $params = preg_split('/,\s*/', $attributes['param']);
 
-    foreach($params as $param)
-    {
-        if($_REQUEST[$param])
-        {
-            if($attributes['empty'])
-            {
+    foreach ($params as $param) {
+        if ($_REQUEST[$param]) {
+            if ($attributes['empty']) {
                 return '';
-            } elseif(!$attributes['is']
+            } elseif (
+                !$attributes['is']
                 || ($_REQUEST[$param] == $attributes['is'])
             ) {
                 return do_shortcode($content);
@@ -108,12 +113,9 @@ function ifurlparam($attributes, $content) {
         }
     }
 
-    if ($attributes['empty'])
-    {
+    if ($attributes['empty']) {
         return do_shortcode($content);
     }
 
     return '';
 }
-
-?>
