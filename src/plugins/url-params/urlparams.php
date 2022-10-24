@@ -78,7 +78,7 @@ function urlparam($attributes, $content)
     }
 
     if ($attributes['double']) {
-        return $return * 2;
+        return number_format((float)$return * 2, 2, '.', '');
     } else {
         return $return;
     }
