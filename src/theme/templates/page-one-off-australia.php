@@ -141,7 +141,7 @@ endif;
 
                         <div class="donorfy-donate__input">
                             <label class="donorfy-donate__hidden" for="Postcode">Postcode</label>
-                            <input type="text" name="Postcode" class="required" id="Postcode" maxlength="10" placeholder="Postcode">
+                            <input type="text" name="Postcode" class="required justCapsPostcode" id="Postcode" maxlength="10" placeholder="Postcode">
                         </div>
                     </div>
 

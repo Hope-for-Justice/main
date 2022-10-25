@@ -72,6 +72,9 @@ if (isset($_GET['campaign'])) {
 
     $GLOBALS['au'] = array('AU', 'NZ');
 
+    // added this as its sometimes references as aus 
+    $GLOBALS['aus'] = array('AU', 'NZ');
+
     $GLOBALS['help'] = array('GB', 'NO', 'US');
 
     // lookup country code of IP
