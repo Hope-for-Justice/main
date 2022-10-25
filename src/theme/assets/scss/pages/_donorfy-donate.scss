@@ -204,7 +204,8 @@
 		display: none;
 		position: relative;
 
-		&:before {
+		&:before,
+		&:after {
 			content: "USD $";
 			position: absolute;
 			top: 20px;
@@ -212,16 +213,32 @@
 			font-size: 16px;
 		}
 
+		&:after {
+			display: none;
+			top: 20px;
+			left: auto;
+			right: 20px;
+		}
+
 		input {
 			padding-left: 80px !important;
+		}
+
+		#NorwayAmount {
+			padding-left: 20px !important;
 		}
 
 		&--uk:before {
 			content: "GBP £"
 		}
 
+		&--norway:after {
+			content: "kr";
+			display: block;
+		}
+
 		&--norway:before {
-			content: "NOK Kr"
+			display: none;
 		}
 
 		&--aud:before {

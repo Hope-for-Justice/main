@@ -23,18 +23,36 @@
         let widgetIdOnce = $(".donate-block").data('widgetidonce');
         let widgetIdMonthly = $(".donate-block").data('widgetidmonthly');
         let thankyou = $(".donate-block").data('thankyou');
-        if (currency == 'NOK') {
-            $('.donate-block__options-option').each(function () {
-                $(this).children('.currency').insertAfter($(this).children('.donate-block__options-amount'));
 
-                if ($(this).hasClass('donate-block__options-option--custom')) {
-                    $(this).children('.currency').insertAfter($(this).children('#customAmount'))
-                }
-            })
+        $(document).ready(function () {
+            if (currency == 'NOK') {
+                $('.donate-block__options-option').each(function () {
+                    $(this).children('.currency').insertAfter($(this).children('.donate-block__options-amount'));
 
-            $('.donate-block__text-currency').insertAfter('.donate-block__text-amount');
-            $('.donate-block__button-currency').insertAfter('.donate-block__button-amount');
-        }
+                    let amountEl = $(this).children('.donate-block__options-amount');
+                    let amountText = amountEl.text();
+                    let amountLength = amountText.length;
+                    //console.log(amountLength);
+
+                    if (amountLength > 3) {
+                        let text = amountText.split("");
+                        text.splice(-3, 0, ' ');
+                        let newText = text.join("")
+                        amountEl.text(newText);
+                    }
+
+
+                    if ($(this).hasClass('donate-block__options-option--custom')) {
+                        $(this).children('.currency').insertAfter($(this).children('#customAmount'))
+                    }
+                })
+
+
+
+                $('.donate-block__text-currency').insertAfter('.donate-block__text-amount');
+                $('.donate-block__button-currency').insertAfter('.donate-block__button-amount');
+            }
+        });
 
         $('.customAmountNorway').on('input', function (e) {
             $(this).val($(this).val().replace(/[^0-9\,]/, ''));
@@ -198,6 +216,24 @@
                 $(input).children("input").hide();
                 $(".donate-block__button-amount").text(amount);
                 $(".donate-block__text-amount").text(amount);
+
+                if (currency == 'NOK') {
+
+
+                    let amountText = amount.toString();
+                    let amountLength = amountText.length;
+                    console.log(amountText, amountLength);
+
+                    if (amountLength > 3) {
+                        let text = amountText.split("");
+                        text.splice(-3, 0, ' ');
+                        let newText = text.join("")
+                        $(".donate-block__button-amount").text(newText);
+                        $(".donate-block__text-amount").text(newText);
+                    }
+
+                }
+
                 $(".donate-block__text-amount").show();
                 $(".donate-block__text-currency").show();
             } else {
@@ -237,6 +273,29 @@
             $(".donate-block__button-amount").text(val);
             $(".donate-block__text-amount").text(val);
             amount = val;
+
+            string = val.toString();
+
+            if (string.length > 3) {
+                let amountText = string;
+                let amountLength = amountText.length;
+                console.log(amountText, amountLength);
+
+                if (amountLength > 3 && amountLength < 7) {
+                    let text = amountText.split("");
+                    text.splice(-3, 0, ' ');
+                    let newText = text.join("")
+                    $(".donate-block__button-amount").text(newText);
+                    $(".donate-block__text-amount").text(newText);
+                } else if (amountLength >= 7) {
+                    let text = amountText.split("");
+                    text.splice(-3, 0, ' ');
+                    text.splice(-7, 0, ' ');
+                    let newText = text.join("")
+                    $(".donate-block__button-amount").text(newText);
+                    $(".donate-block__text-amount").text(newText);
+                }
+            }
         });
 
 

@@ -24,7 +24,7 @@ if ( //if they are in the USA array or they want to give in $
 ) {
     $currency = 'NOK';
     $settings = 'no_donate';
-    $symbol = 'Kr';
+    $symbol = '&nbsp;kr';
 } else if (
     // if they are in Norway or want to give in Kr
     ($GLOBALS["userInfo"] && in_array($GLOBALS["userInfo"], $GLOBALS["au"]) && $currency != 'USD' && $currency != 'GBP' && $currency != 'NOK')
@@ -196,7 +196,7 @@ $other_ways_link = $set['other_ways'];
 
             <p class="donate-block__text">
                 <span class="color-red">
-                    <b><span class="donate-block__text-currency"><?php if ($currency !== 'NOK') echo $currency ?> <?php echo $symbol ?></span><span class="donate-block__text-amount"></span></b>
+                    <b><span class="donate-block__text-currency"><?php if ($currency !== 'NOK') echo $currency . ' ' ?><?php echo $symbol ?></span><span class="donate-block__text-amount"></span></b>
                 </span>
                 <span class="donate-block__text-freq">monthly</span>
                 <span id="reason"></span>
@@ -210,7 +210,7 @@ $other_ways_link = $set['other_ways'];
 
             <div class="donate-block__button">
                 Donate
-                <span class="donate-block__button-currency currency"><?php if ($currency !== 'NOK') echo $currency ?> <?php echo $symbol ?></span><span class="donate-block__button-amount"></span>
+                <span class="donate-block__button-currency currency"><?php if ($currency !== 'NOK') echo $currency . ' ' ?><?php echo $symbol ?></span><span class="donate-block__button-amount"></span>
                 <span class="donate-block__button-freq"></span>
             </div>
         </div>

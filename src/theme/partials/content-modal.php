@@ -214,7 +214,7 @@ $args = wp_parse_args(
                 <div class="modal-currency">
                     <a data-currency="GBP" class="modal-currency__currency">GBP £</a>
                     <a data-currency="USD" class="modal-currency__currency">USD $</a>
-                    <a data-currency="NOK" class="modal-currency__currency">NOK Kr</a>
+                    <a data-currency="NOK" class="modal-currency__currency">NOK kr</a>
                     <a data-currency="AUD" class="modal-currency__currency">AUD $</a>
                 </div>
                 <p style="margin-top: 20px" class="modal-currency__text">If you would like to donate in a currency not shown here, please <a href="/contact">contact us</a></p>
