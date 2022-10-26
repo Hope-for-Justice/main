@@ -1,0 +1,14 @@
+{
+  "name": "guten-edits",
+  "version": "1.0.0",
+  "description": "editing gutenberg with a plugin",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "James Holt",
+  "license": "ISC",
+  "devDependencies": {
+    "@wordpress/scripts": "24.4.0"
+  }
+}

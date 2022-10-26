@@ -15,6 +15,7 @@
   "homepage": "https://bitbucket.org/jamesholt95/hfj2#readme",
   "devDependencies": {
     "@prettier/plugin-php": "^0.18.4",
+    "@wordpress/scripts": "^24.4.0",
     "dart-sass": "^1.25.0",
     "grunt": "^1.5.3",
     "grunt-browserify": "^5.3.0",
@@ -29,5 +30,8 @@
     "grunt-zip": "^0.18.1",
     "load-grunt-tasks": "~4.0.0",
     "prettier": "^2.6.2"
+  },
+  "dependencies": {
+    "@wordpress/hooks": "^3.20.0"
   }
 }

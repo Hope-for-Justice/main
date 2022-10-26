@@ -1,33 +1,26 @@
+// const { addFilter } = wp.hooks;
+// const { __ } = wp.i18n;
 
+// function wrapParagraphBlockInContainer(element, blockType, attributes) {
+//     // skip if element is undefined
+//     if (!element) {
+//         return;
+//     }
 
-/* Page load scripts */
-(function ($) {
+//     // only apply to cover blocks
+//     if (blockType.name !== 'core/paragraph') {
+//         return element;
+//     }
 
+//     // return the element wrapped in a div
+//     return <div className="p-block">{element}</div>;
+// }
 
-    // //set cols classes 
-    // let blockLoaded = false;
-    // let blockLoadedInterval = setInterval(function () {
-    //     if ($('.wp-block-columns')) {
-    //         //Actual functions goes here
-    //         $('.wp-block-columns').each(function () {
-    //             let children = $(this).children().length;
-    //             $(this).addClass('block-' + children + '-columns');
-    //             blockLoaded = true;
-    //         })
-    //     }
-    //     if (blockLoaded) {
-    //         clearInterval(blockLoadedInterval);
-    //     }
-    // }, 500);
-
-
-
-})(jQuery); /* end of as page load scripts */
-
-
-
-
-
+// wp.hooks.addFilter(
+//     'blocks.getSaveElement',
+//     'custom/wrap-p-block',
+//     wrapParagraphBlockInContainer
+// );
 
 
 
