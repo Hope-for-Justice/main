@@ -1,21 +1,17 @@
 <?php
 
-//enque block scripts for save
-if (is_page_template('templates/page-block-template.php') || is_tax('event_categories')) {
-    wp_enqueue_script('block-scripts', get_template_directory_uri() . '/assets/js/block-scripts.js', array(), _S_VERSION, true);
-}
+add_action('wp_enqueue_scripts', 'register_custom_core_block_styles');
+add_action('admin_enqueue_scripts', 'register_custom_core_block_styles');
 
-function enqueue_editor_scripts()
+function register_custom_core_block_styles()
 {
-
-    $blockPath = '/assets/js/block-scripts.js';
-
-    wp_enqueue_script(
-        'block-editor-scripts',
-        get_template_directory_uri() . $blockPath,
-        ['wp-blocks', 'wp-element', 'wp-i18n'], // required dependencies for blocks
-        _S_VERSION,
-        true
-    );
+    if (has_block('core/paragraph')) {
+        wp_enqueue_style('core_paragraph_styles', get_template_directory_uri() . '/template-parts/blocks/paragraph.css', array(), _S_VERSION);
+    }
+    if (has_block('core/heading')) {
+        wp_enqueue_style('core_heading_styles', get_template_directory_uri() . '/template-parts/blocks/heading.css', array(), _S_VERSION);
+    }
+    if (has_block('core/spacer')) {
+        wp_enqueue_style('core_spacer_styles', get_template_directory_uri() . '/template-parts/blocks/spacer.css', array(), _S_VERSION);
+    }
 }
-add_action('enqueue_block_editor_assets', 'enqueue_editor_scripts');

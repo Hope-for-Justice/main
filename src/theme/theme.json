@@ -1,0 +1,86 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 2,
+    "settings": {
+        "color": {
+            "palette": [
+                {
+                    "name": "Hfj Red",
+                    "slug": "hfj-red",
+                    "color": "#D6001C"
+                },
+                {
+                    "name": "Hfj Black",
+                    "slug": "hfj-black",
+                    "color": "#212322"
+                },
+                {
+                    "name": "Hfj Red Tint",
+                    "slug": "hfj-red-tint",
+                    "color": "#FACCD2"
+                },
+                {
+                    "name": "Hfj Light Grey",
+                    "slug": "hfj-light-grey",
+                    "color": "#FAFAFA"
+                },
+                {
+                    "name": "Hfj Green",
+                    "slug": "hfj-green",
+                    "color": "#5CAA7F"
+                },
+                {
+                    "name": "Hfj Blue",
+                    "slug": "hfj-blue",
+                    "color": "#8BBEE8"
+                },
+                {
+                    "name": "Hfj Yellow",
+                    "slug": "hfj-yellow",
+                    "color": "#FFC845"
+                }
+            ]
+        },
+        "custom": {
+            "typography": {
+                "scale": 1.33,
+                "normal": "1rem",
+                "small": "calc(var(--wp--custom--typography--normal) / var(--wp--custom--typography--scale))",
+                "large": "calc(var(--wp--custom--typography--normal) * var(--wp--custom--typography--scale))",
+                "extra-large": "calc(var(--wp--custom--typography--large) * var(--wp--custom--typography--scale))",
+                "huge": "calc(var(--wp--custom--typography--extra-large) * var(--wp--custom--typography--scale))",
+                "massive": "calc(var(--wp--custom--typography--huge) * var(--wp--custom--typography--scale))",
+                "gigantic": "calc(var(--wp--custom--typography--massive) * var(--wp--custom--typography--scale))"
+            }
+        },
+        "typography": {
+            "fontSizes": [
+                {
+                    "name": "1",
+                    "slug": "small",
+                    "size": "0.75rem"
+                },
+                {
+                    "name": "2",
+                    "slug": "large",
+                    "size": "clamp(var(--wp--custom--typography--normal), calc(1rem + 2vw), var(--wp--custom--typography--large))"
+                },
+                {
+                    "name": "3",
+                    "slug": "extra-large",
+                    "size": "clamp(var(--wp--custom--typography--large), calc(1rem + 3vw), var(--wp--custom--typography--extra-large))"
+                },
+                {
+                    "name": "4",
+                    "slug": "huge",
+                    "size": "clamp(var(--wp--custom--typography--large), calc(1rem + 3vw), var(--wp--custom--typography--huge))"
+                },
+                {
+                    "name": "5",
+                    "slug": "massive",
+                    "size": "clamp(var(--wp--custom--typography--extra-large), calc(1rem + 4vw), var(--wp--custom--typography--massive))"
+                }
+            ]
+        }
+    }
+}

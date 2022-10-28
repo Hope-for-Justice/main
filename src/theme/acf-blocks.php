@@ -23,6 +23,9 @@ function my_acf_init_block_types()
             'icon'              => 'cover-image',
             'keywords'          => array('full header', 'header', 'title'),
             'enqueue_assets'    => 'full_header',
+            'supports'          => [
+                'jsx'  => true,
+            ]
         ));
 
         function full_header()

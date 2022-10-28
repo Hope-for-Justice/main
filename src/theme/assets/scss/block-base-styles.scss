@@ -55,4 +55,16 @@
         display: none;
     }
 
+    @media screen and (min-width: 1680px) {
+
+
+        .block-indent,
+        .block-indent-true {
+            grid-column: 2/10 !important;
+        }
+
+
+    }
+
+
 }

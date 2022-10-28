@@ -1,0 +1,29 @@
+.block-text.core-paragraph {
+    p {
+        margin-bottom: 24px;
+        font-family: 'apercu-reg', sans-serif;
+    }
+
+    .is-style-no-mb {
+        margin-bottom: 0;
+    }
+
+    .has-background {
+        padding: 1.8em;
+        border-radius: 8px;
+
+        a {
+            color: var(--red);
+        }
+    }
+}
+
+@media screen and (min-width: 1680px) {
+
+    .block-text.core-paragraph {
+        p.is-style-indent {
+            grid-column: 2/10;
+        }
+    }
+
+}

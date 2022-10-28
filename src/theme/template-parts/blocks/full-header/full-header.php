@@ -11,7 +11,7 @@
 
 // Create id attribute allowing for custom "anchor" value.
 $id = 'full-header-' . $block['id'];
-if( !empty($block['anchor']) ) {
+if (!empty($block['anchor'])) {
     $id = $block['anchor'];
 }
 
@@ -39,34 +39,18 @@ $split_on_mobile = get_field('split_on_mobile');
 <div id="<?php echo esc_attr($id); ?>" class="full-header <?php echo $split_on_mobile ?> hfj-block">
     <div class="better-grid">
 
-            <div class="full-header__image">
-                <?php echo wp_get_attachment_image( $image, 'full' ); ?>
+        <div class="full-header__image">
+            <?php echo wp_get_attachment_image($image, 'full'); ?>
+        </div>
+
+        <?php if ($hasGradient) { ?>
+            <div class="full-header__gradient" style="background: linear-gradient(0deg, <?php echo $gradientColor ?> 0%, <?php echo $gradientColorB ?> 100%);">
             </div>
+        <?php } ?>
 
-            <?php if ($hasGradient) { ?>
-                <div class="full-header__gradient"
-                    style="background: linear-gradient(0deg, <?php echo $gradientColor ?> 0%, <?php echo $gradientColorB ?> 100%);">
-                </div>
-            <?php } ?>
+        <div class="full-header__content">
+            <InnerBlocks />
+        </div>
 
-            <div class="full-header__content">
-                <!-- title -->
-                <<?php if($title_size == 'full-header__title--large'){echo 'h1';} else {echo $title_size;}?> 
-                    style="margin-bottom:<?php echo $title_margin_bottom?>; --desktop-color:<?php echo $text_color_desktop ?>; --mobile-color:<?php echo $text_color_mobile ?>;" 
-                    class="<?php if($title_size == 'full-header__title--large')echo $title_size ?> full-header__title block-title <?php echo $title_font?>"> 
-                    <?php if ($title_weight == 'bold') echo '<b>'?>
-                        <?php echo $title ?> 
-                    <?php if ($title_weight == 'bold') echo '</b>'?>
-                </<?php if($title_size == 'full-header__title--large'){echo 'h1';} else {echo $title_size;}?>>
-                <!-- /title -->
-
-                <p style="--desktop-color:<?php echo $text_color_desktop ?>; --mobile-color:<?php echo $text_color_mobile ?>;" 
-                class="<?php if ($description_size == 'large') echo $description_size ?> full-header__description font-apercu">
-                    <?php if ($description_weight == 'bold') echo '<b>'?>
-                        <?php echo $description ?>
-                    <?php if ($description_weight == 'bold') echo '</b>'?>
-                </p>
-            </div>
-        
     </div>
 </div>

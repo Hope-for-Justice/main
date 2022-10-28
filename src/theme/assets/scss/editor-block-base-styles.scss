@@ -21,9 +21,9 @@
 // @import "objects/_menu.scss";
 @import "objects/_grid.scss";
 
-.editor-styles-wrapper {
-    // @import "objects/_forms.scss";
-}
+// .editor-styles-wrapper {
+//     // @import "objects/_forms.scss";
+// }
 
 //@import "objects/_menu.scss";
 @import "objects/_grid.scss";
@@ -36,9 +36,49 @@ html :where(.wp-block) {
     max-width: none;
     margin: 0;
     padding: 0;
+    font-family: 'apercu-reg';
+    line-height: 1.5;
 }
 
+.editor-styles-wrapper .wp-block {
+    margin-left: 0;
+    margin-right: 0;
+}
 
 .block-editor-post-preview__button-resize {
     display: none;
+}
+
+.block-editor-inserter__preview-container,
+.block-editor-block-switcher__preview {
+    display: none;
+}
+
+.edit-post-visual-editor__post-title-wrapper {
+    text-align: center;
+
+    h1 {
+        font-size: 16px;
+        font-weight: normal;
+        font-family: 'apercu-reg', sans-serif;
+        margin-bottom: 80px;
+
+        &:before {
+            content: "Admin page title: ";
+            opacity: 0.5;
+        }
+
+        //background-color: var(--light-grey);
+    }
+}
+
+@media screen and (min-width: 1680px) {
+
+
+    .block-indent,
+    .block-indent-true {
+        grid-column: 2/10 !important;
+    }
+
+
 }

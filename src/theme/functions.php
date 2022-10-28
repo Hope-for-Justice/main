@@ -880,4 +880,4 @@ add_theme_support('align-wide');
 require_once(__DIR__  . '/acf-blocks.php');
 
 //get core block edits // using plugin setup instead
-//require_once(__DIR__  . '/core-block-edits.php');
+require_once(__DIR__  . '/core-block-edits.php');
