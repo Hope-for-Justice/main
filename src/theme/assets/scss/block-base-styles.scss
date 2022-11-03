@@ -55,12 +55,12 @@
         display: none;
     }
 
-    @media screen and (min-width: 1680px) {
+    @media screen and (min-width: 1366px) {
 
 
         .block-indent,
         .block-indent-true {
-            grid-column: 2/10 !important;
+            grid-column: 1/12 !important;
         }
 
 

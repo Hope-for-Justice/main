@@ -5,6 +5,10 @@
         grid-column: span 12;
     }
 
+    &__second-button {
+        margin-left: 20px;
+    }
+
     &--align-center {
         .block-button__inner {
             text-align: center;

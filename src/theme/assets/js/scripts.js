@@ -104,12 +104,6 @@ jQuery(document).ready(function ($) {
         $(".modal").modal('hide');
     });
 
-    //News ticker
-    if ($(window).width() > 767) {
-        $("#newsTicker").eocjsNewsticker();
-        $(".newsticker").css('opacity', '1');
-    }
-
 
     // Burger menu
     let isOpen = false;

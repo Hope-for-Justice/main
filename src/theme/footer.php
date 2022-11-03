@@ -32,6 +32,7 @@ if (!get_field('no_news')) { ?>
 
     <?php if (is_page()) { ?>
         <!-- #newsTicker -->
+        <?php wp_enqueue_script('ticker', get_template_directory_uri() . '/assets/js/plugins/newsticker.js', array(), _S_VERSION, true); ?>
         <div class="newsticker">
             <div id="newsTicker">
                 <?php while (have_rows('news_ticker', 'option')) : the_row(); ?>

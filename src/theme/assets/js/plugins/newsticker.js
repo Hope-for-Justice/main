@@ -5,36 +5,36 @@
  * https://github.com/eyeofchaos/eocjsNewsticker
  */
 
-(function($, window, document, undefined) {
-  $.fn.eocjsNewsticker = function(options) {
+(function ($, window, document, undefined) {
+  $.fn.eocjsNewsticker = function (options) {
 
     // _______ Options _______
 
     let defaults = {
-      speed:     20,
-      timeout:   1,
-      divider:   '',
-      type:      'static',    // static or ajax
-      source:    '',          // ajax source (url)
-      dataType:  'json',      // data type of the expected file (json or jsonp)
-      callback:  'callback',  // used for jsonp
-      interval:  120          // polling interval of the ajax source (seconds)
+      speed: 20,
+      timeout: 1,
+      divider: '',
+      type: 'static',    // static or ajax
+      source: '',          // ajax source (url)
+      dataType: 'json',      // data type of the expected file (json or jsonp)
+      callback: 'callback',  // used for jsonp
+      interval: 120          // polling interval of the ajax source (seconds)
     };
     let settings = $.extend({}, defaults, options);
 
 
     // _______ Inner Variables _______
 
-    let self            =  this;
-    let content         =  self.html();
-    let active          =  'eocjs-newsticker-active';
-    let container       =  {};
-    let one             =  {};
-    let two             =  {};
-    let both            =  {};
-    let oneNeedsUpdate  =  false;
-    let twoNeedsUpdate  =  false;
-    let windowWidth     =  $(window).width();
+    let self = this;
+    let content = self.html();
+    let active = 'eocjs-newsticker-active';
+    let container = {};
+    let one = {};
+    let two = {};
+    let both = {};
+    let oneNeedsUpdate = false;
+    let twoNeedsUpdate = false;
+    let windowWidth = $(window).width();
 
 
     // _______ Init _______
@@ -54,10 +54,10 @@
 
       self.addClass('eocjs-newsticker').html('<div class="eocjs-newsticker-container"><div class="eocjs-newsticker-one"></div><div class="eocjs-newsticker-two"></div></div>');
 
-      container  =  self.find('.eocjs-newsticker-container');
-      one        =  self.find('.eocjs-newsticker-one');
-      two        =  self.find('.eocjs-newsticker-two');
-      both       =  self.find('.eocjs-newsticker-one, .eocjs-newsticker-two');
+      container = self.find('.eocjs-newsticker-container');
+      one = self.find('.eocjs-newsticker-one');
+      two = self.find('.eocjs-newsticker-two');
+      both = self.find('.eocjs-newsticker-one, .eocjs-newsticker-two');
 
     }
 
@@ -74,15 +74,15 @@
       } else if (settings.type === 'ajax') {
 
         container.prepend('<div class="eocjs-newsticker-loader"></div>');
-        $.when(ajax(settings.source, settings.dataType, settings.callback)).done(function() {
+        $.when(ajax(settings.source, settings.dataType, settings.callback)).done(function () {
 
-          container.find('.eocjs-newsticker-loader').fadeOut(300, function() {
+          container.find('.eocjs-newsticker-loader').fadeOut(300, function () {
             run(content, 0);
             $(this).remove();
           });
 
-          setInterval(function() {
-            $.when(ajax(settings.source, settings.dataType, settings.callback)).done(function() {
+          setInterval(function () {
+            $.when(ajax(settings.source, settings.dataType, settings.callback)).done(function () {
               oneNeedsUpdate = true;
               twoNeedsUpdate = true;
             });
@@ -103,7 +103,7 @@
         url: source,
         dataType: dataType,
         jsonpCallback: callback,
-        success: function(data, textStatus, jqXHR) {
+        success: function (data, textStatus, jqXHR) {
           content = '';
           if ($.isPlainObject(data) && !$.isEmptyObject(data)) {
             for (let property in data) {
@@ -129,12 +129,12 @@
     function run(content, timeout) {
 
       update(both, content);
-      two.css({'left': one.width()});
+      two.css({ 'left': one.width() });
 
-      setTimeout(function() {
+      setTimeout(function () {
 
-        let width  =  one.width();
-        let speed  =  settings.speed * width;
+        let width = one.width();
+        let speed = settings.speed * width;
 
         animateSlide(one, 0, -width, speed);
         animateSlide(two, width, 0, speed);
@@ -162,10 +162,10 @@
     function animateSlide(slide, start, destination, speed) {
 
       slide.animate(
-        {left: destination},
+        { left: destination },
         speed,
         'linear',
-        function() {
+        function () {
 
           let width;
 
@@ -181,7 +181,7 @@
 
             slide === one ? width = two.width() : width = one.width();
             speed = settings.speed * width;
-            slide.css({'left': width});
+            slide.css({ 'left': width });
             animateSlide(slide, width, 0, speed);
 
           } else {
@@ -200,7 +200,7 @@
 
     // _______ Resize _______
 
-    $(window).on('resize', function() {
+    $(window).on('resize', function () {
       if ($(window).width() != windowWidth) {
 
         if ($(window).width() > windowWidth) {
@@ -229,4 +229,10 @@
     return this;
 
   };
+
+  //News ticker
+  if ($(window).width() > 767) {
+    $("#newsTicker").eocjsNewsticker();
+    $(".newsticker").css('opacity', '1');
+  }
 })(jQuery, window, document);

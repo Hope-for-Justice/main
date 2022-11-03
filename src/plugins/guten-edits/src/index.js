@@ -111,12 +111,6 @@ wp.hooks.addFilter(
     headingWithWrapper
 );
 
-//styles
-wp.blocks.registerBlockStyle('core/heading', {
-    name: 'indent',
-    label: 'Indent',
-});
-
 //////////// end heading block edits ////////////////////
 
 //////////// add attributes ////////////////////
@@ -246,6 +240,23 @@ addFilter(
     'editorskit/applyExtraClass',
     applyExtraClass
 );
+
+//styles
+wp.blocks.registerBlockStyle('core/heading', [
+    {
+        name: 'canela',
+        label: 'Canela',
+        isDefault: true,
+    },
+    {
+        name: 'apercu',
+        label: 'Apercu',
+    },
+    {
+        name: 'fk-screamer',
+        label: 'FK Screamer',
+    }
+]);
 
 wp.blocks.registerBlockStyle(
     'core/spacer',

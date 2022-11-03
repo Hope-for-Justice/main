@@ -7,7 +7,6 @@ module.exports = function (distTheme, devTheme, jsDir) {
 		// plugins
 		devTheme + jsDir + 'plugins/utm-tracking.js',
 		devTheme + jsDir + 'plugins/bootstrap.modal.js',
-		devTheme + jsDir + 'plugins/newsticker.js',
 		devTheme + jsDir + 'plugins/lottie.js',
 		devTheme + jsDir + 'plugins/waypoint.js',
 		devTheme + jsDir + 'plugins/gsap.js',
@@ -22,10 +21,9 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 	];
 
-	// uglifyFilesObject[distTheme + jsDir + 'block-scripts.js'] = [
-	// 	devTheme + jsDir + 'block-scripts.js',
-
-	// ];
+	uglifyFilesObject[distTheme + jsDir + 'plugins/newsticker.js'] = [
+		devTheme + jsDir + 'plugins/newsticker.js',
+	];
 
 	uglifyFilesObject[distTheme + jsDir + 'pages/plugins.js'] = [
 

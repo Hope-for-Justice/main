@@ -360,7 +360,7 @@ function my_acf_init_block_types()
         {
             wp_enqueue_style('social_styles', get_template_directory_uri() . '/template-parts/blocks/social.css', array(), _S_VERSION);
         }
-        //register test
+        //register geo-target
         acf_register_block_type(array(
             'name'              => 'geo-target',
             'title'             => __('Geo-target'),
@@ -377,6 +377,15 @@ function my_acf_init_block_types()
         {
             wp_enqueue_style('geo_target_styles', get_template_directory_uri() . '/template-parts/blocks/geo-target.css', array(), _S_VERSION);
         }
+
+        //register video-modal
+        acf_register_block_type(array(
+            'name'              => 'video-modal',
+            'title'             => __('Video modal'),
+            'description'       => __('Video modal no configuration needed but link must be setup'),
+            'render_template'   => 'template-parts/blocks/video-modal/video-modal.php',
+            'category'          => 'hfj-design-system'
+        ));
     }
 }
 

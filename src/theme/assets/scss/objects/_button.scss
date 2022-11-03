@@ -5,6 +5,7 @@
 */
 
 .button,
+.wp-block-button__link,
 .better-grid .button {
 	line-height: 1.5;
 	color: white;
@@ -103,6 +104,15 @@
 
 	}
 
+	&--plain {
+		background-color: transparent !important;
+
+		&__text {
+			text-decoration: underline;
+		}
+
+
+	}
 
 }
 
@@ -141,12 +151,17 @@ input[type="submit"] {
 	}
 }
 
+.wp-block-button__link {
+	font-size: 1rem !important;
+}
+
 // Tablet
 ///////////////////////////////////////////////////////////////////////////////
 
 @include mq($from: tablet) {
 
 	.button,
+	.wp-block-button__link,
 	.better-grid .button {
 		font-size: 18px;
 
@@ -170,6 +185,7 @@ input[type="submit"] {
 @include mq($from: desktop) {
 
 	.button,
+	.wp-block-button__link,
 	.better-grid .button {
 		&--nav {
 			font-size: 18px;
@@ -177,7 +193,7 @@ input[type="submit"] {
 
 		&:hover {
 			cursor: pointer;
-			transform: rotate(1deg) scale(1.05);
+			transform: scale(1.05);
 		}
 	}
 
@@ -189,6 +205,7 @@ input[type="submit"] {
 @include mq($from: desktopLarge) {
 
 	.button,
+	.wp-block-button__link,
 	.better-grid .button {
 		&--nav {
 			font-size: 18px;
@@ -205,6 +222,7 @@ input[type="submit"] {
 @include mq($from: wide) {
 
 	.button,
+	.wp-block-button__link,
 	.better-grid .button {
 
 		//font-size: 2em;

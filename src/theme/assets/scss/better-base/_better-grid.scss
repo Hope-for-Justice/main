@@ -9,7 +9,8 @@
     grid-template-columns:
         [col1] 1fr [col2] 1fr [col3] 1fr [col4] 1fr [col5] 1fr [col6] 1fr [col7] 1fr [col8] 1fr [col9] 1fr [col10] 1fr [col11] 1fr [col12] 1fr;
     grid-column-gap: 16px;
-    padding: 0 24px;
+    //padding: 0 24px;
+    padding: 0 clamp(24px, 5vw, 80px);
     width: 100vw;
 }
 
@@ -19,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 @include mq($from: mobileLarge) {
     .better-grid {
-        padding: 0 40px;
+        //padding: 0 40px;
     }
 
 }
@@ -31,7 +32,7 @@
 
     .better-grid {
         grid-column-gap: 32px;
-        padding: 0 80px;
+        //padding: 0 80px;
     }
 
 }

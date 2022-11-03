@@ -56,29 +56,34 @@
         "typography": {
             "fontSizes": [
                 {
-                    "name": "1",
+                    "name": "Smaller",
                     "slug": "small",
                     "size": "0.75rem"
                 },
                 {
-                    "name": "2",
+                    "name": "Larger",
                     "slug": "large",
                     "size": "clamp(var(--wp--custom--typography--normal), calc(1rem + 2vw), var(--wp--custom--typography--large))"
                 },
                 {
-                    "name": "3",
+                    "name": "Extra large",
                     "slug": "extra-large",
                     "size": "clamp(var(--wp--custom--typography--large), calc(1rem + 3vw), var(--wp--custom--typography--extra-large))"
                 },
                 {
-                    "name": "4",
+                    "name": "Huge",
                     "slug": "huge",
                     "size": "clamp(var(--wp--custom--typography--large), calc(1rem + 3vw), var(--wp--custom--typography--huge))"
                 },
                 {
-                    "name": "5",
+                    "name": "Massive",
                     "slug": "massive",
                     "size": "clamp(var(--wp--custom--typography--extra-large), calc(1rem + 4vw), var(--wp--custom--typography--massive))"
+                },
+                {
+                    "name": "Gigantic",
+                    "slug": "gigantic",
+                    "size": "clamp(var(--wp--custom--typography--extra-large), calc(1rem + 5vw), var(--wp--custom--typography--gigantic))"
                 }
             ]
         }

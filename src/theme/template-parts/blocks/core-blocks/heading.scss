@@ -12,4 +12,26 @@
         margin: 0;
         max-width: 960px;
     }
+
+    .is-style-apercu {
+        font-family: 'apercu-reg', sans-serif;
+    }
+
+    .is-style-fk-screamer {
+        font-family: 'fk-screamer', sans-serif;
+    }
+}
+
+@media screen and (min-width: 1366px) {
+    .core-heading {
+
+        h1,
+        h2,
+        h3,
+        h5,
+        h5,
+        h6 {
+            grid-column: 2/10;
+        }
+    }
 }

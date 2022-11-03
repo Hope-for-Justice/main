@@ -18,10 +18,10 @@
     }
 }
 
-@media screen and (min-width: 1680px) {
+@media screen and (min-width: 1366px) {
 
     .block-text.core-paragraph {
-        p.is-style-indent {
+        p {
             grid-column: 2/10;
         }
     }
