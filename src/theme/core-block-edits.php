@@ -12,6 +12,6 @@ function register_custom_core_block_styles()
         wp_enqueue_style('core_heading_styles', get_template_directory_uri() . '/template-parts/blocks/heading.css', array(), _S_VERSION);
     }
     if (has_block('core/spacer')) {
-        wp_enqueue_style('core_spacer_styles', get_template_directory_uri() . '/template-parts/blocks/spacer.css', array(), _S_VERSION);
+        wp_enqueue_style('core_spacer_styles', get_template_directory_uri() . '/template-parts/blocks/core-spacer.css', array(), _S_VERSION);
     }
 }

@@ -3,10 +3,15 @@
 
     &__inner {
         grid-column: span 12;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        column-gap: 20px;
     }
 
     &__second-button {
-        margin-left: 20px;
+        //margin-left: 20px;
     }
 
     &--align-center {
@@ -23,7 +28,7 @@
 }
 
 @media screen and (min-width:1680px) {
-    .block-button_inner--indent {
+    .block-button__inner--indent {
         grid-column: 2 / 10;
     }
 }

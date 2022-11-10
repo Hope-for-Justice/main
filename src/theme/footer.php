@@ -71,7 +71,7 @@ if (!get_field('no_news')) { ?>
 
 <?php
 if (!get_field('no_email_push')) {
-    if (!is_page_template('templates/page-block-template.php') && (!is_tax('event_categories'))) { ?>
+    if (!is_tax('event_categories')) { ?>
         <div class="email-push">
             <div class="email-push__image">
                 <img src="<?php the_field('email_footer_image', 'option'); ?>">

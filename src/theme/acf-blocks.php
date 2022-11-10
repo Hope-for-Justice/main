@@ -386,6 +386,38 @@ function my_acf_init_block_types()
             'render_template'   => 'template-parts/blocks/video-modal/video-modal.php',
             'category'          => 'hfj-design-system'
         ));
+
+        //register cta-grid
+        acf_register_block_type(array(
+            'name'              => 'cta-grid',
+            'title'             => __('CTA Grid'),
+            'description'       => __('Grid of call to action cards'),
+            'render_template'   => 'template-parts/blocks/cta-grid/cta-grid.php',
+            'category'          => 'hfj-design-system',
+            'enqueue_assets'    => 'cta_grid_assets'
+        ));
+
+        function cta_grid_assets()
+        {
+            wp_enqueue_style('cta_grid_styles', get_template_directory_uri() . '/template-parts/blocks/cta-grid.css', array(), _S_VERSION);
+        }
+
+
+        //register cards-quarters
+        acf_register_block_type(array(
+            'name'              => 'cards-quarter',
+            'title'             => __('Cards quarters'),
+            'description'       => __('Quarter cards. Add 4.'),
+            'render_template'   => 'template-parts/blocks/cards/cards-quarter.php',
+            'category'          => 'hfj-design-system',
+            'enqueue_assets'    => 'card_quarter_assets'
+        ));
+
+        function card_quarter_assets()
+        {
+            wp_enqueue_style('card_quarter_styles', get_template_directory_uri() . '/template-parts/blocks/cards-quarter.css', array(), _S_VERSION);
+            wp_enqueue_script('card_quarter_scripts', get_template_directory_uri() . '/template-parts/blocks/cards/cards-quarter.js', array(), _S_VERSION);
+        }
     }
 }
 
@@ -492,6 +524,15 @@ function register_acf_block_styles(): void
 
     if (has_block('acf/geo-target')) {
         wp_enqueue_style('geo_target_styles', get_template_directory_uri() . '/template-parts/blocks/geo-target.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/cta-grid')) {
+        wp_enqueue_style('cta_grid_styles', get_template_directory_uri() . '/template-parts/blocks/cta-grid.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/cards-quarter')) {
+        wp_enqueue_style('cards_quarter_styles', get_template_directory_uri() . '/template-parts/blocks/cards-quarter.css', array(), _S_VERSION);
+        wp_enqueue_script('card_quarter_scripts', get_template_directory_uri() . '/template-parts/blocks/cards/cards-quarter.js', array(), _S_VERSION);
     }
 }
 

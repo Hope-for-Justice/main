@@ -9,16 +9,11 @@
  * @param   (int|string) $post_id The post ID this block is saved to.
  */
 
-// Create id attribute allowing for custom "anchor" value.
-$id = 'button-' . $block['id'];
-if (!empty($block['anchor'])) {
-    $id = $block['anchor'];
-}
 
 // Load values and assign defaults.
+$indent = get_field('indent');
 
 //a
-
 $color_a = get_field('button_color') ?: '#D6001C';
 $text_color_a = get_field('text_color') ?: '#ffffff';
 $link_a = get_field('link');
@@ -61,9 +56,9 @@ if (!empty($block['align'])) {
 ?>
 
 
-<div class="better-grid hfj-block block-button <?php echo $align ?>" style="--margin-bottom-mobile:<?php echo $margin_bottom_mobile ?>; --margin-bottom-desktop: <?php echo $margin_bottom_desktop ?>;">
+<div class="better-grid hfj-block block-button <?php echo $align ?>">
 
-    <div class="block-button__inner">
+    <div class="block-button__inner <?php if ($indent) echo 'block-button__inner--indent' ?>">
         <a <?php if ($video_link_a) { ?> data-toggle="modal" data-target="#video-modal" data-src="<?php echo $video_link_a ?>" <?php } ?> <?php if (!$video_link_a) { ?>href="<?php echo $link_url_a ?>" <?php } ?>target="<?php echo $link_target_a ?>" style="background-color: <?php echo $color_a ?>; color: <?php echo $text_color_a ?>" class="<?php if ($button_style_a !== 'plain') { ?>button button--tighter<?php } else { ?>button--plain<?php } ?> <?php if ($video_link_a) echo 'video-trigger' ?>  <?php echo $button_style_a ?>" <?php if ($download_a) echo 'download' ?>><span class="<?php if ($button_style_a == 'plain') { ?>button--plain__text<?php } ?>"><?php echo $link_title_a ?></span><?php if ($button_style_a == 'plain') { ?><span style="white-space: pre;" class="block-card__arrow">&nbsp;<img alt="arrow" src="<?php echo get_template_directory_uri() . '/assets/img/link-arrow.svg'; ?>"></span><?php } ?>
         </a>
 

@@ -87,7 +87,7 @@
             left: auto;
             position: relative;
             grid-column: span 12;
-            margin: 0 -24px clamp(24px, 5vw, 80px) -24px;
+            margin: 0 -24px clamp(40px, 5vw, 80px) -24px;
             transform: translate(0, 0);
             height: 175px;
             width: calc(100% + 48px);
@@ -95,7 +95,7 @@
 
         .full-header__content--no-padding {
             //padding bottom on mobile if split
-            padding-bottom: clamp(24px, 5vw, 80px);
+            padding-bottom: clamp(40px, 5vw, 80px);
         }
     }
 
@@ -150,7 +150,7 @@ h1.full-header__title--large {
 
     .full-header {
         min-height: 750px;
-        margin-bottom: clamp(24px, 5vw, 80px);
+        margin-bottom: clamp(24px, 8vw, 80px);
 
         &__content {
             max-width: var(--max-width);
