@@ -45,6 +45,10 @@
     @import "objects/_footer.scss";
     @import "objects/_breadcrumbs.scss";
 
+    //country specifics
+    @import "other/_country-specifics.scss";
+
+
     html :where(.wp-block) {
         max-width: none;
         margin: 0;
