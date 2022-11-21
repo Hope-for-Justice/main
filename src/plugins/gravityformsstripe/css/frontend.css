@@ -30,10 +30,18 @@
 }
 
 .ginput_stripe_creditcard .cc-details-container {
-	align-items: center;
+	-ms-flex-align: center;
+	    align-items: center;
+	display: -ms-flexbox;
 	display: flex;
-	justify-content: center;
+	-ms-flex-pack: center;
+	    justify-content: center;
 	position: relative;
+}
+
+.ginput_stripe_creditcard .cc-details-container input.cc-cardnumber:-ms-input-placeholder,
+.gform_wrapper .ginput_stripe_creditcard .cc-details-container input.cc-cardnumber:-ms-input-placeholder {
+	color: #9092B0;
 }
 
 .ginput_stripe_creditcard .cc-details-container input.cc-cardnumber::placeholder,
@@ -53,9 +61,12 @@
 }
 
 .ginput_stripe_creditcard .cc-placeholders {
-	align-items: center;
+	-ms-flex-align: center;
+	    align-items: center;
+	display: -ms-flexbox;
 	display: flex;
-	flex-wrap: nowrap;
+	-ms-flex-wrap: nowrap;
+	    flex-wrap: nowrap;
 	height: 100%;
 	position: absolute;
 	right: 1.5rem;

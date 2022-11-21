@@ -144,9 +144,6 @@ table.settings-field-map-table tbody td {
 	text-indent:-9999px;
 	width:10px;
 	height: 10px;
-	-moz-transition: none;
-	-webkit-transition: none;
-	-o-transition: color 0 ease-in;
 	transition: none;
 	z-index: 99;
 }
@@ -220,14 +217,11 @@ html[dir="rtl"] .mt-gaddon-editor {
 
 .gaddon-setting-choice-visual label > span {
 	display: inline-block;
-	-webkit-filter: brightness( 1.8 ) grayscale( 1 ) opacity( .5 );
 	-moz-filter: brightness( 1.8 ) grayscale( 1 ) opacity( .5 );
 	filter: brightness( 1.8 ) grayscale( 1 ) opacity( .5 );
 	height: 65px;
 	min-width: 110px;
 	padding: 5px 10px 0;
-	-webkit-transition: all 100ms ease-in;
-	-moz-transition: all 100ms ease-in;
 	transition: all 100ms ease-in;
 	vertical-align: top;
 }
@@ -258,13 +252,11 @@ html[dir="rtl"] .mt-gaddon-editor {
 }
 
 .gaddon-setting-choice-visual input:checked + label > span {
-	-webkit-filter: none;
 	-moz-filter: none;
 	filter: none;
 }
 
 .gaddon-setting-choice-visual input:not([disabled]):not([checked]) + label > span:hover{
-    -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
     -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
     filter: brightness(1.2) grayscale(.5) opacity(.9);
 }
@@ -272,10 +264,9 @@ html[dir="rtl"] .mt-gaddon-editor {
 /* Feed Ordering */
 .ui-sortable-helper {
 	background-color: #fff !important;
-	-webkit-box-shadow: 6px 6px 28px -9px rgba(0,0,0,0.75);
-	-moz-box-shadow: 6px 6px 28px -9px rgba(0,0,0,0.75);
 	box-shadow: 6px 6px 28px -9px rgba(0,0,0,0.75);
-	transform: rotate(1deg);
+	-ms-transform: rotate(1deg);
+	    transform: rotate(1deg);
 	-moz-transform: rotate(1deg);
 	-webkit-transform: rotate(1deg);
 }

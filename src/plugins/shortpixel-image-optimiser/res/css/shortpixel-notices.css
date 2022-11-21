@@ -1,8 +1,10 @@
 .shortpixel.shortpixel-notice {
   min-height: 75px;
   padding: 8px;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
   background: #fff;
   padding: 1px 12px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
@@ -89,5 +91,3 @@
 .shortpixel.shortpixel-notice li.sp-conflict-plugins-list a.button {
   margin-left: 10px;
 }
-
-/*# sourceMappingURL=shortpixel-notices.css.map */

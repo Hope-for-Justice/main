@@ -87,6 +87,7 @@
 }
 
 .tabs {
+    display: -ms-flexbox;
     display: flex;
     gap: 2.25rem;
 }

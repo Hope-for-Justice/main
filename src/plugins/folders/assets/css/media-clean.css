@@ -97,7 +97,8 @@
     background: #ffffff;
     top: 50%;
     height: auto;
-    transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+        transform: translate(0, -50%);
     box-shadow: 1px 1px 15px #c3baba;
 }
 
@@ -157,8 +158,10 @@
     height: 20%;
     width: 100%;
     background-color: #f9f9fb;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: flex-end;
+    -ms-flex-pack: end;
+        justify-content: flex-end;
     margin-top: 40px;
 }
 

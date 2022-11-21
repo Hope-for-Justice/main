@@ -39,7 +39,6 @@
 	pointer-events: none;
 	opacity: 0.5;
 	-webkit-user-select: none;
-	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
 }
@@ -92,12 +91,8 @@
 
 	/* Enable Ligatures ================ */
 	letter-spacing: 0;
-	-webkit-font-feature-settings: "liga";
-	-moz-font-feature-settings: "liga=1";
-	-moz-font-feature-settings: "liga";
 	-ms-font-feature-settings: "liga" 1;
 	font-feature-settings: "liga";
-	-webkit-font-variant-ligatures: discretionary-ligatures;
 	font-variant-ligatures: discretionary-ligatures;
 
 	/* Better Font Rendering =========== */
@@ -118,7 +113,9 @@ button#cs-update-exchange-rates {
 }
 
 .cs_disabled {
-	user-select: none;
+	-webkit-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
 	pointer-events: none;
 	opacity: 0.7;
 }
@@ -201,7 +198,6 @@ tr.exchange-rate-row span.cs-exchange-rate-field-wrap {
 }
 
 .currency-switcher-table .give-cs-loading-animation {
-	-webkit-animation: a 1s infinite linear;
 	animation: a 1s infinite linear;
 }
 

@@ -21,6 +21,7 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 /* Settings pages */
 
 .gf_browser_ie .gform-settings__wrapper {
+		display: -ms-flexbox;
 		display: flex;
 	}
 
@@ -74,19 +75,20 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	}
 
 .gf_browser_ie .gform-settings-panel__addon-uninstall .gform-settings-panel__content {
+		display: -ms-flexbox;
 		display: flex;
 	}
 
 .gf_browser_ie .gform-settings-panel__addon-uninstall .gform-settings-panel__content .addon-uninstall-text {
-			flex: 1;
+			-ms-flex: 1;
+			    flex: 1;
 		}
 
 .gf_browser_ie .gform-settings-panel__addon-uninstall .gform-settings-panel__content .button.uninstall-addon {
-			transform: none;
+			-ms-transform: none;
+			    transform: none;
 		}
 
 .forms_page_gravityformscoupons .gf_browser_ie .gform-settings__wrapper {
 	display: block;
 }
-
-/*# sourceMappingURL=admin-ie11.css.map */

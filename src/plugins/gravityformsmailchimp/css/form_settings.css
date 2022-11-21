@@ -54,9 +54,12 @@
 
 .gaddon-mailchimp-category .gform-settings-field__conditional-logic .gf_conditional_logic_rules_container,
 .gaddon-mailchimp-permission .gform-settings-field__conditional-logic .gf_conditional_logic_rules_container {
-	align-items: center;
+	-ms-flex-align: center;
+	    align-items: center;
+	display: -ms-flexbox;
 	display: flex;
-	flex-direction: row;
+	-ms-flex-direction: row;
+	    flex-direction: row;
 }
 
 .condition_container select {

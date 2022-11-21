@@ -35,7 +35,8 @@
 
 .button {
     margin-top: 3.3125rem;
-    align-self: end;
+    -ms-flex-item-align: end;
+        align-self: end;
     justify-self: center;
     width: 93.75%;
 }

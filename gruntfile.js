@@ -1,5 +1,7 @@
 /// <vs AfterBuild='default' />
 
+const autoprefixer = require('./grunt-tasks/autoprefixer');
+
 var theme = {
   name: 'hope-for-justice-2020',
   description: 'Custom Wordpress theme for Hope for Justice 2020',
@@ -62,6 +64,7 @@ module.exports = function (grunt) {
     'sftp-deploy': require('./grunt-tasks/sftp-deploy')(dir.deployBase, theme.name),
     curl: require('./grunt-tasks/curl')(dir.wpCurl, dir.wpTmp + dir.wpZip),
     unzip: require('./grunt-tasks/unzip')(dir.wpTmp + dir.wpZip, dir.wpTmp),
+    autoprefixer: require('./grunt-tasks/autoprefixer')(dir.distTheme, dir.devTheme, dir.scssDir),
 
   });
 
@@ -69,7 +72,7 @@ module.exports = function (grunt) {
   /*  Register tasks  */
 
   // Default task. 
-  grunt.registerTask('default', ['clean:all', 'symlink', 'copy:theme', 'copy:style', 'copy:img', 'copy:tmpl', 'copy:fonts', 'copy:blocks', 'sass:build', 'uglify', 'watch']);
+  grunt.registerTask('default', ['clean:all', 'symlink', 'copy:theme', 'copy:style', 'copy:img', 'copy:tmpl', 'copy:fonts', 'copy:blocks', 'sass:build', 'autoprefixer', 'uglify', 'watch']);
 
   // Specific watch-related tasks
   grunt.registerTask('theme_changed', ['copy:theme']);

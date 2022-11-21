@@ -19,9 +19,11 @@
 }
 
 .title {
+    display: -ms-inline-flexbox;
     display: inline-flex;
     gap: 0.6em;
-    align-items: center;
+    -ms-flex-align: center;
+        align-items: center;
     margin: 0;
     font-weight: 700;
     font-size: 1.4375rem;
@@ -39,14 +41,17 @@
 }
 
 .actionAndSavings {
+    display: -ms-flexbox;
     display: flex;
     column-gap: 1rem;
     margin-top: 1.75rem;
-    align-items: center;
+    -ms-flex-align: center;
+        align-items: center;
 }
 
 .button {
-    flex-basis: 16rem;
+    -ms-flex-preferred-size: 16rem;
+        flex-basis: 16rem;
 }
 
 .savings {
@@ -83,9 +88,11 @@
 }
 
 .include {
+    display: -ms-flexbox;
     display: flex;
     gap: 1em;
-    align-items: center;
+    -ms-flex-align: center;
+        align-items: center;
 }
 
 .include a {
@@ -113,21 +120,28 @@
 }
 
 .nameAndFlag {
+    display: -ms-flexbox;
     display: flex;
     gap: 2rem;
-    align-items: center;
+    -ms-flex-align: center;
+        align-items: center;
     margin-bottom: 1.75rem;
 }
 
 .mostPopularFlag {
-    flex-grow: 0;
+    -ms-flex-positive: 0;
+        flex-grow: 0;
     display: flex-inline;
     padding: 0.5em 1em 0.5em 2em;
     background-image: linear-gradient(225.34deg, #ff7f7f 0%, #ddcd13 101.17%);
-    mask-image: url("data:image/svg+xml;utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 16'><path d='m0 8 8 8h88V0H8Z' /></svg>");
-    mask-position: top left;
-    mask-repeat: no-repeat;
-    mask-size: auto 100%;
+    -webkit-mask-image: url("data:image/svg+xml;utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 16'><path d='m0 8 8 8h88V0H8Z' /></svg>");
+            mask-image: url("data:image/svg+xml;utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 16'><path d='m0 8 8 8h88V0H8Z' /></svg>");
+    -webkit-mask-position: top left;
+            mask-position: top left;
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+    -webkit-mask-size: auto 100%;
+            mask-size: auto 100%;
     box-shadow: 0 0 0.333em rgba(0, 0, 0, 0.15);
     color: white;
     font-weight: 700;

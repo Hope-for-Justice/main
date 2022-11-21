@@ -98,30 +98,6 @@ CSS for features that are displayed on all Admin page, like the bar status icon 
     transform: rotate(360deg);
   }
 }
-@-o-keyframes cssload-spin {
-  100% {
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-@-ms-keyframes cssload-spin {
-  100% {
-    -ms-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes cssload-spin {
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-@-moz-keyframes cssload-spin {
-  100% {
-    -moz-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
 #wpadminbar li.shortpixel-toolbar-processing .ab-item > div:hover img:hover, #wpadminbar li.shortpixel-toolbar-processing .ab-item > div:hover .stats {
   opacity: 0;
   visibility: hidden;
@@ -177,5 +153,3 @@ CSS for features that are displayed on all Admin page, like the bar status icon 
   margin: 4px;
   min-width: 300px;
 }
-
-/*# sourceMappingURL=shortpixel-toolbar.css.map */

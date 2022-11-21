@@ -119,8 +119,10 @@
   width: 110px;
 }
 .shortpixel-other-media .list-overview .item .multi-action-wrapper {
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -ms-flex-direction: column;
+      flex-direction: column;
 }
 .shortpixel-other-media .list-overview .item .multi-action-wrapper .single-action {
   display: inline-block;
@@ -172,5 +174,3 @@
 .shortpixel-other-media .list-overview .no-items p {
   font-size: 14px;
 }
-
-/*# sourceMappingURL=shortpixel-othermedia.css.map */

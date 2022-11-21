@@ -196,8 +196,6 @@ body.perk-iframe {
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
     background-color: #fcf8e3;
     border: 1px solid #fbeed5;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
     border-radius: 4px;
 }
 
@@ -276,8 +274,10 @@ body:not( .gf-legacy-ui ) .gp-field-setting input[type="number"] {
 }
 
 .gp-group {
+	display: -ms-flexbox;
 	display: flex;
-	align-items: center;
+	-ms-flex-align: center;
+	    align-items: center;
 }
 
 .gp-group + .gp-group {
@@ -287,7 +287,8 @@ body:not( .gf-legacy-ui ) .gp-field-setting input[type="number"] {
 .gp-group > div,
 .gp-group > label,
 .gp-group > input {
-	flex: 1;
+	-ms-flex: 1;
+	    flex: 1;
 }
 
 /*
@@ -325,7 +326,8 @@ body:not( .gf-legacy-ui ) .gp-field-setting input[type="number"] {
 
 .gwp-pointer a.next::before {
     content: '\f148';
-    transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+        transform: scale(-1, 1);
     left: -9px;
 }
 
@@ -466,10 +468,8 @@ div.gwp-message + .manage-menus { }
 }
 
 .perk-listings {
-	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
-	-webkit-flex-wrap: wrap;
 	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
 }
@@ -481,7 +481,6 @@ div.gwp-message + .manage-menus { }
 	float: left;
 	margin: 0 10px 20px;
 	min-width: 280px;
-	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
 	width: calc( 25% - 30px );
@@ -505,8 +504,10 @@ div.gwp-message + .manage-menus { }
 	height: 170px;
 	margin: 0;
 	position: relative;
+	display: -ms-flexbox;
 	display: flex;
-	flex-direction: column;
+	-ms-flex-direction: column;
+	    flex-direction: column;
 	width: 100%;
 }
 
@@ -525,12 +526,14 @@ div.gwp-message + .manage-menus { }
 }
 
 .perk-listing .actions {
-	flex: 0;
+	-ms-flex: 0;
+	    flex: 0;
 	margin: auto 0;
 }
 
 .perk-listing .perk-description {
-	flex: 1;
+	-ms-flex: 1;
+	    flex: 1;
 	position: relative;
 	overflow: hidden;
 	margin: 12px 0 0;
@@ -543,7 +546,6 @@ div.gwp-message + .manage-menus { }
 	width: 100%;
 	height: 20px;
 	bottom: 0;
-	background: -webkit-linear-gradient(transparent, #f7f7f7) left repeat;
 	background: linear-gradient(transparent, #f7f7f7) left repeat;
 }
 
@@ -599,7 +601,6 @@ div.gwp-message + .manage-menus { }
 }
 
 .perk-listing.perk-error .perk-description::after {
-	background: -webkit-linear-gradient(transparent, #FFEBE8) left repeat;
 	background: linear-gradient(transparent, #FFEBE8) left repeat;
 }
 

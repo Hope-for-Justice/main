@@ -12,14 +12,6 @@
   font-weight: normal;
   font-style: normal;
 }
-@-webkit-keyframes fa-spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(359deg);
-  }
-}
 @keyframes fa-spin {
   0% {
     transform: rotate(0deg);
@@ -107,32 +99,35 @@
     margin-left: .3em;
   }
 .gforms_edit_form .fa-spin, .gforms_form_settings_wrap .fa-spin, .gform-settings__wrapper .fa-spin, .gforms_help .fa-spin, .gform_wrapper .fa-spin, .gf_entry_wrap .fa-spin {
-    -webkit-animation: fa-spin 2s infinite linear;
     animation: fa-spin 2s infinite linear;
   }
 .gforms_edit_form .fa-pulse, .gforms_form_settings_wrap .fa-pulse, .gform-settings__wrapper .fa-pulse, .gforms_help .fa-pulse, .gform_wrapper .fa-pulse, .gf_entry_wrap .fa-pulse {
-    -webkit-animation: fa-spin 1s infinite steps(8);
     animation: fa-spin 1s infinite steps(8);
   }
 .gforms_edit_form .fa-rotate-90, .gforms_form_settings_wrap .fa-rotate-90, .gform-settings__wrapper .fa-rotate-90, .gforms_help .fa-rotate-90, .gform_wrapper .fa-rotate-90, .gf_entry_wrap .fa-rotate-90 {
     -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
-    transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+        transform: rotate(90deg);
   }
 .gforms_edit_form .fa-rotate-180, .gforms_form_settings_wrap .fa-rotate-180, .gform-settings__wrapper .fa-rotate-180, .gforms_help .fa-rotate-180, .gform_wrapper .fa-rotate-180, .gf_entry_wrap .fa-rotate-180 {
     -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
-    transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+        transform: rotate(180deg);
   }
 .gforms_edit_form .fa-rotate-270, .gforms_form_settings_wrap .fa-rotate-270, .gform-settings__wrapper .fa-rotate-270, .gforms_help .fa-rotate-270, .gform_wrapper .fa-rotate-270, .gf_entry_wrap .fa-rotate-270 {
     -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
-    transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+        transform: rotate(270deg);
   }
 .gforms_edit_form .fa-flip-horizontal, .gforms_form_settings_wrap .fa-flip-horizontal, .gform-settings__wrapper .fa-flip-horizontal, .gforms_help .fa-flip-horizontal, .gform_wrapper .fa-flip-horizontal, .gf_entry_wrap .fa-flip-horizontal {
     -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
-    transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+        transform: scale(-1, 1);
   }
 .gforms_edit_form .fa-flip-vertical, .gforms_form_settings_wrap .fa-flip-vertical, .gform-settings__wrapper .fa-flip-vertical, .gforms_help .fa-flip-vertical, .gform_wrapper .fa-flip-vertical, .gf_entry_wrap .fa-flip-vertical {
     -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
-    transform: scale(1, -1);
+    -ms-transform: scale(1, -1);
+        transform: scale(1, -1);
   }
 .gforms_edit_form :root .fa-rotate-90, .gforms_edit_form :root .fa-rotate-180, .gforms_edit_form :root .fa-rotate-270, .gforms_edit_form :root .fa-flip-horizontal, .gforms_edit_form :root .fa-flip-vertical, .gforms_form_settings_wrap :root .fa-rotate-90, .gforms_form_settings_wrap :root .fa-rotate-180, .gforms_form_settings_wrap :root .fa-rotate-270, .gforms_form_settings_wrap :root .fa-flip-horizontal, .gforms_form_settings_wrap :root .fa-flip-vertical, .gform-settings__wrapper :root .fa-rotate-90, .gform-settings__wrapper :root .fa-rotate-180, .gform-settings__wrapper :root .fa-rotate-270, .gform-settings__wrapper :root .fa-flip-horizontal, .gform-settings__wrapper :root .fa-flip-vertical, .gforms_help :root .fa-rotate-90, .gforms_help :root .fa-rotate-180, .gforms_help :root .fa-rotate-270, .gforms_help :root .fa-flip-horizontal, .gforms_help :root .fa-flip-vertical, .gform_wrapper :root .fa-rotate-90, .gform_wrapper :root .fa-rotate-180, .gform_wrapper :root .fa-rotate-270, .gform_wrapper :root .fa-flip-horizontal, .gform_wrapper :root .fa-flip-vertical, .gf_entry_wrap :root .fa-rotate-90, .gf_entry_wrap :root .fa-rotate-180, .gf_entry_wrap :root .fa-rotate-270, .gf_entry_wrap :root .fa-flip-horizontal, .gf_entry_wrap :root .fa-flip-vertical {
     filter: none;
@@ -2205,5 +2200,3 @@
     overflow: visible;
     clip: auto;
   }
-
-/*# sourceMappingURL=font-awesome.css.map */

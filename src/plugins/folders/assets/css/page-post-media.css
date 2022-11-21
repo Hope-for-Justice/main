@@ -69,53 +69,20 @@ span.folder-loader-ajax {
     display: inline-block
 }
 
-@-webkit-keyframes scaleAnimation {
-    0% {
-        opacity: 0;
-        -webkit-transform: scale(1.5);
-        transform: scale(1.5)
-    }
-    100% {
-        opacity: 1;
-        -webkit-transform: scale(1);
-        transform: scale(1)
-    }
-}
-
 @keyframes scaleAnimation {
     0% {
         opacity: 0;
-        -webkit-transform: scale(1.5);
         transform: scale(1.5)
     }
     100% {
         opacity: 1;
-        -webkit-transform: scale(1);
         transform: scale(1)
-    }
-}
-
-@-webkit-keyframes drawCircle {
-    0% {
-        stroke-dashoffset: 151px
-    }
-    100% {
-        stroke-dashoffset: 0
     }
 }
 
 @keyframes drawCircle {
     0% {
         stroke-dashoffset: 151px
-    }
-    100% {
-        stroke-dashoffset: 0
-    }
-}
-
-@-webkit-keyframes drawCheck {
-    0% {
-        stroke-dashoffset: 36px
     }
     100% {
         stroke-dashoffset: 0
@@ -131,30 +98,12 @@ span.folder-loader-ajax {
     }
 }
 
-@-webkit-keyframes fadeOut {
-    0% {
-        opacity: 1
-    }
-    100% {
-        opacity: 0
-    }
-}
-
 @keyframes fadeOut {
     0% {
         opacity: 1
     }
     100% {
         opacity: 0
-    }
-}
-
-@-webkit-keyframes fadeIn {
-    0% {
-        opacity: 0
-    }
-    100% {
-        opacity: 1
     }
 }
 
@@ -199,22 +148,18 @@ svg#successAnimation {
 }
 
 #successAnimation.animated {
-    -webkit-animation: 1s ease-out 0s 1 both scaleAnimation;
     animation: 1s ease-out 0s 1 both scaleAnimation
 }
 
 #successAnimation.animated #successAnimationCircle {
-    -webkit-animation: 1s cubic-bezier(.77, 0, .175, 1) 0s 1 both drawCircle, .3s linear .9s 1 both fadeOut;
     animation: 1s cubic-bezier(.77, 0, .175, 1) 0s 1 both drawCircle, .3s linear .9s 1 both fadeOut
 }
 
 #successAnimation.animated #successAnimationCheck {
-    -webkit-animation: 1s cubic-bezier(.77, 0, .175, 1) 0s 1 both drawCheck, .3s linear .9s 1 both fadeOut;
     animation: 1s cubic-bezier(.77, 0, .175, 1) 0s 1 both drawCheck, .3s linear .9s 1 both fadeOut
 }
 
 #successAnimation.animated #successAnimationResult {
-    -webkit-animation: .3s linear .9s both fadeIn;
     animation: .3s linear .9s both fadeIn
 }
 
@@ -290,8 +235,6 @@ svg#successAnimation {
     width: 120px;
     z-index: 101;
     background: #fff;
-    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, .25);
-    -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, .25);
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, .25);
     display: none
 }
@@ -564,7 +507,8 @@ div#custom-menu {
     font-size: 9px !important;
     color: #fa166b;
     font-weight: 700;
-    transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+        transform: rotate(-90deg);
     transition: all .25s linear
 }
 
@@ -627,8 +571,6 @@ body:not(.no-hover-css) .wcp-container .route .title:hover .ui-icon .pfolder-fol
     width: 235px;
     padding: 0;
     z-index: 9000009;
-    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, .25);
-    -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, .25);
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, .25);
     font-size: 13px;
 }
@@ -726,8 +668,6 @@ li.active-menu {
     -o-transform: translate(0, -50%);
     -ms-transform: translate(0, -50%);
     padding: 20px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
     border-radius: 4px;
     color: #484848
 }
@@ -796,7 +736,6 @@ li.active-menu {
     pointer-events: none;
     left: 20px;
     top: 10px;
-    -webkit-transition: .3s ease all;
     transition: .3s ease all;
     color: #484848
 }
@@ -810,6 +749,7 @@ li.active-menu {
 }
 
 .folder-form-buttons {
+    display: -ms-flexbox;
     display: flex
 }
 .folder-form-buttons.pro-message {
@@ -817,6 +757,7 @@ li.active-menu {
 }
 
 .folder-form-buttons a:not(.inline-button), .folder-form-buttons button {
+    display: -ms-inline-flexbox;
     display: inline-flex;
     padding: 0;
     text-decoration: none;
@@ -829,8 +770,10 @@ li.active-menu {
     box-sizing: border-box;
     height: 36px;
     cursor: pointer;
-    flex: 1;
-    justify-content: center;
+    -ms-flex: 1;
+        flex: 1;
+    -ms-flex-pack: center;
+        justify-content: center;
     outline: 0;
 }
 
@@ -850,7 +793,6 @@ li.active-menu {
     color: #f51366;
 }
 .folder-form-buttons a span, .folder-form-buttons button span {
-    -webkit-animation: fa-spin .75s infinite linear;
     animation: fa-spin .75s infinite linear;
     padding: 7px;
 }
@@ -883,19 +825,7 @@ li.active-menu {
     width: 310px
 }
 
-@-webkit-keyframes fa-spin {
-    0% {
-        -webkit-transform: rotate(0);
-        transform: rotate(0)
-    }
-    100% {
-        -webkit-transform: rotate(359deg);
-        transform: rotate(359deg)
-    }
-}
-
 .folder-form-buttons a span, .folder-form-buttons button span {
-    -webkit-animation: fa-spin .75s infinite linear;
     animation: fa-spin .75s infinite linear;
     padding: 7px
 }
@@ -908,7 +838,9 @@ li.active-menu {
     text-transform: none;
     font-size: .9em;
     line-height: 1;
-    user-select: none;
+    -webkit-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
     pointer-events: none;
     position: absolute;
     display: none;
@@ -955,7 +887,8 @@ li.active-menu {
 
 .wcp-container .folder-tooltip:not([flow])::after, .wcp-container .folder-tooltip:not([flow])::before, .wcp-container .folder-tooltip[flow^=up]::after, .wcp-container .folder-tooltip[flow^=up]::before {
     left: 50%;
-    transform: translate(-50%, -.5em)
+    -ms-transform: translate(-50%, -.5em);
+        transform: translate(-50%, -.5em)
 }
 
 .folder-order.active .folder-sort-menu {
@@ -1005,12 +938,14 @@ li.active-menu {
 }
 
 #custom-menu .route.active .nav-icon .wcp-icon {
-    transform: rotate(0);
+    -ms-transform: rotate(0);
+        transform: rotate(0);
     -webkit-transform: rotate(0)
 }
 
 .expand-collapse.all-open span.icon {
-    transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+        transform: rotate(180deg);
     -webkit-transform: rotate(180deg)
 }
 
@@ -1112,7 +1047,8 @@ li.active-menu {
     margin-right: 0 !important;
 }
 #custom-menu .route.has-sub-tree.has-search > .nav-icon  > .pfolder-arrow-down {
-    transform: rotate(0);
+    -ms-transform: rotate(0);
+        transform: rotate(0);
 }
 .dynamic-menu.bottom-fix {
     bottom: 0;
@@ -1216,9 +1152,9 @@ html[dir=rtl] .media-frame:not(.hide-router) .media-frame-content, html[dir=rtl]
 .jstree-node.is-locked, .jstree-node.is-locked a {
     -webkit-user-select: none;
     -khtml-user-select: none;
-    -moz-user-select: none;
     -o-user-select: none;
-    user-select: none;
+    -ms-user-select: none;
+        user-select: none;
     user-drag: none;
     -webkit-user-drag: none;
     -o-user-drag: none;
@@ -1263,19 +1199,28 @@ html[dir=rtl] .media-frame:not(.hide-router) .media-frame-content, html[dir=rtl]
     background-color: #333;
     display: block;
     border-radius: 2px;
-    transform: rotate(
+    -ms-transform: rotate(
+            45deg
+    );
+        transform: rotate(
             45deg
     );
     top: 7px;
     left: 2px;
 }
 .close-popup-button a span:after {
-    transform: rotate(
+    -ms-transform: rotate(
+            -45deg
+    );
+        transform: rotate(
             -45deg
     );
 }
 .close-popup-button a:hover span {
-    transform: rotate(
+    -ms-transform: rotate(
+            180deg
+    );
+        transform: rotate(
             180deg
     );
 }
@@ -1333,7 +1278,6 @@ select#media-attachment-dynamic-filter {
     width: 280px;
     background: #fff;
     padding: 15px;
-    -webkit-box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%), 0 9px 28px 8px rgb(0 0 0 / 5%);
     box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%), 0 9px 28px 8px rgb(0 0 0 / 5%);
     transition: all 0.25s linear;
     z-index: 1001;
@@ -1375,7 +1319,8 @@ select#media-attachment-dynamic-filter {
     transition: all 0.25s linear;
 }
 .close-undo-box:hover {
-    transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+        transform: rotate(180deg);
 }
 .close-undo-box span {
     display: block;
@@ -1392,12 +1337,14 @@ select#media-attachment-dynamic-filter {
     background-color: #333;
     display: block;
     border-radius: 2px;
-    transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
     top: 7px;
     left: 2px;
 }
 .close-undo-box span:after {
-    transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
 }
 #custom-scroll-menu .mCSB_container {
     background: #fff;

@@ -40,7 +40,8 @@ form[id*='give-form'] .give-cs-mini-dropdown-icon:before {
 	position: absolute;
 	right: 5px;
 	top: 50%;
-	transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	    transform: translateY(-50%);
 	-webkit-transform: translateY(-50%);
 	-moz-transform: translateY(-50%);
 	pointer-events: none;

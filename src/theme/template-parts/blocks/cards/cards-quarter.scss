@@ -25,7 +25,7 @@
     .block-card {
         box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.16);
         -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.16);
-        min-height: 40vw;
+
         border-radius: 8px;
         font-family: 'apercu-reg', sans-serif;
         overflow: hidden;
@@ -40,6 +40,7 @@
         }
 
         &__image-container {
+            min-height: 40vw;
             height: 100%;
             padding-top: 80%;
             background-size: cover;
@@ -153,7 +154,10 @@
     .cards-quarter {
         .block-card {
             grid-column: span 3;
-            min-height: 30vw;
+
+            &__image-container {
+                min-height: 30vw;
+            }
 
             &__content {
                 padding: 32px;
@@ -172,7 +176,10 @@
     .cards-quarter {
         .block-card {
             grid-column: span 3;
-            min-height: 500px;
+
+            &__image-container {
+                min-height: 500px;
+            }
 
             &__content {
                 padding: 32px;
