@@ -12,13 +12,13 @@
 
 // make an id for the zap and the comment to edit the correct rpi
 function makeid(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-   }
-   return result;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
 }
 
 var zapId = makeid(8);
@@ -47,7 +47,7 @@ function loadScript(url, successFunction) {
     var script = document.createElement('script');
     script.src = url;
     var head = document.getElementsByTagName('head')[0],
-    done = false;
+        done = false;
     head.appendChild(script);
     // Attach handlers for all browsers
     script.onload = script.onreadystatechange = function () {
@@ -124,24 +124,24 @@ function ValidateForm() {
         },
         rules: {
             postSelect: {
-              required: true
+                required: true
             },
             smsSelect: {
-              required: true
+                required: true
             },
             emailSelect: {
-              required: true
+                required: true
             },
             phoneSelect: {
-              required: true
+                required: true
             }
         },
-        invalidHandler: function(form, validator) {
+        invalidHandler: function (form, validator) {
             var errors = validator.numberOfInvalids();
-            if (errors) {                    
+            if (errors) {
                 validator.errorList[0].element.focus();
             }
-        } 
+        }
 
     }).settings.ignore = ':disabled,:hidden';
 
@@ -200,6 +200,9 @@ function GetPaymentPostData() {
         country: jQuery('#Country').length > 0 ? jQuery('#Country').val() : '',
         giftAid: jQuery('#GiftAid').is(':checked'),
         keepInTouch: GetKeepInTouchValue(),
+        doNotKeepInTouch: GetDoNotKeepInTouchValue(),
+        optInShown: GetOptInShownValue(),
+        legitInterestShown: GetLegitInterestShownValue(),
         amount: jQuery('#Amount').val(),
         accountNumber: jQuery('#AccountNumber').val(),
         sortCode: GetSortCode(),
@@ -224,6 +227,29 @@ function GetPaymentPostData() {
     };
 }
 
+
+function GetOptInShownValue() {
+    var keepInTouchValue = 0;
+    jQuery('input.KeepInTouch[type=checkbox]').each(function () {
+        keepInTouchValue += parseInt(jQuery(this).val());
+    });
+    return keepInTouchValue;
+}
+function GetLegitInterestShownValue() {
+    var doNotKeepInTouchValue = 0;
+    jQuery('input.DoNotKeepInTouch[type=checkbox]').each(function () {
+        doNotKeepInTouchValue += parseInt(jQuery(this).val());
+    });
+    return doNotKeepInTouchValue;
+}
+
+function GetDoNotKeepInTouchValue() {
+    var doNotKeepInTouchValue = 0;
+    jQuery('input.DoNotKeepInTouch[type=checkbox]:checked').each(function () {
+        doNotKeepInTouchValue += parseInt(jQuery(this).val());
+    });
+    return doNotKeepInTouchValue;
+}
 
 function GetKeepInTouchValue() {
 
@@ -313,26 +339,26 @@ function RedirectToGoCardless(redirectUrl) {
 function zapier() {
 
     var data = {
-        email : jQuery('#Email').val(),
-        Amount : jQuery('#Amount').val(),
+        email: jQuery('#Email').val(),
+        Amount: jQuery('#Amount').val(),
         collectionDay: jQuery('#paymentDay').val(),
-        giftAid : jQuery('#GiftAid').is(':checked'),
-        comments : jQuery('#inspiration_question').val() + " " + jQuery('#Comment').val(),
+        giftAid: jQuery('#GiftAid').is(':checked'),
+        comments: jQuery('#inspiration_question').val() + " " + jQuery('#Comment').val(),
         campaign: jQuery('#Campaign').val(),
         id: zapId,
-        firstname : jQuery('#FirstName').val(),
-        lastname : jQuery('#LastName').val(),
-        emailUpdates : jQuery("#emailPreference").is(':checked')
+        firstname: jQuery('#FirstName').val(),
+        lastname: jQuery('#LastName').val(),
+        emailUpdates: jQuery("#emailPreference").is(':checked')
     };
 
     jQuery.ajax({
-        type : 'POST',
-        url : 'https://hooks.zapier.com/hooks/catch/8597852/bk64mw8/',  
+        type: 'POST',
+        url: 'https://hooks.zapier.com/hooks/catch/8597852/bk64mw8/',
         data: JSON.stringify(data),
-        success:function (data) {
+        success: function (data) {
             console.log('sent to zapier');
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.log('failed to send to zapier');
         }
     });
