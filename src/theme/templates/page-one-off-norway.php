@@ -614,8 +614,7 @@ endif;
 
                     <input type="hidden" id="currency" value="NOK" />
                     <input type="hidden" id="type" value="Norway+one-off" />
-                    <input type="hidden" id="zapierUrl" value="https://hooks.zapier.com/hooks/catch/8597852/bk7nv5v/" />
-
+                    <input type="hidden" id="zapierUrl" value="" />
                 </form>
                 <!-- /form 3 -->
 
