@@ -46,7 +46,11 @@ $has_video = false;
         $image_src = wp_get_attachment_image_src($id, 'full');
         $title_size = get_sub_field('title_size');
         ?>
-        <a <?php if ($video) { ?>data-toggle="modal" data-target="#video-modal-cards-quarters" data-src="<?php echo $video ?>" <?php } else if (!$dropdown) { ?><?php if ($target) echo 'target="' . $link_target . '"' ?> <?php if (!is_admin()) { ?>href="<?php echo $link_url ?>" <?php } ?> <?php } ?> class="<?php if ($dropdown) echo 'block-card--dropdown' ?> block-card <?php if ($video) echo 'video-trigger' ?>" <?php if ($download) echo 'download' ?>>
+        <<?php if ($dropdown) {
+                echo 'div';
+            } else {
+                echo 'a';
+            } ?> <?php if ($video) { ?> data-toggle="modal" data-target="#video-modal-cards-quarters" data-src="<?php echo $video ?>" <?php } else if (!$dropdown) { ?><?php if ($target) echo 'target="' . $link_target . '"' ?> <?php if (!is_admin()) { ?>href="<?php echo $link_url ?>" <?php } ?> <?php } ?> class="<?php if ($dropdown) echo 'block-card--dropdown' ?> block-card <?php if ($video) echo 'video-trigger' ?>" <?php if ($download) echo 'download' ?>>
             <div style="background-image: url('<?php echo $image_src[0]; ?>'); background-position: <?php echo $image['left'] . '% ' . $image['top']; ?>%;" class="block-card__image-container">
             </div>
             <div class="block-card__content">
@@ -57,7 +61,11 @@ $has_video = false;
                     </div>
                 <?php } ?>
             </div>
-        </a>
+        </<?php if ($dropdown) {
+                echo 'div';
+            } else {
+                echo 'a';
+            } ?>>
 
     <?php endwhile; ?>
 

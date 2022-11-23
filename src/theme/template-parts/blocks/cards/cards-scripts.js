@@ -31,6 +31,7 @@
     // Initialize dynamic block preview (editor).
     if (window.acf) {
         window.acf.addAction('render_block_preview/type=cards-quarter', initializeBlockDropdown);
+        window.acf.addAction('render_block_preview/type=cards-thirds', initializeBlockDropdown);
     }
 
 })(jQuery);

@@ -100,7 +100,8 @@ function my_acf_init_block_types()
 
         function card_third_assets()
         {
-            wp_enqueue_style('card_third_assets', get_template_directory_uri() . '/template-parts/blocks/cards-thirds.css', array(), _S_VERSION);
+            wp_enqueue_style('card_third_styles', get_template_directory_uri() . '/template-parts/blocks/cards-thirds.css', array(), _S_VERSION);
+            wp_enqueue_script('card_scripts', get_template_directory_uri() . '/template-parts/blocks/cards/cards-scripts.js', array(), _S_VERSION);
         }
 
         //register big image card block.
@@ -416,7 +417,7 @@ function my_acf_init_block_types()
         function card_quarter_assets()
         {
             wp_enqueue_style('card_quarter_styles', get_template_directory_uri() . '/template-parts/blocks/cards-quarter.css', array(), _S_VERSION);
-            wp_enqueue_script('card_quarter_scripts', get_template_directory_uri() . '/template-parts/blocks/cards/cards-quarter.js', array(), _S_VERSION);
+            wp_enqueue_script('card_scripts', get_template_directory_uri() . '/template-parts/blocks/cards/cards-scripts.js', array(), _S_VERSION);
         }
     }
 }
@@ -449,7 +450,8 @@ function register_acf_block_styles(): void
     }
 
     if (has_block('acf/cards-thirds')) {
-        wp_enqueue_style('card_third_assets', get_template_directory_uri() . '/template-parts/blocks/cards-thirds.css', array(), _S_VERSION);
+        wp_enqueue_style('card_third_styles', get_template_directory_uri() . '/template-parts/blocks/cards-thirds.css', array(), _S_VERSION);
+        wp_enqueue_script('card_scripts', get_template_directory_uri() . '/template-parts/blocks/cards/cards-scripts.js', array(), _S_VERSION);
     }
 
     if (has_block('acf/big-image-card')) {
@@ -532,7 +534,7 @@ function register_acf_block_styles(): void
 
     if (has_block('acf/cards-quarter')) {
         wp_enqueue_style('cards_quarter_styles', get_template_directory_uri() . '/template-parts/blocks/cards-quarter.css', array(), _S_VERSION);
-        wp_enqueue_script('card_quarter_scripts', get_template_directory_uri() . '/template-parts/blocks/cards/cards-quarter.js', array(), _S_VERSION);
+        wp_enqueue_script('card_scripts', get_template_directory_uri() . '/template-parts/blocks/cards/cards-scripts.js', array(), _S_VERSION);
     }
 }
 

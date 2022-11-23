@@ -22,7 +22,7 @@ if (!empty($block['className'])) {
 $hasGradient = get_field('has_gradient');
 $gradientColor = get_field('gradient_color');
 $gradientColorB = get_field('gradient_color_b');
-$split_on_mobile = get_field('split_on_mobile');
+//$split_on_mobile = get_field('split_on_mobile');
 $align_content = get_field('align_content');
 $max_width = get_field('content_max_width');
 
@@ -42,7 +42,7 @@ $image_src = wp_get_attachment_image_src($id, 'full');
 
 
 <!-- grid -->
-<div id="<?php echo esc_attr($id); ?>" class="full-header <?php echo $split_on_mobile . ' ' . $class_name ?> hfj-block">
+<div id="<?php echo esc_attr($id); ?>" class="full-header full-header--split-on-mobile <?php echo $class_name ?> hfj-block">
     <div class="better-grid">
 
         <div style="background-image: url('<?php echo $image_src[0]; ?>'); background-position: <?php echo $image['left'] . '% ' . $image['top']; ?>%;" class="full-header__image">

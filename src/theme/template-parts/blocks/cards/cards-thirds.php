@@ -23,6 +23,8 @@ $has_video = false;
         <?php
         $download = get_sub_field('download');
         $video = get_sub_field('video');
+        $dropdown = get_sub_field('dropdown');
+        $dropdown_content = get_sub_field('dropdown_content');
         if ($video) $has_video = true;
         $link = get_sub_field('link');
         if ($link) {
@@ -45,13 +47,26 @@ $has_video = false;
         $image_src = wp_get_attachment_image_src($id, 'full');
         $title_size = get_sub_field('title_size');
         ?>
-        <a <?php if ($video) { ?>data-toggle="modal" data-target="#video-modal-cards-thirds" data-src="<?php echo $video ?>" <?php } else { ?><?php if ($target) echo 'target="' . $link_target . '"' ?> <?php if (!is_admin()) { ?>href="<?php echo $link_url ?>" <?php } ?> <?php } ?> class="block-card <?php if ($video) echo 'video-trigger' ?>" <?php if ($download) echo 'download' ?>>
+        <<?php if ($dropdown) {
+                echo 'div';
+            } else {
+                echo 'a';
+            } ?> <?php if ($video) { ?>data-toggle="modal" data-target="#video-modal-cards-thirds" data-src="<?php echo $video ?>" <?php } else { ?><?php if ($target) echo 'target="' . $link_target . '"' ?> <?php if (!is_admin()) { ?>href="<?php echo $link_url ?>" <?php } ?> <?php } ?> class="<?php if ($dropdown) echo 'block-card--dropdown' ?> block-card <?php if ($video) echo 'video-trigger' ?>" <?php if ($download) echo 'download' ?>>
             <div style="background-image: url('<?php echo $image_src[0]; ?>'); background-position: <?php echo $image['left'] . '% ' . $image['top']; ?>%;" class="block-card__image-container">
                 <div class="block-card__content">
                     <h4 class="block-title block-card__title <?php echo $title_size; ?>"><b><?php echo (get_sub_field('title')) ?></b><span style="white-space: pre;" class="block-card__arrow">&nbsp;<img alt="arrow" src="<?php echo get_template_directory_uri() . '/assets/img/link-arrow.svg'; ?>"></span></h4>
+                    <?php if ($dropdown) { ?>
+                        <div class="block-card__dropdown-content">
+                            <p><?php echo $dropdown_content ?></p>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
-        </a>
+        </<?php if ($dropdown) {
+                echo 'div';
+            } else {
+                echo 'a';
+            } ?>>
 
     <?php endwhile; ?>
 
