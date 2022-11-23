@@ -10,13 +10,11 @@
  */
 
 // Load values and assign defaults.
-$block_margin_bottom_desktop = get_field('block_margin_bottom_desktop') ?: '80px';
-$block_margin_bottom_mobile = get_field('block_margin_bottom_mobile') ?: '40px';
 $has_video = false;
 ?>
 
 
-<div class="better-grid card-thirds hfj-block" style="--margin-bottom-mobile:<?php echo $block_margin_bottom_mobile ?>; --margin-bottom-desktop: <?php echo $block_margin_bottom_desktop ?>;">
+<div class="better-grid card-thirds hfj-block">
 
 
     <?php while (have_rows('third_cards')) : the_row(); ?>
