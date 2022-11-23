@@ -79,14 +79,14 @@ module.exports = function (grunt) {
   grunt.registerTask('blocks_changed', ['copy:blocks']);
   grunt.registerTask('fonts_changed', ['clean:fonts', 'copy:fonts']);
   grunt.registerTask('img_changed', ['clean:img', 'copy:img']);
-  grunt.registerTask('scss_changed', ['clean:css', 'sass']);
+  grunt.registerTask('scss_changed', ['clean:css', 'sass', 'autoprefixer']);
   grunt.registerTask('js_changed', ['clean:js', 'copy:theme', 'copy:tmpl', 'uglify']);
 
   // install Wordpress latest
   grunt.registerTask('wp-install', ['clean:wpTmp', 'curl', 'unzip', 'clean:install', 'copy:install', 'clean:wpTmp']);
 
 
-  grunt.registerTask('deploy-production', ['clean:all', 'symlink', 'copy:theme', 'copy:style', 'copy:img', 'copy:tmpl', 'copy:fonts', 'sass:build', 'uglify', 'sftp-deploy:production']);
-  grunt.registerTask('deploy-staging', ['clean:all', 'symlink', 'copy:theme', 'copy:style', 'copy:img', 'copy:tmpl', 'copy:fonts', 'sass:build', 'uglify', 'sftp-deploy:staging']);
+  // grunt.registerTask('deploy-production', ['clean:all', 'symlink', 'copy:theme', 'copy:style', 'copy:img', 'copy:tmpl', 'copy:fonts', 'sass:build', 'uglify', 'sftp-deploy:production']);
+  // grunt.registerTask('deploy-staging', ['clean:all', 'symlink', 'copy:theme', 'copy:style', 'copy:img', 'copy:tmpl', 'copy:fonts', 'sass:build', 'uglify', 'sftp-deploy:staging']);
 
 };
