@@ -19,6 +19,15 @@ use AIOSEO\Plugin\Pro\ImportExport;
  */
 class LocalBusiness extends ImportExport\LocalBusiness {
 	/**
+	 * List of options.
+	 *
+	 * @since 4.2.7
+	 *
+	 * @var array
+	 */
+	private $options = [];
+
+	/**
 	 * Class constructor.
 	 *
 	 * @since 4.0.0
@@ -58,21 +67,10 @@ class LocalBusiness extends ImportExport\LocalBusiness {
 	 */
 	private function migrateLocalBusinessPriceRange() {
 		if ( ! empty( $this->options['price_range'] ) ) {
-			$count = substr_count( $this->options['price_range'], '$' );
-			if ( 0 === $count ) {
-				return;
+			$priceRange = $this->preparePriceRange( $this->options['price_range'] );
+			if ( ! empty( $priceRange ) ) {
+				aioseo()->options->localBusiness->locations->business->payment->priceRange = $priceRange;
 			}
-
-			if ( 5 < $count ) {
-				$count = 5;
-			}
-
-			$priceRange = '';
-			for ( $i = 1; $i <= $count; $i++ ) {
-				$priceRange .= '$';
-			}
-
-			aioseo()->options->localBusiness->locations->business->payment->priceRange = $priceRange;
 		}
 	}
 
@@ -89,7 +87,7 @@ class LocalBusiness extends ImportExport\LocalBusiness {
 		}
 
 		if ( isset( $this->options['local_address']['addressCountry'] ) ) {
-			$this->migrateLocalBusinessType( $this->options['local_address']['addressCountry'] );
+			$this->migrateLocalBusinessCountry( $this->options['local_address']['addressCountry'] );
 		}
 
 		$settings = [

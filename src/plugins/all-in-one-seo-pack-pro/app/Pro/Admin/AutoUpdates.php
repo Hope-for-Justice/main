@@ -166,7 +166,7 @@ class AutoUpdates {
 		$isAddon       = $this->isPluginOurAddon( $pluginFile );
 		$isMainFree    = 'all-in-one-seo-pack' === $pluginData['slug'];
 		$isMainPro     = $isPro && plugin_basename( AIOSEO_FILE ) === $pluginFile;
-		$hasPermission = current_user_can( 'aioseo_manage_seo' );
+		$hasPermission = current_user_can( aioseo()->admin->getPageRequiredCapability( 'aioseo-settings' ) );
 
 		if ( $isAddon && ! $isPro ) {
 			$html = sprintf(

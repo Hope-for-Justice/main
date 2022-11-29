@@ -15,13 +15,40 @@ use AIOSEO\Plugin\Common\Models;
  */
 class ImportExport {
 	/**
-	 * Set up an array of plugins for importing.
+	 * List of plugins for importing.
 	 *
 	 * @since 4.0.0
 	 *
 	 * @var array
 	 */
 	private $plugins = [];
+
+	/**
+	 * YoastSeo class instance.
+	 *
+	 * @since 4.2.7
+	 *
+	 * @var YoastSeo\YoastSeo
+	 */
+	public $yoastSeo = null;
+
+	/**
+	 * RankMath class instance.
+	 *
+	 * @since 4.2.7
+	 *
+	 * @var RankMath\RankMath
+	 */
+	public $rankMath = null;
+
+	/**
+	 * SeoPress class instance.
+	 *
+	 * @since 4.2.7
+	 *
+	 * @var SeoPress\SeoPress
+	 */
+	public $seoPress = null;
 
 	/**
 	 * Class constructor.
@@ -31,6 +58,7 @@ class ImportExport {
 	public function __construct() {
 		$this->yoastSeo = new YoastSeo\YoastSeo( $this );
 		$this->rankMath = new RankMath\RankMath( $this );
+		$this->seoPress = new SeoPress\SeoPress( $this );
 	}
 
 	/**
@@ -48,7 +76,7 @@ class ImportExport {
 		$sectionLabel = '';
 		$sectionCount = 0;
 
-		foreach ( $lines as $lineNumber => $line ) {
+		foreach ( $lines as $line ) {
 			$line = trim( $line );
 			// Ignore comments.
 			if ( preg_match( '#^;.*#', $line ) || preg_match( '#\<(\?php|script)#', $line ) ) {
@@ -122,6 +150,7 @@ class ImportExport {
 		if ( ! empty( $postData ) ) {
 			$this->importOldPostMeta( $postData );
 		}
+
 		return true;
 	}
 
@@ -151,7 +180,7 @@ class ImportExport {
 		$excludedPosts        = [];
 		$sitemapExcludedPosts = [];
 
-		require_once( ABSPATH . 'wp-admin/includes/post.php' );
+		require_once ABSPATH . 'wp-admin/includes/post.php';
 		foreach ( $postData as $post => $values ) {
 			$postId = \post_exists( $values['post_title'], '', $values['post_date'] );
 			if ( ! $postId ) {
@@ -281,6 +310,7 @@ class ImportExport {
 				foreach ( (array) $value as $k => $v ) {
 					$sanitized[ $k ] = $this->convertAndSanitize( $v );
 				}
+
 				return $sanitized;
 			default:
 				return '';
@@ -297,12 +327,42 @@ class ImportExport {
 	 * @return void
 	 */
 	public function startImport( $plugin, $settings ) {
+		// First cancel any scans running that might interfere with our import.
+		$this->cancelScans();
+
 		foreach ( $this->plugins as $pluginData ) {
 			if ( $pluginData['slug'] === $plugin ) {
 				$pluginData['class']->doImport( $settings );
+
 				return;
 			}
 		}
+	}
+
+	/**
+	 * Cancel scans that are currently running and could conflict with our migration.
+	 *
+	 * @since 4.1.4
+	 *
+	 * @return void
+	 */
+	private function cancelScans() {
+		// Figure out how to check if these addons are enabled and then get the action names that way.
+		aioseo()->actionScheduler->unschedule( 'aioseo_video_sitemap_scan' );
+		aioseo()->actionScheduler->unschedule( 'aioseo_image_sitemap_scan' );
+	}
+
+	/**
+	 * Checks if an import is currently running.
+	 *
+	 * @since 4.1.4
+	 *
+	 * @return boolean True if an import is currently running.
+	 */
+	public function isImportRunning() {
+		$importsRunning = aioseo()->core->cache->get( 'import_%_meta_%' );
+
+		return ! empty( $importsRunning );
 	}
 
 	/**

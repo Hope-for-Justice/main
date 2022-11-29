@@ -17,6 +17,24 @@ use AIOSEO\Plugin\Common\ImportExport;
  */
 class SearchAppearance {
 	/**
+	 * List of options.
+	 *
+	 * @since 4.2.7
+	 *
+	 * @var array
+	 */
+	private $options = [];
+
+	/**
+	 * Whether the homepage social settings have been imported here.
+	 *
+	 * @since 4.2.4
+	 *
+	 * @var bool
+	 */
+	public $hasImportedHomepageSocialSettings = false;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @since 4.0.0
@@ -36,6 +54,8 @@ class SearchAppearance {
 		$this->migrateRedirectAttachments();
 		$this->migrateKnowledgeGraphSettings();
 		$this->migrateRssContentSettings();
+		$this->migrateStripCategoryBase();
+		$this->migrateHomepageSocialSettings();
 	}
 
 	/**
@@ -76,14 +96,18 @@ class SearchAppearance {
 	 * @return void
 	 */
 	private function migrateTitleFormats() {
-		$settings = [
-			'title-home-wpseo'    => [ 'type' => 'string', 'newOption' => [ 'searchAppearance', 'global', 'siteTitle' ] ],
-			'title-author-wpseo'  => [ 'type' => 'string', 'newOption' => [ 'searchAppearance', 'archives', 'author', 'title' ] ],
-			'title-archive-wpseo' => [ 'type' => 'string', 'newOption' => [ 'searchAppearance', 'archives', 'date', 'title' ] ],
-			'title-search-wpseo'  => [ 'type' => 'string', 'newOption' => [ 'searchAppearance', 'archives', 'search', 'title' ] ],
-		];
+		aioseo()->options->searchAppearance->global->siteTitle =
+			aioseo()->helpers->sanitizeOption( aioseo()->importExport->yoastSeo->helpers->macrosToSmartTags( $this->options['title-home-wpseo'] ) );
 
-		aioseo()->importExport->yoastSeo->helpers->mapOldToNew( $settings, $this->options, true );
+		aioseo()->options->searchAppearance->archives->date->title =
+			aioseo()->helpers->sanitizeOption( aioseo()->importExport->yoastSeo->helpers->macrosToSmartTags( $this->options['title-archive-wpseo'], null, 'archive' ) );
+
+		// Archive Title tag needs to be stripped since we don't support it for these two archives.
+		$value = aioseo()->helpers->sanitizeOption( aioseo()->importExport->yoastSeo->helpers->macrosToSmartTags( $this->options['title-author-wpseo'], null, 'archive' ) );
+		aioseo()->options->searchAppearance->archives->author->title = aioseo()->helpers->pregReplace( '/#archive_title/', '', $value );
+
+		$value = aioseo()->helpers->sanitizeOption( aioseo()->importExport->yoastSeo->helpers->macrosToSmartTags( $this->options['title-search-wpseo'], null, 'archive' ) );
+		aioseo()->options->searchAppearance->archives->search->title = aioseo()->helpers->pregReplace( '/#archive_title/', '', $value );
 	}
 
 	/**
@@ -157,25 +181,25 @@ class SearchAppearance {
 							$value = aioseo()->helpers->pregReplace( '#%%primary_category%%#', '', $value );
 							$value = aioseo()->helpers->pregReplace( '#%%excerpt%%#', '', $value );
 						}
-						aioseo()->options->searchAppearance->dynamic->postTypes->$postType->title =
-							aioseo()->helpers->sanitizeOption( aioseo()->importExport->yoastSeo->helpers->macrosToSmartTags( $value ) );
+						aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->title =
+							aioseo()->helpers->sanitizeOption( aioseo()->importExport->yoastSeo->helpers->macrosToSmartTags( $value, $postType ) );
 						break;
 					case 'metadesc':
 						if ( 'page' === $postType ) {
 							$value = aioseo()->helpers->pregReplace( '#%%primary_category%%#', '', $value );
 							$value = aioseo()->helpers->pregReplace( '#%%excerpt%%#', '', $value );
 						}
-						aioseo()->options->searchAppearance->dynamic->postTypes->$postType->metaDescription =
-							aioseo()->helpers->sanitizeOption( aioseo()->importExport->yoastSeo->helpers->macrosToSmartTags( $value ) );
+						aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->metaDescription =
+							aioseo()->helpers->sanitizeOption( aioseo()->importExport->yoastSeo->helpers->macrosToSmartTags( $value, $postType ) );
 						break;
 					case 'noindex':
-						aioseo()->options->searchAppearance->dynamic->postTypes->$postType->show = empty( $value ) ? true : false;
-						aioseo()->options->searchAppearance->dynamic->postTypes->$postType->advanced->robotsMeta->default = empty( $value ) ? true : false;
-						aioseo()->options->searchAppearance->dynamic->postTypes->$postType->advanced->robotsMeta->noindex = empty( $value ) ? false : true;
+						aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->show = empty( $value ) ? true : false;
+						aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->advanced->robotsMeta->default = empty( $value ) ? true : false;
+						aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->advanced->robotsMeta->noindex = empty( $value ) ? false : true;
 						break;
 					case 'display-metabox-pt':
 						if ( empty( $value ) ) {
-							aioseo()->options->searchAppearance->dynamic->postTypes->$postType->advanced->showMetaBox = false;
+							aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->advanced->showMetaBox = false;
 						}
 						break;
 					case 'schema-page-type':
@@ -183,25 +207,25 @@ class SearchAppearance {
 						if ( in_array( $postType, [ 'post', 'page', 'attachment' ], true ) ) {
 							break;
 						}
-						aioseo()->options->searchAppearance->dynamic->postTypes->$postType->schemaType = 'WebPage';
+						aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->schemaType = 'WebPage';
 						if ( in_array( $value, ImportExport\SearchAppearance::$supportedWebPageGraphs, true ) ) {
-							aioseo()->options->searchAppearance->dynamic->postTypes->$postType->webPageType = $value;
+							aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->webPageType = $value;
 						}
 						break;
 					case 'schema-article-type':
 						$value = aioseo()->helpers->pregReplace( '#\s#', '', $value );
 						if ( 'none' === lcfirst( $value ) ) {
-							aioseo()->options->searchAppearance->dynamic->postTypes->$postType->articleType = 'none';
+							aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->articleType = 'none';
 							break;
 						}
 
-						aioseo()->options->searchAppearance->dynamic->postTypes->$postType->articleType = 'Article';
+						aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->articleType = 'Article';
 						if ( in_array( $value, ImportExport\SearchAppearance::$supportedArticleGraphs, true ) ) {
 							if ( ! in_array( $postType, [ 'page', 'attachment' ], true ) ) {
-								aioseo()->options->searchAppearance->dynamic->postTypes->$postType->articleType = $value;
+								aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->articleType = $value;
 							}
 						} else {
-							aioseo()->options->searchAppearance->dynamic->postTypes->$postType->articleType = 'BlogPosting';
+							aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->articleType = 'BlogPosting';
 						}
 						break;
 					default:
@@ -233,17 +257,17 @@ class SearchAppearance {
 
 				switch ( $match[1] ) {
 					case 'title':
-						aioseo()->options->searchAppearance->dynamic->archives->$postType->title =
-							aioseo()->helpers->sanitizeOption( aioseo()->importExport->yoastSeo->helpers->macrosToSmartTags( $value ) );
+						aioseo()->dynamicOptions->searchAppearance->archives->$postType->title =
+							aioseo()->helpers->sanitizeOption( aioseo()->importExport->yoastSeo->helpers->macrosToSmartTags( $value, $postType, 'archive' ) );
 						break;
 					case 'metadesc':
-						aioseo()->options->searchAppearance->dynamic->archives->$postType->metaDescription =
-							aioseo()->helpers->sanitizeOption( aioseo()->importExport->yoastSeo->helpers->macrosToSmartTags( $value ) );
+						aioseo()->dynamicOptions->searchAppearance->archives->$postType->metaDescription =
+							aioseo()->helpers->sanitizeOption( aioseo()->importExport->yoastSeo->helpers->macrosToSmartTags( $value, $postType, 'archive' ) );
 						break;
 					case 'noindex':
-						aioseo()->options->searchAppearance->dynamic->archives->$postType->show = empty( $value ) ? true : false;
-						aioseo()->options->searchAppearance->dynamic->archives->$postType->advanced->robotsMeta->default = empty( $value ) ? true : false;
-						aioseo()->options->searchAppearance->dynamic->archives->$postType->advanced->robotsMeta->noindex = empty( $value ) ? false : true;
+						aioseo()->dynamicOptions->searchAppearance->archives->$postType->show = empty( $value ) ? true : false;
+						aioseo()->dynamicOptions->searchAppearance->archives->$postType->advanced->robotsMeta->default = empty( $value ) ? true : false;
+						aioseo()->dynamicOptions->searchAppearance->archives->$postType->advanced->robotsMeta->noindex = empty( $value ) ? false : true;
 						break;
 					default:
 						break;
@@ -301,6 +325,46 @@ class SearchAppearance {
 	 * @return void
 	 */
 	private function migrateRedirectAttachments() {
-		aioseo()->options->searchAppearance->dynamic->postTypes->attachment->redirectAttachmentUrls = empty( $this->options['disable-attachment'] ) ? 'disabled' : 'attachment';
+		aioseo()->dynamicOptions->searchAppearance->postTypes->attachment->redirectAttachmentUrls = empty( $this->options['disable-attachment'] ) ? 'disabled' : 'attachment';
+	}
+
+	/**
+	 * Migrates the strip category base option.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @return void
+	 */
+	private function migrateStripCategoryBase() {
+		aioseo()->options->searchAppearance->advanced->removeCatBase = empty( $this->options['stripcategorybase'] ) ? false : true;
+	}
+
+	/**
+	 * Migrate the social settings for the homepage.
+	 *
+	 * @since 4.2.4
+	 *
+	 * @return void
+	 */
+	private function migrateHomepageSocialSettings() {
+		if (
+			empty( $this->options['open_graph_frontpage_title'] ) &&
+			empty( $this->options['open_graph_frontpage_desc'] ) &&
+			empty( $this->options['open_graph_frontpage_image'] )
+		) {
+			return;
+		}
+
+		$this->hasImportedHomepageSocialSettings = true;
+
+		$settings = [
+			// These settings can also be found in the SocialMeta class, but Yoast recently moved them here.
+			// We'll still keep them in the other class for backwards compatibility.
+			'open_graph_frontpage_title' => [ 'type' => 'string', 'newOption' => [ 'social', 'facebook', 'homePage', 'title' ] ],
+			'open_graph_frontpage_desc'  => [ 'type' => 'string', 'newOption' => [ 'social', 'facebook', 'homePage', 'description' ] ],
+			'open_graph_frontpage_image' => [ 'type' => 'string', 'newOption' => [ 'social', 'facebook', 'homePage', 'image' ] ]
+		];
+
+		aioseo()->importExport->yoastSeo->helpers->mapOldToNew( $settings, $this->options, true );
 	}
 }

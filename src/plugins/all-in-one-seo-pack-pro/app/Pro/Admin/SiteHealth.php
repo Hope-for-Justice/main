@@ -156,13 +156,12 @@ class SiteHealth extends CommonAdmin\SiteHealth {
 		$description = sprintf( __( 'The %1$s API is reachable and no connection issues have been detected.', 'aioseo-pro' ), AIOSEO_PLUGIN_SHORT_NAME );
 
 		$url      = aioseo()->license->getUrl() . 'ping/';
-		$params   = [
-			'sslverify'  => aioseo()->helpers->isDev() ? false : true,
-			'timeout'    => 2,
-			'user-agent' => 'AIOSEO/' . AIOSEO_VERSION,
-			'body'       => '',
-		];
-		$response = wp_remote_get( $url, $params );
+		$response = wp_remote_get( $url, [
+			'timeout'    => 10,
+			'headers'    => aioseo()->helpers->getApiHeaders(),
+			'user-agent' => aioseo()->helpers->getApiUserAgent(),
+			'body'       => ''
+		] );
 
 		if ( is_wp_error( $response ) || $response['response']['code'] < 200 || $response['response']['code'] > 300 ) {
 			$status = 'critical';
@@ -251,9 +250,9 @@ class SiteHealth extends CommonAdmin\SiteHealth {
 
 		foreach ( aioseo()->helpers->getPublicPostTypes( false, true ) as $postType ) {
 			if (
-				aioseo()->options->searchAppearance->dynamic->archives->has( $postType['name'] ) &&
-				! aioseo()->options->searchAppearance->dynamic->archives->{ $postType['name'] }->advanced->robotsMeta->default &&
-				aioseo()->options->searchAppearance->dynamic->archives->{ $postType['name'] }->advanced->robotsMeta->nofollow
+				aioseo()->dynamicOptions->searchAppearance->archives->has( $postType['name'] ) &&
+				! aioseo()->dynamicOptions->searchAppearance->archives->{ $postType['name'] }->advanced->robotsMeta->default &&
+				aioseo()->dynamicOptions->searchAppearance->archives->{ $postType['name'] }->advanced->robotsMeta->nofollow
 			) {
 				$nofollowed[] = $postType['label'] . ' ' . __( 'Archives', 'all-in-one-seo-pack' ) . ' (' . $postType['name'] . ')';
 			}
@@ -274,9 +273,9 @@ class SiteHealth extends CommonAdmin\SiteHealth {
 
 		foreach ( aioseo()->helpers->getPublicPostTypes( false, true ) as $postType ) {
 			if (
-				aioseo()->options->searchAppearance->dynamic->archives->has( $postType['name'] ) &&
-				! aioseo()->options->searchAppearance->dynamic->archives->{ $postType['name'] }->advanced->robotsMeta->default &&
-				aioseo()->options->searchAppearance->dynamic->archives->{ $postType['name'] }->advanced->robotsMeta->noindex
+				aioseo()->dynamicOptions->searchAppearance->archives->has( $postType['name'] ) &&
+				! aioseo()->dynamicOptions->searchAppearance->archives->{ $postType['name'] }->advanced->robotsMeta->default &&
+				aioseo()->dynamicOptions->searchAppearance->archives->{ $postType['name'] }->advanced->robotsMeta->noindex
 			) {
 				$noindexed[] = $postType['label'] . ' ' . __( 'Archives', 'all-in-one-seo-pack' ) . ' (' . $postType['name'] . ')';
 			}

@@ -23,18 +23,33 @@ class Api extends CommonApi\Api {
 	 */
 	protected $proRoutes = [
 		// phpcs:disable WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound
-		'POST' => [
-			'activate'                                                  => [ 'callback' => [ 'License', 'activateLicense' ] ],
-			'deactivate'                                                => [ 'callback' => [ 'License', 'deactivateLicense' ] ],
-			'notification/local-business-organization-reminder'         => [ 'callback' => [ 'Notifications', 'localBusinessOrganizationReminder' ] ],
-			'notification/news-publication-name-reminder'               => [ 'callback' => [ 'Notifications', 'newsPublicationNameReminder' ] ],
-			'notification/v3-migration-local-business-number-reminder'  => [ 'callback' => [ 'Notifications', 'migrationLocalBusinessNumberReminder' ] ],
-			'notification/v3-migration-local-business-country-reminder' => [ 'callback' => [ 'Notifications', 'migrationLocalBusinessCountryReminder' ] ],
-			'notification/import-local-business-country-reminder'       => [ 'callback' => [ 'Notifications', 'importLocalBusinessCountryReminder' ] ],
-			'notification/import-local-business-type-reminder'          => [ 'callback' => [ 'Notifications', 'importLocalBusinessTypeReminder' ] ],
-			'notification/import-local-business-number-reminder'        => [ 'callback' => [ 'Notifications', 'importLocalBusinessNumberReminder' ] ],
-			'notification/import-local-business-fax-reminder'           => [ 'callback' => [ 'Notifications', 'importLocalBusinessFaxReminder' ] ],
-			'notification/import-local-business-currencies-reminder'    => [ 'callback' => [ 'Notifications', 'importLocalBusinessCurrenciesReminder' ] ]
+		'DELETE' => [
+			'schema/templates' => [ 'callback' => [ 'Schema', 'deleteTemplate' ], 'access' => 'aioseo_page_schema_settings' ]
+		],
+		'GET'    => [
+			'network-robots/(?P<siteId>[\d]+|network)' => [ 'callback' => [ 'Network', 'fetchSiteRobots' ], 'access' => 'manage_network' ],
+			'schema/templates'                         => [ 'callback' => [ 'Schema', 'getTemplates' ], 'access' => 'aioseo_page_schema_settings' ]
+		],
+		'POST'   => [
+			'activate'                                                  => [ 'callback' => [ 'License', 'activateLicense' ], 'access' => 'aioseo_general_settings' ],
+			'deactivate'                                                => [ 'callback' => [ 'License', 'deactivateLicense' ], 'access' => 'aioseo_general_settings' ],
+			'multisite'                                                 => [ 'callback' => [ 'License', 'multisite' ], 'access' => 'aioseo_general_settings' ],
+			'network-sites/(?P<filter>all|activated|deactivated)'       => [ 'callback' => [ 'Network', 'fetchSites' ], 'access' => 'manage_network' ],
+			'network-robots/(?P<siteId>[\d]+|network)'                  => [ 'callback' => [ 'Network', 'saveNetworkRobots' ], 'access' => 'manage_network' ],
+			'notification/local-business-organization-reminder'         => [ 'callback' => [ 'Notifications', 'localBusinessOrganizationReminder' ], 'access' => 'any' ],
+			'notification/news-publication-name-reminder'               => [ 'callback' => [ 'Notifications', 'newsPublicationNameReminder' ], 'access' => 'any' ],
+			'notification/v3-migration-local-business-number-reminder'  => [ 'callback' => [ 'Notifications', 'migrationLocalBusinessNumberReminder' ], 'access' => 'any' ],
+			'notification/v3-migration-local-business-country-reminder' => [ 'callback' => [ 'Notifications', 'migrationLocalBusinessCountryReminder' ], 'access' => 'any' ],
+			'notification/import-local-business-country-reminder'       => [ 'callback' => [ 'Notifications', 'importLocalBusinessCountryReminder' ], 'access' => 'any' ],
+			'notification/import-local-business-type-reminder'          => [ 'callback' => [ 'Notifications', 'importLocalBusinessTypeReminder' ], 'access' => 'any' ],
+			'notification/import-local-business-number-reminder'        => [ 'callback' => [ 'Notifications', 'importLocalBusinessNumberReminder' ], 'access' => 'any' ],
+			'notification/import-local-business-fax-reminder'           => [ 'callback' => [ 'Notifications', 'importLocalBusinessFaxReminder' ], 'access' => 'any' ],
+			'notification/import-local-business-currencies-reminder'    => [ 'callback' => [ 'Notifications', 'importLocalBusinessCurrenciesReminder' ], 'access' => 'any' ],
+			'schema/templates'                                          => [ 'callback' => [ 'Schema', 'addTemplate' ], 'access' => 'aioseo_page_schema_settings' ],
+			'schema/validator/output'                                   => [ 'callback' => [ 'Schema', 'getValidatorOutput' ], 'access' => 'aioseo_page_schema_settings' ]
+		],
+		'PUT'    => [
+			'schema/templates' => [ 'callback' => [ 'Schema', 'updateTemplate' ], 'access' => 'aioseo_page_schema_settings' ]
 		]
 		// phpcs:enable WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound
 	];
@@ -89,5 +104,54 @@ class Api extends CommonApi\Api {
 		}
 
 		return $response;
+	}
+
+	/**
+	 * Validates access from the routes array.
+	 *
+	 * @since 4.1.6
+	 *
+	 * @param  \WP_REST_Request $request The REST Request.
+	 * @return bool                      True if validated, false if not.
+	 */
+	public function validateAccess( $request ) {
+		$routeData = $this->getRouteData( $request );
+		if ( empty( $routeData ) || empty( $routeData['access'] ) ) {
+			return false;
+		}
+
+		// Admins always have access.
+		if ( aioseo()->access->isAdmin() ) {
+			return true;
+		}
+
+		switch ( $routeData['access'] ) {
+			case 'everyone':
+				// Any user is able to access the route.
+				return true;
+			case 'any':
+				// The user has access if he has any of our capabilities.
+				$user = wp_get_current_user();
+				foreach ( $user->get_role_caps() as $capability => $enabled ) {
+					if ( $enabled && preg_match( '/^aioseo_/', $capability ) ) {
+						return true;
+					}
+				}
+
+				return false;
+			default:
+				// The user has access if he has any of the required capabilities.
+				if ( ! is_array( $routeData['access'] ) ) {
+					$routeData['access'] = [ $routeData['access'] ];
+				}
+
+				foreach ( $routeData['access'] as $access ) {
+					if ( current_user_can( $access ) ) {
+						return true;
+					}
+				}
+
+				return false;
+		}
 	}
 }

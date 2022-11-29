@@ -28,6 +28,15 @@ class TitleMeta {
 	];
 
 	/**
+	 * List of options.
+	 *
+	 * @since 4.2.7
+	 *
+	 * @var array
+	 */
+	private $options = [];
+
+	/**
 	 * Class constructor.
 	 *
 	 * @since 4.0.0
@@ -62,7 +71,7 @@ class TitleMeta {
 		foreach ( aioseo()->helpers->getPublicTaxonomies( true ) as $taxonomy ) {
 			// Reset existing values first.
 			foreach ( $this->robotMetaSettings as $robotsMetaName ) {
-				aioseo()->options->searchAppearance->dynamic->taxonomies->$taxonomy->advanced->robotsMeta->$robotsMetaName = false;
+				aioseo()->dynamicOptions->searchAppearance->taxonomies->$taxonomy->advanced->robotsMeta->$robotsMetaName = false;
 			}
 
 			foreach ( $this->options as $name => $value ) {
@@ -72,15 +81,15 @@ class TitleMeta {
 
 				switch ( $match[1] ) {
 					case 'title':
-						aioseo()->options->searchAppearance->dynamic->taxonomies->$taxonomy->title =
-							aioseo()->helpers->sanitizeOption( aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $value ) );
+						aioseo()->dynamicOptions->searchAppearance->taxonomies->$taxonomy->title =
+							aioseo()->helpers->sanitizeOption( aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $value, 'term' ) );
 						break;
 					case 'description':
-						aioseo()->options->searchAppearance->dynamic->taxonomies->$taxonomy->metaDescription =
-							aioseo()->helpers->sanitizeOption( aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $value ) );
+						aioseo()->dynamicOptions->searchAppearance->taxonomies->$taxonomy->metaDescription =
+							aioseo()->helpers->sanitizeOption( aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $value, 'term' ) );
 						break;
 					case 'custom_robots':
-						aioseo()->options->searchAppearance->dynamic->taxonomies->$taxonomy->advanced->robotsMeta->default = 'off' === $value;
+						aioseo()->dynamicOptions->searchAppearance->taxonomies->$taxonomy->advanced->robotsMeta->default = 'off' === $value;
 						break;
 					case 'robots':
 						if ( ! empty( $value ) ) {
@@ -88,24 +97,29 @@ class TitleMeta {
 								if ( 'index' === $robotsName ) {
 									continue;
 								}
-								aioseo()->options->searchAppearance->dynamic->taxonomies->$taxonomy->advanced->robotsMeta->$robotsName = true;
+
+								if ( 'noindex' === $robotsName ) {
+									aioseo()->dynamicOptions->searchAppearance->taxonomies->{$taxonomy}->show = false;
+								}
+
+								aioseo()->dynamicOptions->searchAppearance->taxonomies->$taxonomy->advanced->robotsMeta->$robotsName = true;
 							}
 						}
 						break;
 					case 'advanced_robots':
 						if ( ! empty( $value['max-snippet'] ) ) {
-							aioseo()->options->searchAppearance->dynamic->taxonomies->$taxonomy->advanced->robotsMeta->maxSnippet = intval( $value['max-snippet'] );
+							aioseo()->dynamicOptions->searchAppearance->taxonomies->$taxonomy->advanced->robotsMeta->maxSnippet = intval( $value['max-snippet'] );
 						}
 						if ( ! empty( $value['max-video-preview'] ) ) {
-							aioseo()->options->searchAppearance->dynamic->taxonomies->$taxonomy->advanced->robotsMeta->maxVideoPreview = intval( $value['max-video-preview'] );
+							aioseo()->dynamicOptions->searchAppearance->taxonomies->$taxonomy->advanced->robotsMeta->maxVideoPreview = intval( $value['max-video-preview'] );
 						}
 						if ( ! empty( $value['max-image-preview'] ) ) {
-							aioseo()->options->searchAppearance->dynamic->taxonomies->$taxonomy->advanced->robotsMeta->maxVideoPreview =
+							aioseo()->dynamicOptions->searchAppearance->taxonomies->$taxonomy->advanced->robotsMeta->maxVideoPreview =
 								aioseo()->helpers->sanitizeOption( $value['max-image-preview'] );
 						}
 						break;
 					case 'add_meta_box':
-						aioseo()->options->searchAppearance->dynamic->taxonomies->$taxonomy->advanced->showMetaBox = 'on' === $value;
+						aioseo()->dynamicOptions->searchAppearance->taxonomies->$taxonomy->advanced->showMetaBox = 'on' === $value;
 						break;
 					default:
 						break;

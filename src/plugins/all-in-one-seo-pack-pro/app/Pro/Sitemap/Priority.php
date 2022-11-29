@@ -26,6 +26,7 @@ class Priority extends CommonSitemap\Priority {
 	 */
 	public function priority( $pageType, $object = false, $objectType = null ) {
 		$priority = ! empty( $object->priority ) && 'default' !== $object->priority ? $object->priority : parent::priority( $pageType, $object, $objectType );
+
 		return $priority;
 	}
 
@@ -41,6 +42,7 @@ class Priority extends CommonSitemap\Priority {
 	 */
 	public function frequency( $pageType, $object = false, $objectType = null ) {
 		$frequency = ! empty( $object->frequency ) && 'default' !== $object->frequency ? $object->frequency : parent::frequency( $pageType, $object, $objectType );
+
 		return $frequency;
 	}
 }

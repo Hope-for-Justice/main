@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use AIOSEO\Plugin\Common\Migration as CommonMigration;
 use AIOSEO\Plugin\Pro\Models;
-use AIOSEO\Plugin\Extend\VideoSitemap;
+use AIOSEO\Plugin\Addon\VideoSitemap;
 
 /**
  * Migrates the term meta from V3.
@@ -28,15 +28,6 @@ class Meta extends CommonMigration\Meta {
 	private $videoSitemap = null;
 
 	/**
-	 * Class constructor.
-	 *
-	 * @since 4.0.2
-	 */
-	public function __construct() {
-		add_action( 'init', [ $this, 'instantiateVideoSitemap' ] );
-	}
-
-	/**
 	 * Instantiates the Video Sitemap video class if the addon is installed and active.
 	 *
 	 * @since 4.0.2
@@ -44,15 +35,20 @@ class Meta extends CommonMigration\Meta {
 	 * @return void
 	 */
 	public function instantiateVideoSitemap() {
-		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		if ( null !== $this->videoSitemap ) {
+			return;
+		}
+
 		$videoSitemap = aioseo()->addons->getAddon( 'aioseo-video-sitemap' );
 		if (
 			! empty( $videoSitemap ) &&
 			is_plugin_active( $videoSitemap->basename ) &&
 			aioseo()->license->isAddonAllowed( 'aioseo-video-sitemap' ) &&
-			class_exists( 'AIOSEO\\Plugin\\Extend\\VideoSitemap' )
+			class_exists( 'AIOSEO\\Plugin\\Addon\\VideoSitemap\\VideoSitemap' ) &&
+			function_exists( 'aioseoVideoSitemap' )
 		) {
-			$this->videoSitemap = new VideoSitemap\Video;
+			// The video sitemap has already been instantiated, let's grab it.
+			$this->videoSitemap = property_exists( aioseoVideoSitemap(), 'video' ) ? aioseoVideoSitemap()->video : new VideoSitemap\VideoSitemap\Video;
 		}
 	}
 
@@ -64,7 +60,10 @@ class Meta extends CommonMigration\Meta {
 	 * @param  int  $postId The post ID.
 	 * @return void
 	 */
-	protected function migrateAdditionalPostMeta( $postId ) {
+	public function migrateAdditionalPostMeta( $postId ) {
+		parent::migrateAdditionalPostMeta( $postId );
+
+		$this->instantiateVideoSitemap();
 		if ( $this->videoSitemap ) {
 			$post = get_post( $postId );
 			$this->videoSitemap->scanPost( $post );
@@ -100,16 +99,17 @@ class Meta extends CommonMigration\Meta {
 	 * @return void
 	 */
 	public function migrateTermMeta() {
-		if ( aioseo()->transients->get( 'v3_migration_in_progress_settings' ) ) {
-			aioseo()->helpers->scheduleSingleAction( 'aioseo_migrate_term_meta', 30 );
+		if ( aioseo()->core->cache->get( 'v3_migration_in_progress_settings' ) ) {
+			aioseo()->actionScheduler->scheduleSingle( 'aioseo_migrate_term_meta', 30, [], true );
+
 			return;
 		}
 
 		$termsPerAction   = 50;
 		$publicTaxonomies = implode( "', '", aioseo()->helpers->getPublicTaxonomies( true ) );
-		$timeStarted      = gmdate( 'Y-m-d H:i:s', aioseo()->transients->get( 'v3_migration_in_progress_terms' ) );
+		$timeStarted      = gmdate( 'Y-m-d H:i:s', aioseo()->core->cache->get( 'v3_migration_in_progress_terms' ) );
 
-		$termsToMigrate = aioseo()->db
+		$termsToMigrate = aioseo()->core->db
 			->start( 'terms' . ' as t' )
 			->select( 't.term_id' )
 			->leftJoin( 'aioseo_terms as at', '`t`.`term_id` = `at`.`term_id`' )
@@ -122,7 +122,8 @@ class Meta extends CommonMigration\Meta {
 			->result();
 
 		if ( ! $termsToMigrate || ! count( $termsToMigrate ) ) {
-			aioseo()->transients->delete( 'v3_migration_in_progress_terms' );
+			aioseo()->core->cache->delete( 'v3_migration_in_progress_terms' );
+
 			return;
 		}
 
@@ -148,7 +149,7 @@ class Meta extends CommonMigration\Meta {
 				// Do nothing.
 			}
 		} else {
-			aioseo()->transients->delete( 'v3_migration_in_progress_terms' );
+			aioseo()->core->cache->delete( 'v3_migration_in_progress_terms' );
 		}
 	}
 
@@ -173,7 +174,7 @@ class Meta extends CommonMigration\Meta {
 			return [];
 		}
 
-		$termMeta = aioseo()->db
+		$termMeta = aioseo()->core->db
 			->start( 'termmeta' . ' as tm' )
 			->select( '`tm`.`meta_key`, `tm`.`meta_value`' )
 			->where( 'tm.term_id', $termId )
@@ -260,6 +261,7 @@ class Meta extends CommonMigration\Meta {
 					break;
 			}
 		}
+
 		return $meta;
 	}
 
@@ -396,6 +398,7 @@ class Meta extends CommonMigration\Meta {
 		}
 
 		$seoTitle = aioseo()->helpers->pregReplace( '/(%category_title%|%tag_title%|%taxonomy_title%|%tag%)/', $seoTitle, $titleFormat );
+
 		return aioseo()->migration->helpers->macrosToSmartTags( $seoTitle );
 	}
 }

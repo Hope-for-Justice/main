@@ -15,28 +15,55 @@ use DateTime;
  */
 class Translations {
 	/**
-	 * Installed translations.
+	 * List of available translations.
 	 *
 	 * @since 4.0.0
 	 *
 	 * @var array
 	 */
-	static private $installedTranslations;
+	private static $installedTranslations = [];
 
 	/**
-	 * Available languages.
+	 * List of available languages.
 	 *
 	 * @since 4.0.0
 	 *
-	 * @var array
+	 * @var array[string]
 	 */
-	static private $availableLanguages;
+	private static $availableLanguages = [];
 
 	/**
-	 * Class Constructor
+	 * The project type.
 	 *
-	 * @param string $type   Project type. Either plugin or theme.
-	 * @param string $slug   Project directory slug.
+	 * @since 4.2.7
+	 *
+	 * @var string
+	 */
+	private $type = '';
+
+	/**
+	 * The project slug.
+	 *
+	 * @since 4.2.7
+	 *
+	 * @var string
+	 */
+	private $slug = '';
+
+	/**
+	 * The API URL.
+	 *
+	 * @since 4.2.7
+	 *
+	 * @var string
+	 */
+	private $apiUrl = '';
+
+	/**
+	 * Class constructor
+	 *
+	 * @param string $type   The project type ("plugin" or "theme").
+	 * @param string $slug   The project directory slug.
 	 * @param string $apiUrl Full GlotPress API URL for the project.
 	 */
 	public function __construct( $type, $slug, $apiUrl ) {
@@ -117,6 +144,7 @@ class Translations {
 						$value->translations[] = $translation;
 					}
 				}
+
 				return $value;
 			}
 		);
@@ -154,17 +182,15 @@ class Translations {
 	 * @return void
 	 */
 	public function cleanTranslationsCache( $type ) {
-		$transientKey = '_aioseo_translations_' . $this->slug . '_' . $type;
-		$translations = get_site_transient( $transientKey );
+		$transientKey = 'translations_' . $this->slug . '_' . $type;
+		$translations = aioseo()->core->networkCache->get( $transientKey );
 
 		if ( ! is_object( $translations ) ) {
 			return;
 		}
 
-		/*
-		 * Don't delete the cache if the transient gets changed multiple times
-		 * during a single request. Set cache lifetime to maximum 15 seconds.
-		 */
+		// Don't delete the cache if the transient gets changed multiple times
+		// during a single request. Set cache lifetime to maximum 15 seconds.
 		$cacheLifespan  = 15;
 		$timeNotChanged = isset( $translations->_last_checked ) && ( time() - $translations->_last_checked ) > $cacheLifespan;
 
@@ -172,7 +198,7 @@ class Translations {
 			return;
 		}
 
-		delete_site_transient( $transientKey );
+		aioseo()->core->networkCache->delete( $transientKey );
 	}
 
 	/**
@@ -186,8 +212,8 @@ class Translations {
 	 * @return array        Translation data.
 	 */
 	public function getTranslations( $type, $slug, $url ) {
-		$transientKey = '_aioseo_translations_' . $slug . '_' . $type;
-		$translations = get_site_transient( $transientKey );
+		$transientKey = 'translations_' . $slug . '_' . $type;
+		$translations = aioseo()->core->networkCache->get( $transientKey );
 
 		if ( false !== $translations ) {
 			return $translations;
@@ -209,7 +235,8 @@ class Translations {
 		$translations->{ $slug }     = $result;
 		$translations->_last_checked = time();
 
-		set_site_transient( $transientKey, $translations );
+		aioseo()->core->networkCache->update( $transientKey, $translations, 0 );
+
 		return $result;
 	}
 }

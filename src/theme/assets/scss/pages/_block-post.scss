@@ -1,0 +1,30 @@
+.block-post {
+    &__header {
+        background-color: var(--black);
+        color: white;
+
+        &-content {
+            grid-column: span 12;
+        }
+    }
+
+    &__breadcrumbs {
+        display: flex;
+        font-size: 1rem;
+
+        .aioseo-breadcrumb-separator {
+            color: var(--red);
+        }
+
+        .aioseo-breadcrumb:last-of-type {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        a {
+            color: white;
+        }
+
+
+    }
+}

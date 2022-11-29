@@ -15,7 +15,7 @@ use AIOSEO\Plugin\Common\Api as CommonApi;
  */
 class Notifications extends CommonApi\Notifications {
 	/**
-	 * Extend teh start date of a notice.
+	 * Extend the start date of a notice.
 	 *
 	 * @since 4.0.0
 	 *
@@ -27,7 +27,7 @@ class Notifications extends CommonApi\Notifications {
 	}
 
 	/**
-	 * Extend teh start date of a notice.
+	 * Extend the start date of a notice.
 	 *
 	 * @since 4.0.0
 	 *

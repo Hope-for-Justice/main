@@ -15,202 +15,69 @@ use AIOSEO\Plugin\Common\Schema\Graphs as CommonGraphs;
  */
 class SoftwareApplication extends CommonGraphs\Graph {
 	/**
-	 * The software app options.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @var array
-	 */
-	private $softwareOptions = null;
-
-	/**
-	 * Class constructor.
-	 *
-	 * @since 4.0.13
-	 */
-	public function __construct() {
-		$metaData              = aioseo()->meta->metaData->getMetaData();
-		$this->softwareOptions = json_decode( $metaData->schema_type_options )->software;
-	}
-
-	/**
 	 * Returns the graph data.
 	 *
 	 * @since 4.0.0
 	 *
-	 * @return array $data The graph data.
+	 * @param  Object $graphData The graph data.
+	 * @return array             The parsed graph data.
 	 */
-	public function get() {
-		if ( ! is_singular() ) {
-			return [];
-		}
-
+	public function get( $graphData = null ) {
 		$data = [
-			'@type' => 'SoftwareApplication',
-			'@id'   => aioseo()->schema->context['url'] . '#softwareApp',
-
+			'@type'               => 'SoftwareApplication',
+			'@id'                 => ! empty( $graphData->id ) ? aioseo()->schema->context['url'] . $graphData->id : aioseo()->schema->context['url'] . '#softwareApp',
+			'name'                => ! empty( $graphData->properties->name ) ? $graphData->properties->name : get_the_title(),
+			'description'         => ! empty( $graphData->properties->description ) ? $graphData->properties->description : '',
+			'applicationCategory' => ! empty( $graphData->properties->category ) ? $graphData->properties->category : '',
 		];
 
-		$dataFunctions = [
-			'name'                => 'getName',
-			'offers'              => 'getOffers',
-			'aggregateRating'     => 'getAggregateRating',
-			'review'              => 'getReview',
-			'operatingSystem'     => 'getOperatingSystem',
-			'applicationCategory' => 'getCategory'
-		];
-
-		return $this->getData( $data, $dataFunctions );
-	}
-
-	/**
-	 * Returns the software name.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return string The software name.
-	 */
-	protected function getName() {
-		return ! empty( $this->softwareOptions->name ) ? $this->softwareOptions->name : get_the_title();
-	}
-
-	/**
-	 * Returns the software category.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return string The software category.
-	 */
-	protected function getCategory() {
-		return ! empty( $this->softwareOptions->category ) ? $this->softwareOptions->category : '';
-	}
-
-	/**
-	 * Returns the offer data.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return array The offer data.
-	 */
-	protected function getOffers() {
-		$offer = [
-			'@type' => 'Offer',
-			'url'   => aioseo()->schema->context['url'] . '#offers',
-		];
-
-		$dataFunctions = [
-			'price'         => 'getPrice',
-			'priceCurrency' => 'getPriceCurrency',
-		];
-
-		return $this->getData( $offer, $dataFunctions );
-	}
-
-	/**
-	 * Returns the AggregateRating graph data.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return array The graph data.
-	 */
-	protected function getAggregateRating() {
-		$review = ! empty( $this->softwareOptions->reviews[0] ) ? json_decode( $this->softwareOptions->reviews[0] ) : '';
-		if ( empty( $review->author ) || empty( $review->rating ) ) {
-			return [];
+		if ( ! empty( $graphData->properties->operatingSystem ) ) {
+			$operatingSystems        = json_decode( $graphData->properties->operatingSystem, true );
+			$operatingSystems        = array_map( function ( $operatingSystemObject ) {
+				return $operatingSystemObject['value'];
+			}, $operatingSystems );
+			$data['operatingSystem'] = implode( ',', $operatingSystems );
 		}
 
-		return [
-			'@type'       => 'AggregateRating',
-			'@id'         => aioseo()->schema->context['url'] . '#aggregrateRating',
-			'worstRating' => 1,
-			'bestRating'  => 5,
-			'ratingValue' => $review->rating,
-			'reviewCount' => 1
-		];
-	}
+		if (
+			! empty( $graphData->properties->review->author ) &&
+			! empty( $graphData->properties->rating->minimum ) &&
+			! empty( $graphData->properties->rating->maximum ) &&
+			! empty( $graphData->properties->rating->value )
+		) {
+			$data['review'] = [
+				'@type'        => 'Review',
+				'headline'     => $graphData->properties->review->headline,
+				'reviewBody'   => $graphData->properties->review->content,
+				'reviewRating' => [
+					'@type'       => 'Rating',
+					'ratingValue' => (float) $graphData->properties->rating->value,
+					'worstRating' => (float) $graphData->properties->rating->minimum,
+					'bestRating'  => (float) $graphData->properties->rating->maximum
+				],
+				'author'       => [
+					'@type' => 'Person',
+					'name'  => $graphData->properties->review->author
+				]
+			];
 
-
-	/**
-	 * Returns the software  price.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return float The price.
-	 */
-	protected function getPrice() {
-		return ! empty( $this->softwareOptions->price ) ? $this->softwareOptions->price : '';
-	}
-
-	/**
-	 * Returns the software currency.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return string The software currency.
-	 */
-	protected function getPriceCurrency() {
-		return ! empty( $this->softwareOptions->currency ) ? $this->softwareOptions->currency : '';
-	}
-
-	/**
-	 * Returns the Review graph data.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return array $review The review data.
-	 */
-	protected function getReview() {
-		$review = ! empty( $this->softwareOptions->reviews[0] ) ? json_decode( $this->softwareOptions->reviews[0] ) : '';
-		if ( empty( $review->author ) || empty( $review->rating ) ) {
-			return [];
+			$data['aggregateRating'] = [
+				'@type'       => 'AggregateRating',
+				'ratingValue' => (float) $graphData->properties->rating->value,
+				'worstRating' => (float) $graphData->properties->rating->minimum,
+				'bestRating'  => (float) $graphData->properties->rating->maximum,
+				'reviewCount' => 1
+			];
 		}
 
-		$data = [
-			'@type'        => 'Review',
-			'reviewRating' => [
-				'@type'       => 'Rating',
-				'ratingValue' => (int) $review->rating,
-				'worstRating' => 1,
-				'bestRating'  => 5
-			],
-			'author'       => [
-				'@type' => 'Person',
-				'name'  => $review->author
-			]
-		];
-
-		if ( ! empty( $review->headline ) ) {
-			$data['headline'] = $review->headline;
-		}
-
-		if ( ! empty( $review->content ) ) {
-			$data['reviewBody'] = $review->content;
+		if ( isset( $graphData->properties->price ) && isset( $graphData->properties->currency ) ) {
+			$data['offers'] = [
+				'@type'         => 'Offer',
+				'price'         => $graphData->properties->price ? (float) $graphData->properties->price : 0,
+				'priceCurrency' => $graphData->properties->currency
+			];
 		}
 
 		return $data;
-	}
-
-	/**
-	 * Returns the software operating systems.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return string The software operating systems.
-	 */
-	protected function getOperatingSystem() {
-		if ( empty( $this->softwareOptions->operatingSystems ) ) {
-			return '';
-		}
-
-		$osObjects = json_decode( $this->softwareOptions->operatingSystems );
-		if ( empty( $osObjects ) ) {
-			return '';
-		}
-
-		$operatingSystems = [];
-		foreach ( $osObjects as $osObject ) {
-			$operatingSystems[] = $osObject->value;
-		}
-		return implode( ', ', $operatingSystems );
 	}
 }

@@ -39,15 +39,11 @@ class Term {
 	 * @param  string $slug   Taxonomy slug.
 	 * @return void
 	 */
-	public function saveNewTerm( $termId, $ttid, $slug ) {
-		$term                      = Models\Term::getTerm( $termId );
-		$term->term_id             = $termId;
-		$term->priority            = 'default';
-		$term->frequency           = 'default';
-		$term->tabs                = Models\Term::getDefaultTabsOptions();
-		$term->seo_score           = 0;
-		$term->schema_type         = 'none';
-		$term->schema_type_options = Models\Term::getDefaultSchemaOptions();
+	public function saveNewTerm( $termId, $ttid, $slug ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+		$term            = Models\Term::getTerm( $termId );
+		$term->term_id   = $termId;
+		$term->priority  = 'default';
+		$term->frequency = 'default';
 		$term->save();
 	}
 
@@ -70,9 +66,14 @@ class Term {
 			return;
 		}
 
-		$currentPost = json_decode( stripslashes( $_POST['aioseo-term-settings'] ), true ); // phpcs:ignore HM.Security.ValidatedSanitizedInput
+		$currentTerm = json_decode( stripslashes( $_POST['aioseo-term-settings'] ), true ); // phpcs:ignore HM.Security.ValidatedSanitizedInput
 
-		Models\Term::saveTerm( $termId, $currentPost );
+		// If there is no data, there likely was an error, e.g. if the hidden field wasn't populated on load and the user saved the post without making changes in the metabox.
+		// In that case we should return to prevent a complete reset of the data.
+		if ( empty( $currentTerm ) ) {
+			return;
+		}
 
+		Models\Term::saveTerm( $termId, $currentTerm );
 	}
 }

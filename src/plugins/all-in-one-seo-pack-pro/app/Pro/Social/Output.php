@@ -29,6 +29,7 @@ class Output extends CommonSocial\Output {
 		) {
 			return parent::isAllowed();
 		}
+
 		return true;
 	}
 }

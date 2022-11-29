@@ -148,6 +148,7 @@ class GoogleAnalytics extends CommonMain\GoogleAnalytics {
 		) {
 			return true;
 		}
+
 		return false;
 	}
 
@@ -159,6 +160,10 @@ class GoogleAnalytics extends CommonMain\GoogleAnalytics {
 	 * @return bool Whether or not we can show GTM.
 	 */
 	public function canShowGtm() {
+		if ( aioseo()->helpers->isAmpPage() ) {
+			return false;
+		}
+
 		$containerId = aioseo()->options->deprecated->webmasterTools->googleAnalytics->gtmContainerId;
 
 		if (
@@ -190,18 +195,8 @@ class GoogleAnalytics extends CommonMain\GoogleAnalytics {
 	 * @return void
 	 */
 	public function enqueueGtmAssets() {
-		aioseo()->helpers->enqueueScript(
-			'aioseo-gtm',
-			'js/aioseo-gtm.js',
-			false
-		);
-
-		wp_localize_script(
-			'aioseo-gtm',
-			'aioseoGtm',
-			[
-				'containerId' => aioseo()->options->deprecated->webmasterTools->googleAnalytics->gtmContainerId
-			]
-		);
+		aioseo()->core->assets->load( 'src/app/gtm/main.js', [], [
+			'containerId' => aioseo()->options->deprecated->webmasterTools->googleAnalytics->gtmContainerId
+		], 'aioseoGtm' );
 	}
 }

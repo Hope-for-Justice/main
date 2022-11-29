@@ -46,6 +46,7 @@ class YoastSeo extends CommonYoastSeo\YoastSeo {
 		parent::doImport( $options );
 		if ( empty( $options ) ) {
 			$this->termMeta->scheduleImport();
+
 			return;
 		}
 

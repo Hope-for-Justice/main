@@ -23,16 +23,18 @@ class PostSettings extends LiteAdmin\PostSettings {
 	 */
 	public function init() {
 		if ( ! aioseo()->license->isActive() ) {
-			return parent::init();
+			parent::init();
+
+			return;
 		}
 
-		$taxonomies = aioseo()->helpers->getPublicTaxonomies();
-		$options    = aioseo()->options->noConflict();
+		$taxonomies     = aioseo()->helpers->getPublicTaxonomies();
+		$dynamicOptions = aioseo()->dynamicOptions->noConflict();
 		foreach ( $taxonomies as $taxonomy ) {
 			$name = $taxonomy['name'];
 
-			if ( $options->searchAppearance->dynamic->taxonomies->has( $name ) ) {
-				$showMetabox                = aioseo()->options->searchAppearance->dynamic->taxonomies->$name->advanced->showMetaBox;
+			if ( $dynamicOptions->searchAppearance->taxonomies->has( $name ) ) {
+				$showMetabox                = aioseo()->dynamicOptions->searchAppearance->taxonomies->$name->advanced->showMetaBox;
 				$generalSettingsCapability  = aioseo()->access->hasCapability( 'aioseo_page_general_settings' );
 				$socialSettingsCapability   = aioseo()->access->hasCapability( 'aioseo_page_social_settings' );
 				$advancedSettingsCapability = aioseo()->access->hasCapability( 'aioseo_page_advanced_settings' );
@@ -83,7 +85,7 @@ class PostSettings extends LiteAdmin\PostSettings {
 						<?php wp_nonce_field( 'aioseoTermSettingsNonce', 'TermSettingsNonce' ); ?>
 					</div>
 					<div id="aioseo-term-settings-metabox" class="inside">
-						<?php aioseo()->templates->getTemplate( 'parts/loader.html' ); ?>
+						<?php aioseo()->templates->getTemplate( 'parts/loader.php' ); ?>
 					</div>
 				</div>
 			</div>

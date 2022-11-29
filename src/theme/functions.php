@@ -105,7 +105,7 @@ function hope_for_justice_2021_scripts()
   //enqueue block scripts in editor
 
   // if it's using the block template
-  if (is_page_template('templates/page-block-template.php') || is_tax('event_categories')) {
+  if (is_page_template('templates/page-block-template.php') || is_tax('event_categories') || is_page_template('templates/page-block-post-template.php')) {
     wp_enqueue_style('hope-for-justice-base-styles', get_template_directory_uri() . '/block-base-styles.css', array(), _S_VERSION);
   } else {
     wp_enqueue_style('hope-for-justice-2021-style', get_stylesheet_uri(), array(), _S_VERSION);

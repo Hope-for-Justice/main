@@ -24,16 +24,18 @@ class Activate extends CommonMain\Activate {
 	 */
 	public function activate( $networkWide ) {
 		if ( is_multisite() && $networkWide ) {
-			global $wpdb;
-			foreach ( $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs" ) as $blogId ) {
-				switch_to_blog( $blogId );
-
+			foreach ( aioseo()->helpers->getSites()['sites'] as $site ) {
+				aioseo()->helpers->switchToBlog( $site->blog_id );
 				aioseo()->access->addCapabilities();
-
-				restore_current_blog();
+				aioseo()->helpers->restoreCurrentBlog();
 			}
 		}
 
 		parent::activate( $networkWide );
+
+		// Let's re-sync the license.
+		if ( aioseo()->license->isActive() ) {
+			aioseo()->license->activate();
+		}
 	}
 }

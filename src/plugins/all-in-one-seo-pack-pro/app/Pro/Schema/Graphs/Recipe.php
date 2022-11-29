@@ -15,324 +15,82 @@ use AIOSEO\Plugin\Common\Schema\Graphs as CommonGraphs;
  */
 class Recipe extends CommonGraphs\Graph {
 	/**
-	 * The recipe options.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @var array
-	 */
-	private $recipeOptions = null;
-
-	/**
-	 * Class constructor.
-	 *
-	 * @since 4.0.13
-	 */
-	public function __construct() {
-		$metaData      = aioseo()->meta->metaData->getMetaData();
-		$schemaOptions = json_decode( $metaData->schema_type_options );
-		if ( ! empty( $schemaOptions->recipe ) ) {
-			$this->recipeOptions = $schemaOptions->recipe;
-		}
-	}
-
-	/**
 	 * Returns the graph data.
 	 *
 	 * @since 4.0.13
 	 *
-	 * @return array $data The graph data.
+	 * @param  Object $graphData The graph data.
+	 * @return array             The parsed graph data.
 	 */
-	public function get() {
-		if ( ! is_singular() ) {
-			return [];
-		}
-
-		$post = aioseo()->helpers->getPost();
+	public function get( $graphData = null ) {
 		$data = [
-			'@type'         => 'Recipe',
-			'@id'           => aioseo()->schema->context['url'] . '#recipe',
-			'datePublished' => mysql2date( DATE_W3C, $post->post_date_gmt, false ),
+			'@type'              => 'Recipe',
+			'@id'                => ! empty( $graphData->id ) ? aioseo()->schema->context['url'] . $graphData->id : aioseo()->schema->context['url'] . '#recipe',
+			'name'               => ! empty( $graphData->properties->name ) ? $graphData->properties->name : get_the_title(),
+			'description'        => ! empty( $graphData->properties->description ) ? $graphData->properties->description : '',
+			'author'             => [
+				'@type' => 'Person',
+				'name'  => ! empty( $graphData->properties->author ) ? $graphData->properties->author : get_the_author_meta( 'display_name' )
+			],
+			'image'              => ! empty( $graphData->properties->image ) ? $this->image( $graphData->properties->image ) : $this->getFeaturedImage(),
+			'recipeCategory'     => ! empty( $graphData->properties->dishType ) ? $graphData->properties->dishType : '',
+			'recipeCuisine'      => ! empty( $graphData->properties->cuisineType ) ? $graphData->properties->cuisineType : '',
+			'prepTime'           => '',
+			'cookTime'           => '',
+			'totalTime'          => '',
+			'recipeYield'        => ! empty( $graphData->properties->nutrition->servings ) ? $graphData->properties->nutrition->servings : '',
+			'nutrition'          => [],
+			'recipeIngredient'   => [],
+			'recipeInstructions' => [],
+			'keywords'           => ''
 		];
 
-		$dataFunctions = [
-			'name'               => 'getName',
-			'description'        => 'getDescription',
-			'author'             => 'getAuthor',
-			'image'              => 'getImage',
-			'recipeCategory'     => 'getDishType',
-			'recipeCuisine'      => 'getCuisineType',
-			'recipeYield'        => 'getServings',
-			'nutrition'          => 'getCalories',
-			'recipeIngredient'   => 'getIngredients',
-			'recipeInstructions' => 'getInstructions',
-			'aggregateRating'    => 'getAggregateRating',
-			'keywords'           => 'getKeywords',
-			// 'video'              => 'getVideo'
-		];
+		if ( ! empty( $graphData->properties->timeRequired->preparation ) && ! empty( $graphData->properties->timeRequired->cooking ) ) {
+			$data['prepTime']  = aioseo()->helpers->timeToIso8601DurationFormat( 0, 0, $graphData->properties->timeRequired->preparation );
+			$data['cookTime']  = aioseo()->helpers->timeToIso8601DurationFormat( 0, 0, $graphData->properties->timeRequired->cooking );
 
-		$data  = $this->getData( $data, $dataFunctions );
-		$data += $this->getTimeRequired();
-		return $data;
-	}
-
-
-	/**
-	 * Returns the recipe name.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return string The recipe name.
-	 */
-	protected function getName() {
-		return ! empty( $this->recipeOptions->name ) ? $this->recipeOptions->name : get_the_title();
-	}
-
-	/**
-	 * Returns the recipe description.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return string The recipe description.
-	 */
-	protected function getDescription() {
-		return ! empty( $this->recipeOptions->description ) ? $this->recipeOptions->description : '';
-	}
-
-	/**
-	 * Returns the recipe author.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return string The recipe author.
-	 */
-	protected function getAuthor() {
-		$author = ! empty( $this->recipeOptions->author ) ? $this->recipeOptions->author : get_the_author();
-		if ( empty( $author ) ) {
-			return [];
+			$totalTime         = (int) $graphData->properties->timeRequired->preparation + (int) $graphData->properties->timeRequired->cooking;
+			$data['totalTime'] = aioseo()->helpers->timeToIso8601DurationFormat( 0, 0, $totalTime );
 		}
 
-		return [
-			'@type' => 'Person',
-			'name'  => $author,
-			'url'   => aioseo()->schema->context['url'] . '#recipeAuthor',
-		];
-	}
-
-	/**
-	 * Returns the recipe image.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return array The recipe image.
-	 */
-	protected function getImage() {
-		if ( ! empty( $this->recipeOptions->image ) ) {
-			return $this->image( $this->recipeOptions->image, 'recipeImage' );
-		}
-		$imageId = get_post_thumbnail_id();
-		return $imageId ? $this->image( $imageId, 'productImage' ) : '';
-	}
-
-	/**
-	 * Returns the recipe dish type.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return string The recipe dish type.
-	 */
-	protected function getDishType() {
-		return ! empty( $this->recipeOptions->dishType ) ? $this->recipeOptions->dishType : '';
-	}
-
-	/**
-	 * Returns the recipe description.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return string The recipe description.
-	 */
-	protected function getCuisineType() {
-		return ! empty( $this->recipeOptions->cuisineType ) ? $this->recipeOptions->cuisineType : '';
-	}
-
-	/**
-	 * Returns the recipe description.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return string The recipe description.
-	 */
-	protected function getTimeRequired() {
-		if ( empty( $this->recipeOptions->preparationTime ) && empty( $this->recipeOptions->cookingTime ) ) {
-			return [];
-		}
-
-		return [
-			'prepTime'  => $this->minutesToIso8601( $this->recipeOptions->preparationTime ),
-			'cookTime'  => $this->minutesToIso8601( $this->recipeOptions->cookingTime ),
-			'totalTime' => $this->minutesToIso8601( (int) $this->recipeOptions->preparationTime + (int) $this->recipeOptions->cookingTime )
-		];
-	}
-
-	/**
-	 * Returns the minutes in ISO 8601 format.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @param  string|int $minutes The minutes.
-	 * @return string              The minutes in ISO 8601 format.
-	 */
-	private function minutesToIso8601( $minutes ) {
-		return "PT${minutes}M";
-	}
-
-	/**
-	 * Returns the recipe amount of servings.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return int The recipe amount of servings.
-	 */
-	protected function getServings() {
-		return ! empty( $this->recipeOptions->servings ) ? (int) $this->recipeOptions->servings : '';
-	}
-
-	/**
-	 * Returns the recipe calories.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return array The recipe calories.
-	 */
-	protected function getCalories() {
-		if ( empty( $this->recipeOptions->calories ) ) {
-			return [];
-		}
-
-		$calories = $this->recipeOptions->calories;
-		return [
-			'@type'    => 'NutritionInformation',
-			'calories' => "$calories calories"
-		];
-	}
-
-	/**
-	 * Returns the recipe ingredients.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return array $ingredients The recipe ingredients.
-	 */
-	protected function getIngredients() {
-		if ( empty( $this->recipeOptions->ingredients ) ) {
-			return [];
-		}
-
-		$ingredientObjects = json_decode( $this->recipeOptions->ingredients );
-		if ( empty( $ingredientObjects ) ) {
-			return [];
-		}
-
-		$ingredients = [];
-		foreach ( $ingredientObjects as $ingredientObject ) {
-			$ingredients[] = $ingredientObject->value;
-		}
-		return $ingredients;
-	}
-
-	/**
-	 * Returns the recipe instructions.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return array $steps The recipe instructions.
-	 */
-	protected function getInstructions() {
-		if ( empty( $this->recipeOptions->instructions ) ) {
-			return [];
-		}
-
-		$steps     = [];
-		$stepCount = 0;
-		foreach ( $this->recipeOptions->instructions as $instruction ) {
-			$instruction = json_decode( $instruction );
-			if ( empty( $instruction->content ) ) {
-				continue;
-			}
-
-			$stepCount++;
-
-			$steps[] = [
-				'@type' => 'HowToStep',
-				'text'  => $instruction->content,
-				'url'   => aioseo()->schema->context['url'] . "#step$stepCount"
+		if ( ! empty( $graphData->properties->nutrition->servings ) && ! empty( $graphData->properties->nutrition->calories ) ) {
+			$data['nutrition'] = [
+				'@type'    => 'NutritionInformation',
+				'calories' => $graphData->properties->nutrition->calories . ' ' . __( 'Calories', 'aioseo-pro' )
 			];
 		}
-		return $steps;
-	}
 
-	/**
-	 * Returns the AggregateRating graph data.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return array The graph data.
-	 */
-	protected function getAggregateRating() {
-		if ( empty( $this->recipeOptions->averageRating ) || empty( $this->recipeOptions->ratingCount ) ) {
-			return [];
+		if ( ! empty( $graphData->properties->keywords ) ) {
+			$keywords = json_decode( $graphData->properties->keywords, true );
+			$keywords = array_map( function ( $keywordObject ) {
+				return $keywordObject['value'];
+			}, $keywords );
+			$data['keywords'] = implode( ',', $keywords );
 		}
 
-		return [
-			'@type'       => 'AggregateRating',
-			'@id'         => aioseo()->schema->context['url'] . '#aggregrateRating',
-			'worstRating' => 1,
-			'bestRating'  => 5,
-			'ratingValue' => $this->recipeOptions->averageRating,
-			'reviewCount' => $this->recipeOptions->ratingCount
-		];
-	}
-
-	/**
-	 * Returns the recipe keywords.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return array $keywords The recipe keywords.
-	 */
-	protected function getKeywords() {
-		if ( empty( $this->recipeOptions->keywords ) ) {
-			return [];
+		if ( ! empty( $graphData->properties->ingredients ) ) {
+			$ingredients = json_decode( $graphData->properties->ingredients, true );
+			$ingredients = array_map( function ( $ingredientObject ) {
+				return $ingredientObject['value'];
+			}, $ingredients );
+			$data['recipeIngredient'] = implode( ',', $ingredients );
 		}
 
-		$keywordObjects = json_decode( $this->recipeOptions->keywords );
-		if ( empty( $keywordObjects ) ) {
-			return [];
+		if ( ! empty( $graphData->properties->instructions ) ) {
+			foreach ( $graphData->properties->instructions as $instructionData ) {
+				if ( empty( $instructionData->text ) ) {
+					continue;
+				}
+
+				$data['recipeInstructions'][] = [
+					'@type' => 'HowToStep',
+					'name'  => $instructionData->name,
+					'text'  => $instructionData->text,
+					'image' => $instructionData->image
+				];
+			}
 		}
 
-		$keywords = [];
-		foreach ( $keywordObjects as $keywordObject ) {
-			$keywords[] = $keywordObject->value;
-		}
-		return $keywords;
-	}
-
-	/**
-	 * Returns the recipe video.
-	 *
-	 * @since 4.0.13
-	 *
-	 * @return array The recipe video.
-	 */
-	protected function getVideo() {
-		if ( empty( $this->recipeOptions->videoUrl ) ) {
-			return [];
-		}
-
-		return [
-			'@type'      => 'VideoObject',
-			'contentUrl' => $this->recipeOptions->videoUrl
-		];
+		return $data;
 	}
 }

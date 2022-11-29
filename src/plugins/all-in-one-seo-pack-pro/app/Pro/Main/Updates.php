@@ -24,6 +24,7 @@ class Updates extends CommonMain\Updates {
 	public function __construct() {
 		parent::__construct();
 
+		add_action( 'aioseo_loaded', [ $this, 'runPreAddonUpdates' ], 1 );
 		add_action( 'aioseo_v4_migrate_post_og_image', [ $this, 'migratePostOgImage' ] );
 		add_action( 'aioseo_v4_migrate_term_og_image', [ $this, 'migrateTermOgImage' ] );
 	}
@@ -41,8 +42,8 @@ class Updates extends CommonMain\Updates {
 		$lastActiveVersion = aioseo()->internalOptions->internal->lastActiveVersion;
 		if ( version_compare( $lastActiveVersion, '4.0.0', '>=' ) && version_compare( $lastActiveVersion, '4.0.5', '<' ) ) {
 			try {
-				aioseo()->transients->update( 'v4_migrate_post_og_image', time(), WEEK_IN_SECONDS );
-				aioseo()->transients->update( 'v4_migrate_term_og_image', time(), WEEK_IN_SECONDS );
+				aioseo()->core->cache->update( 'v4_migrate_post_og_image', time(), WEEK_IN_SECONDS );
+				aioseo()->core->cache->update( 'v4_migrate_term_og_image', time(), WEEK_IN_SECONDS );
 
 				as_schedule_single_action( time() + 10, 'aioseo_v4_migrate_post_og_image', [], 'aioseo' );
 				as_schedule_single_action( time() + 10, 'aioseo_v4_migrate_term_og_image', [], 'aioseo' );
@@ -59,6 +60,38 @@ class Updates extends CommonMain\Updates {
 			$this->disableTwitterUseOgDefault();
 			$this->updateMaxImagePreviewDefault();
 		}
+
+		if ( version_compare( $lastActiveVersion, '4.1.5', '<' ) ) {
+			$this->removeUnusedColumns();
+		}
+
+		if ( version_compare( $lastActiveVersion, '4.1.8', '<' ) ) {
+			$this->migrateRemovedQaSchema();
+		}
+
+		if ( version_compare( $lastActiveVersion, '4.1.9', '<' ) ) {
+			// Clear addons cache to fix the PHP warning/error with the version_compare where the minimum version key for the REST API addon didn't exist yet locally.
+			aioseo()->core->cache->delete( 'addons' );
+		}
+
+		if ( version_compare( $lastActiveVersion, '4.2.4', '<' ) ) {
+			$this->migrateImageSeoOptions();
+		}
+	}
+
+	/**
+	 * Run Pre-addon updates/migrations.
+	 *
+	 * @since 4.1.7
+	 *
+	 * @return void
+	 */
+	public function runPreAddonUpdates() {
+		$lastActiveVersion = aioseo()->internalOptions->internal->lastActiveVersion;
+		if ( version_compare( $lastActiveVersion, AIOSEO_VERSION, '<' ) ) {
+			// Re-activate the license key before addons load each time the plugin is updated.
+			aioseo()->license->activate();
+		}
 	}
 
 	/**
@@ -71,7 +104,7 @@ class Updates extends CommonMain\Updates {
 	public function addInitialCustomTablesForV4() {
 		parent::addInitialCustomTablesForV4();
 
-		$db             = aioseo()->db->db;
+		$db             = aioseo()->core->db->db;
 		$charsetCollate = '';
 
 		if ( ! empty( $db->charset ) ) {
@@ -81,10 +114,11 @@ class Updates extends CommonMain\Updates {
 			$charsetCollate .= " COLLATE {$db->collate}";
 		}
 
-		if ( ! aioseo()->db->tableExists( 'aioseo_terms' ) ) {
+		if ( ! aioseo()->core->db->tableExists( 'aioseo_terms' ) ) {
 			$tableName = $db->prefix . 'aioseo_terms';
 
-			aioseo()->db->execute(
+			// Incorrect defaults are adjusted below through migrations.
+			aioseo()->core->db->execute(
 				"CREATE TABLE {$tableName} (
 					id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 					term_id bigint(20) unsigned NOT NULL,
@@ -139,6 +173,9 @@ class Updates extends CommonMain\Updates {
 					KEY ndx_aioseo_terms_term_id (term_id)
 				) {$charsetCollate};"
 			);
+
+			// Reset the cache for the installed tables.
+			aioseo()->internalOptions->database->installedTables = '';
 		}
 	}
 
@@ -172,20 +209,21 @@ class Updates extends CommonMain\Updates {
 	 */
 	public function migratePostOgImage() {
 		// If the v3 migration is still running, postpone this.
-		if ( aioseo()->transients->get( 'v3_migration_in_progress_posts' ) ) {
+		if ( aioseo()->migration->isMigrationRunning() ) {
 			try {
 				as_schedule_single_action( time() + 300, 'aioseo_v4_migrate_post_og_image', [], 'aioseo' );
 			} catch ( \Exception $e ) {
 				// Do nothing.
 			}
+
 			return;
 		}
 
 		$postsPerAction  = 200;
 		$publicPostTypes = implode( "', '", aioseo()->helpers->getPublicPostTypes( true ) );
-		$timeStarted     = gmdate( 'Y-m-d H:i:s', aioseo()->transients->get( 'v4_migrate_post_og_image' ) );
+		$timeStarted     = gmdate( 'Y-m-d H:i:s', aioseo()->core->cache->get( 'v4_migrate_post_og_image' ) );
 
-		$postsToMigrate = aioseo()->db
+		$postsToMigrate = aioseo()->core->db
 			->start( 'posts' . ' as p' )
 			->select( 'p.ID' )
 			->leftJoin( 'aioseo_posts as ap', '`p`.`ID` = `ap`.`post_id`' )
@@ -197,12 +235,13 @@ class Updates extends CommonMain\Updates {
 			->result();
 
 		if ( ! $postsToMigrate || ! count( $postsToMigrate ) ) {
-			aioseo()->transients->delete( 'v4_migrate_post_og_image' );
+			aioseo()->core->cache->delete( 'v4_migrate_post_og_image' );
+
 			return;
 		}
 
 		foreach ( $postsToMigrate as $post ) {
-			$postMeta = aioseo()->db
+			$postMeta = aioseo()->core->db
 				->start( 'postmeta' . ' as pm' )
 				->select( 'pm.meta_key, pm.meta_value' )
 				->where( 'pm.post_id', $post->ID )
@@ -263,7 +302,7 @@ class Updates extends CommonMain\Updates {
 				// Do nothing.
 			}
 		} else {
-			aioseo()->transients->delete( 'v4_migrate_post_og_image' );
+			aioseo()->core->cache->delete( 'v4_migrate_post_og_image' );
 		}
 	}
 
@@ -276,20 +315,21 @@ class Updates extends CommonMain\Updates {
 	 */
 	public function migrateTermOgImage() {
 		// If the v3 migration is still running, postpone this.
-		if ( aioseo()->transients->get( 'v3_migration_in_progress_terms' ) ) {
+		if ( aioseo()->migration->isMigrationRunning() ) {
 			try {
 				as_schedule_single_action( time() + 300, 'aioseo_v4_migrate_term_og_image', [], 'aioseo' );
 			} catch ( \Exception $e ) {
 				// Do nothing.
 			}
+
 			return;
 		}
 
 		$termsPerAction   = 200;
 		$publicTaxonomies = implode( "', '", aioseo()->helpers->getPublicTaxonomies( true ) );
-		$timeStarted      = gmdate( 'Y-m-d H:i:s', aioseo()->transients->get( 'v4_migrate_term_og_image' ) );
+		$timeStarted      = gmdate( 'Y-m-d H:i:s', aioseo()->core->cache->get( 'v4_migrate_term_og_image' ) );
 
-		$termsToMigrate = aioseo()->db
+		$termsToMigrate = aioseo()->core->db
 			->start( 'terms' . ' as t' )
 			->select( 't.term_id' )
 			->leftJoin( 'aioseo_terms as at', '`t`.`term_id` = `at`.`term_id`' )
@@ -302,12 +342,13 @@ class Updates extends CommonMain\Updates {
 			->result();
 
 		if ( ! $termsToMigrate || ! count( $termsToMigrate ) ) {
-			aioseo()->transients->delete( 'v4_migrate_term_og_image' );
+			aioseo()->core->cache->delete( 'v4_migrate_term_og_image' );
+
 			return;
 		}
 
 		foreach ( $termsToMigrate as $term ) {
-			$termMeta = aioseo()->db
+			$termMeta = aioseo()->core->db
 				->start( 'termmeta' . ' as tm' )
 				->select( '`tm`.`meta_key`, `tm`.`meta_value`' )
 				->where( 'tm.term_id', $term->term_id )
@@ -368,7 +409,7 @@ class Updates extends CommonMain\Updates {
 				// Do nothing.
 			}
 		} else {
-			aioseo()->transients->delete( 'v4_migrate_term_og_image' );
+			aioseo()->core->cache->delete( 'v4_migrate_term_og_image' );
 		}
 	}
 
@@ -380,7 +421,7 @@ class Updates extends CommonMain\Updates {
 	 *
 	 * @return void
 	 */
-	public function migratedGoogleAnalyticsToDeprecated() {
+	private function migratedGoogleAnalyticsToDeprecated() {
 		$options = $this->getRawOptions();
 		if (
 			! empty( $options['webmasterTools'] ) &&
@@ -421,12 +462,12 @@ class Updates extends CommonMain\Updates {
 	 *
 	 * @return void
 	 */
-	public function disableTwitterUseOgDefault() {
+	protected function disableTwitterUseOgDefault() {
 		parent::disableTwitterUseOgDefault();
 
-		if ( aioseo()->db->tableExists( 'aioseo_terms' ) ) {
-			$tableName = aioseo()->db->db->prefix . 'aioseo_terms';
-			aioseo()->db->execute(
+		if ( aioseo()->core->db->tableExists( 'aioseo_terms' ) ) {
+			$tableName = aioseo()->core->db->db->prefix . 'aioseo_terms';
+			aioseo()->core->db->execute(
 				"ALTER TABLE {$tableName}
 				MODIFY twitter_use_og tinyint(1) DEFAULT 0"
 			);
@@ -440,12 +481,12 @@ class Updates extends CommonMain\Updates {
 	 *
 	 * @return void
 	 */
-	public function updateMaxImagePreviewDefault() {
+	protected function updateMaxImagePreviewDefault() {
 		parent::updateMaxImagePreviewDefault();
 
-		if ( aioseo()->db->tableExists( 'aioseo_terms' ) ) {
-			$tableName = aioseo()->db->db->prefix . 'aioseo_terms';
-			aioseo()->db->execute(
+		if ( aioseo()->core->db->tableExists( 'aioseo_terms' ) ) {
+			$tableName = aioseo()->core->db->db->prefix . 'aioseo_terms';
+			aioseo()->core->db->execute(
 				"ALTER TABLE {$tableName}
 				MODIFY robots_max_imagepreview varchar(20) DEFAULT 'large'"
 			);
@@ -462,7 +503,7 @@ class Updates extends CommonMain\Updates {
 	public function removeDuplicateRecords() {
 		parent::removeDuplicateRecords();
 
-		$duplicates = aioseo()->db->start( 'aioseo_terms' )
+		$duplicates = aioseo()->core->db->start( 'aioseo_terms' )
 			->select( 'term_id, min(id) as id' )
 			->groupBy( 'term_id having count(term_id) > 1' )
 			->orderBy( 'count(term_id) DESC' )
@@ -477,9 +518,284 @@ class Updates extends CommonMain\Updates {
 			$termId        = $duplicate->term_id;
 			$firstRecordId = $duplicate->id;
 
-			aioseo()->db->delete( 'aioseo_terms' )
+			aioseo()->core->db->delete( 'aioseo_terms' )
 				->whereRaw( "( id > $firstRecordId AND term_id = $termId )" )
 				->run();
 		}
+	}
+
+	/**
+	 * Adds the new capabilities for all the roles.
+	 *
+	 * @since 4.1.3
+	 *
+	 * @return void
+	 */
+	protected function accessControlNewCapabilities() {
+		$newCapabilities = [
+			'dashboard',
+			'setupWizard'
+		];
+
+		$options        = aioseo()->options->noConflict();
+		$dynamicOptions = aioseo()->dynamicOptions->noConflict();
+
+		foreach ( aioseo()->access->getRoles() as $role ) {
+			foreach ( $newCapabilities as $capability ) {
+				if ( $options->accessControl->has( $role ) ) {
+					$default = $options->accessControl->$role->getDefault( $capability );
+					$options->accessControl->$role->$capability = $default;
+				}
+
+				if ( $dynamicOptions->accessControl->has( $role ) ) {
+					$default = $dynamicOptions->accessControl->$role->getDefault( $capability );
+					$dynamicOptions->accessControl->$role->$capability = $default;
+				}
+			}
+		}
+
+		aioseo()->access->addCapabilities();
+	}
+
+	/**
+	 * Migrate dynamic settings to a separate options structure.
+	 *
+	 * @since 4.1.4
+	 *
+	 * @return void
+	 */
+	protected function migrateDynamicSettings() {
+		parent::migrateDynamicSettings();
+
+		$rawOptions = $this->getRawOptions();
+		$options    = aioseo()->dynamicOptions->noConflict();
+
+		// Facebook post type object types.
+		if (
+			! empty( $rawOptions['social']['faceboook']['general']['dynamic']['taxonomies'] )
+		) {
+			foreach ( $rawOptions['social']['faceboook']['general']['dynamic']['taxonomies'] as $taxonomyName => $data ) {
+				if ( $options->social->facebook->general->taxonomies->has( $taxonomyName ) ) {
+					$options->social->facebook->general->taxonomies->$taxonomyName->objectType = $data['objectType'];
+				}
+			}
+		}
+
+		// Breadcrumbs post type templates.
+		if (
+			! empty( $rawOptions['breadcrumbs']['dynamic']['postTypes'] )
+		) {
+			foreach ( $rawOptions['breadcrumbs']['dynamic']['postTypes'] as $postTypeName => $data ) {
+				if ( $options->breadcrumbs->postTypes->has( $postTypeName ) ) {
+					$options->breadcrumbs->postTypes->$postTypeName->useDefaultTemplate = $data['useDefaultTemplate'];
+					$options->breadcrumbs->postTypes->$postTypeName->taxonomy           = $data['taxonomy'];
+					$options->breadcrumbs->postTypes->$postTypeName->showArchiveCrumb   = $data['showArchiveCrumb'];
+					$options->breadcrumbs->postTypes->$postTypeName->showTaxonomyCrumbs = $data['showTaxonomyCrumbs'];
+					$options->breadcrumbs->postTypes->$postTypeName->showHomeCrumb      = $data['showHomeCrumb'];
+					$options->breadcrumbs->postTypes->$postTypeName->showPrefixCrumb    = $data['showPrefixCrumb'];
+					$options->breadcrumbs->postTypes->$postTypeName->showParentCrumbs   = $data['showParentCrumbs'];
+					$options->breadcrumbs->postTypes->$postTypeName->template           = $data['template'];
+
+					if ( ! empty( $data['parentTemplate'] ) ) {
+						$options->breadcrumbs->postTypes->$postTypeName->parentTemplate = $data['parentTemplate'];
+					}
+				}
+			}
+		}
+
+		// Breadcrumbs taxonomy templates.
+		if (
+			! empty( $rawOptions['breadcrumbs']['dynamic']['taxonomies'] )
+		) {
+			foreach ( $rawOptions['breadcrumbs']['dynamic']['taxonomies'] as $taxonomyName => $data ) {
+				if ( $options->breadcrumbs->taxonomies->has( $taxonomyName ) ) {
+					$options->breadcrumbs->taxonomies->$taxonomyName->useDefaultTemplate = $data['useDefaultTemplate'];
+					$options->breadcrumbs->taxonomies->$taxonomyName->showHomeCrumb      = $data['showHomeCrumb'];
+					$options->breadcrumbs->taxonomies->$taxonomyName->showPrefixCrumb    = $data['showPrefixCrumb'];
+					$options->breadcrumbs->taxonomies->$taxonomyName->showParentCrumbs   = $data['showParentCrumbs'];
+					$options->breadcrumbs->taxonomies->$taxonomyName->template           = $data['template'];
+
+					if ( ! empty( $data['parentTemplate'] ) ) {
+						$options->breadcrumbs->taxonomies->$taxonomyName->parentTemplate = $data['parentTemplate'];
+					}
+				}
+			}
+		}
+
+		// Access control settings.
+		if (
+			! empty( $rawOptions['accessControl']['dynamic'] )
+		) {
+			foreach ( $rawOptions['accessControl']['dynamic'] as $role => $data ) {
+				if ( $options->accessControl->has( $role ) ) {
+					$options->accessControl->$role->useDefault               = $data['useDefault'];
+					$options->accessControl->$role->dashboard                = $data['dashboard'];
+					$options->accessControl->$role->generalSettings          = $data['generalSettings'];
+					$options->accessControl->$role->searchAppearanceSettings = $data['searchAppearanceSettings'];
+					$options->accessControl->$role->socialNetworksSettings   = $data['socialNetworksSettings'];
+					$options->accessControl->$role->sitemapSettings          = $data['sitemapSettings'];
+					$options->accessControl->$role->redirectsSettings        = $data['redirectsSettings'];
+					$options->accessControl->$role->seoAnalysisSettings      = $data['seoAnalysisSettings'];
+					$options->accessControl->$role->toolsSettings            = $data['toolsSettings'];
+					$options->accessControl->$role->featureManagerSettings   = $data['featureManagerSettings'];
+					$options->accessControl->$role->pageAnalysis             = $data['pageAnalysis'];
+					$options->accessControl->$role->pageGeneralSettings      = $data['pageGeneralSettings'];
+					$options->accessControl->$role->pageAdvancedSettings     = $data['pageAdvancedSettings'];
+					$options->accessControl->$role->pageSchemaSettings       = $data['pageSchemaSettings'];
+					$options->accessControl->$role->pageSocialSettings       = $data['pageSocialSettings'];
+					$options->accessControl->$role->localSeoSettings         = $data['localSeoSettings'];
+					$options->accessControl->$role->pageLocalSeoSettings     = $data['pageLocalSeoSettings'];
+					$options->accessControl->$role->setupWizard              = $data['setupWizard'];
+				}
+			}
+		}
+	}
+
+	/**
+	 * Removes a number of columns that Terms do not use.
+	 *
+	 * @since 4.1.5
+	 *
+	 * @return void
+	 */
+	private function removeUnusedColumns() {
+		$columnsToRemove = [
+			'pillar_content',
+			'seo_score',
+			'keyphrases',
+			'page_analysis'
+		];
+
+		foreach ( $columnsToRemove as $columnName ) {
+			if ( aioseo()->core->db->columnExists( 'aioseo_terms', $columnName ) ) {
+				$tableName = aioseo()->core->db->db->prefix . 'aioseo_terms';
+				aioseo()->core->db->execute(
+					"ALTER TABLE {$tableName}
+					DROP COLUMN $columnName"
+				);
+			}
+		}
+	}
+
+	/**
+	 * Add in image width/height columns and image URL for caching.
+	 *
+	 * @since 4.1.6
+	 *
+	 * @return void
+	 */
+	protected function migrateOgTwitterImageColumns() {
+		parent::migrateOgTwitterImageColumns();
+
+		if ( aioseo()->core->db->tableExists( 'aioseo_terms' ) ) {
+			$tableName = aioseo()->core->db->db->prefix . 'aioseo_terms';
+
+			// OG Columns.
+			if ( ! aioseo()->core->db->columnExists( 'aioseo_terms', 'og_image_url' ) ) {
+				aioseo()->core->db->execute(
+					"ALTER TABLE {$tableName} ADD og_image_url text DEFAULT NULL AFTER og_image_type"
+				);
+			}
+
+			if ( aioseo()->core->db->columnExists( 'aioseo_terms', 'og_custom_image_height' ) ) {
+				aioseo()->core->db->execute(
+					"ALTER TABLE {$tableName} CHANGE COLUMN og_custom_image_height og_image_height int(11) DEFAULT NULL AFTER og_image_url"
+				);
+			} elseif ( ! aioseo()->core->db->columnExists( 'aioseo_terms', 'og_image_height' ) ) {
+				aioseo()->core->db->execute(
+					"ALTER TABLE {$tableName} ADD og_image_height int(11) DEFAULT NULL AFTER og_image_url"
+				);
+			}
+
+			if ( aioseo()->core->db->columnExists( 'aioseo_terms', 'og_custom_image_width' ) ) {
+				aioseo()->core->db->execute(
+					"ALTER TABLE {$tableName} CHANGE COLUMN og_custom_image_width og_image_width int(11) DEFAULT NULL AFTER og_image_url"
+				);
+			} elseif ( ! aioseo()->core->db->columnExists( 'aioseo_terms', 'og_image_width' ) ) {
+				aioseo()->core->db->execute(
+					"ALTER TABLE {$tableName} ADD og_image_width int(11) DEFAULT NULL AFTER og_image_url"
+				);
+			}
+
+			// Twitter image url columnn.
+			if ( ! aioseo()->core->db->columnExists( 'aioseo_terms', 'twitter_image_url' ) ) {
+				aioseo()->core->db->execute(
+					"ALTER TABLE {$tableName} ADD twitter_image_url text DEFAULT NULL AFTER twitter_image_type"
+				);
+			}
+
+			// Reset the cache for the installed tables.
+			aioseo()->internalOptions->database->installedTables = '';
+		}
+	}
+
+	/**
+	 * Migrates the removed QAPage schema if it's used anywhere as a default.
+	 *
+	 * @since 4.1.8
+	 *
+	 * @return void
+	 */
+	private function migrateRemovedQaSchema() {
+		$searchAppearance = aioseo()->dynamicOptions->searchAppearance->all();
+		$postTypes        = array_keys( $searchAppearance['postTypes'] );
+
+		foreach ( $postTypes as $postType ) {
+			if ( 'qapage' === strtolower( aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->webPageType ) ) {
+				aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->webPageType = 'WebPage';
+			}
+		}
+	}
+
+	/**
+	 * Remove the tabs column as it is unnecessary.
+	 *
+	 * @since 4.2.2
+	 *
+	 * @return void
+	 */
+	protected function removeTabsColumn() {
+		parent::removeTabsColumn();
+
+		if ( aioseo()->core->db->columnExists( 'aioseo_terms', 'tabs' ) ) {
+			$tableName = aioseo()->core->db->db->prefix . 'aioseo_terms';
+			aioseo()->core->db->execute(
+				"ALTER TABLE {$tableName}
+				DROP tabs"
+			);
+		}
+	}
+
+	/**
+	 * Migrates the old Image SEO options to the new structure.
+	 *
+	 * @since 4.2.4
+	 *
+	 * @return void
+	 */
+	public function migrateImageSeoOptions() {
+		$image            = aioseo()->options->image->all();
+		$format           = ! empty( $image['format'] ) ? $image['format'] : '';
+		$stripPunctuation = ! empty( $image['stripPunctuation'] ) ? $image['stripPunctuation'] : '';
+
+		if ( $format ) {
+			foreach ( $format as $attribute => $option ) {
+				aioseo()->options->image->{$attribute}->format = $option;
+			}
+		}
+
+		if ( $stripPunctuation ) {
+			foreach ( $stripPunctuation as $attribute => $option ) {
+				aioseo()->options->image->{$attribute}->stripPunctuation = $option;
+			}
+		}
+
+		// If the user was already actively using the Image SEO addon, disable the upload settings.
+		if ( ! aioseo()->addons->getLoadedAddon( 'imageSeo' ) ) {
+			return;
+		}
+
+		aioseo()->options->image->caption->autogenerate     = false;
+		aioseo()->options->image->description->autogenerate = false;
 	}
 }

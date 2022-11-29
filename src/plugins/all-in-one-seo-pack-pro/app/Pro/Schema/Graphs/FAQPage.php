@@ -13,57 +13,79 @@ use AIOSEO\Plugin\Common\Schema\Graphs as CommonGraphs;
  *
  * @since 4.0.13
  */
-class FAQPage extends CommonGraphs\WebPage {
+class FAQPage {
 	/**
-	 * Returns the graph data.
+	 * Returns the subgraph(s)' data.
+	 * We only return the subgraphs since all FAQ pages need to be grouped under a single main entity.
+	 * We'll group them later on right before we return the schema as JSON.
 	 *
 	 * @since 4.0.13
 	 *
-	 * @return array The graph data.
+	 * @param  Object $graphData The graph data.
+	 * @param  bool   $isBlock   Whether the graph data is coming from a block.
+	 * @return array             The parsed graph data.
 	 */
-	public function get() {
-		if ( ! is_singular() ) {
-			return [];
-		}
-
-		$metaData      = aioseo()->meta->metaData->getMetaData();
-		$schemaOptions = json_decode( $metaData->schema_type_options );
-		if ( empty( $schemaOptions->faq->pages ) ) {
-			return [];
-		}
-
-		$faqPages = $schemaOptions->faq->pages;
-		$data     = [
-			'@type'      => 'FAQPage',
-			'@id'        => aioseo()->schema->context['url'] . '#faq',
-			'url'        => aioseo()->schema->context['url'],
-			'inLanguage' => get_bloginfo( 'language' ),
-			'isPartOf'   => [ '@id' => trailingslashit( home_url() ) . '#website' ],
-			'breadcrumb' => [ '@id' => aioseo()->schema->context['url'] . '#breadcrumblist' ]
-		];
-
-		$graphs = [];
-		foreach ( $faqPages as $faqPage ) {
-			$faqPage = json_decode( $faqPage );
-			if ( empty( $faqPage->question ) || empty( $faqPage->answer ) ) {
-				continue;
+	public function get( $graphData = null, $isBlock = false ) {
+		if ( $isBlock ) {
+			if ( ! empty( $graphData->question ) && ! empty( $graphData->answer ) ) {
+				return [
+					'@type'          => 'Question',
+					'name'           => $graphData->question,
+					'acceptedAnswer' => [
+						'@type' => 'Answer',
+						'text'  => $graphData->answer
+					]
+				];
 			}
 
-			$graphs[] = [
-				'@type'          => 'Question',
-				'name'           => $faqPage->question,
-				'acceptedAnswer' => [
-					'@type' => 'Answer',
-					'text'  => $faqPage->answer
-				]
-			];
-		}
-
-		if ( empty( $graphs ) ) {
 			return [];
 		}
 
-		$data['mainEntity'] = $graphs;
-		return $data;
+		$faqPages = [];
+		if ( ! empty( $graphData->properties->questions ) ) {
+			foreach ( $graphData->properties->questions as $data ) {
+				if ( empty( $data->question ) || empty( $data->answer ) ) {
+					continue;
+				}
+
+				$faqPages[] = [
+					'@type'          => 'Question',
+					'name'           => $data->question,
+					'acceptedAnswer' => [
+						'@type' => 'Answer',
+						'text'  => $data->answer
+					]
+				];
+			}
+		}
+
+		return $faqPages;
+	}
+
+	/**
+	 * Returns the main FAQ graph with all its subgraphs (questions/answers).
+	 *
+	 * @since 4.2.3
+	 *
+	 * @param  array  $subGraphs The subgraphs.
+	 * @param  Object $graphData The graph data (optional).
+	 * @return array             The main graph data.
+	 */
+	public function getMainGraph( $subGraphs = [], $graphData = null ) {
+		if ( empty( $subGraphs ) ) {
+			return [];
+		}
+
+		return [
+			'@type'       => 'FAQPage',
+			'@id'         => ! empty( $graphData->id ) ? aioseo()->schema->context['url'] . $graphData->id : aioseo()->schema->context['url'] . '#faq',
+			'name'        => ! empty( $graphData->properties->name ) ? $graphData->properties->name : '',
+			'description' => ! empty( $graphData->properties->description ) ? $graphData->properties->description : '',
+			'url'         => aioseo()->schema->context['url'],
+			'mainEntity'  => $subGraphs,
+			'inLanguage'  => get_bloginfo( 'language' ),
+			'isPartOf'    => empty( $graphData ) ? [ '@id' => trailingslashit( home_url() ) . '#website' ] : '',
+			'breadcrumb'  => [ '@id' => aioseo()->schema->context['url'] . '#breadcrumblist' ]
+		];
 	}
 }

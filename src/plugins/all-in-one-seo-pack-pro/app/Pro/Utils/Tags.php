@@ -74,16 +74,6 @@ class Tags extends Utils\Tags {
 			$context['productDescription'] = array_merge( $context['productDescription'], $wooCommerceTags );
 		}
 
-		// Taxonomies including from CPT's.
-		foreach ( aioseo()->helpers->getPublicTaxonomies() as $taxonomy ) {
-			if ( 'category' === $taxonomy['name'] ) {
-				continue;
-			}
-
-			$context[ $taxonomy['name'] . 'Title' ]       = $context['taxonomyTitle'];
-			$context[ $taxonomy['name'] . 'Description' ] = $context['taxonomyDescription'];
-		}
-
 		return $context;
 	}
 
@@ -97,6 +87,7 @@ class Tags extends Utils\Tags {
 	 */
 	public function getDefaultTermTags( $termId ) {
 		$term = get_term( $termId );
+
 		return [
 			'title'       => aioseo()->meta->title->getTermTitle( $term, true ),
 			'description' => aioseo()->meta->description->getTermDescription( $term, true )
@@ -129,26 +120,57 @@ class Tags extends Utils\Tags {
 				if ( ! is_object( $product ) ) {
 					return $sampleData ? __( 'Sample SKU', 'all-in-one-seo-pack' ) : '';
 				}
+
 				return $product ? $product->get_sku() : '';
 			case 'woocommerce_price':
 				if ( ! is_object( $product ) ) {
 					return $sampleData ? __( '$5.99', 'all-in-one-seo-pack' ) : '';
 				}
-				$locale       = get_locale();
-				$productPrice = $product->get_price() ? $product->get_price() : 0;
-				if ( false !== strpos( $locale, 'en', 0 ) ) {
-					$productPrice = number_format( $productPrice, 2, '.', ',' );
-				} else {
-					$productPrice = number_format( $productPrice, 2, ',', '.' );
+
+				if (
+					apply_filters( 'aioseo_woocommerce_variable_product_price_range', true ) &&
+					$product instanceof \WC_Product_Variable &&
+					method_exists( $product, 'get_variation_sale_price' )
+				) {
+					$minPrice = $this->formatPrice( $product->get_variation_sale_price( 'min' ) );
+					$maxPrice = $this->formatPrice( $product->get_variation_sale_price( 'max' ) );
+					if ( $minPrice && $maxPrice && $minPrice !== $maxPrice ) {
+						return sprintf( '%1$s-%2$s', $minPrice, $maxPrice );
+					}
 				}
-				return get_woocommerce_currency_symbol() . $productPrice;
+
+				$productPrice = $product->get_price() ? $product->get_price() : 0;
+
+				return $this->formatPrice( $productPrice );
 			case 'woocommerce_brand':
 				if ( ! is_object( $product ) ) {
 					return $sampleData ? __( 'Sample Brand', 'all-in-one-seo-pack' ) : '';
 				}
+
 				return aioseo()->helpers->getWooCommerceBrand( $product->get_id() );
 			default:
 				return parent::getTagValue( $tag, $id, $sampleData );
 		}
+	}
+
+	/**
+	 * Formats a price with a dot or comma as decimal character, based on the locale.
+	 *
+	 * @since 4.1.1
+	 *
+	 * @param  string $price The price.
+	 * @return string        The formatted price.
+	 */
+	private function formatPrice( $price ) {
+		if ( function_exists( 'wc_price' ) ) {
+			return wc_price( $price );
+		}
+
+		$currencySymbol = get_woocommerce_currency_symbol();
+		if ( false !== strpos( get_locale(), 'en', 0 ) ) {
+			return $currencySymbol . number_format( $price, 2, '.', ',' );
+		}
+
+		return $currencySymbol . number_format( $price, 2, ',', '.' );
 	}
 }

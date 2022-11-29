@@ -107,6 +107,7 @@ class Notices extends CommonNotices\Notices {
 			if ( $notification->exists() ) {
 				Models\Notification::deleteNotificationByName( 'local-business-organization' );
 			}
+
 			return;
 		}
 
@@ -152,6 +153,7 @@ class Notices extends CommonNotices\Notices {
 			if ( $notification->exists() ) {
 				Models\Notification::deleteNotificationByName( 'news-publication-name' );
 			}
+
 			return;
 		}
 
@@ -192,6 +194,7 @@ class Notices extends CommonNotices\Notices {
 			if ( $notification->exists() ) {
 				Models\Notification::deleteNotificationByName( 'woo-upsell' );
 			}
+
 			return;
 		}
 

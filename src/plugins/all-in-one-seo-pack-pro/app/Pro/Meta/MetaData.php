@@ -17,6 +17,15 @@ use AIOSEO\Plugin\Pro\Models;
  */
 class MetaData extends CommonMeta\MetaData {
 	/**
+	 * The cached meta data for terms.
+	 *
+	 * @since 4.1.7
+	 *
+	 * @var array
+	 */
+	private $terms = [];
+
+	/**
 	 * Returns the metadata for the current object.
 	 *
 	 * @since 4.0.0
@@ -25,37 +34,53 @@ class MetaData extends CommonMeta\MetaData {
 	 * @return array         The meta data.
 	 */
 	public function getMetaData( $term = null ) {
-		static $terms = [];
 		if (
+			( ! empty( $term ) && is_a( $term, 'WP_Term' ) ) ||
 			is_category() ||
 			is_tag() ||
 			is_tax() ||
-			( is_admin() && function_exists( 'get_current_screen' ) && 'term' === get_current_screen()->base )
+			( is_admin() && aioseo()->helpers->isScreenBase( 'term' ) )
 		) {
 			$termId = is_object( $term ) ? $term->term_id : get_queried_object()->term_id;
 			if ( empty( $termId ) ) {
 				return parent::getMetaData( $term );
 			}
 
-			if ( isset( $terms[ $termId ] ) ) {
-				return $terms[ $termId ];
+			if ( isset( $this->terms[ $termId ] ) ) {
+				return $this->terms[ $termId ];
 			}
-			$terms[ $termId ] = Models\Term::getTerm( $termId );
+			$this->terms[ $termId ] = Models\Term::getTerm( $termId );
 
-			if ( ! $terms[ $termId ]->exists() ) {
+			if ( ! $this->terms[ $termId ]->exists() ) {
 				$migratedMeta = aioseo()->migration->meta->getMigratedTermMeta( $termId );
 				if ( ! empty( $migratedMeta ) ) {
 					foreach ( $migratedMeta as $k => $v ) {
-						$terms[ $termId ]->{$k} = $v;
+						$this->terms[ $termId ]->{$k} = $v;
 					}
 
-					$terms[ $termId ]->save();
+					$this->terms[ $termId ]->save();
 				}
 			}
 
-			return $terms[ $termId ];
+			return $this->terms[ $termId ];
 		}
 
 		return parent::getMetaData( $term );
+	}
+
+	/**
+	 * Busts the meta data cache for a given term.
+	 *
+	 * @since 4.1.7
+	 *
+	 * @param  int  $termId   The term ID.
+	 * @param  Term $metaData The meta data.
+	 * @return void
+	 */
+	public function bustTermCache( $termId, $metaData = null ) {
+		if ( null === $metaData || ! is_a( $metaData, 'AIOSEO\Plugin\Pro\Models\Term' ) ) {
+			unset( $this->terms[ $termId ] );
+		}
+		$this->terms[ $termId ] = $metaData;
 	}
 }

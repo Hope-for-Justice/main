@@ -23,5 +23,6 @@ class ImportExport extends CommonImportExport\ImportExport {
 	public function __construct() {
 		$this->yoastSeo = new YoastSeo\YoastSeo( $this );
 		$this->rankMath = new RankMath\RankMath( $this );
+		$this->seoPress = new SeoPress\SeoPress( $this );
 	}
 }

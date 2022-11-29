@@ -26,21 +26,36 @@ class Robots extends CommonMeta\Robots {
 			return parent::meta();
 		}
 
-		$options  = aioseo()->options->noConflict();
-		$term     = get_queried_object();
-		$metaData = aioseo()->meta->metaData->getMetaData( $term );
+		$this->term();
+
+		return parent::metaHelper();
+	}
+
+	/**
+	 * Returns the robots meta tag value for the current term.
+	 *
+	 * @since 4.1.7
+	 *
+	 * @param  \WP_Term|null $term The term object if any.
+	 * @return void
+	 */
+	public function term( $term = null ) {
+		$dynamicOptions = aioseo()->dynamicOptions->noConflict();
+		$term           = is_a( $term, 'WP_Term' ) ? $term : get_queried_object();
+		$metaData       = aioseo()->meta->metaData->getMetaData( $term );
 
 		if ( ! empty( $metaData ) && ! $metaData->robots_default ) {
 			$this->metaValues( $metaData );
-			return parent::metaHelper();
+
+			return;
 		}
 
-		if ( $options->searchAppearance->dynamic->taxonomies->has( $term->taxonomy ) ) {
-			$this->globalValues( [ 'dynamic', 'taxonomies', $term->taxonomy ] );
-			return parent::metaHelper();
+		if ( $dynamicOptions->searchAppearance->taxonomies->has( $term->taxonomy ) ) {
+			$this->globalValues( [ 'taxonomies', $term->taxonomy ], true );
+
+			return;
 		}
 
 		$this->globalValues();
-		return parent::metaHelper();
 	}
 }

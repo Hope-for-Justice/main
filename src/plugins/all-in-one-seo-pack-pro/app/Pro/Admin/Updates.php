@@ -104,7 +104,6 @@ class Updates {
 		add_filter( 'pre_set_site_transient_update_plugins', [ $this, 'updatePluginsFilter' ], 1000 );
 		add_filter( 'http_request_args', [ $this, 'httpRequestArgs' ], 10, 2 );
 		add_filter( 'plugins_api', [ $this, 'pluginsApi' ], 10, 3 );
-
 	}
 
 	/**
@@ -112,7 +111,7 @@ class Updates {
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param  object $value The WordPress update object.
+	 * @param  mixed  $value The WordPress update object.
 	 * @return object        Amended WordPress update object on success, default if object is empty.
 	 */
 	public function updatePluginsFilter( $value ) {
@@ -135,14 +134,13 @@ class Updates {
 			$this->update->changelog   = preg_replace( '/\s+/', ' ', $this->update->changelog );
 		}
 
+		$this->update->icons      = (array) $this->update->icons;
+		$this->update->aioseo     = true;
+		$this->update->plugin     = $this->pluginPath;
+		$this->update->oldVersion = $this->version;
+
 		// Infuse the update object with our data if the version from the remote API is newer.
 		if ( isset( $this->update->new_version ) && version_compare( $this->version, $this->update->new_version, '<' ) ) {
-			// Change the icons property to an array.
-			$this->update->icons      = (array) $this->update->icons;
-			$this->update->aioseo     = true;
-			$this->update->plugin     = $this->pluginPath;
-			$this->update->oldVersion = $this->version;
-
 			// The $plugin_update object contains new_version, package, slug, and last_update keys.
 			$value->response[ $this->pluginPath ] = $this->update;
 		} else {
@@ -171,6 +169,7 @@ class Updates {
 			'php_version' => PHP_VERSION,
 			'wp_version'  => get_bloginfo( 'version' )
 		];
+
 		return aioseo()->helpers->sendRequest( $this->getUrl() . 'update/', $args );
 	}
 
@@ -228,7 +227,8 @@ class Updates {
 				'php_version' => PHP_VERSION,
 				'wp_version'  => get_bloginfo( 'version' )
 			] );
-			if ( ! $response || empty( $response ) || ! empty( $response->error ) ) {
+
+			if ( empty( $response ) || ! empty( $response->error ) ) {
 				$this->info = false;
 
 				return $defaultApi;

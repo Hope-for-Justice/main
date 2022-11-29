@@ -18,6 +18,15 @@ use AIOSEO\Plugin\Common\Models;
  */
 class LocalBusiness extends ImportExport\LocalBusiness {
 	/**
+	 * List of options.
+	 *
+	 * @since 4.2.7
+	 *
+	 * @var array
+	 */
+	private $options = [];
+
+	/**
 	 * Class constructor.
 	 *
 	 * @since 4.0.0
@@ -91,11 +100,12 @@ class LocalBusiness extends ImportExport\LocalBusiness {
 				'type'              => 'warning',
 				'level'             => [ 'all' ],
 				'button1_label'     => __( 'Fix Now', 'all-in-one-seo-pack' ),
-				'button1_action'    => 'http://route#aioseo-local-business:business-info',
+				'button1_action'    => 'http://route#aioseo-local-seo&aioseo-scroll=info-business-contact-row&aioseo-highlight=aioseo-local-business-phone-number:business-info',
 				'button2_label'     => __( 'Remind Me Later', 'all-in-one-seo-pack' ),
 				'button2_action'    => 'http://action#notification/import-local-business-number-reminder',
 				'start'             => gmdate( 'Y-m-d H:i:s' )
 			] );
+
 			return;
 		}
 		aioseo()->options->localBusiness->locations->business->contact->phone = $phoneNumber;
@@ -133,11 +143,12 @@ class LocalBusiness extends ImportExport\LocalBusiness {
 				'type'              => 'warning',
 				'level'             => [ 'all' ],
 				'button1_label'     => __( 'Fix Now', 'all-in-one-seo-pack' ),
-				'button1_action'    => 'http://route#aioseo-local-business:business-info',
+				'button1_action'    => 'http://route#aioseo-local-seo&aioseo-scroll=info-business-contact-row&aioseo-highlight=aioseo-local-business-fax-number:business-info',
 				'button2_label'     => __( 'Remind Me Later', 'all-in-one-seo-pack' ),
 				'button2_action'    => 'http://action#notification/import-local-business-fax-reminder',
 				'start'             => gmdate( 'Y-m-d H:i:s' )
 			] );
+
 			return;
 		}
 		aioseo()->options->localBusiness->locations->business->contact->fax = $faxNumber;
@@ -205,7 +216,7 @@ class LocalBusiness extends ImportExport\LocalBusiness {
 				'type'              => 'warning',
 				'level'             => [ 'all' ],
 				'button1_label'     => __( 'Fix Now', 'all-in-one-seo-pack' ),
-				'button1_action'    => 'http://route#aioseo-local-business:business-info',
+				'button1_action'    => 'http://route#aioseo-local-seo&aioseo-scroll=info-payment-info-row&aioseo-highlight=aioseo-local-business-currencies-accepted:business-info',
 				'button2_label'     => __( 'Remind Me Later', 'all-in-one-seo-pack' ),
 				'button2_action'    => 'http://action#notification/import-local-business-currencies-reminder',
 				'start'             => gmdate( 'Y-m-d H:i:s' )

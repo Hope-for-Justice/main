@@ -19,11 +19,12 @@ class Twitter extends CommonSocial\Twitter {
 	 *
 	 * @since 4.0.0
 	 *
-	 * @return string The image URL.
+	 * @param  int    $postId The post ID (optional).
+	 * @return string         The image URL.
 	 */
-	public function getImage() {
+	public function getImage( $postId = null ) {
 		if ( ! is_category() && ! is_tag() && ! is_tax() ) {
-			return parent::getImage();
+			return parent::getImage( $postId );
 		}
 
 		$term     = get_queried_object();
@@ -67,8 +68,9 @@ class Twitter extends CommonSocial\Twitter {
 
 		$title = '';
 		if ( ! empty( $metaData->twitter_title ) ) {
-			$title = aioseo()->meta->title->prepareTitle( $metaData->twitter_title );
+			$title = aioseo()->meta->title->helpers->prepare( $metaData->twitter_title, $term->term_id );
 		}
+
 		return $title ? $title : aioseo()->social->facebook->getTitle();
 	}
 
@@ -93,8 +95,9 @@ class Twitter extends CommonSocial\Twitter {
 
 		$description = '';
 		if ( ! empty( $metaData->twitter_description ) ) {
-			$description = aioseo()->meta->description->prepareDescription( $metaData->twitter_description );
+			$description = aioseo()->meta->description->helpers->prepare( $metaData->twitter_description, $term->term_id );
 		}
+
 		return $description ? $description : aioseo()->social->facebook->getDescription();
 	}
 }

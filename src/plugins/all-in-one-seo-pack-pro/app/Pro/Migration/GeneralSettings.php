@@ -46,7 +46,8 @@ class GeneralSettings {
 	 * @return void
 	 */
 	private function migrateGoogleAnalytics() {
-		if ( empty( $this->oldOptions['aiosp_gtm_container_id'] ) ) {
+		$oldOptions = aioseo()->migration->oldOptions;
+		if ( empty( $oldOptions['aiosp_gtm_container_id'] ) ) {
 			return;
 		}
 

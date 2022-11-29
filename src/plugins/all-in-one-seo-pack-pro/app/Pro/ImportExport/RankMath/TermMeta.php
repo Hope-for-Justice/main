@@ -29,8 +29,8 @@ class TermMeta {
 				return;
 			}
 
-			if ( ! aioseo()->transients->get( 'import_term_meta_rank_math' ) ) {
-				aioseo()->transients->update( 'import_term_meta_rank_math', time(), WEEK_IN_SECONDS );
+			if ( ! aioseo()->core->cache->get( 'import_term_meta_rank_math' ) ) {
+				aioseo()->core->cache->update( 'import_term_meta_rank_math', time(), WEEK_IN_SECONDS );
 			}
 
 			as_schedule_single_action( time(), aioseo()->importExport->rankMath->termActionName, [], 'aioseo' );
@@ -49,9 +49,9 @@ class TermMeta {
 	public function importTermMeta() {
 		$termsPerAction   = 100;
 		$publicTaxonomies = implode( "', '", aioseo()->helpers->getpublicTaxonomies( true ) );
-		$timeStarted      = gmdate( 'Y-m-d H:i:s', aioseo()->transients->get( 'import_term_meta_rank_math' ) );
+		$timeStarted      = gmdate( 'Y-m-d H:i:s', aioseo()->core->cache->get( 'import_term_meta_rank_math' ) );
 
-		$terms = aioseo()->db
+		$terms = aioseo()->core->db
 			->start( 'terms' . ' as t' )
 			->select( 't.term_id' )
 			->join( 'termmeta as tm', '`t`.`term_id` = `tm`.`term_id`' )
@@ -66,7 +66,8 @@ class TermMeta {
 			->result();
 
 		if ( ! $terms || ! count( $terms ) ) {
-			aioseo()->transients->delete( 'import_term_meta_rank_math' );
+			aioseo()->core->cache->delete( 'import_term_meta_rank_math' );
+
 			return;
 		}
 
@@ -88,7 +89,7 @@ class TermMeta {
 		];
 
 		foreach ( $terms as $term ) {
-			$termMeta = aioseo()->db
+			$termMeta = aioseo()->core->db
 			->start( 'termmeta' . ' as tm' )
 			->select( 'tm.meta_key, tm.meta_value' )
 			->where( 'tm.term_id', $term->term_id )
@@ -158,14 +159,14 @@ class TermMeta {
 						break;
 					case 'rank_math_title':
 					case 'rank_math_description':
-						$value = aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $value );
+						$value = aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $value, 'term' );
 					default:
 						$meta[ $mappedMeta[ $name ] ] = esc_html( wp_strip_all_tags( strval( $value ) ) );
 						break;
 				}
 			}
 
-			$aioseoterm = Models\term::getTerm( $term->term_id );
+			$aioseoterm = Models\Term::getTerm( $term->term_id );
 			$aioseoterm->set( $meta );
 			$aioseoterm->save();
 		}
@@ -177,7 +178,7 @@ class TermMeta {
 				// Do nothing.
 			}
 		} else {
-			aioseo()->transients->delete( 'import_term_meta_rank_math' );
+			aioseo()->core->cache->delete( 'import_term_meta_rank_math' );
 		}
 	}
 }

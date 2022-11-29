@@ -11,7 +11,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 4.0.0
  */
-class Usage {
+abstract class Usage {
+	/**
+	 * Returns the current plugin version type ("lite" or "pro").
+	 *
+	 * @since 4.1.3
+	 *
+	 * @return string The version type.
+	 */
+	abstract public function getType();
+
 	/**
 	 * Source of notifications content.
 	 *
@@ -50,9 +59,8 @@ class Usage {
 		try {
 			$action = 'aioseo_send_usage_data';
 			if ( ! $this->enabled ) {
-				if ( as_next_scheduled_action( $action ) ) {
-					as_unschedule_action( $action, [], 'aioseo' );
-				}
+				aioseo()->actionScheduler->unschedule( $action );
+
 				return;
 			}
 
@@ -85,13 +93,12 @@ class Usage {
 		wp_remote_post(
 			$this->getUrl(),
 			[
-				'timeout'     => 5,
-				'redirection' => 5,
-				'httpversion' => '1.1',
-				'blocking'    => true,
-				'headers'     => [ 'Content-Type' => 'application/json; charset=utf-8' ],
-				'body'        => wp_json_encode( $this->getData() ),
-				'user-agent'  => 'AIOSEO/' . AIOSEO_VERSION . '; ' . get_bloginfo( 'url' ),
+				'timeout'    => 10,
+				'headers'    => array_merge( [
+					'Content-Type' => 'application/json; charset=utf-8'
+				], aioseo()->helpers->getApiHeaders() ),
+				'user-agent' => aioseo()->helpers->getApiUserAgent(),
+				'body'       => wp_json_encode( $this->getData() )
 			]
 		);
 	}
@@ -118,7 +125,7 @@ class Usage {
 	 *
 	 * @return array An array of data to send.
 	 */
-	private function getData() {
+	protected function getData() {
 		$themeData = wp_get_theme();
 		$type      = $this->getType();
 
@@ -127,7 +134,7 @@ class Usage {
 			'url'                           => home_url(),
 			'php_version'                   => PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION,
 			'wp_version'                    => get_bloginfo( 'version' ),
-			'mysql_version'                 => aioseo()->db->db->db_version(),
+			'mysql_version'                 => aioseo()->core->db->db->db_version(),
 			'server_version'                => isset( $_SERVER['SERVER_SOFTWARE'] ) ? sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) ) : '',
 			'is_ssl'                        => is_ssl(),
 			'is_multisite'                  => is_multisite(),
@@ -196,6 +203,7 @@ class Usage {
 				if ( isset( $plugin['Version'] ) ) {
 					return $plugin['Version'];
 				}
+
 				return 'Not Set';
 			},
 			$plugins

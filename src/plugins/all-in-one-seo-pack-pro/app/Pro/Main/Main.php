@@ -40,4 +40,23 @@ class Main extends CommonMain\Main {
 			deactivate_plugins( 'all-in-one-seo-pack/all_in_one_seo_pack.php' );
 		}
 	}
+
+	/**
+	 * Enqueue styles.
+	 *
+	 * @since 4.1.3
+	 *
+	 * @return void
+	 */
+	public function enqueueTranslations() {
+		parent::enqueueTranslations();
+
+		wp_localize_script(
+			'aioseo-app',
+			'aioseoTranslationsPro',
+			[
+				'translationsPro' => aioseo()->helpers->getJedLocaleData( 'aioseo-pro' )
+			]
+		);
+	}
 }

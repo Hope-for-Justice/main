@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use AIOSEO\Plugin\Common\Models;
+use AIOSEO\Plugin\Common\Migration;
 
 /**
  * Route class for the API.
@@ -75,6 +76,29 @@ class Settings {
 	}
 
 	/**
+	 * Toggles a table's items per page setting.
+	 *
+	 * @since 4.2.5
+	 *
+	 * @param  \WP_REST_Request  $request The REST Request
+	 * @return \WP_REST_Response          The response.
+	 */
+	public static function changeItemsPerPage( $request ) {
+		$body   = $request->get_json_params();
+		$table  = ! empty( $body['table'] ) ? sanitize_text_field( $body['table'] ) : null;
+		$value  = ! empty( $body['value'] ) ? intval( $body['value'] ) : null;
+		$tables = aioseo()->settings->tablePagination;
+		if ( array_key_exists( $table, $tables ) ) {
+			$tables[ $table ] = $value;
+			aioseo()->settings->tablePagination = $tables;
+		}
+
+		return new \WP_REST_Response( [
+			'success' => true
+		], 200 );
+	}
+
+	/**
 	 * Dismisses the upgrade bar.
 	 *
 	 * @since 4.0.0
@@ -115,27 +139,26 @@ class Settings {
 	 * @return \WP_REST_Response          The response.
 	 */
 	public static function saveChanges( $request ) {
-		$body    = $request->get_json_params();
-		$options = ! empty( $body['options'] ) ? $body['options'] : [];
-		$network = ! empty( $body['network'] ) ? (bool) $body['network'] : false;
+		$body           = $request->get_json_params();
+		$options        = ! empty( $body['options'] ) ? $body['options'] : [];
+		$dynamicOptions = ! empty( $body['dynamicOptions'] ) ? $body['dynamicOptions'] : [];
+		$network        = ! empty( $body['network'] ) ? (bool) $body['network'] : false;
+		$networkOptions = ! empty( $body['networkOptions'] ) ? $body['networkOptions'] : [];
 
 		// If this is the network admin, reset the options.
 		if ( $network ) {
-			aioseo()->options->initNetwork();
+			aioseo()->networkOptions->sanitizeAndSave( $networkOptions );
+		} else {
+			aioseo()->options->sanitizeAndSave( $options );
+			aioseo()->dynamicOptions->sanitizeAndSave( $dynamicOptions );
 		}
-
-		aioseo()->options->sanitizeAndSave( $options );
 
 		// Re-initialize notices.
 		aioseo()->notices->init();
 
 		return new \WP_REST_Response( [
 			'success'       => true,
-			'notifications' => [
-				'active'    => Models\Notification::getAllActiveNotifications(),
-				'dismissed' => Models\Notification::getAllDismissedNotifications()
-			],
-			'redirection'   => aioseo()->options->getRedirection()
+			'notifications' => Models\Notification::getNotifications()
 		], 200 );
 	}
 
@@ -151,48 +174,38 @@ class Settings {
 		$body     = $request->get_json_params();
 		$settings = ! empty( $body['settings'] ) ? $body['settings'] : [];
 
+		$notAllowedOptions = aioseo()->access->getNotAllowedOptions();
+
 		foreach ( $settings as $setting ) {
+			$optionAccess = in_array( $setting, [ 'robots', 'blocker' ], true ) ? 'tools' : $setting;
+
+			if ( in_array( $optionAccess, $notAllowedOptions, true ) ) {
+				continue;
+			}
+
 			switch ( $setting ) {
-				case 'webmaster-tools':
-					aioseo()->options->webmasterTools->reset();
-					break;
-				case 'rss-content':
-					aioseo()->options->rssContent->reset();
-					break;
-				case 'search-appearance':
-					aioseo()->options->searchAppearance->reset();
-					break;
-				case 'access-control':
-					aioseo()->options->accessControl->reset();
-					aioseo()->access->addCapabilities();
-					break;
-				case 'advanced':
-					aioseo()->options->advanced->reset();
-					break;
-				case 'social-networks':
-					aioseo()->options->social->reset();
-					break;
-				case 'sitemaps':
-					aioseo()->options->sitemap->reset();
-					break;
-				case 'local-business-seo':
-					aioseo()->options->localBusiness->reset();
-					break;
-				case 'robots-txt':
+				case 'robots':
 					aioseo()->options->tools->robots->reset();
 					break;
-				case 'bad-bot-blocker':
+				case 'blocker':
 					aioseo()->options->deprecated->tools->blocker->reset();
 					break;
-				case 'image-seo':
-					aioseo()->options->image->reset();
-					break;
+				default:
+					if ( aioseo()->options->has( $setting ) ) {
+						aioseo()->options->$setting->reset();
+					}
+					if ( aioseo()->dynamicOptions->has( $setting ) ) {
+						aioseo()->dynamicOptions->$setting->reset();
+					}
+			}
+
+			if ( 'access-control' === $setting ) {
+				aioseo()->access->addCapabilities();
 			}
 		}
 
 		return new \WP_REST_Response( [
-			'success' => true,
-			'options' => aioseo()->options->all()
+			'success' => true
 		], 200 );
 	}
 
@@ -205,10 +218,22 @@ class Settings {
 	 * @return \WP_REST_Response          The response.
 	 */
 	public static function importSettings( $request ) {
-		$file     = $request->get_file_params()['file'];
-		$wpfs     = aioseo()->helpers->wpfs();
-		$contents = @$wpfs->get_contents( $file['tmp_name'] );
-		if ( ! empty( $file['type'] ) && 'application/json' === $file['type'] ) {
+		$file = $request->get_file_params()['file'];
+		if (
+			empty( $file['tmp_name'] ) ||
+			empty( $file['type'] ) ||
+			(
+				'application/json' !== $file['type'] &&
+				'application/octet-stream' !== $file['type']
+			)
+		) {
+			return new \WP_REST_Response( [
+				'success' => false
+			], 400 );
+		}
+
+		$contents = aioseo()->core->fs->getContents( $file['tmp_name'] );
+		if ( 'application/json' === $file['type'] ) {
 			// Since this could be any file, we need to pretend like every variable here is missing.
 			$contents = json_decode( $contents, true );
 			if ( empty( $contents ) ) {
@@ -218,15 +243,51 @@ class Settings {
 			}
 
 			if ( ! empty( $contents['settings'] ) ) {
+				// Clean up the array removing options the user should not manage.
+				$notAllowedOptions    = aioseo()->access->getNotAllowedOptions();
+				$contents['settings'] = array_diff_key( $contents['settings'], $notAllowedOptions );
+				if ( ! empty( $contents['settings']['deprecated'] ) ) {
+					$contents['settings']['deprecated'] = array_diff_key( $contents['settings']['deprecated'], $notAllowedOptions );
+				}
+
+				// Remove any dynamic options and save them separately since this has been refactored.
+				$commonDynamic = [
+					'sitemap',
+					'searchAppearance',
+					'breadcrumbs',
+					'accessControl'
+				];
+
+				foreach ( $commonDynamic as $cd ) {
+					if ( ! empty( $contents['settings'][ $cd ]['dynamic'] ) ) {
+						$contents['settings']['dynamic'][ $cd ] = $contents['settings'][ $cd ]['dynamic'];
+						unset( $contents['settings'][ $cd ]['dynamic'] );
+					}
+				}
+
+				// These options have a very different structure so we'll do them separately.
+				if ( ! empty( $contents['settings']['social']['facebook']['general']['dynamic'] ) ) {
+					$contents['settings']['dynamic']['social']['facebook']['general'] = $contents['settings']['social']['facebook']['general']['dynamic'];
+					unset( $contents['settings']['social']['facebook']['general']['dynamic'] );
+				}
+
+				if ( ! empty( $contents['settings']['dynamic'] ) ) {
+					aioseo()->dynamicOptions->sanitizeAndSave( $contents['settings']['dynamic'] );
+					unset( $contents['settings']['dynamic'] );
+				}
+
 				aioseo()->options->sanitizeAndSave( $contents['settings'] );
 			}
 
 			if ( ! empty( $contents['postOptions'] ) ) {
-				foreach ( $contents['postOptions'] as $postType => $postData ) {
+				$notAllowedFields = aioseo()->access->getNotAllowedPageFields();
+				foreach ( $contents['postOptions'] as $postData ) {
 					// Posts.
 					if ( ! empty( $postData['posts'] ) ) {
 						foreach ( $postData['posts'] as $post ) {
 							unset( $post['id'] );
+							// Clean up the array removing fields the user should not manage.
+							$post    = array_diff_key( $post, $notAllowedFields );
 							$thePost = Models\Post::getPost( $post['post_id'] );
 							$thePost->set( $post );
 							$thePost->save();
@@ -236,7 +297,7 @@ class Settings {
 			}
 		}
 
-		if ( ! empty( $file['type'] ) && 'application/octet-stream' === $file['type'] ) {
+		if ( 'application/octet-stream' === $file['type'] ) {
 			$response = aioseo()->importExport->importIniData( $contents );
 			if ( ! $response ) {
 				return new \WP_REST_Response( [
@@ -269,29 +330,56 @@ class Settings {
 		];
 
 		if ( ! empty( $settings ) ) {
-			$options = aioseo()->options->noConflict();
+			$options           = aioseo()->options->noConflict();
+			$dynamicOptions    = aioseo()->dynamicOptions->noConflict();
+			$notAllowedOptions = aioseo()->access->getNotAllowedOptions();
 			foreach ( $settings as $setting ) {
-				if ( $options->has( $setting ) ) {
-					$allSettings['settings'][ $setting ] = $options->$setting->all();
+				$optionAccess = in_array( $setting, [ 'robots', 'blocker' ], true ) ? 'tools' : $setting;
 
-					// It there is a related deprecated $setting, include it.
-					if ( $options->deprecated->has( $setting ) ) {
-						$allSettings['settings']['deprecated'][ $setting ] = $options->deprecated->$setting->all();
-					}
+				if ( in_array( $optionAccess, $notAllowedOptions, true ) ) {
+					continue;
+				}
+
+				switch ( $setting ) {
+					case 'robots':
+						$allSettings['settings']['tools']['robots'] = $options->tools->robots->all();
+						break;
+					default:
+						if ( $options->has( $setting ) ) {
+							$allSettings['settings'][ $setting ] = $options->$setting->all();
+						}
+
+						// If there are related dynamic settings, let's include them.
+						if ( $dynamicOptions->has( $setting ) ) {
+							$allSettings['settings']['dynamic'][ $setting ] = $dynamicOptions->$setting->all();
+						}
+
+						// It there is a related deprecated $setting, include it.
+						if ( $options->deprecated->has( $setting ) ) {
+							$allSettings['settings']['deprecated'][ $setting ] = $options->deprecated->$setting->all();
+						}
+						break;
 				}
 			}
 		}
 
 		if ( ! empty( $postOptions ) ) {
+			$notAllowedFields = aioseo()->access->getNotAllowedPageFields();
 			foreach ( $postOptions as $postType ) {
-				$allSettings['postOptions'][ $postType ] = [
-					'posts' => aioseo()->db->start( 'aioseo_posts as ap' )
-						->select( 'ap.*' )
-						->join( 'posts as p', 'ap.post_id = p.ID' )
-						->where( 'p.post_type', $postType )
-						->run()
-						->result()
-				];
+				$posts = aioseo()->core->db->start( 'aioseo_posts as ap' )
+					->select( 'ap.*' )
+					->join( 'posts as p', 'ap.post_id = p.ID' )
+					->where( 'p.post_type', $postType )
+					->run()
+					->result();
+
+				foreach ( $posts as $post ) {
+					// Clean up the array removing fields the user should not manage.
+					$post = array_diff_key( (array) $post, $notAllowedFields );
+					if ( count( $post ) > 2 ) {
+						$allSettings['postOptions'][ $postType ]['posts'][] = $post;
+					}
+				}
 			}
 		}
 
@@ -323,15 +411,118 @@ class Settings {
 	}
 
 	/**
-	 * Clears the AIOSEO cache.
+	 * Executes a given administrative task.
 	 *
-	 * @since 4.1.0
+	 * @since 4.1.2
 	 *
 	 * @param  \WP_REST_Request  $request The REST Request
 	 * @return \WP_REST_Response          The response.
 	 */
-	public static function clearCache() {
-		aioseo()->transients->clearCache();
+	public static function doTask( $request ) {
+		$body          = $request->get_json_params();
+		$action        = ! empty( $body['action'] ) ? $body['action'] : '';
+		$data          = ! empty( $body['data'] ) ? $body['data'] : [];
+		$network       = ! empty( $body['network'] ) ? boolval( $body['network'] ) : false;
+		$siteId        = ! empty( $body['siteId'] ) ? intval( $body['siteId'] ) : false;
+		$siteOrNetwork = empty( $siteId ) ? aioseo()->helpers->getNetworkId() : $siteId;
+
+		switch ( $action ) {
+			// General
+			case 'clear-cache':
+				if ( ! $network ) {
+					aioseo()->core->cache->clear();
+					break;
+				}
+
+				if ( empty( $siteId ) ) {
+					aioseo()->helpers->switchToBlog( aioseo()->helpers->getNetworkId() );
+					aioseo()->core->networkCache->clear();
+					aioseo()->helpers->restoreCurrentBlog();
+					break;
+				}
+
+				aioseo()->helpers->switchToBlog( $siteId );
+				aioseo()->core->cache->clear();
+				aioseo()->helpers->restoreCurrentBlog();
+				break;
+			case 'clear-plugin-updates-transient':
+				aioseo()->helpers->switchToBlog( $siteOrNetwork );
+				delete_site_transient( 'update_plugins' );
+				aioseo()->helpers->restoreCurrentBlog();
+				break;
+			case 'readd-capabilities':
+				aioseo()->helpers->switchToBlog( $siteOrNetwork );
+				aioseo()->access->addCapabilities();
+				aioseo()->helpers->restoreCurrentBlog();
+				break;
+			case 'reset-data':
+				aioseo()->helpers->switchToBlog( $siteOrNetwork );
+				aioseo()->core->uninstallDb( true );
+				aioseo()->internalOptions->database->installedTables = '';
+				aioseo()->internalOptions->internal->lastActiveVersion = '4.0.0';
+				aioseo()->updates->addInitialCustomTablesForV4();
+				aioseo()->helpers->restoreCurrentBlog();
+				break;
+			// Sitemap
+			case 'clear-image-data':
+				aioseo()->helpers->switchToBlog( $siteOrNetwork );
+				aioseo()->sitemap->query->resetImages();
+				aioseo()->helpers->restoreCurrentBlog();
+				break;
+			// Migrations
+			case 'rerun-migrations':
+				aioseo()->helpers->switchToBlog( $siteOrNetwork );
+				aioseo()->internalOptions->database->installedTables   = '';
+				aioseo()->internalOptions->internal->lastActiveVersion = '4.0.0';
+				aioseo()->helpers->restoreCurrentBlog();
+				break;
+			case 'restart-v3-migration':
+				aioseo()->helpers->switchToBlog( $siteOrNetwork );
+				Migration\Helpers::redoMigration();
+				aioseo()->helpers->restoreCurrentBlog();
+				break;
+			// Old Issues
+			case 'remove-duplicates':
+				aioseo()->helpers->switchToBlog( $siteOrNetwork );
+				aioseo()->updates->removeDuplicateRecords();
+				aioseo()->helpers->restoreCurrentBlog();
+				break;
+			case 'unescape-data':
+				aioseo()->helpers->switchToBlog( $siteOrNetwork );
+				aioseo()->admin->scheduleUnescapeData();
+				aioseo()->helpers->restoreCurrentBlog();
+				break;
+			// Deprecated Options
+			case 'deprecated-options':
+				aioseo()->helpers->switchToBlog( $siteOrNetwork );
+
+				// Check if the user is forcefully wanting to add a deprecated option.
+				$allDeprecatedOptions = aioseo()->internalOptions->getAllDeprecatedOptions();
+				$deprecatedOptions    = aioseo()->internalOptions->internal->deprecatedOptions;
+				$enableOptions        = array_keys( array_filter( $data ) );
+
+				foreach ( $enableOptions as $key => $option ) {
+					if ( ! in_array( $option, $allDeprecatedOptions, true ) ) {
+						unset( $enableOptions[ $key ] );
+					}
+				}
+
+				sort( $enableOptions );
+				sort( $deprecatedOptions );
+
+				$hasChanged = $deprecatedOptions !== $enableOptions;
+				if ( $hasChanged ) {
+					aioseo()->internalOptions->internal->deprecatedOptions = $enableOptions;
+				}
+
+				aioseo()->helpers->restoreCurrentBlog();
+				break;
+			default:
+				return new \WP_REST_Response( [
+					'success' => true,
+					'error'   => 'The given action isn\'t defined.'
+				], 400 );
+		}
 
 		return new \WP_REST_Response( [
 			'success' => true

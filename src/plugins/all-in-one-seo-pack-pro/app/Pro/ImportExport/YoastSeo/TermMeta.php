@@ -27,8 +27,8 @@ class TermMeta {
 				return;
 			}
 
-			if ( ! aioseo()->transients->get( 'import_term_meta_yoast_seo' ) ) {
-				aioseo()->transients->update( 'import_term_meta_yoast_seo', time(), WEEK_IN_SECONDS );
+			if ( ! aioseo()->core->cache->get( 'import_term_meta_yoast_seo' ) ) {
+				aioseo()->core->cache->update( 'import_term_meta_yoast_seo', time(), WEEK_IN_SECONDS );
 			}
 
 			as_schedule_single_action( time(), aioseo()->importExport->yoastSeo->termActionName, [], 'aioseo' );
@@ -45,16 +45,17 @@ class TermMeta {
 	 * @return void
 	 */
 	public function importTermMeta() {
-		if ( ! aioseo()->db->tableExists( 'yoast_indexable' ) ) {
-			aioseo()->transients->delete( 'import_term_meta_yoast_seo' );
+		if ( ! aioseo()->core->db->tableExists( 'yoast_indexable' ) ) {
+			aioseo()->core->cache->delete( 'import_term_meta_yoast_seo' );
+
 			return;
 		}
 
 		$termsPerAction   = 100;
 		$publicTaxonomies = implode( "', '", aioseo()->helpers->getPublicTaxonomies( true ) );
-		$timeStarted      = gmdate( 'Y-m-d H:i:s', aioseo()->transients->get( 'import_term_meta_yoast_seo' ) );
+		$timeStarted      = gmdate( 'Y-m-d H:i:s', aioseo()->core->cache->get( 'import_term_meta_yoast_seo' ) );
 
-		$terms = aioseo()->db
+		$terms = aioseo()->core->db
 			->start( 'yoast_indexable' . ' as yi' )
 			->select( 'yi.*' )
 			->leftJoin( 'aioseo_terms as at', '`yi`.`object_id` = `at`.`term_id`' )
@@ -67,7 +68,8 @@ class TermMeta {
 			->result();
 
 		if ( ! $terms || ! count( $terms ) ) {
-			aioseo()->transients->delete( 'import_term_meta_yoast_seo' );
+			aioseo()->core->cache->delete( 'import_term_meta_yoast_seo' );
+
 			return;
 		}
 
@@ -109,8 +111,8 @@ class TermMeta {
 					case 'is_robots_noimageindex':
 					case 'is_robots_nosnippet':
 						if ( (bool) $value ) {
-							$meta[ $mapping ] = ! empty( $value );
-							$meta['robots_default']          = false;
+							$meta[ $mapping ]       = true;
+							$meta['robots_default'] = false;
 						}
 						break;
 					case 'open_graph_image':
@@ -135,7 +137,7 @@ class TermMeta {
 					case 'description':
 					case 'open_graph_title':
 					case 'open_graph_description':
-						$value = aioseo()->importExport->yoastSeo->helpers->macrosToSmartTags( $value );
+						$value = aioseo()->importExport->yoastSeo->helpers->macrosToSmartTags( $value, null, 'term' );
 					default:
 						$meta[ $mapping ] = esc_html( wp_strip_all_tags( strval( $value ) ) );
 						break;
@@ -154,7 +156,7 @@ class TermMeta {
 				// Do nothing.
 			}
 		} else {
-			aioseo()->transients->delete( 'import_term_meta_yoast_seo' );
+			aioseo()->core->cache->delete( 'import_term_meta_yoast_seo' );
 		}
 	}
 }

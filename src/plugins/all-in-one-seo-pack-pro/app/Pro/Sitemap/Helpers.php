@@ -35,10 +35,11 @@ class Helpers extends CommonSitemap\Helpers {
 		}
 
 		$options          = aioseo()->options->noConflict();
+		$dynamicOptions   = aioseo()->dynamicOptions->noConflict();
 		$publicTaxonomies = aioseo()->helpers->getPublicTaxonomies( true );
 		foreach ( $taxonomies as $taxonomy ) {
 			// Check if taxonomy is no longer registered.
-			if ( ! in_array( $taxonomy, $publicTaxonomies, true ) || ! $options->searchAppearance->dynamic->taxonomies->has( $taxonomy ) ) {
+			if ( ! in_array( $taxonomy, $publicTaxonomies, true ) || ! $dynamicOptions->searchAppearance->taxonomies->has( $taxonomy ) ) {
 				$taxonomies = aioseo()->helpers->unsetValue( $taxonomies, $taxonomy );
 				continue;
 			}
@@ -52,7 +53,7 @@ class Helpers extends CommonSitemap\Helpers {
 			}
 
 			if (
-				$options->searchAppearance->dynamic->taxonomies->$taxonomy->advanced->robotsMeta->default &&
+				$dynamicOptions->searchAppearance->taxonomies->$taxonomy->advanced->robotsMeta->default &&
 				! $options->searchAppearance->advanced->globalRobotsMeta->default &&
 				$options->searchAppearance->advanced->globalRobotsMeta->noindex
 			) {
@@ -62,6 +63,7 @@ class Helpers extends CommonSitemap\Helpers {
 				}
 			}
 		}
+
 		return $taxonomies;
 	}
 
@@ -74,8 +76,8 @@ class Helpers extends CommonSitemap\Helpers {
 	 * @return bool             Whether or not there is an indexed term.
 	 */
 	private function checkForIndexedTerm( $taxonomy ) {
-		$terms = aioseo()->db
-			->start( aioseo()->db->db->term_taxonomy . ' as tt', true )
+		$terms = aioseo()->core->db
+			->start( aioseo()->core->db->db->term_taxonomy . ' as tt', true )
 			->select( 'tt.term_id' )
 			->join( 'aioseo_terms as at', '`tt`.`term_id` = `at`.`term_id`' )
 			->where( 'tt.taxonomy', $taxonomy )
@@ -87,6 +89,7 @@ class Helpers extends CommonSitemap\Helpers {
 		if ( $terms && count( $terms ) ) {
 			return true;
 		}
+
 		return false;
 	}
 }

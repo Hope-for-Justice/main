@@ -19,11 +19,12 @@ class Facebook extends CommonSocial\Facebook {
 	 *
 	 * @since 4.0.0
 	 *
-	 * @return string The Open Graph URL.
+	 * @param  int    $postId The post ID (optional).
+	 * @return string         The image URL.
 	 */
-	public function getImage() {
+	public function getImage( $postId = null ) {
 		if ( ! is_category() && ! is_tag() && ! is_tax() ) {
-			return parent::getImage();
+			return parent::getImage( $postId );
 		}
 
 		$term     = get_queried_object();
@@ -37,6 +38,7 @@ class Facebook extends CommonSocial\Facebook {
 
 			$image = aioseo()->social->image->getImage( 'facebook', $imageSource, $term );
 		}
+
 		return $image ? $image : aioseo()->helpers->getSiteLogoUrl();
 	}
 
@@ -76,6 +78,7 @@ class Facebook extends CommonSocial\Facebook {
 		if ( is_array( $image ) ) {
 			return $image[2];
 		}
+
 		return aioseo()->options->social->facebook->general->defaultImageTermsHeight;
 	}
 
@@ -97,8 +100,9 @@ class Facebook extends CommonSocial\Facebook {
 
 		$title = '';
 		if ( ! empty( $metaData->og_title ) ) {
-			$title = aioseo()->meta->title->prepareTitle( $metaData->og_title );
+			$title = aioseo()->meta->title->helpers->prepare( $metaData->og_title, $term->term_id );
 		}
+
 		return $title ? $title : aioseo()->meta->title->getTermTitle( $term );
 	}
 
@@ -120,8 +124,9 @@ class Facebook extends CommonSocial\Facebook {
 
 		$description = '';
 		if ( ! empty( $metaData->og_description ) ) {
-			$description = aioseo()->meta->description->prepareDescription( $metaData->og_description );
+			$description = aioseo()->meta->description->helpers->prepare( $metaData->og_description, $term->term_id );
 		}
+
 		return $description ? $description : aioseo()->meta->description->getTermDescription( $term );
 	}
 
@@ -143,9 +148,9 @@ class Facebook extends CommonSocial\Facebook {
 			return $metaData->og_object_type;
 		}
 
-		$options           = aioseo()->options->noConflict();
-		$defaultObjectType = $options->social->facebook->general->dynamic->taxonomies->has( $term->taxonomy )
-			? $options->social->facebook->general->dynamic->taxonomies->{$term->taxonomy}->objectType
+		$dynamicOptions    = aioseo()->dynamicOptions->noConflict();
+		$defaultObjectType = $dynamicOptions->social->facebook->general->taxonomies->has( $term->taxonomy )
+			? $dynamicOptions->social->facebook->general->taxonomies->{$term->taxonomy}->objectType
 			: null;
 
 		return ! empty( $defaultObjectType ) ? $defaultObjectType : 'article';

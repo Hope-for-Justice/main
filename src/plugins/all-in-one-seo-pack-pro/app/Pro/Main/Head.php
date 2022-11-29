@@ -23,10 +23,10 @@ class Head extends CommonMain\Head {
 	public function __construct() {
 		parent::__construct();
 
-		$this->robots    = new Meta\Robots();
 		$this->analytics = new GoogleAnalytics();
-		$this->included  = new Meta\Included();
 		$this->keywords  = new Meta\Keywords();
+
+		new Meta\Included();
 
 		add_action( 'init', [ $this, 'addAnalytics' ] );
 	}

@@ -31,6 +31,15 @@ class TitleMeta extends ImportExport\SearchAppearance {
 	];
 
 	/**
+	 * List of options.
+	 *
+	 * @since 4.2.7
+	 *
+	 * @var array
+	 */
+	private $options = [];
+
+	/**
 	 * Class constructor.
 	 *
 	 * @since 4.0.0
@@ -97,7 +106,7 @@ class TitleMeta extends ImportExport\SearchAppearance {
 	private function migrateArchiveSettings() {
 		$archives = [
 			'author',
-			'date',
+			'date'
 		];
 
 		foreach ( $archives as $archive ) {
@@ -107,19 +116,23 @@ class TitleMeta extends ImportExport\SearchAppearance {
 			}
 
 			if ( isset( $this->options[ "disable_${archive}_archives" ] ) ) {
-				aioseo()->options->searchAppearance->archives->$archive->show = 'off' === $this->options[ "disable_${archive}_archives" ];
-				aioseo()->options->searchAppearance->archives->$archive->advanced->robotsMeta->default = 'off' === $this->options[ "disable_${archive}_archives" ];
-				aioseo()->options->searchAppearance->archives->$archive->advanced->robotsMeta->noindex = 'off' === $this->options[ "disable_${archive}_archives" ];
+				aioseo()->options->searchAppearance->archives->$archive->show                          = 'off' === $this->options[ "disable_${archive}_archives" ];
+				aioseo()->options->searchAppearance->archives->$archive->advanced->robotsMeta->default = 'on' === $this->options[ "disable_${archive}_archives" ];
+				aioseo()->options->searchAppearance->archives->$archive->advanced->robotsMeta->noindex = 'on' === $this->options[ "disable_${archive}_archives" ];
 			}
 
 			if ( isset( $this->options[ "${archive}_archive_title" ] ) ) {
-				aioseo()->options->searchAppearance->archives->$archive->title =
-					aioseo()->helpers->sanitizeOption( aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $this->options[ "${archive}_archive_title" ] ) );
+				$value = aioseo()->helpers->sanitizeOption( aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $this->options[ "${archive}_archive_title" ], 'archive' ) );
+				if ( 'date' !== $archive ) {
+					// Archive Title tag needs to be stripped since we don't support it for author archives.
+					$value = aioseo()->helpers->pregReplace( '/#archive_title/', '', $value );
+				}
+				aioseo()->options->searchAppearance->archives->$archive->title = $value;
 			}
 
 			if ( isset( $this->options[ "${archive}_archive_description" ] ) ) {
 				aioseo()->options->searchAppearance->archives->$archive->metaDescription =
-					aioseo()->helpers->sanitizeOption( aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $this->options[ "${archive}_archive_description" ] ) );
+					aioseo()->helpers->sanitizeOption( aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $this->options[ "${archive}_archive_description" ], 'archive' ) );
 			}
 
 			if ( ! empty( $this->options[ "${archive}_custom_robots" ] ) ) {
@@ -131,7 +144,12 @@ class TitleMeta extends ImportExport\SearchAppearance {
 					if ( 'index' === $robotsName ) {
 						continue;
 					}
-					aioseo()->options->searchAppearance->archives->author->advanced->robotsMeta->$robotsName = true;
+
+					if ( 'noindex' === $robotsName ) {
+						aioseo()->options->searchAppearance->archives->{$archive}->show = false;
+					}
+
+					aioseo()->options->searchAppearance->archives->{$archive}->advanced->robotsMeta->{$robotsName} = true;
 				}
 			}
 
@@ -150,14 +168,15 @@ class TitleMeta extends ImportExport\SearchAppearance {
 		}
 
 		if ( isset( $this->options['search_title'] ) ) {
-			aioseo()->options->searchAppearance->archives->search->title =
-					aioseo()->helpers->sanitizeOption( aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $this->options['search_title'] ) );
+			// Archive Title tag needs to be stripped since we don't support it for search archives.
+			$value = aioseo()->helpers->sanitizeOption( aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $this->options['search_title'], 'archive' ) );
+			aioseo()->options->searchAppearance->archives->search->title = aioseo()->helpers->pregReplace( '/#archive_title/', '', $value );
 		}
 
 		if ( ! empty( $this->options['noindex_search'] ) ) {
-			aioseo()->options->searchAppearance->archives->search->show = 'off' === $this->options['noindex_search'];
-			aioseo()->options->searchAppearance->archives->search->advanced->robotsMeta->default = 'off' === $this->options['noindex_search'];
-			aioseo()->options->searchAppearance->archives->search->advanced->robotsMeta->noindex = 'off' === $this->options['noindex_search'];
+			aioseo()->options->searchAppearance->archives->search->show                          = 'off' === $this->options['noindex_search'];
+			aioseo()->options->searchAppearance->archives->search->advanced->robotsMeta->default = 'on' === $this->options['noindex_search'];
+			aioseo()->options->searchAppearance->archives->search->advanced->robotsMeta->noindex = 'on' === $this->options['noindex_search'];
 		}
 	}
 
@@ -183,7 +202,7 @@ class TitleMeta extends ImportExport\SearchAppearance {
 		foreach ( aioseo()->helpers->getPublicPostTypes( true ) as $postType ) {
 			// Reset existing values first.
 			foreach ( $this->robotMetaSettings as $robotsMetaName ) {
-				aioseo()->options->searchAppearance->dynamic->postTypes->$postType->advanced->robotsMeta->$robotsMetaName = false;
+				aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->advanced->robotsMeta->$robotsMetaName = false;
 			}
 
 			foreach ( $this->options as $name => $value ) {
@@ -197,7 +216,7 @@ class TitleMeta extends ImportExport\SearchAppearance {
 							$value = aioseo()->helpers->pregReplace( '#%category%#', '', $value );
 							$value = aioseo()->helpers->pregReplace( '#%excerpt%#', '', $value );
 						}
-						aioseo()->options->searchAppearance->dynamic->postTypes->$postType->title =
+						aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->title =
 							aioseo()->helpers->sanitizeOption( aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $value ) );
 						break;
 					case 'description':
@@ -205,11 +224,11 @@ class TitleMeta extends ImportExport\SearchAppearance {
 							$value = aioseo()->helpers->pregReplace( '#%category%#', '', $value );
 							$value = aioseo()->helpers->pregReplace( '#%excerpt%#', '', $value );
 						}
-						aioseo()->options->searchAppearance->dynamic->postTypes->$postType->metaDescription =
+						aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->metaDescription =
 							aioseo()->helpers->sanitizeOption( aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $value ) );
 						break;
 					case 'custom_robots':
-						aioseo()->options->searchAppearance->dynamic->postTypes->$postType->advanced->robotsMeta->default = 'off' === $value;
+						aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->advanced->robotsMeta->default = 'off' === $value;
 						break;
 					case 'robots':
 						if ( ! empty( $value ) ) {
@@ -217,33 +236,38 @@ class TitleMeta extends ImportExport\SearchAppearance {
 								if ( 'index' === $robotsName ) {
 									continue;
 								}
-								aioseo()->options->searchAppearance->dynamic->postTypes->$postType->advanced->robotsMeta->$robotsName = true;
+
+								if ( 'noindex' === $robotsName ) {
+									aioseo()->dynamicOptions->searchAppearance->postTypes->{$postType}->show = false;
+								}
+
+								aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->advanced->robotsMeta->$robotsName = true;
 							}
 						}
 						break;
 					case 'advanced_robots':
 						if ( ! empty( $value['max-snippet'] ) ) {
-							aioseo()->options->searchAppearance->dynamic->postTypes->$postType->advanced->robotsMeta->maxSnippet = intval( $value['max-snippet'] );
+							aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->advanced->robotsMeta->maxSnippet = intval( $value['max-snippet'] );
 						}
 						if ( ! empty( $value['max-video-preview'] ) ) {
-							aioseo()->options->searchAppearance->dynamic->postTypes->$postType->advanced->robotsMeta->maxVideoPreview = intval( $value['max-video-preview'] );
+							aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->advanced->robotsMeta->maxVideoPreview = intval( $value['max-video-preview'] );
 						}
 						if ( ! empty( $value['max-image-preview'] ) ) {
-							aioseo()->options->searchAppearance->dynamic->postTypes->$postType->advanced->robotsMeta->maxImagePreview =
+							aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->advanced->robotsMeta->maxImagePreview =
 								aioseo()->helpers->sanitizeOption( $value['max-image-preview'] );
 						}
 						break;
 					case 'add_meta_box':
-						aioseo()->options->searchAppearance->dynamic->postTypes->$postType->advanced->showMetaBox = 'on' === $value;
+						aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->advanced->showMetaBox = 'on' === $value;
 						break;
 					case 'default_rich_snippet':
 						$value = aioseo()->helpers->pregReplace( '#\s#', '', $value );
 						if ( 'off' === lcfirst( $value ) || in_array( $postType, [ 'page', 'attachment' ], true ) ) {
-							aioseo()->options->searchAppearance->dynamic->postTypes->$postType->schemaType = 'none';
+							aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->schemaType = 'none';
 							break;
 						}
 						if ( in_array( ucfirst( $value ), ImportExport\SearchAppearance::$supportedSchemaGraphs, true ) ) {
-							aioseo()->options->searchAppearance->dynamic->postTypes->$postType->schemaType = ucfirst( $value );
+							aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->schemaType = ucfirst( $value );
 						}
 						break;
 					case 'default_article_type':
@@ -252,9 +276,9 @@ class TitleMeta extends ImportExport\SearchAppearance {
 						}
 						$value = aioseo()->helpers->pregReplace( '#\s#', '', $value );
 						if ( in_array( ucfirst( $value ), ImportExport\SearchAppearance::$supportedArticleGraphs, true ) ) {
-							aioseo()->options->searchAppearance->dynamic->postTypes->$postType->articleType = ucfirst( $value );
+							aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->articleType = ucfirst( $value );
 						} else {
-							aioseo()->options->searchAppearance->dynamic->postTypes->$postType->articleType = 'BlogPosting';
+							aioseo()->dynamicOptions->searchAppearance->postTypes->$postType->articleType = 'BlogPosting';
 						}
 						break;
 					default:
@@ -285,12 +309,12 @@ class TitleMeta extends ImportExport\SearchAppearance {
 
 				switch ( $match[1] ) {
 					case 'title':
-						aioseo()->options->searchAppearance->dynamic->archives->$postType->title =
-							aioseo()->helpers->sanitizeOption( aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $value ) );
+						aioseo()->dynamicOptions->searchAppearance->archives->$postType->title =
+							aioseo()->helpers->sanitizeOption( aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $value, 'archive' ) );
 						break;
 					case 'description':
-						aioseo()->options->searchAppearance->dynamic->archives->$postType->metaDescription =
-							aioseo()->helpers->sanitizeOption( aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $value ) );
+						aioseo()->dynamicOptions->searchAppearance->archives->$postType->metaDescription =
+							aioseo()->helpers->sanitizeOption( aioseo()->importExport->rankMath->helpers->macrosToSmartTags( $value, 'archive' ) );
 						break;
 					default:
 						break;
@@ -339,7 +363,7 @@ class TitleMeta extends ImportExport\SearchAppearance {
 		}
 
 		if ( ! empty( $this->options['noindex_paginated_pages'] ) ) {
-			aioseo()->options->searchAppearance->advanced->globalRobotsMeta->default = false;
+			aioseo()->options->searchAppearance->advanced->globalRobotsMeta->default          = false;
 			aioseo()->options->searchAppearance->advanced->globalRobotsMeta->noindexPaginated = 'on' === $this->options['noindex_paginated_pages'];
 		}
 	}
@@ -408,11 +432,12 @@ class TitleMeta extends ImportExport\SearchAppearance {
 				'type'              => 'warning',
 				'level'             => [ 'all' ],
 				'button1_label'     => __( 'Fix Now', 'all-in-one-seo-pack' ),
-				'button1_action'    => 'http://route#aioseo-search-appearance:schema-markup',
+				'button1_action'    => 'http://route#aioseo-search-appearance&aioseo-scroll=schema-graph-phone&aioseo-highlight=schema-graph-phone:schema-markup',
 				'button2_label'     => __( 'Remind Me Later', 'all-in-one-seo-pack' ),
 				'button2_action'    => 'http://action#notification/v3-migration-schema-number-reminder',
 				'start'             => gmdate( 'Y-m-d H:i:s' )
 			] );
+
 			return;
 		}
 		aioseo()->options->searchAppearance->global->schema->phone = $phoneNumber;

@@ -7,7 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use AIOSEO\Plugin\Common\Api as CommonApi;
-use AIOSEO\Plugin\Common\Models;
+use AIOSEO\Plugin\Common\Models as CommonModels;
+use AIOSEO\Plugin\Pro\Models as ProModels;
 
 /**
  * Route class for the API.
@@ -47,7 +48,7 @@ class PostsTerms extends CommonApi\PostsTerms {
 		$body['twitter_title']       = ! empty( $body['twitter_title'] ) ? sanitize_text_field( $body['twitter_title'] ) : null;
 		$body['twitter_description'] = ! empty( $body['twitter_description'] ) ? sanitize_text_field( $body['twitter_description'] ) : null;
 
-		$saveStatus = ( 'post' === $context ) ? Models\Post::savePost( $postId, $body ) : Models\Term::saveTerm( $postId, $body );
+		$saveStatus = ( 'post' === $context ) ? CommonModels\Post::savePost( $postId, $body ) : ProModels\Term::saveTerm( $postId, $body );
 
 		if ( ! empty( $saveStatus ) ) {
 			return new \WP_REST_Response( [
@@ -56,10 +57,12 @@ class PostsTerms extends CommonApi\PostsTerms {
 			], 401 );
 		}
 
-		return new \WP_REST_Response( [
+		$response = new \WP_REST_Response( [
 			'success' => true,
 			'posts'   => $postId
 		], 200 );
+
+		return Api::addonsApi( $request, $response, '\\Api\\PostsTerms', 'updatePosts' );
 	}
 
 	/**
@@ -81,7 +84,7 @@ class PostsTerms extends CommonApi\PostsTerms {
 			], 400 );
 		}
 
-		$theTerm = aioseo()->db
+		$theTerm = aioseo()->core->db
 			->start( 'aioseo_terms' )
 			->where( 'term_id', $termId )
 			->run()
@@ -100,7 +103,7 @@ class PostsTerms extends CommonApi\PostsTerms {
 		}
 		$theTerm->save();
 
-		$lastError = aioseo()->db->lastError();
+		$lastError = aioseo()->core->db->lastError();
 		if ( ! empty( $lastError ) ) {
 			return new \WP_REST_Response( [
 				'success' => false,
@@ -120,6 +123,7 @@ class PostsTerms extends CommonApi\PostsTerms {
 		], 200 );
 
 		$wp_query->is_tax = $isTax;
+
 		return $response;
 	}
 }

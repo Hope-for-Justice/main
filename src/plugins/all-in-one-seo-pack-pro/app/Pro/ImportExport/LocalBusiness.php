@@ -31,6 +31,7 @@ abstract class LocalBusiness {
 
 		if ( in_array( $businessType, $this->getLocalBusinessTypes(), true ) ) {
 			aioseo()->options->localBusiness->locations->business->businessType = $businessType;
+
 			return;
 		}
 
@@ -57,7 +58,7 @@ abstract class LocalBusiness {
 			'type'              => 'warning',
 			'level'             => [ 'all' ],
 			'button1_label'     => __( 'Fix Now', 'all-in-one-seo-pack' ),
-			'button1_action'    => 'http://route#aioseo-local-seo',
+			'button1_action'    => 'http://route#aioseo-local-seo&aioseo-scroll=info-business-type&aioseo-highlight=info-business-type:locations',
 			'button2_label'     => __( 'Remind Me Later', 'all-in-one-seo-pack' ),
 			'button2_action'    => 'http://action#notification/import-local-business-type-reminder',
 			'start'             => gmdate( 'Y-m-d H:i:s' )
@@ -80,6 +81,7 @@ abstract class LocalBusiness {
 		foreach ( \AIOSEO\Plugin\Pro\Migration\LocalBusiness::getSupportedCountries() as $value => $label ) {
 			if ( $country === $label ) {
 				aioseo()->options->localBusiness->locations->business->address->country = $value;
+
 				return;
 			}
 		}
@@ -102,7 +104,7 @@ abstract class LocalBusiness {
 			'type'              => 'warning',
 			'level'             => [ 'all' ],
 			'button1_label'     => __( 'Fix Now', 'all-in-one-seo-pack' ),
-			'button1_action'    => 'http://route#aioseo-local-seo',
+			'button1_action'    => 'http://route#aioseo-local-seo&aioseo-scroll=info-business-address-row&aioseo-highlight=aioseo-local-business-business-country:business-info',
 			'button2_label'     => __( 'Remind Me Later', 'all-in-one-seo-pack' ),
 			'button2_action'    => 'http://action#notification/import-local-business-country-reminder',
 			'start'             => gmdate( 'Y-m-d H:i:s' )
@@ -114,7 +116,7 @@ abstract class LocalBusiness {
 	 *
 	 * @since 4.0.0
 	 *
-	 * @return void
+	 * @return array The list of supported business types.
 	 */
 	protected function getLocalBusinessTypes() {
 		return [
@@ -156,7 +158,7 @@ abstract class LocalBusiness {
 	 *
 	 * @since 4.0.0
 	 *
-	 * @return void
+	 * @return array The list of supported currencies in JSON.
 	 */
 	protected function getLocalBusinessCurrencies() {
 		return '[{ "symbol": "$", "label": "US Dollar", "value": "USD" },
@@ -279,5 +281,31 @@ abstract class LocalBusiness {
 		{ "symbol": "R", "label": "South African Rand", "value": "ZAR" },
 		{ "symbol": "ZK", "label": "Zambian Kwacha", "value": "ZMK" },
 		{ "symbol": "ZWL$", "label": "Zimbabwean Dollar", "value": "ZWL" }]';
+	}
+
+	/**
+	 * Prepare Price Range value.
+	 *
+	 * @since 4.1.3
+	 *
+	 * @param string $priceRange The price range to prepare.
+	 * @return string            The prepared price range.
+	 */
+	protected function preparePriceRange( $priceRange ) {
+		$count = substr_count( $priceRange, '$' );
+		if ( 0 === $count ) {
+			return '';
+		}
+
+		if ( 5 < $count ) {
+			$count = 5;
+		}
+
+		$preparedPriceRange = '';
+		for ( $i = 1; $i <= $count; $i++ ) {
+			$preparedPriceRange .= '$';
+		}
+
+		return $preparedPriceRange;
 	}
 }

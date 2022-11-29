@@ -21,17 +21,13 @@ class Dashboard extends CommonAdmin\Dashboard {
 	 *
 	 * @return boolean True if yes, false otherwise.
 	 */
-	protected function showWidget() {
+	protected function canShowWidgets() {
 		if ( ! aioseo()->license->isActive() ) {
 			return true;
 		}
 
-		if ( false === apply_filters( 'aioseo_show_seo_news', true ) ) {
-			return false;
-		}
-
 		// Check if the option is disabled.
-		if ( ! aioseo()->options->advanced->dashboardWidget ) {
+		if ( ! aioseo()->options->advanced->dashboardWidgets ) {
 			return false;
 		}
 

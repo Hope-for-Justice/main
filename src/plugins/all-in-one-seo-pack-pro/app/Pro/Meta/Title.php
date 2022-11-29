@@ -24,6 +24,10 @@ class Title extends CommonMeta\Title {
 	 * @return string           The term title.
 	 */
 	public function getTermTitle( $term, $default = false ) {
+		if ( ! is_a( $term, 'WP_Term' ) ) {
+			return '';
+		}
+
 		static $terms = [];
 		if ( isset( $terms[ $term->term_id ] ) ) {
 			return $terms[ $term->term_id ];
@@ -34,20 +38,19 @@ class Title extends CommonMeta\Title {
 		if ( ! empty( $metaData->title ) && ! $default ) {
 			$title = $metaData->title;
 			// Since we might be faking the term, let's replace the title ourselves.
-			if ( ! empty( $term ) ) {
-				$title = preg_replace( '/#taxonomy_title/', $term->name, $title );
-			}
-			$title = $this->prepareTitle( $title );
+			$title = aioseo()->helpers->pregReplace( '/#taxonomy_title/', $term->name, $title );
+			$title = $this->helpers->prepare( $title, $term->term_id );
 		}
 
-		$options = aioseo()->options->noConflict();
-		if ( ! $title && $options->searchAppearance->dynamic->taxonomies->has( $term->taxonomy ) ) {
-			$newTitle = aioseo()->options->searchAppearance->dynamic->taxonomies->{$term->taxonomy}->title;
+		$dynamicOptions = aioseo()->dynamicOptions->noConflict();
+		if ( ! $title && $dynamicOptions->searchAppearance->taxonomies->has( $term->taxonomy ) ) {
+			$newTitle = aioseo()->dynamicOptions->searchAppearance->taxonomies->{$term->taxonomy}->title;
 			$newTitle = preg_replace( '/#taxonomy_title/', $term->name, $newTitle );
-			$title    = $this->prepareTitle( $newTitle, false, $default );
+			$title    = $this->helpers->prepare( $newTitle, $term->term_id, $default );
 		}
 
 		$terms[ $term->term_id ] = $title;
+
 		return $terms[ $term->term_id ];
 	}
 
@@ -60,9 +63,10 @@ class Title extends CommonMeta\Title {
 	 * @return string           The title.
 	 */
 	public function getTaxonomyTitle( $taxonomy ) {
-		$options = aioseo()->options->noConflict();
-		return $options->searchAppearance->dynamic->taxonomies->has( $taxonomy, false ) ?
-			$options->{$taxonomy}->title :
+		$dynamicOptions = aioseo()->dynamicOptions->noConflict();
+
+		return $dynamicOptions->searchAppearance->taxonomies->has( $taxonomy, false ) ?
+			$dynamicOptions->{$taxonomy}->title :
 			'';
 	}
 }

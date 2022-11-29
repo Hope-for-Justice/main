@@ -21,9 +21,14 @@ class Migration extends CommonMigration\Migration {
 		$this->meta    = new Meta();
 		$this->helpers = new CommonMigration\Helpers();
 
+		// NOTE: These need to go above the is_admin check in order for them to run at all.
 		add_action( 'aioseo_migrate_post_meta', [ $this->meta, 'migratePostMeta' ] );
 		add_action( 'aioseo_migrate_term_meta', [ $this->meta, 'migrateTermMeta' ] );
 		add_action( 'aioseo_regenerate_video_sitemap', [ $this, 'regenerateSitemap' ] );
+
+		if ( ! is_admin() ) {
+			return;
+		}
 
 		if ( wp_doing_ajax() || wp_doing_cron() ) {
 			return;
@@ -41,7 +46,7 @@ class Migration extends CommonMigration\Migration {
 	 */
 	public function doMigration() {
 		// If our tables do not exist, create them now.
-		if ( ! aioseo()->db->tableExists( 'aioseo_terms' ) ) {
+		if ( ! aioseo()->core->db->tableExists( 'aioseo_terms' ) ) {
 			aioseo()->updates->addInitialCustomTablesForV4();
 		}
 
@@ -57,8 +62,8 @@ class Migration extends CommonMigration\Migration {
 
 		update_option( 'aioseo_options_v3', $this->oldOptions );
 
-		aioseo()->transients->update( 'v3_migration_in_progress_posts', time(), WEEK_IN_SECONDS );
-		aioseo()->transients->update( 'v3_migration_in_progress_terms', time(), WEEK_IN_SECONDS );
+		aioseo()->core->cache->update( 'v3_migration_in_progress_posts', time(), WEEK_IN_SECONDS );
+		aioseo()->core->cache->update( 'v3_migration_in_progress_terms', time(), WEEK_IN_SECONDS );
 
 		$this->migrateSettings();
 		$this->meta->migrateMeta();
@@ -74,8 +79,8 @@ class Migration extends CommonMigration\Migration {
 	 * @return void
 	 */
 	public function redoMetaMigration() {
-		aioseo()->transients->update( 'v3_migration_in_progress_posts', time(), WEEK_IN_SECONDS );
-		aioseo()->transients->update( 'v3_migration_in_progress_terms', time(), WEEK_IN_SECONDS );
+		aioseo()->core->cache->update( 'v3_migration_in_progress_posts', time(), WEEK_IN_SECONDS );
+		aioseo()->core->cache->update( 'v3_migration_in_progress_terms', time(), WEEK_IN_SECONDS );
 		$this->meta->migrateMeta();
 	}
 
@@ -98,12 +103,13 @@ class Migration extends CommonMigration\Migration {
 			return;
 		}
 
+		// Note: This only works at the local site level. If there is enough interest, we can also move this to the network level.
 		if ( ! empty( $this->oldOptions['aiosp_license_key'] ) ) {
 			aioseo()->options->general->licenseKey = trim( $this->oldOptions['aiosp_license_key'] );
 			aioseo()->license->activate();
 		}
 
-		aioseo()->transients->update( 'v3_migration_in_progress_settings', time() );
+		aioseo()->core->cache->update( 'v3_migration_in_progress_settings', time() );
 
 		$addons = aioseo()->addons->getAddons( true );
 		foreach ( $addons as $addon ) {
@@ -157,7 +163,7 @@ class Migration extends CommonMigration\Migration {
 			new LocalBusiness();
 		}
 
-		aioseo()->transients->delete( 'v3_migration_in_progress_settings' );
+		aioseo()->core->cache->delete( 'v3_migration_in_progress_settings' );
 	}
 
 	/**
@@ -269,7 +275,7 @@ class Migration extends CommonMigration\Migration {
 	private function installAddon( $addon ) {
 		if ( aioseo()->addons->canInstall() ) {
 			$name = ! empty( $addon->basename ) ? $addon->basename : $addon->sku;
-			aioseo()->addons->installAddon( $name );
+			aioseo()->addons->installAddon( $name, is_multisite() );
 		} else {
 			$notification = Models\Notification::getNotificationByName( 'install-' . $addon->sku );
 			if ( ! $notification->exists() ) {
@@ -295,5 +301,16 @@ class Migration extends CommonMigration\Migration {
 				] );
 			}
 		}
+	}
+
+	/**
+	 * Checks whether the V3 migration is running.
+	 *
+	 * @since 4.1.8
+	 *
+	 * @return bool Whether the V3 migration is running.
+	 */
+	public function isMigrationRunning() {
+		return parent::isMigrationRunning() || aioseo()->core->cache->get( 'v3_migration_in_progress_terms' );
 	}
 }

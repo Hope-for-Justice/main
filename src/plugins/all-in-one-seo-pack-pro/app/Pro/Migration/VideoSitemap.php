@@ -38,7 +38,9 @@ class VideoSitemap {
 		}
 
 		if ( $regenerate ) {
-			return $this->regenerateSitemap();
+			$this->regenerateSitemap();
+
+			return;
 		}
 
 		$this->checkIfStatic();
@@ -100,7 +102,7 @@ class VideoSitemap {
 				return;
 			}
 			$value = $value > 50000 ? 50000 : $value;
-			aioseo()->options->sitemap->general->linksPerIndex = $value;
+			aioseo()->options->sitemap->video->linksPerIndex = $value;
 		}
 	}
 
@@ -198,16 +200,16 @@ class VideoSitemap {
 				}
 			}
 
-			$wpfs = aioseo()->helpers->wpfs();
-			if ( count( $detectedFiles ) && is_object( $wpfs ) ) {
+			$fs = aioseo()->core->fs;
+			if ( count( $detectedFiles ) && $fs->isWpfsValid() ) {
 				foreach ( $detectedFiles as $file ) {
-					@$wpfs->delete( $file, false, 'f' );
+					$fs->fs->delete( $file, false, 'f' );
 				}
 			}
 
-			$sitemapAddons = aioseo()->sitemap->addons;
+			$isVideoLoaded = function_exists( 'aioseoVideoSitemap' );
 			$videoAddon    = aioseo()->addons->getAddon( 'aioseo-video-sitemap' );
-			if ( empty( $sitemapAddons ) && aioseo()->license->isActive() && $videoAddon->isActive ) {
+			if ( $isVideoLoaded && aioseo()->license->isActive() && $videoAddon->isActive ) {
 				try {
 					if ( ! as_next_scheduled_action( 'aioseo_regenerate_video_sitemap' ) ) {
 						as_schedule_single_action( time() + 5, 'aioseo_regenerate_video_sitemap', [], 'aioseo' );
@@ -215,6 +217,7 @@ class VideoSitemap {
 				} catch ( \Exception $e ) {
 					// Do nothing.
 				}
+
 				return;
 			}
 

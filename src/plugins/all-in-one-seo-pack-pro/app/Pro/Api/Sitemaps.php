@@ -36,7 +36,7 @@ class Sitemaps extends CommonApi\Sitemaps {
 
 		$detectedFiles = [];
 		if ( ! $isVideoSitemapStatic ) {
-			foreach ( $files as $index => $filename ) {
+			foreach ( $files as $filename ) {
 				if ( preg_match( '#.*sitemap.*#', $filename ) ) {
 					$isVideoSitemap = preg_match( '#.*video.*#', $filename ) ? true : false;
 					if ( $isVideoSitemap ) {
@@ -50,23 +50,20 @@ class Sitemaps extends CommonApi\Sitemaps {
 			return $response;
 		}
 
-		$wpfs = aioseo()->helpers->wpfs();
-		if ( ! is_object( $wpfs ) ) {
+		$fs = aioseo()->core->fs;
+		if ( ! $fs->isWpfsValid() ) {
 			return $response;
 		}
 
 		foreach ( $detectedFiles as $file ) {
-			@$wpfs->delete( $file, false, 'f' );
+			$fs->fs->delete( $file, false, 'f' );
 		}
 
 		Models\Notification::deleteNotificationByName( 'sitemap-static-files' );
 
 		return new \WP_REST_Response( [
 			'success'       => true,
-			'notifications' => [
-				'active'    => Models\Notification::getAllActiveNotifications(),
-				'dismissed' => Models\Notification::getAllDismissedNotifications()
-			]
+			'notifications' => Models\Notification::getNotifications()
 		], 200 );
 	}
 }

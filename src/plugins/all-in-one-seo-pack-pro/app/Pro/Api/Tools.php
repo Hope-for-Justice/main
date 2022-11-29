@@ -23,6 +23,11 @@ class Tools extends CommonApi\Tools {
 	 * @return \WP_REST_Response          The response.
 	 */
 	public static function restoreBackup( $request ) {
+		$body   = $request->get_json_params();
+		$siteId = ! empty( $body['siteId'] ) ? (int) $body['siteId'] : get_current_blog_id();
+
+		aioseo()->helpers->switchToBlog( $siteId );
+
 		$response = parent::restoreBackup( $request );
 
 		$response->data['license'] = [
@@ -48,5 +53,39 @@ class Tools extends CommonApi\Tools {
 		$response = parent::clearLog( $request );
 
 		return Api::addonsApi( $request, $response, '\\Api\\Tools', 'clearLog' );
+	}
+
+	/**
+	 * Create a settings backup.
+	 *
+	 * @since 4.2.5
+	 *
+	 * @param  \WP_REST_Request  $request The REST Request
+	 * @return \WP_REST_Response          The response.
+	 */
+	public static function createBackup( $request ) {
+		$body   = $request->get_json_params();
+		$siteId = ! empty( $body['siteId'] ) ? (int) $body['siteId'] : get_current_blog_id();
+
+		aioseo()->helpers->switchToBlog( $siteId );
+
+		return parent::createBackup( $request );
+	}
+
+	/**
+	 * Delete a settings backup.
+	 *
+	 * @since 4.2.5
+	 *
+	 * @param  \WP_REST_Request  $request The REST Request
+	 * @return \WP_REST_Response          The response.
+	 */
+	public static function deleteBackup( $request ) {
+		$body   = $request->get_json_params();
+		$siteId = ! empty( $body['siteId'] ) ? (int) $body['siteId'] : get_current_blog_id();
+
+		aioseo()->helpers->switchToBlog( $siteId );
+
+		return parent::deleteBackup( $request );
 	}
 }
