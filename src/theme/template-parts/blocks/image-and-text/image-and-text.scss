@@ -141,4 +141,11 @@
         }
     }
 
+    .image-text--flipped {
+        .image-text__text {
+            order: -1;
+        }
+
+    }
+
 }

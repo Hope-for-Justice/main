@@ -30,6 +30,7 @@ $title_size = get_field('title_size') ?: 'h3';
 $small_text = get_field('small_text');
 $video = get_field('video_source');
 $caption = get_field('caption');
+$flip = get_field('flip');
 
 $link = get_field('link');
 
@@ -44,7 +45,7 @@ $button_color = get_field('button_color') ?: '#D6001C';
 ?>
 
 
-<div id="<?php esc_attr($id) ?>" class="image-text <?php if ($background_color) echo 'image-text--has-background' ?>" style=" <?php echo 'background-color:' . $background_color . '; color:' . $color ?>">
+<div id="<?php esc_attr($id) ?>" class="image-text <?php if ($flip) echo 'image-text--flipped' ?> <?php if ($background_color) echo 'image-text--has-background' ?>" style=" <?php echo 'background-color:' . $background_color . '; color:' . $color ?>">
     <div class="better-grid">
         <div <?php if ($video) { ?> data-toggle="modal" data-target="#video-modal" data-src="<?php echo $video ?>" <?php } ?> class="image-text__image-container <?php if ($video) echo 'video-trigger' ?>" style="--span: <?php echo $image_span ?>">
             <?php echo wp_get_attachment_image($image, 'full'); ?>
@@ -56,9 +57,9 @@ $button_color = get_field('button_color') ?: '#D6001C';
         </div>
         <div class="image-text__text" style="
         <?php if ($image_span == 'span 7') {
-            echo '--text-span: 8 / 13';
+            echo '--text-span: span 5';
         } else {
-            echo '--text-span: 7 / 13';
+            echo '--text-span: span 6';
         } ?>">
             <?php if ($title) { ?>
                 <<?php echo $title_size; ?> class="<?php echo $title_font ?> block-title image-text__title">
