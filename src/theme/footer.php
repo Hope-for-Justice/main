@@ -76,7 +76,7 @@ if (!get_field('no_email_push')) {
             <div class="email-push__image">
                 <img src="<?php the_field('email_footer_image', 'option'); ?>">
             </div>
-            <div class="grid">
+            <div class="better-grid">
                 <div class="email-push__content">
                     <h2 class="email-push__title font-canela"><?php the_field('email_footer_title', 'option'); ?></h2>
                     <p class="email-push__text">

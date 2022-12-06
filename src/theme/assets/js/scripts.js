@@ -1,4 +1,5 @@
 //format postcode function
+
 function formatPostcode(string) {
     if (string) {
         string = string.replace(/\s+/g, '');

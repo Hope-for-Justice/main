@@ -11,58 +11,68 @@
 	padding: 40px 0;
 	position: relative;
 	overflow: hidden;
+
 	&__image {
 		position: absolute;
-		top:0;
+		top: 0;
 		right: -80%;
 		z-index: 0;
 		max-width: none;
 		width: 160vw;
+
 		img {
-			width:100%;
+			width: 100%;
 		}
+
 		&:after {
 			content: "";
 			width: 30%;
 			height: 100%;
-			top:0;
-			left:0;
-			background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+			top: 0;
+			left: 0;
+			background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
 			position: absolute;
 		}
+
 		&:before {
 			content: "";
 			width: 100%;
 			height: 30%;
-			bottom:0;
-			left:0;
-			background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+			bottom: 0;
+			left: 0;
+			background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
 			position: absolute;
 		}
 
 	}
-	.grid {		
+
+	.grid {
 		max-width: 1920px;
 		margin: 0 auto;
 	}
+
 	.gform_footer {
 		margin-top: 20px;
 	}
+
 	&__content {
 		z-index: 1;
-		grid-column: col2/col11;
+		grid-column: span 10;
 		max-width: 800px;
-		margin: 0 auto;
-		h2{
+		//margin: 0 auto;
+
+		h2 {
 			//font-family: apercu-reg;
 			font-size: 31px;
 		}
 	}
+
 	&__title {
 		font-size: 40px;
 		line-height: 1.2;
-		margin-bottom: 1em;
+		margin-bottom: 24px;
 	}
+
 	&__text {
 		margin-bottom: 30px;
 	}
@@ -73,39 +83,50 @@
 
 @include mq($from: tablet) {
 
-.email-push {
-	padding: 80px 0 110px 0;
-	&__image {
-	    right: -220px;
-	    width: auto;
-	    height: 100%;
-    	&:before {
-    		display: none;
-    	}
-	    img {
-	    	width:auto;
-	    	height:100%;
-	    }
-	}
-	&__content {
-		grid-column: col2/col9;
-		h2 {font-size: 38px;}
-	}
-	form {
-		display: flex; 
-		align-items: center;
-		.gform_footer {
-			margin-top: 0;
+	.email-push {
+		padding: 80px 0 110px 0;
+
+		&__image {
+			right: -220px;
+			width: auto;
+			height: 100%;
+
+			&:before {
+				display: none;
+			}
+
+			img {
+				width: auto;
+				height: 100%;
+			}
 		}
-		.gform_body {
-			margin-right: 40px;
-			width:100%;
+
+		&__content {
+			grid-column: span 9;
+
+			h2 {
+				font-size: 38px;
+			}
 		}
-		input {
-			margin-bottom: 0;
+
+		form {
+			display: flex;
+			align-items: center;
+
+			.gform_footer {
+				margin-top: 0;
+			}
+
+			.gform_body {
+				margin-right: 40px;
+				width: 100%;
+			}
+
+			input {
+				margin-bottom: 0;
+			}
 		}
 	}
-}
 
 }
 
@@ -114,13 +135,17 @@
 
 @include mq($from: desktop) {
 
-.email-push {
-	padding: 100px 0;
-	&__content {
-		grid-column: col2/col8;
-		h2 {font-size: 44px;}
+	.email-push {
+		padding: 100px 0;
+
+		&__content {
+			//grid-column: s
+
+			h2 {
+				font-size: 44px;
+			}
+		}
 	}
-}
 
 }
 
@@ -129,18 +154,23 @@
 
 @include mq($from: desktopLarge) {
 
-.email-push {
-	padding: 120px 0;
-	&__content {
-		grid-column: col3/col8;
-		h2 {font-size: 44px;}
+	.email-push {
+		padding: 120px 0;
+
+		&__content {
+			grid-column: 2/10;
+
+			h2 {
+				font-size: 44px;
+			}
+		}
+
+		&__image {
+			right: -120px;
+			width: auto;
+			height: 130%;
+		}
 	}
-	&__image {
-	    right: -120px;
-	    width: auto;
-	    height: 130%;
-	}
-}
 
 }
 
@@ -149,29 +179,30 @@
 
 @include mq($from: extraWide) {
 
-.email-push {
-	padding: 160px 0;
-	&__image {
-	    right: 100px;
-	    width: auto;
-	    height: 110%;
-    	&:after {
-			width: 15%;
-		}
-		&:before {
-			display: block;
-			width: 30%;
-			height: 100%;
-			bottom:0;
-			right:0;
-			left: auto;
-			transform: rotate(180deg);
-			background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
-			position: absolute;
+	.email-push {
+		padding: 160px 0;
+
+		&__image {
+			right: 100px;
+			width: auto;
+			height: 110%;
+
+			&:after {
+				width: 15%;
+			}
+
+			&:before {
+				display: block;
+				width: 30%;
+				height: 100%;
+				bottom: 0;
+				right: 0;
+				left: auto;
+				transform: rotate(180deg);
+				background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+				position: absolute;
+			}
 		}
 	}
-}
 
 }
-
-

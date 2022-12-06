@@ -14,4 +14,10 @@ function register_custom_core_block_styles()
     if (has_block('core/spacer')) {
         wp_enqueue_style('core_spacer_styles', get_template_directory_uri() . '/template-parts/blocks/core-spacer.css', array(), _S_VERSION);
     }
+    if (has_block('core/pullquote')) {
+        wp_enqueue_style('core_pullquote_styles', get_template_directory_uri() . '/template-parts/blocks/pull-quote.css', array(), _S_VERSION);
+    }
+    if (has_block('core/list')) {
+        wp_enqueue_style('core_list_styles', get_template_directory_uri() . '/template-parts/blocks/list.css', array(), _S_VERSION);
+    }
 }

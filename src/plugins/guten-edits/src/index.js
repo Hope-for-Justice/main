@@ -34,7 +34,7 @@ const paragraphWithWrapper = createHigherOrderComponent(
             }
 
             return (
-                <div className="better-grid hfj-block block-text core-paragraph test">
+                <div className="better-grid hfj-block block-text core-paragraph">
                     <BlockListBlock {...props} className={'block-indent-' + props.attributes.indent} />
                 </div>
             );
@@ -55,12 +55,119 @@ wp.blocks.registerBlockStyle('core/paragraph', {
     label: 'No margin bottom',
 });
 
-wp.blocks.registerBlockStyle('core/paragraph', {
-    name: 'indent',
-    label: 'Indent',
+//////////// end paragraph block edits ////////////////////
+
+//////////// list block edits ////////////////////
+
+//save
+function wraplistBlockInContainer(element, blockType, attributes) {
+    // skip if element is undefined
+    if (!element) {
+        return;
+    }
+
+    // only apply to p blocks
+    if (blockType.name !== 'core/list') {
+        return element;
+    }
+
+    // return the element wrapped in a div
+    return <div className="better-grid hfj-block block-text core-list">{element}</div>;
+}
+
+wp.hooks.addFilter(
+    'blocks.getSaveElement',
+    'my-plugin/wrap-p-block-in-container',
+    wraplistBlockInContainer
+);
+
+//edit
+const listWithWrapper = createHigherOrderComponent(
+    (BlockListBlock) => {
+        return (props) => {
+
+            if (props.name !== "core/list") {
+                return <BlockListBlock {...props} />;
+            }
+
+            return (
+                <div className="better-grid hfj-block block-text core-list">
+                    <BlockListBlock {...props} className={'block-indent-' + props.attributes.indent} />
+                </div>
+            );
+        };
+    },
+    'listWithWrapper'
+);
+
+wp.hooks.addFilter(
+    'editor.BlockListBlock',
+    'guten-edits/listWithWrapper',
+    listWithWrapper
+);
+
+//styles
+wp.blocks.registerBlockStyle('core/list', {
+    name: 'no-mb',
+    label: 'No margin bottom',
 });
 
-//////////// end paragraph block edits ////////////////////
+//////////// end list block edits ////////////////////
+
+//////////// pull quote block edits ////////////////////
+
+//save
+function wrapPullQuoteBlockInContainer(element, blockType, attributes) {
+    // skip if element is undefined
+    if (!element) {
+        return;
+    }
+
+    // only apply to p blocks
+    if (blockType.name !== 'core/pullquote') {
+        return element;
+
+    }
+
+    // return the element wrapped in a div
+    return <div className="better-grid hfj-block block-text core-pull-quote">{element}</div>;
+}
+
+wp.hooks.addFilter(
+    'blocks.getSaveElement',
+    'my-plugin/wrapPullQuoteBlockInContainer',
+    wrapPullQuoteBlockInContainer
+);
+
+//edit
+const pullQuoteWithWrapper = createHigherOrderComponent(
+    (BlockListBlock) => {
+        return (props) => {
+
+            if (props.name !== "core/pullquote") {
+                return <BlockListBlock {...props} />;
+            }
+
+            return (
+                <div className="better-grid hfj-block block-text core-pull-quote">
+                    <BlockListBlock {...props} className={'block-indent-' + props.attributes.indent} />
+                </div>
+            );
+        };
+    },
+    'pullQuoteWithWrapper'
+);
+
+wp.hooks.addFilter(
+    'editor.BlockListBlock',
+    'guten-edits/pullQuoteWithWrapper',
+    pullQuoteWithWrapper
+);
+
+//styles
+
+
+//////////// end pull quote block edits ////////////////////
 
 //////////// heading block edits ////////////////////
 
@@ -130,7 +237,7 @@ const { InspectorAdvancedControls } = wp.editor;
 const { ToggleControl } = wp.components;
 
 //restrict to specific block names
-const allowedBlocks = ['core/paragraph', 'core/heading'];
+const allowedBlocks = ['core/paragraph', 'core/heading', 'core/list', 'core/pullquote'];
 
 /**
  * Add custom attribute for indent

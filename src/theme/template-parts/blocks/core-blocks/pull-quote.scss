@@ -1,0 +1,41 @@
+.core-pull-quote {
+    figure {
+        padding: 0;
+        margin: 0;
+        border: none;
+        grid-column: span 12;
+    }
+
+    blockquote {
+        margin: 0;
+        text-align: left;
+    }
+
+    p {
+        font-size: 1.33rem !important;
+        font-weight: bold;
+        max-width: 960px;
+        text-align: left;
+        border-left: 4px solid var(--red);
+        padding-left: 40px;
+    }
+
+    cite {
+        padding-top: 24px;
+        display: block;
+        padding-left: 40px;
+        text-align: left;
+        text-transform: none;
+        font-size: 1rem;
+    }
+}
+
+@media screen and (min-width: 1366px) {
+
+    .core-pull-quote {
+        figure {
+            grid-column: 2/10;
+        }
+    }
+
+}
