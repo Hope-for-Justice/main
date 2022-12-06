@@ -169,7 +169,7 @@ if (isset($_GET['campaign'])) {
                     <a class="button button--red button--nav bold" href="<?php if ($args['donate-link']) {
                                                                                 echo $args['donate-link'];
                                                                             } else {
-                                                                                echo "/donate";
+                                                                                echo "/give-them-hope";
                                                                             } ?>">DONATE</a>
                     <div id="burger-menu" class="header__burger">
                         <div class="burger">
