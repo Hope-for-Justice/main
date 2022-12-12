@@ -133,6 +133,12 @@
 
     &__tags {
         margin-bottom: 20px;
+        max-width: 100%;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        height: 27px;
+
 
         &>*+* {
             margin-left: 10px;
@@ -191,6 +197,22 @@
 
         .block-post__content {
             margin-bottom: clamp(24px, 5vw, 40px) !important;
+        }
+
+
+        h2 {
+            font-size: var(--wp--preset--font-size--extra-large) !important;
+            font-weight: bold;
+        }
+
+        h3 {
+            font-size: var(--wp--preset--font-size--large) !important;
+            font-weight: bold;
+        }
+
+        ul,
+        ol {
+            font-size: 1rem;
         }
     }
 }
