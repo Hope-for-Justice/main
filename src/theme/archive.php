@@ -126,7 +126,8 @@ get_header();
 		<div class="better-grid">
 			<div style="grid-column: span 12;" class="archive-page__numbers">
 				<?php the_posts_pagination(array(
-					'mid_size'  => 2,
+					'mid_size'  => 1,
+					'prev_next' => false,
 				)); ?>
 			</div>
 		</div>
