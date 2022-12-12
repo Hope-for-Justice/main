@@ -432,7 +432,7 @@ function my_acf_init_block_types()
 
         function post_block_assets()
         {
-            wp_enqueue_style('card_quarter_styles', get_template_directory_uri() . '/template-parts/blocks/posts.css', array(), _S_VERSION);
+            wp_enqueue_style('post_block_styles', get_template_directory_uri() . '/template-parts/blocks/posts.css', array(), _S_VERSION);
         }
     }
 }
@@ -453,6 +453,8 @@ function register_acf_block_styles(): void
     //allways enqueue block-title and block text
     wp_enqueue_style('block-text', get_template_directory_uri() . '/template-parts/blocks/block-text.css', array(), _S_VERSION);
     wp_enqueue_style('title-assets', get_template_directory_uri() . '/template-parts/blocks/block-title.css', array(), _S_VERSION);
+    wp_enqueue_style('post_block_styles', get_template_directory_uri() . '/template-parts/blocks/posts.css', array(), _S_VERSION);
+
 
 
     if (has_block('acf/full-header')) {
@@ -550,10 +552,6 @@ function register_acf_block_styles(): void
     if (has_block('acf/cards-quarter')) {
         wp_enqueue_style('cards_quarter_styles', get_template_directory_uri() . '/template-parts/blocks/cards-quarter.css', array(), _S_VERSION);
         wp_enqueue_script('card_scripts', get_template_directory_uri() . '/template-parts/blocks/cards/cards-scripts.js', array(), _S_VERSION);
-    }
-
-    if (has_block('acf/posts-block')) {
-        wp_enqueue_style('card_quarter_styles', get_template_directory_uri() . '/template-parts/blocks/posts.css', array(), _S_VERSION);
     }
 }
 

@@ -10,7 +10,7 @@
 
 if (!defined('_S_VERSION')) {
   // Replace the version number of the theme on each release.
-  define('_S_VERSION', '5.3.1');
+  define('_S_VERSION', '5.3.2');
 }
 
 if (!function_exists('hope_for_justice_2021_setup')) :
@@ -105,7 +105,7 @@ function hope_for_justice_2021_scripts()
   //enqueue block scripts in editor
 
   // if it's using the block template
-  if (is_page_template('templates/page-block-template.php') || is_tax('event_categories') || is_page_template('templates/page-block-post-template.php')) {
+  if (is_page_template('templates/page-block-template.php') || is_tax('event_categories') || is_page_template('templates/page-block-post-template.php') || is_archive() || is_single()) {
     wp_enqueue_style('hope-for-justice-base-styles', get_template_directory_uri() . '/block-base-styles.css', array(), _S_VERSION);
   } else {
     wp_enqueue_style('hope-for-justice-2021-style', get_stylesheet_uri(), array(), _S_VERSION);
@@ -747,6 +747,27 @@ add_shortcode('dropdown', 'dropdown_function');
 
 
 add_action('give_post_form_output', 'my_custom_give_populate_amount_name_email');
+
+function post_per_page_control($query)
+{
+  if (is_admin() || !$query->is_main_query())
+    return;
+
+  // For archive.You can omit this
+  if (is_archive()) {
+    //control the numbers of post displayed/listed (eg here 10)
+    $query->set('posts_per_page', 16);
+    return;
+  }
+
+  // For your tag
+  // if ( is_tag() ) {
+  //      //control the numbers of post displayed/listed (eg here 10)
+  //      $query->set( 'posts_per_page', 10 );
+  //      return;
+  // }
+}
+add_action('pre_get_posts', 'post_per_page_control');
 
 
 /**

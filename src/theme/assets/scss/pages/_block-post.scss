@@ -95,6 +95,11 @@
     &__date {
         display: flex;
         align-items: center;
+        margin-top: 24px;
+
+        p {
+            font-size: 0.75rem;
+        }
 
         &>*+* {
             margin-left: 6px;
@@ -178,6 +183,16 @@
             }
         }
     }
+
+    &--default-post {
+        .block-post__share {
+            margin-left: 0;
+        }
+
+        .block-post__content {
+            margin-bottom: clamp(24px, 5vw, 40px) !important;
+        }
+    }
 }
 
 @media screen and (min-width:768px) {
@@ -211,7 +226,7 @@
 
         &__author-share {
             p {
-                font-size: 1rem;
+                //font-size: 1rem;
             }
 
             &-content {
@@ -227,6 +242,10 @@
 
 
         &__date {
+            p {
+                //font-size: 1rem;
+            }
+
             svg {
                 width: 16px;
                 margin-top: -3px;

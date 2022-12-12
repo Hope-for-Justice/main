@@ -19,9 +19,12 @@
             &:after {
                 content: url('./../../assets/img/link-arrow-no-width.svg');
                 height: 100%;
-                top: 0;
                 position: absolute;
                 left: auto;
+            }
+
+            &:hover {
+                text-decoration: underline;
             }
         }
     }

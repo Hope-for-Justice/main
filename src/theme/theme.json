@@ -83,7 +83,7 @@
                 {
                     "name": "Gigantic",
                     "slug": "gigantic",
-                    "size": "clamp(var(--wp--custom--typography--extra-large), calc(1rem + 5vw), var(--wp--custom--typography--gigantic))"
+                    "size": "clamp(var(--wp--custom--typography--massive), calc(1rem + 5vw), var(--wp--custom--typography--gigantic))"
                 }
             ]
         }
