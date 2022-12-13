@@ -73,12 +73,12 @@ get_header("", ["page_class" =>
 						<!-- social icons -->
 						<ul class="block-post__share-icons">
 							<li class="block-post__share-icon">
-								<a href="https://twitter.com/intent/tweet?url=<?php echo $postUrl; ?>&text=<?php echo the_title(); ?>&via=<?php the_author_meta('twitter'); ?>">
+								<a href="https://twitter.com/intent/tweet?text=<?php the_title(); ?>:%20<?php the_permalink(); ?>%20@hopeforjustice">
 									<img class="" src="<?php echo get_template_directory_uri() . '/assets/img/twitter-seeklogo.com.svg'; ?>" alt="share on twitter">
 								</a>
 							</li>
 							<li class="block-post__share-icon">
-								<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $postUrl; ?>">
+								<a href="https://www.facebook.com/sharer/sharer.php?u=<?php the_permalink(); ?>">
 									<img class="" src="<?php echo get_template_directory_uri() . '/assets/img/fb.svg'; ?>" alt="share on facebook">
 								</a>
 							</li>
