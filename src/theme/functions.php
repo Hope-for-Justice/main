@@ -10,7 +10,7 @@
 
 if (!defined('_S_VERSION')) {
   // Replace the version number of the theme on each release.
-  define('_S_VERSION', '5.3.5');
+  define('_S_VERSION', '5.3.6');
 }
 
 if (!function_exists('hope_for_justice_2021_setup')) :
@@ -454,39 +454,39 @@ endif;
 
 
 
-function process_news_form()
-{
-  // die(print_r($_POST));
-  if (isset($_POST['action']) && $_POST['action'] == 'news_search' && wp_verify_nonce($_POST['news_nonce'], 'news-search-nonce')) {
-    $redirect = add_query_arg(array('search' => $_POST['search-posts'], 'category' => $_POST['category']), $_POST['redirect']);
-    wp_redirect($redirect);
-    exit;
-  }
-}
-add_action('init', 'process_news_form');
+// function process_news_form()
+// {
+//   // die(print_r($_POST));
+//   if (isset($_POST['action']) && $_POST['action'] == 'news_search' && wp_verify_nonce($_POST['news_nonce'], 'news-search-nonce')) {
+//     $redirect = add_query_arg(array('search' => $_POST['search-posts'], 'category' => $_POST['category']), $_POST['redirect']);
+//     wp_redirect($redirect);
+//     exit;
+//   }
+// }
+// add_action('init', 'process_news_form');
 
 
-function title_filter($where, $wp_query)
-{
+// function title_filter($where, $wp_query)
+// {
 
-  global $wpdb;
+//   global $wpdb;
 
-  if ($search_term = $wp_query->get('search_news_title')) {
-    $where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'%' . esc_sql($wpdb->esc_like($search_term)) . '%\'';
-  }
-  return $where;
-}
-add_filter('single_template', function ($single_template) {
+//   if ($search_term = $wp_query->get('search_news_title')) {
+//     $where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'%' . esc_sql($wpdb->esc_like($search_term)) . '%\'';
+//   }
+//   return $where;
+// }
+// add_filter('single_template', function ($single_template) {
 
-  $parent     = '6'; //Change to your category ID
-  $categories = get_categories('child_of=' . $parent);
-  $cat_names  = wp_list_pluck($categories, 'name');
+//   $parent     = '6'; //Change to your category ID
+//   $categories = get_categories('child_of=' . $parent);
+//   $cat_names  = wp_list_pluck($categories, 'name');
 
-  if (has_category('videos')) {
-    $single_template = dirname(__FILE__) . '/single-videos.php';
-  }
-  return $single_template;
-}, PHP_INT_MAX, 2);
+//   if (has_category('videos')) {
+//     $single_template = dirname(__FILE__) . '/single-videos.php';
+//   }
+//   return $single_template;
+// }, PHP_INT_MAX, 2);
 
 
 /**
