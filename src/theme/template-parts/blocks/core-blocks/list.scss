@@ -21,6 +21,12 @@
     }
 }
 
+.wp-block-list-item {
+    div {
+        display: inline;
+    }
+}
+
 @media screen and (min-width: 768px) {
     .core-list {
         li {
