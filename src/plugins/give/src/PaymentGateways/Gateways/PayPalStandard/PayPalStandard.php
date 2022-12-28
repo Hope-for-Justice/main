@@ -72,7 +72,7 @@ class PayPalStandard extends PaymentGateway
     /**
      * @inheritDoc
      */
-    public function createPayment(Donation $donation, $gatewayData = null): RedirectOffsite
+    public function createPayment(Donation $donation, $gatewayData = []): RedirectOffsite
     {
         return new RedirectOffsite(
             Call::invoke(
@@ -116,7 +116,7 @@ class PayPalStandard extends PaymentGateway
         return new RedirectResponse(
             esc_url_raw(
                 add_query_arg(
-                    ['payment-confirmation' => $this->getId()],
+                    ['payment-confirmation' => self::id()],
                     Call::invoke(GenerateDonationReceiptPageUrl::class, $donationId)
                 )
             )

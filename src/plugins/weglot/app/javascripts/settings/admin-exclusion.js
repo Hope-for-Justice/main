@@ -11,16 +11,50 @@ const init_admin_exclusion = function () {
 		}
 
 		if (document.querySelector("#js-add-exclude-block")) {
+
+			const input_exclude_blocks = document.querySelectorAll('#container-exclude_blocks input')
+			input_exclude_blocks.forEach((el) => {
+				el.addEventListener('keypress', function (e) {
+					if (e.keyCode === 13 || e.which === 13) {
+						e.preventDefault();
+						return false;
+					}
+				});
+			})
+			document.querySelectorAll('#container-exclude_blocks input')
+
 			document
 				.querySelector("#js-add-exclude-block")
 				.addEventListener("click", (e) => {
+					let available_input = true
+					const input_exclude_blocks = document.querySelectorAll('#container-exclude_blocks input')
+					input_exclude_blocks.forEach((el) => {
+						if (el.value.length === 0) {
+							available_input = false
+						}
+					})
 					e.preventDefault()
-					parent_exclude_block_append.insertAdjacentHTML("beforeend", template_add_exclude_block.innerHTML);
-					document
-						.querySelector(
-							"#container-exclude_blocks .item-exclude:last-child .js-btn-remove-exclude"
-						)
-						.addEventListener("click", removeLine);
+					if (available_input === true) {
+						document.querySelector("#js-add-exclude-block").classList.add("disable-btn");
+						parent_exclude_block_append.insertAdjacentHTML("beforeend", template_add_exclude_block.innerHTML);
+						document
+							.querySelector(
+								"#container-exclude_blocks .item-exclude:last-child .js-btn-remove-exclude"
+							)
+							.addEventListener("click", removeLine);
+
+						document.querySelectorAll('#container-exclude_blocks input').forEach((el) => {
+							el.addEventListener('keypress', function (e) {
+								if (e.keyCode === 13 || e.which === 13) {
+									e.preventDefault();
+									return false;
+								} else {
+									document.querySelector("#js-add-exclude-block").classList.remove("disable-btn");
+								}
+							});
+						})
+					}
+
 				});
 		}
 

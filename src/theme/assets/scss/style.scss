@@ -121,4 +121,8 @@
     //country specifics
     @import "other/_country-specifics.scss";
 
+    a:where(:not(.wp-element-button)) {
+        text-decoration-line: none !important;
+    }
+
 }

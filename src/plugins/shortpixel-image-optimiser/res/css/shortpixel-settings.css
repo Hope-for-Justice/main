@@ -25,49 +25,52 @@
 }
 .settings_page_wp-shortpixel-settings .top-menu {
   font-size: 18px;
-  display: -ms-flexbox;
   display: flex;
   width: 100%;
   min-height: 50px;
-  -ms-flex-align: center;
-      align-items: center;
+  align-items: center;
   margin: 15px 0;
+  position: relative;
+}
+@media (max-width: 1200px) {
+  .settings_page_wp-shortpixel-settings .top-menu {
+    margin-bottom: 50px;
+  }
 }
 .settings_page_wp-shortpixel-settings .top-menu .links {
-  -ms-flex: 12 4 auto;
-      flex: 12 4 auto;
+  padding-right: 195px;
+  flex: 12 4 auto;
 }
 .settings_page_wp-shortpixel-settings .top-menu .links a {
   font-size: 18px;
   margin-right: 8px;
+  white-space: nowrap;
+  line-height: 26px;
 }
 .settings_page_wp-shortpixel-settings .top-menu .quota-remaining {
-  -ms-flex: 2 1 2;
-      flex: 2 1 2;
+  font-size: 13px;
+}
+.settings_page_wp-shortpixel-settings .top-menu .spio-status-box {
   text-align: center;
+  position: absolute;
+  top: -49px;
+  right: 0;
+  padding: 5px 10px;
+  background: white;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+  z-index: 1;
 }
 .settings_page_wp-shortpixel-settings .top-menu .pie-wrapper {
-  position: relative;
-  -ms-flex: 4 2 auto;
-      flex: 4 2 auto;
+  flex: 4 2 auto;
   min-width: 100px;
   display: inline-block;
 }
-@media (max-width: 1100px) {
-  .settings_page_wp-shortpixel-settings .top-menu .pie-wrapper {
-    display: none;
-  }
-}
 .settings_page_wp-shortpixel-settings .top-menu div.sp-bulk-summary {
-  position: absolute;
-  top: -55px;
-  right: -25px;
   z-index: 10;
 }
 .settings_page_wp-shortpixel-settings .top-menu div.sp-bulk-summary .opt-circle-average {
   width: 100px;
   height: 100px;
-  float: right;
 }
 .settings_page_wp-shortpixel-settings .top-menu div.sp-bulk-summary .opt-circle-average .trail {
   stroke: #ddd;
@@ -85,25 +88,18 @@
   text-anchor: middle;
 }
 .settings_page_wp-shortpixel-settings .top-menu div.sp-bulk-summary span {
-  display: none;
   margin: 0;
-  font-size: 11px;
-  position: absolute;
-  bottom: 45px;
+  font-size: 12px;
   padding: 4px 8px;
-  color: #fff;
-  background: rgba(15, 106, 125, 0.5);
   font-weight: 700;
   border-radius: 3px;
   white-space: nowrap;
+  color: #0f6a7d;
 }
 @media (max-width: 1500px) {
   .settings_page_wp-shortpixel-settings .top-menu div.sp-bulk-summary .opt-circle-average {
     width: 100px;
     height: 100px;
-  }
-  .settings_page_wp-shortpixel-settings .top-menu div.sp-bulk-summary span {
-    display: none;
   }
 }
 .settings_page_wp-shortpixel-settings .wp-shortpixel-tab-content {
@@ -172,6 +168,11 @@
   background-color: #ddd;
   /* border-radius: 5px 5px 0 0; */
 }
+@media (max-width: 991px) {
+  .settings_page_wp-shortpixel-settings article.sp-tabs section h2 {
+    width: 140px;
+  }
+}
 .settings_page_wp-shortpixel-settings article.sp-tabs section h2 a {
   display: block;
   width: 100%;
@@ -189,14 +190,34 @@
 .settings_page_wp-shortpixel-settings article.sp-tabs section:nth-of-type(2) h2 {
   left: 192px;
 }
+@media (max-width: 991px) {
+  .settings_page_wp-shortpixel-settings article.sp-tabs section:nth-of-type(2) h2 {
+    left: 152px;
+  }
+}
 .settings_page_wp-shortpixel-settings article.sp-tabs section:nth-of-type(3) h2 {
   left: 374px;
+}
+@media (max-width: 991px) {
+  .settings_page_wp-shortpixel-settings article.sp-tabs section:nth-of-type(3) h2 {
+    left: 294px;
+  }
 }
 .settings_page_wp-shortpixel-settings article.sp-tabs section:nth-of-type(4) h2 {
   left: 556px;
 }
+@media (max-width: 991px) {
+  .settings_page_wp-shortpixel-settings article.sp-tabs section:nth-of-type(4) h2 {
+    left: 436px;
+  }
+}
 .settings_page_wp-shortpixel-settings article.sp-tabs section:nth-of-type(5) h2 {
   left: 738px;
+}
+@media (max-width: 991px) {
+  .settings_page_wp-shortpixel-settings article.sp-tabs section:nth-of-type(5) h2 {
+    left: 578px;
+  }
 }
 .settings_page_wp-shortpixel-settings article.sp-tabs section:nth-of-type(6) h2 {
   left: 920px;
@@ -205,12 +226,10 @@
   left: 738px;
 }
 .settings_page_wp-shortpixel-settings section#tab-debug .flex {
-  display: -ms-flexbox;
   display: flex;
 }
 .settings_page_wp-shortpixel-settings section#tab-debug .env .flex {
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   max-width: 450px;
 }
 .settings_page_wp-shortpixel-settings section#tab-debug .env .flex span {
@@ -230,16 +249,14 @@
   font-weight: 700;
 }
 .settings_page_wp-shortpixel-settings section#tab-debug .table.notices > div > span {
-  width: 25%;
+  width: 18%;
   text-align: center;
 }
 .settings_page_wp-shortpixel-settings section.banner {
   width: 100%;
   background-color: #dcfdff;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
-      align-items: center;
+  align-items: center;
   border: 1px solid #ccc;
   margin-top: 35px;
   margin-bottom: 45px;
@@ -250,19 +267,16 @@
   text-align: center;
 }
 .settings_page_wp-shortpixel-settings section.banner .image {
-  -ms-flex: 1;
-      flex: 1;
+  flex: 1;
 }
 .settings_page_wp-shortpixel-settings section.banner .line {
-  -ms-flex: 3;
-      flex: 3;
+  flex: 3;
 }
 .settings_page_wp-shortpixel-settings section.banner .line h3 {
   color: #00d0e5;
 }
 .settings_page_wp-shortpixel-settings section.banner .button-wrap {
-  -ms-flex: 2;
-      flex: 2;
+  flex: 2;
 }
 .settings_page_wp-shortpixel-settings section.banner .button-wrap .button {
   background: #ff0000;
@@ -303,7 +317,7 @@
 .settings_page_wp-shortpixel-settings #tab-settings .shortpixel-compression label {
   width: 158px;
   margin: 0 -2px;
-  background-color: #93d7e5;
+  background-color: #d1f5fd;
   font-weight: bold;
   display: inline-block;
 }
@@ -369,6 +383,14 @@
 #shortpixel-settings-tabs #tab-adv-settings .deliverWebpTypes, #shortpixel-settings-tabs #tab-adv-settings .deliverWebpAlteringTypes {
   margin: 16px 0 16px 16px;
 }
+#shortpixel-settings-tabs #tab-adv-settings .avifNoticeDisabled {
+  padding: 12px 12px;
+  line-height: 26px;
+}
+#shortpixel-settings-tabs #tab-adv-settings .avifNoticeDisabled > .spio-inline-help {
+  display: inline;
+  float: none;
+}
 
 .cf_switch label {
   width: 100%;
@@ -401,7 +423,6 @@
 }
 #tab-tools .option {
   clear: both;
-  display: -ms-flexbox;
   display: flex;
   margin: 25px 0;
 }
@@ -409,8 +430,7 @@
   width: 220px;
   font-weight: 700;
   display: inline-block;
-  -ms-flex: 0 0 auto;
-      flex: 0 0 auto;
+  flex: 0 0 auto;
   font-size: 14px;
 }
 #tab-tools .option div.field {
@@ -516,3 +536,5 @@ div.spio-modal-title {
 .spio-hide {
   display: none;
 }
+
+/*# sourceMappingURL=shortpixel-settings.css.map */

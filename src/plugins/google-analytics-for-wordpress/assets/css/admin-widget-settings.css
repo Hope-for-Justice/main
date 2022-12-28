@@ -21,6 +21,7 @@
 }
 
 .monsterinsights-wide-column {
+	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
 	border: 1px solid #b7c9d9;
@@ -30,6 +31,7 @@
 	padding: 10px 5px;
 	-ms-flex-flow: wrap;
 	flex-flow: wrap;
+	-webkit-box-pack: justify;
 	-ms-flex-pack: justify;
 	justify-content: space-between;
 	margin-right: 4px;
@@ -85,8 +87,7 @@
 	cursor: pointer;
 	display: block;
 	height: 28px;
-	-ms-user-select: none;
-	    user-select: none;
+	user-select: none;
 	-webkit-user-select: none
 }
 
@@ -113,8 +114,7 @@
 	cursor: pointer;
 	display: block;
 	min-height: 32px;
-	-ms-user-select: none;
-	    user-select: none;
+	user-select: none;
 	-webkit-user-select: none
 }
 
@@ -166,8 +166,7 @@
 
 .select300-results__option {
 	padding: 6px;
-	-ms-user-select: none;
-	    user-select: none;
+	user-select: none;
 	-webkit-user-select: none
 }
 
@@ -473,6 +472,8 @@
 	border: 1px solid #aaa;
 	border-radius: 4px;
 	outline: 0;
+	background-image: -webkit-linear-gradient(top, #fff 50%, #eee 100%);
+	background-image: -o-linear-gradient(top, #fff 50%, #eee 100%);
 	background-image: linear-gradient(to bottom, #fff 50%, #eee 100%);
 	background-repeat: repeat-x;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFEEEEEE', GradientType=0)
@@ -509,6 +510,8 @@
 	top: 1px;
 	right: 1px;
 	width: 20px;
+	background-image: -webkit-linear-gradient(top, #eee 50%, #ccc 100%);
+	background-image: -o-linear-gradient(top, #eee 50%, #ccc 100%);
 	background-image: linear-gradient(to bottom, #eee 50%, #ccc 100%);
 	background-repeat: repeat-x;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFEEEEEE', endColorstr='#FFCCCCCC', GradientType=0)
@@ -559,6 +562,8 @@
 	border-top: none;
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
+	background-image: -webkit-linear-gradient(top, #fff 0%, #eee 50%);
+	background-image: -o-linear-gradient(top, #fff 0%, #eee 50%);
 	background-image: linear-gradient(to bottom, #fff 0%, #eee 50%);
 	background-repeat: repeat-x;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFEEEEEE', GradientType=0)
@@ -568,6 +573,8 @@
 	border-bottom: none;
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
+	background-image: -webkit-linear-gradient(top, #eee 50%, #fff 100%);
+	background-image: -o-linear-gradient(top, #eee 50%, #fff 100%);
 	background-image: linear-gradient(to bottom, #eee 50%, #fff 100%);
 	background-repeat: repeat-x;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFEEEEEE', endColorstr='#FFFFFFFF', GradientType=0)
@@ -740,7 +747,6 @@
 	background: #F0F2F4;
 	border-radius: 5px;
 	padding: 8px 8px 8px 18px;
-	display: -ms-flexbox;
 	display: flex;
 	font-family: Helvetica Neue, serif;
 	font-style: normal;
@@ -748,10 +754,8 @@
 	font-size: 14px;
 	line-height: 1;
 	color: #32373C;
-	-ms-flex-align: center;
-	    align-items: center;
-	-ms-flex-pack: justify;
-	    justify-content: space-between;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .monsterinsights-widget-theme-preview-icon,

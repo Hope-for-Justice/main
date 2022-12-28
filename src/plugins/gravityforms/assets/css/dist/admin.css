@@ -501,10 +501,8 @@ table#gf_personal_data_field_settings td {
 		}
 
 .gform-admin .gform-dropdown--merge-tags .gform-dropdown__control .gform-dropdown__control-text {
-			-ms-flex-align: center;
-			    align-items: center;
+			align-items: center;
 			color: #242748;
-			display: -ms-flexbox;
 			display: flex;
 			font-size: 0.8125rem;
 			overflow: visible;
@@ -654,13 +652,11 @@ html[dir="rtl"] .right .gform-dropdown__container {
 	}
 
 .gforms_edit_form #field_submit {
-		display: -ms-flexbox;
 		display: flex;
 	}
 
 .gforms_edit_form #field_submit input {
-			-ms-flex-item-align: end;
-			    align-self: flex-end;
+			align-self: flex-end;
 		}
 
 .gforms_edit_form #field_submit .gform-button--primary {
@@ -680,8 +676,7 @@ html[dir="rtl"] .right .gform-dropdown__container {
 		}
 
 .gforms_edit_form #field_submit .gform-button--width-full {
-			-ms-flex-pack: center;
-			    justify-content: center;
+			justify-content: center;
 			width: 100%;
 		}
 
@@ -830,27 +825,21 @@ input.button-primary.gfbutton, button.button-primary.gfbutton, a.button-primary.
 */
 
 .gform-admin .gform-choice {
-		-ms-flex-align: center;
-		    align-items: center;
-		display: -ms-flexbox;
+		align-items: center;
 		display: flex;
-		-ms-flex-flow: row nowrap;
-		    flex-flow: row nowrap;
+		flex-flow: row nowrap;
 		padding: 0;
 		position: relative;
 		width: 100%;
 	}
 
 .gform-admin .gform-choice .gform-choice__handle {
-			-ms-flex-align: center;
-			    align-items: center;
+			align-items: center;
 			background: none;
 			color: #9092b2;
-			display: -ms-flexbox;
 			display: flex;
 			font-size: 20px;
-			-ms-flex-pack: center;
-			    justify-content: center;
+			justify-content: center;
 			margin-right: 0.625rem;
 			width: 0.588rem;
 		}
@@ -918,21 +907,17 @@ input.button-primary.gfbutton, button.button-primary.gfbutton, a.button-primary.
 					}
 
 .gform-admin .gform-choice .gform-choice__selected-label {
-			-ms-flex-align: center;
-			    align-items: center;
+			align-items: center;
 			background: #9092b2;
 			border: 0.25rem solid #ecedf8;
 			border-radius: 100%;
 			box-sizing: border-box;
 			cursor: pointer;
-			display: -ms-inline-flexbox;
 			display: inline-flex;
-			-ms-flex-preferred-size: 26px;
-			    flex-basis: 26px;
+			flex-basis: 26px;
 			font-size: 1rem;
 			height: 26px;
-			-ms-flex-pack: center;
-			    justify-content: center;
+			justify-content: center;
 			margin: 0;
 			padding: 0;
 			position: relative;
@@ -1052,10 +1037,8 @@ html[dir="rtl"] .gform-admin .gform-choice .gform-choice__selected-label::before
 		0 8px 8px rgba(18, 25, 97, 0.03),
 		0 16px 16px rgba(18, 25, 97, 0.03);
 	box-sizing: border-box;
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-direction: column;
-	    flex-direction: column;
+	flex-direction: column;
 	height: calc(100vh - 5.75rem);
 	left: 10px;
 	opacity: 0;
@@ -1173,10 +1156,8 @@ html[dir="rtl"] .gform-admin .gform-choice .gform-choice__selected-label::before
 			}
 
 .conditional_logic_flyout__rule {
-		display: -ms-flexbox;
 		display: flex;
-		-ms-flex-direction: row;
-		    flex-direction: row;
+		flex-direction: row;
 	}
 
 .conditional_logic_flyout__rule select {
@@ -1190,8 +1171,7 @@ html[dir="rtl"] .gform-admin .gform-choice .gform-choice__selected-label::before
 @media (min-width: 1260px) {
 
 .conditional_logic_flyout__rule input[type="text"].gfield_rule_input {
-				-ms-flex: 1;
-				    flex: 1;
+				flex: 1;
 				width: auto
 		}
 			}
@@ -1266,21 +1246,18 @@ html[dir="rtl"] .conditional_logic_flyout .delete_field_choice {
 }
 
 .conditional_logic_flyout_container.anim-in-ready .conditional_logic_flyout {
-		-ms-transform: translateX(-98%) translateX(-10px);
-		    transform: translateX(-98%) translateX(-10px);
+		transform: translateX(-98%) translateX(-10px);
 	}
 
 .conditional_logic_flyout_container.anim-in-ready.anim-in-active .conditional_logic_flyout {
 		opacity: 1;
-		-ms-transform: translateX(-100%) translateX(-10px);
-		    transform: translateX(-100%) translateX(-10px);
+		transform: translateX(-100%) translateX(-10px);
 		transition: opacity 190ms ease-in-out, transform 190ms ease-in-out;
 	}
 
 .conditional_logic_flyout_container.anim-out-ready .conditional_logic_flyout {
 		opacity: 1;
-		-ms-transform: translateX(-100%) translateX(-10px);
-		    transform: translateX(-100%) translateX(-10px);
+		transform: translateX(-100%) translateX(-10px);
 		transition: opacity 190ms ease-in-out, transform 190ms ease-in-out;
 	}
 
@@ -1290,8 +1267,7 @@ html[dir="rtl"] .conditional_logic_flyout .delete_field_choice {
 
 .conditional_logic_flyout_container.anim-out-ready.anim-out-active .conditional_logic_flyout {
 		opacity: 0;
-		-ms-transform: translateX(-98%) translateX(-10px);
-		    transform: translateX(-98%) translateX(-10px);
+		transform: translateX(-98%) translateX(-10px);
 	}
 
 .conditional_logic_flyout_container.anim-out-ready.anim-out-active .conditional_logic_flyout .conditional_logic_flyout__body {
@@ -1304,17 +1280,13 @@ html[dir="rtl"] .conditional_logic_flyout {
 }
 
 .conditional_logic_wrapper .conditional_logic_accordion {
-		-ms-flex-align: center;
-		    align-items: center;
+		align-items: center;
 		border: 1px solid transparent;
 		border-bottom-color: #ecedf8;
 		border-top-color: #ecedf8;
-		display: -ms-flexbox;
 		display: flex;
-		-ms-flex-direction: row;
-		    flex-direction: row;
-		-ms-flex-wrap: wrap;
-		    flex-wrap: wrap;
+		flex-direction: row;
+		flex-wrap: wrap;
 		min-height: 3.375rem;
 		padding: 1.25rem 0;
 		position: relative;
@@ -1365,24 +1337,19 @@ html[dir="rtl"] .conditional_logic_flyout {
 	}
 
 .conditional_logic_wrapper .conditional_logic_accordion__toggle.active {
-			display: -ms-flexbox;
 			display: flex;
-			-ms-flex: 1;
-			    flex: 1;
+			flex: 1;
 			min-height: 3.375rem;
 		}
 
 .conditional_logic_wrapper .conditional_logic_accordion__toggle button {
-			-ms-flex-align: center;
-			    align-items: center;
+			align-items: center;
 			background: transparent;
 			border: none;
 			cursor: pointer;
-			display: -ms-flexbox;
 			display: flex;
 			height: 100%;
-			-ms-flex-pack: end;
-			    justify-content: flex-end;
+			justify-content: flex-end;
 			left: 0;
 			outline: none;
 			padding: 0 1.125rem 0 0;
@@ -1438,21 +1405,18 @@ html[dir="rtl"] .conditional_logic_wrapper .conditional_logic_accordion__toggle 
 		}
 
 button.conditional_logic_flyout__close {
-	-ms-flex-align: center;
-	    align-items: center;
+	align-items: center;
 	background: #fff;
 	border: 1px solid #d5d7e9;
 	border-radius: 100%;
 	box-shadow: 0 2px 2px rgba(58, 58, 87, 0.0596411);
 	color: #3e7da6;
 	cursor: pointer;
-	display: -ms-flexbox;
 	display: flex;
 	font-family: "dashicons";
 	font-size: 1.25rem;
 	height: 1.625rem;
-	-ms-flex-pack: center;
-	    justify-content: center;
+	justify-content: center;
 	outline: none;
 	position: absolute;
 	right: 25px;
@@ -1477,8 +1441,7 @@ button.conditional_logic_flyout__close:hover, button.conditional_logic_flyout__c
 	}
 
 button.conditional_logic_flyout__close:hover_icon, button.conditional_logic_flyout__close:focus_icon {
-			-ms-transform: translateY(1px);
-			    transform: translateY(1px);
+			transform: translateY(1px);
 		}
 
 html[dir="rtl"] .conditional_logic_flyout_container {
@@ -1487,28 +1450,24 @@ html[dir="rtl"] .conditional_logic_flyout_container {
 }
 
 html[dir="rtl"] .conditional_logic_flyout_container.anim-in-ready .conditional_logic_flyout {
-		-ms-transform: translateX(98%) translateX(10px);
-		    transform: translateX(98%) translateX(10px);
+		transform: translateX(98%) translateX(10px);
 	}
 
 html[dir="rtl"] .conditional_logic_flyout_container.anim-in-ready.anim-in-active .conditional_logic_flyout {
 		opacity: 1;
-		-ms-transform: translateX(100%) translateX(10px);
-		    transform: translateX(100%) translateX(10px);
+		transform: translateX(100%) translateX(10px);
 		transition: opacity 190ms ease-in-out, transform 190ms ease-in-out;
 	}
 
 html[dir="rtl"] .conditional_logic_flyout_container.anim-out-ready .conditional_logic_flyout {
 		opacity: 1;
-		-ms-transform: translateX(100%) translateX(10px);
-		    transform: translateX(100%) translateX(10px);
+		transform: translateX(100%) translateX(10px);
 		transition: opacity 190ms ease-in-out, transform 190ms ease-in-out;
 	}
 
 html[dir="rtl"] .conditional_logic_flyout_container.anim-out-ready.anim-out-active .conditional_logic_flyout {
 		opacity: 0;
-		-ms-transform: translateX(98%) translateX(10px);
-		    transform: translateX(98%) translateX(10px);
+		transform: translateX(98%) translateX(10px);
 	}
 
 html[dir="rtl"] .conditional_logic_flyout_container button.conditional_logic_flyout__close {
@@ -1561,31 +1520,25 @@ html[dir="rtl"] .conditional_logic_flyout_container .conditional_logic_flyout .a
 }
 
 .ui-datepicker:not(.gform-legacy-datepicker):not(.gform-theme-datepicker) .ui-datepicker-header {
-		display: -ms-flexbox;
 		display: flex;
-		-ms-flex-direction: row;
-		    flex-direction: row;
-		-ms-flex-pack: center;
-		    justify-content: center;
+		flex-direction: row;
+		justify-content: center;
 		margin-bottom: 0.3125rem;
 		position: relative;
 		width: 100%;
 	}
 
 .ui-datepicker:not(.gform-legacy-datepicker):not(.gform-theme-datepicker) .ui-datepicker-header .ui-datepicker-prev, .ui-datepicker:not(.gform-legacy-datepicker):not(.gform-theme-datepicker) .ui-datepicker-header .ui-datepicker-next {
-			-ms-flex-align: center;
-			    align-items: center;
+			align-items: center;
 			color: #9092b2;
 			cursor: pointer;
-			display: -ms-flexbox;
 			display: flex;
 			font-family: "gform-icons-admin" !important;
 			font-size: 1.5rem;
 			-webkit-font-smoothing: antialiased;
 			-moz-osx-font-smoothing: grayscale;
 			height: 1.875rem;
-			-ms-flex-pack: center;
-			    justify-content: center;
+			justify-content: center;
 			position: absolute;
 			speak: never;
 			top: -0.125rem;
@@ -1607,8 +1560,7 @@ html[dir="rtl"] .conditional_logic_flyout_container .conditional_logic_flyout .a
 
 .ui-datepicker:not(.gform-legacy-datepicker):not(.gform-theme-datepicker) .ui-datepicker-header .ui-datepicker-next {
 			right: -0.3125rem;
-			-ms-transform: rotate(180deg);
-			    transform: rotate(180deg);
+			transform: rotate(180deg);
 		}
 
 .ui-datepicker:not(.gform-legacy-datepicker):not(.gform-theme-datepicker) .ui-datepicker-header .ui-datepicker-next::before {
@@ -1635,7 +1587,8 @@ html[dir="rtl"] .conditional_logic_flyout_container .conditional_logic_flyout .a
 				background-size: 1.125rem 1.125rem;
 				margin-right: 0.3125rem;
 				padding: 0 1.25rem 0 0;
-				text-align-last: right;
+				-moz-text-align-last: right;
+				     text-align-last: right;
 			}
 
 .ui-datepicker:not(.gform-legacy-datepicker):not(.gform-theme-datepicker) .ui-datepicker-header select.ui-datepicker-year {
@@ -1647,16 +1600,13 @@ html[dir="rtl"] .conditional_logic_flyout_container .conditional_logic_flyout .a
 			}
 
 .ui-datepicker:not(.gform-legacy-datepicker):not(.gform-theme-datepicker) .ui-datepicker-calendar th span {
-				-ms-flex-align: center;
-				    align-items: center;
+				align-items: center;
 				color: #5b5e80;
-				display: -ms-flexbox;
 				display: flex;
 				font-size: 0.75rem;
 				font-weight: 500;
 				height: 1.875rem;
-				-ms-flex-pack: center;
-				    justify-content: center;
+				justify-content: center;
 				width: 1.875rem;
 			}
 
@@ -1668,17 +1618,14 @@ html[dir="rtl"] .conditional_logic_flyout_container .conditional_logic_flyout .a
 		}
 
 .ui-datepicker:not(.gform-legacy-datepicker):not(.gform-theme-datepicker) .ui-datepicker-calendar .ui-state-default {
-			-ms-flex-align: center;
-			    align-items: center;
+			align-items: center;
 			border: 0.0625rem solid transparent;
 			border-radius: 100%;
 			box-shadow: none;
 			color: #242748;
-			display: -ms-flexbox;
 			display: flex;
 			height: 1.875rem;
-			-ms-flex-pack: center;
-			    justify-content: center;
+			justify-content: center;
 			text-decoration: none;
 			transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
 			width: 1.875rem;
@@ -1894,8 +1841,8 @@ html[dir="rtl"] .conditional_logic_flyout_container .conditional_logic_flyout .a
 			cursor: pointer;
 			display: block;
 			-webkit-user-select: none;
-			        -ms-user-select: none;
-			    user-select: none;
+			   -moz-user-select: none;
+			        user-select: none;
 		}
 
 .gform-settings-field__select--enhanced .select2-container--open {
@@ -2019,17 +1966,14 @@ html[dir="rtl"] .gform-settings-field__select-enhanced-container .select2-result
 */
 
 .gf_editor_error {
-	-ms-flex-align: center;
-	    align-items: center;
+	align-items: center;
 	background-color: #fff;
 	border-left: 4px solid #dd301d;
 	box-sizing: border-box;
 	color: #242748;
-	display: -ms-flexbox;
 	display: flex;
 	font-size: 0.8125rem;
-	-ms-flex-pack: justify;
-	    justify-content: space-between;
+	justify-content: space-between;
 	margin: 0 0 0.3125rem;
 	min-height: 3.75rem;
 	opacity: 0;
@@ -2132,7 +2076,7 @@ html[dir="rtl"] .gform-settings-field__select-enhanced-container .select2-result
 		width: 100%;
 	}
 
-.panel-block-tabs__body--settings input[type="text"]:-ms-input-placeholder, .gform-flyout--choices-ui input[type="text"]:-ms-input-placeholder {
+.panel-block-tabs__body--settings input[type="text"]::-moz-placeholder, .gform-flyout--choices-ui input[type="text"]::-moz-placeholder {
 			color: #9092b2;
 		}
 
@@ -2257,6 +2201,10 @@ html[dir="rtl"] .gform-settings-field__select-enhanced-container .select2-result
 						display: inline-block;
 					}
 
+.panel-block-tabs__body--settings input[type="radio"]:not(.field-choice-type--radio):not(.field-choice-type) + label::-moz-selection, .gform-flyout--choices-ui input[type="radio"]:not(.field-choice-type--radio):not(.field-choice-type) + label::-moz-selection {
+					background: transparent;
+				}
+
 .panel-block-tabs__body--settings input[type="radio"]:not(.field-choice-type--radio):not(.field-choice-type) + label::selection, .gform-flyout--choices-ui input[type="radio"]:not(.field-choice-type--radio):not(.field-choice-type) + label::selection {
 					background: transparent;
 				}
@@ -2330,6 +2278,10 @@ html[dir="rtl"] .gform-settings-field__select-enhanced-container .select2-result
 						box-shadow: 0 0 0 2px #bed8ed;
 					}
 
+.panel-block-tabs__body--settings input[type="checkbox"]:not(.gform-field__toggle-input):not(.field-choice-type) + label::-moz-selection, .gform-flyout--choices-ui input[type="checkbox"]:not(.gform-field__toggle-input):not(.field-choice-type) + label::-moz-selection {
+					background: transparent;
+				}
+
 .panel-block-tabs__body--settings input[type="checkbox"]:not(.gform-field__toggle-input):not(.field-choice-type) + label::selection, .gform-flyout--choices-ui input[type="checkbox"]:not(.gform-field__toggle-input):not(.field-choice-type) + label::selection {
 					background: transparent;
 				}
@@ -2343,8 +2295,7 @@ html[dir="rtl"] .gform-settings-field__select-enhanced-container .select2-result
 				}
 
 .panel-block-tabs__body--settings .choice_with_value .field-choice-text, .panel-block-tabs__body--settings #field_choices .field-choice-text, .gform-flyout--choices-ui .choice_with_value .field-choice-text, .gform-flyout--choices-ui #field_choices .field-choice-text {
-		-ms-flex: 1;
-		    flex: 1;
+		flex: 1;
 		min-width: 1px;
 	}
 
@@ -2353,8 +2304,7 @@ html[dir="rtl"] .gform-settings-field__select-enhanced-container .select2-result
 	}
 
 .panel-block-tabs__body--settings .choice_with_value .field-choice-text + .field-choice-value, .gform-flyout--choices-ui .choice_with_value .field-choice-text + .field-choice-value {
-		-ms-flex: 1;
-		    flex: 1;
+		flex: 1;
 		min-width: 1px;
 	}
 
@@ -2396,7 +2346,7 @@ html[dir="rtl"] .panel-block-tabs__body--settings input[type="radio"]:not(.field
 	width: 100%;
 }
 
-input.search-button__input:-ms-input-placeholder {
+input.search-button__input::-moz-placeholder {
 	color: #5b5e80;
 }
 
@@ -2433,38 +2383,30 @@ html[dir="rtl"] .search-button .search-button__input {
 /* For stying field with multiple side by side inputs */
 
 .gform-settings-field--multiple-inputs label, .gform-settings-field--multiple-inputs .gform-settings-description {
-		-ms-flex-preferred-size: 100%;
-		    flex-basis: 100%;
+		flex-basis: 100%;
 	}
 
 .gform-settings-field--multiple-inputs .gform-settings-input__container {
-		display: -ms-inline-flexbox;
 		display: inline-flex;
-		-ms-flex-direction: column;
-		    flex-direction: column;
+		flex-direction: column;
 	}
 
 .gform-settings-field--multiple-inputs .gform-settings-input__container--with-append {
-		-ms-flex-direction: row;
-		    flex-direction: row;
-		-ms-flex-wrap: nowrap;
-		    flex-wrap: nowrap;
+		flex-direction: row;
+		flex-wrap: nowrap;
 	}
 
 .gform-settings-field--multiple-inputs .gform-settings-input__container--with-append.gform-settings-input__container--invalid {
-		-ms-flex-wrap: wrap;
-		    flex-wrap: wrap;
+		flex-wrap: wrap;
 
 	}
 
 .gform-settings-field--multiple-inputs .gform-settings-input__container--with-append.gform-settings-input__container--invalid input {
-			-ms-flex: 1;
-			    flex: 1;
+			flex: 1;
 		}
 
 .gform-settings-field--multiple-inputs .gform-settings-input__container--with-append.gform-settings-input__container--invalid .gform-settings-validation__error {
-			-ms-flex-preferred-size: 100%;
-			    flex-basis: 100%;
+			flex-basis: 100%;
 		}
 
 /*
@@ -2825,17 +2767,14 @@ html[dir="rtl"] .gform-field__toggle input[type="checkbox"]:checked + .gform-fie
 */
 
 .gform-form-toolbar {
-	-ms-flex-align: center;
-	    align-items: center;
+	align-items: center;
 	background: #fff;
 	box-sizing: border-box;
 	color: #1c1f3f;
-	display: -ms-flexbox;
 	display: flex;
 	font-size: 0.8125rem;
 	-webkit-font-smoothing: antialiased;
-	-ms-flex-pack: start;
-	    justify-content: start;
+	justify-content: start;
 	margin: 0 0 0 0;
 	max-height: 4rem;
 	min-height: 4rem;
@@ -2860,12 +2799,9 @@ html[dir="rtl"] .gform-field__toggle input[type="checkbox"]:checked + .gform-fie
 }
 
 .gform-form-toolbar__container {
-	-ms-flex-align: center;
-	    align-items: center;
-	display: -ms-flexbox;
+	align-items: center;
 	display: flex;
-	-ms-flex-wrap: wrap;
-	    flex-wrap: wrap;
+	flex-wrap: wrap;
 	margin-left: auto;
 	margin-right: auto;
 	padding: 0 1.5rem;
@@ -2883,7 +2819,6 @@ html[dir="rtl"] .gform-field__toggle input[type="checkbox"]:checked + .gform-fie
 .gform-form-toolbar__menu {
 	border-left: 1px solid #ecedf8;
 	border-right: 1px solid #ecedf8;
-	display: -ms-flexbox;
 	display: flex;
 	height: 4rem;
 	padding: 0 0.65rem;
@@ -2914,11 +2849,9 @@ html[dir="rtl"] .gform-field__toggle input[type="checkbox"]:checked + .gform-fie
 		}
 
 .gform-form-toolbar__menu > li > a {
-		-ms-flex-align: center;
-		    align-items: center;
+		align-items: center;
 		color: #5b5e80;
 		cursor: pointer;
-		display: -ms-inline-flexbox;
 		display: inline-flex;
 		font-size: 0.875rem;
 		font-weight: 500;
@@ -2989,13 +2922,10 @@ html[dir="rtl"] .gform-field__toggle input[type="checkbox"]:checked + .gform-fie
 		}
 
 .gform-form-toolbar__icon {
-	-ms-flex-line-pack: center;
-	    align-content: center;
-	display: -ms-inline-flexbox;
+	align-content: center;
 	display: inline-flex;
 	font-size: 1.375rem;
-	-ms-flex-pack: center;
-	    justify-content: center;
+	justify-content: center;
 	margin-right: 0.5rem;
 	text-align: center;
 	width: 1.25rem;
@@ -3006,15 +2936,11 @@ html[dir="rtl"] .gform-field__toggle input[type="checkbox"]:checked + .gform-fie
 	}
 
 .gf_toolbar_buttons_container {
-	-ms-flex-align: center;
-	    align-items: center;
-	display: -ms-flexbox;
+	align-items: center;
 	display: flex;
-	-ms-flex: auto;
-	    flex: auto;
+	flex: auto;
 	font-family: inter, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen-sans, ubuntu, cantarell, "Helvetica Neue", sans-serif;
-	-ms-flex-pack: end;
-	    justify-content: flex-end;
+	justify-content: flex-end;
 	text-align: right;
 }
 
@@ -3029,14 +2955,11 @@ html[dir="rtl"] .gform-field__toggle input[type="checkbox"]:checked + .gform-fie
 }
 
 .gform-form-toolbar__logo a {
-		-ms-flex-align: center;
-		    align-items: center;
+		align-items: center;
 		background: #242748;
-		display: -ms-flexbox;
 		display: flex;
 		height: 3.813rem;
-		-ms-flex-pack: center;
-		    justify-content: center;
+		justify-content: center;
 		transition: all ease-in-out 190ms;
 		width: 3.813rem;
 	}
@@ -3116,15 +3039,13 @@ html[dir="rtl"] .gform-form-toolbar__form-title.gform-form-toolbar__form-title--
 		}
 
 .gform-form-toolbar__submenu a, .row-actions .gform-form-toolbar__submenu a {
-	-ms-flex-align: center;
-	    align-items: center;
+	align-items: center;
 	background: transparent;
 	border: 0;
 	border-left: 0.1875rem solid transparent;
 	box-shadow: none;
 	color: #242748;
 	cursor: pointer;
-	display: -ms-flexbox;
 	display: flex;
 	outline: none;
 	overflow: hidden;
@@ -3151,19 +3072,16 @@ html[dir="rtl"] .gform-form-toolbar__submenu a:hover, html[dir="rtl"] .gform-for
 		}
 
 .gf_tooltip {
-	-ms-flex-align: center;
-	    align-items: center;
+	align-items: center;
 	background: #ecedf8;
 	border: none;
 	border-radius: 50%;
 	box-sizing: border-box;
 	color: #242748;
-	display: -ms-inline-flexbox;
 	display: inline-flex;
 	font-size: 0.5rem;
 	height: 1rem;
-	-ms-flex-pack: center;
-	    justify-content: center;
+	justify-content: center;
 	margin-left: 0.25rem;
 	position: relative;
 	text-decoration: none;
@@ -4406,8 +4324,7 @@ body.forms_page_gf_help #wpbody-content {
 	left: -159px;
 	position: absolute;
 	top: -108px;
-	-ms-transform: rotate(-101.53deg);
-	    transform: rotate(-101.53deg);
+	transform: rotate(-101.53deg);
 	width: 376px;
 	z-index: -1;
 }
@@ -4417,8 +4334,7 @@ body.forms_page_gf_help #wpbody-content {
 	position: absolute;
 	right: -164px;
 	top: 129px;
-	-ms-transform: rotate(-157.53deg);
-	    transform: rotate(-157.53deg);
+	transform: rotate(-157.53deg);
 	width: 308px;
 	z-index: -1;
 }
@@ -4427,8 +4343,7 @@ body.forms_page_gf_help #wpbody-content {
 	bottom: 0;
 	left: -234px;
 	position: absolute;
-	-ms-transform: rotate(0);
-	    transform: rotate(0);
+	transform: rotate(0);
 	width: 351px;
 	z-index: -1;
 }
@@ -4547,8 +4462,7 @@ div.gforms_helpbox .helpbox_header::after {
 	left: 50%;
 	position: absolute;
 	top: 50%;
-	-ms-transform: translate(-50%, -50%);
-	    transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 }
 
 div.user_documentation .helpbox_header::after {
@@ -4631,7 +4545,7 @@ div.resource_list li::before {
 	width: 100%;
 }
 
-#gf_help_page_search input:-ms-input-placeholder {
+#gf_help_page_search input::-moz-placeholder {
 	color: #5b5e80;
 }
 
@@ -4640,10 +4554,8 @@ div.resource_list li::before {
 }
 
 div#gforms_helpboxes {
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-pack: justify;
-	    justify-content: space-between;
+	justify-content: space-between;
 	text-align: left;
 }
 
@@ -4652,8 +4564,7 @@ div.gforms_helpbox {
 	border-radius: 0.375rem;
 	box-shadow: 0 1px 4px rgba(18, 25, 97, 0.0779552);
 	box-sizing: border-box;
-	-ms-flex-preferred-size: 301px;
-	    flex-basis: 301px;
+	flex-basis: 301px;
 	font-size: 0.875rem;
 	margin: 0.625rem 0;
 }
@@ -4682,14 +4593,12 @@ div.gforms_helpbox ul.resource_list li a:hover, div.gforms_helpbox ul.resource_l
 @media screen and ( max-width: 1200px ) {
 
 	div#gforms_helpboxes {
-		-ms-flex-pack: distribute;
-		    justify-content: space-around;
+		justify-content: space-around;
 		margin: 0 2%;
 	}
 
 	div.gforms_helpbox {
-		-ms-flex-preferred-size: 29%;
-		    flex-basis: 29%;
+		flex-basis: 29%;
 	}
 
 	.gf_help_content {
@@ -4854,8 +4763,7 @@ ul#form_notification_container li label, ul#form_autoresponder_container li labe
 }
 
 #confirmation_list_form .check-column img.pending {
-	-ms-transform: translateX(50%);
-	    transform: translateX(50%);
+	transform: translateX(50%);
 }
 
 .gform-notification-service {
@@ -4959,17 +4867,14 @@ ul#form_notification_container li label, ul#form_autoresponder_container li labe
 	}
 
 .gform-splash__header .gform-splash__back-link {
-		-ms-flex-align: center;
-		    align-items: center;
+		align-items: center;
 		border: 1px solid transparent;
 		border-radius: 3px;
 		color: #fff;
-		display: -ms-inline-flexbox;
 		display: inline-flex;
 		font-size: 2rem;
 		height: 2rem;
-		-ms-flex-pack: center;
-		    justify-content: center;
+		justify-content: center;
 		position: absolute;
 		right: 15px;
 		text-decoration: none;
@@ -5006,8 +4911,7 @@ ul#form_notification_container li label, ul#form_autoresponder_container li labe
 		height: 100px;
 		left: 0;
 		position: absolute;
-		-ms-transform: skewY(-3.18deg);
-		    transform: skewY(-3.18deg);
+		transform: skewY(-3.18deg);
 		width: 100%;
 		z-index: 1;
 	}
@@ -5015,14 +4919,10 @@ ul#form_notification_container li label, ul#form_autoresponder_container li labe
 @media (min-width: 783px) {
 
 .gform-splash__header {
-		-ms-flex-line-pack: center;
-		    align-content: center;
-		-ms-flex-align: center;
-		    align-items: center;
-		display: -ms-flexbox;
+		align-content: center;
+		align-items: center;
 		display: flex;
-		-ms-flex-pack: center;
-		    justify-content: center;
+		justify-content: center;
 		min-height: 16.5rem
 
 }
@@ -5136,14 +5036,11 @@ ul#form_notification_container li label, ul#form_autoresponder_container li labe
 		-webkit-text-decoration: solid underline #242748 1px;
 		        text-decoration: solid underline #242748 1px;
 		text-underline-offset: 2px;
-		transition: -webkit-text-decoration-color 0.15s ease;
 		transition: text-decoration-color 0.15s ease;
-		transition: text-decoration-color 0.15s ease, -webkit-text-decoration-color 0.15s ease;
 	}
 
 .gform-splash__body a:hover, .gform-splash__body a:focus {
-			-webkit-text-decoration-color: transparent;
-			        text-decoration-color: transparent;
+			text-decoration-color: transparent;
 		}
 
 .gform-splash__section {
@@ -5178,7 +5075,6 @@ ul#form_notification_container li label, ul#form_autoresponder_container li labe
 @media (min-width: 783px) {
 
 .gform-splash__section--text-and-image {
-		display: -ms-flexbox;
 		display: flex;
 		margin-bottom: 6.5rem
 }
@@ -5194,8 +5090,7 @@ ul#form_notification_container li label, ul#form_autoresponder_container li labe
 		}
 
 		.gform-splash__section--text-and-image.gform-splash__section--image-left {
-			-ms-flex-direction: row-reverse;
-			    flex-direction: row-reverse;
+			flex-direction: row-reverse;
 		}
 
 			.gform-splash__section--text-and-image.gform-splash__section--image-left .gform-splash-text {
@@ -5252,16 +5147,13 @@ ul#form_notification_container li label, ul#form_autoresponder_container li labe
 @media (min-width: 783px) {
 
 		.gform-splash__section--columns .columns {
-			display: -ms-flexbox;
 			display: flex;
-			-ms-flex-pack: justify;
-			    justify-content: space-between;
+			justify-content: space-between;
 			margin: 0 -2rem;
 		}
 
 		.gform-splash__section--columns .column {
-			-ms-flex: none;
-			    flex: none;
+			flex: none;
 			margin: 0;
 			padding: 0 2rem;
 			width: 33.33%;
@@ -5490,10 +5382,8 @@ td.pad_top {
 }
 
 .gform_column_wrapper {
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-pack: justify;
-	    justify-content: space-between;
+	justify-content: space-between;
 }
 
 .gform_column_wrapper .panel {
@@ -5773,12 +5663,10 @@ div.settings_control_container div.gfield_admin_header_title, div.gfield_admin_i
 /* visible value field with price */
 
 .choice_with_value_and_price li input.field-choice-value {
-	display: -ms-flexbox !important;
 	display: flex !important;
 }
 
 .choice_with_value_and_price li input.field-choice-price {
-	display: -ms-flexbox !important;
 	display: flex !important;
 }
 
@@ -5799,7 +5687,6 @@ div.settings_control_container div.gfield_admin_header_title, div.gfield_admin_i
 /* visible price and no value */
 
 .choice_with_price li input.field-choice-price {
-	display: -ms-flexbox !important;
 	display: flex !important;
 }
 
@@ -6038,13 +5925,10 @@ a.bulk-choice:first-child {
 }
 
 .bulk-arrow-mid {
-	-ms-flex-align: center;
-	    align-items: center;
-	display: -ms-flexbox;
+	align-items: center;
 	display: flex;
 	height: 330px;
-	-ms-flex-pack: center;
-	    justify-content: center;
+	justify-content: center;
 	width: 64px;
 }
 
@@ -6085,8 +5969,7 @@ html[dir="rtl"] div.panel-custom {
 
 html[dir="rtl"] div.panel-custom a span {
 		display: inline-block;
-		-ms-transform: rotate(180deg);
-		    transform: rotate(180deg);
+		transform: rotate(180deg);
 	}
 
 div#bulk_custom_message {
@@ -6302,7 +6185,9 @@ table.entry-products td ul.product_options li.lastitem {
 }
 
 .ginput_container_password span button {
-	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	     appearance: none;
 	background: transparent;
 	border: none;
 	padding: 3px 0;
@@ -6619,7 +6504,6 @@ li.gform_setting_left_half select, li.gform_setting_left_half input, li.gform_se
 }
 
 ul#gf_form_toolbar_links {
-	display: -ms-flexbox;
 	display: flex;
 	margin: 0;
 	position: relative;
@@ -6726,10 +6610,8 @@ body > .select2-container.gform-select2[style] {
 	border-radius: 3px;
 	box-shadow: 0 10px 15px rgba(58, 61, 90, 0.1), 0 4px 6px rgba(58, 61, 90, 0.05);
 	position: absolute;
-	-ms-transform: scale(0.95);
-	    transform: scale(0.95);
-	-ms-transform-origin: top left;
-	    transform-origin: top left;
+	transform: scale(0.95);
+	transform-origin: top left;
 	transition: 100ms all;
 	width: 14.625rem !important;
 	z-index: 10000;
@@ -6748,6 +6630,12 @@ body > .select2-container.gform-select2[style] {
 	outline: none;
 	padding: 0.5625rem 1.1875rem 0.5625rem 3.5625rem;
 	width: calc(100% - 1.35rem);
+
+}
+
+.gform-form-switcher__container input[type="text"].select2-search__field::-moz-placeholder {
+
+	color: #9092b0;
 
 }
 
@@ -7544,11 +7432,9 @@ div.gf_clear.gf_clear_complex {
 }
 
 #gform-no-filters {
-	-ms-flex-align: end;
-	    align-items: flex-end;
+	align-items: flex-end;
 	color: #696c8c;
 	cursor: pointer;
-	display: -ms-flexbox;
 	display: flex;
 }
 
@@ -7615,8 +7501,7 @@ given our button styles don't account for a button as an input[type="submit"]. *
 #gform_update_button:hover {
 		background: #3985b7;
 		color: #fff;
-		-ms-transform: none;
-		    transform: none;
+		transform: none;
 	}
 
 #gform_update_button:focus {
@@ -7673,10 +7558,8 @@ html[dir="rtl"] .gforms_edit_form .gform_wrapper.gravity-theme .ginput_list inpu
 		}
 
 .gf-pagebreak {
-	-ms-flex-align: center;
-	    align-items: center;
+	align-items: center;
 	color: #6c7781;
-	display: -ms-flexbox;
 	display: flex;
 	font-size: 0.8rem;
 	font-weight: bold;
@@ -7698,8 +7581,7 @@ html[dir="rtl"] .gforms_edit_form .gform_wrapper.gravity-theme .ginput_list inpu
 .gf-pagebreak::before, .gf-pagebreak::after {
 	background-color: #c0c0c0;
 	content: "";
-	-ms-flex-positive: 1;
-	    flex-grow: 1;
+	flex-grow: 1;
 	height: 4px;
 }
 
@@ -7833,11 +7715,9 @@ html[dir="rtl"] .gform-admin-screen #TB_window, html[dir="rtl"] .gform-admin-scr
 .gform-admin-screen #TB_title {
 	background: transparent;
 	border-bottom: none;
-	display: -ms-flexbox;
 	display: flex;
 	height: auto;
-	-ms-flex-pack: justify;
-	    justify-content: space-between;
+	justify-content: space-between;
 	padding: 1.875rem 2rem 1.375rem;
 }
 
@@ -7855,9 +7735,7 @@ html[dir="rtl"] .gform-admin-screen #TB_window, html[dir="rtl"] .gform-admin-scr
 }
 
 .tb-title {
-	-ms-flex-align: center;
-	    align-items: center;
-	display: -ms-flexbox;
+	align-items: center;
 	display: flex;
 }
 
@@ -7937,8 +7815,7 @@ html[dir="rtl"] .gform-admin .tb-title__logo::before {
 
 .modal_footer .button:hover, .modal_footer .button-primary:hover {
 		box-shadow: 0 4px 6px rgba(28, 31, 63, 0.0837013);
-		-ms-transform: translate(0, -2px);
-		    transform: translate(0, -2px);
+		transform: translate(0, -2px);
 	}
 
 .modal_footer .button-primary, .modal_footer .button.primary {
@@ -7958,8 +7835,7 @@ html[dir="rtl"] .gform-admin .tb-title__logo::before {
 
 .modal_footer .button-primary:hover, .modal_footer .button.primary:hover {
 		box-shadow: 0 4px 6px rgba(28, 31, 63, 0.0837013);
-		-ms-transform: translate(0, -2px);
-		    transform: translate(0, -2px);
+		transform: translate(0, -2px);
 	}
 
 /* New form modal */
@@ -8181,8 +8057,7 @@ div.wrap.gf_browser_chrome .gfield_checkbox li input[type="checkbox"], div.wrap.
 }
 
 #form_list_form .column-is_active img.pending {
-	-ms-transform: translateX(50%);
-	    transform: translateX(50%);
+	transform: translateX(50%);
 }
 
 #form_list_form .column-id, #form_list_form .column-conversion, #form_list_form .column-entry_count, #form_list_form .column-view_count {
@@ -8252,12 +8127,9 @@ div.wrap.gf_browser_chrome .gfield_checkbox li input[type="checkbox"], div.wrap.
 	}
 
 .gform-rte-preview ul li {
-			-ms-flex-align: center;
-			    align-items: center;
-			display: -ms-inline-flexbox;
+			align-items: center;
 			display: inline-flex;
-			-ms-flex-pack: center;
-			    justify-content: center;
+			justify-content: center;
 			margin-bottom: 0;
 			padding: 0.3rem;
 		}
@@ -8349,8 +8221,7 @@ div.range_min label, div.range_max label {
 	}
 
 	.gforms_settings_wrap .gform_tab_group {
-		-ms-flex-flow: column;
-		    flex-flow: column;
+		flex-flow: column;
 	}
 
 	.gforms_settings_wrap #gform_tabs {
@@ -8585,21 +8456,15 @@ div .gfield_repeater_cell {
 
 .form-list {
 
-	display: -ms-flexbox;
-
 	display: flex;
-	-ms-flex-wrap: wrap;
-	    flex-wrap: wrap;
+	flex-wrap: wrap;
 
 }
 
 .form-list-head {
-	-ms-flex-align: baseline;
-	    align-items: baseline;
-	display: -ms-flexbox;
+	align-items: baseline;
 	display: flex;
-	-ms-flex: 1 1 100%;
-	    flex: 1 1 100%;
+	flex: 1 1 100%;
 }
 
 .form-list-head h2 {
@@ -8613,19 +8478,13 @@ div .gfield_repeater_cell {
 
 .form-list-nav {
 
-	-ms-flex-align: center;
-
-	    align-items: center;
-	display: -ms-flexbox;
+	align-items: center;
 	display: flex;
-	-ms-flex: 1 1 auto;
-	    flex: 1 1 auto;
+	flex: 1 1 auto;
 
 }
 
 .form-list-nav .search-box {
-
-	display: -ms-flexbox;
 
 	display: flex;
 
@@ -8644,11 +8503,8 @@ div .gfield_repeater_cell {
 
 .gform-settings-panel__content #form_list_form {
 
-	display: -ms-flexbox;
-
 	display: flex;
-	-ms-flex-wrap: wrap;
-	    flex-wrap: wrap;
+	flex-wrap: wrap;
 
 }
 
@@ -8657,19 +8513,15 @@ div .gfield_repeater_cell {
 		}
 
 .gform-settings-panel__content#entry_list_form .tablenav, .gform-settings-panel__content #form_list_form .tablenav {
-			display: -ms-flexbox;
 			display: flex;
-			-ms-flex: 1 1 auto;
-			    flex: 1 1 auto;
-			-ms-flex-wrap: wrap;
-			    flex-wrap: wrap;
+			flex: 1 1 auto;
+			flex-wrap: wrap;
 			height: 2.563rem;
 			margin: 1rem 0;
 		}
 
 .gform-settings-panel__content#entry_list_form .tablenav .actions, .gform-settings-panel__content #form_list_form .tablenav .actions {
-				-ms-flex: 1 1 auto;
-				    flex: 1 1 auto;
+				flex: 1 1 auto;
 			}
 
 .gform-settings-panel__content#entry_list_form .tablenav .actions select, .gform-settings-panel__content #form_list_form .tablenav .actions select {
@@ -8684,14 +8536,10 @@ div .gfield_repeater_cell {
 				}
 
 .gform-settings-panel__content#entry_list_form .tablenav .tablenav-pages, .gform-settings-panel__content #form_list_form .tablenav .tablenav-pages {
-				-ms-flex-align: center;
-				    align-items: center;
-				display: -ms-flexbox;
+				align-items: center;
 				display: flex;
-				-ms-flex: none;
-				    flex: none;
-				-ms-flex-direction: row;
-				    flex-direction: row;
+				flex: none;
+				flex-direction: row;
 				height: 2.375rem;
 				text-align: right;
 			}
@@ -8701,10 +8549,8 @@ div .gfield_repeater_cell {
 				}
 
 .gform-settings-panel__content#entry_list_form .tablenav .tablenav-pages .pagination-links, .gform-settings-panel__content #form_list_form .tablenav .tablenav-pages .pagination-links {
-					display: -ms-flexbox;
 					display: flex;
-					-ms-flex-direction: row;
-					    flex-direction: row;
+					flex-direction: row;
 					font-size: 0.8125rem;
 					height: 100%;
 				}
@@ -8718,24 +8564,18 @@ div .gfield_repeater_cell {
 					}
 
 .gform-settings-panel__content#entry_list_form .tablenav .tablenav-pages .paging-input, .gform-settings-panel__content #form_list_form .tablenav .tablenav-pages .paging-input {
-					-ms-flex-align: center;
-					    align-items: center;
-					display: -ms-flexbox;
+					align-items: center;
 					display: flex;
 					height: 100%;
-					-ms-flex-pack: center;
-					    justify-content: center;
+					justify-content: center;
 					margin-left: 0.1875rem;
 				}
 
 .gform-settings-panel__content#entry_list_form .tablenav .tablenav-pages .button, .gform-settings-panel__content #form_list_form .tablenav .tablenav-pages .button {
-					-ms-flex-align: center;
-					    align-items: center;
-					display: -ms-flexbox;
+					align-items: center;
 					display: flex;
 					height: 100%;
-					-ms-flex-pack: center;
-					    justify-content: center;
+					justify-content: center;
 					margin: 0 0.1875rem;
 					padding: 0;
 					width: 2.375rem;
@@ -8805,26 +8645,19 @@ div .gfield_repeater_cell {
 
 #entry_list_form {
 
-	-ms-flex-align: baseline;
-
-	    align-items: baseline;
-	display: -ms-flexbox;
+	align-items: baseline;
 	display: flex;
-	-ms-flex-wrap: wrap;
-	    flex-wrap: wrap;
-	-ms-flex-pack: justify;
-	    justify-content: space-between;
+	flex-wrap: wrap;
+	justify-content: space-between;
 
 }
 
 #entry_list_form .alert {
-	-ms-flex: 1 1 100%;
-	    flex: 1 1 100%;
+	flex: 1 1 100%;
 }
 
 #entry_list_form.gform-settings-panel__content .tablenav {
-	-ms-flex: 1 1 auto;
-	    flex: 1 1 auto;
+	flex: 1 1 auto;
 	width: 100%;
 }
 
@@ -8841,9 +8674,7 @@ div .gfield_repeater_cell {
 
 #entry_list_form.gform-settings-panel__content .tablenav-pages {
 
-	-ms-flex: 1 1 auto;
-
-	    flex: 1 1 auto;
+	flex: 1 1 auto;
 	float: none;
 	margin: 0;
 	text-align: right;
@@ -8858,12 +8689,9 @@ div .gfield_repeater_cell {
 }
 
 .gform-settings-panel__content #entry_search_container {
-	-ms-flex-align: baseline;
-	    align-items: baseline;
-	display: -ms-flexbox;
+	align-items: baseline;
 	display: flex;
-	-ms-flex-pack: start;
-	    justify-content: flex-start;
+	justify-content: flex-start;
 	left: -0.625rem;
 	margin: 0;
 	position: relative;
@@ -8873,26 +8701,22 @@ div .gfield_repeater_cell {
 @media (min-width: 783px) {
 
 .gform-settings-panel__content #entry_search_container {
-		-ms-flex: 1 1 55%;
-		    flex: 1 1 55%;
+		flex: 1 1 55%;
 		float: none;
-		-ms-flex-pack: end;
-		    justify-content: flex-end;
+		justify-content: flex-end;
 		left: 0;
 		width: auto
 }
 	}
 
 .gform-settings-panel__content .subsubsub {
-	-ms-flex: 1 1 45%;
-	    flex: 1 1 45%;
+	flex: 1 1 45%;
 	float: none;
 	font-size: 13px;
 }
 
 .gform-settings-panel__content--entry-list .subsubsub {
-	-ms-flex: none;
-	    flex: none;
+	flex: none;
 }
 
 /* ---------------------------------------------------
@@ -8900,10 +8724,8 @@ div .gfield_repeater_cell {
 --------------------------------------------------- */
 
 .gf_entry_detail_pagination {
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-pack: end;
-	    justify-content: flex-end;
+	justify-content: flex-end;
 }
 
 .gf_entry_pagination {
@@ -8976,17 +8798,12 @@ div .gfield_repeater_cell {
 
 .gform-settings__content .entry-details-table > thead > tr {
 
-	-ms-flex-align: center;
-
-	    align-items: center;
+	align-items: center;
 	border: none;
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-positive: 1;
-	    flex-grow: 1;
+	flex-grow: 1;
 	font-size: 0.875rem;
-	-ms-flex-pack: distribute;
-	    justify-content: space-around;
+	justify-content: space-around;
 	line-height: 2.875rem;
 	padding-bottom: 0;
 	padding-left: 1.0625rem;
@@ -8997,8 +8814,7 @@ div .gfield_repeater_cell {
 }
 
 .gform-settings__content .entry-details-table th {
-	-ms-flex-positive: 1;
-	    flex-grow: 1;
+	flex-grow: 1;
 	font-size: 0.875rem;
 	font-weight: 500;
 	margin: 0;
@@ -9036,31 +8852,25 @@ div .gfield_repeater_cell {
 }
 
 .entry-notes .note-details {
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-wrap: wrap;
-	    flex-wrap: wrap;
+	flex-wrap: wrap;
 }
 
 .entry-notes .note-details .note-check {
-	-ms-flex: 0 0 auto;
-	    flex: 0 0 auto;
+	flex: 0 0 auto;
 	margin-right: 1rem;
 }
 
 .entry-notes .note-details .author {
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex: 1 1 auto;
-	    flex: 1 1 auto;
+	flex: 1 1 auto;
 	font-weight: normal;
 }
 
 .entry-notes .note-details .author .avatar {
 
 	border-radius: 50%;
-	-ms-flex: 0 0 auto;
-	    flex: 0 0 auto;
+	flex: 0 0 auto;
 	height: auto;
 	margin-right: 1rem;
 	width: 2.25rem;
@@ -9069,9 +8879,7 @@ div .gfield_repeater_cell {
 
 .entry-notes .note-details .author .text {
 
-	-ms-flex: 1 1 auto;
-
-	    flex: 1 1 auto;
+	flex: 1 1 auto;
 
 }
 
@@ -9095,14 +8903,11 @@ div .gfield_repeater_cell {
 
 .entry-notes .note-content {
 
-	-ms-flex-align: center;
-
-	    align-items: center;
+	align-items: center;
 	background: #fff;
 	border: 1px solid #d5d7e9;
 	border-radius: 3px;
 	box-shadow: 0 2px 1px rgba(28, 31, 63, 0.0634624);
-	display: -ms-flexbox;
 	display: flex;
 	font-size: 13px;
 	margin-bottom: 1.625rem;
@@ -9147,44 +8952,33 @@ div .gfield_repeater_cell {
 
 .entry-notes .add-note .add-note-actions {
 
-	display: -ms-flexbox;
-
 	display: flex;
 
 }
 
 .entry-notes .add-note .add-note-actions input {
 
-	-ms-flex: 0 0 auto;
-
-	    flex: 0 0 auto;
+	flex: 0 0 auto;
 	margin-right: 1rem;
 
 }
 
 .entry-notes .add-note .add-note-actions .send-to {
 
-	display: -ms-flexbox;
-
 	display: flex;
-	-ms-flex: 1 1 auto;
-	    flex: 1 1 auto;
+	flex: 1 1 auto;
 
 }
 
 .entry-notes .add-note .add-note-actions .send-to #gentry_email_subject_container {
 
-	-ms-flex: 1 1 auto;
-
-	    flex: 1 1 auto;
+	flex: 1 1 auto;
 
 }
 
 .entry-notes .add-note .add-note-actions .send-to select {
 
-	-ms-flex: 1 1 5rem;
-
-	    flex: 1 1 5rem;
+	flex: 1 1 5rem;
 	height: 2.375rem;
 	line-height: 1;
 
@@ -9239,12 +9033,10 @@ div .gfield_repeater_cell {
 
 	border: none;
 	color: #242748;
-	-ms-flex-positive: 0;
-	    flex-grow: 0;
+	flex-grow: 0;
 	font-size: 0.875rem;
 	font-weight: 500;
-	-ms-flex-pack: distribute;
-	    justify-content: space-around;
+	justify-content: space-around;
 	line-height: 2.875rem;
 	padding-bottom: 0;
 	padding-left: 1.0625rem;
@@ -9255,32 +9047,25 @@ div .gfield_repeater_cell {
 
 .gform-settings__content #poststuff .postbox .actions {
 
-	-ms-flex-align: baseline;
-
-	    align-items: baseline;
-	display: -ms-flexbox;
+	align-items: baseline;
 	display: flex;
-	-ms-flex-pack: start;
-	    justify-content: flex-start;
+	justify-content: flex-start;
 	margin-bottom: 20px;
 
 }
 
 .gform-settings__content #poststuff .postbox .actions select {
-	-ms-flex: 0 0 8rem;
-	    flex: 0 0 8rem;
+	flex: 0 0 8rem;
 	margin-right: 10px;
 }
 
 .gform-settings__content #poststuff .postbox .actions input {
-	-ms-flex: 0 0 75px;
-	    flex: 0 0 75px;
+	flex: 0 0 75px;
 	line-height: 28px;
 }
 
 .gform-settings__content #poststuff .postbox .actions input.button {
-	-ms-flex: 0 0 75px;
-	    flex: 0 0 75px;
+	flex: 0 0 75px;
 	line-height: 19px;
 	padding: 8px 18px;
 }
@@ -9376,16 +9161,11 @@ div .gfield_repeater_cell {
  */
 
 [data-simplebar] {
-	-ms-flex-line-pack: start;
-	    align-content: flex-start;
-	-ms-flex-align: start;
-	    align-items: flex-start;
-	-ms-flex-direction: column;
-	    flex-direction: column;
-	-ms-flex-wrap: wrap;
-	    flex-wrap: wrap;
-	-ms-flex-pack: start;
-	    justify-content: flex-start;
+	align-content: flex-start;
+	align-items: flex-start;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: flex-start;
 	position: relative;
 }
 
@@ -9458,12 +9238,9 @@ div .gfield_repeater_cell {
 
 .simplebar-height-auto-observer-wrapper {
 	box-sizing: inherit !important;
-	-ms-flex-preferred-size: 0;
-	    flex-basis: 0;
-	-ms-flex-positive: inherit;
-	    flex-grow: inherit;
-	-ms-flex-negative: 0;
-	    flex-shrink: 0;
+	flex-basis: 0;
+	flex-grow: inherit;
+	flex-shrink: 0;
 	float: left;
 	height: 100%;
 	margin: 0;
@@ -9505,8 +9282,8 @@ div .gfield_repeater_cell {
 [data-simplebar].simplebar-dragging .simplebar-content {
 	pointer-events: none;
 	-webkit-user-select: none;
-	     -ms-user-select: none;
-	    user-select: none;
+	-moz-user-select: none;
+	     user-select: none;
 }
 
 [data-simplebar].simplebar-dragging .simplebar-track {
@@ -9607,3 +9384,5 @@ div .gfield_repeater_cell {
 	scrollbar-width: none;
 	visibility: hidden;
 }
+
+/*# sourceMappingURL=admin.css.map */

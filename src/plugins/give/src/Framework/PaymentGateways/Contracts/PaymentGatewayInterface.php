@@ -17,8 +17,6 @@ interface PaymentGatewayInterface extends SubscriptionModuleInterface
      * Return a unique identifier for the gateway
      *
      * @since 2.18.0
-     *
-     * @return string
      */
     public static function id(): string;
 
@@ -27,7 +25,7 @@ interface PaymentGatewayInterface extends SubscriptionModuleInterface
      *
      * @since 2.18.0
      *
-     * @return string
+     * @deprecated 2.22.2 use static id() method instead, can use on an instance: $this::id() or $gateway::id() — even in strings
      */
     public function getId(): string;
 
@@ -60,11 +58,13 @@ interface PaymentGatewayInterface extends SubscriptionModuleInterface
 
     /**
      * Create a payment with gateway
-     * Note: You can use "givewp_new_payment_{$gatewayId}_gateway_data" filter hook to pass additional data for gateway which helps/require to process transaction.
+     * Note: You can use "givewp_create_payment_gateway_data_{$gatewayId}" filter hook to pass additional data for gateway which helps/require to process transaction.
      *       This filter will help to add additional arguments to this function which should be optional otherwise you will get PHP fatal error.
      *
      * @since 2.21.2 Add second param to function to pass gateway data to process transaction
      * @since 2.18.0
+     *
+     * @param array $gatewayData
      *
      * @return GatewayCommand|RedirectOffsite|void
      *

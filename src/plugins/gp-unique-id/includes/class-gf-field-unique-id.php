@@ -30,6 +30,8 @@ class GF_Field_Unique_ID extends GF_Field {
 		// to use it, we must make sure old fields have it set as well.
 		add_action( 'gform_form_post_get_meta', array( $this, 'set_field_visibility' ) );
 
+		add_action( 'gform_update_status', array( $this, 'process_unspammed' ), 10, 3 );
+
 		// Priority 8 so ID is generated before GF Feeds are processed (10) and gives other plugins a chance to do something
 		// with the generated ID before the GF Feeds are processed as well (9).
 		add_filter( 'gform_entry_post_save', array( $this, 'populate_field_value' ), 8, 2 );
@@ -336,6 +338,20 @@ class GF_Field_Unique_ID extends GF_Field {
 		return $form;
 	}
 
+	public function process_unspammed( $entry_id, $property_value, $previous_value ) {
+		if ( $property_value === 'active' ) {
+			$entry = GFAPI::get_entry( $entry_id ); 
+			$form  = GFAPI::get_form( $entry['form_id'] );
+			foreach( $form['fields'] as $field ) {
+				if ( $field->type === 'uid' ) {
+					$value = gp_unique_id()->get_unique( $entry['form_id'], $field, 5, array(), $entry, false );
+					$entry[ $field->id ] = $value;
+					GFAPI::update_entry( $entry );
+				}
+			}
+		}
+	}
+
 	public function get_field_input( $form, $value = '', $entry = null ) {
 
 		if ( $this->is_form_editor() ) {
@@ -429,9 +445,7 @@ class GF_Field_Unique_ID extends GF_Field {
 				continue;
 			}
 
-			// Check entry for value first (bullet-proofing PayPal delayed generation) and then check the $_POST.
-			$default_value = $entry[ $field->id ] ? $entry[ $field->id ] : rgpost( "input_{$field->id}" );
-			$value         = $this->save_value( $entry, $field, $default_value );
+			$value = $this->save_value( $entry, $field, rgar( $entry, $field->id ) );
 
 			$entry[ $field['id'] ] = $value;
 

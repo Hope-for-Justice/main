@@ -1,6 +1,22 @@
 
 # Changelog
 
+## 1.4.9
+
+	- Added new functionality which skips generating unique IDs for spammed entries. If an entry is unspammed, it will have a unique ID generated.
+
+## 1.4.8
+
+	- Added German translations. Credit: Florian Rinnhofer of sportunion.at
+
+## 1.4.7
+
+	- Updated database schema to resolve issues with daily sequential IDs.
+
+## 1.4.6
+
+	- Improved compatibility with Gravity Flow Form Connector add-on.
+
 ## 1.4.5
 
 	- Fixed issue where sequential IDs would not work as expected when using the Shared Sequential ID snippet with prefixes/suffixes.

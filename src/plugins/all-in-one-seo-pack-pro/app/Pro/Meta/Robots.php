@@ -50,7 +50,7 @@ class Robots extends CommonMeta\Robots {
 			return;
 		}
 
-		if ( $dynamicOptions->searchAppearance->taxonomies->has( $term->taxonomy ) ) {
+		if ( ! empty( $term->term_id ) && $dynamicOptions->searchAppearance->taxonomies->has( $term->taxonomy ) ) {
 			$this->globalValues( [ 'taxonomies', $term->taxonomy ], true );
 
 			return;

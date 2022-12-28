@@ -71,8 +71,8 @@ class CustomSwitchersFormatter {
      * @return simple_html_dom
      */
     public function handle( $dom, $switchers ) {
+        $temp_switcher = "";
         foreach ( $switchers as $switcher ) {
-
             $location = $switcher['location'];
             if ( ! empty( $location ) ) {
                 //we check if we find the target location
@@ -91,22 +91,29 @@ class CustomSwitchersFormatter {
                                     }
                                 }
                             } else {
-                                foreach ( $dom->find( $location['sibling'], 0 ) as $sibling ) {
-                                    if ( is_object( $sibling ) ) {
-                                        $sibling->outertext = '<div data-wg-position="' . $location['target'] . ' ' . $location['sibling'] . '"></div>' . $sibling->outertext;
+                                if ( ! empty( $dom->find( $location['sibling'] ) ) ) {
+                                    foreach ( $dom->find( $location['sibling'], 0 ) as $sibling ) {
+                                        if ( is_object( $sibling ) ) {
+                                            $sibling->outertext = '<div data-wg-position="' . $location['target'] . ' ' . $location['sibling'] . '"></div>' . $sibling->outertext;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 } else {
-                    if ( $dom->find( 'body' ) && is_array( $dom->find( 'body' ) ) ) {
-                        foreach ( $dom->find( 'body' ) as $body ) {
-                            $body->outertext = $body->innertext . '<div data-wg-position="' . $location['target'] . ' ' . $location['sibling'] . '" data-wg-ajax="true"></div></body>';
-                        }
+                    if ( ! empty( $location['sibling'] ) ) {
+                        $temp_switcher .= '<div data-wg-position="' . $location['target'] . ( ! empty( $location['sibling'] ) ? ' ' . $location['sibling'] : '' ) . '" data-wg-ajax="true"></div>';
+                    } else {
+                        $temp_switcher .= '<div data-wg-position="' . $location['target'] . '" data-wg-ajax="true"></div>';
                     }
                 }
             }
+        }
+
+        // if we have temporary switcher, we place it before the body end tag.
+        if ( ! empty( $temp_switcher ) ) {
+            $dom = str_replace( '</body>', $temp_switcher . '</body>', $dom );
         }
 
         return $dom;

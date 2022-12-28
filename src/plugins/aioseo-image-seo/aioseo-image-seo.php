@@ -5,7 +5,7 @@
  * Description: Adds Image SEO support to All in One SEO.
  * Author:      All in One SEO Team
  * Author URI:  https://aioseo.com
- * Version:     1.1.2
+ * Version:     1.1.3
  * Text Domain: aioseo-image-seo
  * Domain Path: languages
  *
@@ -41,7 +41,7 @@ define( 'AIOSEO_IMAGE_SEO_PATH', plugin_dir_path( AIOSEO_IMAGE_SEO_FILE ) );
 define( 'AIOSEO_IMAGE_SEO_URL', plugin_dir_url( AIOSEO_IMAGE_SEO_FILE ) );
 
 // Require our translation downloader.
-require_once( __DIR__ . '/extend/translations.php' );
+require_once __DIR__ . '/extend/translations.php';
 
 add_action( 'init', 'aioseo_image_seo_translations' );
 function aioseo_image_seo_translations() {
@@ -62,7 +62,7 @@ function aioseo_image_seo_translations() {
 }
 
 // Require our plugin compatibility checker.
-require_once( __DIR__ . '/extend/init.php' );
+require_once __DIR__ . '/extend/init.php';
 
 // Check if this plugin should be disabled.
 if ( aioseoAddonIsDisabled( 'aioseo-image-seo' ) ) {
@@ -70,7 +70,7 @@ if ( aioseoAddonIsDisabled( 'aioseo-image-seo' ) ) {
 }
 
 // Plugin compatibility checks.
-new AIOSEOExtend( 'AIOSEO - Image SEO', 'aioseo_image_seo_load', AIOSEO_IMAGE_SEO_FILE, '4.2.7' );
+new AIOSEOExtend( 'AIOSEO - Image SEO', 'aioseo_image_seo_load', AIOSEO_IMAGE_SEO_FILE, '4.2.8' );
 
 /**
  * Function to load the addon.
@@ -81,7 +81,7 @@ new AIOSEOExtend( 'AIOSEO - Image SEO', 'aioseo_image_seo_load', AIOSEO_IMAGE_SE
  */
 function aioseo_image_seo_load() {
 	$levels = aioseo()->addons->getAddonLevels( 'aioseo-image-seo' );
-	$extend = new AIOSEOExtend( 'AIOSEO - Image SEO', '', AIOSEO_IMAGE_SEO_FILE, '4.2.7', $levels );
+	$extend = new AIOSEOExtend( 'AIOSEO - Image SEO', '', AIOSEO_IMAGE_SEO_FILE, '4.2.8', $levels );
 
 	$addon = aioseo()->addons->getAddon( 'aioseo-image-seo' );
 	if ( ! $addon->hasMinimumVersion ) {
@@ -106,7 +106,7 @@ function aioseo_image_seo_load() {
 		return $extend->requiresPlanLevel();
 	}
 
-	require_once( __DIR__ . '/app/ImageSeo.php' );
+	require_once __DIR__ . '/app/ImageSeo.php';
 
 	aioseoImageSeo();
 }

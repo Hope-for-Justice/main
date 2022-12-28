@@ -96,14 +96,32 @@ class UiHelper
 
     if (isset($improvements['thumbnails']))
     {
+
        $output .= '<div class="thumbnails optimized">';
        if ($thumbsTotal > $thumbsDone)
          $output .= '<div class="totals">' . sprintf(__('+%s of %s thumbnails optimized','shortpixel-image-optimiser'), self::formatNumber($thumbsDone,0), self::formatNumber($thumbsTotal,0)) . '</div>';
        elseif ($thumbsDone > 0)
          $output .= '<div class="totals">' . sprintf(__('+%s thumbnails optimized','shortpixel-image-optimiser'), self::formatNumber($thumbsDone, 0)) . '</div>';
 
-
 			 $improvs = array();
+	    
+			 uasort($improvements['thumbnails'], function ($a, $b) {
+					//return $b[0] <=> $a[0]; // @todo Efficient code to use once PHP 5 support is done.
+					if ($a == $b) {
+						return 0;
+					}
+					return ($b < $a) ? -1 : 1;
+			 });
+
+			 $cutoff = false;
+			 $thumbCount = count($improvements['thumbnails']);
+			 if ($thumbCount > 20)
+			 {
+				  $improvements['thumbnails'] =  array_slice($improvements['thumbnails'], 0, 15, true);
+					$cutoff = true;
+			 }
+
+
 			 // Quality Check
 			 foreach($improvements['thumbnails'] as $thumbName => $thumbStat)
 			 {
@@ -135,8 +153,13 @@ class UiHelper
 		                      </div>";
 
 		       }
-		       $output .=  "</div></div> <!-- thumb optimized -->";
+					 if (true === $cutoff)
+					 {
+						 $output .= '<div class="thumb"><span class="cutoff">' . sprintf(__('+ %d more', 'shortpixel-image-optimiser'), ($thumbCount - 15)) . '</span></div>';
+					 }
+		       $output .=  "</div> <!-- /thumb-wrapper -->";
 				}
+				$output .= "</div> <!-- /thumb optimized -->";
     }
 
     if ($retinasDone > 0)
@@ -151,43 +174,70 @@ class UiHelper
     {
         $output .=  '<div class="filetype avif">' . sprintf(__('+%s Avif images ','shortpixel-image-optimiser') , $avifsTotal) . '</div>';
     }
+
     if ($imageObj->isOptimized() && $imageObj->isProcessable())
     {
-        $optimizable = $imageObj->getOptimizeURLS(true);
-        // Todo check if Webp / Acif is active, check for unoptimized items
-        $processWebp = ($imageObj->isProcessableFileType('webp')) ? true : false;
-        $processAvif = ($imageObj->isProcessableFileType('avif')) ? true : false;
+        list($urls, $optimizable) = $imageObj->getCountOptimizeData('thumbnails');
+				list($webpUrls, $webpCount)   =  $imageObj->getCountOptimizeData('webp');
+				list($avifUrls, $avifCount)   =  $imageObj->getCountOptimizeData('avif');
 
-        if (count($optimizable) > 0)
+
+				$maxList = 10;
+        // Todo check if Webp / Acif is active, check for unoptimized items
+       // $processWebp = ($imageObj->isProcessableFileType('webp')) ? true : false;
+       // $processAvif = ($imageObj->isProcessableFileType('avif')) ? true : false;
+
+			 if (count($urls) > $maxList)
+			 {
+				  $urls = array_slice($urls, 0, $maxList, true);
+					$urls[] = '...';
+			 }
+			 if (count($webpUrls) > $maxList)
+			 {
+				  $webpUrls = array_slice($webpUrls, 0, $maxList, true);
+					$webpUrls[] = '...';
+			 }
+			 if (count($avifUrls) > $maxList)
+			 {
+				  $avifUrls = array_slice($avifUrls, 0, $maxList, true);
+					$avifUrls[] = '...';
+			 }
+
+        if ($optimizable > 0)
         {
-           $output .= '<div class="thumbs-todo"><h4>' . sprintf(__('%d to optimize', 'shortpixel-image-optimiser'), count($optimizable)) . '</h4>';
+           $output .= '<div class="thumbs-todo"><h4>' . sprintf(__('%d images to optimize', 'shortpixel-image-optimiser'), $optimizable) . '</h4>';
              $output .= "<span>";
-               foreach($optimizable as $optObj)
+               foreach($urls as $optObj)
                {
+								 if ($optObj === '...')
+									$output .= $optObj;
+								 else
                   $output .= substr($optObj, strrpos($optObj, '/')+1) . '<br>';
                }
              $output .= "</span>";
            $output .= '</div>';
         }
 
-        if ($processWebp && count($optimizable) == 0)
+        if ($webpCount > 0 )
         {
-           $webps = $imageObj->getOptimizeFileType('webp');
-           $output .= '<div class="thumbs-todo"><h4>' . sprintf(__('%d Webp files to create', 'shortpixel-image-optimiser'), count($webps)) . '</h4>';
+
+           $output .= '<div class="thumbs-todo"><h4>' . sprintf(__('%d Webp files to create', 'shortpixel-image-optimiser'), $webpCount) . '</h4>';
              $output .= "<span>";
-               foreach($webps as $optObj)
+               foreach($webpUrls as $optObj)
                {
-                  $output .= self::convertImageTypeName(substr($optObj, strrpos($optObj, '/')+1), 'webp') . '<br>';
+								  if ($optObj === '...')
+									 $output .= $optObj;
+									else
+                  	$output .= self::convertImageTypeName(substr($optObj, strrpos($optObj, '/')+1), 'webp') . '<br>';
                }
              $output .= "</span>";
            $output .= '</div>';
         }
-        if ($processAvif && count($optimizable) == 0)
+        if ($avifCount > 0)
         {
-            $avifs = $imageObj->getOptimizeFileType('avif');
-            $output .= '<div class="thumbs-todo"><h4>' . sprintf(__('%d Avif files to create', 'shortpixel-image-optimiser'), count($avifs)) . '</h4>';
+            $output .= '<div class="thumbs-todo"><h4>' . sprintf(__('%d Avif files to create', 'shortpixel-image-optimiser'), $avifCount) . '</h4>';
               $output .= "<span>";
-                foreach($avifs as $optObj)
+                foreach($avifUrls as $optObj)
                 {
                    $output .= self::convertImageTypeName(substr($optObj, strrpos($optObj, '/')+1), 'avif') . '<br>';
                 }
@@ -195,8 +245,6 @@ class UiHelper
             $output .= '</div>';
         }
     }
-
-
 
     return $output;
 
@@ -240,20 +288,25 @@ class UiHelper
 
       if ($mediaItem->isOptimized() )
       {
-           $optimizable = $mediaItem->getOptimizeURLS(true);
+						list($u, $optimizable) = $mediaItem->getCountOptimizeData('thumbnails');
+						list($u, $optimizableWebp)   =  $mediaItem->getCountOptimizeData('webp');
+						list($u, $optimizableAvif)   =  $mediaItem->getCountOptimizeData('avif');
 
            if ($mediaItem->isProcessable() && ! $mediaItem->isOptimizePrevented())
            {
              $action = self::getAction('optimizethumbs', $id);
-             if (count($optimizable) > 0)
+             if ($optimizable > 0)
              {
-               $action['text']  = sprintf(__('Optimize %s  thumbnails','shortpixel-image-optimiser'),count($optimizable));
+							 $total = $optimizable + $optimizableWebp + $optimizableAvif;
+							 if ($optimizableWebp > 0 || $optimizableAvif > 0)
+							 	   $itemText = __('items', 'shortpixel-image-optimiser');
+								else {
+									 $itemText = __('thumbnails', 'shortpixel-image-optimiser');
+								}
+               $action['text']  = sprintf(__('Optimize %s  %s','shortpixel-image-optimiser'),$total, $itemText);
              }
              else
              {
-                 $optimizableWebp = $mediaItem->isProcessableFileType('webp') ? count($mediaItem->getOptimizeFileType('webp', true)) : 0;
-                 $optimizableAvif = $mediaItem->isProcessableFileType('avif') ? count($mediaItem->getOptimizeFileType('avif', true)) : 0;
-
                  if ($optimizableWebp > 0 && $optimizableAvif > 0)
                    $text  = sprintf(__('Optimize %s webps and %s avif','shortpixel-image-optimiser'),$optimizableWebp, $optimizableAvif);
                  elseif ($optimizableWebp > 0)
@@ -383,7 +436,14 @@ class UiHelper
 		// This basically happens when a NextGen gallery is not added to Custom Media.
 		elseif ($mediaItem->get('id') === 0)
 		{
-			 $text = __('This image was not found in our database. Refresh folders, or add this gallery', 'shortpixel-image-optimiser');
+			 if ($mediaItem->isProcessable(true) === false)
+			 {
+				 $text = __('Not Processable: ','shortpixel_image_optimiser');
+				 $text  .= $mediaItem->getProcessableReason();
+			 }
+			 else {
+				 $text = __('This image was not found in our database. Refresh folders, or add this gallery', 'shortpixel-image-optimiser');
+			 }
 		}
     elseif ($mediaItem->isOptimized())
     {
@@ -414,15 +474,19 @@ class UiHelper
 
 
 					$redo_legacy = false;
- 					$was_converted = get_post_meta($mediaItem->get('id'), '_shortpixel_was_converted', true);
-					$updateTs = 1656892800; // July 4th 2022 - 00:00 GMT
 
-					if ($was_converted < $updateTs)
+					if ($mediaItem->get('type') == 'media')
 					{
-						$meta = $mediaItem->getWPMetaData();
-						if (is_array($meta) && isset($meta['ShortPixel']))
+	 					$was_converted = get_post_meta($mediaItem->get('id'), '_shortpixel_was_converted', true);
+						$updateTs = 1656892800; // July 4th 2022 - 00:00 GMT
+
+						if ($was_converted < $updateTs)
 						{
-							$redo_legacy = self::getAction('redo_legacy', $mediaItem->get('id'));
+							$meta = $mediaItem->getWPMetaData();
+							if (is_array($meta) && isset($meta['ShortPixel']))
+							{
+								$redo_legacy = self::getAction('redo_legacy', $mediaItem->get('id'));
+							}
 						}
 					}
 
@@ -607,17 +671,39 @@ class UiHelper
 	{
 			global $wp_locale;
 			$decimalpoint = isset($wp_locale->number_format['decimal_point']) ? $wp_locale->number_format['decimal_point'] : false;
-			$number =  number_format_i18n( (int) $number, $precision);
+			$number =  number_format_i18n( (float) $number, $precision);
 
-			// Don't show trailing zeroes if number is a whole unbroken number.
-			if ($decimalpoint !== false && substr($number, strpos($number, $decimalpoint)) == 00)
+ 			$hasDecimal = (strpos($number, $decimalpoint) === false) ? false : true;
+
+			// Don't show trailing zeroes if number is a whole unbroken number. -> string comparison because number_format_i18n returns string.
+			if ($decimalpoint !== false && $hasDecimal && substr($number, strpos($number, $decimalpoint) + 1) === '00')
 			{
-				 $number = number_format_i18n($number, 0);
+				 $number = substr($number, 0, strpos($number, $decimalpoint));
 			}
 			// Some locale's have no-breaking-space as thousands separator. This doesn't work well in JS / Cron Shell so replace with space.
 			$number = str_replace('&nbsp;', ' ', $number);
 		  return $number;
 	}
+
+	public static function formatDate( $date ) {
+
+	if ( '0000-00-00 00:00:00' === $date->format('Y-m-d ') ) {
+			$h_time = '';
+	} else {
+			$time   = $date->format('U'); //get_post_time( 'G', true, $post, false );
+			if ( ( abs( $t_diff = time() - $time ) ) < DAY_IN_SECONDS ) {
+					if ( $t_diff < 0 ) {
+							$h_time = sprintf( __( '%s from now' ), human_time_diff( $time ) );
+					} else {
+							$h_time = sprintf( __( '%s ago' ), human_time_diff( $time ) );
+					}
+			} else {
+					$h_time = $date->format( 'Y/m/d' );
+			}
+	}
+
+	return $h_time;
+}
 
 	protected static function convertImageTypeName($name, $type)
 	{
@@ -636,7 +722,7 @@ class UiHelper
 		}
 		else
 		{
-			 return substr($name, 0, strpos($name, '.')) . '.' . $type;
+			 return substr($name, 0, strrpos($name, '.')) . '.' . $type;
 		}
 
 	}

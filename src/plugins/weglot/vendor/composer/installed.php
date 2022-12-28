@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '3ad30a34d4c616f9308bf6bb31250b0d026c664f',
+    'reference' => '87d16fb87bfae52d0a3617e676624943372f1fb7',
     'name' => 'weglot/translate-wordpress',
   ),
   'versions' => 
@@ -45,7 +45,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '3ad30a34d4c616f9308bf6bb31250b0d026c664f',
+      'reference' => '87d16fb87bfae52d0a3617e676624943372f1fb7',
     ),
     'weglot/translation-definitions' => 
     array (
@@ -58,12 +58,12 @@
     ),
     'weglot/weglot-php' => 
     array (
-      'pretty_version' => '1.5',
-      'version' => '1.5.0.0',
+      'pretty_version' => '1.6.1',
+      'version' => '1.6.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'bb27624022c637912e67bc2163f4bef152eab166',
+      'reference' => '6cfd2582ecbccd2705a19aae7a1cb541ed86ed5c',
     ),
   ),
 );

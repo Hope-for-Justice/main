@@ -8,6 +8,8 @@ use ShortPixel\Controller\FileSystemController as FileSystemController;
 use ShortPixel\Controller\AdminNoticesController as AdminNoticesController;
 use ShortPixel\Controller\StatsController as StatsController;
 use ShortPixel\Controller\ApiKeyController as ApiKeyController;
+use ShortPixel\Helper\UtilHelper as UtilHelper;
+
 
 class InstallHelper
 {
@@ -21,14 +23,13 @@ class InstallHelper
       $env = wpSPIO()->env();
 
       if(\WPShortPixelSettings::getOpt('deliverWebp') == 3 && ! $env->is_nginx) {
-          \ShortPixelTools::alterHtaccess(true,true); //add the htaccess lines
+          UtilHelper::alterHtaccess(true,true); //add the htaccess lines
       }
 
       self::checkTables();
 
       AdminNoticesController::resetAllNotices();
       \WPShortPixelSettings::onActivate();
-      OptimizeController::resetQueues();
 
 			$settings->currentVersion = SHORTPIXEL_IMAGE_OPTIMISER_VERSION;
   }
@@ -43,7 +44,7 @@ class InstallHelper
 
     if (! $env->is_nginx)
 		{
-      \ShortPixelTools::alterHtaccess(false, false);
+      UtilHelper::alterHtaccess(false, false);
 		}
 
     // save remove.
@@ -68,7 +69,6 @@ class InstallHelper
  //   $env = \wpSPIO()->env();
 
     OptimizeController::uninstallPlugin();
-    BulkController::uninstallPlugin();
 		ApiKeyController::uninstallPlugin();
   }
 
@@ -87,6 +87,8 @@ class InstallHelper
 		self::deactivatePlugin(); // deactivate
 		self::uninstallPlugin(); // uninstall
 
+		// Bulk Log
+		BulkController::uninstallPlugin();
 
 		$settings::resetOptions();
 
@@ -112,7 +114,6 @@ class InstallHelper
     }
 
     $referrer_url = wp_get_referer();
-    $conflict = \ShortPixelTools::getConflictingPlugins();
     $url = wp_get_referer();
 		$plugin = (isset($_GET['plugin'])) ? sanitize_text_field(wp_unslash($_GET['plugin'])) : null; // our target.
 
@@ -270,6 +271,7 @@ class InstallHelper
           message varchar(255),
           ts_added timestamp,
           ts_optimized timestamp,
+					extra_info LONGTEXT,
           PRIMARY KEY sp_id (id)
         ) $charsetCollate;";
 
@@ -286,7 +288,7 @@ class InstallHelper
 			 attach_id bigint unsigned NOT NULL,
 			 parent bigint unsigned NOT NULL,
 			 image_type tinyint default 0,
-			 size varchar(150),
+			 size varchar(200),
 			 status tinyint default 0,
 			 compression_type tinyint,
 			 compressed_size  int,

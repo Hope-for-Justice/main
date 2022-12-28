@@ -90,7 +90,7 @@ class Generate_Switcher_Service_Weglot {
 
 	/**
 	 * @param string $dom the final HTML.
-	 * @param array  $switchers the array of switchers from settings.
+	 * @param array $switchers the array of switchers from settings.
 	 *
 	 * @return string
 	 * @since 2.3.0
@@ -100,31 +100,27 @@ class Generate_Switcher_Service_Weglot {
 		$original_language = $this->language_services->get_original_language()->getInternalCode();
 		$current_language  = $this->request_url_services->get_current_language()->getInternalCode();
 
-		// In original language, as we don't use the PHP lib, we have not yet placed the custom switchers in the DOM so we need to use simple DOM here.
-		if ( $original_language === $current_language || ! $this->request_url_services->is_eligible_url() ) {
-			// simple_html_dom.
-			$dom = \WGSimpleHtmlDom\str_get_html(
-				$dom,
-				true,
-				true,
-				WG_DEFAULT_TARGET_CHARSET,
-				false
-			);
+		// get translate dom and add custom switcher in.
+		$dom = \WGSimpleHtmlDom\str_get_html(
+			$dom,
+			true,
+			true,
+			WG_DEFAULT_TARGET_CHARSET,
+			false
+		);
 
-			$custom_switchers = new CustomSwitchersFormatter( $dom, $switchers );
-			$dom              = $custom_switchers->getDom();
-			$dom              = $dom->save();
-		}
+		$custom_switchers = new CustomSwitchersFormatter( $dom, $switchers );
+		$dom              = $custom_switchers->getDom();
+		$dom              = $dom->save();
 
 		// Place the button if not in the page.
 		$find_location = false;
 		foreach ( $switchers as $switcher ) {
 
-			$button_html = $this->button_services->get_html( 'weglot-custom-switcher', $switcher );
-			$location    = $this->option_services->get_switcher_editor_option( 'location', $switcher );
-
+			$location = $this->option_services->get_switcher_editor_option( 'location', $switcher );
 			if ( ! empty( $location ) ) {
-				$key = $location['target'] . ( ! empty( $location['sibling'] ) ? ' ' . $location['sibling'] : '' );
+				$button_html = $this->button_services->get_html( 'weglot-custom-switcher', $switcher );
+				$key         = $location['target'] . ( ! empty( $location['sibling'] ) ? ' ' . $location['sibling'] : '' );
 				if ( strpos( $dom, '<div data-wg-position="' . $key . '"></div>' ) !== false ) {
 					$dom           = str_replace( '<div data-wg-position="' . $key . '"></div>', $button_html, $dom );
 					$find_location = true;
@@ -135,6 +131,11 @@ class Generate_Switcher_Service_Weglot {
 					$dom              = str_replace( '<div data-wg-position="' . $key . '" data-wg-ajax="true"></div>', $button_ajax_html, $dom );
 					$find_location    = true;
 				}
+			} else {
+				// if the location is empty we place the button at default position.
+				$button_html = $this->button_services->get_html( 'weglot-default', $switcher );
+				$dom         = str_replace( '</body>', $button_html, $dom );
+				$find_location    = true;
 			}
 		}
 		if ( ! $find_location ) {
@@ -160,6 +161,7 @@ class Generate_Switcher_Service_Weglot {
 		}
 
 		$dom = ! empty( $dom_with_switchers ) ? $dom_with_switchers : $this->render_default_button( $dom );
+
 		return apply_filters( 'weglot_generate_switcher_from_dom', $dom );
 	}
 }

@@ -136,10 +136,11 @@ class Translate_Service_Weglot {
 		if ( http_response_code() == 404 ) {
 			$excluded_urls = $this->option_services->get_exclude_urls();
 			foreach ( $excluded_urls as $item ) {
-				if($item[0] === '^/404$'){
+				if ( $item[0] === '^/404$' ) {
 					return true;
 				}
 			}
+
 			return false;
 		} else {
 			return false;
@@ -155,6 +156,7 @@ class Translate_Service_Weglot {
 	 * @see weglot_init / ob_start
 	 */
 	public function weglot_treat_page( $content ) {
+
 		if ( empty( $content ) ) {
 			return $content;
 		}
@@ -167,25 +169,31 @@ class Translate_Service_Weglot {
 			$type = ( Helper_Json_Inline_Weglot::is_xml( $content ) ) ? 'xml' : 'html';
 		}
 
-		$type = apply_filters( 'weglot_type_treat_page', $type );
+		$type               = apply_filters( 'weglot_type_treat_page', $type );
 		$active_translation = apply_filters( 'weglot_active_translation', true );
-		$canonical = $this->get_canonical_url_from_content( $content );
+		$canonical          = $this->get_canonical_url_from_content( $content );
 
 		// No need to translate but prepare new dom with button.
 		if (
 			$this->current_language === $this->original_language
 			|| ! $active_translation
 			|| $this->check_404_exclusion_before_treat()
-			|| $this->check_ajax_exclusion_before_treat()
-			|| ! $this->request_url_services->get_weglot_url()->getForLanguage( $this->request_url_services->get_current_language(), false ) ) {
-
-			// if type is xml we render the content without treatment.
-			if($type === 'xml'){
-				return $content;
-			}else{
-				return $this->weglot_render_dom( $content, $canonical );
+			|| ! $this->request_url_services->get_weglot_url()->getForLanguage( $this->request_url_services->get_current_language(), false )
+		) {
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+				if ( ! $this->request_url_services->create_url_object( wp_get_referer() )->getForLanguage( $this->request_url_services->get_current_language(), false ) ) {
+					// do nothing because the ajax referer are not exclude!
+				} else {
+					return $content;
+				}
+			} else {
+				// if type is xml we render the content without treatment.
+				if ( $type === 'xml' ) {
+					return $content;
+				} else {
+					return $this->weglot_render_dom( $content, $canonical );
+				}
 			}
-
 		}
 
 		$parser = $this->parser_services->get_parser();
@@ -212,7 +220,6 @@ class Translate_Service_Weglot {
 					$name_filter = sprintf( 'weglot_%s_treat_page', $type );
 
 					return apply_filters( $name_filter, $content, $parser, $this->original_language, $this->current_language );
-
 			}
 		} catch ( ApiError $e ) {
 			if ( 'json' !== $type ) {
@@ -278,9 +285,10 @@ class Translate_Service_Weglot {
 
 			// update canonical if page excluded page.
 			if ( ! $current_url->getForLanguage( $this->request_url_services->get_current_language(), false ) ) {
-				$dom = preg_replace( '/<link rel="canonical"(.*?)?href=(\"|\')([^\s\>]+?)(\"|\')/', '<link rel="canonical" href="' . esc_url ( $current_url->getForLanguage( $this->language_services->get_original_language() )  ) . '"', $dom );
+				$dom = preg_replace( '/<link rel="canonical"(.*?)?href=(\"|\')([^\s\>]+?)(\"|\')/', '<link rel="canonical" href="' . esc_url( $current_url->getForLanguage( $this->language_services->get_original_language() ) ) . '"', $dom );
 			}
 		}
+
 		return apply_filters( 'weglot_render_dom', $dom );
 	}
 }

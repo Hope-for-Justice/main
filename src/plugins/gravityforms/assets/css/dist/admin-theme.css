@@ -129,12 +129,9 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 */
 
 .gform_wrapper.gravity-theme .left_label .gfield:not(.gsection):not(.gfield_html):not(fieldset), .gform_wrapper.gravity-theme .right_label .gfield:not(.gsection):not(.gfield_html):not(fieldset) {
-		display: -ms-flexbox;
 		display: flex;
-		-ms-flex-wrap: wrap;
-		    flex-wrap: wrap;
-		-ms-flex-pack: end;
-		    justify-content: flex-end;
+		flex-wrap: wrap;
+		justify-content: flex-end;
 		width: 100%;
 	}
 
@@ -219,8 +216,7 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 /* Submit button in the editor */
 
 .gform_wrapper.gravity-theme .left_label #field_submit, .gform_wrapper.gravity-theme .right_label #field_submit {
-		-ms-flex-pack: start;
-		    justify-content: flex-start;
+		justify-content: flex-start;
 	}
 
 .gform_wrapper.gravity-theme .left_label #field_submit input, .gform_wrapper.gravity-theme .right_label #field_submit input {
@@ -228,13 +224,11 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 		}
 
 .field_sublabel_below .ginput_complex {
-	-ms-flex-align: start;
-	    align-items: flex-start;
+	align-items: flex-start;
 }
 
 .field_sublabel_above .ginput_complex {
-	-ms-flex-align: end;
-	    align-items: flex-end;
+	align-items: flex-end;
 }
 
 .rtl .gform_wrapper.gravity-theme .left_label legend.gfield_label, .rtl .gform_wrapper.gravity-theme .right_label legend.gfield_label {
@@ -515,28 +509,36 @@ to no.
 
 			.gform_wrapper .gf_list_2col_vertical .gfield_checkbox, .gform_wrapper .gf_list_2col_vertical .gfield_radio {
 
-				column-count: 2;
+				-moz-column-count: 2;
+
+				     column-count: 2;
 
 				grid-column-gap: 2rem;
 			}
 
 			.gform_wrapper .gf_list_3col_vertical .gfield_checkbox, .gform_wrapper .gf_list_3col_vertical .gfield_radio {
 
-				column-count: 3;
+				-moz-column-count: 3;
+
+				     column-count: 3;
 
 				grid-column-gap: 2rem;
 			}
 
 			.gform_wrapper .gf_list_4col_vertical .gfield_checkbox, .gform_wrapper .gf_list_4col_vertical .gfield_radio {
 
-				column-count: 4;
+				-moz-column-count: 4;
+
+				     column-count: 4;
 
 				grid-column-gap: 2rem;
 			}
 
 			.gform_wrapper .gf_list_5col_vertical .gfield_checkbox, .gform_wrapper .gf_list_5col_vertical .gfield_radio {
 
-				column-count: 5;
+				-moz-column-count: 5;
+
+				     column-count: 5;
 
 				grid-column-gap: 2rem;
 			}
@@ -780,8 +782,7 @@ to no.
 		max-width: 40%;
 		position: absolute;
 		top: 80%;
-		-ms-transform: rotate(-3deg);
-		    transform: rotate(-3deg);
+		transform: rotate(-3deg);
 		width: 50%;
 		z-index: -1;
 	}
@@ -789,8 +790,7 @@ to no.
 .gform_confirmation_wrapper.gf_confirmation_yellow_gradient::after, .gform_confirmation_wrapper.gf_confirmation_green_gradient::after {
 		left: auto;
 		right: 10px;
-		-ms-transform: rotate(3deg);
-		    transform: rotate(3deg);
+		transform: rotate(3deg);
 	}
 
 /*
@@ -856,12 +856,10 @@ to no.
 		}
 
 .gform_wrapper.gravity-theme.left_label .gfield:not(.gsection):not(.gfield_html):not(fieldset), .gform_wrapper.gravity-theme.right_label .gfield:not(.gsection):not(.gfield_html):not(fieldset) {
-			-ms-flex-pack: start;
-			    justify-content: flex-start;
+			justify-content: flex-start;
 		}
 
 .gform_wrapper.gravity-theme.left_label .gfield_html.gfield_html_formatted, .gform_wrapper.gravity-theme.right_label .gfield_html.gfield_html_formatted {
-			display: -ms-flexbox;
 			display: flex;
 		}
 
@@ -884,24 +882,19 @@ to no.
 */
 
 .gform_wrapper.gravity-theme .ginput_complex {
-		display: -ms-flexbox;
 		display: flex;
-		-ms-flex-flow: row wrap;
-		    flex-flow: row wrap;
+		flex-flow: row wrap;
 	}
 
 .gform_wrapper.gravity-theme .ginput_complex span, .gform_wrapper.gravity-theme .ginput_complex fieldset {
-			-ms-flex: 1;
-			    flex: 1;
+			flex: 1;
 		}
 
 .gform_wrapper.gravity-theme .ginput_complex .ginput_full {
-			-ms-flex: 0 0 100%;
-			    flex: 0 0 100%;
+			flex: 0 0 100%;
 		}
 
 .gform_wrapper.gravity-theme .ginput_complex .clear-multi {
-			display: -ms-flexbox;
 			display: flex;
 		}
 
@@ -919,15 +912,13 @@ to no.
 	}
 
 .gform_wrapper.gravity-theme .ginput_container_address span {
-			-ms-flex: 0 0 50%;
-			    flex: 0 0 50%;
+			flex: 0 0 50%;
 			padding-left: 0.9804%;
 			padding-right: 0.9804%;
 		}
 
 .gform_wrapper.gravity-theme .gf_browser_ie .ginput_container_address span:not(.ginput_full) {
-		-ms-flex: 0 0 49.3%;
-		    flex: 0 0 49.3%;
+		flex: 0 0 49.3%;
 	}
 
 @media (min-width: 641px) {
@@ -961,8 +952,7 @@ to no.
 @media (max-width: 640px) {
 
 	.gform_wrapper.gravity-theme .ginput_complex span {
-		-ms-flex: 0 0 100%;
-		    flex: 0 0 100%;
+		flex: 0 0 100%;
 		margin-bottom: 0.5rem;
 		padding-left: 0;
 	}
@@ -980,12 +970,9 @@ to no.
 */
 
 .gform_wrapper.gravity-theme .gfield_list_header, .gform_wrapper.gravity-theme .gfield_list_group {
-		display: -ms-flexbox;
 		display: flex;
-		-ms-flex-direction: row;
-		    flex-direction: row;
-		-ms-flex-wrap: nowrap;
-		    flex-wrap: nowrap;
+		flex-direction: row;
+		flex-wrap: nowrap;
 		margin-bottom: 0.5rem;
 	}
 
@@ -998,8 +985,7 @@ to no.
 	}
 
 .gform_wrapper.gravity-theme .gfield_header_item, .gform_wrapper.gravity-theme .gfield_list_group_item {
-		-ms-flex-positive: 1;
-		    flex-grow: 1;
+		flex-grow: 1;
 		width: 0;
 	}
 
@@ -1012,14 +998,10 @@ to no.
 	}
 
 .gform_wrapper.gravity-theme .gfield_header_item--icons, .gform_wrapper.gravity-theme .gfield_list_icons {
-		-ms-flex-align: center;
-		    align-items: center;
-		display: -ms-flexbox;
+		align-items: center;
 		display: flex;
-		-ms-flex: none;
-		    flex: none;
-		-ms-flex-pack: center;
-		    justify-content: center;
+		flex: none;
+		justify-content: center;
 		width: 48px;
 	}
 
@@ -1113,52 +1095,42 @@ html[dir="rtl"] .gform_wrapper.gravity-theme .gfield_list_icons button.delete_li
 	}
 
 .gform_wrapper.gform_legacy_markup table.gfield_list.gfield_list_container thead tr {
-				display: -ms-flexbox;
 				display: flex;
-				-ms-flex-wrap: nowrap;
-				    flex-wrap: nowrap;
+				flex-wrap: nowrap;
 			}
 
 .gform_wrapper.gform_legacy_markup table.gfield_list.gfield_list_container thead tr th, .gform_wrapper.gform_legacy_markup table.gfield_list.gfield_list_container thead tr td {
-					-ms-flex-positive: 1;
-					    flex-grow: 1;
+					flex-grow: 1;
 					white-space: normal;
 					width: 0;
 					word-break: break-word;
 				}
 
 .gform_wrapper.gform_legacy_markup table.gfield_list.gfield_list_container thead tr td:last-child {
-					-ms-flex-positive: unset;
-					    flex-grow: unset;
+					flex-grow: unset;
 					width: 48px;
 				}
 
 .gform_wrapper.gform_legacy_markup table.gfield_list.gfield_list_container tbody th, .gform_wrapper.gform_legacy_markup table.gfield_list.gfield_list_container tbody td {
-				-ms-flex-positive: 1;
-				    flex-grow: 1;
+				flex-grow: 1;
 				white-space: normal;
 				width: 0;
 				word-break: break-word;
 			}
 
 .gform_wrapper.gform_legacy_markup table.gfield_list.gfield_list_container tbody td.gfield_list_icons {
-				-ms-flex-positive: unset;
-				    flex-grow: unset;
+				flex-grow: unset;
 				width: 48px;
 			}
 
 .gform_wrapper.gform_legacy_markup table.gfield_list.gfield_list_container tbody tr {
-				display: -ms-flexbox;
 				display: flex;
-				-ms-flex-direction: row;
-				    flex-direction: row;
-				-ms-flex-wrap: nowrap;
-				    flex-wrap: nowrap;
+				flex-direction: row;
+				flex-wrap: nowrap;
 			}
 
 .gform_wrapper.gform_legacy_markup table.gfield_list.gfield_list_container tbody tr .gfield_list_cell {
-					-ms-flex-positive: 1;
-					    flex-grow: 1;
+					flex-grow: 1;
 				}
 
 .gform_wrapper.gform_legacy_markup table.gfield_list.gfield_list_container tbody tr .gfield_list_cell input {
@@ -1172,8 +1144,7 @@ html[dir="rtl"] .gform_wrapper.gravity-theme .gfield_list_icons button.delete_li
 			}
 
 				.gform_wrapper.gform_legacy_markup table.gfield_list.gfield_list_container tbody tr {
-					-ms-flex-flow: column;
-					    flex-flow: column;
+					flex-flow: column;
 				}
 
 					.gform_wrapper.gform_legacy_markup table.gfield_list.gfield_list_container tbody tr td::before {
@@ -1183,8 +1154,7 @@ html[dir="rtl"] .gform_wrapper.gravity-theme .gfield_list_icons button.delete_li
 					}
 
 					.gform_wrapper.gform_legacy_markup table.gfield_list.gfield_list_container tbody tr td {
-						-ms-flex-positive: unset;
-						    flex-grow: unset;
+						flex-grow: unset;
 						width: auto;
 					}
 
@@ -1230,10 +1200,8 @@ html[dir="rtl"] .gform_wrapper.gravity-theme .gfield_list_icons button.delete_li
 			}
 
 .gform_wrapper.gravity-theme .ginput_cardextras {
-		display: -ms-flexbox;
 		display: flex;
-		-ms-flex-wrap: wrap;
-		    flex-wrap: wrap;
+		flex-wrap: wrap;
 	}
 
 .gform_wrapper.gravity-theme .ginput_complex .ginput_cardinfo_right input {
@@ -1242,33 +1210,26 @@ html[dir="rtl"] .gform_wrapper.gravity-theme .gfield_list_icons button.delete_li
 	}
 
 .gform_wrapper.gravity-theme .ginput_card_expiration_container {
-		display: -ms-flexbox;
 		display: flex;
-		-ms-flex-wrap: wrap;
-		    flex-wrap: wrap;
+		flex-wrap: wrap;
 	}
 
 .gform_wrapper.gravity-theme .ginput_card_expiration_month {
-		-ms-flex: 1;
-		    flex: 1;
+		flex: 1;
 		margin-right: 1rem;
 	}
 
 .gform_wrapper.gravity-theme .ginput_card_expiration_year {
-		-ms-flex: 1;
-		    flex: 1;
+		flex: 1;
 	}
 
 .gform_wrapper.gravity-theme .ginput_cardinfo_right label, .gform_wrapper.gravity-theme .ginput_cardinfo_right legend, .gform_wrapper.gravity-theme .ginput_cardinfo_left label, .gform_wrapper.gravity-theme .ginput_cardinfo_left legend {
-		-ms-flex: 1 1 100%;
-		    flex: 1 1 100%;
+		flex: 1 1 100%;
 	}
 
 .gform_wrapper.gravity-theme fieldset.ginput_cardinfo_left {
-		display: -ms-flexbox;
 		display: flex;
-		-ms-flex-direction: column;
-		    flex-direction: column;
+		flex-direction: column;
 	}
 
 .gform_wrapper.gravity-theme fieldset.ginput_cardinfo_left legend {
@@ -1277,8 +1238,7 @@ html[dir="rtl"] .gform_wrapper.gravity-theme .gfield_list_icons button.delete_li
 		}
 
 .gform_wrapper.gravity-theme .field_sublabel_below fieldset.ginput_cardinfo_left {
-		-ms-flex-direction: column-reverse;
-		    flex-direction: column-reverse;
+		flex-direction: column-reverse;
 	}
 
 html[dir="rtl"] .gform_wrapper.gravity-theme .ginput_card_expiration_month {
@@ -1300,15 +1260,13 @@ html[dir="rtl"] .gform_wrapper.gravity-theme .gfield_creditcard_warning .gfield_
 	}
 
 html[dir="rtl"] .gform_wrapper.gravity-theme fieldset.ginput_cardinfo_left {
-		display: -ms-flexbox;
 		display: flex;
 	}
 
 @media (max-width: 640px) {
 
 	.gform_wrapper.gravity-theme .ginput_card_expiration {
-		-ms-flex: none;
-		    flex: none;
+		flex: none;
 	}
 
 	.gform_wrapper.gravity-theme .ginput_card_expiration_month {
@@ -1324,7 +1282,6 @@ html[dir="rtl"] .gform_wrapper.gravity-theme fieldset.ginput_cardinfo_left {
 */
 
 .gform_wrapper.gravity-theme .gform_card_icon_container {
-		display: -ms-flexbox;
 		display: flex;
 		height: 32px;
 		margin: 0.5rem 0 0.4rem 0;
@@ -1379,14 +1336,10 @@ html[dir="rtl"] .gform_wrapper.gravity-theme fieldset.ginput_cardinfo_left {
 				}
 
 .gform_wrapper.gravity-theme .ginput_container_creditcard .ginput_cardinfo_right {
-			-ms-flex-align: center;
-			    align-items: center;
-			display: -ms-inline-flexbox;
+			align-items: center;
 			display: inline-flex;
-			-ms-flex-flow: row wrap;
-			    flex-flow: row wrap;
-			-ms-flex-pack: start;
-			    justify-content: flex-start;
+			flex-flow: row wrap;
+			justify-content: flex-start;
 		}
 
 .gform_wrapper.gravity-theme .ginput_container_creditcard .ginput_cardinfo_right label {
@@ -1398,8 +1351,7 @@ html[dir="rtl"] .gform_wrapper.gravity-theme fieldset.ginput_cardinfo_left {
 			background-position: -382px center;
 			background-repeat: no-repeat;
 			display: block;
-			-ms-flex: none;
-			    flex: none;
+			flex: none;
 			height: 32px;
 			margin-left: 0.3em;
 			width: 40px;
@@ -1470,12 +1422,9 @@ html[dir="rtl"] .gform_wrapper.gravity-theme .ginput_container_date[style*="disp
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-header {
 		border: 0;
-		display: -ms-flexbox;
 		display: flex;
-		-ms-flex-direction: row;
-		    flex-direction: row;
-		-ms-flex-pack: center;
-		    justify-content: center;
+		flex-direction: row;
+		justify-content: center;
 		margin: 0 0 0.3125rem;
 		padding: 0;
 		position: relative;
@@ -1483,21 +1432,18 @@ html[dir="rtl"] .gform_wrapper.gravity-theme .ginput_container_date[style*="disp
 	}
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-header .ui-datepicker-prev, .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-header .ui-datepicker-next {
-			-ms-flex-align: center;
-			    align-items: center;
+			align-items: center;
 			background: none;
 			border: 0;
 			color: #607382;
 			cursor: pointer;
-			display: -ms-flexbox;
 			display: flex;
 			font-family: gform-icons-theme !important;
 			font-size: 1.5rem;
 			-webkit-font-smoothing: antialiased;
 			-moz-osx-font-smoothing: grayscale;
 			height: 1.875rem;
-			-ms-flex-pack: center;
-			    justify-content: center;
+			justify-content: center;
 			line-height: 1;
 			position: absolute;
 			speak: never;
@@ -1519,8 +1465,7 @@ html[dir="rtl"] .gform_wrapper.gravity-theme .ginput_container_date[style*="disp
 				border: 0;
 				height: auto;
 				position: static;
-				-ms-transform: none;
-				    transform: none;
+				transform: none;
 				width: auto;
 			}
 
@@ -1563,7 +1508,8 @@ html[dir="rtl"] .gform_wrapper.gravity-theme .ginput_container_date[style*="disp
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-header select.ui-datepicker-month {
 				margin-right: 1.25rem;
-				text-align-last: right;
+				-moz-text-align-last: right;
+				     text-align-last: right;
 			}
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar span, .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar a {
@@ -1571,16 +1517,13 @@ html[dir="rtl"] .gform_wrapper.gravity-theme .ginput_container_date[style*="disp
 		}
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar th span {
-				-ms-flex-align: center;
-				    align-items: center;
+				align-items: center;
 				color: #2f4054;
-				display: -ms-flexbox;
 				display: flex;
 				font-size: 0.8125rem;
 				font-weight: 500;
 				height: 2.5rem;
-				-ms-flex-pack: center;
-				    justify-content: center;
+				justify-content: center;
 				width: 2.5rem;
 			}
 
@@ -1591,18 +1534,15 @@ html[dir="rtl"] .gform_wrapper.gravity-theme .ginput_container_date[style*="disp
 		}
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar .ui-state-default {
-			-ms-flex-align: center;
-			    align-items: center;
+			align-items: center;
 			background: none;
 			border: 0.0625rem solid transparent;
 			border-radius: 100%;
 			box-shadow: none;
 			color: #2f4054;
-			display: -ms-flexbox;
 			display: flex;
 			height: 2.5rem;
-			-ms-flex-pack: center;
-			    justify-content: center;
+			justify-content: center;
 			text-decoration: none;
 			transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
 			width: 2.5rem;
@@ -1635,19 +1575,16 @@ html[dir="rtl"] .gform_wrapper.gravity-theme .ginput_container_date[style*="disp
 		}
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar .ui-state-disabled .ui-state-default {
-				-ms-flex-align: center;
-				    align-items: center;
+				align-items: center;
 				background: #f2f3f5;
 				border: 0.0625rem solid rgba(32, 32, 46, 0.079);
 				border-radius: 100%;
 				box-shadow: 0 0.125rem 0.125rem rgba(58, 58, 87, 0.0596411);
 				color: #686e77;
 				cursor: text;
-				display: -ms-flexbox;
 				display: flex;
 				height: 2.5rem;
-				-ms-flex-pack: center;
-				    justify-content: center;
+				justify-content: center;
 				text-decoration: none;
 				width: 2.5rem;
 			}
@@ -1708,11 +1645,8 @@ html[dir="rtl"] #ui-datepicker-div.gform-theme-datepicker[style] {
 	}
 
 .gform_wrapper.gravity-theme .ginput_container_date {
-		-ms-flex-line-pack: start;
-		    align-content: flex-start;
-		-ms-flex-align: center;
-		    align-items: center;
-		display: -ms-flexbox;
+		align-content: flex-start;
+		align-items: center;
 		display: flex;
 	}
 
@@ -1732,10 +1666,8 @@ html[dir="rtl"] #ui-datepicker-div.gform-theme-datepicker[style] {
 		}
 
 .gform_wrapper.gravity-theme .ginput_complex .ginput_container_date {
-		-ms-flex-preferred-size: min-content;
-		    flex-basis: min-content;
-		-ms-flex-flow: row wrap;
-		    flex-flow: row wrap;
+		flex-basis: min-content;
+		flex-flow: row wrap;
 		max-width: 30%;
 
 	}
@@ -1750,11 +1682,9 @@ html[dir="rtl"] #ui-datepicker-div.gform-theme-datepicker[style] {
 			}
 
 .gform_wrapper.gravity-theme .gform_show_password {
-		-ms-flex-align: center;
-		    align-items: center;
+		align-items: center;
 		background: transparent;
 		color: inherit;
-		display: -ms-flexbox;
 		display: flex;
 		height: 100%;
 	}
@@ -1779,8 +1709,7 @@ html[dir="rtl"] #ui-datepicker-div.gform-theme-datepicker[style] {
 html[dir="rtl"] .gform_wrapper.gravity-theme .ginput_container_date img.ui-datepicker-trigger {
 			margin-left: 0;
 			margin-right: 0.8rem;
-			-ms-flex-order: 1;
-			    order: 1;
+			order: 1;
 		}
 
 /*
@@ -1797,8 +1726,7 @@ html[dir="rtl"] .gform_wrapper.gravity-theme .ginput_container_date img.ui-datep
 	}
 
 .gform_wrapper.gravity-theme .ginput_container_time {
-		-ms-flex-preferred-size: min-content;
-		    flex-basis: min-content;
+		flex-basis: min-content;
 		max-width: 4rem;
 		min-width: 4rem;
 	}
@@ -1819,21 +1747,17 @@ html[dir="rtl"] .gform_wrapper.gravity-theme .ginput_container_date img.ui-datep
 	}
 
 .gform_wrapper.gravity-theme .field_sublabel_above .hour_minute_colon {
-		-ms-flex-item-align: end;
-		    align-self: flex-end;
+		align-self: flex-end;
 	}
 
 .gform_wrapper.gravity-theme .gfield_time_ampm {
-		-ms-flex-align: end;
-		    align-items: flex-end;
-		display: -ms-flexbox;
+		align-items: flex-end;
 		display: flex;
 		margin-left: 1rem;
 	}
 
 .gform_wrapper.gravity-theme .hour_minute_colon.below, .gform_wrapper.gravity-theme .gfield_time_ampm.below {
-		-ms-flex-align: start;
-		    align-items: flex-start;
+		align-items: flex-start;
 	}
 
 html[dir="rtl"] .gform_wrapper.gravity-theme .gfield_time_ampm {
@@ -1901,3 +1825,5 @@ html[dir="rtl"] .gform_wrapper.gravity-theme .gfield_time_ampm {
 html[dir="rtl"] .gform_wrapper.gravity-theme button + input, html[dir="rtl"] .gform_wrapper.gravity-theme input + input, html[dir="rtl"] .gform_wrapper.gravity-theme input + button {
 			margin-right: 0.5rem;
 		}
+
+/*# sourceMappingURL=admin-theme.css.map */

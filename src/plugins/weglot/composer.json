@@ -22,7 +22,7 @@
       	}
     ],
     "require": {
-        "weglot/weglot-php": "^1.5",
+        "weglot/weglot-php": "^1.6.1",
         "gmulti/morphism-php": "^0.3.0"
     },
 	"repositories": [
@@ -52,5 +52,10 @@
         "post-update-cmd": [
             "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs"
         ]
-    }
+    },
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
 }

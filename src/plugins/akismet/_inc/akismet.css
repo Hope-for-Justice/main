@@ -63,6 +63,7 @@ table.comments td.comment p a:after {
     width: 450px;
     height: 338px;
     z-index: 20000;
+    -moz-border-radius: 6px;
     border-radius: 6px;
     -webkit-border-radius: 6px;
 }
@@ -219,7 +220,9 @@ table.comments td.comment p a:after {
 	padding: 5px;
 	margin: 15px 0;
 	background: #83AF24;
+	background-image: -webkit-gradient(linear, 0% 0, 80% 100%, from(#83AF24), to(#4F800D));
 	background-image: -moz-linear-gradient(80% 100% 120deg, #4F800D, #83AF24);
+	-moz-border-radius: 3px;
 	border-radius: 3px;
 	-webkit-border-radius: 3px;
 	position: relative;
@@ -244,7 +247,9 @@ table.comments td.comment p a:after {
 	padding: 9px 0 8px 0;
 	color: #FFF;
 	background: #029DD6;
+	background-image: -webkit-gradient(linear, 0% 0, 0% 100%, from(#029DD6), to(#0079B1));
 	background-image: -moz-linear-gradient(0% 100% 90deg, #0079B1, #029DD6);
+	-moz-border-radius: 2px;
 	border-radius: 2px;
 	-webkit-border-radius: 2px;
 	width: 100%;
@@ -261,16 +266,20 @@ table.comments td.comment p a:after {
 	padding: 9px 0 8px 0;
 	color: #F0F8FB;
 	background: #0079B1;
+	background-image: -webkit-gradient(linear, 0% 0, 0% 100%, from(#0079B1), to(#0092BF));
 	background-image: -moz-linear-gradient(0% 100% 90deg, #0092BF, #0079B1);
+	-moz-border-radius: 2px;
 	border-radius: 2px;
 	-webkit-border-radius: 2px;
 }
 
 .akismet_activate .aa_button_border {
 	border: 1px solid #006699;
+	-moz-border-radius: 2px;
 	border-radius: 2px;
 	-webkit-border-radius: 2px;
 	background: #029DD6;
+	background-image: -webkit-gradient(linear, 0% 0, 0% 100%, from(#029DD6), to(#0079B1));
 	background-image: -moz-linear-gradient(0% 100% 90deg, #0079B1, #029DD6);
 }
 
@@ -279,6 +288,7 @@ table.comments td.comment p a:after {
 	display: inline-block;
 	background: #DEF1B8;
 	padding: 5px;
+	-moz-border-radius: 2px;
 	border-radius: 2px;
 	-webkit-border-radius: 2px;
 	width: 266px;
@@ -583,6 +593,8 @@ table.comments td.comment p a:after {
 	line-height: 21px;
 	border-radius: 4px;
 	padding: 7px 14px 9px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
 	appearance: none;
 }
 
@@ -618,7 +630,6 @@ table.comments td.comment p a:after {
 	width: 100%;
 	padding-top: 0.6875rem;
 	padding-bottom: 0.6875rem;
-	display: -ms-flexbox;
 	display: flex;
 }
 
@@ -649,10 +660,8 @@ table.comments td.comment p a:after {
 
 div.error.akismet-usage-limit-alert {
 	padding: 25px 45px 25px 15px;
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-align: center;
-	    align-items: center;
+	align-items: center;
 }
 
 #akismet-plugin-container .akismet-usage-limit-alert {
@@ -681,8 +690,7 @@ div.error.akismet-usage-limit-alert {
 }
 
 .akismet-usage-limit-alert .akismet-usage-limit-text {
-	-ms-flex-positive: 1;
-	    flex-grow: 1;
+	flex-grow: 1;
 	margin-right: 18px;
 }
 

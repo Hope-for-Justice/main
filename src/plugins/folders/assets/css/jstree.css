@@ -110,6 +110,7 @@
     position: absolute;
     left: 0;
     -webkit-user-select: none;
+    -moz-user-select: none;
     -ms-user-select: none;
     user-select: none
 }
@@ -408,6 +409,8 @@
 }
 
 .jstree-default .jstree-wholerow {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box
 }
 
@@ -417,6 +420,7 @@
 
 .jstree-default .jstree-wholerow-clicked {
     background: #beebff;
+    background: -webkit-linear-gradient(top, #beebff 0, #a8e4ff 100%);
     background: linear-gradient(to bottom, #beebff 0, #a8e4ff 100%)
 }
 
@@ -1381,8 +1385,7 @@ body .wp-core-ui .attachment-close {
     font-size: 10px;
     text-align: center;
     font-weight: bold;
-    -ms-transform: rotate(-90deg);
-        transform: rotate(-90deg);
+    transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
     -o-transform: rotate(-90deg);
@@ -1393,8 +1396,7 @@ body .wp-core-ui .attachment-close {
 }
 
 .jstree-open > i.jstree-icon {
-    -ms-transform: rotate(0deg);
-        transform: rotate(0deg);
+    transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
     -moz-transform: rotate(0deg);
     -o-transform: rotate(0deg);

@@ -770,6 +770,33 @@ function post_per_page_control($query)
 add_action('pre_get_posts', 'post_per_page_control');
 
 
+/* 
+Search stuff
+*/
+
+// //change button text
+// add_filter('get_search_form', 'my_search_form_text');
+
+// function my_search_form_text($text)
+// {
+//   $text = str_replace('value="Search"', 'value=""', $text); //set as value the text you want
+//   return $text;
+// }
+
+//limit search to posts and pages
+
+// function search_filter($query)
+// {
+//   if ($query->is_search) {
+//     $query->set('post_type', array('page', 'post'));
+//     $query->set('order', 'ASC');
+//     $query->set('category__not_in', array(5, 6));
+//   }
+//   return $query;
+// }
+// add_filter('pre_get_posts', 'search_filter');
+
+
 /**
  *
  * 

@@ -13,6 +13,9 @@
 	text-indent:-9999px;
 	width:10px;
 	height: 10px;
+	-moz-transition: none;
+	-webkit-transition: none;
+	-o-transition: color 0 ease-in;
 	transition: none;
 }
 .settings-field-map-table .custom-key-reset {

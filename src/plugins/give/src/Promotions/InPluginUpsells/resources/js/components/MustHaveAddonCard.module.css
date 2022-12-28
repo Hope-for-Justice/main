@@ -1,23 +1,18 @@
 .card {
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-direction: column;
-        flex-direction: column;
+    flex-direction: column;
     gap: 1rem;
     padding: 1.5rem;
 }
 
 .header {
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-align: center;
-        align-items: center;
+    align-items: center;
     gap: 0.8125rem;
 }
 
 .header svg {
-    -ms-flex: none;
-        flex: none;
+    flex: none;
 }
 
 .title {
@@ -40,12 +35,10 @@
 }
 
 .features {
-    -ms-flex-positive: 1;
-        flex-grow: 1;
+    flex-grow: 1;
 }
 
 .feature {
-    display: -ms-flexbox;
     display: flex;
     gap: 0.5em;
     font-size: 0.9375rem;
@@ -53,8 +46,7 @@
 }
 
 .checkmark {
-    -ms-flex-negative: 0;
-        flex-shrink: 0;
+    flex-shrink: 0;
 
     display: inline;
 
@@ -70,7 +62,6 @@
 }
 
 .button {
-    -ms-flex-item-align: center;
-        align-self: center;
+    align-self: center;
     width: 93.75%;
 }

@@ -174,7 +174,9 @@ class Redirect_Service_Weglot {
 			if ( ! $this->request_url_services->get_weglot_url()->getForLanguage( $best_language, false ) ){
 				return;
 			}
+
 			$url_auto_redirect = apply_filters( 'weglot_url_auto_redirect', $this->request_url_services->get_weglot_url()->getForLanguage( $best_language, true ) );
+			header('Vary: Accept-Language');
 			header( "Location: $url_auto_redirect", true, 302 );
 			exit();
 		}
@@ -190,6 +192,7 @@ class Redirect_Service_Weglot {
 				return;
 			}
 			$url_auto_redirect = apply_filters( 'weglot_url_auto_redirect', $this->request_url_services->get_weglot_url()->getForLanguage( $fallback_language, true ) );
+			header('Vary: Accept-Language');
 			header( "Location: $url_auto_redirect", true, 302 );
 			exit();
 		}

@@ -153,10 +153,18 @@ class GP_Unique_ID extends GP_Plugin {
 			}
 		}
 
+		/*
+		 * This schema started out matching Gravity Forms as far as the form_id and field_id went, but we moved
+		 * form_id to a bigint(20) to better support snippets that swap out the form_id with the current date for
+		 * sequential IDs that reset daily.
+		 *
+		 * current was also updated to bigint(20) to allow extremely large numbers in the sequence in case there
+		 * are a _lot_ of submissions or the prefix is a large number.
+		 */
 		$sql = "
 			CREATE TABLE {$wpdb->prefix}gpui_sequence (
-                form_id mediumint(8) unsigned not null,
-                field_id smallint(5) unsigned not null,
+                form_id bigint(20) unsigned not null,
+                field_id mediumint(8) unsigned not null,
                 current bigint(20) unsigned not null,
                 PRIMARY KEY  (form_id,field_id)
             ) $charset_collate;";
@@ -282,7 +290,7 @@ class GP_Unique_ID extends GP_Plugin {
 		return $uid_types;
 	}
 
-	public function get_unique( $form_id, $field, $length = 5, $atts = array(), $entry = false ) {
+	public function get_unique( $form_id, $field, $length = 5, $atts = array(), $entry = false, $check_spam = true ) {
 
 		$field_atts = array_filter(
 			array(
@@ -308,6 +316,13 @@ class GP_Unique_ID extends GP_Plugin {
 		// allow $form_id and $field_id to be overridden via 'gpui_unique_id_attributes' filter
 		$field_id = $field['id'];
 		$entry    = $entry === false ? GFFormsModel::get_current_lead() : $entry;
+		$form     = GFAPI::get_form( $entry['form_id'] );
+		$is_spam  = GFCommon::is_spam_entry( $entry, $form );
+		
+		// If the entry is spam, do not generate any unique value.
+		if ( $check_spam && $is_spam ) {
+			return '';
+		}
 
 		// Used to determine if length has been filtered and whether we should enforce our default minimums.
 		$unfiltered_length = intval( $atts['length'] );

@@ -1,1 +1,1 @@
-<?php return array('dependencies' => array('lodash', 'wp-i18n'), 'version' => 'c68f44d4e0dbdb4c');
+<?php return array('dependencies' => array('lodash', 'wp-i18n'), 'version' => 'a429087135890005');

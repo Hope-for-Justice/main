@@ -51,7 +51,7 @@ class Image {
 			return $content;
 		}
 
-		return preg_replace_callback( '/(<img.[^>]*+>)(<figcaption>(.*?)<\/figcaption>)?/', [ $this, 'filterEmbeddedImages' ], $content );
+		return preg_replace_callback( '/(<img.[^>]*+>)(<figcaption(.*?)>(.*?)<\/figcaption>)?/', [ $this, 'filterEmbeddedImages' ], $content );
 	}
 
 	/**
@@ -84,9 +84,10 @@ class Image {
 	 * @return string         The filtered HTML image tag.
 	 */
 	public function filterEmbeddedImages( $images ) {
-		$image   = ! empty( $images[1] ) ? $images[1] : '';
-		$caption = ! empty( $images[3] ) ? $images[3] : '';
-		$id      = $this->imageId( $image );
+		$image             = ! empty( $images[1] ) ? $images[1] : '';
+		$captionAttributes = ! empty( $images[3] ) ? $images[3] : '';
+		$caption           = ! empty( $images[4] ) ? $images[4] : '';
+		$id                = $this->imageId( $image );
 
 		if ( ! $id ) {
 			return $images[0];
@@ -110,11 +111,14 @@ class Image {
 			);
 		}
 
-		if ( ! empty( $caption ) && aioseo()->options->image->caption->autogenerate ) {
+		$output = $image;
+
+		if ( ! empty( $caption ) ) {
 			$caption = aioseoImageSeo()->tags->replaceTags( $caption, $id, 'caption' );
+			$output  .= "<figcaption$captionAttributes>$caption</figcaption>";
 		}
 
-		return $image . "<figcaption>$caption</figcaption>";
+		return $output;
 	}
 
 	/**
@@ -351,21 +355,17 @@ class Image {
 		global $wp_query;
 
 		if ( is_attachment() && strstr( $wp_query->post->post_mime_type, 'image/' ) ) {
-			if ( aioseo()->options->image->description->autogenerate ) {
-				$wp_query->post->post_content = aioseoImageSeo()->tags->replaceTags(
-					$wp_query->post->post_content,
-					$wp_query->post->ID,
-					'description'
-				);
-			}
+			$wp_query->post->post_content = aioseoImageSeo()->tags->replaceTags(
+				$wp_query->post->post_content,
+				$wp_query->post->ID,
+				'description'
+			);
 
-			if ( aioseo()->options->image->caption->autogenerate ) {
-				$wp_query->post->post_excerpt = aioseoImageSeo()->tags->replaceTags(
-					$wp_query->post->post_excerpt,
-					$wp_query->post->ID,
-					'caption'
-				);
-			}
+			$wp_query->post->post_excerpt = aioseoImageSeo()->tags->replaceTags(
+				$wp_query->post->post_excerpt,
+				$wp_query->post->ID,
+				'caption'
+			);
 		}
 	}
 

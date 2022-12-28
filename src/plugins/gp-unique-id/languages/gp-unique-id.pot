@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: GP Unique ID 1.4.5\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/cloned-perk-FMOjMSztE\n"
+"Project-Id-Version: GP Unique ID 1.4.9\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/cloned-perk-yezKOcgPF\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-07-19T21:34:14+00:00\n"
+"POT-Creation-Date: 2022-12-14T00:00:42+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: gp-unique-id\n"
@@ -34,139 +34,139 @@ msgstr ""
 msgid "http://gravitywiz.com/"
 msgstr ""
 
-#: class-gp-unique-id.php:214
+#: class-gp-unique-id.php:222
 msgid "Unique ID Type"
 msgstr ""
 
-#: class-gp-unique-id.php:215
+#: class-gp-unique-id.php:223
 msgid "Unique ID Prefix"
 msgstr ""
 
-#: class-gp-unique-id.php:215
+#: class-gp-unique-id.php:223
 msgid "Prepend a short string to the beginning of the generated ID (i.e. %1$s%3$sabc%4$s123890678%2$s)."
 msgstr ""
 
-#: class-gp-unique-id.php:216
+#: class-gp-unique-id.php:224
 msgid "Unique ID Suffix"
 msgstr ""
 
-#: class-gp-unique-id.php:216
+#: class-gp-unique-id.php:224
 msgid "Append a short string to the end of the generated ID (i.e. %1$s123890678%3$sxyz%4$s%2$s)."
 msgstr ""
 
-#: class-gp-unique-id.php:217
+#: class-gp-unique-id.php:225
 msgid "Unique ID Length"
 msgstr ""
 
-#: class-gp-unique-id.php:218
+#: class-gp-unique-id.php:226
 msgid "Unique ID Starting Number"
 msgstr ""
 
-#: class-gp-unique-id.php:218
+#: class-gp-unique-id.php:226
 msgid "Set the starting number for sequential IDs; only available when \"Sequential\" type is selected."
 msgstr ""
 
-#: class-gp-unique-id.php:219
+#: class-gp-unique-id.php:227
 msgid "Reset Starting Number"
 msgstr ""
 
-#: class-gp-unique-id.php:219
+#: class-gp-unique-id.php:227
 msgid "Reset the sequence to the specified starting number when it is a lower number than the current sequence.<br /><br />By default, the starting number will only apply when the current sequence is lower than the specified starting number (i.e. if the current sequence is '1' and the starting number is '99', the sequence would be updated to '99').<br /><br />This option is useful after you have submitted a number of test entries and would like to reset the current sequence (i.e. if the current sequence is '12' and you would like to reset it to '1')."
 msgstr ""
 
-#: class-gp-unique-id.php:226
+#: class-gp-unique-id.php:234
 msgid "Select the type of unique ID you would like to generate."
 msgstr ""
 
-#: class-gp-unique-id.php:238
+#: class-gp-unique-id.php:246
 msgid "Set a specific length for the generated ID (excluding the prefix and suffix) or leave empty to use default length. There are some differences in length requirements for each ID type."
 msgstr ""
 
-#: class-gp-unique-id.php:242
+#: class-gp-unique-id.php:250
 msgid "Requires a minimum length of <code>4</code>."
 msgstr ""
 
-#: class-gp-unique-id.php:253
+#: class-gp-unique-id.php:261
 msgid "Requires a minimum length of <code>%s</code> and a maximum length of <code>19</code>."
 msgstr ""
 
-#: class-gp-unique-id.php:254
+#: class-gp-unique-id.php:262
 msgid "Length is used to pad the number with zeros (i.e. an ID of <code>1</code> with a length of <code>5</code> would be <code>00001</code>). There is no minimum length."
 msgstr ""
 
-#: class-gp-unique-id.php:269
+#: class-gp-unique-id.php:277
 msgid "Alphanumeric"
 msgstr ""
 
-#: class-gp-unique-id.php:270
+#: class-gp-unique-id.php:278
 msgid "Contains letters and numbers (i.e. %1$sa12z9%2$s)."
 msgstr ""
 
-#: class-gp-unique-id.php:273
+#: class-gp-unique-id.php:281
 msgid "Numeric"
 msgstr ""
 
-#: class-gp-unique-id.php:274
+#: class-gp-unique-id.php:282
 msgid "Contains only numbers (i.e. %1$s152315902%2$s)."
 msgstr ""
 
-#: class-gp-unique-id.php:277
+#: class-gp-unique-id.php:285
 msgid "Sequential"
 msgstr ""
 
-#: class-gp-unique-id.php:278
+#: class-gp-unique-id.php:286
 msgid "Contains only numbers and is sequential with previously generated IDs per field (i.e. %1$s1%2$s, %1$s2%2$s, %1$s3%2$s)."
 msgstr ""
 
-#: includes/class-gf-field-unique-id.php:47
-#: includes/class-gf-field-unique-id.php:84
+#: includes/class-gf-field-unique-id.php:49
+#: includes/class-gf-field-unique-id.php:86
 msgid "Unique ID"
 msgstr ""
 
-#: includes/class-gf-field-unique-id.php:117
+#: includes/class-gf-field-unique-id.php:119
 msgid "Type"
 msgstr ""
 
-#: includes/class-gf-field-unique-id.php:140
+#: includes/class-gf-field-unique-id.php:142
 msgid "Starting Number"
 msgstr ""
 
-#: includes/class-gf-field-unique-id.php:148
+#: includes/class-gf-field-unique-id.php:150
 msgid "reset"
 msgstr ""
 
-#: includes/class-gf-field-unique-id.php:155
+#: includes/class-gf-field-unique-id.php:157
 msgid "Length"
 msgstr ""
 
-#: includes/class-gf-field-unique-id.php:167
+#: includes/class-gf-field-unique-id.php:169
 msgid "Prefix"
 msgstr ""
 
-#: includes/class-gf-field-unique-id.php:178
+#: includes/class-gf-field-unique-id.php:180
 msgid "Suffix"
 msgstr ""
 
-#: includes/class-gf-field-unique-id.php:279
+#: includes/class-gf-field-unique-id.php:281
 msgid "Please enter a starting number to reset the sequential ID"
 msgstr ""
 
-#: includes/class-gf-field-unique-id.php:283
+#: includes/class-gf-field-unique-id.php:285
 msgid "resetting"
 msgstr ""
 
-#: includes/class-gf-field-unique-id.php:517
+#: includes/class-gf-field-unique-id.php:531
 msgid "Oops! There was an error resetting the starting number."
 msgstr ""
 
-#: includes/class-gf-field-unique-id.php:525
+#: includes/class-gf-field-unique-id.php:539
 msgid "Reset successfully!"
 msgstr ""
 
-#: includes/class-gf-field-unique-id.php:530
+#: includes/class-gf-field-unique-id.php:544
 msgid "Already reset."
 msgstr ""
 
-#: includes/class-gf-field-unique-id.php:535
+#: includes/class-gf-field-unique-id.php:549
 msgid "Error resetting."
 msgstr ""

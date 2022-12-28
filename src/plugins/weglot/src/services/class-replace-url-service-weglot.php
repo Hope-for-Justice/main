@@ -189,7 +189,7 @@ class Replace_Url_Service_Weglot {
 
 		return (
 			(
-				( 'h' === $current_url[0] && $parsed_url['host'] === $server_host ) ||
+				( isset( $current_url[0] ) && 'h' === $current_url[0] && $parsed_url['host'] === $server_host ) ||
 				( isset( $current_url[0] ) && $current_url[0] === '/' && ( !isset( $current_url[1]) || ( isset( $current_url[1] ) ) && '/' !== $current_url[1] )) //phpcs:ignore
 			)
 			&& $not_other_site

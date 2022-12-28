@@ -72,16 +72,15 @@ class PostMeta extends CommonSeoPress\PostMeta {
 		}
 
 		aioseoRedirects()->importExport->seoPress->importRule([
-			'source_url'       => $urlFrom,
-			'source_url_match' => \AIOSEO\Plugin\Addon\Redirects\Utils\Request::getMatchedUrl( $urlFrom ),
-			'target_url'       => \AIOSEO\Plugin\Addon\Redirects\Utils\Request::getTargetUrl( $urlTo ),
-			'type'             => $rule['type'],
-			'query_param'      => json_decode( aioseoRedirects()->options->redirectDefaults->queryParam )->value,
-			'group'            => 'manual',
-			'regex'            => false,
-			'ignore_slash'     => aioseoRedirects()->options->redirectDefaults->ignoreSlash,
-			'ignore_case'      => aioseoRedirects()->options->redirectDefaults->ignoreCase,
-			'enabled'          => $rule['enabled']
+			'source_url'   => $urlFrom,
+			'target_url'   => $urlTo,
+			'type'         => $rule['type'],
+			'query_param'  => json_decode( aioseoRedirects()->options->redirectDefaults->queryParam )->value,
+			'group'        => 'manual',
+			'regex'        => false,
+			'ignore_slash' => aioseoRedirects()->options->redirectDefaults->ignoreSlash,
+			'ignore_case'  => aioseoRedirects()->options->redirectDefaults->ignoreCase,
+			'enabled'      => $rule['enabled']
 		]);
 	}
 }

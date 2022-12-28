@@ -123,6 +123,28 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    //$(".search-field").val("");
+    $('#headerSearch').click(function () {
+        $(this).addClass('header__search--show-form');
+        if ($(window).width() < 768) {
+            $("#burger-menu, #donate").hide();
+        }
+        else {
+            //$(".header__search-icon").hide();
+        }
+        $(".search-field").focus();
+    });
+
+    $(".search-field").focusout(function () {
+        $('#headerSearch').removeClass('header__search--show-form');
+        if ($(window).width() < 768) {
+            $("#burger-menu, #donate").show();
+        }
+        else {
+            //$(".header__search-icon").show();
+        }
+    });
+
     // autoplay bootstrap modal video
     var $videoSrc;
     var $frame = $(".video");

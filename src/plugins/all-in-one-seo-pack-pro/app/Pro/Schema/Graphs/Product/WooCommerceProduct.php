@@ -391,6 +391,10 @@ class WooCommerceProduct extends Product {
 			WC()->shipping->calculate_shipping( WC()->cart->get_shipping_packages() );
 			$shippingMethods = WC()->shipping->packages;
 
+			if ( empty( $shippingMethods[0]['rates'] ) ) {
+				continue;
+			}
+
 			foreach ( $shippingMethods[0]['rates'] as $shippingMethod ) {
 				// Ignore the free pickup method since this isn't relevant for Google.
 				if ( 'local_pickup' === $shippingMethod->get_method_id() ) {
@@ -510,11 +514,21 @@ class WooCommerceProduct extends Product {
 
 		$reviews = [];
 		foreach ( $comments as $comment ) {
+			$ratingValue = (float) get_comment_meta( $comment->comment_ID, 'rating', true );
+			if ( ! is_numeric( $ratingValue ) ) {
+				continue;
+			}
+
+			// If a review has no rating, WooCommerce falls back to a 1 star rating.
+			if ( 0 === absint( $ratingValue ) ) {
+				$ratingValue = 1;
+			}
+
 			$review = [
 				'@type'         => 'Review',
 				'reviewRating'  => [
 					'@type'       => 'Rating',
-					'ratingValue' => (float) get_comment_meta( $comment->comment_ID, 'rating', true ),
+					'ratingValue' => $ratingValue,
 					'worstRating' => 1,
 					'bestRating'  => 5
 				],

@@ -127,8 +127,12 @@ class WC_Mail_Weglot implements Hooks_Interface_Weglot {
 			return;
 		}
 
-		$current_language = $this->request_url_services->get_current_language()->getExternalCode();
-		add_post_meta( $order_id, 'weglot_language', $current_language );
+		$woocommerce_order_language = get_post_meta( $order_id, 'weglot_language', true );
+
+		if ( ! $woocommerce_order_language ) {
+			$current_language = $this->request_url_services->get_current_language()->getExternalCode();
+			add_post_meta( $order_id, 'weglot_language', $current_language );
+		}
 
 		return $order_id;
 	}

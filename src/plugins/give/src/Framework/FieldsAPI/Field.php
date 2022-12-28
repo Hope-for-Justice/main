@@ -7,9 +7,10 @@ use Give\Framework\FieldsAPI\Contracts\Node;
 use Give\Framework\FieldsAPI\Exceptions\EmptyNameException;
 
 /**
- * @since 2.17.0 allow fields to be macroable
- * @since 2.12.0
- * @since 2.13.0 Support visibility conditions
+ * @since      2.17.0 allow fields to be macroable
+ * @since      2.12.0
+ * @since      2.13.0 Support visibility conditions
+ * @since 2.22.0 Add TapNode trait
  */
 abstract class Field implements Node
 {
@@ -22,20 +23,22 @@ abstract class Field implements Node
     use Concerns\IsRequired;
     use Concerns\Macroable;
     use Concerns\SerializeAsJson;
+    use Concerns\TapNode;
 
     /** @var ValidationRules */
     protected $validationRules;
 
     /**
-     * @since 2.12.0
+     * @since      2.12.0
+     * @since 2.23.1 Make constructor final to avoid unsafe usage of `new static()`.
      *
      * @param string $name
      *
      * @throws EmptyNameException
      */
-    public function __construct($name)
+    final public function __construct($name)
     {
-        if ( ! $name) {
+        if (!$name) {
             throw new EmptyNameException();
         }
 
@@ -63,7 +66,7 @@ abstract class Field implements Node
      */
     public static function make($name)
     {
-        if ( ! $name) {
+        if (!$name) {
             throw new EmptyNameException();
         }
 

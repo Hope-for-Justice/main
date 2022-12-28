@@ -1,6 +1,5 @@
 .plans {
     display: grid;
     gap: 2rem;
-    -ms-flex-pack: center;
-        justify-content: center;
+    justify-content: center;
 }

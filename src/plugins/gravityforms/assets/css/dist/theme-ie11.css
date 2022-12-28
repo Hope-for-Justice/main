@@ -30,10 +30,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	}
 
 .gf_browser_ie.gform_wrapper.gravity-theme .gform_fields {
-		display: -ms-flexbox;
 		display: flex;
-		-ms-flex-wrap: wrap;
-		    flex-wrap: wrap;
+		flex-wrap: wrap;
 		overflow: hidden;
 	}
 
@@ -94,9 +92,9 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 /* Complex fields */
 
 .gf_browser_ie.gform_wrapper.gravity-theme .ginput_container_address .ginput_left, .gf_browser_ie.gform_wrapper.gravity-theme .ginput_container_address .ginput_right {
-		-ms-flex: 0 50%;
-		    flex: 0 50%;
-		-ms-flex-preferred-size: auto;
-		    flex-basis: auto;
+		flex: 0 50%;
+		flex-basis: auto;
 		width: 50%;
 	}
+
+/*# sourceMappingURL=theme-ie11.css.map */

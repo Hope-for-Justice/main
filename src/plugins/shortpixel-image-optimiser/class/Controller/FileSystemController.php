@@ -39,9 +39,9 @@ Class FileSystemController extends \ShortPixel\Controller
     /** Get MediaLibraryModel for a Post_id
 		* @param int $id
 		*/
-    public function getMediaImage($id)
+    public function getMediaImage($id, $useCache = true)
     {
-				if (isset(self::$mediaItems[$id]))
+				if ($useCache === true && isset(self::$mediaItems[$id]))
 				{
 					 return self::$mediaItems[$id];
 				}
@@ -59,15 +59,16 @@ Class FileSystemController extends \ShortPixel\Controller
 				{
 					 self::$mediaItems[$id] = $imageObj;
 				}
+
         return $imageObj;
     }
 
 		/**
 		* @param int $id
 		*/
-    public function getCustomImage($id)
+    public function getCustomImage($id, $useCache = true)
     {
-				if (isset(self::$customItems[$id]))
+				if ($useCache === true && isset(self::$customItems[$id]))
 				{
 				 return self::$customItems[$id];
 				}
@@ -82,6 +83,14 @@ Class FileSystemController extends \ShortPixel\Controller
         return $imageObj;
     }
 
+		// Use sporadically, every time an angel o performance dies.
+		// Required for files that change i.e. enable media replace or other filesystem changing operation.
+		public function flushImageCache()
+		{
+					 self::$mediaItems = array();
+					 self::$customItems = array();
+		}
+
     /** Gets a custom Image Model without being in the database. This is used to check if path is a proper customModel path ( not mediaLibrary ) and see if the file should be included per excusion rules */
     public function getCustomStub( $path, $load = true)
     {
@@ -94,15 +103,15 @@ Class FileSystemController extends \ShortPixel\Controller
 		* int $id
 		* string $type
 		*/
-    public function getImage( $id,  $type)
+    public function getImage( $id,  $type, $useCache = true)
     {
 			// False, OptimizeController does a hard check for false.
       $imageObj = false;
 
       if ($type == 'media')
-        $imageObj = $this->getMediaImage($id);
+        $imageObj = $this->getMediaImage($id, $useCache);
       elseif($type == 'custom')
-        $imageObj = $this->getCustomImage($id);
+        $imageObj = $this->getCustomImage($id, $useCache);
       else
         Log::addError('FileSystemController GetImage - no correct type given: ' . $type);
 
@@ -152,7 +161,8 @@ Class FileSystemController extends \ShortPixel\Controller
          $filepath = apply_filters('shortpixel/file/virtual/translate', $filepath, $file);
       }
 
-      if ($filepath !== $file->getFullPath())
+			//  translate can return false if not properly offloaded / not found there.
+      if ($filepath !== $file->getFullPath() && $filepath !== false)
       {
          $file = $this->getFile($filepath);
       }
@@ -227,10 +237,14 @@ Class FileSystemController extends \ShortPixel\Controller
 				if (defined('UPLOADS')) // if this is set, lead.
 					$abspath = trailingslashit(ABSPATH) . UPLOADS;
 
+//	$abspath = wp_normalize_path($abspath);
         $abspath = apply_filters('shortpixel/filesystem/abspath', $abspath );
+
 
         return $this->getDirectory($abspath);
     }
+
+
 
     /** Not in use yet, do not use. Future replacement. */
     public function checkBackUpFolder($folder = SHORTPIXEL_BACKUP_FOLDER)
@@ -295,7 +309,7 @@ Class FileSystemController extends \ShortPixel\Controller
 		  // (2) ** Also a real life fix when a path is /wwwroot/assets/sites/2/ etc, in get site url, the home URL is the site URL, without appending the sites stuff. Fails on original image.
 		    if ($is_multi_site && ! $is_main_site)
 				{
-					$wp_home_path = wp_normalize_path(trailingslashit($uploads['basedir']));
+					$wp_home_path = trailingslashit($uploads['basedir']);
 					$home_url = trailingslashit($uploads['baseurl']);
 				}
 				else
@@ -393,7 +407,7 @@ Class FileSystemController extends \ShortPixel\Controller
     public function downloadFile($url, $destinationPath)
     {
       $downloadTimeout = max(SHORTPIXEL_MAX_EXECUTION_TIME - 10, 15);
-      $fs = \wpSPIO()->filesystem();
+      $fs = \wpSPIO()->filesystem(); // @todo change this all to $this
     //  $fs = \wpSPIO()->fileSystem();
       $destinationFile = $fs->getFile($destinationPath);
 

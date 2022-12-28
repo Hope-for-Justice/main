@@ -87,7 +87,7 @@ class Language_Service_Weglot {
 	 * @param $external_code
 	 * @param $english_name
 	 * @param $local_name
-	 * @param bool          $is_rtl
+	 * @param bool $is_rtl
 	 *
 	 * @return array
 	 */
@@ -113,7 +113,7 @@ class Language_Service_Weglot {
 		$original_language     = $this->get_original_language();
 
 		if ( ! empty( $this->get_original_language_name_custom() ) ) {
-			$this->languages = $this->add_language( $original_language->getInternalCode(), $original_language->getExternalCode(), $this->get_original_language_name_custom(), $this->get_original_language_name_custom() );
+			$this->languages = $this->add_language( $original_language->getInternalCode(), $original_language->getExternalCode(), $this->get_original_language_name_custom(), $this->get_original_language_name_custom(), $original_language->isRtl() );
 		}
 
 		foreach ( $destination_languages as $d ) {
@@ -125,9 +125,10 @@ class Language_Service_Weglot {
 				$custom_local_name = isset( $d['custom_name'] ) ? $d['custom_name'] : $language_data->getLocalName(); // TODO: remove after core fixes bug.
 				$custom_local_name = isset( $d['custom_local_name'] ) ? $d['custom_local_name'] : $custom_local_name;
 				$custom_name       = isset( $d['custom_name'] ) ? $d['custom_name'] : $language_data->getEnglishName();
-				$this->languages   = $this->add_language( $d['language_to'], $external_code, $custom_name, $custom_local_name ); // côté core : il faut que le nom qui change soit le custom_local_name.
+				$this->languages   = $this->add_language( $d['language_to'], $external_code, $custom_name, $custom_local_name, $language_data->isRtl() ); // côté core : il faut que le nom qui change soit le custom_local_name.
 			}
 		}
+
 		return $this->languages;
 	}
 

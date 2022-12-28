@@ -467,6 +467,7 @@ class NetworkLicense extends License {
 	 * @return bool True if licensed at the network level.
 	 */
 	public function isNetworkLicensed() {
+		// If we are already locally activated, then no it's not network licensed.
 		if ( aioseo()->license->isActive() ) {
 			return false;
 		}

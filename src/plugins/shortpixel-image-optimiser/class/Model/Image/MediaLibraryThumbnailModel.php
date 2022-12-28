@@ -27,6 +27,7 @@ class MediaLibraryThumbnailModel extends \ShortPixel\Model\Image\ImageModel
         parent::__construct($path);
         $this->image_meta = new ImageThumbnailMeta();
         $this->id = $id;
+				$this->imageType = self::IMAGE_TYPE_THUMB;
         $this->size = $size;
         $this->setWebp();
         $this->setAvif();
@@ -60,14 +61,33 @@ class MediaLibraryThumbnailModel extends \ShortPixel\Model\Image\ImageModel
      $this->name = $name;
   }
 
+	public function setImageType($type)
+	{
+		 $this->imageType = $type;
+	}
+
   public function getRetina()
   {
-      $filebase = $this->getFileBase();
-      $filepath = (string) $this->getFileDir();
-      $extension = $this->getExtension();
+			if ($this->is_virtual())
+			{
+				$fs = \wpSPIO()->filesystem();
+				$filepath = apply_filters('shortpixel/file/virtual/translate', $this->getFullPath(), $this);
+				$virtualFile = $fs->getFile($filepath);
+
+				$filebase = $virtualFile->getFileBase();
+	      $filepath = (string) $virtualFile->getFileDir();
+	      $extension = $virtualFile->getExtension();				
+			}
+			else {
+				$filebase = $this->getFileBase();
+	      $filepath = (string) $this->getFileDir();
+	      $extension = $this->getExtension();
+			}
 
       $retina = new MediaLibraryThumbnailModel($filepath . $filebase . '@2x.' . $extension, $this->id, $this->size); // mind the dot in after 2x
 			$retina->setName($this->size);
+			$retina->setImageType(self::IMAGE_TYPE_RETINA);
+
 			$retina->is_retina = true;
 
       if ($retina->exists())
@@ -78,7 +98,7 @@ class MediaLibraryThumbnailModel extends \ShortPixel\Model\Image\ImageModel
 
 
 
-  public function getOptimizeFileType($type = 'webp')
+  public function isFileTypeNeeded($type = 'webp')
   {
       // pdf extension can be optimized, but don't come with these filetypes
       if ($this->getExtension() == 'pdf')
@@ -96,6 +116,7 @@ class MediaLibraryThumbnailModel extends \ShortPixel\Model\Image\ImageModel
       else
         return false;
   }
+
 
 	// @param FileDelete can be false. I.e. multilang duplicates might need removal of metadata, but not images.
   public function onDelete($fileDelete = true)
@@ -123,34 +144,23 @@ class MediaLibraryThumbnailModel extends \ShortPixel\Model\Image\ImageModel
     return $this->image_meta;
   }
 
-  public function getOptimizePaths()
-  {
-    if (! $this->isProcessable() )
-      return array();
 
-    return array($this->getFullPath());
-  }
 
 	// get_path param see MediaLibraryModel
-  public function getOptimizeUrls($get_path = false)
+	// This should be unused at the moment!
+  public function getOptimizeUrls()
   {
     if (! $this->isProcessable() )
-      return array();
+      return false;
 
-		if (true === $get_path)
-		{
-			$url = $this->getFullPath();
-		}
-		else {
-			$url = $this->getURL();
-		}
+		$url = $this->getURL();
 
     if (! $url)
 		{
-      return array(); //nothing
+      return false; //nothing
 		}
 
-    return array($url);
+    return $url;
   }
 
   public function getURL()
@@ -193,7 +203,6 @@ class MediaLibraryThumbnailModel extends \ShortPixel\Model\Image\ImageModel
 
 			}
 
-
       return $this->fs()->checkURL($url);
   }
 
@@ -224,7 +233,8 @@ class MediaLibraryThumbnailModel extends \ShortPixel\Model\Image\ImageModel
   {
 			// if thumbnail processing is off, thumbs are never processable.
 			// This is also used by main file, so check for that!
-      if ( $this->excludeThumbnails() && $this->is_main_file === false)
+
+      if ( $this->excludeThumbnails() && $this->is_main_file === false && $this->get('imageType') !== self::IMAGE_TYPE_ORIGINAL)
 			{
 				$this->processable_status = self::P_EXCLUDE_SIZE;
         return false;
@@ -261,6 +271,15 @@ class MediaLibraryThumbnailModel extends \ShortPixel\Model\Image\ImageModel
       return true;
 		}
 		return false;
+	}
+
+	public function isProcessableFileType($type = 'webp')
+	{
+			// Prevent webp / avif processing for thumbnails if this is off. Exclude main file
+		  if ($this->excludeThumbnails() === true && $this->is_main_file === false )
+				return false;
+
+			return parent::isProcessableFileType($type);
 	}
 
   protected function excludeThumbnails()

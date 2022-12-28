@@ -6,17 +6,14 @@
 
 	/* all: unset; */
 	-webkit-font-smoothing: antialiased;
-	-ms-flex-align: start;
-	    align-items: flex-start; /* stylelint-disable-line */
+	align-items: flex-start; /* stylelint-disable-line */
 	background-color: #fff;
 	border: 1px solid #d5d7e9;
 	border-radius: 3px;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.11), 0 0 4px rgba(18, 25, 97, 0.0405344);
 	color: #242748;
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-wrap: nowrap;
-	    flex-wrap: nowrap;
+	flex-wrap: nowrap;
 	font-family: inter, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen-sans, ubuntu, cantarell, "Helvetica Neue", sans-serif;
 	font-weight: 500;
 	margin: 0 0 1rem;
@@ -126,11 +123,10 @@ html[dir="rtl"] .gform-alert--inline .gform-alert__icon {
  */
 
 .gform-alert__message-wrap {
-	column-gap: 15px;
-	display: -ms-flexbox;
+	-moz-column-gap: 15px;
+	     column-gap: 15px;
 	display: flex;
-	-ms-flex-wrap: wrap;
-	    flex-wrap: wrap;
+	flex-wrap: wrap;
 	min-height: 33px;
 	padding-left: 32px;
 	row-gap: 10px;
@@ -140,7 +136,8 @@ html[dir="rtl"] .gform-alert--inline .gform-alert__icon {
 /* Style variant: Inline */
 
 .gform-alert--inline .gform-alert__message-wrap {
-		column-gap: 10px;
+		-moz-column-gap: 10px;
+		     column-gap: 10px;
 		padding-left: 28px;
 		row-gap: 7px;
 	}
@@ -158,8 +155,7 @@ html[dir="rtl"] .gform-alert--inline .gform-alert__message-wrap {
 
 .gform-alert__message {
 	color: inherit;
-	-ms-flex: 1 1 auto;
-	    flex: 1 1 auto;
+	flex: 1 1 auto;
 	font-size: 0.8125rem;
 	font-weight: 500;
 	line-height: 1.5;
@@ -189,8 +185,7 @@ html[dir="rtl"] .gform-alert--inline .gform-alert__message-wrap {
  */
 
 .gform-alert__dismiss {
-	-ms-flex-item-align: start;
-	    align-self: flex-start;
+	align-self: flex-start;
 	background: none;
 	border: none;
 	cursor: pointer;
@@ -257,14 +252,12 @@ html[dir="rtl"] .gform-alert__dismiss {
 	}
 
 .gform-admin .gform-button {
-		-ms-flex-align: center;
-		    align-items: center; /* stylelint-disable-line */
+		align-items: center; /* stylelint-disable-line */
 		border: 1px solid transparent;
 		border-radius: 3px;
 		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 		box-sizing: border-box;
 		cursor: pointer;
-		display: -ms-inline-flexbox;
 		display: inline-flex;
 		font-family: inter, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen-sans, ubuntu, cantarell, "Helvetica Neue", sans-serif;
 		font-size: 0.875rem;
@@ -289,8 +282,7 @@ html[dir="rtl"] .gform-alert__dismiss {
 
 .gform-admin .gform-button.gform-button--circular {
 			border-radius: 100%;
-			-ms-flex-pack: center;
-			    justify-content: center;
+			justify-content: center;
 			padding: 0;
 		}
 
@@ -552,8 +544,7 @@ html[dir="rtl"] .gform-alert__dismiss {
 			}
 
 .gform-admin .gform-button--activated {
-		-ms-flex-pack: center;
-		    justify-content: center;
+		justify-content: center;
 	}
 
 .gform-admin .gform-button--activated.gform-button--primary {
@@ -569,7 +560,6 @@ html[dir="rtl"] .gform-alert__dismiss {
 		}
 
 .gform-admin .gform-button--activated .gform-button__text--active {
-			display: -ms-inline-flexbox;
 			display: inline-flex;
 		}
 
@@ -632,12 +622,10 @@ html[dir="rtl"] .gform-admin .gform-button__text--active {
 	}
 
 .gform-admin .gform-dialog__mask {
-		-ms-flex-align: center;
-		    align-items: center;
+		align-items: center;
 		display: none;
 		height: 100%;
-		-ms-flex-pack: center;
-		    justify-content: center;
+		justify-content: center;
 		left: 0;
 		opacity: 0;
 		top: 0;
@@ -646,7 +634,6 @@ html[dir="rtl"] .gform-admin .gform-button__text--active {
 	}
 
 .gform-admin .gform-dialog__mask.gform-dialog--anim-in-ready {
-			display: -ms-flexbox;
 			display: flex;
 			opacity: 0;
 		}
@@ -656,8 +643,7 @@ html[dir="rtl"] .gform-admin .gform-button__text--active {
 		}
 
 .gform-admin .gform-dialog__mask.gform-dialog--anim-in-active .gform-dialog {
-				-ms-transform: scale(1);
-				    transform: scale(1);
+				transform: scale(1);
 			}
 
 .gform-admin .gform-dialog__mask.gform-dialog__mask--position-fixed {
@@ -689,8 +675,7 @@ html[dir="rtl"] .gform-admin .gform-button__text--active {
 		max-width: 600px;
 		padding: 14px 25px 25px;
 		position: relative;
-		-ms-transform: scale(0.95);
-		    transform: scale(0.95);
+		transform: scale(0.95);
 		transition: transform 200ms ease-in-out;
 		width: calc(100% - 40px);
 	}
@@ -756,9 +741,7 @@ html[dir="rtl"] .gform-admin .gform-button__text--active {
 		}
 
 .gform-admin .gform-dialog .gform-dialog__footer {
-			-ms-flex-align: center;
-			    align-items: center;
-			display: -ms-flexbox;
+			align-items: center;
 			display: flex;
 			padding-top: 20px;
 			width: 100%;
@@ -842,14 +825,12 @@ html[dir="rtl"] .gform-admin .gform-dialog .gform-dialog__confirm.gform-button--
 				}
 
 .gform-admin .gform-dropdown__control {
-		-ms-flex-align: center;
-		    align-items: center;
+		align-items: center;
 		background: #fff;
 		border: 0.0625rem solid #d5d7e9;
 		border-radius: 0.1875rem;
 		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 		cursor: pointer;
-		display: -ms-flexbox;
 		display: flex;
 		height: 2.375rem;
 		line-height: 1.1;
@@ -871,14 +852,12 @@ html[dir="rtl"] .gform-admin .gform-dialog .gform-dialog__confirm.gform-button--
 			}
 
 .gform-admin .gform-dropdown__control .gform-dropdown__chevron, .gform-admin .gform-dropdown__control .gform-dropdown__spinner {
-			-ms-flex-align: center;
-			    align-items: center;
+			align-items: center;
 			background-size: 16px 16px;
 			color: #9092b2;
 			font-size: 1.375rem;
 			height: 100%;
-			-ms-flex-pack: center;
-			    justify-content: center;
+			justify-content: center;
 			position: absolute;
 			right: 0;
 			top: 0;
@@ -887,7 +866,6 @@ html[dir="rtl"] .gform-admin .gform-dialog .gform-dialog__confirm.gform-button--
 		}
 
 .gform-admin .gform-dropdown__control .gform-dropdown__chevron {
-			display: -ms-flexbox;
 			display: flex;
 		}
 
@@ -1025,7 +1003,6 @@ html[dir="rtl"] .gform-admin .gform-dialog .gform-dialog__confirm.gform-button--
 		}
 
 .gform-admin .gform-dropdown--show-spinner .gform-dropdown__spinner {
-			display: -ms-flexbox;
 			display: flex;
 		}
 
@@ -1040,8 +1017,7 @@ html[dir="rtl"] .gform-admin .gform-dialog .gform-dialog__confirm.gform-button--
 
 .gform-admin .gform-dropdown--open .gform-dropdown__chevron {
 			color: #242748;
-			-ms-transform: rotate(180deg);
-			    transform: rotate(180deg);
+			transform: rotate(180deg);
 		}
 
 .gform-admin .gform-dropdown--open .gform-dropdown__control {
@@ -1131,9 +1107,7 @@ html[dir="rtl"] .gform-admin .gform-dropdown__group-text {
 		}
 
 .gform-admin .gform-embed-form__shortcode-footer {
-		-ms-flex-align: center;
-		    align-items: center;
-		display: -ms-flexbox;
+		align-items: center;
 		display: flex;
 		width: 100%;
 	}
@@ -1175,13 +1149,10 @@ html[dir="rtl"] .gform-admin .gform-dropdown__group-text {
 	}
 
 .gform-admin .gform-embed-form__shortcode-copy-copied {
-		-ms-flex-align: center;
-		    align-items: center;
+		align-items: center;
 		box-sizing: border-box;
-		display: -ms-inline-flexbox;
 		display: inline-flex;
-		-ms-flex-pack: center;
-		    justify-content: center;
+		justify-content: center;
 		left: 0;
 		opacity: 0;
 		position: absolute;
@@ -1211,15 +1182,12 @@ html[dir="rtl"] .gform-admin .gform-dropdown__group-text {
 			}
 
 .gform-admin .gform-dialog.gform-dialog--embed-form-unsaved .gform-dialog__footer .gform-dialog__confirm-button--idle-text {
-				-ms-flex-align: center;
-				    align-items: center;
-				display: -ms-inline-flexbox;
+				align-items: center;
 				display: inline-flex;
 			}
 
 .gform-admin .gform-dialog.gform-dialog--embed-form-unsaved .gform-dialog__footer .gform-dialog__confirm-button--saving {
-				-ms-flex-pack: center;
-				    justify-content: center;
+				justify-content: center;
 			}
 
 .gform-admin .gform-dialog.gform-dialog--embed-form-unsaved .gform-dialog__footer .gform-dialog__confirm-button--saving .gform-dialog__confirm-button--idle-text {
@@ -1270,8 +1238,7 @@ html[dir="rtl"] .gform-admin .gform-dialog.gform-dialog--embed-form-unsaved .gfo
 		box-shadow: 0 0 1px rgba(18, 25, 97, 0.24), 0 24px 24px rgba(18, 25, 97, 0.03), 0 2px 2px rgba(18, 25, 97, 0.03), 0 4px 4px rgba(18, 25, 97, 0.03), 0 8px 8px rgba(18, 25, 97, 0.03), 0 16px 16px rgba(18, 25, 97, 0.03);
 		box-sizing: border-box;
 		display: none;
-		-ms-flex-direction: column;
-		    flex-direction: column;
+		flex-direction: column;
 		height: 100%;
 		left: 0;
 		opacity: 0;
@@ -1291,7 +1258,6 @@ html[dir="rtl"] .gform-admin .gform-dialog.gform-dialog--embed-form-unsaved .gfo
 		}
 
 .gform-admin .gform-flyout.gform-flyout--anim-in-ready {
-			display: -ms-flexbox;
 			display: flex;
 		}
 
@@ -1325,8 +1291,7 @@ html[dir="rtl"] .gform-admin .gform-dialog.gform-dialog--embed-form-unsaved .gfo
 			}
 
 .gform-admin .gform-flyout.gform-flyout--right .gform-flyout__expand-icon {
-				-ms-transform: rotate(90deg);
-				    transform: rotate(90deg);
+				transform: rotate(90deg);
 			}
 
 .gform-admin .gform-flyout.gform-flyout--left .gform-flyout__expand-rail {
@@ -1338,25 +1303,20 @@ html[dir="rtl"] .gform-admin .gform-dialog.gform-dialog--embed-form-unsaved .gfo
 			}
 
 .gform-admin .gform-flyout.gform-flyout--left .gform-flyout__expand-icon {
-				-ms-transform: rotate(-90deg);
-				    transform: rotate(-90deg);
+				transform: rotate(-90deg);
 			}
 
 .gform-admin .gform-flyout.gform-flyout--expanded.gform-flyout--right .gform-flyout__expand-icon {
-					-ms-transform: rotate(-90deg);
-					    transform: rotate(-90deg);
+					transform: rotate(-90deg);
 				}
 
 .gform-admin .gform-flyout.gform-flyout--expanded.gform-flyout--left .gform-flyout__expand-icon {
-					-ms-transform: rotate(90deg);
-					    transform: rotate(90deg);
+					transform: rotate(90deg);
 				}
 
 .gform-admin .gform-flyout .gform-flyout__close.gform-button--size-xs {
-			-ms-flex-align: center;
-			    align-items: center;
+			align-items: center;
 			border: 1px solid #d5d7e9;
-			display: -ms-flexbox;
 			display: flex;
 			font-size: 1.25rem;
 			height: 1.625rem;
@@ -1386,19 +1346,16 @@ html[dir="rtl"] .gform-admin .gform-dialog.gform-dialog--embed-form-unsaved .gfo
 		}
 
 .gform-admin .gform-flyout .gform-flyout__expand {
-			-ms-flex-align: center;
-			    align-items: center;
+			align-items: center;
 			background: #fff;
 			border: 1px solid #ecedf8;
 			border-radius: 19px;
 			box-shadow: 0 0 1px rgba(18, 25, 97, 0.24), 0 24px 24px rgba(18, 25, 97, 0.03), 0 2px 2px rgba(18, 25, 97, 0.03), 0 4px 4px rgba(18, 25, 97, 0.03), 0 8px 8px rgba(18, 25, 97, 0.03), 0 16px 16px rgba(18, 25, 97, 0.03);
 			color: #242748;
 			cursor: pointer;
-			display: -ms-flexbox;
 			display: flex;
 			height: 56px;
-			-ms-flex-pack: center;
-			    justify-content: center;
+			justify-content: center;
 			margin-top: -28px;
 			opacity: 0;
 			position: absolute;
@@ -1422,15 +1379,12 @@ html[dir="rtl"] .gform-admin .gform-dialog.gform-dialog--embed-form-unsaved .gfo
 				}
 
 .gform-admin .gform-flyout .gform-flyout__expand-icon {
-			-ms-flex-align: center;
-			    align-items: center;
+			align-items: center;
 			color: #242748;
-			display: -ms-flexbox;
 			display: flex;
 			font-size: 1rem;
 			height: 15px;
-			-ms-flex-pack: center;
-			    justify-content: center;
+			justify-content: center;
 			position: relative;
 			transition: color 300ms ease;
 			width: 100%;
@@ -1516,8 +1470,7 @@ html[dir="rtl"] .gform-admin .gform-flyout.gform-flyout--right .gform-flyout__ex
 			}
 
 html[dir="rtl"] .gform-admin .gform-flyout.gform-flyout--right .gform-flyout__expand-icon {
-				-ms-transform: rotate(-90deg);
-				    transform: rotate(-90deg);
+				transform: rotate(-90deg);
 			}
 
 html[dir="rtl"] .gform-admin .gform-flyout .gform-flyout__close.gform-button--size-xs {
@@ -1536,18 +1489,15 @@ html[dir="rtl"] .gform-admin .gform-flyout.gform-flyout--left .gform-flyout__exp
 			}
 
 html[dir="rtl"] .gform-admin .gform-flyout.gform-flyout--left .gform-flyout__expand-icon {
-				-ms-transform: rotate(90deg);
-				    transform: rotate(90deg);
+				transform: rotate(90deg);
 			}
 
 html[dir="rtl"] .gform-admin .gform-flyout.gform-flyout--expanded.gform-flyout--right .gform-flyout__expand-icon {
-					-ms-transform: rotate(90deg);
-					    transform: rotate(90deg);
+					transform: rotate(90deg);
 				}
 
 html[dir="rtl"] .gform-admin .gform-flyout.gform-flyout--expanded.gform-flyout--left .gform-flyout__expand-icon {
-					-ms-transform: rotate(-90deg);
-					    transform: rotate(-90deg);
+					transform: rotate(-90deg);
 				}
 
 html[dir="rtl"] .gform-admin .gform-flyout__desc {
@@ -1580,7 +1530,7 @@ html[dir="rtl"] .gform-admin .gform-flyout__desc {
 			color: #242748;
 		}
 
-.gform-admin .gform-input:-ms-input-placeholder {
+.gform-admin .gform-input::-moz-placeholder {
 			color: #5b5e80;
 			font-family: inter, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen-sans, ubuntu, cantarell, "Helvetica Neue", sans-serif;
 			font-size: 0.8125rem;
@@ -1643,11 +1593,9 @@ html[dir="rtl"] .gform-admin .gform-flyout__desc {
 					}
 
 .gform-admin .gform-input__label {
-		-ms-flex-align: center;
-		    align-items: center;
+		align-items: center;
 		color: #242748;
 		cursor: pointer;
-		display: -ms-inline-flexbox;
 		display: inline-flex;
 		font-family: inter, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen-sans, ubuntu, cantarell, "Helvetica Neue", sans-serif;
 		font-size: 0.75rem;
@@ -1672,12 +1620,9 @@ html[dir="rtl"] .gform-admin .gform-input--radio + .gform-input__label--radio::b
 	}
 
 .gform-admin .gform-loader__mask {
-		-ms-flex-align: center;
-		    align-items: center;
-		display: -ms-flexbox;
+		align-items: center;
 		display: flex;
-		-ms-flex-direction: column;
-		    flex-direction: column;
+		flex-direction: column;
 		height: 100%;
 		left: 0;
 		position: absolute;
@@ -1699,8 +1644,7 @@ html[dir="rtl"] .gform-admin .gform-input--radio + .gform-input__label--radio::b
 	}
 
 .gform-admin .gform-loader__mask--position-top {
-		 -ms-flex-pack: start;
-		     justify-content: start;
+		 justify-content: start;
 	}
 
 .gform-admin .gform-loader__mask--position-top .gform-loader__mask-positioner {
@@ -1708,13 +1652,11 @@ html[dir="rtl"] .gform-admin .gform-input--radio + .gform-input__label--radio::b
 		}
 
 .gform-admin .gform-loader__mask--position-center {
-		 -ms-flex-pack: center;
-		     justify-content: center;
+		 justify-content: center;
 	}
 
 .gform-admin .gform-loader__mask--position-bottom {
-		 -ms-flex-pack: end;
-		     justify-content: end;
+		 justify-content: end;
 	}
 
 .gform-admin .gform-loader__mask--position-bottom .gform-loader__mask-positioner {
@@ -1765,17 +1707,14 @@ html[dir="rtl"] .gform-admin .gform-input--radio + .gform-input__label--radio::b
 }
 
 .gform-admin .gform-snackbar {
-		-ms-flex-align: center;
-		    align-items: center;
+		align-items: center;
 		background: #fff;
 		border: 1px solid #ecedf8;
 		border-radius: 3px;
 		box-shadow: 0 24px 24px rgba(18, 25, 97, 0.03), 0 2px 2px rgba(18, 25, 97, 0.03), 0 4px 4px rgba(18, 25, 97, 0.03), 0 8px 8px rgba(18, 25, 97, 0.03), 0 16px 16px rgba(18, 25, 97, 0.03);
 		box-sizing: border-box;
-		display: -ms-flexbox;
 		display: flex;
-		-ms-flex-direction: row;
-		    flex-direction: row;
+		flex-direction: row;
 		font-family: inter, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen-sans, ubuntu, cantarell, "Helvetica Neue", sans-serif;
 		font-size: 0.8125rem;
 		font-weight: 500;
@@ -1785,15 +1724,13 @@ html[dir="rtl"] .gform-admin .gform-input--radio + .gform-input__label--radio::b
 		opacity: 0;
 		padding: 16px;
 		position: absolute;
-		-ms-transform: scale(0.95);
-		    transform: scale(0.95);
+		transform: scale(0.95);
 		transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
 	}
 
 .gform-admin .gform-snackbar.gform-snackbar--reveal {
 			opacity: 1;
-			-ms-transform: scale(1);
-			    transform: scale(1);
+			transform: scale(1);
 		}
 
 .gform-admin .gform-snackbar.gform-snackbar--bottomleft {
@@ -1823,19 +1760,16 @@ html[dir="rtl"] .gform-admin .gform-input--radio + .gform-input__label--radio::b
 /* todo: create as close component, check figma */
 
 .gform-admin .gform-snackbar__close {
-		-ms-flex-align: center;
-		    align-items: center;
+		align-items: center;
 		background: #fff;
 		border: 1px solid transparent;
 		border-radius: 100%;
 		color: #9092b2;
 		cursor: pointer;
-		display: -ms-flexbox;
 		display: flex;
 		font-size: 32px;
 		height: 24px;
-		-ms-flex-pack: center;
-		    justify-content: center;
+		justify-content: center;
 		position: absolute;
 		right: 10px;
 		top: 16px;
@@ -1939,16 +1873,11 @@ html[dir="rtl"] .gform-admin .gform-snackbar__message {
 	}
 
 .gform-admin .gform-st-icon {
-		-ms-flex-align: center;
-		    align-items: center;
-		display: -ms-inline-flexbox;
+		align-items: center;
 		display: inline-flex;
-		-ms-flex-preferred-size: 1.25rem;
-		    flex-basis: 1.25rem;
-		-ms-flex-positive: 0;
-		    flex-grow: 0;
-		-ms-flex-negative: 0;
-		    flex-shrink: 0;
+		flex-basis: 1.25rem;
+		flex-grow: 0;
+		flex-shrink: 0;
 		font-family: "gform-icons-admin" !important;
 		font-size: 1.125rem;
 		font-style: normal;
@@ -1956,8 +1885,7 @@ html[dir="rtl"] .gform-admin .gform-snackbar__message {
 		font-variant: normal;
 		font-weight: normal;
 		height: 1.25rem;
-		-ms-flex-pack: center;
-		    justify-content: center;
+		justify-content: center;
 		position: relative;
 		text-transform: none;
 		vertical-align: top;
@@ -1993,8 +1921,7 @@ html[dir="rtl"] .gform-admin .gform-snackbar__message {
 		border-radius: 50%;
 		box-shadow: 0 2px 2px rgba(58, 58, 87, 0.0596411);
 		cursor: pointer;
-		-ms-flex-preferred-size: 1.125rem;
-		    flex-basis: 1.125rem;
+		flex-basis: 1.125rem;
 		height: 1.125rem;
 		line-height: 1.188rem;
 		outline: none;
@@ -2285,3 +2212,5 @@ html[dir="rtl"] .gform-admin .gform-status-indicator.gform-status--no-icon {
 html[dir="rtl"] .gform-admin .gform-table {
 	text-align: right;
 }
+
+/*# sourceMappingURL=admin-components.css.map */

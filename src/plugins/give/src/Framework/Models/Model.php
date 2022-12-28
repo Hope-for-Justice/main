@@ -12,7 +12,6 @@ use RuntimeException;
  */
 abstract class Model implements Arrayable
 {
-
     /**
      * The model's attributes.
      *
@@ -51,14 +50,15 @@ abstract class Model implements Arrayable
     /**
      * Create a new model instance.
      *
-     * @since 2.20.0 add support for property defaults
-     * @since 2.19.6
+     * @since      2.19.6
+     * @since      2.20.0 add support for property defaults
+     * @since 2.23.1 Make constructor final to avoid unsafe usage of `new static()`.
      *
      * @param array $attributes
      *
      * @return void
      */
-    public function __construct(array $attributes = [])
+    final public function __construct(array $attributes = [])
     {
         $this->fill(array_merge($this->getPropertyDefaults(), $attributes));
 
@@ -104,7 +104,7 @@ abstract class Model implements Arrayable
      */
     public function isDirty($attribute = null)
     {
-        if (!$attribute) {
+        if ( ! $attribute) {
             return (bool)$this->getDirty();
         }
 
@@ -122,7 +122,7 @@ abstract class Model implements Arrayable
      */
     public function isClean($attribute = null)
     {
-        return !$this->isDirty($attribute);
+        return ! $this->isDirty($attribute);
     }
 
     /**
@@ -137,7 +137,7 @@ abstract class Model implements Arrayable
         $dirty = [];
 
         foreach ($this->attributes as $key => $value) {
-            if (!array_key_exists($key, $this->original) || $value !== $this->original[$key]) {
+            if ( ! array_key_exists($key, $this->original) || $value !== $this->original[$key]) {
                 $dirty[$key] = $value;
             }
         }
@@ -166,19 +166,16 @@ abstract class Model implements Arrayable
     /**
      * Get an attribute from the model.
      *
+     * @since 2.23.0 use the existence validation method
      * @since 2.19.6
-     *
-     * @param string $key
      *
      * @return mixed
      *
      * @throws RuntimeException
      */
-    public function getAttribute($key)
+    public function getAttribute(string $key)
     {
-        if (!array_key_exists($key, $this->properties)) {
-            throw new InvalidArgumentException("$key is not a valid property.");
-        }
+        $this->validatePropertyExists($key);
 
         return $this->attributes[$key] ?? null;
     }
@@ -186,18 +183,24 @@ abstract class Model implements Arrayable
     /**
      * Set a given attribute on the model.
      *
+     * @since 2.23.0 validate that the property exists before setting
      * @since 2.19.6
      *
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
+     * @return void
      */
-    public function setAttribute($key, $value)
+    public function setAttribute(string $key, $value)
     {
+        $this->validatePropertyExists($key);
         $this->validatePropertyType($key, $value);
 
         $this->attributes[$key] = $value;
+    }
 
-        return $this;
+    public function hasProperty($key): bool
+    {
+        return array_key_exists($key, $this->properties);
     }
 
     /**
@@ -206,7 +209,7 @@ abstract class Model implements Arrayable
      * @since 2.19.6
      *
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
      *
      * @return bool
      */
@@ -233,18 +236,19 @@ abstract class Model implements Arrayable
     }
 
     /**
-     * Validate property type
+     * Validates that the given value is a valid type for the given property.
+     *
+     * @since 2.19.6
      *
      * @param string $key
-     * @param mixed $value
-     *
+     * @param mixed  $value
      * @return void
      *
      * @throws InvalidArgumentException
      */
-    protected function validatePropertyType($key, $value)
+    protected function validatePropertyType(string $key, $value)
     {
-        if (!$this->isPropertyTypeValid($key, $value)) {
+        if ( ! $this->isPropertyTypeValid($key, $value)) {
             $type = $this->getPropertyType($key);
 
             throw new InvalidArgumentException("Invalid attribute assignment. '$key' should be of type: '$type'");
@@ -252,15 +256,26 @@ abstract class Model implements Arrayable
     }
 
     /**
+     * Validates that the given property exists
+     *
+     * @since 2.23.0
+     *
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    protected function validatePropertyExists(string $key)
+    {
+        if ( !$this->hasProperty($key) ) {
+            throw new InvalidArgumentException("Invalid property. '$key' does not exist.");
+        }
+    }
+
+    /**
      * Get the property type
      *
      * @since 2.19.6
-     *
-     * @param $key
-     *
-     * @return string
      */
-    protected function getPropertyType($key)
+    protected function getPropertyType(string $key): string
     {
         $type = is_array($this->properties[$key]) ? $this->properties[$key][0] : $this->properties[$key];
 
@@ -287,10 +302,8 @@ abstract class Model implements Arrayable
      * Returns the defaults for all the properties. If a default is omitted it defaults to null.
      *
      * @since 2.20.0
-     *
-     * @return array
      */
-    protected function getPropertyDefaults()
+    protected function getPropertyDefaults(): array
     {
         $defaults = [];
         foreach (array_keys($this->properties) as $property) {
@@ -302,20 +315,16 @@ abstract class Model implements Arrayable
 
     /**
      * @since 2.19.6
-     *
-     * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->attributes;
     }
 
     /**
      * @since 2.19.6
-     *
-     * @return array
      */
-    public function getAttributes()
+    public function getAttributes(): array
     {
         return $this->attributes;
     }
@@ -323,9 +332,9 @@ abstract class Model implements Arrayable
     /**
      * @return int[]|string[]
      */
-    public static function propertyKeys()
+    public static function propertyKeys(): array
     {
-        return array_keys((new static)->properties);
+        return array_keys((new static())->properties);
     }
 
     /**
@@ -333,11 +342,9 @@ abstract class Model implements Arrayable
      *
      * @since 2.19.6
      *
-     * @param string $key
-     *
      * @return mixed
      */
-    public function __get($key)
+    public function __get(string $key)
     {
         if (array_key_exists($key, $this->relationships)) {
             return $this->getRelationship($key);
@@ -352,7 +359,7 @@ abstract class Model implements Arrayable
      * @since 2.19.6
      *
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
      *
      * @return void
      */
@@ -387,7 +394,7 @@ abstract class Model implements Arrayable
      */
     protected function getRelationship($key)
     {
-        if (!is_callable([$this, $key])) {
+        if ( ! is_callable([$this, $key])) {
             throw new InvalidArgumentException("$key() does not exist.");
         }
 

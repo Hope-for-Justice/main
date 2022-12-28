@@ -78,6 +78,12 @@ class Translate_Page_Weglot implements Hooks_Interface_Weglot {
 	 * @since 2.0
 	 */
 	public function hooks() {
+
+		$referer = wp_parse_url( wp_get_referer() );
+		if ( wp_is_json_request() && ( str_contains( $referer['query'], 'action=edit' ) ) ) {
+			return;
+		}
+
 		if ( Helper_Is_Admin::is_wp_admin() || 'wp-login.php' === $GLOBALS['pagenow'] ) {
 			return;
 		}
@@ -97,9 +103,9 @@ class Translate_Page_Weglot implements Hooks_Interface_Weglot {
 	}
 
 	/**
+	 * @return boolean
 	 * @since 2.1.1
 	 *
-	 * @return boolean
 	 */
 	protected function no_translate_action_ajax() {
 		$action_ajax_no_translate = apply_filters(
@@ -155,7 +161,7 @@ class Translate_Page_Weglot implements Hooks_Interface_Weglot {
 
 		if ( $this->request_url_services->is_allowed_private() ) {
 			if ( ! isset( $_COOKIE['weglot_allow_private'] ) ) {
-				setcookie("weglot_allow_private" , true, time() + 86400 * 2, '/' ); //phpcs:ignore
+				setcookie( "weglot_allow_private", true, time() + 86400 * 2, '/' ); //phpcs:ignore
 			}
 		}
 
@@ -199,8 +205,10 @@ class Translate_Page_Weglot implements Hooks_Interface_Weglot {
 	 */
 	public function check_need_to_redirect() {
 
-		$only_home = apply_filters( 'weglot_autoredirect_only_home', false );
+		$only_home     = apply_filters( 'weglot_autoredirect_only_home', false );
+		$skip_redirect = apply_filters( 'weglot_autoredirect_skip', false );
 		if (
+			! $skip_redirect &&
 			! wp_doing_ajax() && // no ajax.
 			! is_rest() &&
 			! Helper_Is_Admin::is_wp_admin() &&
@@ -216,9 +224,9 @@ class Translate_Page_Weglot implements Hooks_Interface_Weglot {
 	}
 
 	/**
-	 * @since 2.0
-	 * @version 2.1.0
 	 * @return void
+	 * @version 2.1.0
+	 * @since 2.0
 	 */
 	public function prepare_request_uri() {
 		$original_language = $this->language_services->get_original_language();
@@ -251,13 +259,13 @@ class Translate_Page_Weglot implements Hooks_Interface_Weglot {
 		}
 
 		$_SERVER['REQUEST_URI'] = $this->request_url_services->get_weglot_url()->getPathPrefix() .
-			$this->request_url_services->get_weglot_url()->getPathAndQuery();
+		                          $this->request_url_services->get_weglot_url()->getPathAndQuery();
 	}
 
 	/**
+	 * @return void
 	 * @since 2.0
 	 *
-	 * @return void
 	 */
 	public function prepare_rtl_language() {
 		if ( $this->current_language->isRtl() ) {
@@ -268,10 +276,10 @@ class Translate_Page_Weglot implements Hooks_Interface_Weglot {
 	}
 
 	/**
-	 * @see wp_head
+	 * @return void
 	 * @since 2.0
 	 * @version 2.3.0
-	 * @return void
+	 * @see wp_head
 	 */
 	public function weglot_href_lang() {
 		$remove_google_translate = apply_filters( 'weglot_remove_google_translate', true );

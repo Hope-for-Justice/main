@@ -69,7 +69,7 @@ if ( ! class_exists( 'AIOSEOExtend' ) ) {
 		 *
 		 * @var string
 		 */
-		static $aioseoVersion = null;
+		public static $aioseoVersion = null;
 
 		/**
 		 * Holds the addon notices.
@@ -78,7 +78,7 @@ if ( ! class_exists( 'AIOSEOExtend' ) ) {
 		 *
 		 * @var string
 		 */
-		static $addonNotices = array();
+		public static $addonNotices = array();
 
 		/**
 		 * The construct function.

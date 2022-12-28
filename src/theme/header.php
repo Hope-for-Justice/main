@@ -139,7 +139,7 @@ if (isset($_GET['campaign'])) {
                 <?php }  ?>
             <?php }  ?>
             <div class="header__inner">
-                <a style="margin-bottom: -5px" href="/">
+                <a id="logo" style="margin-bottom: -5px" href="/">
                     <!-- inline style - remove space from the bottom of the logo -->
                     <svg aria-labelledby="logoSVGTitle" class="header__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 173.806 52.08">
                         <title id="logoSVGTitle">Logo and home button</title>
@@ -167,11 +167,11 @@ if (isset($_GET['campaign'])) {
                     </svg>
                 </a>
                 <div class="header__navigation">
-                    <a class="button button--red button--nav bold" href="<?php if ($args['donate-link']) {
-                                                                                echo $args['donate-link'];
-                                                                            } else {
-                                                                                echo "/give-them-hope";
-                                                                            } ?>">DONATE</a>
+                    <a id="donate" class="button button--red button--nav bold" href="<?php if ($args['donate-link']) {
+                                                                                            echo $args['donate-link'];
+                                                                                        } else {
+                                                                                            echo "/give-them-hope";
+                                                                                        } ?>">DONATE</a>
                     <div id="burger-menu" class="header__burger">
                         <div class="burger">
                             <span></span>
@@ -179,6 +179,15 @@ if (isset($_GET['campaign'])) {
                             <span></span>
                             <span></span>
                         </div>
+                    </div>
+
+                    <div id="headerSearch" class="header__search">
+                        <div class="header__search-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.5 20.5">
+                                <path id="Union_1" data-name="Union 1" d="M.489,20.16a1.423,1.423,0,0,1-.151-1.994L5.6,12.119A7.084,7.084,0,0,1,10.5,0a7.069,7.069,0,0,1,0,14.138,6.921,6.921,0,0,1-2.653-.526L2.463,20.006a1.391,1.391,0,0,1-1.974.154ZM4.9,7.07a5.6,5.6,0,1,0,5.6-5.656A5.634,5.634,0,0,0,4.9,7.07Z" fill="#212322" />
+                            </svg>
+                        </div>
+                        <?php get_search_form() ?>
                     </div>
                 </div>
             </div>

@@ -79,8 +79,7 @@ i.fa-caret-right {
     -moz-transition: .1s
 }
 li.active > span > i.fa-caret-right {
-    -ms-transform: rotate(90deg);
-        transform: rotate(90deg);
+    transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg)
 }
@@ -242,8 +241,7 @@ button#wcp-save-folder {
     display: block
 }
 .wcp-parent.active > i.fa-caret-right {
-    -ms-transform: rotate(90deg);
-        transform: rotate(90deg);
+    transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg)
 }
@@ -387,8 +385,8 @@ body:not(.no-hover-css) .wcp-container .route .title:hover .ui-icon .pfolder-fol
     padding: 3px
 }
 a#expand-collapse-list.all-open span {
-    -ms-transform: rotate(180deg);
-        transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 .form-options > ul > li > a:hover {
     background: #404040;
@@ -454,17 +452,14 @@ span.total-count {
     font-size: 9px !important;
     color: #fa166b;
     font-weight: bold;
-    -ms-transform: rotate(-90deg);
-        transform: rotate(-90deg);
+    transform: rotate(-90deg);
     transition: all 0.25s linear;
 }
 #custom-menu .route.active .nav-icon .wcp-icon {
-    -ms-transform: rotate(0deg);
-        transform: rotate(0deg);
+    transform: rotate(0deg);
 }
 .route.active > .nav-icon > .folder-icon-arrow_right {
-    -ms-transform: rotate(90deg);
-        transform: rotate(90deg);
+    transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg)
 }
@@ -494,6 +489,8 @@ span.total-count {
     width: 235px;
     padding: 0;
     z-index: 1000001;
+    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, .25);
+    -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, .25);
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, .25)
 }
 .dynamic-menu ul {
@@ -991,8 +988,8 @@ html[dir="rtl"] .wcp-hide-show-buttons .toggle-buttons {
     border-bottom-left-radius: 50%;
 }
 html[dir="rtl"] .wcp-hide-show-buttons .toggle-buttons span {
-    -ms-transform: rotate(180deg);
-        transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 .hide-folders-area .wcp-content {
     width: 0 !important
@@ -1017,6 +1014,8 @@ button.button.organize-button {
     border: solid 1px #f51366;
     border-radius: 3px;
     line-height: 14px;
+    -webkit-box-shadow: 0 3px 5px -3px #333;
+    -moz-box-shadow: 0 3px 5px -3px #333;
     box-shadow: 0 3px 5px -3px #333;
     position: relative
 }
@@ -1123,11 +1122,12 @@ span.media-info-message.active {
     -o-transform: translate(0, -50%);
     -ms-transform: translate(0, -50%);
     padding: 20px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
     border-radius: 4px;
     color: #484848;
 }
 .folder-form-buttons a:not(.inline-button), .folder-form-buttons button {
-    display: -ms-inline-flexbox;
     display: inline-flex;
     padding: 0;
     text-decoration: none;
@@ -1140,10 +1140,8 @@ span.media-info-message.active {
     box-sizing: border-box;
     height: 36px;
     cursor: pointer;
-    -ms-flex: 1;
-        flex: 1;
-    -ms-flex-pack: center;
-        justify-content: center;
+    flex: 1;
+    justify-content: center;
 }
 .folder-form-buttons a.inline-button {
     display: inline-block;
@@ -1155,6 +1153,7 @@ span.media-info-message.active {
     color: #f51366;
 }
 .folder-form-buttons a span, .folder-form-buttons button span {
+    -webkit-animation: fa-spin .75s infinite linear;
     animation: fa-spin .75s infinite linear;
     padding: 7px;
 }
@@ -1165,9 +1164,7 @@ span.media-info-message.active {
     text-transform: none;
     font-size: .9em;
     line-height: 1;
-    -webkit-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+    user-select: none;
     pointer-events: none;
     position: absolute;
     display: none;
@@ -1208,8 +1205,7 @@ span.media-info-message.active {
 }
 .wcp-container .folder-tooltip:not([flow])::after, .wcp-container .folder-tooltip:not([flow])::before, .wcp-container .folder-tooltip[flow^=up]::after, .wcp-container .folder-tooltip[flow^=up]::before {
     left: 50%;
-    -ms-transform: translate(-50%, -.5em);
-        transform: translate(-50%, -.5em)
+    transform: translate(-50%, -.5em)
 }
 .wp-core-ui .button-primary.select-all-item-btn {
     margin: 11px 11px 11px 0;
@@ -1230,6 +1226,15 @@ span.media-info-message.active {
 }
 #custom-menu.show-folder-checkbox h3.title > .ui-icon > i, #custom-menu.show-folder-checkbox h3.title > .ui-icon > img {
     display: none !important
+}
+@-webkit-keyframes fa-spin {
+    0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0)
+    }    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg)
+    }
 }
 .folder-form-buttons a:focus, .folder-form-buttons a:hover, .folder-form-buttons button:focus, .folder-form-buttons button:hover {
     color: #fff;
@@ -1299,17 +1304,41 @@ span.folder-loader-ajax {
 .folder-loader-ajax.active {
     display: inline-block
 }
-@keyframes scaleAnimation {
+@-webkit-keyframes scaleAnimation {
     0% {
         opacity: 0;
+        -webkit-transform: scale(1.5);
         transform: scale(1.5)
     }    100% {
         opacity: 1;
+        -webkit-transform: scale(1);
         transform: scale(1)
+    }}
+@keyframes scaleAnimation {
+    0% {
+        opacity: 0;
+        -webkit-transform: scale(1.5);
+        transform: scale(1.5)
+    }    100% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }}
+@-webkit-keyframes drawCircle {
+    0% {
+        stroke-dashoffset: 151px
+    }    100% {
+        stroke-dashoffset: 0
     }}
 @keyframes drawCircle {
     0% {
         stroke-dashoffset: 151px
+    }    100% {
+        stroke-dashoffset: 0
+    }}
+@-webkit-keyframes drawCheck {
+    0% {
+        stroke-dashoffset: 36px
     }    100% {
         stroke-dashoffset: 0
     }}
@@ -1319,11 +1348,23 @@ span.folder-loader-ajax {
     }    100% {
         stroke-dashoffset: 0
     }}
+@-webkit-keyframes fadeOut {
+    0% {
+        opacity: 1
+    }    100% {
+        opacity: 0
+    }}
 @keyframes fadeOut {
     0% {
         opacity: 1
     }    100% {
         opacity: 0
+    }}
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0
+    }    100% {
+        opacity: 1
     }}
 @keyframes fadeIn {
     0% {
@@ -1361,15 +1402,19 @@ svg#successAnimation {
     display: inline-block
 }
 #successAnimation.animated {
+    -webkit-animation: 1s ease-out 0s 1 both scaleAnimation;
     animation: 1s ease-out 0s 1 both scaleAnimation
 }
 #successAnimation.animated #successAnimationCircle {
+    -webkit-animation: 1s cubic-bezier(.77, 0, .175, 1) 0s 1 both drawCircle, .3s linear .9s 1 both fadeOut;
     animation: 1s cubic-bezier(.77, 0, .175, 1) 0s 1 both drawCircle, .3s linear .9s 1 both fadeOut
 }
 #successAnimation.animated #successAnimationCheck {
+    -webkit-animation: 1s cubic-bezier(.77, 0, .175, 1) 0s 1 both drawCheck, .3s linear .9s 1 both fadeOut;
     animation: 1s cubic-bezier(.77, 0, .175, 1) 0s 1 both drawCheck, .3s linear .9s 1 both fadeOut
 }
 #successAnimation.animated #successAnimationResult {
+    -webkit-animation: .3s linear .9s both fadeIn;
     animation: .3s linear .9s both fadeIn
 }
 .mCSB_scrollTools a + .mCSB_draggerContainer {
@@ -1414,11 +1459,14 @@ select#media-attachment-taxonomy-filter {
     padding: 0;
     width: 0%;
     border-radius: 4px;
+    -webkit-transition: all .2s linear;
     transition: all .2s linear
 }
 .folder-meter > span {
     display: block;
     height: 100%;
+    -webkit-box-shadow: inset 0 2px 9px rgba(255, 255, 255, .3), inset 0 -2px 6px rgba(0, 0, 0, .4);
+    -moz-box-shadow: inset 0 2px 9px rgba(255, 255, 255, .3), inset 0 -2px 6px rgba(0, 0, 0, .4);
     box-shadow: inset 0 2px 9px rgba(255, 255, 255, .3), inset 0 -2px 6px rgba(0, 0, 0, .4);
     position: relative;
     overflow: hidden;
@@ -1432,6 +1480,7 @@ select#media-attachment-taxonomy-filter {
     left: 0;
     bottom: 0;
     right: 0;
+    background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(255, 255, 255, .2)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.75, rgba(255, 255, 255, .2)), color-stop(.75, transparent), to(transparent));
     background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
     z-index: 1;
     -webkit-background-size: 50px 50px;
@@ -1442,6 +1491,12 @@ select#media-attachment-taxonomy-filter {
 .folder-animate > span:after {
     display: none
 }
+@-webkit-keyframes move {
+    0% {
+        background-position: 0 0
+    }    100% {
+        background-position: 50px 50px
+    }}
 .media-folder-loader {
     padding: 10px 0 15px;
     display: none
@@ -1571,6 +1626,8 @@ span.folder-count:empty {
     width: 120px;
     z-index: 101;
     background: #fff;
+    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, .25);
+    -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, .25);
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, .25);
     display: none;
 }
@@ -1618,7 +1675,6 @@ span.folder-count:empty {
     bottom: 0;
 }
 .folder-form-buttons {
-    display: -ms-flexbox;
     display: flex;
 }
 .folder-form-buttons.pro-message {
@@ -1680,6 +1736,7 @@ span.folder-count:empty {
     pointer-events: none;
     left: 20px;
     top: 10px;
+    -webkit-transition: 300ms ease all;
     transition: 300ms ease all;
     color: #484848;
 }
@@ -1696,6 +1753,7 @@ span.folder-count:empty {
     bottom: 0px;
     position: absolute;
     background: #2196F3;
+    -webkit-transition: 300ms ease all;
     transition: 300ms ease all;
     left: 0%;
 }
@@ -1783,8 +1841,7 @@ span.create_new_folder {
     margin-right: 0 !important;
 }
 #custom-menu .route.has-sub-tree.has-search > .nav-icon  > .pfolder-arrow-down {
-    -ms-transform: rotate(0);
-        transform: rotate(0);
+    transform: rotate(0);
 }
 body:not(.woocommerce-page) .wp-list-table th {
     width: auto;

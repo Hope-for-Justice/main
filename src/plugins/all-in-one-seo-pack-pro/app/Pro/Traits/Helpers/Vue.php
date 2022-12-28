@@ -71,7 +71,6 @@ trait Vue {
 				'priority'                    => ! empty( $term->priority ) ? $term->priority : 'default',
 				'frequency'                   => ! empty( $term->frequency ) ? $term->frequency : 'default',
 				'permalink'                   => get_term_link( $termId ),
-				'permalinkPath'               => aioseo()->helpers->leadingSlashIt( aioseo()->helpers->getPermalinkPath( get_term_link( $termId ) ) ),
 				'title'                       => ! empty( $term->title ) ? $term->title : aioseo()->meta->title->getTaxonomyTitle( $taxonomy->taxonomy ),
 				'description'                 => ! empty( $term->description ) ? $term->description : aioseo()->meta->description->getTaxonomyDescription( $taxonomy->taxonomy ),
 				'keywords'                    => ! empty( $term->keywords ) ? $term->keywords : wp_json_encode( [] ),

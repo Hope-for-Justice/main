@@ -1,11 +1,11 @@
 === GiveWP - Donation Plugin and Fundraising Platform ===
-Contributors: givewp, dlocc, webdevmattcrom, ravinderk, mehul0810, kevinwhoffman, jason_the_adams, henryholtgeerts, kbjohnson90, alaca, benmeredithgmailcom, jonwaldstein, joshuadinh
+Contributors: givewp, dlocc, webdevmattcrom, ravinderk, mehul0810, kevinwhoffman, jason_the_adams, henryholtgeerts, kbjohnson90, alaca, benmeredithgmailcom, jonwaldstein, joshuadinh, glaubersilvawp, pauloiankoski
 Donate link: https://go.givewp.com/home
 Tags: donation, donate, recurring donations, fundraising, crowdfunding
 Requires at least: 5.0
-Tested up to: 6.0
+Tested up to: 6.1
 Requires PHP: 7.0
-Stable tag: 2.21.4
+Stable tag: 2.23.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -87,7 +87,7 @@ If you are a GiveWP customer with an active license of any of our popular add-on
 
 GiveWP comes with several payment gateway options:
 
-* **Stripe Donations** -- Our Stripe integration allows you to accept credit card donations on your website. There is a small 2% fee associated with these donations. Want no additional fees? Upgrade to our Stripe Premium add-on to start accepting [Stripe Donations]](https://go.givewp.com/addon-stripe).
+* **Stripe Donations** -- Our Stripe integration allows you to accept credit card donations on your website. There is a small 2% fee associated with these donations. Want no additional fees? Upgrade to our Stripe Premium add-on to start accepting [Stripe Donations](https://go.givewp.com/addon-stripe).
 * **PayPal Donations** -- Allow worldwide donations with PayPal Donations. No additional fees applied.
 * **Venmo Donations** -- Give donors the option to pay through Venmo with their account balance or connected bank account. 
 * **Offline Donations** -- Enable your donors to send checks or physical donations with an offline gateway with instructions.
@@ -160,9 +160,9 @@ Here’s a few ways you can contribute to GiveWP:
 
 = Minimum Requirements =
 
-* WordPress 4.9 or greater
-* PHP version 5.6 or greater
-* MySQL version 5.6 or greater
+* WordPress 5.0 or greater
+* PHP version 7.0 or greater
+* MySQL version 5.7 or greater
 * MariaDB version 10 or later
 * Some payment gateways require fsockopen support (for IPN access)
 * cURL version 5.40 or higher
@@ -251,6 +251,49 @@ The 2% fee on Stripe donations only applies to donations taken via our free Stri
 8. GiveWP has a dedicated support team to help answer any questions you may have and help you through stumbling blocks.
 
 == Changelog ==
+= 2.23.2: November 17th, 2022 =
+* Enhancement: Added support for gateways that need to mark a new subscription as processing
+* Fix: Fixed a Stripe issue in conjunction with Stripe that would throw an error when processing a renewal
+* Fix: Prevent some PHP notices when being used on PHP 8
+
+= 2.23.1: October 31st, 2022 =
+* Fix: Fee Recovered amount in the donation summary works better with currencies that use a comma as the thousands separator
+* Fix: Form Grid donate button color defaults to black to avoid being invisible in some cases
+* Fix: Made text translatable in the Form Grid that previously wasn't
+* Fix: The give()->donations->getLatestDonation now correctly grabs the most recent
+* Fix: Zip code and country are now in the correct order for donor exports
+* Fix: The Donor and Donation models correctly handle missing meta
+
+= 2.23.0: October 20th, 2022 =
+* Enhancement: Under the hood improvements to how recurrence is handled in donations and subscriptions
+* Enhancement: Added additional filters to email settings (for Peer-to-Peer)
+* Fix: Wrapped up some issues to make sure GiveWP is ready for WordPress 6.1
+* Fix: Scrolling a form on a mobile device will no longer select a amount level
+* Fix: Errors now display properly (and are auto-scrolled to) in the Classic template
+
+= 2.22.3: October 13th, 2022 =
+* Fix: When a donor creates an account the email is assured to be sent the right account
+
+= 2.22.2: September, 28th 2022 =
+* Fix: The give_goal and give_form shortcodes once again display correctly with the goal progress
+* Fix: Translating in Google Chrome no longer prevents disconnecting the PayPal account
+
+= 2.22.1: September, 20th 2022 =
+* Security: Updated a number of 3rd party packages we use to include security fixes
+* Fix: Legacy template now displays the correct amount for the donor and donation goals
+* Fix: Donor Dashboard block is now selectable within the Block Editor
+* Fix: A fatal error is now prevented when other plugins or themes use the_title filter
+* Fix: Fund and revenue totals now properly reflect the amount when a donation is edited
+* Fix: The progress bar displays/hides correctly when the show_goal property for give_form_grid is used
+
+= 2.22.0: August 18th, 2022 =
+* Feature: SendWP integration to easily connect emails to their service
+* Enhancement: Improvement to the GatewayAPI to allow gateways to pass custom data to the server
+* Fix: Prevent the MAX_JOIN_SIZE error from breaking queries that affected some folks
+* Fix: Goal percentage on the Multi-Step form has been fixed to accurately reflect amount raised
+* Fix: When filling out the deactivation survey, deactivation will no longer be prevented if our server is down
+* Fix: Added more escaping to secure against vulnerabilities
+
 = 2.21.4: July 8th, 2022 =
 * Fix: The CSRF patch for the stats exporter was breaking other exporters. The patch is still in place but the other exporters are working again.
 

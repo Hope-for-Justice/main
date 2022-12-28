@@ -58,41 +58,31 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 */
 
 .gform-browser-notice {
-	-ms-flex-align: center;
-	    align-items: center;
-	display: -ms-flexbox;
+	align-items: center;
 	display: flex;
-	-ms-flex-pack: start;
-	    justify-content: flex-start;
+	justify-content: flex-start;
 }
 
 .gform-browser-notice__inner {
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-direction: column;
-	    flex-direction: column;
+	flex-direction: column;
 	margin-top: 10rem;
 	max-width: 100%;
 	width: 700px;
 }
 
 .gform-browser-notice__media, .gform-browser-notice__content {
-	-ms-flex: 1;
-	    flex: 1;
+	flex: 1;
 }
 
 .gform-browser-notice__media {
-	display: -ms-flexbox;
 	display: flex;
 }
 
 .gform-browser-notice__media--inline {
-	-ms-flex-direction: row;
-	    flex-direction: row;
-	-ms-flex-wrap: nowrap;
-	    flex-wrap: nowrap;
-	-ms-flex-pack: center;
-	    justify-content: center;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
 }
 
 .gform-browser-notice__media--inline img {
@@ -116,12 +106,9 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 
 .form_editor_fields_container {
 	background-color: transparent;
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-direction: column;
-	    flex-direction: column;
-	-ms-flex-positive: 1;
-	    flex-grow: 1;
+	flex-direction: column;
+	flex-grow: 1;
 	max-height: calc(100% - 144px);
 	max-width: calc(100% - 594px);
 	min-height: calc(100% - 144px);
@@ -175,8 +162,7 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	position: absolute;
 	text-align: center;
 	top: 6rem;
-	-ms-transform: translateX(-50%);
-	    transform: translateX(-50%);
+	transform: translateX(-50%);
 	transition: opacity 0.19s ease-out;
 	width: 100%;
 	z-index: 2;
@@ -357,21 +343,15 @@ html[dir="rtl"] .folded .form_editor_fields_container.droppable {
 }
 
 html[dir="rtl"] .add-buttons {
-	-ms-flex-pack: right;
-	    justify-content: right;
+	justify-content: right;
 }
 
 .add-buttons {
 
-	-ms-flex-line-pack: stretch;
-
-	    align-content: stretch;
-	display: -ms-flexbox;
+	align-content: stretch;
 	display: flex;
-	-ms-flex-wrap: wrap;
-	    flex-wrap: wrap;
-	-ms-flex-pack: left;
-	    justify-content: left;
+	flex-wrap: wrap;
+	justify-content: left;
 	margin: 0;
 	overflow: visible;
 }
@@ -383,21 +363,17 @@ html[dir="rtl"] .add-buttons {
 	}
 
 .add-buttons li button, .add-buttons li button.button {
-			-ms-flex-align: stretch;
-			    align-items: stretch;
+			align-items: stretch;
 			background: transparent;
 			border: 1px solid #d5d7e9;
 			border-radius: 3px;
 			color: #242748;
 			cursor: grab;
-			display: -ms-flexbox;
 			display: flex;
-			-ms-flex-direction: column;
-			    flex-direction: column;
+			flex-direction: column;
 			font-size: 0.8125rem;
 			height: 5.8125rem;
-			-ms-flex-pack: distribute;
-			    justify-content: space-around;
+			justify-content: space-around;
 			margin: 0 auto;
 			padding: 0.5rem 0 0 0;
 			transition: 0.1s all ease-in-out;
@@ -430,21 +406,17 @@ html[dir="rtl"] .add-buttons {
 			}
 
 button.ui-draggable-dragging {
-	-ms-flex-align: stretch;
-	    align-items: stretch;
+	align-items: stretch;
 	background: #fff;
 	border: 1px solid #d5d7e9;
 	border-radius: 3px;
 	box-shadow: 0 0 1px rgba(18, 25, 97, 0.24), 0 24px 24px rgba(18, 25, 97, 0.03), 0 2px 2px rgba(18, 25, 97, 0.03), 0 4px 4px rgba(18, 25, 97, 0.03), 0 8px 8px rgba(18, 25, 97, 0.03), 0 16px 16px rgba(18, 25, 97, 0.03);
 	color: #242748;
 	cursor: grabbing;
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-direction: column;
-	    flex-direction: column;
+	flex-direction: column;
 	font-size: 0.8125rem;
-	-ms-flex-pack: distribute;
-	    justify-content: space-around;
+	justify-content: space-around;
 	padding: 0.5rem 0 0 0;
 	text-align: center;
 	white-space: normal;
@@ -789,10 +761,8 @@ html[dir="rtl"] .gfield .ui-resizable-e {
 	border: 1px solid #d5d7e9;
 	border-radius: 3px;
 	box-shadow: 0 2px 12px rgba(28, 31, 63, 0.09);
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-direction: row;
-	    flex-direction: row;
+	flex-direction: row;
 	left: 1rem;
 	opacity: 0;
 	pointer-events: none;
@@ -803,19 +773,16 @@ html[dir="rtl"] .gfield .ui-resizable-e {
 }
 
 .gfield-admin-icons .gfield-field-action {
-		-ms-flex-align: center;
-		    align-items: center;
+		align-items: center;
 		background-color: #fff;
 		border: 0;
 		border-left: 1px solid #d5d7e9;
 		color: #242748;
 		cursor: pointer;
-		display: -ms-flexbox;
 		display: flex;
 		font-size: 0;
 		height: 3rem;
-		-ms-flex-pack: center;
-		    justify-content: center;
+		justify-content: center;
 		outline: none;
 		position: relative;
 		width: 3rem;
@@ -852,8 +819,7 @@ html[dir="rtl"] .gfield .ui-resizable-e {
 			position: absolute;
 			text-align: center;
 			top: -1.25rem;
-			-ms-transform: translateX(-50%);
-			    transform: translateX(-50%);
+			transform: translateX(-50%);
 			transition: all ease-in-out 200ms;
 			z-index: 100;
 		}
@@ -1103,9 +1069,7 @@ html[dir="rtl"] #sidebar_field_label::after {
 */
 
 .gform_wrapper.gravity-theme.gform_legacy_markup .gfield_time_hour {
-		-ms-flex-align: baseline;
-		    align-items: baseline;
-		display: -ms-flexbox;
+		align-items: baseline;
 		display: flex;
 		margin-right: 0.75rem;
 	}
@@ -1129,8 +1093,7 @@ html[dir="rtl"] #sidebar_field_label::after {
 		}
 
 .gform_wrapper.gravity-theme.gform_legacy_markup .ginput_container_time {
-		-ms-flex-preferred-size: auto;
-		    flex-basis: auto;
+		flex-basis: auto;
 	}
 
 .gform_wrapper.gravity-theme.gform_legacy_markup .ginput_container_time input[type="text"] + i {
@@ -1210,10 +1173,8 @@ body.toplevel_page_gf_edit_forms #gform-form-toolbar {
 
 body.toplevel_page_gf_edit_forms .gforms_edit_form {
 	bottom: 0;
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-positive: 1;
-	    flex-grow: 1;
+	flex-grow: 1;
 	height: 100vh;
 	margin: 0 0 0 0 !important;
 	overscroll-behavior-y: none;
@@ -1440,7 +1401,6 @@ body.toplevel_page_gf_edit_forms.folded .gform-form-toolbar {
 	box-shadow: none;
 	color: #40464d;
 	cursor: pointer;
-	display: -ms-flexbox;
 	display: flex;
 	font-size: 0.8125rem;
 	padding: 8px 15px;
@@ -1532,26 +1492,21 @@ html[dir="rtl"] .editor-sidebar {
 
 .sidebar .sidebar__nav-wrapper .sidebar__nav {
 		border-bottom: 0 !important;
-		display: -ms-flexbox;
 		display: flex;
 		width: 100%;
 	}
 
 .sidebar .sidebar__nav-wrapper .sidebar__nav li.sidebar__nav__item {
-			-ms-flex-positive: 1;
-			    flex-grow: 1;
+			flex-grow: 1;
 			height: 3rem;
 		}
 
 .sidebar .sidebar__nav-wrapper .sidebar__nav li.sidebar__nav__item .sidebar__nav__item-text {
-				-ms-flex-align: center;
-				    align-items: center;
+				align-items: center;
 				box-sizing: border-box;
-				display: -ms-flexbox;
 				display: flex;
 				height: 2.8125rem;
-				-ms-flex-pack: center;
-				    justify-content: center;
+				justify-content: center;
 				line-height: 0.875rem;
 				width: 100%;
 			}
@@ -1580,8 +1535,7 @@ html[dir="rtl"] .editor-sidebar {
 	line-height: 1.25rem;
 	position: absolute;
 	top: 50%;
-	-ms-transform: translateY(-50%);
-	    transform: translateY(-50%);
+	transform: translateY(-50%);
 	width: 1.0625rem;
 }
 
@@ -1703,8 +1657,7 @@ html[dir="rtl"] .editor-sidebar {
 	position: absolute;
 	right: 2rem;
 	top: 50%;
-	-ms-transform: translateY(-50%);
-	    transform: translateY(-50%);
+	transform: translateY(-50%);
 	width: 1.0625rem;
 }
 
@@ -1757,19 +1710,15 @@ html[dir="rtl"] .search-button::after {
 }
 
 .sidebar__panel.ui-tabs-panel {
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-flow: column;
-	    flex-flow: column;
+	flex-flow: column;
 	height: calc(100vh - 220px);
 	text-align: left;
 }
 
 .panel-block--flex {
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-negative: 0;
-	    flex-shrink: 0;
+	flex-shrink: 0;
 }
 
 .panel-block--hidden {
@@ -1795,12 +1744,9 @@ li.pagination_setting .percentage_style_setting ~ .percentage_custom_container {
 }
 
 .field-choice-row {
-	-ms-flex-align: center;
-	    align-items: center;
-	display: -ms-flexbox;
+	align-items: center;
 	display: flex;
-	-ms-flex-flow: row nowrap;
-	    flex-flow: row nowrap;
+	flex-flow: row nowrap;
 	padding: 0;
 	width: 100%;
 }
@@ -1917,13 +1863,10 @@ html[dir="rtl"] .field-choice-handle {
 	}
 
 #sidebar_field_info #sidebar_field_icon {
-		-ms-flex-align: center;
-		    align-items: center;
-		display: -ms-flexbox;
+		align-items: center;
 		display: flex;
 		font-size: 1.5rem;
-		-ms-flex-pack: center;
-		    justify-content: center;
+		justify-content: center;
 		width: 68px;
 	}
 
@@ -1964,6 +1907,7 @@ html[dir="rtl"] .field-choice-handle {
 	opacity: 0;
 	padding: 1rem 1.5rem;
 	position: fixed;
+	width: -moz-fit-content;
 	width: fit-content;
 }
 
@@ -2067,14 +2011,12 @@ html[dir="rtl"] #gfield_settings_choices_container label:first-child {
 			}
 
 #gfield_settings_choices_container.choice_with_price .field-choice-input {
-			-ms-flex-preferred-size: calc(50% - 3rem);
-			    flex-basis: calc(50% - 3rem);
+			flex-basis: calc(50% - 3rem);
 			width: calc(50% - 3rem);
 		}
 
 .limits-enabled #gfield_settings_choices_container.choice_with_price .field-choice-input {
-				-ms-flex-preferred-size: auto;
-				    flex-basis: auto;
+				flex-basis: auto;
 				width: calc(50% - 4.25rem);
 			}
 
@@ -2091,8 +2033,7 @@ html[dir="rtl"] #gfield_settings_choices_container label:first-child {
 		}
 
 #gfield_settings_choices_container.choice_with_value_and_price .field-choice-input:not(.field-choice-limit) {
-			-ms-flex-preferred-size: calc(33.332% - 2rem);
-			    flex-basis: calc(33.332% - 2rem);
+			flex-basis: calc(33.332% - 2rem);
 			width: calc(33.332% - 2rem);
 		}
 
@@ -2125,12 +2066,10 @@ html[dir="rtl"] #gfield_settings_choices_container.choice_with_value_and_price >
 }
 
 .gf_calculation_buttons {
-	-ms-flex-align: center;
-	    align-items: center;
+	align-items: center;
 	background-color: #f5f5f5;
 	border-radius: 5px 5px 0 0;
 	box-shadow: inset 0 0 0 1px #ddd;
-	display: -ms-flexbox;
 	display: flex;
 	float: none;
 	height: 30px;
@@ -2182,10 +2121,8 @@ html[dir="rtl"] #gfield_settings_choices_container.choice_with_value_and_price >
 }
 
 .gform_inline_options {
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-pack: start;
-	    justify-content: flex-start;
+	justify-content: flex-start;
 }
 
 .gform_inline_options div {
@@ -2227,8 +2164,7 @@ html[dir="rtl"] .gform_inline_options div {
 	margin-left: 0.625rem;
 	position: absolute;
 	top: 50%;
-	-ms-transform: translateY(-52%);
-	    transform: translateY(-52%);
+	transform: translateY(-52%);
 }
 
 .gform_editor ul .admin-hidden-markup i.dashicon.dashicons-hidden {
@@ -2301,10 +2237,8 @@ html[dir="rtl"] .ui-tabs .ui-tabs-nav li {
 }
 
 html[dir="rtl"] #sidebar_field_info {
-	-ms-flex-flow: row-reverse;
-	    flex-flow: row-reverse;
-	-ms-flex-pack: justify;
-	    justify-content: space-between;
+	flex-flow: row-reverse;
+	justify-content: space-between;
 }
 
 html[dir="rtl"] #sidebar_field_info #sidebar_field_description #sidebar_field_label {
@@ -2317,8 +2251,7 @@ html[dir="rtl"] #sidebar_field_info #sidebar_field_description #sidebar_field_te
 }
 
 html[dir="rtl"] #sidebar_field_info #sidebar_field_icon {
-	-ms-flex-order: 3;
-	    order: 3;
+	order: 3;
 }
 
 html[dir="rtl"] .section_label, html[dir="rtl"] .panel-block-tabs__toggle {
@@ -2533,3 +2466,5 @@ html[dir="rtl"] .right ul#gf_merge_tag_list {
 	}
 
 }
+
+/*# sourceMappingURL=editor.css.map */

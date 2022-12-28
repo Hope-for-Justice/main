@@ -142,7 +142,11 @@ class Facebook extends CommonSocial\Facebook {
 			return parent::getObjectType();
 		}
 
-		$term     = get_queried_object();
+		$term = get_queried_object();
+		if ( ! is_a( $term, 'WP_Term' ) ) {
+			return 'article';
+		}
+
 		$metaData = aioseo()->meta->metaData->getMetaData( $term );
 		if ( ! empty( $metaData->og_object_type ) && 'default' !== $metaData->og_object_type ) {
 			return $metaData->og_object_type;

@@ -48,10 +48,10 @@ class Search_Weglot implements Hooks_Interface_Weglot {
 	}
 
 	/**
+	 * @return void
+	 * @since 2.4.0
 	 * @see Hooks_Interface_Weglot
 	 *
-	 * @since 2.4.0
-	 * @return void
 	 */
 	public function hooks() {
 
@@ -68,9 +68,10 @@ class Search_Weglot implements Hooks_Interface_Weglot {
 	}
 
 	/**
-	 * @since 2.4.0
 	 * @param WP_Query $query
+	 *
 	 * @return void
+	 * @since 2.4.0
 	 */
 	public function pre_get_posts_translate( $query ) {
 		if ( ! $query->is_search() ) {
@@ -83,7 +84,7 @@ class Search_Weglot implements Hooks_Interface_Weglot {
 		}
 
 		$original_language = $this->language_services->get_original_language()->getInternalCode();
-		$current_language  = $this->request_url_services->get_current_language()->getEnglishName();
+		$current_language  = $this->request_url_services->get_current_language()->getInternalCode();
 
 		if ( $original_language === $current_language ) {
 			return;
@@ -98,16 +99,17 @@ class Search_Weglot implements Hooks_Interface_Weglot {
 				return;
 			}
 
-			set_query_var( $query_vars_check, $this->new_search );
+			$query->set( $query_vars_check, $this->new_search ); //phpcs:ignore
 		} catch ( \Exception $th ) {
 			return;
 		}
 	}
 
 	/**
-	 * @since 2.4.0
 	 * @param string $string
+	 *
 	 * @return string
+	 * @since 2.4.0
 	 */
 	public function get_search_query_translate( $string ) {
 		return ( $this->old_search ) ? $this->old_search : $string;

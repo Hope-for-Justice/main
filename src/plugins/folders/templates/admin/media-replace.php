@@ -1,43 +1,58 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit;
+/**
+ * Admin media replace settings
+ *
+ * @author  : Premio <contact@premio.io>
+ * @license : GPL2
+ * */
 
-if (!current_user_can('upload_files'))
+if (! defined('ABSPATH')) {
+    exit;
+}
+
+if (!current_user_can('upload_files')) {
     wp_die(esc_html__('You do not have permission to upload files.', 'enable-media-replace'));
+}
 
 global $wpdb;
 
-$attachment_id = intval($_GET['attachment_id']);
-$attachment = get_post($attachment_id);
+
+$attachment_id = intval(filter_input(INPUT_GET, 'attachment_id'));
+$attachment    = get_post($attachment_id);
 
 $size = 0;
-if(isset($attachment->guid)) {
+if (isset($attachment->guid)) {
     $size = $this->getFileSize($attachment_id);
 }
-//$url = wp_get_attachment_url($attachment_id); die;
+
+// $url = wp_get_attachment_url($attachment_id); die;
 $guid = $attachment->guid;
-$url = wp_get_attachment_url($attachment_id);
-if(!empty($url)) {
+$url  = wp_get_attachment_url($attachment_id);
+if (!empty($url)) {
     $guid = $url;
 }
-$guid = explode(".", $guid);
-$ext = array_pop($guid);
-$image_meta = wp_get_attachment_metadata($attachment_id);
-$thumb = wp_get_attachment_image_src($attachment_id, 'thumbnail');
+
+$guid        = explode(".", $guid);
+$ext         = array_pop($guid);
+$image_meta  = wp_get_attachment_metadata($attachment_id);
+$thumb       = wp_get_attachment_image_src($attachment_id, 'thumbnail');
 $source_type = get_post_mime_type($attachment_id);
-$url = "";
-if(isset($thumb[0])) {
+$url         = "";
+if (isset($thumb[0])) {
     $url = $thumb[0];
 }
+
 $file_parts = pathinfo($attachment->guid);
-$file_name = $file_parts['basename'];
+$file_name  = $file_parts['basename'];
 
 $customize_folders = get_option("customize_folders");
-if(isset($customize_folders['show_folder_in_settings']) && $customize_folders['show_folder_in_settings'] == "yes") {
-	$upgradeURL = admin_url("options-general.php?page=wcp_folders_settings&setting_page=upgrade-to-pro");
+if (isset($customize_folders['show_folder_in_settings']) && $customize_folders['show_folder_in_settings'] == "yes") {
+    $upgradeURL = admin_url("options-general.php?page=wcp_folders_settings&setting_page=upgrade-to-pro");
 } else {
-	$upgradeURL = admin_url("admin.php?page=folders-upgrade-to-pro");
+    $upgradeURL = admin_url("admin.php?page=folders-upgrade-to-pro");
 }
-$current_date = date_i18n('d/M/Y H:i', strtotime($attachment->post_date) )
+
+$current_date = date_i18n('d/M/Y H:i', strtotime($attachment->post_date))
 
 /*
  * Forked from Enable Media Replace
@@ -46,7 +61,7 @@ $current_date = date_i18n('d/M/Y H:i', strtotime($attachment->post_date) )
 ?>
 <div class="wrap">
     <h2><?php esc_html_e("Replace Media", "folders"); ?></h2>
-    <form enctype="multipart/form-data" method="POST" action="">
+    <form enctype="multipart/form-data" method="POST" action="<?php echo esc_url($form_action) ?>">
         <div class="replace-media-page">
             <p><b><?php esc_html_e("Current File", "folders") ?></b>: <?php echo esc_attr($file_name) ?></p>
             <p><?php esc_html_e("Upload a new file instead of the current one", "folders") ?></p>
@@ -61,7 +76,7 @@ $current_date = date_i18n('d/M/Y H:i', strtotime($attachment->post_date) )
                     <div class="file-option"><?php esc_html_e("Current File", "folders") ?></div>
                     <div class="preview-box">
                         <?php if (wp_attachment_is('image', $attachment_id)) { ?>
-                            <?php if(!empty($url)) { ?>
+                            <?php if (!empty($url)) { ?>
                                 <img src="<?php echo esc_url($url) ?>" />
                                 <span class="image-size"><?php echo esc_attr($image_meta['width']." PX x ".$image_meta['height'])." PX" ?></span>
                             <?php } ?>
@@ -69,7 +84,7 @@ $current_date = date_i18n('d/M/Y H:i', strtotime($attachment->post_date) )
                                 <span class="dashicons dashicons-media-document"></span>
                         <?php } ?>
                     </div>
-                    <?php if(!empty($size)) { ?>
+                    <?php if (!empty($size)) { ?>
                         <div class="file-size"><a target="_blank" href="<?php echo esc_url($upgradeURL) ?>"><?php esc_html_e("Upgrade to Pro", "folders") ?></a> <?php esc_html_e("to compare file size", "folders") ?></div>
                     <?php } ?>
                 </div>
@@ -98,7 +113,7 @@ $current_date = date_i18n('d/M/Y H:i', strtotime($attachment->post_date) )
             </div>
 
             <div class="file-type warning replace-message">
-		        <?php esc_html_e("Replacement file is not the same filetype. This might cause unexpected issues", "folders"); ?>
+                <?php esc_html_e("Replacement file is not the same filetype. This might cause unexpected issues", "folders"); ?>
             </div>
 
             <div class="media-bottom-box pro">
@@ -111,7 +126,7 @@ $current_date = date_i18n('d/M/Y H:i', strtotime($attachment->post_date) )
                                     <label for="replace_only_file"><input type="radio" checked name="replacement_option" value="replace_only_file" id="replace_only_file" /> <?php esc_html_e("Replace File Only", "folders") ?></label>
                                 </div>
                                 <div class="media-note">
-                                    <?php printf(esc_html__("%s Please upload a file with the same extension (jpg, jpeg, png etc). The file name will remain the same as the file being replaced.", "folders"), "<b>".esc_html__("Note:", "folders")."</b>" ); ?>
+                                    <?php printf(esc_html__("%s Please upload a file with the same extension (jpg, jpeg, png etc). The file name will remain the same as the file being replaced.", "folders"), "<b>".esc_html__("Note:", "folders")."</b>"); ?>
                                 </div>
                                 <div class="media-option">
                                     <label for="replace_file_with_name"><input type="radio" name="replacement_option" value="replace_file_with_name" id="replace_file_with_name" /> <?php esc_html_e("Replace File and Update URLs with New File name", "folders") ?></label>

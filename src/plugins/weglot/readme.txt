@@ -4,7 +4,7 @@ Tags: translate, multilingual, language, translation, localization, multilingual
 Requires at least: 4.5
 Tested up to: 6.0
 Requires PHP: 5.6
-Stable tag: 3.7.3
+Stable tag: 3.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -193,14 +193,14 @@ For example, if your website is website.com, then the French version would be we
 
 == Screenshots ==
 
-1. Translate your website in minutes, no code needed
-2. Collaborate with your team or professional translators
-3. Manage all your translations inside one simple dashboard
-4. Drive new visitors to your website with multilingual SEO optimized translated pages
-5. Redirect your visitors to their preferred language
-6. Save time in your translation management process
-7. Customize your language switcher to fit your website design
-8. Join thousands of global brands trusting Weglot to translate their website
+1. Become visible on search engines with multilingual SEO
+2. Edit translations easily with the visual editor
+3. Integrate Weglot with your WordPress website and get started instantly
+4. Create your translation team and collaborate with members
+5. Customize your language switcher for your website and brand
+6. Get full editing control with machine, human and pro translation options
+7. Join +60k brand going multilingual with Weglot
+8. Create translation rules and avoid repetitive editing tasks
 
 
 == Upgrade Notice ==
@@ -210,10 +210,10 @@ See changelog for upgrade changes.
 
 == Changelog ==
 
-= 3.7.3 (05/07/2022) =
-* Bugfix: Remove mod_rewrite check with apache_get_module()
-* Bugfix: Fix problem with empty switcher from switcher editor
-* Bugfix: Compatibility with gravitform upload input
+= 3.8.3 (15/11/2022) =
+* Bug: Prevent Ajax call from original lang to original lang
+* Bug: Fix PHP Warning on class-replace-url-service line 192
+* Update: Add index 'text' to ld+json translated value
 
 = Older versions =
 

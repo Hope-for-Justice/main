@@ -42,7 +42,7 @@ if ( ! class_exists( 'AIOSEOTranslations' ) ) {
 		 *
 		 * @var array
 		 */
-		static private $installedTranslations = array();
+		private static $installedTranslations = array();
 
 		/**
 		 * Available languages.
@@ -51,7 +51,7 @@ if ( ! class_exists( 'AIOSEOTranslations' ) ) {
 		 *
 		 * @var array
 		 */
-		static private $availableLanguages = array();
+		private static $availableLanguages = array();
 
 		/**
 		 * Class Constructor

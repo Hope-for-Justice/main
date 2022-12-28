@@ -384,12 +384,6 @@ class Parser {
             $dom           = $excludeBlocks->getDom();
         }
 
-        // custom switchers
-        if ( ! empty( $this->customSwitchers ) ) {
-            $customSwitchers = new CustomSwitchersFormatter( $dom, $this->customSwitchers );
-            $dom           = $customSwitchers->getDom();
-        }
-
         // checkers
         list( $nodes, $regexes ) = $this->checkers( $dom, $source );
 

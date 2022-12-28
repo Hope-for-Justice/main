@@ -96,7 +96,7 @@ class Updates {
 		}
 
 		// If the user cannot update plugins, stop processing here.
-		if ( ! current_user_can( 'update_plugins' ) ) {
+		if ( ! current_user_can( 'update_plugins' ) && ! aioseo()->helpers->isDoingWpCli() ) {
 			return;
 		}
 
@@ -194,7 +194,7 @@ class Updates {
 	 *
 	 * @param  object $api    The original plugins_api object.
 	 * @param  string $action The action sent by plugins_api.
-	 * @param  array  $args   Additional args to send to plugins_api.
+	 * @param  object $args   Additional args to send to plugins_api.
 	 * @return object         New stdClass with plugin information on success, default response on failure.
 	 */
 	public function pluginsApi( $api, $action = '', $args = null ) {

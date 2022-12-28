@@ -11,57 +11,30 @@
 get_header();
 ?>
 
-<section id="primary" class="content-area">
-	<main id="main" class="site-main">
-
-		<?php if (have_posts()) :
-			$types = array('page', 'post');
-			foreach ($types as $type) { ?>
-
-				<header class="page-header">
-					<h1 class="page-title">
-						<?php echo $type; ?>
-					</h1>
-				</header><!-- .page-header -->
-
-				<?php
-				/* Start the Loop */
-				while (have_posts()) :
-					the_post(); ?>
-
-					<?php if ($type == get_post_type()) { ?>
-						<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-							<header class="entry-header">
-								<?php the_title(sprintf('<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url(get_permalink())), '</a></h2>'); ?>
-							</header><!-- .entry-header -->
-						</article><!-- #post-<?php the_ID(); ?> -->
-
-					<?php } ?>
-
-
-				<?php endwhile; ?>
-			<?php rewind_posts();
-			} ?>
-
-			<div class="better-grid">
-				<div style="grid-column: span 12;" class="archive-page__numbers">
-					<?php the_posts_pagination(array(
-						'mid_size'  => 1,
-						'prev_next' => false,
-					)); ?>
-				</div>
-			</div>
-
-		<?php else :
-
-			get_template_part('template-parts/content', 'none');
-
-		endif;
-		?>
-
-	</main><!-- #main -->
-</section><!-- #primary -->
-
 <?php
-get_sidebar();
-get_footer();
+$s = get_search_query();
+$args = array(
+	's' => $s
+);
+// The Query
+$the_query = new WP_Query($args);
+if ($the_query->have_posts()) {
+	_e("<h2 style='font-weight:bold;color:#000'>Search Results for: " . get_query_var('s') . "</h2>");
+	while ($the_query->have_posts()) {
+		$the_query->the_post();
+?>
+		<li>
+			<a href="<?php the_permalink(); ?>"><?php echo strip_tags(get_the_title()); ?></a>
+		</li>
+	<?php
+	}
+} else {
+	?>
+	<h2 style='font-weight:bold;color:#000'>Nothing Found</h2>
+	<div class="alert alert-info">
+		<p>Sorry, but nothing matched your search criteria. Please try again with some different keywords.</p>
+	</div>
+<?php } ?>
+
+<?php get_sidebar(); ?>
+<?php get_footer(); ?>

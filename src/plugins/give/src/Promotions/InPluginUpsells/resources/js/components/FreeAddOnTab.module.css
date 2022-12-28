@@ -1,10 +1,7 @@
 .freeAddonSection {
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-direction: column;
-        flex-direction: column;
-    -ms-flex-align: center;
-        align-items: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .card {
@@ -42,11 +39,9 @@
 }
 
 .title {
-    display: -ms-inline-flexbox;
     display: inline-flex;
     gap: 1.1em;
-    -ms-flex-align: end;
-        align-items: flex-end;
+    align-items: flex-end;
     margin: 0;
     font-weight: 700;
     font-size: 1.4375rem;
@@ -54,11 +49,9 @@
 }
 
 .nameAndFlag {
-    display: -ms-flexbox;
     display: flex;
     gap: 1rem;
-    -ms-flex-align: center;
-        align-items: center;
+    align-items: center;
     margin-bottom: 0.875rem;
 }
 
@@ -84,10 +77,8 @@
 
 .formCard {
     background-color: #F3F2EC;
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-direction: column;
-        flex-direction: column;
+    flex-direction: column;
     row-gap: 2.75rem;
     padding: 3rem 4rem;
     width: 100%;
@@ -95,12 +86,9 @@
 }
 
 .formCard form {
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-direction: column;
-        flex-direction: column;
-    -ms-flex-align: center;
-        align-items: center;
+    flex-direction: column;
+    align-items: center;
     row-gap: 2rem;
 }
 
@@ -111,19 +99,14 @@
 
 .formCard__inputs {
     width: 100%;
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-direction: row;
-        flex-direction: row;
-    -ms-flex-pack: justify;
-        justify-content: space-between;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .formCard label {
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-direction: column;
-        flex-direction: column;
+    flex-direction: column;
     font-size: 1rem;
     font-weight: 400;
 }
@@ -150,8 +133,7 @@
 
 @media screen and (max-width: 64rem) {
     .formCard__inputs {
-        -ms-flex-direction: column;
-            flex-direction: column;
+        flex-direction: column;
         row-gap: 2rem;
     }
 

@@ -25,8 +25,7 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 }
 
 .gform-block__placeholder .components-placeholder__fieldset, .gform-block__placeholder .components-placeholder__fieldset form {
-		-ms-flex-pack: center;
-		    justify-content: center;
+		justify-content: center;
 	}
 
 .gform-block__placeholder select {
@@ -49,8 +48,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 .gform_wrapper .gform_fields, .gform_wrapper .gform_footer {
 	pointer-events: none;
 	-webkit-user-select: none;
-	        -ms-user-select: none;
-	    user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
 }
 
 .gform-block__placeholder .gform-icon svg {
@@ -79,12 +78,9 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 }
 
 .gform-block__tabindex .components-base-control__field {
-		-ms-flex-align: center;
-		    align-items: center;
-		display: -ms-flexbox;
+		align-items: center;
 		display: flex;
-		-ms-flex-pack: justify;
-		    justify-content: space-between;
+		justify-content: space-between;
 	}
 
 .gform-block__tabindex input {
@@ -92,13 +88,10 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	}
 
 .gform-block__toolbar-button {
-	-ms-flex-align: center;
-	    align-items: center;
+	align-items: center;
 	border-right: 1px solid #000;
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-pack: center;
-	    justify-content: center;
+	justify-content: center;
 	min-width: 48px;
 	padding-left: 12px;
 	padding-right: 12px;
@@ -136,8 +129,7 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	opacity: 1;
 	position: fixed;
 	text-align: center;
-	-ms-transform: translateY(-50%);
-	    transform: translateY(-50%);
+	transform: translateY(-50%);
 	transition: opacity 200ms ease-in-out;
 	width: 255px;
 	z-index: 10000;
@@ -163,8 +155,7 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 
 .gform-block__tooltip::after {
 		left: 3px;
-		-ms-transform: scale(1.5);
-		    transform: scale(1.5);
+		transform: scale(1.5);
 		z-index: 6;
 	}
 
@@ -209,16 +200,16 @@ html[dir="rtl"] .gform-block__tooltip::before, html[dir="rtl"] .gform-block__too
 
 html[dir="rtl"] .gform-block__tooltip::before {
 			right: 0;
-			-ms-transform: rotate(180deg);
-			    transform: rotate(180deg);
+			transform: rotate(180deg);
 		}
 
 html[dir="rtl"] .gform-block__tooltip::after {
 			right: 3px;
-			-ms-transform: scale(1.5) rotate(180deg);
-			    transform: scale(1.5) rotate(180deg);
+			transform: scale(1.5) rotate(180deg);
 		}
 
 html[dir="rtl"] .gform-block__tooltip-inner {
 		margin: 0 15px 0 0;
 	}
+
+/*# sourceMappingURL=blocks.css.map */

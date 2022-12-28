@@ -64,21 +64,25 @@ class Dataset extends CommonGraphs\Graph {
 			];
 		}
 
-		foreach ( $graphData->properties->subDatasets as $subDataset ) {
-			$data['hasPart'][] = [
-				'@type'       => 'Dataset',
-				'name'        => $subDataset->name,
-				'description' => $subDataset->description,
-				'license'     => ! empty( $graphData->properties->license ) ? $graphData->properties->license : '',
-			];
+		if ( ! empty( $graphData->properties->subDatasets ) ) {
+			foreach ( $graphData->properties->subDatasets as $subDataset ) {
+				$data['hasPart'][] = [
+					'@type'       => 'Dataset',
+					'name'        => $subDataset->name,
+					'description' => $subDataset->description,
+					'license'     => ! empty( $graphData->properties->license ) ? $graphData->properties->license : '',
+				];
+			}
 		}
 
-		foreach ( $graphData->properties->downloads as $download ) {
-			$data['distribution'][] = [
-				'@type'          => 'DataDownload',
-				'encodingFormat' => $download->encodingFormat,
-				'url'            => $download->url
-			];
+		if ( ! empty( $graphData->properties->downloads ) ) {
+			foreach ( $graphData->properties->downloads as $download ) {
+				$data['distribution'][] = [
+					'@type'          => 'DataDownload',
+					'encodingFormat' => $download->encodingFormat,
+					'url'            => $download->url
+				];
+			}
 		}
 
 		return $data;

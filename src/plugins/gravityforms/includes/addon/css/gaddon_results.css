@@ -96,22 +96,18 @@ table#gaddon-results-summary td.gaddon-results-summary-data {
 }
 
 .gf-results .gf-result-box__primary {
-    display: -ms-flexbox;
     display: flex;
 }
 
 @media screen and ( min-width: 782px ) {
     .gf-results {
-        display: -ms-flexbox;
         display: flex;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+        justify-content: space-between;
         margin-bottom: 1.25rem;
     }
 
     .gf-results .gf-result-box {
-        -ms-flex: 1 1 0px;
-            flex: 1 1 0px;
+        flex: 1 1 0px;
         margin-right: 1.25rem;
         margin-bottom: 0;
     }

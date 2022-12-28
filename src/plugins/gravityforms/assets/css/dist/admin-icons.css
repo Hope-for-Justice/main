@@ -707,16 +707,11 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
  * ----------------------------------------------------------------------------- */
 
 .gform-admin .gform-st-icon {
-		-ms-flex-align: center;
-		    align-items: center;
-		display: -ms-inline-flexbox;
+		align-items: center;
 		display: inline-flex;
-		-ms-flex-preferred-size: 1.25rem;
-		    flex-basis: 1.25rem;
-		-ms-flex-positive: 0;
-		    flex-grow: 0;
-		-ms-flex-negative: 0;
-		    flex-shrink: 0;
+		flex-basis: 1.25rem;
+		flex-grow: 0;
+		flex-shrink: 0;
 		font-family: "gform-icons-admin" !important;
 		font-size: 1.125rem;
 		font-style: normal;
@@ -724,8 +719,7 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 		font-variant: normal;
 		font-weight: normal;
 		height: 1.25rem;
-		-ms-flex-pack: center;
-		    justify-content: center;
+		justify-content: center;
 		position: relative;
 		text-transform: none;
 		vertical-align: top;
@@ -761,8 +755,7 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 		border-radius: 50%;
 		box-shadow: 0 2px 2px rgba(58, 58, 87, 0.0596411);
 		cursor: pointer;
-		-ms-flex-preferred-size: 1.125rem;
-		    flex-basis: 1.125rem;
+		flex-basis: 1.125rem;
 		height: 1.125rem;
 		line-height: 1.188rem;
 		outline: none;
@@ -813,3 +806,5 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 			height: 100%;
 			margin-left: 0.03125rem;
 		}
+
+/*# sourceMappingURL=admin-icons.css.map */

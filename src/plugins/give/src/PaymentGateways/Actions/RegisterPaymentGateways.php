@@ -12,6 +12,8 @@ use Give\PaymentGateways\Gateways\Stripe\BECSGateway as StripeBECSGateway;
 use Give\PaymentGateways\Gateways\Stripe\CheckoutGateway as StripeCheckoutGateway;
 use Give\PaymentGateways\Gateways\Stripe\CreditCardGateway as StripeCreditCardGateway;
 use Give\PaymentGateways\Gateways\Stripe\SEPAGateway as StripeSEPAGateway;
+use Give\PaymentGateways\Gateways\TestGateway\TestGateway;
+use Give\PaymentGateways\Gateways\TestGateway\TestGatewayOffsite;
 use Give\PaymentGateways\PayPalCommerce\Actions\GetPayPalOrderFromRequest;
 use Give\PaymentGateways\PayPalCommerce\PayPalCommerce;
 
@@ -36,8 +38,8 @@ class RegisterPaymentGateways
      */
     public $gateways = [
         // When complete, the Test Gateway will eventually replace The legacy Manual Gateway.
-        //TestGateway::class,
-        //TestGatewayOffsite::class,
+//        TestGateway::class,
+//        TestGatewayOffsite::class,
         PayPalStandard::class,
         PayPalCommerce::class,
     ];
@@ -111,11 +113,13 @@ class RegisterPaymentGateways
         foreach ($this->stripePaymentMethods as $gatewayClass) {
             add_filter(
                 sprintf(
-                    'givewp_new_payment_%1$s_gateway_data',
+                    'givewp_create_payment_gateway_data_%1$s',
                     $gatewayClass::id()
                 ),
                 function ($gatewayData, Donation $donation) {
-                    return (new GetPaymentMethodFromRequest)($donation);
+                    $gatewayData['stripePaymentMethod'] = (new GetPaymentMethodFromRequest)($donation);
+
+                    return $gatewayData;
                 },
                 10,
                 2
@@ -130,11 +134,12 @@ class RegisterPaymentGateways
     {
         add_filter(
             sprintf(
-                'givewp_new_payment_%1$s_gateway_data',
+                'givewp_create_payment_gateway_data_%1$s',
                 PayPalCommerce::id()
             ),
-            function () {
-                return (new GetPayPalOrderFromRequest())();
+            function ($gatewayData) {
+                $gatewayData['paypalOrder'] = (new GetPayPalOrderFromRequest())();
+                return $gatewayData;
             }
         );
     }
