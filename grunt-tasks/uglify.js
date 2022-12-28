@@ -25,10 +25,9 @@ module.exports = function (distTheme, devTheme, jsDir) {
 		devTheme + jsDir + 'plugins/newsticker.js',
 	];
 
-	uglifyFilesObject[distTheme + jsDir + 'pages/plugins.js'] = [
+	uglifyFilesObject[distTheme + jsDir + 'modules/search.js'] = [
 
-
-
+		devTheme + jsDir + 'modules/search.js',
 
 	];
 

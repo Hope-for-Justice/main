@@ -10,6 +10,7 @@
  * @package Hope_for_Justice_2021
  */
 
+
 ?>
 
 <?php
@@ -178,6 +179,10 @@ if (isset($_GET['campaign'])) {
                             <span></span>
                             <span></span>
                         </div>
+                    </div>
+
+                    <div class="header__search">
+                        <?php get_search_form() ?>
                     </div>
                 </div>
             </div>
