@@ -6,7 +6,6 @@
 
 .archive-page {
 
-
 	&__numbers {
 		font-size: 1rem;
 
@@ -31,9 +30,27 @@
 		}
 	}
 
-	/*/numbers*/
+	&--search {
+		grid-column: span 12;
+	}
 }
 
 // tablet
 ///////////////////////////////////////////////////////////////////////////
 @include mq($from: tablet) {}
+
+// desktop xl
+///////////////////////////////////////////////////////////////////////////
+@include mq($from: desktopExtraLarge) {
+	.archive-page {
+		&--search {
+			grid-column: 2/10;
+		}
+
+		&__numbers {
+			&--search {
+				grid-column: 2/10;
+			}
+		}
+	}
+}

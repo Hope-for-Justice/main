@@ -105,7 +105,7 @@ function hope_for_justice_2021_scripts()
   //enqueue block scripts in editor
 
   // if it's using the block template
-  if (is_page_template('templates/page-block-template.php') || is_tax('event_categories') || is_page_template('templates/page-block-post-template.php') || is_archive() || is_single()) {
+  if (is_page_template('templates/page-block-template.php') || is_tax('event_categories') || is_page_template('templates/page-block-post-template.php') || is_archive() || is_single() || is_search()) {
     wp_enqueue_style('hope-for-justice-base-styles', get_template_directory_uri() . '/block-base-styles.css', array(), _S_VERSION);
   } else {
     wp_enqueue_style('hope-for-justice-2021-style', get_stylesheet_uri(), array(), _S_VERSION);
@@ -785,17 +785,18 @@ Search stuff
 
 //limit search to posts and pages
 
-// function search_filter($query)
-// {
-//   if ($query->is_search) {
-//     $query->set('post_type', array('page', 'post'));
-//     $query->set('order', 'ASC');
-//     $query->set('category__not_in', array(5, 6));
-//   }
-//   return $query;
-// }
-// add_filter('pre_get_posts', 'search_filter');
-
+function search_filter($query)
+{
+  if ($query->is_search) {
+    $query->set('post_type', array('page', 'post'));
+    $query->set('order', 'ASC');
+    $query->set('paged', (get_query_var('paged')) ? get_query_var('paged') : 1);
+    $query->set('posts_per_page', 10);
+    $query->set('category__not_in', array(5, 6));
+  }
+  return $query;
+}
+add_filter('pre_get_posts', 'search_filter');
 
 /**
  *

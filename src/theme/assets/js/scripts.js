@@ -123,7 +123,7 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    //$(".search-field").val("");
+    $(".search-field").val("");
     $('#headerSearch').click(function () {
         $(this).addClass('header__search--show-form');
         if ($(window).width() < 768) {

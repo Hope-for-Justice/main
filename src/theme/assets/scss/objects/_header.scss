@@ -69,6 +69,7 @@
 			margin-left: 10px;
 			margin-right: 4px;
 			margin-top: 5px;
+			position: relative;
 		}
 
 		form {
@@ -91,13 +92,11 @@
 		}
 
 		&--show-form {
+			margin-left: 20px;
+
 			form {
 				display: block;
-			}
-
-			.header__search-icon {
-				position: relative;
-				left: 29px;
+				margin-left: -29px;
 			}
 		}
 	}
@@ -164,15 +163,41 @@
 @include mq($from: tablet) {
 
 	.header {
-		padding: 10px;
+		padding: 10px 20px 10px 10px;
 
 		&__burger {
+			padding: 13px 13px 11px 13px;
 			box-shadow: none;
 			background-color: transparent;
 		}
 
 		&__logo {
 			width: 235px;
+		}
+
+		&__search {
+			&-icon {
+				top: 2px;
+				width: 17px;
+				height: 28px;
+			}
+
+			form {
+				input[type=search] {
+					padding: 14px 12px !important;
+					padding-left: 38px !important;
+				}
+
+			}
+
+
+			&--show-form {
+				margin-left: 10px;
+
+				form {
+					margin-left: -36px;
+				}
+			}
 		}
 	}
 
@@ -184,7 +209,7 @@
 @include mq($from: desktop) {
 
 	.header {
-		padding: 12px;
+		padding: 12px 24px 12px 12px;
 
 		&__burger {
 			box-shadow: none;
