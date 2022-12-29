@@ -10,7 +10,7 @@
 
 if (!defined('_S_VERSION')) {
   // Replace the version number of the theme on each release.
-  define('_S_VERSION', '5.3.9');
+  define('_S_VERSION', '5.4.0');
 }
 
 if (!function_exists('hope_for_justice_2021_setup')) :
@@ -785,18 +785,18 @@ Search stuff
 
 //limit search to posts and pages
 
-function search_filter($query)
-{
-  if ($query->is_search) {
-    $query->set('post_type', array('page', 'post'));
-    $query->set('order', 'ASC');
-    $query->set('paged', (get_query_var('paged')) ? get_query_var('paged') : 1);
-    $query->set('posts_per_page', 10);
-    $query->set('category__not_in', array(5, 6));
-  }
-  return $query;
-}
-add_filter('pre_get_posts', 'search_filter');
+// function search_filter($query)
+// {
+//   if ($query->is_search) {
+//     $query->set('post_type', array('page', 'post'));
+//     $query->set('order', 'ASC');
+//     $query->set('paged', (get_query_var('paged')) ? get_query_var('paged') : 1);
+//     $query->set('posts_per_page', 10);
+//     $query->set('category__not_in', array(5, 6));
+//   }
+//   return $query;
+// }
+// add_filter('pre_get_posts', 'search_filter');
 
 /**
  *
