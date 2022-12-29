@@ -11,50 +11,60 @@
 get_header();
 ?>
 
-<main>
-	<div style="height: clamp(40px, 8vw, 80px)"></div>
-	<div class="better-grid">
-		<div class="archive-page--search">
-			<?php
-			$s = get_search_query();
-			$args = array(
-				's' => $s
-			);
-			// The Query
-			$the_query = new WP_Query($args);
-			if ($the_query->have_posts()) {
-				_e("<h1 style='font-size: var(--wp--preset--font-size--huge); font-weight:bold;'>Search results for: " . get_query_var('s') . "</h1>"); ?>
-				<div style="height: clamp(24px, 5vw, 40px);"></div>
-				<?php while ($the_query->have_posts()) {
-					$the_query->the_post();
-				?>
-					<div>
-						<a style='font-weight:bold;' href="<?php the_permalink(); ?>"><?php echo wp_strip_all_tags(get_the_title()); ?></a>
-						<div><?php echo wp_strip_all_tags(get_the_excerpt()); ?></div>
-					</div>
-					<div style="height: clamp(24px, 5vw, 40px);"></div>
-				<?php } ?>
+<section id="primary" class="content-area">
+	<main id="main" class="site-main">
+		<div class="better-grid">
+			<div class="archive-page--search">
 
-				<div class="archive-page__numbers archive-page__numbers--search">
-					<?php the_posts_pagination(array(
-						'mid_size'  => 1,
-						'prev_next' => false,
-					)); ?>
-				</div>
-				<div style="height: clamp(40px, 8vw, 80px)"></div>
+				<?php if (have_posts()) : ?>
 
-			<?php } else {
-			?>
-				<h1 style='font-size: var(--wp--preset--font-size--huge); font-weight:bold;'>Nothing Found</h1>
-				<div style="height: clamp(24px, 5vw, 40px);"></div>
-				<div class="alert alert-info">
-					<p>Sorry, but nothing matched your search criteria. Please try again with some different keywords.</p>
 					<div style="height: clamp(40px, 8vw, 80px)"></div>
-				</div>
-			<?php } ?>
-		</div>
-	</div>
+					<header class="page-header">
+						<h1 style="font-size: var(--wp--preset--font-size--huge); font-weight:bold;">
+							<?php
+							/* translators: %s: search query. */
+							printf(esc_html__('Search results for: %s', 'hope-for-justice-2021'), '<span>' . get_search_query() . '</span>');
+							?>
+						</h1>
+					</header><!-- .page-header -->
+					<div style="height: clamp(24px, 5vw, 40px);"></div>
 
-</main>
-<?php get_sidebar(); ?>
-<?php get_footer(); ?>
+					<?php
+					/* Start the Loop */
+					while (have_posts()) :
+						the_post();
+
+						/**
+						 * Run the loop for the search to output the results.
+						 * If you want to overload this in a child theme then include a file
+						 * called content-search.php and that will be used instead.
+						 */
+						get_template_part('template-parts/content', 'search');
+
+					endwhile; ?>
+
+					<div class="archive-page__numbers archive-page__numbers--search">
+						<?php the_posts_pagination(array(
+							'mid_size'  => 1,
+							'prev_next' => false,
+						)); ?>
+					</div>
+
+
+
+
+				<?php else :
+
+					get_template_part('template-parts/content', 'none');
+
+				endif;
+				?>
+				<div style="height: clamp(40px, 8vw, 80px)"></div>
+			</div>
+		</div>
+	</main><!-- #main -->
+</section><!-- #primary -->
+
+<?php
+get_sidebar();
+get_footer();
