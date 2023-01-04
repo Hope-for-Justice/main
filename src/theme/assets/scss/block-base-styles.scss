@@ -40,6 +40,12 @@
     @import "objects/_menu.scss";
     @import "objects/_grid.scss";
     @import "objects/_header.scss";
+
+    //annoying centering bug fix just for block template
+    .header__logo {
+        margin-top: 3px;
+    }
+
     @import "objects/_burger.scss";
     @import "objects/_cookie-notice.scss";
     @import "objects/_footer.scss";

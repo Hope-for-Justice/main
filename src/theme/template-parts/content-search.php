@@ -16,7 +16,13 @@
     </header><!-- .entry-header -->
 
     <div>
-        <p><?php the_excerpt(); ?></p>
+        <p>
+            <?php if (aioseo()->meta->description->getPostDescription(get_the_ID())) {
+                echo aioseo()->meta->description->getPostDescription(get_the_ID());
+            } else {
+                the_excerpt();
+            } ?>
+        </p>
     </div><!-- .entry-summary -->
 </article><!-- #post-<?php the_ID(); ?> -->
 <div style="height: clamp(24px, 5vw, 40px);"></div>
