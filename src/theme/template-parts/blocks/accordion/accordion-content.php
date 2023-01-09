@@ -1,13 +1,18 @@
 <?php
 
 /**
- * accodion-content
+ * accodion-header
  *
  */
 ?>
 
 <div class="accordion-block__content">
-    <?php $allowed_blocks = array('core/heading', 'core/paragraph', 'core/list');
-    echo '<InnerBlocks allowedBlocks="' . esc_attr(wp_json_encode($allowed_blocks)) . '" />';
+    <?php $template = array(
+        array('core/paragraph', array(
+            'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        ))
+    );
+    $allowed_blocks = array('core/heading', 'core/paragraph', 'core/list', 'core/spacer');
+    echo '<InnerBlocks template="' . esc_attr(wp_json_encode($template)) . '" allowedBlocks="' . esc_attr(wp_json_encode($allowed_blocks)) . '" />';
     ?>
-</div> -->
+</div>

@@ -434,6 +434,49 @@ function my_acf_init_block_types()
         {
             wp_enqueue_style('post_block_styles', get_template_directory_uri() . '/template-parts/blocks/posts.css', array(), _S_VERSION);
         }
+
+        //register accordion block
+        acf_register_block_type(array(
+            'name'              => 'accordion',
+            'title'             => __('Accordion'),
+            'description'       => __('Custom accordion block'),
+            'render_template'   => 'template-parts/blocks/accordion/accordion.php',
+            'category'          => 'hfj-design-system',
+            'enqueue_assets'    => 'accordion_assets',
+            'supports'          => [
+                'jsx'  => true,
+            ]
+        ));
+
+        function accordion_assets()
+        {
+            wp_enqueue_style('accordion_styles', get_template_directory_uri() . '/template-parts/blocks/accordion.css', array(), _S_VERSION);
+            wp_enqueue_script('accordion_scripts', get_template_directory_uri() . '/template-parts/blocks/accordion/accordion.js', array('jquery'), _S_VERSION);
+        }
+
+        //register accordion header
+        acf_register_block_type(array(
+            'name'              => 'accordion-header',
+            'title'             => __('Accordion Header'),
+            'description'       => __('Accordion header block'),
+            'render_template'   => 'template-parts/blocks/accordion/accordion-header.php',
+            'category'          => 'hfj-design-system',
+            'supports'          => [
+                'jsx'  => true,
+            ]
+        ));
+
+        //register accordion content
+        acf_register_block_type(array(
+            'name'              => 'accordion-content',
+            'title'             => __('Accordion Content'),
+            'description'       => __('Accordion content block'),
+            'render_template'   => 'template-parts/blocks/accordion/accordion-content.php',
+            'category'          => 'hfj-design-system',
+            'supports'          => [
+                'jsx'  => true,
+            ]
+        ));
     }
 }
 
@@ -552,6 +595,15 @@ function register_acf_block_styles(): void
     if (has_block('acf/cards-quarter')) {
         wp_enqueue_style('cards_quarter_styles', get_template_directory_uri() . '/template-parts/blocks/cards-quarter.css', array(), _S_VERSION);
         wp_enqueue_script('card_scripts', get_template_directory_uri() . '/template-parts/blocks/cards/cards-scripts.js', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/posts-block')) {
+        wp_enqueue_style('post_block_styles', get_template_directory_uri() . '/template-parts/blocks/posts.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/accordion')) {
+        wp_enqueue_style('accordion_styles', get_template_directory_uri() . '/template-parts/blocks/accordion.css', array(), _S_VERSION);
+        wp_enqueue_script('accordion_scripts', get_template_directory_uri() . '/template-parts/blocks/accordion/accordion.js', array('jquery'), _S_VERSION);
     }
 }
 

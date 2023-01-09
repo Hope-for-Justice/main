@@ -60,6 +60,7 @@ module.exports = function (grunt) {
     copy: require('./grunt-tasks/copy')(dir.distTheme, dir.devTheme, dir.distPlugins, dir.devPlugins, dir.fontsDir, dir.imgDir, dir.jsDir, theme.name, theme.description, theme.version, dir.wpTmp + dir.wpName, dir.wpDir, dir.devBlocks),
     sass: require('./grunt-tasks/sass')(dir.distTheme, dir.devTheme, dir.scssDir),
     uglify: require('./grunt-tasks/uglify')(dir.distTheme, dir.devTheme, dir.jsDir),
+    browserSync: require('./grunt-tasks/browserSync')(dir.distTheme),
     watch: require('./grunt-tasks/watch')(dir.distTheme, dir.devTheme, dir.distPlugins, dir.devPlugins, dir.jsDir, dir.fontsDir, dir.imgDir, dir.iconsDir, dir.scssDir, dir.devBlocks),
     'sftp-deploy': require('./grunt-tasks/sftp-deploy')(dir.deployBase, theme.name),
     curl: require('./grunt-tasks/curl')(dir.wpCurl, dir.wpTmp + dir.wpZip),
@@ -72,7 +73,7 @@ module.exports = function (grunt) {
   /*  Register tasks  */
 
   // Default task. 
-  grunt.registerTask('default', ['clean:all', 'symlink', 'copy:theme', 'copy:style', 'copy:img', 'copy:tmpl', 'copy:fonts', 'copy:blocks', 'sass:build', 'autoprefixer', 'uglify', 'watch']);
+  grunt.registerTask('default', ['clean:all', 'symlink', 'copy:theme', 'copy:style', 'copy:img', 'copy:tmpl', 'copy:fonts', 'copy:blocks', 'sass:build', 'autoprefixer', 'uglify', 'browserSync', 'watch']);
 
   // Specific watch-related tasks
   grunt.registerTask('theme_changed', ['copy:theme']);
@@ -81,8 +82,8 @@ module.exports = function (grunt) {
   grunt.registerTask('img_changed', ['clean:img', 'copy:img']);
   grunt.registerTask('scss_changed', ['clean:css', 'sass', 'autoprefixer']);
   grunt.registerTask('js_changed', ['clean:js', 'copy:theme', 'copy:tmpl', 'uglify']);
-
   // install Wordpress latest
+
   grunt.registerTask('wp-install', ['clean:wpTmp', 'curl', 'unzip', 'clean:install', 'copy:install', 'clean:wpTmp']);
 
 

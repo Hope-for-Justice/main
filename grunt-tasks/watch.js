@@ -24,16 +24,20 @@ module.exports = function (distTheme, devTheme, distPlugins, devPlugins, jsDir, 
 			files: ['gruntfile.js', 'grunt-tasks/**/*'],
 			tasks: ['default'],
 		},
-		livereload: {
-			files: [
-				distTheme + '/**/*.php',
-				distTheme + '**/*.css',
-				distTheme + imgDir + '**/*',
-				distTheme + jsDir + '**/*.js',
-			],
-			options: {
-				livereload: true,
-			},
+		options: {
+			spawn: false,
+			livereload: true,
 		},
+		// livereload: {
+		// 	files: [
+		// 		distTheme + '/**/*.php',
+		// 		distTheme + '**/*.css',
+		// 		distTheme + imgDir + '**/*',
+		// 		distTheme + jsDir + '**/*.js',
+		// 	],
+		// 	options: {
+		// 		livereload: true,
+		// 	},
+		// },
 	}
 }
