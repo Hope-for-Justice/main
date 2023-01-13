@@ -51,7 +51,7 @@ if (!get_field('no_news')) { ?>
     // show or hide get help
     if (!get_field('no_get_help')) { ?>
 
-        <?php if (is_page() && (!is_page_template('templates/page-block-template.php'))) { ?>
+        <?php if (is_page()) { ?>
             <!-- get help -->
             <div class="get-help">
                 <a href="/get-help/" class="get-help__help-button">

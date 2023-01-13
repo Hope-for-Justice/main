@@ -564,7 +564,7 @@ function register_acf_block_styles(): void
     }
 
     if (has_block('acf/btc-header')) {
-        wp_enqueue_style('events_styles', get_template_directory_uri() . '/template-parts/blocks/btc-header.css', array(), _S_VERSION);
+        wp_enqueue_style('btc_header_styles', get_template_directory_uri() . '/template-parts/blocks/btc-header.css', array(), _S_VERSION);
     }
 
     if (has_block('acf/image-and-text')) {

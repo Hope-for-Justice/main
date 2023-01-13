@@ -7,28 +7,47 @@ module.exports = function (distTheme, devTheme, jsDir) {
 		// plugins
 		devTheme + jsDir + 'plugins/utm-tracking.js',
 		devTheme + jsDir + 'plugins/bootstrap.modal.js',
-		devTheme + jsDir + 'plugins/lottie.js',
-		devTheme + jsDir + 'plugins/waypoint.js',
-		devTheme + jsDir + 'plugins/gsap.js',
-		devTheme + jsDir + 'plugins/draggable.js',
+		//devTheme + jsDir + 'plugins/lottie.js', //no longer used
+		//devTheme + jsDir + 'plugins/waypoint.js',//added when needed
+		//devTheme + jsDir + 'plugins/gsap.js', //used when needed
+		//devTheme + jsDir + 'plugins/draggable.js', //used when needed
 		devTheme + jsDir + 'plugins/headroom.js',
-		//devTheme + jsDir + 'plugins/pca.js',
-		devTheme + jsDir + 'plugins/flexslider.js',
+		//devTheme + jsDir + 'plugins/pca.js', //no longer needed
+		//devTheme + jsDir + 'plugins/flexslider.js', //added when needed
 		devTheme + jsDir + 'plugins/fitvids.js',
-		//devTheme + jsDir + 'plugins/bootstrap-flags.js',
+		//devTheme + jsDir + 'plugins/bootstrap-flags.js', //no longer needed
 
 		devTheme + jsDir + 'scripts.js',
 
 	];
 
-	uglifyFilesObject[distTheme + jsDir + 'plugins/newsticker.js'] = [
-		devTheme + jsDir + 'plugins/newsticker.js',
+	uglifyFilesObject[distTheme + jsDir + 'pages/modern-slavery.js'] = [
+
+		devTheme + jsDir + 'plugins/gsap.js',
+		devTheme + jsDir + 'plugins/draggable.js',
+		devTheme + jsDir + 'plugins/flexslider.js',
+		devTheme + jsDir + 'pages/modern-slavery.js',
+
 	];
 
-	uglifyFilesObject[distTheme + jsDir + 'modules/search.js'] = [
+	uglifyFilesObject[distTheme + jsDir + 'pages/what-we-do.js'] = [
 
-		devTheme + jsDir + 'modules/search.js',
+		devTheme + jsDir + 'plugins/gsap.js',
+		devTheme + jsDir + 'plugins/draggable.js',
+		devTheme + jsDir + 'pages/what-we-do.js',
 
+	];
+
+	uglifyFilesObject[distTheme + jsDir + 'pages/governance.js'] = [
+
+		devTheme + jsDir + 'plugins/gsap.js',
+		devTheme + jsDir + 'plugins/draggable.js',
+		devTheme + jsDir + 'pages/governance.js',
+
+	];
+
+	uglifyFilesObject[distTheme + jsDir + 'plugins/newsticker.js'] = [
+		devTheme + jsDir + 'plugins/newsticker.js',
 	];
 
 
@@ -49,6 +68,8 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 	uglifyFilesObject[distTheme + jsDir + 'pages/men-are-victims.js'] = [
 
+		devTheme + jsDir + 'plugins/gsap.js',
+		devTheme + jsDir + 'plugins/waypoint.js',
 		devTheme + jsDir + 'plugins/scrolltrigger.js',
 		devTheme + jsDir + 'pages/men-are-victims.js',
 

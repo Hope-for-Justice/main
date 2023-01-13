@@ -10,7 +10,7 @@
 
 if (!defined('_S_VERSION')) {
   // Replace the version number of the theme on each release.
-  define('_S_VERSION', '5.4.8');
+  define('_S_VERSION', '5.5.2');
 }
 
 if (!function_exists('hope_for_justice_2021_setup')) :
@@ -178,6 +178,12 @@ function page_scripts()
 
   wp_register_script('men-are-victims', get_template_directory_uri() . '/assets/js/pages/men-are-victims.js', array('jquery'), _S_VERSION, true);
 
+  wp_register_script('governance', get_template_directory_uri() . '/assets/js/pages/governance.js', array('jquery'), _S_VERSION, true);
+
+  wp_register_script('modern-slavery', get_template_directory_uri() . '/assets/js/pages/modern-slavery.js', array('jquery'), _S_VERSION, true);
+
+
+
 
   $themeVars = array('template_directory_uri' => get_template_directory_uri());
 
@@ -246,6 +252,12 @@ function page_scripts()
   if (is_page_template('templates/page-church-partnerships.php')) {
     wp_enqueue_script('church-partnerships');
     wp_enqueue_style('church-partnerships', get_template_directory_uri() . '/church-partnerships.css', array(), _S_VERSION);
+  }
+  if (is_page('modern-slavery') || is_page('human-trafficking') ) {
+    wp_enqueue_script('modern-slavery');
+  }
+  if (is_page('governance-policies-funding') || is_page('what-we-do')) {
+    wp_enqueue_script('governance');
   }
   if (is_tax('event_categories')) {
     wp_enqueue_style('events_styles', get_template_directory_uri() . '/template-parts/blocks/events.css', array(), _S_VERSION);
