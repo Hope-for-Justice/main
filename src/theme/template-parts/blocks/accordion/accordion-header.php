@@ -16,5 +16,5 @@
     );
     echo '<InnerBlocks template="' . esc_attr(wp_json_encode($template)) . '" />';
     ?>
-    <img class="accordion-block__arrow" src="<?php echo get_template_directory_uri() . '/assets/img/link-arrow.svg'; ?>">
+    <img alt="arrow" class="accordion-block__arrow" src="<?php echo get_template_directory_uri() . '/assets/img/link-arrow.svg'; ?>">
 </div>
