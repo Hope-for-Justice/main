@@ -23,6 +23,8 @@
         let widgetIdOnce = $(".donate-block").data('widgetidonce');
         let widgetIdMonthly = $(".donate-block").data('widgetidmonthly');
         let thankyou = $(".donate-block").data('thankyou');
+        let emailEventMonthly = $(".donate-block").data('emaileventmonthly');
+        let emailEventOnce = $(".donate-block").data('emaileventonce');
 
         $(document).ready(function () {
             if (currency == 'NOK') {
@@ -337,6 +339,12 @@
                 url += `?Amount=${urlAmount}&wid=${widgetIdOnce}`;
             } else {
                 url += `?Amount=${urlAmount}`;
+            }
+
+            if (emailEventMonthly && freq == 'monthly') {
+                url += `&emailEvent=${emailEventMonthly}`;
+            } else if (emailEventOnce && freq != 'monthly') {
+                url += `&emailEvent=${emailEventOnce}`;
             }
 
             if (thankyou) {

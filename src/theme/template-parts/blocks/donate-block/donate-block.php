@@ -10,6 +10,7 @@ $margin_bottom_desktop = get_field('margin_bottom_desktop');
 $extra_graphic = get_field('extra_graphic');
 $thank_you = urlencode(get_field('custom_thankyou'));
 
+
 if ( //if they are in the USA array or they want to give in $
     ($GLOBALS["userInfo"] && in_array($GLOBALS["userInfo"], $GLOBALS["usa"]) && $currency != 'NOK' && $currency != 'GBP' && $currency != 'AUD')
     || $currency == 'USD'
@@ -74,6 +75,8 @@ $once_text = $set['once_text'];
 $monthly_text = $set['monthly_text'];
 $widget_id_once = $set['widget_id_once'];
 $widget_id_monthly = $set['widget_id_monthly'];
+$email_event_once = $set['email_event_once'];
+$email_event_monthly = $set['email_event_monthly'];
 //option a
 $amount_once_a = $set['amount_once_a'];
 $amount_monthly_a = $set['amount_monthly_a'];
@@ -122,7 +125,7 @@ $other_ways_link = $set['other_ways'];
 
     <div class="better-grid donate-block__grid">
 
-        <div data-thankyou="<?php echo $thank_you ?>" data-currency="<?php echo $currency; ?>" class="donate-block" <?php if ($widget_id_once) { ?> data-widgetidonce="<?php echo $widget_id_once ?>" <?php } ?> <?php if ($widget_id_monthly) { ?> data-widgetidmonthly="<?php echo $widget_id_monthly ?>" <?php } ?>>
+        <div data-thankyou="<?php echo $thank_you ?>" data-emaileventonce="<?php echo $email_event_once ?>" data-emaileventmonthly="<?php echo $email_event_monthly ?>" data-currency="<?php echo $currency; ?>" class="donate-block" <?php if ($widget_id_once) { ?> data-widgetidonce="<?php echo $widget_id_once ?>" <?php } ?> <?php if ($widget_id_monthly) { ?> data-widgetidmonthly="<?php echo $widget_id_monthly ?>" <?php } ?>>
 
 
             <div style="<?php if ($frequency == 'once' || $currency == 'AUD') echo 'display:none;' ?>" class="donate-block__freq">

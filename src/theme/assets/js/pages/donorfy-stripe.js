@@ -477,7 +477,8 @@ function zapier(url) {
         email: jQuery('#Email').val(),
         firstname: jQuery('#FirstName').val(),
         lastname: jQuery('#LastName').val(),
-        emailUpdates: jQuery("#emailPreference").is(':checked')
+        emailUpdates: jQuery("#emailPreference").is(':checked'),
+        emailEvent: jQuery('#emailEvent').val()
     };
     jQuery.ajax({
         type: 'POST',

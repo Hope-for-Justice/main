@@ -11,6 +11,7 @@ get_header('', array('page_class' => 'site--full')); ?>
 <?php
 $campaignPassed = $_COOKIE["wordpress_hfjcampaign"];
 $urlWidget = $_GET["wid"];
+$emailEvent = $_GET["emailEvent"];
 
 $matched_widget;
 if (have_rows('campaigns_and_widgets')) :
@@ -614,7 +615,7 @@ endif;
                     <input type="hidden" id="currency" value="GBP" />
                     <input type="hidden" id="type" value="UK+one-off" />
                     <input type="hidden" id="zapierUrl" value="https://hooks.zapier.com/hooks/catch/8597852/bk78xmf/" />
-
+                    <input type="hidden" id="emailEvent" value="<?php echo $emailEvent; ?>" />
                     <div class="donorfy-donate__hidden">
                         <input id="GiftAid" type="checkbox" />
                     </div>
