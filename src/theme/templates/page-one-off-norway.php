@@ -55,13 +55,13 @@ endif;
                 <form id="formOne">
 
                     <div class="donorfy-donate__giving-text">
-                        You’re giving <span id="textAmount"><?php echo $_GET['Amount'] ?></span> kr
-                        <a id="changeAmount">Change amount</a>
+                    Du gir <span id="textAmount"><?php echo $_GET['Amount'] ?></span> kr
+                        <a id="changeAmount">Endre beløp</a>
                     </div>
-                    <h2 class="font-canela">Your details:</h2>
+                    <h2 class="font-canela">Dine detaljer</h2>
 
                     <div class="donorfy-donate__amount donorfy-donate__input donorfy-donate__amount--norway">
-                        <label class="donorfy-donate__hidden" for="Amount">Amount I would like to give each month</label>
+                        <label class="donorfy-donate__hidden" for="Amount">Amount I would like to give</label>
                         <input type="text" name="Amount" class="required" id="NorwayAmount" maxlength="10" <?php if ($_GET['Amount']) { ?> value="<?php echo $_GET['Amount'] ?>" <?php } ?>>
                     </div>
 
@@ -91,28 +91,28 @@ endif;
 
                     <div class="donorfy-donate__flex">
                         <div class="donorfy-donate__input">
-                            <label class="donorfy-donate__hidden" for="FirstName">First Name*</label>
-                            <input type="text" name="FirstName" class="required" id="FirstName" placeholder="First Name" maxlength="50">
+                            <label class="donorfy-donate__hidden" for="FirstName">Fornavn*</label>
+                            <input type="text" name="FirstName" class="required" id="FirstName" placeholder="Fornavn" maxlength="50">
                         </div>
                         <div class="donorfy-donate__input">
-                            <label class="donorfy-donate__hidden" for="LastName">Last Name*</label>
-                            <input type="text" name="LastName" class="required" id="LastName" placeholder="Last Name" maxlength="50">
+                            <label class="donorfy-donate__hidden" for="LastName">Etternavn*</label>
+                            <input type="text" name="LastName" class="required" id="LastName" placeholder="Etternavn" maxlength="50">
                         </div>
                     </div>
 
                     <div class="donorfy-donate__input">
-                        <label class="donorfy-donate__hidden" for="Email">Email*</label>
-                        <input type="text" name="Email" class="required" type="email" id="Email" maxlength="50" placeholder="Email">
+                        <label class="donorfy-donate__hidden" for="Email">E-post*</label>
+                        <input type="text" name="Email" class="required" type="email" id="Email" maxlength="50" placeholder="E-post">
                     </div>
 
 
                     <div class="donorfy-donate__input">
-                        <label class="donorfy-donate__hidden" for="Phone">Phone</label>
-                        <input type="text" name="Phone" class="" id="Phone" maxlength="50" placeholder="Phone">
+                        <label class="donorfy-donate__hidden" for="Phone">Telefon</label>
+                        <input type="text" name="Phone" class="" id="Phone" maxlength="50" placeholder="Telefon">
                     </div>
 
                     <div class="donorfy-donate__buttons">
-                        <div id="toStepTwo" class="button button--spinner button--red">Next</div>
+                        <div id="toStepTwo" class="button button--spinner button--red">Neste</div>
                     </div>
                 </form>
                 <!-- /form 1 -->
@@ -120,18 +120,18 @@ endif;
 
                 <!-- form 2 -->
                 <form id="formTwo">
-                    <h2 class="font-canela">Address details:</h2>
+                    <h2 class="font-canela">Adresse</h2>
 
                     <p class="donorfy-donate__larger donorfy-donate__larger--mb">
-                        We need this to process your payment. We will not send you anything in the post unless you choose to hear from us in this way.
+                        Denne informasjonen er nødvendig for å behandle betalingen. Vi vil ikke sende deg noe per post.
                     </p>
 
                     <div class="donorfy-donate__input">
                         <label class="donorfy-donate__hidden" for="Address1">Address</label>
-                        <input type="text" name="Address1" class="required" id="Address1" maxlength="50" placeholder="Address 1">
+                        <input type="text" name="Address1" class="required" id="Address1" maxlength="50" placeholder="Adresse">
                     </div>
 
-                    <div class="donorfy-donate__input">
+                    <div class="donorfy-donate__input donorfy-donate__hidden">
                         <label class="donorfy-donate__hidden" for="Address1">Address 2</label>
                         <input type="text" name="Address2" class="" id="Address2" maxlength="50" placeholder="Address 2 (optional)">
                     </div>
@@ -139,12 +139,12 @@ endif;
                     <div class="donorfy-donate__flex">
                         <div class="donorfy-donate__input">
                             <label class="donorfy-donate__hidden" for="Town">Town</label>
-                            <input type="text" name="Town" class="required" id="Town" maxlength="50" placeholder="Town/City">
+                            <input type="text" name="Town" class="required" id="Town" maxlength="50" placeholder="Poststed">
                         </div>
 
                         <div class="donorfy-donate__input">
                             <label class="donorfy-donate__hidden" for="Postcode">Postcode</label>
-                            <input type="text" name="Postcode" class="required justCapsPostcode" id="Postcode" maxlength="10" placeholder="Postcode">
+                            <input type="text" name="Postcode" class="required justCapsPostcode" id="Postcode" maxlength="10" placeholder="Postnummer">
                         </div>
                     </div>
 
@@ -318,7 +318,7 @@ endif;
                             <option value="Norfolk Island">Norfolk Island</option>
                             <option value="North Korea">North Korea</option>
                             <option value="Northern Mariana Islands">Northern Mariana Islands</option>
-                            <option selected value="Norway">Norway</option>
+                            <option selected value="Norway">Norge</option>
                             <option value="Oman">Oman</option>
                             <option value="Pakistan">Pakistan</option>
                             <option value="Palau">Palau</option>
@@ -408,8 +408,8 @@ endif;
                     </div>
 
                     <div class="donorfy-donate__buttons">
-                        <div id="backToStepOne" class="button button--spinner button--white">Previous</div>
-                        <div id="toStepThree" class="button button--spinner">Next</div>
+                        <div id="backToStepOne" class="button button--spinner button--white">Forrige</div>
+                        <div id="toStepThree" class="button button--spinner">Neste</div>
                     </div>
 
                 </form>
@@ -447,17 +447,17 @@ endif;
                 <!-- form 4 -->
                 <form id="formThree">
 
-                    <h2 class="font-canela">Hear about your impact:</h2>
-                    <p class="donorfy-donate__larger donorfy-donate__preferences-preview-text"><span id="preferenceText">We would love for you to hear about the life-changing difference that your donation will make and more ways you can support this work. Can we contact you via:</span> <span style="display: none; text-decoration: underline; font-weight: bold;" id="emailText">james.holt@hopeforjustice.org</span> <span id="emailAppend">for how we can contact you about the work of Hope for Justice and how your support is making a difference:</span></p>
+                    <h2 class="font-canela">Motta oppdateringer fra oss</h2>
+                    <p class="donorfy-donate__larger donorfy-donate__preferences-preview-text">Vi vil gjerne fortelle hvordan din gave bidrar til å gjøre slutt på moderne slaveri. Velg dine preferanser for hvordan vi kan holde deg oppdatert:</p>
 
                     <div class="donorfy-donate__preferences">
                         <div class="donorfy-donate__preference">
-                            <p class="donorfy-donate__select-text">Email:</p>
+                            <p class="donorfy-donate__select-text">E-post:</p>
                             <div class="donorfy-donate__select donorfy-donate__select--preference">
                                 <select id="emailSelect" class="required" name="emailSelect">
-                                    <option value="">Select</option>
-                                    <option value="true">Yes</option>
-                                    <option value="false">No</option>
+                                    <option value="">Velg</option>
+                                    <option value="true">Ja</option>
+                                    <option value="false">Nei</option>
                                 </select>
                             </div>
                         </div>
@@ -466,9 +466,9 @@ endif;
                             <p class="donorfy-donate__select-text">Post:</p>
                             <div class="donorfy-donate__select donorfy-donate__select--preference">
                                 <select id="postSelect" class="required" name="postSelect">
-                                    <option value="">Select</option>
-                                    <option value="true">Yes</option>
-                                    <option value="false">No</option>
+                                <option value="">Velg</option>
+                                    <option value="true">Ja</option>
+                                    <option value="false">Nei</option>
                                 </select>
                             </div>
                         </div>
@@ -477,40 +477,34 @@ endif;
                             <p class="donorfy-donate__select-text">SMS:</p>
                             <div class="donorfy-donate__select donorfy-donate__select--preference">
                                 <select id="smsSelect" class="required" name="smsSelect">
-                                    <option value="">Select</option>
-                                    <option value="true">Yes</option>
-                                    <option value="false">No</option>
+                                <option value="">Velg</option>
+                                    <option value="true">Ja</option>
+                                    <option value="false">Nei</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="donorfy-donate__preference">
-                            <p class="donorfy-donate__select-text">Phone:</p>
+                            <p class="donorfy-donate__select-text">Telefon:</p>
                             <div class="donorfy-donate__select donorfy-donate__select--preference">
                                 <select id="phoneSelect" class="required" name="phoneSelect">
-                                    <option value="">Select</option>
-                                    <option value="true">Yes</option>
-                                    <option value="false">No</option>
+                                <option value="">Velg</option>
+                                    <option value="true">Ja</option>
+                                    <option value="false">Nei</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
                     <p class="donorfy-donate__small-text">
-                        <span style="display: none;" id="emailNo">
-                            <br>
-                            By choosing ‘No’ to email, you will receive no further emails from Hope for Justice about the impact of your gift or the fight against modern slavery and human trafficking. We will still send you emails when necessary for administrative reasons, including a receipt confirming your donation.
-                            <br>
-                        </span>
-                        <br>
-                        Select 'Yes' if you wish Hope for Justice to contact you via that method for the following purposes: To keep you informed of our ongoing activities, news, campaigns and appeals; and to invite you to events we think might interest you. You can unsubscribe from receiving communications at any time, or change your preferences, at:<a href="https://hopeforjustice.org/manage-your-preferences">hopeforjustice.org/manage-your-preferences</a>
-                        <br><br>
-                        We will always store your personal information securely. We will use it to provide the service(s) you have requested, and communicate with you in the way(s) you have agreed to. We will only allow your information to be used by third parties working on our behalf. We will share your information if required to do so by law. For details see our <a href="/privacy-policy">Privacy Policy</a>.
+                    Velg “ja” dersom du ønsker at Hope for Justice skal kontakte deg i henhold til dine preferanser: for å holde deg informert om våre pågående aktiviteter, nyheter og kampanjer, og for å invitere deg til relevante arrangementer. Du kan når som helst endre dine preferanser eller melde deg av fra å motta kommunikasjon fra oss på: <a href="https://hopeforjustice.org/manage-your-preferences">hopeforjustice.org/manage-your-preferences</a>
+                    <br><br>
+                    Vi lagrer dine personopplysninger sikkert. Vi vil bruke den til å tilby tjenesten(e) du har bedt om, og kommunisere med deg på den måten(e) du har samtykket til. Vi vil kun tillate at informasjonen din brukes av tredjeparter som jobber på våre vegne. Vi deler informasjonen din hvis det er påkrevd i henhold til loven. For detaljer, se vår <a href="/privacy-policy">personvernerklæring</a>
                     </p>
 
                     <div class="donorfy-donate__buttons">
-                        <div id="backToStepTwo" class="button button--spinner button--white">Previous</div>
-                        <div id="toStepFour" class="button button--spinner">Next</div>
+                        <div id="backToStepTwo" class="button button--spinner button--white">Forrige</div>
+                        <div id="toStepFour" class="button button--spinner">Neste</div>
                     </div>
 
                 </form>
@@ -520,7 +514,7 @@ endif;
                 <form id="CreditCardForm">
 
 
-                    <h2 class="font-canela">Card Details:</h2>
+                    <h2 class="font-canela">Kortdetaljer</h2>
 
                     <div id="card-number" class="donorfy-donate__input"></div>
 
@@ -548,14 +542,14 @@ endif;
                     </div>
 
 
-                    <h3 class="donorfy-donate__summary-title">Giving Summary</h3>
+                    <h3 class="donorfy-donate__summary-title">Oppsummering</h3>
                     <div class="donorfy-donate__summary-hr">
                         <hr>
                     </div>
                     <div class="donorfy-donate__summary-text">
-                        Donation total: <b><span id="donationTotalConfirm"><?php echo $_GET['Amount'] ?></span> kr</b>
+                        Totalsum: <b><span id="donationTotalConfirm"><?php echo $_GET['Amount'] ?></span> kr</b>
                         <br>
-                        Giving frequency: <b><span id="givingFrequencyConfirm">One-time gift</span></b>
+                        Status: <b><span id="givingFrequencyConfirm">enkeltgave</span></b>
                     </div>
 
 
@@ -575,8 +569,8 @@ endif;
 
 
                     <div class="donorfy-donate__buttons">
-                        <div id="backToStepThree" class="button button--white button--spinner">Previous</div>
-                        <div id="submitButton" class="button button--spinner">Donate</div>
+                        <div id="backToStepThree" class="button button--white button--spinner">Forrige</div>
+                        <div id="submitButton" class="button button--spinner">Gi gave</div>
                     </div>
 
 

@@ -210,14 +210,27 @@ $args = wp_parse_args(
     <div class="modal fade" id="<?php echo esc_html($args['id']); ?>" tabindex="-1" role="dialog" aria-hidden="false">
         <div class="modal__dialog">
             <div class="modal__content modal__content--white modal__content--less-padding">
-                <h2 class="modal-currency__title modal-currency__title--mb">Select a currency</h2>
+                <h2 class="modal-currency__title modal-currency__title--mb">
+                <?php 
+                if ($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])) { ?>
+                    Velg valuta 
+                <?php } else {?>
+                    Select a currency 
+                <?php } ?>
+                </h2>
                 <div class="modal-currency">
                     <a data-currency="GBP" class="modal-currency__currency">GBP £</a>
                     <a data-currency="USD" class="modal-currency__currency">USD $</a>
                     <a data-currency="NOK" class="modal-currency__currency">NOK kr</a>
                     <a data-currency="AUD" class="modal-currency__currency">AUD $</a>
                 </div>
-                <p style="margin-top: 20px" class="modal-currency__text">If you would like to donate in a currency not shown here, please <a href="/contact">contact us</a></p>
+                <?php 
+                if ($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['norway'])) { ?>
+                    
+                    <p style="margin-top: 20px" class="modal-currency__text">Dersom du foretrekker en annen valuta enn de som vises her, <a href="/contact">kontakt oss.</a></p>
+                <?php } else {?>
+                    <p style="margin-top: 20px" class="modal-currency__text">If you would like to donate in a currency not shown here, please <a href="/contact">contact us</a></p>
+                <?php } ?>
                 <a href="#" data-dismiss="modal" class="gi-close modal__close modal__close--white">&times;<span class="accessibility">Close</span></a>
             </div>
         </div>

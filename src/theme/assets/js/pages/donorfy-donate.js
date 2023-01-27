@@ -93,9 +93,21 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    $.extend(jQuery.validator.messages, {
-        required: "Required."
-    });
+    // $.extend(jQuery.validator.messages, {
+    //     required: "Required."
+    // });
+    let norwayPage = $('body').hasClass('page-template-page-one-off-norway');
+    if (norwayPage) {
+        $.extend(jQuery.validator.messages, {
+            required: "Obligatorisk."
+        });
+    } else {
+        $.extend(jQuery.validator.messages, {
+            required: "Required."
+        });
+    }
+
+
 
     $('#changeAmount').click(function () {
         $('.donorfy-donate__amount').show().children('input').val("").focus();

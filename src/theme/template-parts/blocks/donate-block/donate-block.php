@@ -113,7 +113,7 @@ $default_level = $set['default_level'] ?: 'c';
 $other_ways_link = $set['other_ways'];
 ?>
 
-<div class="donate-block__container" style="--margin-bottom-mobile:<?php echo $margin_bottom_mobile ?>; --margin-bottom-desktop: <?php echo $margin_bottom_desktop ?>;">
+<div class="donate-block__container donate-block__container--<?php echo $currency; ?>" style="--margin-bottom-mobile:<?php echo $margin_bottom_mobile ?>; --margin-bottom-desktop: <?php echo $margin_bottom_desktop ?>;">
 
     <div class="donate-block__img" style="background-image: url('<?php echo $image ?>');"></div>
 
@@ -130,10 +130,18 @@ $other_ways_link = $set['other_ways'];
 
             <div style="<?php if ($frequency == 'once' || $currency == 'AUD') echo 'display:none;' ?>" class="donate-block__freq">
                 <div class="donate-block__freq-option <?php if ($frequency == 'once' || $frequency_start == 'once' || $currency == 'NOK' || $currency == 'AUD') echo 'donate-block__freq-option--active' ?>" data-freq="once">
-                    &nbsp;Once
+                <?php if ($currency == 'NOK') { ?>
+                     Gi en enkeltgave
+                <?php } else {?>
+                     &nbsp;Once
+                <?php } ?>
                 </div>
                 <div class="donate-block__freq-option <?php if ($frequency != 'once' && $frequency_start == 'monthly' && $currency != 'NOK' && $currency != 'AUD') echo 'donate-block__freq-option--active' ?>" data-freq="monthly" data-link="<?php echo $link ?>">
-                    &nbsp;Monthly
+                <?php if ($currency == 'NOK') { ?>
+                    Gi månedlig
+                <?php } else {?>
+                     &nbsp;Monthly
+                <?php } ?>
                 </div>
             </div>
 
@@ -191,7 +199,13 @@ $other_ways_link = $set['other_ways'];
                 </div>
 
                 <div class="donate-block__options-option donate-block__options-option--custom" data-amount="custom" data-reason="<?php echo $reason_once_f ?>" data-monthly="<?php echo $reason_monthly_f ?>">
-                    <span class="text">Custom<br />Amount</span>
+                    <span class="text">
+                        <?php if ($currency == 'NOK') { ?>
+                            Valgfritt<br />beløp 
+                        <?php } else {?>
+                            Custom<br />Amount
+                        <?php } ?>
+                        </span>
                     <span class="currency"><?php echo $symbol ?></span>
                     <input id="customAmount" style="display: none" type="number" name="customAmount" />
                 </div>
@@ -206,13 +220,29 @@ $other_ways_link = $set['other_ways'];
             </p>
 
             <div class="donate-block__other-ways">
-                <a href="<?php echo $other_ways_link ?>">Other ways to give</a>
+                <a href="<?php echo $other_ways_link ?>">
+                        <?php if ($currency == 'NOK') { ?>
+                            Andre måter å gi
+                        <?php } else {?>
+                            Other ways to give
+                        <?php } ?>
+                        </a>
                 <div class="donate-block__other-ways-divider">|</div>
-                <a data-toggle="modal" data-target="#currencyModal" id="changeCurrency">Change currency</a>
+                <a data-toggle="modal" data-target="#currencyModal" id="changeCurrency">
+                        <?php if ($currency == 'NOK') { ?>
+                            Endre valuta 
+                        <?php } else {?>
+                            Change currency
+                        <?php } ?>
+                </a>
             </div>
 
             <div class="donate-block__button">
-                Donate
+                        <?php if ($currency == 'NOK') { ?>
+                            Gi 
+                        <?php } else {?>
+                            Donate
+                        <?php } ?>
                 <span class="donate-block__button-currency currency"><?php if ($currency !== 'NOK') echo $currency . ' ' ?><?php echo $symbol ?></span><span class="donate-block__button-amount"></span>
                 <span class="donate-block__button-freq"></span>
             </div>

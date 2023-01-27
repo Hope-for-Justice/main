@@ -147,7 +147,7 @@ jQuery(document).ready(function ($) {
                     });
                     $(window).scrollTop(0);
                 }
-                $('#toStepTwo').html('Next');
+                $('#toStepTwo').html('Neste');
             }, 400);
 
     });
@@ -159,7 +159,7 @@ jQuery(document).ready(function ($) {
                 $('#dotTwo').toggleClass('donorfy-donate__dot--active');
                 $('#formOne').show();
                 $('#formTwo').hide();
-                $('#backToStepOne').html('Previous');
+                $('#backToStepOne').html('Forrige');
                 $(window).scrollTop(0);
             }, 400);
     });
@@ -174,7 +174,7 @@ jQuery(document).ready(function ($) {
                     $('#formTwo').hide();
                     $(window).scrollTop(0);
                 }
-                $('#toStepThree').html('Next');
+                $('#toStepThree').html('Neste');
             }, 400);
     });
 
@@ -185,7 +185,7 @@ jQuery(document).ready(function ($) {
                 $('#dotTwo').toggleClass('donorfy-donate__dot--active');
                 $('#formTwo').show();
                 $('#formThree').hide();
-                $('#backToStepTwo').html('Previous');
+                $('#backToStepTwo').html('Forrige');
             }, 400);
     });
 
@@ -199,7 +199,7 @@ jQuery(document).ready(function ($) {
                     $('#formThree').hide();
                     $(window).scrollTop(0);
                 }
-                $('#toStepFour').html('Next');
+                $('#toStepFour').html('Neste');
             }, 400);
     });
 
@@ -210,7 +210,7 @@ jQuery(document).ready(function ($) {
                 $('#dotFour').toggleClass('donorfy-donate__dot--active');
                 $('#formThree').show();
                 $('#CreditCardForm').hide();
-                $('#backToStepThree').html('Previous');
+                $('#backToStepThree').html('Forrige');
             }, 400);
     });
 

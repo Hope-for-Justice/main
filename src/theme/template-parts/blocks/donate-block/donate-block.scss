@@ -253,6 +253,26 @@
     }
 }
 
+.donate-block__container--NOK {
+    .donate-block__freq {
+        &-option {
+
+
+            &:before {
+                content: "";
+            }
+
+            &--active {
+
+                &:before {
+                    content: "";
+                }
+            }
+        }
+    }
+
+}
+
 // bigger mobiles
 //////////////////////////////////////////////////////////////////////////////////
 @media screen and(min-width: 374px) {
