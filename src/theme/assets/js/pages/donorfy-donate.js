@@ -99,7 +99,7 @@ jQuery(document).ready(function ($) {
     let norwayPage = $('body').hasClass('page-template-page-one-off-norway');
     if (norwayPage) {
         $.extend(jQuery.validator.messages, {
-            required: "Obligatorisk."
+            required: "Må fylles inn."
         });
     } else {
         $.extend(jQuery.validator.messages, {
