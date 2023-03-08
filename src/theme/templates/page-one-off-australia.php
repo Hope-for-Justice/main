@@ -539,6 +539,14 @@ endif;
                         <div id="card-cvc" class="donorfy-donate__input"></div>
                     </div>
 
+                    <div id="payment-request-button" class="donorfy-donate__apple-google-pay">
+                    <!-- Target for apple & google pay -->
+                    </div> 
+                    
+                    <div id="paypal-button-container">
+                    <!-- Target for PayPal buttons -->
+                    </div>
+
                     <label class="donorfy-donate__hidden" for="inspiration_question">What inspired you to give?</label>
                     <div class="donorfy-donate__select">
                         <select name="inspiration_question" id="inspiration_question">
@@ -630,6 +638,16 @@ endif;
                     <input type="hidden" id="type" value="Australia+one-off" />
                     <input type="hidden" id="zapierUrl" value="https://hooks.zapier.com/hooks/catch/8597852/b013c8p/" />
                     <input type="hidden" id="emailEvent" value="<?php echo $emailEvent; ?>" />
+
+                    <input type="hidden" id="StripePaymentIntentId" value="" />
+                    <input type="hidden" id="PaymentMethod" value="" />
+                    <input type="hidden" id="StripeStatementText" value="Hope for Justice Au" />
+                    <input type="hidden" id="CurrencyCode" value="aud" />
+                    <input type="hidden" id="CountryCode" value="GB" />
+                    <input type="hidden" id="PayPalStatementText" value="Hope for Justice" />
+                    <input type="hidden" id="PayPalClientId" value="AaQzhULMlg_dYWzkSmm06sKuUrqAaMdzyUW_E9OPMlmxroQoipJ5v5CX9u6yzcK7oZJc36aXK4Rn8Y3j" />
+                    <input type="hidden" id="ExternalPaymentReference" value="" />
+                    <input type="hidden" id="PayPal" value="" />
 
                     <div class="donorfy-donate__hidden">
                         <input id="GiftAid" type="checkbox" />

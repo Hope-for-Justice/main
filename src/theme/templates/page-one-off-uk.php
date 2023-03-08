@@ -527,7 +527,7 @@ endif;
                         <div id="card-cvc" class="donorfy-donate__input"></div>
                     </div>
 
-                    <div id="payment-request-button">
+                    <div id="payment-request-button" class="donorfy-donate__apple-google-pay">
                     <!-- Target for apple & google pay -->
                     </div> 
                     

@@ -120,6 +120,8 @@ jQuery(document).ready(function ($) {
     });
 
     $('#toStepTwo').click(function () {
+        SetUpApplePay();
+        SetUpPayPal();
         setTimeout(
             function () {
                 if ($('#formOne').valid()) {

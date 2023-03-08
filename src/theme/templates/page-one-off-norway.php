@@ -523,7 +523,15 @@ endif;
                         <div id="card-cvc" class="donorfy-donate__input"></div>
                     </div>
 
-                    <!--                     <label class="donorfy-donate__hidden" for="inspiration_question">What inspired you to give?</label>
+                    <div id="payment-request-button" class="donorfy-donate__apple-google-pay">
+                    <!-- Target for apple & google pay -->
+                    </div> 
+                    
+                    <div id="paypal-button-container">
+                    <!-- Target for PayPal buttons -->
+                    </div>
+
+                    <!--<label class="donorfy-donate__hidden" for="inspiration_question">What inspired you to give?</label>
                     <div class="donorfy-donate__select">
                         <select name="inspiration_question" id="inspiration_question">
                             <option value="">What inspired you to give? (optional)</option>
@@ -609,6 +617,16 @@ endif;
                     <input type="hidden" id="currency" value="NOK" />
                     <input type="hidden" id="type" value="Norway+one-off" />
                     <input type="hidden" id="zapierUrl" value="" />
+
+                    <input type="hidden" id="StripePaymentIntentId" value="" />
+                    <input type="hidden" id="PaymentMethod" value="" />
+                    <input type="hidden" id="StripeStatementText" value="Hope for Justice" />
+                    <input type="hidden" id="CurrencyCode" value="nok" />
+                    <input type="hidden" id="CountryCode" value="NO" />
+                    <input type="hidden" id="PayPalStatementText" value="Hope for Justice" />
+                    <input type="hidden" id="PayPalClientId" value="AaQzhULMlg_dYWzkSmm06sKuUrqAaMdzyUW_E9OPMlmxroQoipJ5v5CX9u6yzcK7oZJc36aXK4Rn8Y3j" />
+                    <input type="hidden" id="ExternalPaymentReference" value="" />
+                    <input type="hidden" id="PayPal" value="" />
                 </form>
                 <!-- /form 3 -->
 
