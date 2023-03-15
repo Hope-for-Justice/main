@@ -41,9 +41,14 @@ get_header("", ["page_class" =>
                     </div>
                     <!-- breadcrumbs -->
                     <div class="block-post__breadcrumbs">
-                        <span class="aioseo-breadcrumb">
-                            <a href="/news" title="Home">News</a>
-                        </span>
+                        <?php $category = get_the_category($post->ID);
+                        if (!$category[0]->name == 'Case Studies') { ?>
+
+                            <span class="aioseo-breadcrumb">
+                                <a href="/news" title="Home">News</a>
+                            </span>
+
+                        <?php } ?>
                         <span class="aioseo-breadcrumb-separator">&nbsp;›&nbsp;</span>
                         <?php if (function_exists('aioseo_breadcrumbs')) aioseo_breadcrumbs(); ?>
                     </div>
@@ -67,28 +72,30 @@ get_header("", ["page_class" =>
         <div class="block-post__author-share">
             <div class="better-grid">
                 <div class="block-post__author-share-content">
-                    <div class="block-post__author">
-                        <?php
-                        // Get the author ID
-                        $author_id = get_post_field('post_author', $post->ID);
-                        $acf_author_img = get_field('author_image');
-                        $acf_author = get_field('author_name');
-                        if ($acf_author_img) {
-                            $author_image = $acf_author_img;
-                        } else {
-                            $author_image = get_avatar_url($author_id);
-                        }
-                        ?>
-                        <div class="block-post__author-img" style="background-image: url('<?php echo $author_image ?>');">
+                    <?php if (!$category[0]->name == 'Case Studies') { ?>
+                        <div class="block-post__author">
+                            <?php
+                            // Get the author ID
+                            $author_id = get_post_field('post_author', $post->ID);
+                            $acf_author_img = get_field('author_image');
+                            $acf_author = get_field('author_name');
+                            if ($acf_author_img) {
+                                $author_image = $acf_author_img;
+                            } else {
+                                $author_image = get_avatar_url($author_id);
+                            }
+                            ?>
+                            <div class="block-post__author-img" style="background-image: url('<?php echo $author_image ?>');">
 
+                            </div>
+                            <p>By <b><?php if ($acf_author) {
+                                            echo $acf_author;
+                                        } else {
+                                            echo get_the_author();
+                                        } ?></b></p>
                         </div>
-                        <p>By <b><?php if ($acf_author) {
-                                        echo $acf_author;
-                                    } else {
-                                        echo get_the_author();
-                                    } ?></b></p>
-                    </div>
-                    <div class="block-post__share">
+                    <?php } ?>
+                    <div class="block-post__share <?php if ($category[0]->name == 'Case Studies') echo 'block-post__share--left' ?>">
                         <p>Share:</p>
                         <!-- social icons -->
                         <ul class="block-post__share-icons">
@@ -122,7 +129,7 @@ get_header("", ["page_class" =>
             <!-- aside -->
             <aside class="block-post__aside">
                 <?php
-                $category = get_the_category($post->ID);
+                // $category = get_the_category($post->ID); //moved higher
                 $categoryID = $category[0]->cat_ID;
                 $catLink = get_category_link($categoryID);
                 $posts = get_posts(array('numberposts' => 5, 'offset' => 0, 'category__in' => array($categoryID), 'post__not_in' => array($post->ID))); ?>

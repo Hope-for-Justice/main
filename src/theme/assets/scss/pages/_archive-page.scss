@@ -6,6 +6,36 @@
 
 .archive-page {
 
+	.post-block__post--cat-blogs_and_opinion_editorials,
+	.post-block__post--cat-case-studies {
+		.post-block__tag:last-child {
+			display: none;
+		}
+
+		&::before {
+			content: "Blogs and opinion";
+			position: absolute;
+			top: 0;
+			left: 0;
+			background-color: var(--red);
+			color: white;
+			padding: 5px 8px;
+			border-radius: 0 0 8px 0;
+			font-size: 0.75rem;
+		}
+	}
+
+	.post-block__post--cat-case-studies {
+		.post-block__tag:last-child {
+			display: block;
+		}
+
+		::before {
+			content: "Case Study";
+		}
+	}
+
+
 	&__numbers {
 		font-size: 1rem;
 

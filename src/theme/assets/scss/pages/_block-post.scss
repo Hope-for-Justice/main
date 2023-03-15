@@ -114,6 +114,10 @@
     &__share {
         margin-left: auto;
 
+        &--left {
+            margin-left: 0;
+        }
+
         ul {
             margin-top: 6px;
         }

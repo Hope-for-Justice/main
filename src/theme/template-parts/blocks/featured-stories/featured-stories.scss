@@ -1,0 +1,134 @@
+.featured-stories {
+    gap: 16px;
+
+    &__story {
+        position: relative;
+        background-color: var(--light-grey);
+        grid-column: span 12;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.16);
+        display: flex;
+        flex-direction: column;
+        min-height: 250px;
+
+        &:hover {
+            .post-block__title {
+                text-decoration: underline;
+            }
+        }
+
+    }
+
+    &__img {
+        position: absolute;
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__gradient {
+        background: rgb(255, 255, 255);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 1) 100%);
+        position: absolute;
+        bottom: 0;
+        height: 40%;
+        width: 100%;
+        opacity: 0.8;
+    }
+
+    &__link {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1;
+    }
+
+    &__tags {
+        display: flex;
+        position: relative;
+        z-index: 2;
+        max-width: 100%;
+        align-self: flex-end;
+
+        &>*+* {
+            margin-left: 12px;
+        }
+
+        &--center {
+            justify-content: center;
+        }
+    }
+
+    &__tag {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        background-color: var(--black);
+        padding: 5px 10px;
+        color: white;
+        border-radius: 4px;
+        font-size: 0.75rem;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__content {
+        padding: 18px 18px 18px 22px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    &__title {
+        position: relative;
+        font-weight: bold;
+        color: white;
+        font-size: var(--wp--custom--typography--large);
+    }
+
+}
+
+@media screen and (min-width:600px) {
+
+    .featured-stories {
+
+        &__story {
+            grid-column: span 6;
+            min-height: 400px;
+        }
+    }
+
+}
+
+@media screen and (min-width:768px) {
+    .featured-stories {
+        gap: 32px;
+    }
+}
+
+@media screen and (min-width:1200px) {
+    .featured-stories {
+
+        &__story {
+            grid-column: span 4;
+        }
+    }
+}
+
+@media screen and (min-width:1366px) {
+
+    .featured-stories {
+
+        &__story {
+            grid-column: span 3;
+        }
+    }
+
+}

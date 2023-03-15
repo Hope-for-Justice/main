@@ -477,6 +477,15 @@ function my_acf_init_block_types()
                 'jsx'  => true,
             ]
         ));
+
+        //register featured stories
+        acf_register_block_type(array(
+            'name'              => 'featured-stories',
+            'title'             => __('Featured Stories'),
+            'description'       => __('Featured Stories block'),
+            'render_template'   => 'template-parts/blocks/featured-stories/featured-stories.php',
+            'category'          => 'hfj-design-system',
+        ));
     }
 }
 
@@ -604,6 +613,10 @@ function register_acf_block_styles(): void
     if (has_block('acf/accordion')) {
         wp_enqueue_style('accordion_styles', get_template_directory_uri() . '/template-parts/blocks/accordion.css', array(), _S_VERSION);
         wp_enqueue_script('accordion_scripts', get_template_directory_uri() . '/template-parts/blocks/accordion/accordion.js', array('jquery'), _S_VERSION);
+    }
+
+    if (has_block('acf/featured-stories')) {
+        wp_enqueue_style('featured_stories_styles', get_template_directory_uri() . '/template-parts/blocks/featured-stories.css', array(), _S_VERSION);
     }
 }
 

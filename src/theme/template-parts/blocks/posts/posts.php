@@ -36,13 +36,17 @@ $the_query = new WP_Query(array(
             $iframe = get_field('upload_video', get_the_ID(), false);
             $vimeo = explode('/', $iframe);
             $vimeo_id = end($vimeo);
+            $no_image = false;
 
             if ($image) {
                 $id = $image['id'];
                 $image_src = wp_get_attachment_image_src($id, 'full');
                 $image_src = $image_src[0];
-            } else {
+            } else if (get_the_post_thumbnail_url()) {
                 $image_src = get_the_post_thumbnail_url();
+            } else {
+                $image_src = null;
+                $no_image = true;
             }
 
             $date_mod = date("M j", strtotime(get_the_date()));
@@ -58,7 +62,7 @@ $the_query = new WP_Query(array(
             <div class="post-block__post post-block__post--cat-<?php echo $cat_info->slug ?> <?php if ($enlarge) echo 'post-block__post--enlarge' ?>">
                 <!-- image -->
 
-                <?php if ($cat_info->name !== 'Hope for Justice in the headlines') { ?>
+                <?php if (($cat_info->name !== 'Hope for Justice in the headlines') && $image_src) { ?>
                     <div style="background-size:cover; background-image: url('<?php echo $image_src; ?>'); background-position: <?php echo $image['left'] . '% ' . $image['top']; ?>%;" class="post-block__image">
                     </div>
                 <?php } ?>
@@ -70,7 +74,7 @@ $the_query = new WP_Query(array(
                                                                                                             } ?>">
                 </a>
 
-                <div class=" post-block__content">
+                <div class="post-block__content <?php if ($no_image && $cat_info->name !== 'Hope for Justice in the headlines') echo 'post-block__content--no-image' ?>">
                     <div style="display: inline-block;">
                         <div class="post-block__date">
                             <svg id="Group_7762" data-name="Group 7762" xmlns="http://www.w3.org/2000/svg" width="11.819" height="11.82" viewBox="0 0 11.819 11.82">
@@ -101,7 +105,7 @@ $the_query = new WP_Query(array(
                     </div>
                 </div>
                 <?php if ($tags && ($cat_info->name != 'Hope for Justice in the headlines')) { ?>
-                    <div class="post-block__tags">
+                    <div class="post-block__tags <?php if ($no_image && $cat_info->name !== 'Hope for Justice in the headlines') echo 'post-block__tags--center' ?>">
                         <?php $count = 0;
                         foreach ($tags as $tag) {
                             if ($count < 2) {
