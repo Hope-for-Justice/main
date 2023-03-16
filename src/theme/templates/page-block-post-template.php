@@ -42,14 +42,16 @@ get_header("", ["page_class" =>
                     <!-- breadcrumbs -->
                     <div class="block-post__breadcrumbs">
                         <?php $category = get_the_category($post->ID);
-                        if (!$category[0]->name == 'Case Studies') { ?>
+                        if ($category[0]->name !== 'Case Studies') {
+                        ?>
 
                             <span class="aioseo-breadcrumb">
                                 <a href="/news" title="Home">News</a>
                             </span>
+                            <span class="aioseo-breadcrumb-separator">&nbsp;›&nbsp;</span>
 
                         <?php } ?>
-                        <span class="aioseo-breadcrumb-separator">&nbsp;›&nbsp;</span>
+
                         <?php if (function_exists('aioseo_breadcrumbs')) aioseo_breadcrumbs(); ?>
                     </div>
                     <!-- title -->
@@ -72,7 +74,7 @@ get_header("", ["page_class" =>
         <div class="block-post__author-share">
             <div class="better-grid">
                 <div class="block-post__author-share-content">
-                    <?php if (!$category[0]->name == 'Case Studies') { ?>
+                    <?php if ($category[0]->name !== 'Case Studies') { ?>
                         <div class="block-post__author">
                             <?php
                             // Get the author ID

@@ -67,11 +67,11 @@ $the_query = new WP_Query(array(
                     </div>
                 <?php } ?>
 
-                <a class="post-block__link <?php if ($cat_info->name == 'Videos') echo 'video-trigger'; ?>" <?php if ($cat_info->name !== 'Videos') {
-                                                                                                                echo 'href="' .  $link;
-                                                                                                            } else {
-                                                                                                                echo 'data-toggle="modal" data-target="#video-modal" data-src="https://player.vimeo.com/video/' . $vimeo_id;
-                                                                                                            } ?>">
+                <a class="post-block__link <?php if ($cat_info->cat_ID == 5) echo 'video-trigger'; ?>" <?php if ($cat_info->cat_ID !== 5) {
+                                                                                                            echo 'href="' .  $link;
+                                                                                                        } else {
+                                                                                                            echo 'data-toggle="modal" data-target="#video-modal" data-src="https://player.vimeo.com/video/' . $vimeo_id;
+                                                                                                        } ?>">
                 </a>
 
                 <div class="post-block__content <?php if ($no_image && $cat_info->name !== 'Hope for Justice in the headlines') echo 'post-block__content--no-image' ?>">

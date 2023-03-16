@@ -17,7 +17,7 @@ get_header("", ["page_class" =>
 
 <?php while (have_posts()) : the_post(); ?>
 
-	<main class="main site-main block-template block-post--default-post">
+	<main class="main site-main block-template">
 		<!-- post header -->
 		<div class="block-post__header">
 			<div class="better-grid">
@@ -41,10 +41,17 @@ get_header("", ["page_class" =>
 					</div>
 					<!-- breadcrumbs -->
 					<div class="block-post__breadcrumbs">
-						<span class="aioseo-breadcrumb">
-							<a href="/news" title="Home">News</a>
-						</span>
-						<span class="aioseo-breadcrumb-separator">&nbsp;›&nbsp;</span>
+						<?php $category = get_the_category($post->ID);
+						if ($category[0]->name !== 'Case Studies') {
+						?>
+
+							<span class="aioseo-breadcrumb">
+								<a href="/news" title="Home">News</a>
+							</span>
+							<span class="aioseo-breadcrumb-separator">&nbsp;›&nbsp;</span>
+
+						<?php } ?>
+
 						<?php if (function_exists('aioseo_breadcrumbs')) aioseo_breadcrumbs(); ?>
 					</div>
 					<!-- title -->
@@ -67,8 +74,7 @@ get_header("", ["page_class" =>
 		<div class="block-post__author-share">
 			<div class="better-grid">
 				<div class="block-post__author-share-content">
-
-					<div class="block-post__share">
+					<div class="block-post__share <?php if ($category[0]->name == 'Case Studies') echo 'block-post__share--left' ?>">
 						<p>Share:</p>
 						<!-- social icons -->
 						<ul class="block-post__share-icons">
@@ -102,7 +108,7 @@ get_header("", ["page_class" =>
 			<!-- aside -->
 			<aside class="block-post__aside">
 				<?php
-				$category = get_the_category($post->ID);
+				// $category = get_the_category($post->ID); //moved higher
 				$categoryID = $category[0]->cat_ID;
 				$catLink = get_category_link($categoryID);
 				$posts = get_posts(array('numberposts' => 5, 'offset' => 0, 'category__in' => array($categoryID), 'post__not_in' => array($post->ID))); ?>

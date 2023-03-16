@@ -10,7 +10,7 @@
 
 if (!defined('_S_VERSION')) {
   // Replace the version number of the theme on each release.
-  define('_S_VERSION', '5.5.6');
+  define('_S_VERSION', '5.6.0');
 }
 
 if (!function_exists('hope_for_justice_2021_setup')) :
@@ -253,7 +253,7 @@ function page_scripts()
     wp_enqueue_script('church-partnerships');
     wp_enqueue_style('church-partnerships', get_template_directory_uri() . '/church-partnerships.css', array(), _S_VERSION);
   }
-  if (is_page('modern-slavery') || is_page('human-trafficking') ) {
+  if (is_page('modern-slavery') || is_page('human-trafficking')) {
     wp_enqueue_script('modern-slavery');
   }
   if (is_page('governance-policies-funding') || is_page('what-we-do')) {

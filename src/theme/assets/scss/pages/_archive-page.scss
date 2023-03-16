@@ -30,7 +30,7 @@
 			display: block;
 		}
 
-		::before {
+		&::before {
 			content: "Case Study";
 		}
 	}

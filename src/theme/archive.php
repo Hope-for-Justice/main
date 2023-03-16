@@ -72,17 +72,19 @@ get_header();
 					$tags = get_the_tags();
 					$cat = get_the_category();
 					$cat_info = $cat[0];
+
 					?>
 					<div class="post-block__post post-block__post--cat-<?php echo $cat_info->slug ?>">
+
 						<!-- image -->
 						<div style="background-size:cover; background-image: url('<?php echo $image_src; ?>'); background-position: <?php echo $image['left'] . '% ' . $image['top']; ?>%;" class="post-block__image">
 						</div>
 
-						<a class="post-block__link <?php if ($cat_info->name == 'Videos') echo 'video-trigger'; ?>" <?php if ($cat_info->name !== 'Videos') {
-																														echo 'href="' .  $link;
-																													} else {
-																														echo 'data-toggle="modal" data-target="#video-modal" data-src="https://player.vimeo.com/video/' . $vimeo_id;
-																													} ?>"></a>
+						<a class="post-block__link <?php if ($cat_info->cat_ID == 5) echo 'video-trigger'; ?>" <?php if ($cat_info->cat_ID !== 5) {
+																													echo 'href="' .  $link;
+																												} else {
+																													echo 'data-toggle="modal" data-target="#video-modal" data-src="https://player.vimeo.com/video/' . $vimeo_id;
+																												} ?>"></a>
 
 						<div class="post-block__content">
 							<div style="display: inline-block;">
