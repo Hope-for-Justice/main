@@ -71,7 +71,7 @@ $the_query = new WP_Query(array(
                 <a class="post-block__link <?php if ($cat_info->cat_ID == 5) echo 'video-trigger'; ?>" <?php if ($cat_info->cat_ID !== 5) {
                                                                                                             echo 'href="' .  $link;
                                                                                                         } else {
-                                                                                                            echo ($yt_iframe) ? $yt_iframe : 'data-toggle="modal" data-target="#video-modal" data-src="https://player.vimeo.com/video/' . $vimeo_id;
+                                                                                                            echo ($yt_iframe) ? 'data-toggle="modal" data-target="#video-modal" data-src="' . $yt_iframe . '"' : 'data-toggle="modal" data-target="#video-modal" data-src="https://player.vimeo.com/video/' . $vimeo_id . '"';
                                                                                                         } ?>">
                 </a>
 
