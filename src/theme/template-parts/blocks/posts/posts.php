@@ -34,6 +34,7 @@ $the_query = new WP_Query(array(
             $news_icon = get_field('news_icon', get_the_ID());
             $news_icon_height = get_field('news_icon_height', get_the_ID());
             $iframe = get_field('upload_video', get_the_ID(), false);
+            $yt_iframe = get_field('upload_yt_video', get_the_ID(), false);
             $vimeo = explode('/', $iframe);
             $vimeo_id = end($vimeo);
             $no_image = false;
@@ -70,7 +71,7 @@ $the_query = new WP_Query(array(
                 <a class="post-block__link <?php if ($cat_info->cat_ID == 5) echo 'video-trigger'; ?>" <?php if ($cat_info->cat_ID !== 5) {
                                                                                                             echo 'href="' .  $link;
                                                                                                         } else {
-                                                                                                            echo 'data-toggle="modal" data-target="#video-modal" data-src="https://player.vimeo.com/video/' . $vimeo_id;
+                                                                                                            echo ($yt_iframe) ? $yt_iframe : 'data-toggle="modal" data-target="#video-modal" data-src="https://player.vimeo.com/video/' . $vimeo_id;
                                                                                                         } ?>">
                 </a>
 
