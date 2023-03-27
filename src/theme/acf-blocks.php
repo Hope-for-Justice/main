@@ -486,6 +486,15 @@ function my_acf_init_block_types()
             'render_template'   => 'template-parts/blocks/featured-stories/featured-stories.php',
             'category'          => 'hfj-design-system',
         ));
+
+        //register carousel
+        acf_register_block_type(array(
+            'name'              => 'carousel',
+            'title'             => __('Carousel'),
+            'description'       => __('Carousel block'),
+            'render_template'   => 'template-parts/blocks/carousel/carousel.php',
+            'category'          => 'hfj-design-system',
+        ));
     }
 }
 
@@ -617,6 +626,10 @@ function register_acf_block_styles(): void
 
     if (has_block('acf/featured-stories')) {
         wp_enqueue_style('featured_stories_styles', get_template_directory_uri() . '/template-parts/blocks/featured-stories.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/carousel')) {
+        wp_enqueue_style('carousel_styles', get_template_directory_uri() . '/template-parts/blocks/carousel.css', array(), _S_VERSION);
     }
 }
 
