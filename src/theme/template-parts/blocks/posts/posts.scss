@@ -113,6 +113,12 @@
             }
         }
 
+        &--cat-case-studies {
+            .post-block__date {
+                visibility: hidden;
+            }
+        }
+
     }
 
     &__image {
