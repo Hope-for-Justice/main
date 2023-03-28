@@ -495,6 +495,18 @@ function my_acf_init_block_types()
             'render_template'   => 'template-parts/blocks/carousel/carousel.php',
             'category'          => 'hfj-design-system',
         ));
+
+        //register grid break
+        acf_register_block_type(array(
+            'name'              => 'grid-break',
+            'title'             => __('Grid Break'),
+            'description'       => __('Grid Break block. Place blocks inside to ignore the bounds of an article in a news post'),
+            'render_template'   => 'template-parts/blocks/grid-break/grid-break.php',
+            'category'          => 'hfj-design-system',
+            'supports'          => [
+                'jsx'  => true,
+            ]
+        ));
     }
 }
 
@@ -630,6 +642,10 @@ function register_acf_block_styles(): void
 
     if (has_block('acf/carousel')) {
         wp_enqueue_style('carousel_styles', get_template_directory_uri() . '/template-parts/blocks/carousel.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/grid-break') && (!is_admin())) {
+        wp_enqueue_style('grid_break_styles', get_template_directory_uri() . '/template-parts/blocks/grid-break.css', array(), _S_VERSION);
     }
 }
 
