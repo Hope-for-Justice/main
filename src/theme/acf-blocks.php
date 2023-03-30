@@ -507,6 +507,32 @@ function my_acf_init_block_types()
                 'jsx'  => true,
             ]
         ));
+
+        //register grid block
+        acf_register_block_type(array(
+            'name'              => 'grid-block',
+            'title'             => __('Grid Block'),
+            'description'       => __('Grid Block. Make your own layout!'),
+            'render_template'   => 'template-parts/blocks/grid/grid.php',
+            'category'          => 'hfj-design-system',
+            'acf_block_version' => '2',
+            'supports'          => [
+                'jsx'  => true,
+            ]
+        ));
+
+        //register grid container
+        acf_register_block_type(array(
+            'name'              => 'grid-container',
+            'title'             => __('Grid Container'),
+            'description'       => __('Grid Container. Make your own layout!'),
+            'render_template'   => 'template-parts/blocks/grid/grid-container.php',
+            'category'          => 'hfj-design-system',
+            'acf_block_version' => '2',
+            'supports'          => [
+                'jsx'  => true,
+            ]
+        ));
     }
 }
 
@@ -646,6 +672,10 @@ function register_acf_block_styles(): void
 
     if (has_block('acf/grid-break') && (!is_admin())) {
         wp_enqueue_style('grid_break_styles', get_template_directory_uri() . '/template-parts/blocks/grid-break.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/grid-block')) {
+        wp_enqueue_style('grid_block_styles', get_template_directory_uri() . '/template-parts/blocks/grid-block.css', array(), _S_VERSION);
     }
 }
 

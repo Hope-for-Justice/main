@@ -862,6 +862,16 @@ function my_acf_json_load_point($paths)
 }
 
 
+//remove inner blocks container on front end
+add_filter('acf/blocks/wrap_frontend_innerblocks', 'acf_should_wrap_innerblocks', 10, 2);
+function acf_should_wrap_innerblocks($wrap, $name)
+{
+  if ($name == 'acf/test-block') {
+    return true;
+  }
+  return false;
+}
+
 
 /**
  * Responsive Image Helper Function
