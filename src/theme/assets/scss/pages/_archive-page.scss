@@ -25,6 +25,17 @@
 		}
 	}
 
+	.post-block__post--no-label {
+		.post-block__tag:last-child {
+			display: block;
+		}
+
+		&::before {
+			display: none;
+		}
+	}
+
+
 	.post-block__post--cat-case-studies {
 		.post-block__tag:last-child {
 			display: block;

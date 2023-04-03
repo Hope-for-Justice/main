@@ -13,6 +13,8 @@ get_header();
 
 <div id="primary" class="content-area archive-page">
 	<main id="main" class="site-main">
+		<?php if (is_category('case-studies') || is_category('blogs_and_opinion_editorials')) $no_label = true;
+		echo $no_label; ?>
 
 		<?php if (have_posts()) : ?>
 
@@ -79,7 +81,7 @@ get_header();
 					$cat_info = $cat[0];
 
 					?>
-					<div class="post-block__post post-block__post--cat-<?php echo $cat_info->slug ?>">
+					<div class="post-block__post post-block__post--cat-<?php echo $cat_info->slug ?> <?php if ($no_label) echo 'post-block__post--no-label' ?>">
 
 						<!-- image -->
 						<?php if ($image_src) { ?>
