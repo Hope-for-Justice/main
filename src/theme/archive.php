@@ -57,6 +57,7 @@ get_header();
 					$news_icon = get_field('news_icon', get_the_ID());
 					$news_icon_height = get_field('news_icon_height');
 					$iframe = get_field('upload_video', get_the_ID(), false);
+					$yt_iframe = get_field('upload_yt_video', get_the_ID(), false);
 					$vimeo = explode('/', $iframe);
 					$vimeo_id = end($vimeo);
 					$no_image = false;
@@ -92,7 +93,7 @@ get_header();
 						<a class="post-block__link <?php if ($cat_info->cat_ID == 5) echo 'video-trigger'; ?>" <?php if ($cat_info->cat_ID !== 5) {
 																													echo 'href="' .  $link;
 																												} else {
-																													echo 'data-toggle="modal" data-target="#video-modal" data-src="https://player.vimeo.com/video/' . $vimeo_id;
+																													echo ($yt_iframe) ? 'data-toggle="modal" data-target="#video-modal" data-src="' . $yt_iframe . '"' : 'data-toggle="modal" data-target="#video-modal" data-src="https://player.vimeo.com/video/' . $vimeo_id . '"';
 																												} ?>"></a>
 
 						<div class="post-block__content <?php if ($no_image) echo 'post-block__content--no-image' ?>">
