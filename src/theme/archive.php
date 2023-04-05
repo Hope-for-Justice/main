@@ -13,8 +13,7 @@ get_header();
 
 <div id="primary" class="content-area archive-page">
 	<main id="main" class="site-main">
-		<?php if (is_category('case-studies') || is_category('blogs_and_opinion_editorials')) $no_label = true;
-		echo $no_label; ?>
+		<?php if (is_category('case-studies') || is_category('blogs_and_opinion_editorials')) $no_label = true; ?>
 
 		<?php if (have_posts()) : ?>
 
