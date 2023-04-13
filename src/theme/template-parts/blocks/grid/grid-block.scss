@@ -52,11 +52,26 @@
         width: auto;
         margin: 0;
     }
+
+    .grid-block {
+        display: grid;
+
+        &__inner {
+            display: grid;
+        }
+    }
 }
 
 @media screen and (max-width: 1366px) {
     .grid-container {
+        //override inline padding
         padding: 0 !important;
+    }
+
+    .grid-block {
+        .wp-block-group {
+            background-color: transparent !important;
+        }
     }
 }
 

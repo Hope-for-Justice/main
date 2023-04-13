@@ -13,11 +13,15 @@
 $indent = get_field('indent');
 $row_space = get_field('row_space') ?: 'large';
 
+if (!empty($block['className'])) {
+    $class_name .= ' ' . $block['className'];
+}
+
 ?>
 
 
 <!-- grid -->
-<div class="better-grid grid-block">
+<div class="better-grid grid-block <?php echo $class_name ?>">
     <!-- inner grid -->
     <div class="better-grid grid-block__inner grid-block__inner--row-space-<?php echo $row_space ?> <?php if ($indent) echo 'grid-block__inner--indent' ?>">
         <!-- inner blocks to only allow grid-content -->
