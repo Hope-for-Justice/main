@@ -4,7 +4,7 @@
     &__inner {
         grid-column: 1/13;
         padding: 0;
-        width: auto;
+        width: 100%;
 
         &--row-space-small {
             grid-row-gap: clamp(12px, 3vw, 24px);
