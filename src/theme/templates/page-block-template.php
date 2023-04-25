@@ -31,6 +31,9 @@ get_header("", ["page_class" =>
 if (get_field('thank_you_scripts')) {
     wp_enqueue_script('donate-thankyou');
 }
+if (get_field('boost_impact_scripts')) {
+    wp_enqueue_script('boost-impact');
+}
 
 get_footer();
 ?>

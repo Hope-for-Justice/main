@@ -189,6 +189,12 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 	];
 
+	uglifyFilesObject[distTheme + jsDir + 'pages/boost-impact.js'] = [
+
+		devTheme + jsDir + 'pages/boost-impact.js',
+
+	];
+
 
 
 	return {

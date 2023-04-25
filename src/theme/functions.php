@@ -182,6 +182,8 @@ function page_scripts()
 
   wp_register_script('modern-slavery', get_template_directory_uri() . '/assets/js/pages/modern-slavery.js', array('jquery'), _S_VERSION, true);
 
+  wp_register_script('boost-impact', get_template_directory_uri() . '/assets/js/pages/boost-impact.js', array('jquery'), _S_VERSION, true);
+
 
 
 
