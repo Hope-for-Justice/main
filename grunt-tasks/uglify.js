@@ -21,14 +21,14 @@ module.exports = function (distTheme, devTheme, jsDir) {
 
 	];
 
-	uglifyFilesObject[distTheme + jsDir + 'pages/modern-slavery.js'] = [
+	// uglifyFilesObject[distTheme + jsDir + 'pages/modern-slavery.js'] = [
 
-		devTheme + jsDir + 'plugins/gsap.js',
-		devTheme + jsDir + 'plugins/draggable.js',
-		devTheme + jsDir + 'plugins/flexslider.js',
-		devTheme + jsDir + 'pages/modern-slavery.js',
+	// 	devTheme + jsDir + 'plugins/gsap.js',
+	// 	devTheme + jsDir + 'plugins/draggable.js',
+	// 	devTheme + jsDir + 'plugins/flexslider.js',
+	// 	devTheme + jsDir + 'pages/modern-slavery.js',
 
-	];
+	// ];
 
 	uglifyFilesObject[distTheme + jsDir + 'pages/what-we-do.js'] = [
 
