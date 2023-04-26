@@ -365,6 +365,10 @@ new GWUnrequire();
  */
 add_filter('gform_stripe_enable_rate_limits', '__return_false');
 
+/**
+ * Remove scrolling on submission gravity forms
+ */
+add_filter('gform_confirmation_anchor', '__return_false');
 
 // archive titles
 add_filter('get_the_archive_title', function ($title) {
