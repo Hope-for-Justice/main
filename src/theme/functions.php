@@ -510,9 +510,9 @@ add_filter('single_template', function ($single_template) {
 /**
  * Gravity Forms scroll top
  */
-add_filter('gform_confirmation_anchor', function () {
-  return 0;
-});
+// add_filter('gform_confirmation_anchor', function () {
+//   return 0;
+// });
 
 /**
  * better excerpt ending
