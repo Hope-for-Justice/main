@@ -29,6 +29,7 @@ jQuery(document).ready(function ($) {
 
 
     $.ajax({
+        type: 'POST',
         method: 'POST',
         url: '/wp-content/themes/hope-for-justice-2020/confirm-impact-boost.php',
         // /wp-content/ wp-engine

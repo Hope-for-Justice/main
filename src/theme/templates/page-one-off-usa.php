@@ -473,11 +473,11 @@ endif;
                     </div>
 
                     <div id="payment-request-button" class="donorfy-donate__apple-google-pay">
-                    <!-- Target for apple & google pay -->
-                    </div> 
-                    
+                        <!-- Target for apple & google pay -->
+                    </div>
+
                     <div id="paypal-button-container">
-                    <!-- Target for PayPal buttons -->
+                        <!-- Target for PayPal buttons -->
                     </div>
 
 
@@ -568,7 +568,6 @@ endif;
 
                     <input type="hidden" id="currency" value="USD" />
                     <input type="hidden" id="type" value="USA+one-off" />
-                    <input type="hidden" id="zapierUrl" value="https://hooks.zapier.com/hooks/catch/8597852/bk78p29/" />
                     <input type="hidden" id="emailEvent" value="<?php echo $emailEvent; ?>" />
 
                     <input type="hidden" id="StripePaymentIntentId" value="" />

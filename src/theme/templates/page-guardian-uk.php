@@ -319,9 +319,9 @@ get_header('', array('page_class' => 'site--full')); ?>
 
                     <input type="hidden" id="currency" value="GBP" />
                     <input type="hidden" id="type" value="UK+Guardian" />
-                    <input type="hidden" id="zapierUrl" value="https://hooks.zapier.com/hooks/catch/8597852/bk64mw8/">
+
                     <input type="hidden" id="emailEvent" value="<?php echo $emailEvent; ?>" />
-                    
+
 
 
                     <input type="hidden" id="WidgetId" value="<?php if ($matched_widget) {

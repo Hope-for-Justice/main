@@ -799,14 +799,16 @@ function zapier(url) {
         firstname: jQuery('#FirstName').val(),
         lastname: jQuery('#LastName').val(),
         emailUpdates: jQuery("#emailPreference").is(':checked'),
-        emailEvent: jQuery('#emailEvent').val()
+        emailEvent: jQuery('#emailEvent').val(),
+        type: jQuery('#type').val()
     };
     jQuery.ajax({
         type: 'POST',
+        method: 'POST',
         url: url,
-        data: JSON.stringify(data),
+        data: data,
         success: function (data) {
-            console.log('sent to zapier');
+            console.log(data);
         },
         error: function (xhr, status, error) {
             console.log('failed to send to zapier');
@@ -823,7 +825,7 @@ function Completed() {
     let currency = jQuery('#currency').val();
     let Name = jQuery('#FirstName').val();
     let type = jQuery('#type').val();
-    let zapierUrl = jQuery('#zapierUrl').val();
+    let zapierUrl = '/wp-content/themes/hope-for-justice-2020/zapier-thankyou.php'
     zapier(zapierUrl);
     var urlAmount = jQuery('#Amount').val();
     if (currency == 'NOK') {

@@ -349,15 +349,17 @@ function zapier() {
         firstname: jQuery('#FirstName').val(),
         lastname: jQuery('#LastName').val(),
         emailUpdates: jQuery("#emailPreference").is(':checked'),
-        emailEvent: jQuery('#emailEvent').val()
+        emailEvent: jQuery('#emailEvent').val(),
+        type: jQuery('#type').val()
     };
 
     jQuery.ajax({
         type: 'POST',
-        url: 'https://hooks.zapier.com/hooks/catch/8597852/bk64mw8/',
-        data: JSON.stringify(data),
+        method: 'POST',
+        url: '/wp-content/themes/hope-for-justice-2020/zapier-thankyou.php',
+        data: data,
         success: function (data) {
-            console.log('sent to zapier');
+            console.log(data);
         },
         error: function (xhr, status, error) {
             console.log('failed to send to zapier');

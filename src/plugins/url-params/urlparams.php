@@ -29,6 +29,7 @@ function urlparam($attributes, $content)
         'attr'           => '',
         'htmltag'        => false,
         'double'        => false,
+        'triple'        => false,
     );
 
     // We used to use shortcode_atts(), but that would nuke an extra attributes that we don't know about but want. array_merge() keeps them all.
@@ -79,6 +80,8 @@ function urlparam($attributes, $content)
 
     if ($attributes['double']) {
         return number_format((float)$return * 2, 2, '.', '');
+    } else if ($attributes['triple']) {
+        return number_format((float)$return * 3, 2, '.', '');
     } else {
         return $return;
     }
