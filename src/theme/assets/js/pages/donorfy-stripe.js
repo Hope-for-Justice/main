@@ -811,31 +811,32 @@ function zapier(url) {
             console.log(data);
         },
         error: function (xhr, status, error) {
-            console.log('failed to send to zapier');
+            console.log("error:" + error);
         }
+    }).then(function () {
+        let signup = 'false';
+        if (jQuery("#emailPreference").is(':checked')) {
+            signup = 'true';
+        }
+        let host = window.location.hostname;
+        let currency = jQuery('#currency').val();
+        let Name = jQuery('#FirstName').val();
+        let type = jQuery('#type').val();
+        var urlAmount = jQuery('#Amount').val();
+        if (currency == 'NOK') {
+            urlAmount = jQuery('#NorwayAmount').val();
+        }
+        var urlId = makeid(8);
+        if (thankyou) {
+            var redirectToPage = `${thankyouURL}?tid=${urlId}&amount=${urlAmount}&type=${type}&currency=${currency}&Name=${Name}&signup=${signup}`;
+        } else {
+            var redirectToPage = `https://${host}/donate-thankyou/?tid=${urlId}&amount=${urlAmount}&type=${type}&currency=${currency}&Name=${Name}&signup=${signup}`;
+        }
+        window.location = redirectToPage;
     });
 }
 
 function Completed() {
-    let signup = 'false';
-    if (jQuery("#emailPreference").is(':checked')) {
-        signup = 'true';
-    }
-    let host = window.location.hostname;
-    let currency = jQuery('#currency').val();
-    let Name = jQuery('#FirstName').val();
-    let type = jQuery('#type').val();
     let zapierUrl = '/wp-content/themes/hope-for-justice-2020/zapier-thankyou.php'
     zapier(zapierUrl);
-    var urlAmount = jQuery('#Amount').val();
-    if (currency == 'NOK') {
-        urlAmount = jQuery('#NorwayAmount').val();
-    }
-    var urlId = makeid(8);
-    if (thankyou) {
-        var redirectToPage = `${thankyouURL}?tid=${urlId}&amount=${urlAmount}&type=${type}&currency=${currency}&Name=${Name}&signup=${signup}`;
-    } else {
-        var redirectToPage = `https://${host}/donate-thankyou/?tid=${urlId}&amount=${urlAmount}&type=${type}&currency=${currency}&Name=${Name}&signup=${signup}`;
-    }
-    window.location = redirectToPage;
 }
