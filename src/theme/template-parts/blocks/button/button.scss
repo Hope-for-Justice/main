@@ -6,11 +6,11 @@
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        column-gap: 20px;
+        gap: 20px;
     }
 
     &__second-button {
-        margin-left: 16px;
+        //margin-left: 16px;
     }
 
     &--align-center {
