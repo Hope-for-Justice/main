@@ -533,6 +533,15 @@ function my_acf_init_block_types()
                 'jsx'  => true,
             ]
         ));
+
+        //register grid container
+        acf_register_block_type(array(
+            'name'              => 'resources-block',
+            'title'             => __('Resources Block'),
+            'description'       => __(''),
+            'render_template'   => 'template-parts/blocks/resources/resources.php',
+            'category'          => 'hfj-design-system'
+        ));
     }
 }
 
@@ -676,6 +685,10 @@ function register_acf_block_styles(): void
 
     if (has_block('acf/grid-block')) {
         wp_enqueue_style('grid_block_styles', get_template_directory_uri() . '/template-parts/blocks/grid-block.css', array(), _S_VERSION);
+    }
+
+    if (has_block('acf/resources-block')) {
+        wp_enqueue_style('resources_block_styles', get_template_directory_uri() . '/template-parts/blocks/resources-block.css', array(), _S_VERSION);
     }
 }
 

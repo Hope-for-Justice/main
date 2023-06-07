@@ -1,0 +1,17 @@
+.resources-block {
+    &__img {
+        padding-top: 100%;
+        position: relative;
+    }
+
+    &__content {
+        margin-top: 0;
+    }
+
+    &__download {
+        left: auto;
+        right: 0;
+        bottom: 0;
+        position: absolute;
+    }
+}
