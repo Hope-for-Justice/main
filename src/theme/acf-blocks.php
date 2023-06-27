@@ -534,12 +534,21 @@ function my_acf_init_block_types()
             ]
         ));
 
-        //register grid container
+        //register resources block
         acf_register_block_type(array(
             'name'              => 'resources-block',
             'title'             => __('Resources Block'),
             'description'       => __(''),
             'render_template'   => 'template-parts/blocks/resources/resources.php',
+            'category'          => 'hfj-design-system'
+        ));
+
+        //register publications block
+        acf_register_block_type(array(
+            'name'              => 'publications-block',
+            'title'             => __('Publications Block'),
+            'description'       => __(''),
+            'render_template'   => 'template-parts/blocks/publications/publications.php',
             'category'          => 'hfj-design-system'
         ));
     }

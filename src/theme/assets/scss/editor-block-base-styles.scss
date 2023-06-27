@@ -4,8 +4,6 @@
 @import "base/_mixins.scss";
 @import "base/_fonts.scss";
 @import "lib/_mq.scss";
-// @import "lib/_newsticker.scss";
-// @import "lib/_bootstrap-modal.scss";
 @import "base/_type.scss";
 @import "better-base/_better-base.scss";
 @import "better-base/_better-type.scss";
@@ -18,19 +16,13 @@
 @import "objects/_line.scss";
 @import "objects/_button.scss";
 @import "objects/_modal.scss";
-// @import "objects/_menu.scss";
+@import "objects/_publication.scss";
+@import "objects/_grid.scss";
 @import "objects/_grid.scss";
 
-// .editor-styles-wrapper {
-//     // @import "objects/_forms.scss";
-// }
 
-//@import "objects/_menu.scss";
-@import "objects/_grid.scss";
-// @import "objects/_header.scss";
-// @import "objects/_burger.scss";
-// @import "objects/_cookie-notice.scss";
-// @import "objects/_footer.scss";
+//blocks
+
 
 html :where(.wp-block) {
     max-width: none;

@@ -636,6 +636,27 @@ function create_post_types()
 
     )
   );
+
+  //publications
+  register_post_type(
+    'publications',
+    array(
+      'labels' => array(
+        'name' => __('Publications'),
+        'singular_name' => __('Publication')
+      ),
+      'public' => true,
+      'has_archive' => true,
+      'rewrite' => array(
+        'slug' => 'publications',
+        'with_front' => FALSE
+      ),
+      'show_in_rest' => true,
+      'menu_icon' => 'dashicons-media-text',
+      'supports' => array('thumbnail', 'title', 'editor')
+
+    )
+  );
 }
 add_action('init', 'create_post_types');
 
