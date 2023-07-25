@@ -13,7 +13,7 @@ function formatPostcode(string) {
 
 /* Page load scripts */
 jQuery(document).ready(function ($) {
-    console.log('v5.8.5')
+    console.log('v5.8.6')
     let cookies = Cookies.get('wordpress_hfjcookies');
 
     // cookieAccept click
@@ -151,7 +151,7 @@ jQuery(document).ready(function ($) {
     $('.video-trigger').click(function () {
         $videoSrc = $(this).data("src");
         console.log($videoSrc);
-        $frame.attr('src', $videoSrc + "?autoplay=1");
+        $frame.attr('src', $videoSrc + "?autoplay=1&playsinline=0");
     });
 
     $('.modal').on('hidden.bs.modal', function (e) {
