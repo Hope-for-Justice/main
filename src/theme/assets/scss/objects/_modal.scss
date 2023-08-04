@@ -61,6 +61,16 @@
 		&--white {
 			background-color: #ffffff;
 		}
+
+		&--block {
+			.better-grid {
+				display: block;
+				padding: 0;
+				width: auto;
+				margin: 0;
+				max-width: 90%;
+			}
+		}
 	}
 
 	&__title {
