@@ -552,7 +552,7 @@ function my_acf_init_block_types()
             'category'          => 'hfj-design-system'
         ));
 
-        //register grid container
+        //register modal block
         acf_register_block_type(array(
             'name'              => 'modal',
             'title'             => __('Modal block'),
@@ -563,6 +563,15 @@ function my_acf_init_block_types()
             'supports'          => [
                 'jsx'  => true,
             ]
+        ));
+
+        //register gpf block
+        acf_register_block_type(array(
+            'name'              => 'gpf-block',
+            'title'             => __('GPF Block'),
+            'description'       => __(''),
+            'render_template'   => 'template-parts/blocks/gpf-documents/gpf-documents.php',
+            'category'          => 'hfj-design-system'
         ));
     }
 }

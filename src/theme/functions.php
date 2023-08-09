@@ -10,7 +10,7 @@
 
 if (!defined('_S_VERSION')) {
   // Replace the version number of the theme on each release.
-  define('_S_VERSION', '5.8.7');
+  define('_S_VERSION', '5.8.8');
 }
 
 if (!function_exists('hope_for_justice_2021_setup')) :
@@ -722,6 +722,9 @@ function add_custom_taxonomies()
 
     'hierarchical' => true,
 
+    'show_ui'           => true,
+    'show_admin_column' => true,
+
 
     'labels' => array(
 
@@ -749,7 +752,7 @@ function add_custom_taxonomies()
 
     ),
 
-    'show_in_nav_menus' => false,
+    'show_in_nav_menus' => true,
 
     // Control the slugs used for this taxonomy
 
