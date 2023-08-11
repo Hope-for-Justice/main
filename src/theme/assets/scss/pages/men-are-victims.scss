@@ -13,6 +13,10 @@
 
 //mobile base
 .men-are-victims {
+	* {
+		overflow: hidden;
+	}
+
 	overflow-x: hidden;
 	padding-bottom: 100px;
 
@@ -85,6 +89,7 @@
 		grid-column: full;
 		background-color: #212322;
 		position: relative;
+		overflow: visible;
 
 		svg {
 			path {
@@ -341,6 +346,12 @@
 	&__block-content {
 		font-size: 16px;
 		grid-column: 1/4;
+	}
+
+	&__last {
+		grid-column: main;
+		position: relative;
+		overflow: visible;
 	}
 
 }
