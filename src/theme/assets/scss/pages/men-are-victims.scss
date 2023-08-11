@@ -7,12 +7,18 @@
 @import "../base/_variables.scss";
 @import "../lib/_mq.scss";
 
+.page-template-page-men-are-victims .header__search {
+	display: none;
+}
+
 //mobile base
 .men-are-victims {
 	overflow-x: hidden;
-	padding-bottom:100px;
+	padding-bottom: 100px;
+
 	&__flex {
-		grid-column:main;
+		grid-column: main;
+
 		&--mw {
 			max-width: 800px;
 			margin-left: auto;
@@ -22,33 +28,37 @@
 
 	&__text {
 		grid-column: main;
-		color:#F4F4F4;
+		color: #F4F4F4;
+
 		&--mb {
 			margin-bottom: 30px;
 		}
 	}
 
 	&.loading {
-		div {opacity: 0;}
+		div {
+			opacity: 0;
+		}
 	}
 
 	&__pictures {
-		height:100vh;
+		height: 100vh;
 		overflow: hidden;
 		grid-column: full;
 		grid-row-start: 1;
-		position:relative;
+		position: relative;
 		display: flex;
 		justify-content: center;
-		align-items:center;
+		align-items: center;
 	}
 
 	&__picture {
 		background-position: center;
-		background-size:cover;
-		min-width:110%;
-		min-height:110%;
+		background-size: cover;
+		min-width: 110%;
+		min-height: 110%;
 	}
+
 	&__logo {
 		opacity: 0;
 		transform: translateY(100px);
@@ -57,42 +67,56 @@
 		align-self: center;
 		justify-self: center;
 		max-width: 350px;
+
 		img {
-			width:100%;
+			width: 100%;
 			pointer-events: none;
 		}
+
 		&--bottom {
 			max-width: 150px;
 			transform: none;
 			margin: 20px auto 20px auto;
 		}
 	}
+
 	&__divider {
 		z-index: 1;
 		grid-column: full;
 		background-color: #212322;
 		position: relative;
+
 		svg {
-			path {fill: #212322;}
-			width:110%; 
+			path {
+				fill: #212322;
+			}
+
+			width:110%;
 			margin-left: -5%;
 			margin-top: -50px;
 		}
+
 		&--red {
-			grid-column:full;
+			grid-column: full;
 			padding: 0 20px;
 			position: relative;
 			margin-top: 30px;
 			margin-bottom: 30px;
+
 			svg {
-				width:100%;
-				path {fill: #D6001C;}
+				width: 100%;
+
+				path {
+					fill: #D6001C;
+				}
+
 				height:80px;
 			}
+
 			p {
 				position: absolute;
-				top:50%;
-				left:50%;
+				top: 50%;
+				left: 50%;
 				padding: 0 50px;
 				transform: translate(-50%, -50%);
 				color: white;
@@ -102,10 +126,14 @@
 				letter-spacing: 0.5px;
 			}
 		}
+
 		&--bottom {
 			svg {
-				path {fill: #212322;}
-				width:110%; 
+				path {
+					fill: #212322;
+				}
+
+				width:110%;
 				margin-left: -5%;
 				margin-top: 15px;
 				margin-bottom: -20px;
@@ -114,18 +142,21 @@
 	}
 
 	&__title {
-		grid-column:main;
+		grid-column: main;
 		font-size: 52px;
 		max-width: 700px;
 		line-height: 1;
 		color: white;
 		margin-bottom: 30px;
+
 		&--black {
-			color:#212322;
+			color: #212322;
 		}
+
 		&--mt {
 			margin-top: 30px;
 		}
+
 		&--zi {
 			z-index: 2;
 			max-width: 800px;
@@ -135,32 +166,40 @@
 	}
 
 	&__video {
-		grid-column:main;
+		grid-column: main;
 		border-radius: 10px;
-		padding-top:56.25%;
-		background-color:white;
+		padding-top: 56.25%;
+		background-color: white;
 		opacity: 1;
 		margin-bottom: 30px;
 		background-size: cover;
 		position: relative;
-		 filter: gray; /* IE6-9 */
- 		-webkit-filter: grayscale(100%); /* Chrome 19+ & Safari 6+ */
- 		transition: all 0.8s ease-out;
- 		overflow: hidden;
+		filter: gray;
+		/* IE6-9 */
+		-webkit-filter: grayscale(100%);
+		/* Chrome 19+ & Safari 6+ */
+		transition: all 0.8s ease-out;
+		overflow: hidden;
+
 		svg {
-			position:absolute;
-			top:20px;
-			left:20px;
-			width:20px;
+			position: absolute;
+			top: 20px;
+			left: 20px;
+			width: 20px;
+
 			&:hover {
 				opacity: 0.8;
 			}
 		}
+
 		&:hover {
-			filter: none; /* IE6-9 */
- 			-webkit-filter: grayscale(0%); /* Chrome 19+ & Safari 6+ */
+			filter: none;
+			/* IE6-9 */
+			-webkit-filter: grayscale(0%);
+			/* Chrome 19+ & Safari 6+ */
 			cursor: pointer;
 		}
+
 		&-caption {
 			color: white;
 			font-size: 12px;
@@ -175,16 +214,18 @@
 		grid-column: main;
 		//max-width: 700px;
 		margin: 0 auto;
-		color:white;
+		color: white;
 		text-align: left;
 	}
 
 	&__cta {
 		z-index: 2;
-		grid-column:main;
+		grid-column: main;
 		margin-top: 30px;
-		&-donate, &-download {
-			width:100%;
+
+		&-donate,
+		&-download {
+			width: 100%;
 			padding: 20px 16px;
 			border: 2px solid #707070;
 			border-radius: 77px;
@@ -194,6 +235,7 @@
 			text-align: center;
 			margin-bottom: 10px;
 			outline: none;
+
 			&:hover {
 				cursor: pointer;
 			}
@@ -201,21 +243,28 @@
 
 		&-form {
 			margin-top: 10px;
-			grid-column:main;
-			label {display: none;}
+			grid-column: main;
+
+			label {
+				display: none;
+			}
+
 			input[type="email"] {
 				//important use for overiding gravity forms
 				border-radius: 77px !important;
 				border: 2px solid #707070 !important;
-				width:100%;
-				color:white;
+				width: 100%;
+				color: white;
 				background-color: transparent;
 				margin-bottom: 10px;
-				padding-left:30px !important;
+				padding-left: 30px !important;
 				outline: none !important;
 				//margin-top:-10px;
 			}
-			.gform_heading {margin: 0 !important;}
+
+			.gform_heading {
+				margin: 0 !important;
+			}
 		}
 
 	}
@@ -228,25 +277,30 @@
 	}
 
 	&__accordian {
-		grid-column:main;
+		grid-column: main;
+
 		&-item {
 			display: flex;
 			align-items: center;
 
 		}
+
 		&-text {
-			max-height:0;
+			max-height: 0;
 			overflow: hidden;
 			transition: all 0.4s ease-out;
 			margin-bottom: 20px;
 			margin-top: 10px;
+
 			&--active {
-				max-height:800px;
+				max-height: 800px;
 			}
 		}
+
 		&-svg {
 			margin-right: 10px;
 			transition: all 0.4s ease-out;
+
 			&--active {
 				transform: rotate(136deg);
 			}
@@ -255,33 +309,38 @@
 	}
 
 	&__second-img {
-		grid-column:main;
-		border-radius:20px;
+		grid-column: main;
+		border-radius: 20px;
 		background-size: cover;
-		padding-top:70%;
+		padding-top: 70%;
 		margin-top: 20px;
 	}
 
 	&__globe {
 		z-index: 1;
 		opacity: 0.2;
-		position:absolute;
-		width:350px;
+		position: absolute;
+		width: 350px;
 		height: 350px;
-		top:20px;
-		right:-150px;
-		border-radius:100%;
-		background-position:center;
+		top: 20px;
+		right: -150px;
+		border-radius: 100%;
+		background-position: center;
 	}
 
 	&__bottom-img {
 		grid-column: full;
-		margin:0 15px;
+		margin: 0 15px;
 		background-size: cover;
-		background-position:center;
+		background-position: center;
 		border-radius: 20px 20px 0 0;
 		margin-top: 60px;
 		//margin-bottom: -100px;
+	}
+
+	&__block-content {
+		font-size: 16px;
+		grid-column: 1/4;
 	}
 
 }
@@ -290,192 +349,245 @@
 // tablet
 ///////////////////////////////////////////////////////////////////////////
 
-@include mq($from: tablet) { 
+@include mq($from: tablet) {
 
-.men-are-victims {
-	&__logo {
-		max-width: 450px;
-		&--bottom {
-			max-width: 150px;
-			transform: none;
-			margin: 40px auto 20px auto;
-		}
-	}
-	&__divider {
-		&--red {
-			grid-row-start: 10;
-		    margin: 0;
-		    z-index: 4;
-		    width: 100%;
-		    max-width: 1000px;
-		    justify-self: center;
-		    margin-top: -16px;
-				p{font-size: 18px;}
-				svg{height:65px;}
+	.men-are-victims {
+		&__logo {
+			max-width: 450px;
 
-		}
-	}
-	&__title {
-		font-size: 75px;
-		&--a {
-			text-align: center;
-			margin: 0 auto;
-			//margin-bottom: 60px;
-		}
-		&--b {
-			margin-top: 60px;
-		}
-		br {display: none;}
-	}
-	&__video {
-		margin-top:30px; 
-		&-caption {
-			font-size: 14px;
-		}
-	}
-	&__video-text {
-		margin-bottom: 60px;
-	}
-	&__cta {
-		display: flex;
-		flex-wrap: wrap;
-		&-donate {
-			width:calc(50% - 10px); 
-			margin-right: 10px;
-			margin-bottom: 10px;
-		}
-		&-download {
-			width:calc(50% - 10px); 
-			margin-left: 10px;
-			margin-bottom: 10px;
-		}
-		&-form {
-			width:100%;
-			input[type="email"] {
-				margin-bottom: 20px;
+			&--bottom {
+				max-width: 150px;
+				transform: none;
+				margin: 40px auto 20px auto;
 			}
 		}
-	}
-	&__white {
-		margin-top: -40px;
-		padding-top: 80px;
-	}
-	&__accordian {
-		&-item {
-			p{font-size: 24px;}
+
+		&__divider {
+			&--red {
+				grid-row-start: 10;
+				margin: 0;
+				z-index: 4;
+				width: 100%;
+				max-width: 1000px;
+				justify-self: center;
+				margin-top: -16px;
+
+				p {
+					font-size: 18px;
+				}
+
+				svg {
+					height: 65px;
+				}
+
+			}
 		}
-		&-text {
-			padding-right: 40px;
+
+		&__title {
+			font-size: 75px;
+
+			&--a {
+				text-align: center;
+				margin: 0 auto;
+				//margin-bottom: 60px;
+			}
+
+			&--b {
+				margin-top: 60px;
+			}
+
+			br {
+				display: none;
+			}
+		}
+
+		&__video {
+			margin-top: 30px;
+
+			&-caption {
+				font-size: 14px;
+			}
+		}
+
+		&__video-text {
+			margin-bottom: 60px;
+		}
+
+		&__cta {
+			display: flex;
+			flex-wrap: wrap;
+
+			&-donate {
+				width: calc(50% - 10px);
+				margin-right: 10px;
+				margin-bottom: 10px;
+			}
+
+			&-download {
+				width: calc(50% - 10px);
+				margin-left: 10px;
+				margin-bottom: 10px;
+			}
+
+			&-form {
+				width: 100%;
+
+				input[type="email"] {
+					margin-bottom: 20px;
+				}
+			}
+		}
+
+		&__white {
+			margin-top: -40px;
+			padding-top: 80px;
+		}
+
+		&__accordian {
+			&-item {
+				p {
+					font-size: 24px;
+				}
+			}
+
+			&-text {
+				padding-right: 40px;
+			}
+		}
+
+		&__globe {
+			width: 800px;
+			height: 800px;
+		}
+
+		&__zi {
+			z-index: 2;
 		}
 	}
-	&__globe { 
-		width:800px;
-		height:800px;
-	}
-	&__zi {
-		z-index: 2;
-	}
-}
 
 }
 
 // desktop
 ///////////////////////////////////////////////////////////////////////////
 
-@include mq($from: desktop) { 
+@include mq($from: desktop) {
 
-.men-are-victims {
-	&__logo {
-		&--bottom {
-			max-width: 250px;
-			margin: 150px auto 100px auto;
+	.men-are-victims {
+		&__logo {
+			img {
+				width: 450px
+			}
+
+			&--bottom {
+				max-width: 250px;
+				margin: 150px auto 100px auto;
+			}
 		}
-	}
-	&__title {
-		font-size: 85px;
-	}
-	&__divider {
-		&--red {
-			p {
-				font-size: 26px;
-				letter-spacing: 2.6px;
+
+		&__title {
+			font-size: 85px;
+		}
+
+		&__divider {
+			&--red {
+				p {
+					font-size: 26px;
+					letter-spacing: 2.6px;
+				}
+			}
+		}
+
+		&__text {
+			max-width: 768px;
+			margin-left: 0;
+		}
+
+		&__second-img {
+			padding-top: 40%;
+		}
+
+		&__flex {
+			display: flex;
+
+			&-item {
+				margin: 0;
+				margin-right: 20px;
+				flex: 1;
+
+				&:nth-child(2) {
+					margin-right: 0;
+					margin-left: 20px;
+				}
+			}
+
+			&--dl {
+				display: block;
+			}
+		}
+
+		&__cta,
+		&__cta-text,
+		&__cta-title,
+		&__video-text {
+			width: 100%;
+			max-width: 800px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		&__bottom-img {
+			grid-column: main;
+			margin-top: 100px;
+		}
+
+		&__video {
+			svg {
+				top: 40px;
+				left: 40px;
+				width: 60px;
+
 			}
 		}
 	}
-	&__text {
-		max-width: 768px;
-		margin-left: 0;
-	}
-	&__second-img {
-		padding-top:40%;
-	}
-	&__flex {
-		display: flex;
-		&-item {
-			margin:0;
-			margin-right: 20px;
-			flex:1;
-			&:nth-child(2) {
-				margin-right: 0;
-				margin-left: 20px;
-			}
-		}
-		&--dl {display: block;}
-	}
-	&__cta, &__cta-text, &__cta-title, &__video-text {
-		width:100%;
-		max-width: 800px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-	&__bottom-img {
-		grid-column:main;
-		margin-top: 100px;
-	}
-	&__video {
-		svg {
-			top:40px;
-			left:40px;
-			width:60px;
-
-		}
-	}
-}
 
 }
 
 // desktop large
 ///////////////////////////////////////////////////////////////////////////
 
-@include mq($from: desktopLarge) { 
+@include mq($from: desktopLarge) {
 
-.men-are-victims {
-	&__flex{
-		&--dl {display: flex;}
-		&-item {
+	.men-are-victims {
+		&__flex {
 			&--dl {
-				margin:0;
-				margin-right: 20px;
-				flex:1;
-				&:nth-child(2) {
-					margin-right: 0;
-					margin-left: 20px;
+				display: flex;
+			}
+
+			&-item {
+				&--dl {
+					margin: 0;
+					margin-right: 20px;
+					flex: 1;
+
+					&:nth-child(2) {
+						margin-right: 0;
+						margin-left: 20px;
+					}
 				}
 			}
-		}//item
-	}//flex
-	&__white {
-		padding: 150px 0;
+
+			//item
+		}
+
+		//flex
+		&__white {
+			padding: 150px 0;
+		}
+
+		&__second-img {
+			max-height: 458px;
+		}
 	}
-	&__second-img {
-		max-height: 458px;
-	}
-}
 
 
 }
-
-
-
-
-
