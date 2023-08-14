@@ -27,7 +27,7 @@ get_header('', array('page_class' => 'site--full campaign-page')); ?>
 			</svg>
 		</div>
 
-		<h2 class="gsapReveal font-fk men-are-victims__title men-are-victims__title--a">Over 11 million victims of modern slavery are men</h2>
+		<h2 class="gsapReveal font-fk men-are-victims__title men-are-victims__title--a">Over 22.8 million victims of modern slavery are men</h2>
 
 		<div data-toggle="modal" data-target="#video-modal" data-src="https://player.vimeo.com/video/721431463?h=abdb8c870e&badge=0&autopause=0&player_id=0&app_id=58479%22&autoplay=1" class="video-trigger men-are-victims__video gsapReveal" style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2022/06/Video-Preview-1.jpg');">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 36">
