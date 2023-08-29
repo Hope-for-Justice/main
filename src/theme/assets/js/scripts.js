@@ -33,6 +33,23 @@ jQuery(document).ready(function ($) {
         $("#cookieNotice").css('display', 'none');
     });
 
+    $(".search-page__filter-button").click(function () {
+        $(this).toggleClass("search-page__filter-button--open");
+        $(".search-page__filters").toggleClass("search-page__filters--open");
+    })
+
+    $(".search-page__filter + label").click(function () {
+        console.log('clicked off all')
+        $(".search-page__filter--all").prop('checked', false).change();
+    })
+
+    $(".search-page__filter--all + label").click(function () {
+        console.log('clicked on all')
+        $(".search-page__filter").each(function () {
+            $(this).prop('checked', false).change();
+        })
+    })
+
     $('.ukraineDonate').click(function () {
         $([document.documentElement, document.body]).animate({
             scrollTop: $("#ukraineGiving").offset().top - 100

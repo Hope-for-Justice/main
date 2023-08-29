@@ -840,6 +840,86 @@ Search stuff
 // }
 // add_filter('pre_get_posts', 'search_filter');
 
+
+
+// Limit SearchWP results to form field value.
+// `sources` is a GET array of post type names.
+add_filter('searchwp\query\mods', function ($mods, $query) {
+  if (empty($_GET['sources'])) {
+    return $mods;
+  }
+
+
+  $mod = new \SearchWP\Mod();
+
+  $mod->set_where([[
+    'column'  => 'source',
+    'value'   => array_map(function ($source) {
+      return \SearchWP\Utils::get_post_type_source_name($source);
+    }, $_GET['sources']),
+    'compare' => 'IN',
+  ]]);
+
+  $mods[] = $mod;
+
+  return $mods;
+}, 10, 2);
+
+// Limit SearchWP results to chosen Category from dropdown.
+// @link https://searchwp.com/documentation/knowledge-base/category-select-dropdown/
+add_filter('searchwp\query\mods', function ($mods, $query) {
+  global $wpdb;
+
+  // Only proceed if a Category was chosen from the dropdown.
+  if (!isset($_GET['swp_category_limiter']) || empty(intval($_GET['swp_category_limiter']))) {
+    return $mods;
+  }
+
+  // Optional: only proceed if we're using a specific Engine.
+  // if ( 'default' !== $query->get_engine()->get_name() ) {
+  //	return $mods;
+  // }
+
+  $alias     = 'swpkbcat';
+  $tax_query = new WP_Tax_Query([[
+    'taxonomy' => 'category',
+    'field'    => 'term_id',
+    'terms'    => absint($_GET['swp_category_limiter']),
+  ]]);
+  $tq_sql    = $tax_query->get_sql($alias, 'ID');
+  $mod       = new \SearchWP\Mod();
+
+  // If the JOIN is empty, WP_Tax_Query assumes we have a JOIN with wp_posts, so let's make that.
+  if (!empty($tq_sql['join'])) {
+    // Queue the assumed wp_posts JOIN using our alias.
+    $mod->raw_join_sql(function ($runtime) use ($wpdb, $alias) {
+      return "LEFT JOIN {$wpdb->posts} {$alias} ON {$alias}.ID = {$runtime->get_foreign_alias()}.id";
+    });
+
+    // Queue the WP_Tax_Query JOIN which already has our alias.
+    $mod->raw_join_sql($tq_sql['join']);
+
+    // Queue the WP_Tax_Query WHERE which already has our alias.
+    $mod->raw_where_sql('1=1 ' . $tq_sql['where']);
+  } else {
+    // There's no JOIN here because WP_Tax_Query assumes a JOIN with wp_posts already
+    // exists. We need to rebuild the tax_query SQL to use a functioning alias. The Mod
+    // will ensure the JOIN, and we can use that Mod's alias to rebuild our tax_query.
+    $mod->set_local_table($wpdb->posts);
+    $mod->on('ID', ['column' => 'id']);
+
+    $mod->raw_where_sql(function ($runtime) use ($tax_query) {
+      $tq_sql = $tax_query->get_sql($runtime->get_local_table_alias(), 'ID');
+
+      return '1=1 ' . $tq_sql['where'];
+    });
+  }
+
+  $mods[] = $mod;
+
+  return $mods;
+}, 20, 2);
+
 /**
  *
  * 

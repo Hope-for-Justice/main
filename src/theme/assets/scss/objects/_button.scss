@@ -115,6 +115,23 @@
 
 	}
 
+	&--thin {
+		padding: 14px 24px 14px 24px;
+		line-height: 1;
+	}
+
+	&--drop-down {
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+
+		svg {
+			margin-left: 10px
+		}
+	}
+
+
+
 }
 
 // gravity forms buttons
