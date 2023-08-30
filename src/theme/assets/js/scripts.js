@@ -13,7 +13,7 @@ function formatPostcode(string) {
 
 /* Page load scripts */
 jQuery(document).ready(function ($) {
-    console.log('v5.9.1')
+    console.log('v5.9.2')
     let cookies = Cookies.get('wordpress_hfjcookies');
 
     // cookieAccept click
@@ -39,16 +39,23 @@ jQuery(document).ready(function ($) {
     })
 
     $(".search-page__filter + label").click(function () {
-        console.log('clicked off all')
-        $(".search-page__filter--all").prop('checked', false).change();
+        console.log('clicked filter')
+        let current = $(this).prev()
+        $(".search-page__filter").not(current).prop('checked', false).change();
+
+
     })
 
-    $(".search-page__filter--all + label").click(function () {
-        console.log('clicked on all')
-        $(".search-page__filter").each(function () {
-            $(this).prop('checked', false).change();
-        })
+    $('.search-page__filter').on('change', function () {
+        $('#inline-search').submit();
     })
+
+    // $(".search-page__filter--all + label").click(function () {
+    //     console.log('clicked on all')
+    //     $(".search-page__filter").each(function () {
+    //         $(this).prop('checked', false).change();
+    //     })
+    // })
 
     $('.ukraineDonate').click(function () {
         $([document.documentElement, document.body]).animate({

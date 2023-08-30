@@ -10,7 +10,7 @@
 
 if (!defined('_S_VERSION')) {
   // Replace the version number of the theme on each release.
-  define('_S_VERSION', '5.9.1');
+  define('_S_VERSION', '5.9.2');
 }
 
 if (!function_exists('hope_for_justice_2021_setup')) :
@@ -666,6 +666,55 @@ add_action('init', 'create_post_types');
  */
 function add_custom_taxonomies()
 {
+  //pages
+  register_taxonomy('page_categories', 'page', array(
+
+    'hierarchical' => true,
+
+    'show_in_rest' => true,
+
+    'labels' => array(
+
+      'name' => _x('Categories', 'taxonomy general name'),
+
+      'singular_name' => _x('Category', 'taxonomy singular name'),
+
+      'search_items' =>  __('Search Category'),
+
+      'all_items' => __('All Categories'),
+
+      'parent_item' => __('Parent'),
+
+      'parent_item_colon' => __('Parent:'),
+
+      'edit_item' => __('Edit Category'),
+
+      'update_item' => __('Update Category'),
+
+      'add_new_item' => __('Add New Category'),
+
+      'new_item_name' => __('New Category'),
+
+      'menu_name' => __('Categories'),
+
+    ),
+
+    'show_in_nav_menus' => false,
+
+    // Control the slugs used for this taxonomy
+
+    'rewrite' => array(
+
+      'slug' => 'categories', // This controls the base slug that will display before each term
+
+      'with_front' => false, // Don't display the category base before "/locations/"
+
+      'hierarchical' => true // This will allow URL's like "/locations/boston/cambridge/"
+
+    ),
+
+  ));
+
   //events
   register_taxonomy('event_categories', 'events', array(
 
@@ -865,7 +914,7 @@ add_filter('searchwp\query\mods', function ($mods, $query) {
   return $mods;
 }, 10, 2);
 
-// Limit SearchWP results to chosen Category from dropdown.
+// Limit SearchWP results to chosen post category 
 // @link https://searchwp.com/documentation/knowledge-base/category-select-dropdown/
 add_filter('searchwp\query\mods', function ($mods, $query) {
   global $wpdb;
@@ -875,16 +924,61 @@ add_filter('searchwp\query\mods', function ($mods, $query) {
     return $mods;
   }
 
-  // Optional: only proceed if we're using a specific Engine.
-  // if ( 'default' !== $query->get_engine()->get_name() ) {
-  //	return $mods;
-  // }
-
   $alias     = 'swpkbcat';
   $tax_query = new WP_Tax_Query([[
     'taxonomy' => 'category',
     'field'    => 'term_id',
     'terms'    => absint($_GET['swp_category_limiter']),
+  ]]);
+  $tq_sql    = $tax_query->get_sql($alias, 'ID');
+  $mod       = new \SearchWP\Mod();
+
+  // If the JOIN is empty, WP_Tax_Query assumes we have a JOIN with wp_posts, so let's make that.
+  if (!empty($tq_sql['join'])) {
+    // Queue the assumed wp_posts JOIN using our alias.
+    $mod->raw_join_sql(function ($runtime) use ($wpdb, $alias) {
+      return "LEFT JOIN {$wpdb->posts} {$alias} ON {$alias}.ID = {$runtime->get_foreign_alias()}.id";
+    });
+
+    // Queue the WP_Tax_Query JOIN which already has our alias.
+    $mod->raw_join_sql($tq_sql['join']);
+
+    // Queue the WP_Tax_Query WHERE which already has our alias.
+    $mod->raw_where_sql('1=1 ' . $tq_sql['where']);
+  } else {
+    // There's no JOIN here because WP_Tax_Query assumes a JOIN with wp_posts already
+    // exists. We need to rebuild the tax_query SQL to use a functioning alias. The Mod
+    // will ensure the JOIN, and we can use that Mod's alias to rebuild our tax_query.
+    $mod->set_local_table($wpdb->posts);
+    $mod->on('ID', ['column' => 'id']);
+
+    $mod->raw_where_sql(function ($runtime) use ($tax_query) {
+      $tq_sql = $tax_query->get_sql($runtime->get_local_table_alias(), 'ID');
+
+      return '1=1 ' . $tq_sql['where'];
+    });
+  }
+
+  $mods[] = $mod;
+
+  return $mods;
+}, 20, 2);
+
+// Limit SearchWP results to chosen page category 
+// @link https://searchwp.com/documentation/knowledge-base/category-select-dropdown/
+add_filter('searchwp\query\mods', function ($mods, $query) {
+  global $wpdb;
+
+  // Only proceed if a Category was chosen from the dropdown.
+  if (!isset($_GET['swp_page_category_limiter']) || empty(intval($_GET['swp_page_category_limiter']))) {
+    return $mods;
+  }
+
+  $alias     = 'swpkbcatp';
+  $tax_query = new WP_Tax_Query([[
+    'taxonomy' => 'page_categories',
+    'field'    => 'term_id',
+    'terms'    => absint($_GET['swp_page_category_limiter']),
   ]]);
   $tq_sql    = $tax_query->get_sql($alias, 'ID');
   $mod       = new \SearchWP\Mod();

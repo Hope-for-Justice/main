@@ -11,7 +11,7 @@
 get_header();
 $filters = $_GET['sources'];
 $categories = $_GET['swp_category_limiter'];
-
+$page_categories = $_GET['swp_page_category_limiter'];
 ?>
 
 <section id="primary" class="content-area">
@@ -49,7 +49,7 @@ $categories = $_GET['swp_category_limiter'];
 							<!-- <p>Filter by type:</p> -->
 							<div class="search-page__checkboxes">
 								<div class="">
-									<input class="search-page__filter--all" id="source-all" type="checkbox" name="all" <?php if (!$filters && $categories !== '578') echo ' checked' ?> />
+									<input class="search-page__filter search-page__filter--all" id="source-all" type="checkbox" name="all" <?php if (!$filters && !$categories && !$page_categories) echo ' checked' ?> />
 									<label for="source-all">All Results</label>
 								</div>
 								<div class="">
@@ -65,21 +65,25 @@ $categories = $_GET['swp_category_limiter'];
 									<label for="source-case-studies">Case studies</label>
 								</div>
 								<div class="">
-									<input class="search-page__filter" type="checkbox" id="source-resources" value="578" name="swp_category_limiter" <?php if ($categories) echo ' checked' ?> />
+									<input class="search-page__filter" type="checkbox" id="source-resources" value="580" name="swp_page_category_limiter" <?php if ($page_categories) echo ' checked' ?> />
 									<label for="source-resources">Resources</label>
 								</div>
 								<div class="">
-									<input class="search-page__filter" type="checkbox" id="source-publications" value="578" name="swp_category_limiter" <?php if ($categories) echo ' checked' ?> />
+									<input class="search-page__filter" type="checkbox" id="source-publications" value="publications" name="sources[]" <?php if (in_array("publications", $filters)) echo ' checked' ?> />
 									<label for="source-publications">Publications</label>
+								</div>
+								<div class="">
+									<input class="search-page__filter" type="checkbox" id="source-events" value="events" name="sources[]" <?php if (in_array("events", $filters)) echo ' checked' ?> />
+									<label for="source-events">Events</label>
 								</div>
 
 
 							</div>
 
 
-							<button type="submit" form="inline-search" value="Submit" class="search-submit button--thin button button--spinner" />
+							<!-- <button type="submit" form="inline-search" value="Submit" class="search-submit button--thin button button--spinner" />
 							Apply
-							</button>
+							</button> -->
 						</div>
 					</div>
 
