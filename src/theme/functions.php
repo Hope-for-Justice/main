@@ -10,7 +10,7 @@
 
 if (!defined('_S_VERSION')) {
   // Replace the version number of the theme on each release.
-  define('_S_VERSION', '5.9.3');
+  define('_S_VERSION', '5.9.4');
 }
 
 if (!function_exists('hope_for_justice_2021_setup')) :
@@ -228,6 +228,11 @@ function page_scripts()
     wp_enqueue_script('donorfy-donate');
   }
   if (is_page_template('templates/page-one-off-australia.php')) {
+    wp_enqueue_script('donorfy-stripe');
+    wp_enqueue_script('one-off-australia');
+    wp_enqueue_script('donorfy-donate');
+  }
+  if (is_page_template('templates/page-guardian-australia.php')) {
     wp_enqueue_script('donorfy-stripe');
     wp_enqueue_script('one-off-australia');
     wp_enqueue_script('donorfy-donate');
