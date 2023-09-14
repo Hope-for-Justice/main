@@ -61,11 +61,11 @@ $page_categories = $_GET['swp_page_category_limiter'];
 									<label for="source-page">Pages</label>
 								</div>
 								<div class="">
-									<input class="search-page__filter" type="checkbox" id="source-case-studies" value="578" name="swp_category_limiter" <?php if ($categories) echo ' checked' ?> />
+									<input class="search-page__filter" type="checkbox" id="source-case-studies" value="612" name="swp_category_limiter" <?php if ($categories) echo ' checked' ?> />
 									<label for="source-case-studies">Case studies</label>
 								</div>
 								<div class="">
-									<input class="search-page__filter" type="checkbox" id="source-resources" value="580" name="swp_page_category_limiter" <?php if ($page_categories) echo ' checked' ?> />
+									<input class="search-page__filter" type="checkbox" id="source-resources" value="673" name="swp_page_category_limiter" <?php if ($page_categories) echo ' checked' ?> />
 									<label for="source-resources">Resources</label>
 								</div>
 								<div class="">
