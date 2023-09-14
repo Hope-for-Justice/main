@@ -330,7 +330,11 @@
                 url += '/donate-NOK-once/'
                 urlAmount = urlAmount.replace(".", ",");
             } else if (currency == 'AUD') {
-                url += '/donate-AUD-once/'
+                if (freq == 'monthly') {
+                    url += '/donate-AUD-regular/'
+                } else {
+                    url += '/donate-AUD-once/'
+                }
             }
 
             if (widgetIdMonthly && freq == 'monthly') {

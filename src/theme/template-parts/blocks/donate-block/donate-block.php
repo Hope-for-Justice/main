@@ -27,14 +27,13 @@ if ( //if they are in the USA array or they want to give in $
     $settings = 'no_donate';
     $symbol = '&nbsp;kr';
 } else if (
-    // if they are in Norway or want to give in Kr
+    // if they are in AU or want to give in AUD
     ($GLOBALS["userInfo"] && in_array($GLOBALS["userInfo"], $GLOBALS["au"]) && $currency != 'USD' && $currency != 'GBP' && $currency != 'NOK')
     || $currency == 'AUD'
 ) {
     $currency = 'AUD';
     $settings = 'au_donate';
     $symbol = '$';
-    $frequency = 'once';
 } else {
     // fallback to UK
     $currency = 'GBP';
@@ -128,15 +127,15 @@ $other_ways_link = $set['other_ways'];
         <div data-thankyou="<?php echo $thank_you ?>" data-emaileventonce="<?php echo $email_event_once ?>" data-emaileventmonthly="<?php echo $email_event_monthly ?>" data-currency="<?php echo $currency; ?>" class="donate-block" <?php if ($widget_id_once) { ?> data-widgetidonce="<?php echo $widget_id_once ?>" <?php } ?> <?php if ($widget_id_monthly) { ?> data-widgetidmonthly="<?php echo $widget_id_monthly ?>" <?php } ?>>
 
 
-            <div style="<?php if ($frequency == 'once' || $currency == 'AUD') echo 'display:none;' ?>" class="donate-block__freq">
-                <div class="donate-block__freq-option <?php if ($frequency == 'once' || $frequency_start == 'once' || $currency == 'NOK' || $currency == 'AUD') echo 'donate-block__freq-option--active' ?>" data-freq="once">
+            <div style="<?php if ($frequency == 'once') echo 'display:none;' ?>" class="donate-block__freq">
+                <div class="donate-block__freq-option <?php if ($frequency == 'once' || $frequency_start == 'once' || $currency == 'NOK') echo 'donate-block__freq-option--active' ?>" data-freq="once">
                 <?php if ($currency == 'NOK') { ?>
                      Gi en enkeltgave
                 <?php } else {?>
                      &nbsp;Once
                 <?php } ?>
                 </div>
-                <div class="donate-block__freq-option <?php if ($frequency != 'once' && $frequency_start == 'monthly' && $currency != 'NOK' && $currency != 'AUD') echo 'donate-block__freq-option--active' ?>" data-freq="monthly" data-link="<?php echo $link ?>">
+                <div class="donate-block__freq-option <?php if ($frequency != 'once' && $frequency_start == 'monthly' && $currency != 'NOK') echo 'donate-block__freq-option--active' ?>" data-freq="monthly" data-link="<?php echo $link ?>">
                 <?php if ($currency == 'NOK') { ?>
                     Gi månedlig
                 <?php } else {?>
