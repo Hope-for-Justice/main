@@ -56,7 +56,7 @@ get_header('', array('page_class' => 'site--full'));
         <div class="full-grid">
 
             <div class="donation-thankyou__photo">
-                <img src="<?php echo $src[0]; ?>" srcset="<?php echo $srcset; ?>" />
+                <img src="<?php echo get_the_post_thumbnail_url($post->ID); ?>" srcset="<?php echo $srcset; ?>" />
             </div>
 
             <h1 class="donation-thankyou__title font-canela">Thank you <?php echo $name ?>!</h1>
