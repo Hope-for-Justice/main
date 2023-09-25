@@ -1,0 +1,53 @@
+.careers-block {
+    grid-gap: 16px;
+    &__card {
+        grid-column: span 12;
+        background-color: var(    --wp--preset--color--hfj-light-grey);
+        border-radius: 8px;
+        padding:24px;
+        box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.26);
+        -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.26);
+        &:hover {
+            .careers-block__title {
+                text-decoration: underline;
+            }
+        }
+    }
+    &__inner {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        gap: 20px;
+        height:100%;
+    }
+    &__title {
+        font-size: var(--wp--preset--font-size--extra-large);
+        font-weight:bold;
+        color: black;
+    }
+    &__location {
+        display:flex;
+        color:black;
+        gap:10px;
+    }
+    &__description {
+        color: black;
+    }
+}
+
+@media screen and (min-width:768px) {
+    .careers-block {
+        grid-gap:32px;
+        &__card {
+            grid-column: span 6;
+        }
+    }
+}
+
+@media screen and (min-width:1366px) {
+    .careers-block {
+        &__card {
+            grid-column: span 4;
+        }
+    }
+}

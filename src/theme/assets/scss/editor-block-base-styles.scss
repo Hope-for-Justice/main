@@ -22,6 +22,45 @@
 
 
 //blocks
+@import "../../template-parts/blocks/accordion/accordion.scss";
+@import "../../template-parts/blocks/btc-event-series/btc-event-series.scss";
+@import "../../template-parts/blocks/btc-header/btc-header.scss";
+@import "../../template-parts/blocks/careers/careers.scss";
+@import "../../template-parts/blocks/carousel/carousel.scss";
+@import "../../template-parts/blocks/core-blocks/core-spacer.scss";
+@import "../../template-parts/blocks/core-blocks/group.scss";
+@import "../../template-parts/blocks/core-blocks/heading.scss";
+@import "../../template-parts/blocks/core-blocks/list.scss";
+@import "../../template-parts/blocks/core-blocks/paragraph.scss";
+@import "../../template-parts/blocks/core-blocks/pull-quote.scss";
+@import "../../template-parts/blocks/core-blocks/social-links.scss";
+@import "../../template-parts/blocks/cta-grid/cta-grid.scss";
+@import "../../template-parts/blocks/donate-block/donate-block.scss";
+@import "../../template-parts/blocks/cards/cards-half.scss";
+@import "../../template-parts/blocks/cards/cards-quarter.scss";
+@import "../../template-parts/blocks/cards/cards-thirds.scss";
+@import "../../template-parts/blocks/cards/big-image-card.scss";
+@import "../../template-parts/blocks/button/button.scss";
+@import "../../template-parts/blocks/dropdown/dropdown.scss";
+@import "../../template-parts/blocks/event-categories/event-categories.scss";
+@import "../../template-parts/blocks/event-header/event-header.scss";
+@import "../../template-parts/blocks/event-series/event-series.scss";
+@import "../../template-parts/blocks/events/events.scss";
+@import "../../template-parts/blocks/featured-stories/featured-stories.scss";
+@import "../../template-parts/blocks/form-block/form-block.scss";
+@import "../../template-parts/blocks/full-header/full-header.scss";
+@import "../../template-parts/blocks/geo-target/geo-target.scss";
+@import "../../template-parts/blocks/grid/grid-block.scss";
+@import "../../template-parts/blocks/grid-break/grid-break.scss";
+@import "../../template-parts/blocks/image/image.scss";
+@import "../../template-parts/blocks/image-and-text/image-and-text.scss";
+@import "../../template-parts/blocks/posts/posts.scss";
+@import "../../template-parts/blocks/resources/resources-block.scss";
+@import "../../template-parts/blocks/social/social.scss";
+@import "../../template-parts/blocks/spacer/spacer.scss";
+@import "../../template-parts/blocks/text/block-text.scss";
+@import "../../template-parts/blocks/title/block-title.scss";
+@import "../../template-parts/blocks/title-and-text/two-col-title-and-text.scss";
 
 
 html :where(.wp-block) {
