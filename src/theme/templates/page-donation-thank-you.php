@@ -1,4 +1,6 @@
 <?php
+require_once(get_template_directory() . '/exchangeapi.php');
+$exchange_key = EXCHANGE_RATE_API_KEY;
 
 /**
  * Template Name: Donation thank you
@@ -7,6 +9,8 @@
  */
 
 get_header('', array('page_class' => 'site--full'));
+
+
 
 ?>
 
@@ -19,6 +23,8 @@ get_header('', array('page_class' => 'site--full'));
     $type = $_GET['type'];
     $signup = $_GET['signup'];
     $name = $_GET['Name'];
+    $tracked = $_GET['tracked'];
+    $currency = $_GET['currency'];
 
     $guardianAmount = $_COOKIE['wordpress_guardian_amount'];
     $guardianName = $_COOKIE['wordpress_guardian_name'];
@@ -34,6 +40,60 @@ get_header('', array('page_class' => 'site--full'));
         global $wpdb;
         $table = $wpdb->prefix . 'goats_milk';
         $data = array('amount' => $amount);
+        $format = array('%f');
+        $wpdb->insert($table, $data, $format);
+    }
+
+    if ($tracked !== 'false' && ($currency == 'USD' || $currency == 'GBP')) {
+
+        if ($currency == 'GBP') {
+            $from = 'GBP';
+            $to = 'USD';
+        } elseif ($currency == 'USD') {
+            $from = 'USD';
+            $to = 'GBP';
+        }
+
+        $URL = 'http://api.exchangeratesapi.io/v1/convert' . '?access_key=' . $exchange_key . '&from=' . $from . '&to=' . $to . '&amount=' . $amount;
+
+        //     https://api.exchangeratesapi.io/v1/latest
+        // ? access_key = API_KEY
+        // & base = USD
+        // & symbols = GBP,JPY,EUR
+
+        //url-ify the data for the POST
+        // $fields_string = http_build_query($fields);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $URL);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30); //timeout after 30 seconds
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+        // curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+        //curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+        $result = curl_exec($ch);
+        $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);   //get status code
+        curl_close($ch);
+
+        $json = json_decode($result);
+        $converted_amount = $json->result;
+        //echo $converted_amount;
+
+        if ($currency == 'GBP') {
+            $amount_usd = $converted_amount;
+            $amount_gbp = $amount;
+        } elseif ($currency == 'USD') {
+            $amount_usd = $amount;
+            $amount_gbp = $converted_amount;
+        }
+
+        global $wpdb;
+        $table = $wpdb->prefix . $tracked;
+        $data = array(
+            'amount_usd' => $amount_usd,
+            'amount_gbp' => $amount_gbp
+        );
         $format = array('%f');
         $wpdb->insert($table, $data, $format);
     }

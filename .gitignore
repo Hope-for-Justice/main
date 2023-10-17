@@ -37,6 +37,9 @@ local-config.php
 # Ignore donorfy token file
 /src/theme/donorfy.php
 
+# Ignore exchangeapi file
+/src/theme/exchangeapi.php
+
 # Ignore impact boost with zapier url
 /src/theme/confirm-impact-boost.php
 /src/theme/zapier-thankyou.php

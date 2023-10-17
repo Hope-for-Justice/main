@@ -25,6 +25,7 @@
         let thankyou = $(".donate-block").data('thankyou');
         let emailEventMonthly = $(".donate-block").data('emaileventmonthly');
         let emailEventOnce = $(".donate-block").data('emaileventonce');
+        let tracked = $(".donate-block").data('tracked');
 
         $(document).ready(function () {
             if (currency == 'NOK') {
@@ -353,6 +354,10 @@
 
             if (thankyou) {
                 url += `&thankyou=${thankyou}`
+            }
+
+            if (tracked && freq != 'monthly') {
+                url += `&tracked=${tracked}`
             }
 
             window.location.href = url;

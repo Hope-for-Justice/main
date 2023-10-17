@@ -822,15 +822,16 @@ function zapier(url) {
         let currency = jQuery('#currency').val();
         let Name = jQuery('#FirstName').val();
         let type = jQuery('#type').val();
+        let tracked = jQuery('#tracked').val();
         var urlAmount = jQuery('#Amount').val();
         if (currency == 'NOK') {
             urlAmount = jQuery('#NorwayAmount').val();
         }
         var urlId = makeid(8);
         if (thankyou) {
-            var redirectToPage = `${thankyouURL}?tid=${urlId}&amount=${urlAmount}&type=${type}&currency=${currency}&Name=${Name}&signup=${signup}`;
+            var redirectToPage = `${thankyouURL}?tid=${urlId}&amount=${urlAmount}&type=${type}&currency=${currency}&Name=${Name}&signup=${signup}&tracked=${tracked}`;
         } else {
-            var redirectToPage = `https://${host}/donate-thankyou/?tid=${urlId}&amount=${urlAmount}&type=${type}&currency=${currency}&Name=${Name}&signup=${signup}`;
+            var redirectToPage = `https://${host}/donate-thankyou/?tid=${urlId}&amount=${urlAmount}&type=${type}&currency=${currency}&Name=${Name}&signup=${signup}&tracked=${tracked}`;
         }
         window.location = redirectToPage;
     });

@@ -12,6 +12,7 @@ get_header('', array('page_class' => 'site--full')); ?>
 $campaignPassed = $_COOKIE["wordpress_hfjcampaign"];
 $urlWidget = $_GET["wid"];
 $emailEvent = $_GET["emailEvent"];
+$tracked = $_GET["tracked"];
 
 $matched_widget;
 if (have_rows('campaigns_and_widgets')) :
@@ -569,6 +570,7 @@ endif;
                     <input type="hidden" id="currency" value="USD" />
                     <input type="hidden" id="type" value="USA+one-off" />
                     <input type="hidden" id="emailEvent" value="<?php echo $emailEvent; ?>" />
+                    <input type="hidden" id="tracked" value="<?php echo $tracked; ?>" />
 
                     <input type="hidden" id="StripePaymentIntentId" value="" />
                     <input type="hidden" id="PaymentMethod" value="" />

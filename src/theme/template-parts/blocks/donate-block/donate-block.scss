@@ -127,6 +127,40 @@
         }
     }
 
+    &__tracker {
+        width: 100%;
+        padding: 0 20px;
+        margin-top: 20px;
+
+        &-bar {
+            background-color: #F0F0F0;
+            height: 16px;
+            width: 100%;
+            border-radius: 77px;
+
+            &-inner {
+                background-color: var(--black);
+                height: 100%;
+                animation: tracker-total 2s ease-out 0.2s 1 normal forwards;
+                border-radius: 77px;
+            }
+
+            &-info {
+                display: flex;
+                justify-content: space-between;
+                font-size: 14px;
+                color: #767676;
+                margin-top: 5px;
+
+                &-total {
+                    font-weight: bold;
+                }
+            }
+        }
+
+
+    }
+
     &__top-text {
         display: block;
 
@@ -253,6 +287,16 @@
     }
 }
 
+@keyframes tracker-total {
+    from {
+        width: 0px;
+    }
+
+    to {
+        width: var(--total-percentage);
+    }
+}
+
 .donate-block__container--NOK {
     .donate-block__freq {
         &-option {
@@ -370,6 +414,15 @@
         &__totaliser {
             width: 100%;
             padding: 0 40px;
+        }
+
+        &__tracker {
+            width: 100%;
+            padding: 0 40px;
+
+            &-info {
+                font-size: 16px;
+            }
         }
 
         &__text {
