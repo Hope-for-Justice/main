@@ -1,20 +1,8 @@
 <?php
 /*
-Plugin Name: URL Params
-Plugin URI: http://asandia.com/wordpress-plugins/urlparams/
-Description: Short Code to grab any URL Parameter
-Version: 2.3
-Author: Jeremy B. Shapiro
-Author URI: http://www.asandia.com/
+Plugin Name: URL Params James
 */
 
-/*
-URL Params (Wordpress Plugin)
-Copyright (C) 2011-2022 Jeremy Shapiro
-
-*/
-
-// error_reporting(E_ALL); // Helpful for checking for warnings that are TYPICALLY hidden but may be present on some installs
 
 // Tell WordPress to register the shortcodes
 add_shortcode("urlparam", "urlparam");
