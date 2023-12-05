@@ -55,6 +55,10 @@ if (isset($_GET['campaign'])) {
     </script>
     <!-- End Google Tag Manager -->
 
+    <!-- umami tracking -->
+    <script async src="https://umami-one-omega.vercel.app/script.js" data-website-id="a7605d41-1da1-422b-836a-cba41a81bcad"></script>
+    <!-- /umami tracking -->
+
     <link rel="preload" href="/wp-content/themes/hope-for-justice-2020/assets/fonts/canela-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
     <link rel="preload" href="/wp-content/themes/hope-for-justice-2020/assets/fonts/apercu-regular-pro.woff2" as="font" type="font/woff2" crossorigin="anonymous">
