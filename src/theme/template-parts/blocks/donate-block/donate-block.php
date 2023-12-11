@@ -176,24 +176,28 @@ if ($tracked && $target) {
     Percentage to total: <?php echo $percentage ?>
 </div> -->
 
-<div class="donate-block__container donate-block__container--<?php echo $currency; ?>"
-    style="--margin-bottom-mobile:<?php echo $margin_bottom_mobile ?>; --margin-bottom-desktop: <?php echo $margin_bottom_desktop ?>; --overlay-color: <?php echo $overlay_color ?>; --background-color: <?php echo $background_color; ?>;">
+<div class="donate-block__container donate-block__container--<?php echo $currency; ?>" style="--margin-bottom-mobile:<?php echo $margin_bottom_mobile ?>; --margin-bottom-desktop: <?php echo $margin_bottom_desktop ?>; --overlay-color: <?php echo $overlay_color ?>; --background-color: <?php echo $background_color; ?>;">
 
-    <div 
-    class="donate-block__img <?php if ($extra_text) {echo 'donate-block__img--bottom'; } ?>" 
-    style="background-image: url('<?php echo $image ?>');">
+    <div class="donate-block__img <?php if ($extra_text) {
+                                        echo 'donate-block__img--bottom';
+                                    } ?>" style="background-image: url('<?php echo $image ?>');">
 
     </div>
+
+    <!-- <div class="donate-block__video">
+        <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/892188383?badge=0&amp;autopause=0&amp;quality_selector=1&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;background=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Megan's Story Loop"></iframe></div>
+        <script src="https://player.vimeo.com/api/player.js"></script>
+    </div> -->
 
     <?php if ($extra_graphic) { ?>
-    <div class="donate-block__extra-graphic">
-        <?php echo wp_get_attachment_image($extra_graphic, 'full'); ?>
-    </div>
+        <div class="donate-block__extra-graphic">
+            <?php echo wp_get_attachment_image($extra_graphic, 'full'); ?>
+        </div>
     <?php } ?>
 
     <div class="better-grid donate-block__grid">
         <!-- text area -->
-        <?php if ($extra_text) {?>
+        <?php if ($extra_text) { ?>
 
             <div class="donate-block__extra-text">
                 <InnerBlocks />
@@ -201,29 +205,22 @@ if ($tracked && $target) {
         <?php } ?>
 
         <!-- donate widget -->
-        <div data-tracked="<?php echo $tracked ?>" data-thankyou="<?php echo $thank_you ?>"
-            data-emaileventonce="<?php echo $email_event_once ?>"
-            data-emaileventmonthly="<?php echo $email_event_monthly ?>" data-currency="<?php echo $currency; ?>"
-            class="donate-block" <?php if ($widget_id_once) { ?> data-widgetidonce="<?php echo $widget_id_once ?>"
-            <?php } ?> <?php if ($widget_id_monthly) { ?> data-widgetidmonthly="<?php echo $widget_id_monthly ?>"
-            <?php } ?>>
+        <div data-tracked="<?php echo $tracked ?>" data-thankyou="<?php echo $thank_you ?>" data-emaileventonce="<?php echo $email_event_once ?>" data-emaileventmonthly="<?php echo $email_event_monthly ?>" data-currency="<?php echo $currency; ?>" class="donate-block" <?php if ($widget_id_once) { ?> data-widgetidonce="<?php echo $widget_id_once ?>" <?php } ?> <?php if ($widget_id_monthly) { ?> data-widgetidmonthly="<?php echo $widget_id_monthly ?>" <?php } ?>>
 
 
             <div style="<?php if ($frequency == 'once') echo 'display:none;' ?>" class="donate-block__freq">
-                <div class="donate-block__freq-option <?php if ($frequency == 'once' || $frequency_start == 'once' || $currency == 'NOK') echo 'donate-block__freq-option--active' ?>"
-                    data-freq="once">
+                <div class="donate-block__freq-option <?php if ($frequency == 'once' || $frequency_start == 'once' || $currency == 'NOK') echo 'donate-block__freq-option--active' ?>" data-freq="once">
                     <?php if ($currency == 'NOK') { ?>
-                    Gi en enkeltgave
+                        Gi en enkeltgave
                     <?php } else { ?>
-                    &nbsp;Once
+                        &nbsp;Once
                     <?php } ?>
                 </div>
-                <div class="donate-block__freq-option <?php if ($frequency != 'once' && $frequency_start == 'monthly' && $currency != 'NOK') echo 'donate-block__freq-option--active' ?>"
-                    data-freq="monthly" data-link="<?php echo $link ?>">
+                <div class="donate-block__freq-option <?php if ($frequency != 'once' && $frequency_start == 'monthly' && $currency != 'NOK') echo 'donate-block__freq-option--active' ?>" data-freq="monthly" data-link="<?php echo $link ?>">
                     <?php if ($currency == 'NOK') { ?>
-                    Gi månedlig
+                        Gi månedlig
                     <?php } else { ?>
-                    &nbsp;Monthly
+                        &nbsp;Monthly
                     <?php } ?>
                 </div>
             </div>
@@ -249,79 +246,66 @@ if ($tracked && $target) {
 
             <?php if ($tracked !== 'false' && ($currency == 'USD' || $currency == 'GBP')) { ?>
 
-            <div class="donate-block__tracker">
-                <div class="donate-block__tracker-bar">
-                    <div class="donate-block__tracker-bar-inner" style="--total-percentage: <?php echo $percentage ?>%">
+                <div class="donate-block__tracker">
+                    <div class="donate-block__tracker-bar">
+                        <div class="donate-block__tracker-bar-inner" style="--total-percentage: <?php echo $percentage ?>%">
+                        </div>
+                    </div>
+                    <div class="donate-block__tracker-bar-info">
+                        <div class="donate-block__tracker-bar-info-total">
+                            <span style="color: var(--red)"><?php echo $symbol ?><span class="donate-block__tracker-bar-info-total-amount"><?php echo number_format($grand_total, 2) ?></span></span>
+                            Raised so far
+                        </div>
+                        <div class="donate-block__tracker-bar-info-target">
+                            Target: <?php echo $symbol ?><span class="donate-block__tracker-bar-info-target-amount"><?php echo number_format($target, 0) ?></span>
+                        </div>
                     </div>
                 </div>
-                <div class="donate-block__tracker-bar-info">
-                    <div class="donate-block__tracker-bar-info-total">
-                        <span style="color: var(--red)"><?php echo $symbol ?><span
-                                class="donate-block__tracker-bar-info-total-amount"><?php echo number_format($grand_total, 2) ?></span></span>
-                        Raised so far
-                    </div>
-                    <div class="donate-block__tracker-bar-info-target">
-                        Target: <?php echo $symbol ?><span
-                            class="donate-block__tracker-bar-info-target-amount"><?php echo number_format($target, 0) ?></span>
-                    </div>
-                </div>
-            </div>
 
             <?php } ?>
 
             <div class="donate-block__options">
-                <div class="donate-block__options-option <?php if ($default_level == 'a') echo 'donate-block__options-option--active' ?>"
-                    data-amount="<?php echo $amount_once_a ?>" data-amountmonthly="<?php echo $amount_monthly_a ?>"
-                    data-reason="<?php echo $reason_once_a ?>" data-monthly="<?php echo $reason_monthly_a ?>">
+                <div class="donate-block__options-option <?php if ($default_level == 'a') echo 'donate-block__options-option--active' ?>" data-amount="<?php echo $amount_once_a ?>" data-amountmonthly="<?php echo $amount_monthly_a ?>" data-reason="<?php echo $reason_once_a ?>" data-monthly="<?php echo $reason_monthly_a ?>">
                     <span class="currency"><?php echo $symbol ?></span>
                     <span class="donate-block__options-amount">
                         <?php echo $amount_monthly_a ?>
                     </span>
                 </div>
 
-                <div class="donate-block__options-option <?php if ($default_level == 'b') echo 'donate-block__options-option--active' ?>"
-                    data-amount="<?php echo $amount_once_b ?>" data-amountmonthly="<?php echo $amount_monthly_b ?>"
-                    data-reason="<?php echo $reason_once_b ?>" data-monthly="<?php echo $reason_monthly_b ?>">
+                <div class="donate-block__options-option <?php if ($default_level == 'b') echo 'donate-block__options-option--active' ?>" data-amount="<?php echo $amount_once_b ?>" data-amountmonthly="<?php echo $amount_monthly_b ?>" data-reason="<?php echo $reason_once_b ?>" data-monthly="<?php echo $reason_monthly_b ?>">
                     <span class="currency"><?php echo $symbol ?></span>
                     <span class="donate-block__options-amount">
                         <?php echo $amount_monthly_b ?>
                     </span>
                 </div>
 
-                <div class="donate-block__options-option <?php if ($default_level == 'c') echo 'donate-block__options-option--active' ?>"
-                    data-amount="<?php echo $amount_once_c ?>" data-amountmonthly="<?php echo $amount_monthly_c ?>"
-                    data-reason="<?php echo $reason_once_c ?>" data-monthly="<?php echo $reason_monthly_c ?>">
+                <div class="donate-block__options-option <?php if ($default_level == 'c') echo 'donate-block__options-option--active' ?>" data-amount="<?php echo $amount_once_c ?>" data-amountmonthly="<?php echo $amount_monthly_c ?>" data-reason="<?php echo $reason_once_c ?>" data-monthly="<?php echo $reason_monthly_c ?>">
                     <span class="currency"><?php echo $symbol ?></span>
                     <span class="donate-block__options-amount">
                         <?php echo $amount_monthly_c ?>
                     </span>
                 </div>
 
-                <div class="donate-block__options-option <?php if ($default_level == 'd') echo 'donate-block__options-option--active' ?>"
-                    data-amount="<?php echo $amount_once_d ?>" data-amountmonthly="<?php echo $amount_monthly_d ?>"
-                    data-reason="<?php echo $reason_once_d ?>" data-monthly="<?php echo $reason_monthly_d ?>">
+                <div class="donate-block__options-option <?php if ($default_level == 'd') echo 'donate-block__options-option--active' ?>" data-amount="<?php echo $amount_once_d ?>" data-amountmonthly="<?php echo $amount_monthly_d ?>" data-reason="<?php echo $reason_once_d ?>" data-monthly="<?php echo $reason_monthly_d ?>">
                     <span class="currency"><?php echo $symbol ?></span>
                     <span class="donate-block__options-amount">
                         <?php echo $amount_monthly_d ?>
                     </span>
                 </div>
 
-                <div class="donate-block__options-option <?php if ($default_level == 'e') echo 'donate-block__options-option--active' ?>"
-                    data-amount="<?php echo $amount_once_e ?>" data-amountmonthly="<?php echo $amount_monthly_e ?>"
-                    data-reason="<?php echo $reason_once_e ?>" data-monthly="<?php echo $reason_monthly_e ?>">
+                <div class="donate-block__options-option <?php if ($default_level == 'e') echo 'donate-block__options-option--active' ?>" data-amount="<?php echo $amount_once_e ?>" data-amountmonthly="<?php echo $amount_monthly_e ?>" data-reason="<?php echo $reason_once_e ?>" data-monthly="<?php echo $reason_monthly_e ?>">
                     <span class="currency"><?php echo $symbol ?></span>
                     <span class="donate-block__options-amount">
                         <?php echo $amount_monthly_e ?>
                     </span>
                 </div>
 
-                <div class="donate-block__options-option donate-block__options-option--custom" data-amount="custom"
-                    data-reason="<?php echo $reason_once_f ?>" data-monthly="<?php echo $reason_monthly_f ?>">
+                <div class="donate-block__options-option donate-block__options-option--custom" data-amount="custom" data-reason="<?php echo $reason_once_f ?>" data-monthly="<?php echo $reason_monthly_f ?>">
                     <span class="text">
                         <?php if ($currency == 'NOK') { ?>
-                        Valgfritt<br />beløp
+                            Valgfritt<br />beløp
                         <?php } else { ?>
-                        Custom<br />Amount
+                            Custom<br />Amount
                         <?php } ?>
                     </span>
                     <span class="currency"><?php echo $symbol ?></span>
@@ -331,9 +315,7 @@ if ($tracked && $target) {
 
             <p class="donate-block__text">
                 <span class="color-red">
-                    <b><span
-                            class="donate-block__text-currency"><?php if ($currency !== 'NOK') echo $currency . ' ' ?><?php echo $symbol ?></span><span
-                            class="donate-block__text-amount"></span></b>
+                    <b><span class="donate-block__text-currency"><?php if ($currency !== 'NOK') echo $currency . ' ' ?><?php echo $symbol ?></span><span class="donate-block__text-amount"></span></b>
                 </span>
                 <span class="donate-block__text-freq">monthly</span>
                 <span id="reason"></span>
@@ -342,30 +324,28 @@ if ($tracked && $target) {
             <div class="donate-block__other-ways">
                 <a href="<?php echo $other_ways_link ?>">
                     <?php if ($currency == 'NOK') { ?>
-                    Andre måter å gi
+                        Andre måter å gi
                     <?php } else { ?>
-                    Other ways to give
+                        Other ways to give
                     <?php } ?>
                 </a>
                 <div class="donate-block__other-ways-divider">|</div>
                 <a data-toggle="modal" data-target="#currencyModal" id="changeCurrency">
                     <?php if ($currency == 'NOK') { ?>
-                    Endre valuta
+                        Endre valuta
                     <?php } else { ?>
-                    Change currency
+                        Change currency
                     <?php } ?>
                 </a>
             </div>
 
             <div class="donate-block__button">
                 <?php if ($currency == 'NOK') { ?>
-                Gi
+                    Gi
                 <?php } else { ?>
-                Donate
+                    Donate
                 <?php } ?>
-                <span
-                    class="donate-block__button-currency currency"><?php if ($currency !== 'NOK') echo $currency . ' ' ?><?php echo $symbol ?></span><span
-                    class="donate-block__button-amount"></span>
+                <span class="donate-block__button-currency currency"><?php if ($currency !== 'NOK') echo $currency . ' ' ?><?php echo $symbol ?></span><span class="donate-block__button-amount"></span>
                 <span class="donate-block__button-freq"></span>
             </div>
         </div>
