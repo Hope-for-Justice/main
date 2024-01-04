@@ -5,7 +5,7 @@
  *
  */
 
-use AIOSEO\Plugin\Pro\Schema\Graphs\Video;
+//use AIOSEO\Plugin\Pro\Schema\Graphs\Video;
 
 // Load values and assign defaults.
 $cat = get_field('cat');
@@ -35,12 +35,14 @@ $the_query = new WP_Query(array(
             $news_icon_height = get_field('news_icon_height', get_the_ID());
             $iframe = get_field('upload_video', get_the_ID(), false);
             $yt_iframe = get_field('upload_yt_video', get_the_ID(), false);
-            $vimeo = explode('/', $iframe);
+            $vimeo = explode('/', $iframe ?? '');
             $vimeo_id = end($vimeo);
             $no_image = false;
 
             if ($image) {
                 $id = $image['id'];
+                $left = $image['left'];
+                $fp = true;
                 $image_src = wp_get_attachment_image_src($id, 'full');
                 $image_src = $image_src[0];
             } else if (get_the_post_thumbnail_url()) {
@@ -64,7 +66,9 @@ $the_query = new WP_Query(array(
                 <!-- image -->
 
                 <?php if (($cat_info->name !== 'Hope for Justice in the headlines') && $image_src) { ?>
-                    <div style="background-size:cover; background-image: url('<?php echo $image_src; ?>'); background-position: <?php echo $image['left'] . '% ' . $image['top']; ?>%;" class="post-block__image">
+                    <div style="background-size:cover; background-image: url('<?php echo $image_src; ?>'); background-position: <?php if ($fp) {
+                                                                                                                                    echo $left . '%' . $top;
+                                                                                                                                } ?> %;" class="post-block__image">
                     </div>
                 <?php } ?>
 

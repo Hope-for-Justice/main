@@ -15,10 +15,10 @@
 
 <?php
 //cookie for campaign from the url
-$value = $_GET['campaign']; //the value from the url
-if (isset($_GET['campaign'])) {
-    setcookie("wordpress_hfjcampaign", $value, strtotime('+7 days'), '/');  /* expire in 7 days */
-}
+// $value = $_GET['campaign']; //the value from the url
+// if (isset($_GET['campaign'])) {
+//     setcookie("wordpress_hfjcampaign", $value, strtotime('+7 days'), '/');  /* expire in 7 days */
+// }
 ?>
 
 
@@ -172,11 +172,7 @@ if (isset($_GET['campaign'])) {
                     </svg>
                 </a>
                 <div class="header__navigation">
-                    <a id="donate" class="button button--red button--nav bold" href="<?php if ($args['donate-link']) {
-                                                                                            echo $args['donate-link'];
-                                                                                        } else {
-                                                                                            echo "/donate/";
-                                                                                        } ?>">DONATE</a>
+                    <a id="donate" class="button button--red button--nav bold" href="/donate">DONATE</a>
                     <div id="burger-menu" class="header__burger">
                         <div class="burger">
                             <span></span>
