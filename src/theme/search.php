@@ -53,11 +53,11 @@ $page_categories = $_GET['swp_page_category_limiter'];
 									<label for="source-all">All Results</label>
 								</div>
 								<div class="">
-									<input class="search-page__filter" type="checkbox" id="source-post" value="post" name="sources[]" <?php if (in_array("post", $filters)) echo ' checked' ?> />
+									<input class="search-page__filter" type="checkbox" id="source-post" value="post" name="sources[]" <?php if ($filters && in_array("post", $filters)) echo ' checked' ?> />
 									<label for="source-post">News Posts</label>
 								</div>
 								<div class="">
-									<input class="search-page__filter" type="checkbox" id="source-page" value="page" name="sources[]" <?php if (in_array("page", $filters)) echo ' checked' ?> />
+									<input class="search-page__filter" type="checkbox" id="source-page" value="page" name="sources[]" <?php if ($filters && in_array("page", $filters)) echo ' checked' ?> />
 									<label for="source-page">Pages</label>
 								</div>
 								<div class="">
@@ -69,11 +69,11 @@ $page_categories = $_GET['swp_page_category_limiter'];
 									<label for="source-resources">Resources</label>
 								</div>
 								<div class="">
-									<input class="search-page__filter" type="checkbox" id="source-publications" value="publications" name="sources[]" <?php if (in_array("publications", $filters)) echo ' checked' ?> />
+									<input class="search-page__filter" type="checkbox" id="source-publications" value="publications" name="sources[]" <?php if ($filters && in_array("publications", $filters)) echo ' checked' ?> />
 									<label for="source-publications">Publications</label>
 								</div>
 								<div class="">
-									<input class="search-page__filter" type="checkbox" id="source-events" value="events" name="sources[]" <?php if (in_array("events", $filters)) echo ' checked' ?> />
+									<input class="search-page__filter" type="checkbox" id="source-events" value="events" name="sources[]" <?php if ($filters && in_array("events", $filters)) echo ' checked' ?> />
 									<label for="source-events">Events</label>
 								</div>
 

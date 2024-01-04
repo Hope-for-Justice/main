@@ -1,6 +1,7 @@
 *~
 .DS_Store
 .svn
+.env
 .cvs
 *.bak
 *.swp
@@ -43,3 +44,6 @@ local-config.php
 # Ignore impact boost with zapier url
 /src/theme/confirm-impact-boost.php
 /src/theme/zapier-thankyou.php
+
+# Ignore Vendor
+src/theme/vendor
