@@ -2,6 +2,7 @@
 .DS_Store
 .svn
 .cvs
+.env
 *.bak
 *.swp
 Thumbs.db
@@ -43,3 +44,6 @@ local-config.php
 # Ignore impact boost with zapier url
 /src/theme/confirm-impact-boost.php
 /src/theme/zapier-thankyou.php
+
+# Ignore vendor files
+/src/theme/vendor

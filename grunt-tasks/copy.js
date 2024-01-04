@@ -5,7 +5,7 @@ module.exports = function (distTheme, devTheme, distPlugins, devPlugins, fontsDi
       files: [{
         expand: true,
         cwd: devTheme,
-        src: ['*.php', 'inc/**/*', 'partials/**/*', 'template-parts/**/*', 'templates/**/*', 'theme.json'],
+        src: ['*.php', 'inc/**/*', 'partials/**/*', 'template-parts/**/*', 'templates/**/*', 'theme.json', 'vendor/**/*', '.env'],
         dest: distTheme,
       }],
     },

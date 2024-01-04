@@ -64,7 +64,7 @@ if (!defined('NONCE_SALT')) define('NONCE_SALT', 'G,[DL*0D+U9zn3I1ODML0qT(J7P6+.
 $table_prefix = 'wphfj2_';
 
 if (WP_LOCAL_SERVER) {
-    define('WP_DEBUG', false);
+    define('WP_DEBUG', true);
     define('WP_DEBUG_LOG', true);
     define('WP_DEBUG_DISPLAY', true);
     define('SCRIPT_DEBUG', true);

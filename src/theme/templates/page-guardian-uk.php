@@ -6,7 +6,13 @@
  * @package Hope_for_Justice_2021
  */
 
-get_header('', array('page_class' => 'site--full')); ?>
+
+
+
+get_header('', array('page_class' => 'site--full'));
+
+
+?>
 
 <div style="font-size:2em;">
     <?php
@@ -105,6 +111,22 @@ get_header('', array('page_class' => 'site--full')); ?>
                     <div class="donorfy-donate__input">
                         <label class="donorfy-donate__hidden" for="Phone">Phone</label>
                         <input type="text" name="Phone" class="required numberOnly" id="Phone" maxlength="50" placeholder="Phone">
+                    </div>
+
+                    <div class="donorfy-donate__input">
+
+                        <label class="donorfy-donate__hidden" for="AccountNumber">Account Number*</label><br>
+                        <input class="required digits numberOnly" type="text" id="AccountNumber" placeholder="Account Number" name="AccountNumber" value="" maxlength="8" size="10" title="Account Number is required" />
+
+                    </div>
+
+                    <div class="donorfy-donate__input">
+
+                        <label class="" for="SortCode">Sort Code</label><br>
+                        <div class="flex" style="align-items:center">
+                            <input class="required digits numberOnly" type="text" id="SortCode" name="SortCode" maxlength="6" />
+                        </div>
+
                     </div>
 
                     <label for="paymentDay">On what date each month would you like your payment to be taken?</label>
@@ -335,18 +357,7 @@ get_header('', array('page_class' => 'site--full')); ?>
                         <label><span>Monthly</span><input type="radio" id="MonthlyPayment" name="PaymentSchedule" value="Monthly" checked="checked"></label><label><span>Quarterly</span><input type="radio" id="QuarterlyPayment" name="PaymentSchedule" value="Quarterly"></label><label><span>Annually</span><input type="radio" id="AnnualPayment" name="PaymentSchedule" value="Annually"></label>
                     </div>
 
-                    <div style="display:none;">
 
-                        <label class="" for="AccountNumber">Account Number*</label><br>
-                        <input type="text" id="AccountNumber" name="AccountNumber" class="digits numberOnly" value="" maxlength="8" size="10" title="Account Number is required" />
-
-                    </div>
-
-                    <div style="display:none;">
-
-                        <label class="" for="SortCode1">Sort Code*</label><br>
-                        <input type="text" id="SortCode1" name="SortCode1" class="digits numberOnly" maxlength="2" size="2" title="Sort Code is required" /><span>-</span><input type="text" id="SortCode2" name="SortCode2" class="digits numberOnly" maxlength="2" size="2" title="Sort Code is required" /><span>-</span><input type="text" id="SortCode3" name="SortCode3" class="digits numberOnly" maxlength="2" size="2" title="Sort Code is required" />
-                    </div>
 
                     <div class="donorfy-donate__hidden">
                         <input id="GiftAid" type="checkbox" />

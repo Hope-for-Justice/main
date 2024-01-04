@@ -66,6 +66,14 @@ jQuery(document).ready(function ($) {
         $('#Postcode').val(formatted);
     });
 
+    $('#SortCode').on('change', function (e) {
+        let formatted;
+
+        formatted = $('#SortCode').val().replace(/-/g, "");
+
+        $('#SortCode').val(formatted);
+    });
+
     $('#FirstName').on('change', function (e) {
         let formatted = $(this).val().trim();
         $(this).val(formatted);
