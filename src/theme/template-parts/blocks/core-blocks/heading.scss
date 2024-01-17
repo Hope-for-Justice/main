@@ -17,10 +17,11 @@
             position: relative;
 
             &:after {
-                content: url('./../../assets/img/link-arrow-no-width.svg');
+                content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6.221 10.41'%3E%3Cpath id='Path_17236' data-name='Path 17236' d='M5.2,6.221a1.013,1.013,0,0,1-.718-.3L.3,1.734A1.016,1.016,0,0,1,1.734.3L5.2,3.768,8.676.3a1.016,1.016,0,1,1,1.437,1.437L5.923,5.923A1.013,1.013,0,0,1,5.2,6.221Z' transform='translate(0 10.41) rotate(-90)' fill='%23d6061c'/%3E%3C/svg%3E");
                 height: 100%;
                 position: absolute;
                 left: auto;
+                top: 0.5px;
             }
 
             &:hover {

@@ -57,7 +57,7 @@ get_header();
 					$news_icon_height = get_field('news_icon_height');
 					$iframe = get_field('upload_video', get_the_ID(), false);
 					$yt_iframe = get_field('upload_yt_video', get_the_ID(), false);
-					$vimeo = explode('/', $iframe);
+					$vimeo = explode('/', $iframe ?? '');
 					$vimeo_id = end($vimeo);
 					$no_image = false;
 
@@ -65,6 +65,10 @@ get_header();
 						$id = $image['id'];
 						$image_src = wp_get_attachment_image_src($id, 'full');
 						$image_src = $image_src[0];
+						$id = $image['id'];
+						$left = $image['left'];
+						$top = $image['top'];
+						$fp = true;
 					} else if (get_the_post_thumbnail_url()) {
 						$image_src = get_the_post_thumbnail_url();
 					} else {
@@ -85,7 +89,7 @@ get_header();
 
 						<!-- image -->
 						<?php if ($image_src) { ?>
-							<div style="background-size:cover; background-image: url('<?php echo $image_src; ?>'); background-position: <?php echo $image['left'] . '% ' . $image['top']; ?>%;" class="post-block__image">
+							<div style="background-size:cover; background-image: url('<?php echo $image_src; ?>'); background-position: <?php if ($fp) echo $left . '% ' . $top . '%'; ?>;" class="post-block__image">
 							</div>
 						<?php } ?>
 

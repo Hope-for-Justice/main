@@ -42,6 +42,7 @@ $the_query = new WP_Query(array(
             if ($image) {
                 $id = $image['id'];
                 $left = $image['left'];
+                $top = $image['top'];
                 $fp = true;
                 $image_src = wp_get_attachment_image_src($id, 'full');
                 $image_src = $image_src[0];
@@ -66,9 +67,7 @@ $the_query = new WP_Query(array(
                 <!-- image -->
 
                 <?php if (($cat_info->name !== 'Hope for Justice in the headlines') && $image_src) { ?>
-                    <div style="background-size:cover; background-image: url('<?php echo $image_src; ?>'); background-position: <?php if ($fp) {
-                                                                                                                                    echo $left . '%' . $top;
-                                                                                                                                } ?> %;" class="post-block__image">
+                    <div style="background-size:cover; background-image: url('<?php echo $image_src; ?>'); background-position: <?php if ($fp) echo $left . '% ' . $top . '%'; ?>;" class="post-block__image">
                     </div>
                 <?php } ?>
 
