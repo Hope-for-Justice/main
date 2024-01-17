@@ -47,11 +47,41 @@ class SearchWP_Live_Search_Utils {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$page = isset( $_REQUEST['page'] ) ? sanitize_key( $_REQUEST['page'] ) : '';
 
+		if ( ! in_array( $page, [ 'searchwp-live-search', 'searchwp-forms' ], true ) ) {
+			return false;
+		}
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$view = isset( $_REQUEST['tab'] ) ? sanitize_key( $_REQUEST['tab'] ) : '';
+
+		if ( $page === 'searchwp-forms' && $view !== 'live-search' ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Helper function to determine if loading a parent Live Ajax Search admin settings page.
+	 *
+	 * @since 1.7.6
+	 *
+	 * @return bool
+	 */
+	public static function is_parent_settings_page() {
+
+		if ( ! is_admin() ) {
+			return false;
+		}
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$page = isset( $_REQUEST['page'] ) ? sanitize_key( $_REQUEST['page'] ) : '';
+
 		if ( empty( $page ) ) {
 			return false;
 		}
 
-		return $page === 'searchwp-live-search';
+		return $page === 'searchwp-forms';
 	}
 
 	/**

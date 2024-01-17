@@ -1,5 +1,10 @@
 <?php
 namespace ShortPixel\Controller;
+
+if ( ! defined( 'ABSPATH' ) ) {
+ exit; // Exit if accessed directly.
+}
+
 use ShortPixel\ShortPixelLogger\ShortPixelLogger as Log;
 use ShortPixel\Notices\NoticeController as Notice;
 use ShortPixel\Helper\UiHelper as UiHelper;
@@ -18,12 +23,15 @@ class SettingsController extends \ShortPixel\ViewController
      protected $is_nginx;
      protected $is_verifiedkey;
      protected $is_htaccess_writable;
+		 protected $is_gd_installed;
+		 protected $is_curl_installed;
      protected $is_multisite;
      protected $is_mainsite;
      protected $is_constant_key;
      protected $hide_api_key;
      protected $has_nextgen;
      protected $do_redirect = false;
+     protected $disable_heavy_features = false; // if virtual and stateless, might disable heavy file ops.
 
      protected $quotaData = null;
 
@@ -37,6 +45,10 @@ class SettingsController extends \ShortPixel\ViewController
      protected $display_part = 'settings';
 		 protected $all_display_parts = array('settings', 'adv-settings', 'cloudflare', 'debug', 'tools');
      protected $form_action = 'save-settings';
+
+
+
+		 protected static $instance;
 
       public function __construct()
       {
@@ -183,35 +195,12 @@ class SettingsController extends \ShortPixel\ViewController
 
 			}
 
-      /* Custom Media, refresh a single Folder */
-      public function action_refreshfolder()
-      {
-         $folder_id = isset($_REQUEST['folder_id']) ? intval($_REQUEST['folder_id']) : false;
-
-         if ($folder_id)
-         {
-            $otherMediaController = OtherMediaController::getInstance();
-            $dirObj = $otherMediaController->getFolderByID($folder_id);
-
-            if ($dirObj)
-            {
-               $dirObj->refreshFolder(true);
-            }
-
-         }
-				 else
-				 {
-				 	Log::addWarn('RefreshFolder without folder id '. $folder_id );
-				 }
-
-         $this->load();
-      }
-
 
 			public function action_debug_redirectBulk()
 			{
+				$this->checkPost();
 
-	 			OptimizeController::resetQueues();
+				OptimizeController::resetQueues();
 
 				$action = isset($_REQUEST['bulk']) ? sanitize_text_field($_REQUEST['bulk']) : null;
 
@@ -228,9 +217,6 @@ class SettingsController extends \ShortPixel\ViewController
 				{
 					 $this->doRedirect('bulk-removeLegacy');
 				}
-				//upload.php?page=wp-short-pixel-bulk&panel=bulk-migrate
-
-				//upload.php?page=wp-short-pixel-bulk&panel=bulk-restore
 
 			}
 
@@ -238,35 +224,39 @@ class SettingsController extends \ShortPixel\ViewController
       public function action_debug_resetStats()
       {
           $this->loadEnv();
+					$this->checkPost();
           $statsController = StatsController::getInstance();
           $statsController->reset();
 
-          $this->load();
+					$this->doRedirect();
       }
 
       public function action_debug_resetquota()
       {
 
           $this->loadEnv();
-
+					$this->checkPost();
           $quotaController = QuotaController::getInstance();
           $quotaController->forceCheckRemoteQuota();
 
-          $this->load();
+          $this->doRedirect();
       }
 
       public function action_debug_resetNotices()
       {
+
           $this->loadEnv();
+					$this->checkPost();
           Notice::resetNotices();
           $nControl = new Notice(); // trigger reload.
 
 
-          $this->load();
+          $this->doRedirect();
       }
 
 			public function action_debug_triggerNotice()
 			{
+				$this->checkPost();
 				$key = isset($_REQUEST['notice_constant']) ? sanitize_text_field($_REQUEST['notice_constant']) : false;
 
 				if ($key !== false)
@@ -288,15 +278,15 @@ class SettingsController extends \ShortPixel\ViewController
 							$model->addManual();
 					}
 				}
-				$this->load();
+				$this->doRedirect();
 
 			}
-
 
 			public function action_debug_resetQueue()
 			{
 				 $queue = isset($_REQUEST['queue']) ? sanitize_text_field($_REQUEST['queue']) : null;
 				 $this->loadEnv();
+				 $this->checkPost();
 
 				 if (! is_null($queue))
 				 {
@@ -338,12 +328,31 @@ class SettingsController extends \ShortPixel\ViewController
 			 }
 
 
-				 $this->load();
+				$this->doRedirect();
+			}
+
+			public function action_debug_removePrevented()
+			{
+				$this->loadEnv();
+				$this->checkPost();
+
+				global $wpdb;
+				$sql = 'delete from ' . $wpdb->postmeta . ' where meta_key = %s';
+
+				$sql = $wpdb->prepare($sql, '_shortpixel_prevent_optimize');
+
+				$wpdb->query($sql);
+
+				$message = __('Item blocks have been removed. It is recommended to create a backup before trying to optimize image.', 'shortpixel-image-optimiser');
+
+				Notice::addSuccess($message);
+				$this->doRedirect();
 			}
 
 			public function action_debug_removeProcessorKey()
 			{
 				//$this->loadEnv();
+				$this->checkPost();
 
 				$cacheControl = new CacheController();
 				$cacheControl->deleteItem('bulk-secret');
@@ -359,7 +368,7 @@ class SettingsController extends \ShortPixel\ViewController
           {
               $nextgen = NextGenController::getInstance();
               $previous = $this->model->includeNextGen;
-              $nextgen->enableNextGen($previous);
+              $nextgen->enableNextGen(true);
 
               // Reset any integration notices when updating settings.
               AdminNoticesController::resetIntegrationNotices();
@@ -430,14 +439,18 @@ class SettingsController extends \ShortPixel\ViewController
          $statsControl = StatsController::getInstance();
 
          $this->view->minSizes = $this->getMaxIntermediateImageSize();
-         $this->view->customFolders= $this->loadCustomFolders();
-         $this->view->allThumbSizes = $this->getAllThumbnailSizes();
+
+				 $excludeOptions = UtilHelper::getWordPressImageSizes();
+				 $mainOptions = array(
+					 'shortpixel_main_donotuse' =>  array('nice-name' => __('Main Image', 'shortpixel-image-optimiser')),
+					 'shortpixel_original_donotuse' => array('nice-name' => __('Original Image', 'shortpixel-image-optimiser')),
+				 );
+
+				 $excludeOptions = array_merge($mainOptions, $excludeOptions);
+
+         $this->view->allThumbSizes = $excludeOptions;
          $this->view->averageCompression = $statsControl->getAverageCompression();
          $this->view->savedBandwidth = UiHelper::formatBytes( intval($this->view->data->savedSpace) * 10000,2);
-         //$this->view->resources = wp_remote_post($this->model->httpProto . "://shortpixel.com/resources-frag");
-
-         /*if (is_wp_error($this->view->resources))
-            $this->view->resources = null; */
 
          $this->view->cloudflare_constant = defined('SHORTPIXEL_CFTOKEN') ? true : false;
 
@@ -515,6 +528,8 @@ class SettingsController extends \ShortPixel\ViewController
           $this->is_mainsite = $env->is_mainsite;
           $this->has_nextgen = $env->has_nextgen;
 
+          $this->disable_heavy_features = (\wpSPIO()->env()->hasOffload() && false === \wpSPIO()->env()->useVirtualHeavyFunctions()) ? true : false;
+
           $this->display_part = (isset($_GET['part']) && in_array($_GET['part'], $this->all_display_parts) ) ? sanitize_text_field($_GET['part']) : 'settings';
       }
 
@@ -533,27 +548,6 @@ class SettingsController extends \ShortPixel\ViewController
 					}
 
           return false;
-      }
-
-      private function getAllThumbnailSizes()
-      {
-        global $_wp_additional_image_sizes;
-
-        $sizes_names = get_intermediate_image_sizes();
-        $sizes = array();
-        foreach ( $sizes_names as $size ) {
-            $sizes[ $size ][ 'width' ] = intval( get_option( "{$size}_size_w" ) );
-            $sizes[ $size ][ 'height' ] = intval( get_option( "{$size}_size_h" ) );
-            $sizes[ $size ][ 'crop' ] = get_option( "{$size}_crop" ) ? get_option( "{$size}_crop" ) : false;
-        }
-        if(function_exists('wp_get_additional_image_sizes')) {
-            $sizes = array_merge($sizes, wp_get_additional_image_sizes());
-        } elseif(is_array($_wp_additional_image_sizes)) {
-            $sizes = array_merge($sizes, $_wp_additional_image_sizes);
-        }
-
-        $sizes = apply_filters('shortpixel/settings/image_sizes', $sizes);
-        return $sizes;
       }
 
       protected function getMaxIntermediateImageSize() {
@@ -583,7 +577,6 @@ class SettingsController extends \ShortPixel\ViewController
       {
         $quotaController = QuotaController::getInstance();
 
-
 				if ($force === true)
 				{
 					 $quotaController->forceCheckRemoteQuota();
@@ -601,35 +594,6 @@ class SettingsController extends \ShortPixel\ViewController
 
         $this->view->remainingImages = $remainingImages;
 
-      }
-
-      protected function loadCustomFolders()
-      {
-
-        $otherMedia = OtherMediaController::getInstance();
-
-        $otherMedia->refreshFolders();
-        $customFolders = $otherMedia->getActiveFolders();
-        $fs = \wpSPIO()->filesystem();
-
-        $customFolderBase = $fs->getWPFileBase();
-        $this->view->customFolderBase = $customFolderBase->getPath();
-
-        if ($this->has_nextgen)
-        {
-          $ng = NextGenController::getInstance();
-          $NGfolders = $ng->getGalleries();
-          $foldersArray = array();
-
-          foreach($NGfolders as $folder)
-          {
-            $fsFolder = $fs->getDirectory($folder->getPath());
-            $foldersArray[] = $fsFolder->getPath();
-          }
-
-        }
-
-        return $customFolders;
       }
 
       // This is done before handing it off to the parent controller, to sanitize and check against model.
@@ -663,56 +627,11 @@ class SettingsController extends \ShortPixel\ViewController
           // must be an array
           $post['excludeSizes'] = (isset($post['excludeSizes']) && is_array($post['excludeSizes']) ? $post['excludeSizes']: array());
 
-
-
-          // when adding a new custom folder
-          if (isset($post['addCustomFolder']) && strlen($post['addCustomFolder']) > 0)
-          {
-            $folderpath = sanitize_text_field(stripslashes($post['addCustomFolder']));
-
-            $otherMedia = OtherMediaController::getInstance();;
-            $result = $otherMedia->addDirectory($folderpath);
-            if ($result)
-            {
-              Notice::addSuccess(__('Folder added successfully.','shortpixel-image-optimiser'));
-            }
-          }
-          unset($post['addCustomFolder']);
-
-          if(isset($post['removeFolder']) && intval($post['removeFolder']) > 0) {
-              $folder_id = intval($post['removeFolder']);
-              $otherMedia = OtherMediaController::getInstance();
-              $dirObj = $otherMedia->getFolderByID($folder_id);
-
-              if ($dirObj === false)
-                return;
-
-              $dirObj->delete();
-
-          }
-          unset($post['removeFolder']);
-
-          if (isset($post['emptyBackup']))
-          {
-						  if (wp_verify_nonce($_POST['tools-nonce'], 'empty-backup'))
-							{
-								$dir = \wpSPIO()->filesystem()->getDirectory(SHORTPIXEL_BACKUP_FOLDER);
-	              $dir->recursiveDelete();
-							}
-							else {
-								exit('Invalid Nonce in empty backups');
-							}
-
-          }
-          unset($post['emptyBackup']);
-
-
           $post = $this->processWebp($post);
           $post = $this->processExcludeFolders($post);
           $post = $this->processCloudFlare($post);
 
           parent::processPostData($post);
-
 
       }
 
@@ -728,8 +647,6 @@ class SettingsController extends \ShortPixel\ViewController
 			  $webpOn = isset($post['createWebp']) && $post['createWebp'] == 1;
 				$avifOn = isset($post['createAvif']) && $post['createAvif'] == 1;
 
-    //    if ($webpOn || $avifOn)
-    //    {
             if (isset($post['deliverWebp']) && $post['deliverWebp'] == 1)
             {
               $type = isset($post['deliverWebpType']) ? $post['deliverWebpType'] : '';
@@ -750,7 +667,6 @@ class SettingsController extends \ShortPixel\ViewController
                 $deliverwebp = 3;
               }
             }
-      //  }
 
         if (! $this->is_nginx && $deliverwebp == 3) // deliver webp/avif via htaccess, write rules
         {
@@ -767,6 +683,41 @@ class SettingsController extends \ShortPixel\ViewController
       protected function processExcludeFolders($post)
       {
         $patterns = array();
+
+        if (false === isset($post['exclusions']))
+        {
+           return $post;
+        }
+
+        $exclusions  = $post['exclusions'];
+        $accepted = array();
+        foreach($exclusions as $index => $exclusions)
+        {
+            $accepted[] = json_decode(html_entity_decode( stripslashes($exclusions)), true);
+
+
+        }
+
+        foreach($accepted as $index => $pair)
+        {
+          $pattern = $pair['value'];
+          $type = $pair['type'];
+          //$first = substr($pattern, 0,1);
+          if ($type == 'regex-name' || $type == 'regex-path')
+          {
+            if ( @preg_match($pattern, false) === false)
+            {
+               $accepted[$index]['has-error'] = true;
+               Notice::addWarning(sprintf(__('Regular Expression Pattern %s returned an error. Please check if the expression is correct. %s * Special characters should be escaped. %s * A regular expression must be contained between two slashes  ', 'shortpixel-image-optimiser'), $pattern, "<br>", "<br>" ));
+            }
+          }
+        }
+
+        $post['excludePatterns'] = $accepted;
+
+
+        return $post; // @todo The switch to check regex patterns or not.
+
         if(isset($post['excludePatterns']) && strlen($post['excludePatterns'])) {
             $items = explode(',', $post['excludePatterns']);
             foreach($items as $pat) {
@@ -798,7 +749,7 @@ class SettingsController extends \ShortPixel\ViewController
 						{
 						  if ( @preg_match($pattern, false) === false)
 							{
-								 Notice::addWarning(sprintf(__('Regular Expression Pattern %s returned an error. Please check if the expression is correct. %s * Special characters should be escaped. %s * A regular expression must be contained between two slashes  ', 'shortpixel-image-optimser'), $pattern, "<br>", "<br>" ));
+								 Notice::addWarning(sprintf(__('Regular Expression Pattern %s returned an error. Please check if the expression is correct. %s * Special characters should be escaped. %s * A regular expression must be contained between two slashes  ', 'shortpixel-image-optimiser'), $pattern, "<br>", "<br>" ));
 							}
 						}
 				}

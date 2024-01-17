@@ -11,14 +11,15 @@ trait AbstractCollectionArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function offsetExists($offset)
-    {
+    #[\ReturnTypeWillChange]
+    public function offsetExists($offset) {
         return isset($this->collection[$offset]);
     }
 
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->collection[$offset]) ? $this->collection[$offset] : null;
@@ -27,6 +28,7 @@ trait AbstractCollectionArrayAccess
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (isset($this->collection[$offset]) && $value instanceof AbstractCollectionEntry) {
@@ -37,6 +39,7 @@ trait AbstractCollectionArrayAccess
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->collection[$offset]);

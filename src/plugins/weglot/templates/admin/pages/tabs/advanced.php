@@ -60,7 +60,7 @@ $options_available = array(
 
 ?>
 
-<h3><?php esc_html_e( 'Translation Exclusion (Optional)', 'weglot' ); ?> </h3>
+<h3 id="translation_exclusion"><?php esc_html_e( 'Translation Exclusion (Optional)', 'weglot' ); ?> </h3>
 <hr>
 <p><?php esc_html_e( 'By default, every page is translated. You can exclude parts of a page or a full page here.', 'weglot' ); ?></p>
 <table class="form-table">
@@ -73,7 +73,7 @@ $options_available = array(
 			<p class="sub-label"><?php echo esc_html( $options_available['exclude_urls']['description'] ); ?></p>
 		</th>
 		<td class="forminp forminp-text">
-			<a class="btn btn-soft" href="https://dashboard.weglot.com/settings/exclusions" target="_blank"><span
+			<a class="btn btn-soft" href="<?php echo esc_url( $project_url_exclusions ); ?>" target="_blank"><span
 					class="dashicons dashicons-admin-generic"></span> <?php esc_html_e( 'Manage URL to exclude', 'weglot' ); ?>
 			</a>
 		</td>
@@ -86,36 +86,16 @@ $options_available = array(
 			<p class="sub-label"><?php echo esc_html( $options_available['exclude_blocks']['description'] ); ?></p>
 		</th>
 		<td class="forminp forminp-text">
-			<div id="container-<?php echo esc_attr( $options_available['exclude_blocks']['key'] ); ?>">
-				<?php
-				if ( ! empty( $this->options[ $options_available['exclude_blocks']['key'] ] ) ) :
-					foreach ( $this->options[ $options_available['exclude_blocks']['key'] ] as $option ) :
-						?>
-						<div class="item-exclude">
-							<input
-								type="text"
-								placeholder=".my-class"
-								name="<?php echo esc_attr( sprintf( '%s[excluded_blocks][][value]', WEGLOT_SLUG ) ); ?>"
-								value="<?php echo esc_attr( $option ); ?>"
-							>
-							<button class="js-btn-remove js-btn-remove-exclude">
-								<span class="dashicons dashicons-minus"></span>
-							</button>
-						</div>
-						<?php
-					endforeach;
-				endif;
-				?>
-			</div>
-			<button id="js-add-exclude-block" class="btn btn-soft"><span
-					class="dashicons dashicons-plus-alt"></span> <?php esc_html_e( 'Add a block to exclude', 'weglot' ); ?>
-			</button>
+			<a class="btn btn-soft" href="<?php echo esc_url( $project_blocks_exclusions ); ?>" target="_blank"><span
+					class="dashicons dashicons-admin-generic"></span> <?php esc_html_e( 'Manage block to exclude', 'weglot' ); ?>
+			</a>
 		</td>
+
 	</tr>
 	</tbody>
 </table>
 
-<h3><?php esc_html_e( 'Other options (Optional)', 'weglot' ); ?></h3>
+<h3 id="other_options"><?php esc_html_e( 'Other options (Optional)', 'weglot' ); ?></h3>
 <hr>
 <table class="form-table">
 	<tbody>
@@ -133,6 +113,7 @@ $options_available = array(
 				<?php checked( $this->options[ $options_available['auto_redirect']['key'] ], 1 ); ?>
 			>
 			<p class="description"><?php echo esc_html( $options_available['auto_redirect']['description'] ); ?></p>
+			<p><small><span class="wp-menu-image dashicons-before dashicons-welcome-comments"></span>You can configure the auto redirection further in your Weglot <a href="<?php echo esc_url( $project_auto_redirect ); ?>" title="Go to your Weglot dasboard" target="_blank"> dashboard</a>.</small></p>
 		</td>
 	</tr>
 	<tr valign="top">
@@ -193,48 +174,12 @@ $options_available = array(
 		<td class="forminp forminp-text">
 
 			<?php if ( $this->options['page_views_enabled'] ) : ?>
-				<p class="description"><a target="_blank" href="https://dashboard.weglot.com/statistics/page-views/" title="Page views tracking is activated">Page views tracking</a> is <b>activated</b></p>
+				<p class="description"><a target="_blank" href="<?php echo esc_url( $project_pageviews ); ?>" title="Page views tracking is activated">Page views tracking</a> is <b>activated</b></p>
 			<?php else : ?>
-				<p class="description"><a target="_blank" href="https://dashboard.weglot.com/statistics/page-views/" title="Page views tracking is deactivated">Page views tracking</a> is <b>deactivated</b></p>
+				<p class="description"><a target="_blank" href="<?php echo esc_url( $project_pageviews ); ?>" title="Page views tracking is deactivated">Page views tracking</a> is <b>deactivated</b></p>
 			<?php endif; ?>
 			<p><small><span class="wp-menu-image dashicons-before dashicons-welcome-comments"></span><?php esc_html_e( 'When you enable page views tracking, Weglot plugin will send statistics about your visitors\' browser language and country. You can then view this data in your Weglot account, for example your visitors\' most common country or most common language. Note that these statistics are completely anonymous.', 'weglot' ); ?></small></p>
 		</td>
 	</tr>
 	</tbody>
 </table>
-
-<template id="tpl-exclusion-url">
-	<div class="item-exclude">
-		<select
-			name="<?php echo esc_attr( sprintf( '%s[excluded_paths][{KEY}][type]', WEGLOT_SLUG ) ); ?>"
-		>
-			<?php foreach ( Helper_Excluded_Type::get_excluded_type() as $ex_type ) : ?>
-				<option
-					value="<?php echo esc_attr( $ex_type ); ?>"><?php echo esc_attr( Helper_Excluded_Type::get_label_type( $ex_type ) ); ?></option>
-			<?php endforeach; ?>
-		</select>
-		<input
-			type="text"
-			placeholder="/my-awesome-url"
-			name="<?php echo esc_attr( sprintf( '%s[excluded_paths][{KEY}][value]', WEGLOT_SLUG ) ); ?>"
-			value=""
-		>
-		<button class="js-btn-remove js-btn-remove-exclude">
-			<span class="dashicons dashicons-minus"></span>
-		</button>
-	</div>
-</template>
-
-<template id="tpl-exclusion-block">
-	<div class="item-exclude">
-		<input
-			type="text"
-			placeholder=".my-class"
-			name="<?php echo esc_attr( sprintf( '%s[excluded_blocks][][value]', WEGLOT_SLUG ) ); ?>"
-			value=""
-		>
-		<button class="js-btn-remove js-btn-remove-exclude">
-			<span class="dashicons dashicons-minus"></span>
-		</button>
-	</div>
-</template>

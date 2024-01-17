@@ -4,6 +4,7 @@ namespace Give\ServiceProviders;
 
 use _PHPStan_9a6ded56a\Nette\Neon\Exception;
 use Closure;
+use Give\PaymentGateways\Gateways\Stripe\LegacyStripeAdapter;
 use Give\Route\Form;
 
 /**
@@ -20,6 +21,10 @@ class LegacyServiceProvider implements ServiceProvider
      */
     public function register()
     {
+        // TODO: move this
+        // this needs to load before the LegacyServiceProvider loads in GiveWP.
+        give(LegacyStripeAdapter::class)->addToStripeSupportedPaymentMethodsList();
+
         $this->includeLegacyFiles();
         $this->bindClasses();
     }
@@ -34,6 +39,8 @@ class LegacyServiceProvider implements ServiceProvider
     /**
      * Load all the legacy class files since they don't have auto-loading
      *
+     * @unrleased remove WP_Background_Process & WP_Async_Request in favor of namespaced versions.
+     * @since 3.0.0 remove the manual (Test Donations) gateway from loading in favor of the new Test Donations gateway
      * @since 2.8.0
      */
     private function includeLegacyFiles()
@@ -41,17 +48,6 @@ class LegacyServiceProvider implements ServiceProvider
         global $give_options;
 
         require_once GIVE_PLUGIN_DIR . 'includes/class-give-cache-setting.php';
-
-        /**
-         * Load libraries.
-         */
-        if (!class_exists('WP_Async_Request')) {
-            include_once GIVE_PLUGIN_DIR . 'includes/libraries/wp-async-request.php';
-        }
-
-        if (!class_exists('WP_Background_Process')) {
-            include_once GIVE_PLUGIN_DIR . 'includes/libraries/wp-background-process.php';
-        }
 
         require_once GIVE_PLUGIN_DIR . 'includes/setting-functions.php';
         require_once GIVE_PLUGIN_DIR . 'includes/country-functions.php';
@@ -129,7 +125,6 @@ class LegacyServiceProvider implements ServiceProvider
         require_once GIVE_PLUGIN_DIR . 'includes/gateways/actions.php';
         require_once GIVE_PLUGIN_DIR . 'includes/gateways/paypal/paypal-standard.php';
         require_once GIVE_PLUGIN_DIR . 'includes/gateways/offline-donations.php';
-        require_once GIVE_PLUGIN_DIR . 'includes/gateways/manual.php';
         require_once GIVE_PLUGIN_DIR . 'includes/emails/class-give-emails.php';
         require_once GIVE_PLUGIN_DIR . 'includes/emails/class-give-email-tags.php';
         require_once GIVE_PLUGIN_DIR . 'includes/admin/emails/class-email-notifications.php';
@@ -225,10 +220,10 @@ class LegacyServiceProvider implements ServiceProvider
      *
      * @since 2.8.0
      *
-     * @param string         $alias
+     * @param string $alias
      * @param string|Closure $class
-     * @param string         $includesPath
-     * @param bool           $singleton
+     * @param string $includesPath
+     * @param bool $singleton
      */
     private function bindInstance($alias, $class, $includesPath, $singleton = false)
     {

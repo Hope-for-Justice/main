@@ -103,6 +103,12 @@ class DomCheckerProvider
         return $this->inlineNodes;
     }
 
+    /**
+     * @return array
+     */
+    public function addInlineNode($node) {
+        $this->inlineNodes[] = $node;
+    }
 
     /**
      * @param int $translationEngine
@@ -146,6 +152,15 @@ class DomCheckerProvider
     }
 
     /**
+     * @param array $removeCheckers
+     * @return $this
+     */
+    public function removeCheckers(array $removeCheckers)
+    {
+        $this->checkers = array_diff($this->checkers, $removeCheckers);
+        return $this;
+    }
+    /**
      * @return array
      */
     public function getCheckers()
@@ -172,7 +187,7 @@ class DomCheckerProvider
      */
     public function discoverCachingGet($domToSearch, simple_html_dom $dom)
     {
-        if (!isset($discoverCaching[$domToSearch])) {
+        if (!isset($this->discoverCaching[$domToSearch])) {
             $this->discoverCaching[$domToSearch] = $dom->find($domToSearch);
         }
 
@@ -211,7 +226,7 @@ class DomCheckerProvider
      */
     protected function getClassDetails($class)
     {
-        $class = self::CHECKERS_NAMESPACE. $class;
+        $class = self::DEFAULT_CHECKERS_NAMESPACE. $class;
         return [
             $class,
             $class::DOM,

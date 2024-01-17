@@ -25,6 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Displays a user's donation history.
  *
+ * @since 3.1.0 pass form id by reference in give_totals shortcode.
  * @since  1.0
  *
  * @param array       $atts
@@ -131,14 +132,19 @@ add_shortcode( 'donation_history', 'give_donation_history' );
  *
  * Show the Give donation form.
  *
+ * @since 2.30.0 Add short-circuit filter to allow for custom output.
  * @since  1.0
- *
- * @param  array $atts Shortcode attributes
+
+ * @param array $atts Shortcode attributes
  *
  * @return string
  */
 function give_form_shortcode( $atts ) {
 	$atts = shortcode_atts( give_get_default_form_shortcode_args(), $atts, 'give_form' );
+
+    if('fullForm' === $atts['display_style']) {
+        $atts['display_style'] = 'onpage';
+    }
 
 	// Convert string to bool.
 	$atts['show_title'] = filter_var( $atts['show_title'], FILTER_VALIDATE_BOOLEAN );
@@ -147,6 +153,15 @@ function give_form_shortcode( $atts ) {
 	// Set form id.
 	$atts['id'] = $atts['id'] ?: FrontendFormTemplateUtils::getFormId();
 	$formId     = absint( $atts['id'] );
+
+    _give_redirect_form_id($formId, $atts['id']);
+
+    // Short-circuit the shortcode output if the filter returns a non-empty string.
+    $output = apply_filters('givewp_form_shortcode_output', '', $atts);
+
+    if ($output) {
+        return $output;
+    }
 
 	// Fetch the Give Form.
 	ob_start();
@@ -190,10 +205,13 @@ function give_goal_shortcode( $atts ) {
 			'id'        => '',
 			'show_text' => true,
 			'show_bar'  => true,
+			'color'		=> '',
 		],
 		$atts,
 		'give_goal'
 	);
+
+    _give_redirect_form_id($atts['id']);
 
 	// get the Give Form.
 	ob_start();
@@ -604,6 +622,7 @@ function give_totals_shortcode( $atts ) {
 	/**
 	 * Give Action fire before the shortcode is rendering is started.
 	 *
+     * @since 3.1.0 Use static function on array_map callback to pass the id as reference for _give_redirect_form_id to prevent warnings on PHP 8.0.1 or plus
 	 * @since 2.1.4
 	 *
 	 * @param array $atts shortcode attribute.
@@ -617,6 +636,15 @@ function give_totals_shortcode( $atts ) {
 		if ( ! empty( $atts['ids'] ) ) {
 			$form_ids = array_filter( array_map( 'trim', explode( ',', $atts['ids'] ) ) );
 		}
+
+        $form_ids = array_map(
+            static function ($id) {
+                _give_redirect_form_id($id);
+
+                return $id;
+            },
+            $form_ids
+        );
 
 		/**
 		 * Filter to modify WP Query for Total Goal.
@@ -770,6 +798,17 @@ add_shortcode( 'give_totals', 'give_totals_shortcode' );
  *
  * @since  2.1.0
  *
+ * @since 3.1.0 Use static function on array_map callback to pass the id as reference for _give_redirect_form_id to prevent warnings on PHP 8.0.1 or plus
+ * @since      2.23.1 Updated the default text color for the donate button, see #6591.
+ * @since      2.21.2 change tag_background_color, progress_bar_color to official green color #69b868.
+ *             change tag_text_color color to #333333.
+ * @since      2.20.0 $show_donate_button Option to show donate button
+ * @since      2.20.0 $donate_button_text Default Donate
+ * @since      2.20.0 $donate_button_background_color Default #66bb6a
+ * @since      2.20.0 $donate_button_text_color Default #fff
+ * @since      2.20.0 $show_bar Default false
+ * @since      2.22.2 remove $show_bar attribute in favor of show_goal
+ *
  * @param array $atts                {
  *                                   Optional. Attributes of the form grid shortcode.
  *
@@ -785,21 +824,11 @@ add_shortcode( 'give_totals', 'give_totals_shortcode' );
  * @type bool   $show_goal           Whether to display form goal. Default 'true'.
  * @type bool   $show_excerpt        Whether to display form excerpt. Default 'true'.
  * @type bool   $show_featured_image Whether to display featured image. Default 'true'.
- * @type string $image_size          Featured image size. Default 'medium'. Accepts WordPress image sizes.
+ * @type string $image_size Featured image size. Default 'medium'. Accepts WordPress image sizes.
  * @type string $image_height        Featured image height. Default 'auto'. Accepts valid CSS heights.
  * @type int    $excerpt_length      Number of words before excerpt is truncated. Default '16'.
  * @type string $display_style How the form is displayed, either in new page or modal popup.
  *                                       Default 'redirect'. Accepts 'redirect', 'modal'.
- *
- * @since 2.23.1 Updated the default text color for the donate button, see #6591.
- * @since 2.21.2 change tag_background_color, progress_bar_color to official green color #69b868.
- *             change tag_text_color color to #333333.
- * @since 2.20.0 $show_donate_button Option to show donate button
- * @since 2.20.0 $donate_button_text Default Donate
- * @since 2.20.0 $donate_button_background_color Default #66bb6a
- * @since 2.20.0 $donate_button_text_color Default #fff
- * @since 2.20.0 $show_bar Default false
- * @since 2.22.2 remove $show_bar attribute in favor of show_goal
  *
  * @return string|bool The markup of the form grid or false.
  */
@@ -886,7 +915,13 @@ function give_form_grid_shortcode( $atts ) {
 
 	// Maybe filter forms by IDs.
 	if ( ! empty( $atts['ids'] ) ) {
-		$form_args['post__in'] = array_filter( array_map( 'trim', explode( ',', $atts['ids'] ) ) );
+        $form_args['post__in'] = array_map(
+            static function ($id) {
+                _give_redirect_form_id($id);
+
+                return $id;
+            }, array_filter(array_map('trim', explode(',', $atts['ids'])))
+        );
 	}
 
 	// Convert comma-separated form IDs into array.

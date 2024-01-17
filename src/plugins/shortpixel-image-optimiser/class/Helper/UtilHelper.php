@@ -1,6 +1,12 @@
 <?php
-
 namespace ShortPixel\Helper;
+
+use ShortPixel\ShortPixelLogger\ShortPixelLogger as Log;
+
+
+if ( ! defined( 'ABSPATH' ) ) {
+ exit; // Exit if accessed directly.
+}
 
 // Our newest Tools class
 class UtilHelper
@@ -31,7 +37,122 @@ class UtilHelper
 				return strtotime($date);
 		}
 
-		public static function alterHtaccess($webp = false, $avif = false){
+		public static function getWordPressImageSizes()
+		{
+			global $_wp_additional_image_sizes;
+
+			$sizes_names = get_intermediate_image_sizes();
+			$sizes = array();
+			foreach ( $sizes_names as $size ) {
+					$sizes[ $size ][ 'width' ] = intval( get_option( "{$size}_size_w" ) );
+					$sizes[ $size ][ 'height' ] = intval( get_option( "{$size}_size_h" ) );
+					$sizes[ $size ][ 'crop' ] = get_option( "{$size}_crop" ) ? get_option( "{$size}_crop" ) : false;
+          $sizes[ $size ][ 'nice-name'] = ucfirst($size);
+			}
+			if(function_exists('wp_get_additional_image_sizes')) {
+					$sizes = array_merge($sizes, wp_get_additional_image_sizes());
+			} elseif(is_array($_wp_additional_image_sizes)) {
+					$sizes = array_merge($sizes, $_wp_additional_image_sizes);
+			}
+
+			$sizes = apply_filters('shortpixel/settings/image_sizes', $sizes);
+			return $sizes;
+		}
+
+		// wp_normalize_path doesn't work for windows installs in some situations, so we can use it, but we still want some of the functions.
+		public static function spNormalizePath($path)
+		{
+				$path = preg_replace( '|(?<=.)/+|', '/', $path );
+				return $path;
+		}
+
+		// Copy of private https://developer.wordpress.org/reference/functions/_wp_relative_upload_path/
+		public static function getRelativeUploadPath($path)
+		{
+				$new_path = $path;
+						$uploads = wp_get_upload_dir();
+				if ( 0 === strpos( $new_path, $uploads['basedir'] ) ) {
+						$new_path = str_replace( $uploads['basedir'], '', $new_path );
+						$new_path = ltrim( $new_path, '/' );
+				}
+			return $new_path;
+		}
+
+		public static function getExclusions($args = array())
+		{
+       $defaults = array(
+          'filter' => false,
+          'thumbname' => null,
+          'is_thumbnail' => false,
+          'is_custom' => false,
+       );
+
+       $args = wp_parse_args($args, $defaults);
+
+			 $patterns = \wpSPIO()->settings()->excludePatterns;
+       $matches = array();
+
+       if (false === is_array($patterns))
+       {
+          return array();
+       }
+
+			 foreach($patterns as $index => $pattern)
+			 {
+				  if (! isset($pattern['apply']))
+					{
+						 $patterns[$index]['apply'] = 'all';
+					}
+
+          if (true === $args['filter'])
+          {
+             if (true === self::matchExclusion($patterns[$index], $args))
+             {
+               $matches[] = $pattern;
+             }
+          }
+			 }
+
+       if (true === $args['filter'])
+       {
+        return $matches;
+       }
+       else
+			    return $patterns;
+		}
+
+    protected static function matchExclusion($pattern, $options)
+    {
+      $apply = $pattern['apply'];
+      $thumblist = isset($pattern['thumblist']) ? $pattern['thumblist'] : array();
+      $bool = false;
+
+      if ($apply === 'all')
+      {
+        $bool = true;
+      }
+      elseif ($apply == 'only-thumbs' && true === $options['is_thumbnail'])
+      {
+         $bool = true;
+      }
+      elseif ($apply == 'only-custom' && true === $options['is_custom'])
+      {
+         $bool = true;
+      }
+      elseif (count($thumblist) > 0 && ! is_null($options['thumbname']))
+      {
+         $thumbname = $options['thumbname'];
+         if (in_array($thumbname, $thumblist))
+         {
+            $bool = true;
+         }
+      }
+      return $bool;
+    }
+
+
+		public static function alterHtaccess($webp = false, $avif = false)
+		{
          // [BS] Backward compat. 11/03/2019 - remove possible settings from root .htaccess
          /* Plugin init is before loading these admin scripts. So it can happen misc.php is not yet loaded */
          if (! function_exists('insert_with_markers'))
@@ -43,10 +164,21 @@ class UtilHelper
            $upload_dir = wp_upload_dir();
            $upload_base = trailingslashit($upload_dir['basedir']);
 
-           if ( ! $webp && ! $avif ) {
+           if (false === $webp && false === $avif ) {
                insert_with_markers( get_home_path() . '.htaccess', 'ShortPixelWebp', '');
-               insert_with_markers( $upload_base . '.htaccess', 'ShortPixelWebp', '');
+
+							 // Only empty these tags if the file actually exist, they are created by SPIO.
+							if (file_exists($upload_base . '.htaccess'))
+							{
+								 insert_with_markers( $upload_base . '.htaccess', 'ShortPixelWebp', '');
+							}
+
+
+							if (file_exists(trailingslashit(WP_CONTENT_DIR) . '.htaccess'))
+							{
                insert_with_markers( trailingslashit(WP_CONTENT_DIR) . '.htaccess', 'ShortPixelWebp', '');
+						 	}
+
            } else {
 
            $avif_rules = '
@@ -132,9 +264,14 @@ class UtilHelper
    * since the WP rewrite will not be active at that point (overruled) **/
     $rules = str_replace('RewriteEngine On', 'RewriteEngine On' . PHP_EOL . 'RewriteOptions Inherit', $rules);
 
-               insert_with_markers( $upload_base . '.htaccess', 'ShortPixelWebp', $rules);
-               insert_with_markers( trailingslashit(WP_CONTENT_DIR) . '.htaccess', 'ShortPixelWebp', $rules);
+							// Can shortcircuit (return false) the creation of subdirectory Htaccess files if this causes issues and is not needed.
+							 $bool = apply_filters('shortpixel/install/write_deep_htaccess', true);
 
+							 if (true === $bool)
+							 {
+               	insert_with_markers( $upload_base . '.htaccess', 'ShortPixelWebp', $rules);
+               	insert_with_markers( trailingslashit(WP_CONTENT_DIR) . '.htaccess', 'ShortPixelWebp', $rules);
+							 }
            }
-       }
-}
+    }
+} // class

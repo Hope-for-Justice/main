@@ -224,7 +224,7 @@ function page_scripts()
     wp_enqueue_script('one-off-usa');
     wp_enqueue_script('donorfy-donate');
   }
-  if (is_page_template('templates/page-one-off-norway.php')) {
+  if (is_page_template('templates/page-one-off-norway.php') || is_page_template('templates/page-guardian-norway.php')) {
     wp_enqueue_script('donorfy-stripe');
     wp_enqueue_script('one-off-norway');
     wp_enqueue_script('donorfy-donate');

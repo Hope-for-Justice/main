@@ -11,6 +11,7 @@ trait AbstractCollectionIterator
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return current($this->collection);
@@ -19,6 +20,7 @@ trait AbstractCollectionIterator
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function next()
     {
         return next($this->collection);
@@ -27,6 +29,7 @@ trait AbstractCollectionIterator
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return key($this->collection);
@@ -35,6 +38,7 @@ trait AbstractCollectionIterator
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function valid()
     {
         return key($this->collection) !== null;
@@ -43,6 +47,7 @@ trait AbstractCollectionIterator
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         return reset($this->collection);

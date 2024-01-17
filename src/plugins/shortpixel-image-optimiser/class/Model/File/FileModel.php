@@ -1,6 +1,13 @@
 <?php
 namespace ShortPixel\Model\File;
-use ShortPixel\ShortpixelLogger\ShortPixelLogger as Log;
+
+if ( ! defined( 'ABSPATH' ) ) {
+ exit; // Exit if accessed directly.
+}
+
+use ShortPixel\ShortPixelLogger\ShortPixelLogger as Log;
+use ShortPixel\Helper\UtilHelper as UtilHelper;
+
 
 /* FileModel class.
 *
@@ -17,19 +24,23 @@ class FileModel extends \ShortPixel\Model
 
   // File info
   protected $fullpath = null;
-	protected $rawfullpath = null;
+  protected $rawfullpath = null;
   protected $filename = null; // filename + extension
   protected $filebase = null; // filename without extension
   protected $directory = null;
   protected $extension = null;
   protected $mime = null;
+  protected $permissions = null;
+  protected $filesize = null;
 
   // File Status
   protected $exists = null;
   protected $is_writable = null;
+  protected $is_directory_writable = null;
   protected $is_readable = null;
   protected $is_file = null;
   protected $is_virtual = false;
+  protected $virtual_status = null;
 
   protected $status;
 
@@ -38,16 +49,34 @@ class FileModel extends \ShortPixel\Model
   const FILE_OK = 1;
   const FILE_UNKNOWN_ERROR = 2;
 
+	public static $TRUSTED_MODE = false;
+
+	// Constants for is_virtual . Virtual Remote is truly a remote file, not writable from machine. Stateless means it looks remote, but it's a protocol-based filesystem remote or not - that will accept writes / is_writable. Stateless also mean performance issue since it can't be 'translated' to a local path. All communication happens over http wrapper, so check should be very limited.
+	public static $VIRTUAL_REMOTE = 1;
+	public static $VIRTUAL_STATELESS = 2;
 
   /** Creates a file model object. FileModel files don't need to exist on FileSystem */
   public function __construct($path)
   {
-    $this->fullpath = trim($path);
-		$this->rawfullpath = $this->fullpath;
+		$this->rawfullpath = $path;
+
+		if (is_null($path))
+		{
+			 Log::addWarn('FileModel: Loading null path! ');
+			 return false;
+		}
+
+		if (strlen($path) > 0)
+			$path = trim($path);
+
+		$this->fullpath = $path;
+
+		$this->checkTrustedMode();
+
     $fs = \wpSPIO()->filesystem();
+
     if ($fs->pathIsUrl($path)) // Asap check for URL's to prevent remote wrappers from running.
     {
-
       $this->UrlToPath($path);
     }
   }
@@ -83,17 +112,30 @@ class FileModel extends \ShortPixel\Model
   public function resetStatus()
   {
       $this->is_writable = null;
+			$this->is_directory_writable = null;
       $this->is_readable = null;
       $this->is_file = null;
       $this->exists = null;
       $this->is_virtual = null;
+			$this->filesize = null;
+	    $this->permissions = null;
   }
 
-  public function exists()
+	/**
+	* @param $forceCheck  Forces a filesystem check instead of using cached.  Use very sparingly. Implemented for retina on trusted mode.
+	*/
+  public function exists($forceCheck = false)
   {
-    if (is_null($this->exists))
+    if (true === $forceCheck || is_null($this->exists))
     {
-      $this->exists = (@file_exists($this->fullpath) && is_file($this->fullpath));
+      if (true === $this->fileIsRestricted($this->fullpath))
+      {
+          $this->exists = false;
+      }
+      else {
+          $this->exists = (@file_exists($this->fullpath) && is_file($this->fullpath));
+      }
+
     }
 
     $this->exists = apply_filters('shortpixel_image_exists', $this->exists, $this->fullpath, $this); //legacy
@@ -103,7 +145,12 @@ class FileModel extends \ShortPixel\Model
 
   public function is_writable()
   {
-    if ($this->is_virtual())
+		// Return when already asked / Stateless might set this
+		if (! is_null($this->is_writable))
+		{
+			 return $this->is_writable;
+		}
+    elseif ($this->is_virtual())
     {
        $this->is_writable = false;  // can't write to remote files
     }
@@ -124,6 +171,33 @@ class FileModel extends \ShortPixel\Model
 
     return $this->is_writable;
   }
+
+	public function is_directory_writable()
+	{
+		// Return when already asked / Stateless might set this
+		if (! is_null($this->is_directory_writable))
+		{
+			 return $this->is_directory_writable;
+		}
+		elseif ($this->is_virtual())
+		{
+			 $this->is_directory_writable = false;  // can't write to remote files
+		}
+		elseif (is_null($this->is_directory_writable))
+		{
+			$directory = $this->getFileDir();
+			if (is_object($directory) && $directory->exists())
+			{
+				$this->is_directory_writable = $directory->is_writable();
+			}
+			else {
+				$this->is_directory_writable = false;
+			}
+
+		}
+
+		return $this->is_directory_writable;
+	}
 
   public function is_readable()
   {
@@ -192,7 +266,7 @@ class FileModel extends \ShortPixel\Model
       if (! $directory)
         return false;
 
-      $backupFile =  $directory . $this->getFileName();
+      $backupFile =  $directory . $this->getBackupFileName();
 
       if (file_exists($backupFile) && ! is_dir($backupFile) )
         return true;
@@ -208,10 +282,16 @@ class FileModel extends \ShortPixel\Model
   public function getBackupFile()
   {
      if ($this->hasBackup())
-        return new FileModel($this->getBackupDirectory() . $this->getFileName() );
+        return new FileModel($this->getBackupDirectory() . $this->getBackupFileName() );
      else
        return false;
   }
+
+	/** Function returns the filename for the backup.  This is an own function so it's possible to manipulate backup file name if needed, i.e. conversion or enumeration */
+	public function getBackupFileName()
+	{
+		 return $this->getFileName();
+	}
 
   /** Returns the Directory Model this file resides in
   *
@@ -232,9 +312,20 @@ class FileModel extends \ShortPixel\Model
 
   public function getFileSize()
   {
-    if ($this->exists())
-      return filesize($this->fullpath);
-    else
+		if (! is_null($this->filesize))
+		{
+			 return $this->filesize;
+		}
+    elseif ($this->exists() && false === $this->is_virtual() )
+		{
+       $this->filesize = filesize($this->fullpath);
+			 return $this->filesize;
+		}
+    elseif (true === $this->is_virtual())
+		{
+			 return -1;
+		}
+		else
       return 0;
   }
 
@@ -420,6 +511,15 @@ class FileModel extends \ShortPixel\Model
     if ($this->exists() && ! $this->is_virtual() )
     {
         $this->mime = wp_get_image_mime($this->fullpath);
+				if (false === $this->mime)
+				{
+					 $image_data = wp_check_filetype_and_ext($this->getFullPath(), $this->getFileName());
+					 if (is_array($image_data) && isset($image_data['type']) && strlen($image_data['type']) > 0)
+					 {
+						 $this->mime = $image_data['type'];
+					 }
+
+				}
     }
     else
        $this->mime = false;
@@ -471,6 +571,7 @@ class FileModel extends \ShortPixel\Model
   protected function processPath($path)
   {
     $original_path = $path;
+
     $fs = \wpSPIO()->filesystem();
 
     if ($fs->pathIsUrl($path))
@@ -481,8 +582,21 @@ class FileModel extends \ShortPixel\Model
     if ($path === false) // don't process further
       return false;
 
-  //  $path = wp_normalize_path($path);
+		$path = UtilHelper::spNormalizePath($path);
 		$abspath = $fs->getWPAbsPath();
+
+
+		// Prevent file operation below if trusted.
+		if (true === self::$TRUSTED_MODE)
+		{
+			 return $path;
+		}
+
+    // Check if some openbasedir is active.
+    if (true === $this->fileIsRestricted($path))
+    {
+      $path = $this->relativeToFullPath($path);
+    }
 
     if ( is_file($path) && ! is_dir($path) ) // if path and file exist, all should be okish.
     {
@@ -513,7 +627,63 @@ class FileModel extends \ShortPixel\Model
     return $path;
   }
 
+	protected function checkTrustedMode()
+	{
+		// When in trusted mode prevent filesystem checks as much as possible.
+		if (true === self::$TRUSTED_MODE)
+		{
 
+				// At this point file info might not be loaded, because it goes w/ construct -> processpath -> urlToPath etc on virtual files. And called via getFileInfo.  Using any of the file info functions can trigger a loop.
+				if (is_null($this->extension))
+				{
+						$extension = pathinfo($this->fullpath, PATHINFO_EXTENSION);
+				}
+				else {
+					$extension = $this->getExtension();
+				}
+
+				$this->exists = true;
+				$this->is_writable = true;
+				$this->is_directory_writable = true;
+				$this->is_readable = true;
+				$this->is_file = true;
+				// Set mime to prevent lookup in IsImage
+				$this->mime = 'image/' . $extension;
+
+				if (is_null($this->filesize))
+				{
+					$this->filesize = 0;
+				}
+		}
+
+	}
+
+  /** Check if path is allowed within openbasedir restrictions. This is an attempt to limit notices in file funtions if so.  Most likely the path will be relative in that case.
+  * @param String Path as String
+  */
+  private function fileIsRestricted($path)
+  {
+     $basedir = ini_get('open_basedir');
+
+     if (false === $basedir || strlen($basedir) == 0)
+     {
+         return false;
+     }
+
+     $restricted = true;
+     $basedirs = preg_split('/:|;/i', $basedir);
+
+     foreach($basedirs as $basepath)
+     {
+          if (strpos($path, $basepath) !== false)
+          {
+             $restricted = false;
+             break;
+          }
+     }
+
+     return $restricted;
+  }
 
   /** Resolve an URL to a local path
   *  This partially comes from WordPress functions attempting the same
@@ -522,43 +692,65 @@ class FileModel extends \ShortPixel\Model
   */
   private function UrlToPath($url)
   {
-     //$uploadDir = wp_upload_dir();
 
-     $site_url = str_replace('http:', '', home_url('', 'http'));
+		 // If files is present, high chance that it's WPMU old style, which doesn't have in home_url the /files/ needed to properly replace and get the filepath . It would result in a /files/files path which is incorrect.
+		 if (strpos($url, '/files/') !== false)
+		 {
+			 $uploadDir = wp_upload_dir();
+			 $site_url = str_replace(array('http:', 'https:'), '', $uploadDir['baseurl']);
+		 }
+		 else {
+			 $site_url = str_replace('http:', '', home_url('', 'http'));
+		 }
+
      $url = str_replace(array('http:', 'https:'), '', $url);
      $fs = \wpSPIO()->filesystem();
 
+		 // The site URL domain is included in the URL string
      if (strpos($url, $site_url) !== false)
      {
        // try to replace URL for Path
        $abspath =  \wpSPIO()->filesystem()->getWPAbsPath();
        $path = str_replace($site_url, rtrim($abspath->getPath(),'/'), $url);
 
-
        if (! $fs->pathIsUrl($path)) // test again.
        {
+
         return $path;
        }
      }
 
      $this->is_virtual = true;
 
-		 // This filter checks if some supplier will be able to handle the file when needed.
-     $path = apply_filters('shortpixel/image/urltopath', false, $url);
+		 /* This filter checks if some supplier will be able to handle the file when needed.
+		 *   Use translate filter to correct filepath when needed.
+		 * Return could be true, or fileModel virtual constant
+		 */
+     $result = apply_filters('shortpixel/image/urltopath', false, $url);
 
-		 if ($path !== false)
-     {
-          $this->exists = true;
-          $this->is_readable = true;
-          $this->is_file = true;
-     }
-     else
-     {
-         $this->exists = false;
-         $this->is_readable = false;
-         $this->is_file = false;
-     }
+		 if ($result === false)
+		 {
+			 $this->exists = false;
+			 $this->is_readable = false;
+			 $this->is_file = false;
+		 }
+		 else {
+			 $this->exists = true;
+			 $this->is_readable = true;
+			 $this->is_file = true;
+		 }
 
+		 // If return is a stateless server, assume that it's writable and all that.
+		 if ($result === self::$VIRTUAL_STATELESS)
+		 {
+			  $this->is_writable = true;
+				$this->is_directory_writable = true;
+				$this->virtual_status = self::$VIRTUAL_STATELESS;
+		 }
+		 elseif ($result === self::$VIRTUAL_REMOTE)
+		 {
+			  $this->virtual_status = self::$VIRTUAL_REMOTE;
+		 }
 
      return false; // seems URL from other server, use virtual mode.
   }
@@ -579,7 +771,7 @@ class FileModel extends \ShortPixel\Model
         return $path;
 
       // if the file plainly exists, it's usable /**
-      if (file_exists($path))
+      if (false === $this->fileIsRestricted($path) && file_exists($path))
       {
         return $path;
       }
@@ -626,13 +818,19 @@ class FileModel extends \ShortPixel\Model
       //    return $originalPath;
   }
 
-  /*private function getUploadPath()
+	public function getPermissions()
   {
-    $upload_dir = wp_upload_dir(null, false, false);
-    $basedir = $upload_dir['basedir'];
+		if (is_null($this->permissions))
+			$this->permissions = fileperms($this->getFullPath()) & 0777;
 
-    return $basedir;
-  } */
+    return $this->permissions;
+  }
+
+	// @tozo Lazy IMplementation / copy, should be brought in line w/ other attributes.
+  public function setPermissions($permissions)
+  {
+    @chmod($this->fullpath, $permissions);
+  }
 
 
   /** Fix for multibyte pathnames and pathinfo which doesn't take into regard the locale.

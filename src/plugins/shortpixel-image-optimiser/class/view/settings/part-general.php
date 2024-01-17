@@ -1,6 +1,9 @@
 <?php
 namespace ShortPixel;
 
+if ( ! defined( 'ABSPATH' ) ) {
+ exit; // Exit if accessed directly.
+}
 ?>
 
 <section id="tab-settings" class="<?php echo ($this->display_part == 'settings') ? 'sel-tab' :''; ?>" >
@@ -13,6 +16,29 @@ namespace ShortPixel;
 
     <table class="form-table">
         <tbody>
+					<?php
+ if (true === \wpSPIO()->env()->useTrustedMode())
+					{
+						?>
+						<tr class="trusted-mode-warning">
+							<td colspan='2'>
+								<div class='compression-notice warning'>
+									<p><?php
+											_e('Trusted file mode is active. This means that ShortPixel will depend on the metadata and not check the fileystem while loading the UI. Information may be incorrect and error may occur during optimization ', 'shortpixel-image-optimiser');
+											?></p>
+									<?php if (true === \ShortPixel\Pantheon::IsActive())
+									{
+										echo '<p>'; _e('(You are on Pantheon. This setting was automatically activated)'); echo '</p>';
+									}
+									?>
+
+								</div>
+							</td>
+						</tr>
+
+							<?php
+					}
+					?>
             <tr>
                 <th scope="row"><label for="key"><?php esc_html_e('API Key:','shortpixel-image-optimiser');?></label></th>
                 <td>
@@ -91,15 +117,12 @@ namespace ShortPixel;
 
 
                         <p class="settings-info shortpixel-radio-info shortpixel-radio-lossy" <?php echo( $view->data->compressionType == 1 ? "" : 'style="display:none"' );?>>
-                            <?php printf(esc_html__('%sLossy compression (recommended): %s offers the best compression rate. %s This is the recommended option for most users, producing results that look the same as the original to the human eye.','shortpixel-image-optimiser'),'<b>','</b>', '<br />');?>
+                            <?php printf(esc_html__('%sLossy SmartCompression (recommended): %s offers the best compression rate. %s What is SmartCompress? %s This is the recommended option for most users, producing results that look the same as the original to the human eye.','shortpixel-image-optimiser'),'<b>','</b>', '<a href="https://shortpixel.com/blog/introducing-smartcompress/" target="_blank" class="shortpixel-help-link"><span class="dashicons dashicons-editor-help"></span>', '</a><br />');?>
                         </p>
                         <p class="settings-info shortpixel-radio-info shortpixel-radio-glossy" <?php echo( $view->data->compressionType == 2 ? "" : 'style="display:none"' );?>>
-                            <?php printf(esc_html__('%sGlossy compression: %s creates images that are almost pixel-perfect identical with the originals. %s Best option for photographers and other professionals that use very high quality images on their sites and want the best compression while keeping the quality untouched.','shortpixel-image-optimiser'), '<b>','</b>', '<br>');?>
+                            <?php printf(esc_html__('%sGlossy SmartCompression: %s creates images that are almost pixel-perfect identical with the originals. %s What is SmartCompress? %s Best option for photographers and other professionals that use very high quality images on their sites and want the best compression while keeping the quality untouched.','shortpixel-image-optimiser'), '<b>','</b>', '<a href="https://shortpixel.com/blog/introducing-smartcompress/" target="_blank" class="shortpixel-help-link"><span class="dashicons dashicons-editor-help"></span>', '</a><br>');?>
 
-                            <a href="https://shortpixel.com/blog/glossy-image-optimization-for-photographers/" target="_blank" class="shortpixel-help-link">
-                                <span class="dashicons dashicons-editor-help"></span><?php esc_html_e('More info about glossy','shortpixel-image-optimiser');?>
-                            </a>
-												</p>
+			</p>
                         <p class="settings-info shortpixel-radio-info shortpixel-radio-lossless" <?php echo( $view->data->compressionType == 0 ? "" : 'style="display:none"' );?>>
                             <?php printf(esc_html__('%s Lossless compression: %s the resulting image is pixel-identical with the original image. %sMake sure not a single pixel looks different in the optimized image compared with the original.
                             In some rare cases you will need to use this type of compression. Some technical drawings or images from vector graphics are possible situations.','shortpixel-image-optimiser'),'<b>','</b>', '<br>');?>
@@ -167,7 +190,17 @@ namespace ShortPixel;
                 </td>
             </tr>
 
-
+						<?php
+						$smartcrop = (true === \wpSPIO()->env()->plugin_active('s3-offload')) ? 1 : 0; ?>
+						<tr class='smartcrop_warning view-notice-row' data-smartcrop="<?php echo esc_attr($smartcrop) ?>" >
+								<th scope="row">&nbsp;</th>
+								<td>
+									<div class='view-notice warning'><p>
+										<?php esc_html_e('It looks like you have the Offload Media plugin enabled. Please note that SmartCropping will not work if you have set the Offload Media plugin to remove files from the server, and strange effects may occur! We recommend you to disable this option in this case.', 'shortpixel-image-optimiser'); ?>
+									</p>
+								</div>
+								</td>
+						</tr>
 
             <tr>
                 <th scope="row"><?php esc_html_e('Backup','shortpixel-image-optimiser');?></th>
@@ -175,14 +208,14 @@ namespace ShortPixel;
 
 
 										 <div class='switch_button'>
-											 <div class="spio-inline-help"><span class="dashicons dashicons-editor-help" title="Click for more info" data-link="https://shortpixel.com/knowledge-base/article/515-settings-image-backup"></span></div>
+
 											 <label>
 												 <input type="checkbox" class="switch" name="backupImages" value="1" <?php checked($view->data->backupImages, '1');?>>
 												 <div class="the_switch">&nbsp; </div>
 												<?php esc_html_e('Create a backup of the original images, saved on your server in /wp-content/uploads/ShortpixelBackups/.','shortpixel-image-optimiser');?>
 											 </label>
 										 </div>
-
+											 <div class="spio-inline-help"><span class="dashicons dashicons-editor-help" title="Click for more info" data-link="https://shortpixel.com/knowledge-base/article/515-settings-image-backup"></span></div>
 	                    <p class="settings-info"><?php esc_html_e('You can remove the backup folder at any moment but it is best to keep a local/cloud copy, in case you want to restore the optimized files to originals or re-optimize the images using a different compression type.','shortpixel-image-optimiser');?></p>
                 </td>
             </tr>
@@ -191,6 +224,7 @@ namespace ShortPixel;
               <th scope='row'>&nbsp;</th>
               <td><div class='view-notice warning'><p><?php esc_html_e('Make sure you have a backup in place. When optimizing, ShortPixel will overwrite your images without recovery, which may result in lost images.', 'shortpixel-image-optimiser') ?></p></div></td>
             </tr>
+
             <tr>
                 <th scope="row"><?php esc_html_e('Remove EXIF','shortpixel-image-optimiser');?></th>
                 <td>
@@ -322,7 +356,7 @@ namespace ShortPixel;
                                 <input type="radio" name="resizeType" id="resize_type_inner" value="inner" <?= $view->data->resizeType == 'inner' ? 'checked' : ''; ?>>
                                 <?= esc_html__( 'Contain', 'shortpixel-image-optimiser' ); ?>
                             </label><br>
-                            <div style="display:inline-block;margin-top: 15px;"><a href="https://shortpixel.com/knowledge-base/article/208-can-shortpixel-automatically-resize-new-image-uploads/" class="shortpixel-help-link" target="_blank">
+                            <div style="display:inline-block;margin-top: 15px;"><a href="https://shortpixel.com/knowledge-base/article/208-can-shortpixel-automatically-resize-new-image-uploads" class="shortpixel-help-link" target="_blank">
 
                                     <span class="dashicons dashicons-editor-help"></span><?php esc_html_e('What is this?','shortpixel-image-optimiser');?></a>
                             </div>

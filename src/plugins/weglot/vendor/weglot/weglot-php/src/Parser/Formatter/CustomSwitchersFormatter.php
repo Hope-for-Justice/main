@@ -73,8 +73,8 @@ class CustomSwitchersFormatter {
     public function handle( $dom, $switchers ) {
         $temp_switcher = "";
         foreach ( $switchers as $switcher ) {
-            $location = $switcher['location'];
-            if ( ! empty( $location ) ) {
+            $location      = ! empty( $switcher['location'] ) ? $switcher['location'] : '';
+            if ( ! empty( $location ) && ! isset( $switcher['template'] ) ) {
                 //we check if we find the target location
                 if ( $dom->find( $location['target'] ) && is_array( $dom->find( $location['target'] ) ) ) {
                     foreach ( $dom->find( $location['target'] ) as $target ) {
@@ -113,7 +113,10 @@ class CustomSwitchersFormatter {
 
         // if we have temporary switcher, we place it before the body end tag.
         if ( ! empty( $temp_switcher ) ) {
-            $dom = str_replace( '</body>', $temp_switcher . '</body>', $dom );
+            // Find the </body> tag
+            $bodyTag = $dom->find('body', 0);
+            // Insert the new element before the </body> tag
+            $bodyTag->outertext =  $bodyTag->innertext . $temp_switcher . '</body>';
         }
 
         return $dom;

@@ -24,11 +24,12 @@ class LanguageCollection extends AbstractCollection
 
     /**
      * @param string $iso639    ISO 639-1 code to identify language
-     * @return LanguageEntry|null
+     *
+     * @return AbstractCollectionEntry|null
      */
     public function getCode($iso639)
     {
-        if (isset($iso639)) {
+        if (isset($this[$iso639])) {
             return $this[$iso639];
         }
         return null;

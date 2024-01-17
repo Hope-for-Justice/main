@@ -52,6 +52,7 @@ class Request_Url_Service_Weglot {
 	 * Use for abstract \Weglot\Util\Url
 	 *
 	 * @param string $url
+	 *
 	 * @return Url
 	 */
 	public function create_url_object( $url ) {
@@ -73,13 +74,14 @@ class Request_Url_Service_Weglot {
 	 */
 	public function init_weglot_url() {
 		$this->weglot_url = $this->create_url_object( $this->get_full_url() );
+
 		return $this;
 	}
 
 	/**
 	 * Get request URL in process
-	 * @since 2.0
 	 * @return Url
+	 * @since 2.0
 	 */
 	public function get_weglot_url() {
 		if ( null === $this->weglot_url ) {
@@ -90,19 +92,24 @@ class Request_Url_Service_Weglot {
 	}
 
 	/**
-	 * @since 2.4.1
 	 * @return boolean
+	 * @since 2.4.1
 	 */
 	public function is_rest() {
 		$prefix = rest_get_url_prefix();
 		if (
 			defined( 'REST_REQUEST' ) && REST_REQUEST || isset( $_GET['rest_route'] ) && // phpcs:ignore
-			strpos( trim( $_GET['rest_route'], '\\/' ), $prefix, 0 ) === 0 ) { // phpcs:ignore
+			                                             strpos( trim( $_GET['rest_route'], '\\/' ), $prefix, 0 ) === 0 ) { // phpcs:ignore
 			return true;
 		}
 		$rest_url    = wp_parse_url( site_url( $prefix ) );
 		$current_url = wp_parse_url( add_query_arg( array() ) );
-		return strpos( $current_url['path'], $rest_url['path'], 0 ) === 0;
+
+		if( !isset( $current_url['path'] ) || !isset( $rest_url['path'] ) ) {
+			return false;
+		} else {
+			return strpos( $current_url['path'], $rest_url['path'], 0 ) === 0;
+		}
 	}
 
 	/**
@@ -118,31 +125,33 @@ class Request_Url_Service_Weglot {
 			$current_language = $this->create_url_object( $_SERVER['HTTP_REFERER'] )->getCurrentLanguage(); //phpcs:ignore
 		} else {
 			if ( strpos( $this->get_full_url(), 'wp-comments-post.php' ) !== false ) {
-				$current_language = $this->create_url_object( $_SERVER['HTTP_REFERER'] )->getCurrentLanguage(); //phpcs:ignore
+				$current_language = $this->create_url_object( $this->get_full_url() )->getCurrentLanguage(); //phpcs:ignore
 			}
 		}
 
-		if ( empty( $current_language ) ) {
+		if ( !$current_language ) {
 			return apply_filters( 'weglot_default_current_language_empty', $this->language_services->get_original_language() );
 		}
+
 		return $current_language;
 	}
 
 
 	/**
-	 * @since 2.0
+	 * @param mixed $use_forwarded_host
 	 *
 	 * @return string
-	 * @param mixed $use_forwarded_host
+	 * @since 2.0
+	 *
 	 */
 	public function get_full_url( $use_forwarded_host = false ) {
-		return Server::fullUrl($_SERVER, $use_forwarded_host); //phpcs:ignore
+		return Server::fullUrl( $_SERVER, $use_forwarded_host ); //phpcs:ignore
 	}
 
 	/**
+	 * @return string|null
 	 * @since 2.0
 	 *
-	 * @return string|null
 	 */
 	public function get_home_wordpress_directory() {
 		$opt_siteurl = trim( get_option( 'siteurl' ), '/' );
@@ -155,6 +164,7 @@ class Request_Url_Service_Weglot {
 			( substr( $opt_home, 0, 7 ) === 'http://' && strpos( substr( $opt_home, 7 ), '/' ) !== false ) || ( substr( $opt_home, 0, 8 ) === 'https://' && strpos( substr( $opt_home, 8 ), '/' ) !== false ) ) {
 			$parsed_url = parse_url( $opt_home ); // phpcs:ignore
 			$path       = isset( $parsed_url['path'] ) ? $parsed_url['path'] : '/';
+
 			return $path;
 		}
 
@@ -165,10 +175,11 @@ class Request_Url_Service_Weglot {
 	/**
 	 * Returns true if the URL is translated in at least one language
 	 *
-	 * @since 2.0
 	 * @param string $url
-	 * @param bool   $even_excluded
+	 * @param bool $even_excluded
+	 *
 	 * @return boolean
+	 * @since 2.0
 	 */
 	public function is_eligible_url( $url = null, $even_excluded = false ) {
 
@@ -188,9 +199,10 @@ class Request_Url_Service_Weglot {
 	}
 
 	/**
-	 * @since 2.0
 	 * @param string $url
+	 *
 	 * @return string
+	 * @since 2.0
 	 */
 
 	public function url_to_relative( $url ) {
@@ -209,16 +221,19 @@ class Request_Url_Service_Weglot {
 
 			return $path . $query . $fragment;
 		}
+
 		return $url;
 	}
 
 	public function is_allowed_private() {
 		if ( current_user_can( 'administrator' )
-			|| strpos( $this->get_full_url(), 'weglot-private=1' ) !== false
-			|| isset($_COOKIE['weglot_allow_private'])
+		     || strpos( $this->get_full_url(), 'weglot-private=1' ) !== false
+		     || isset( $_COOKIE['weglot_allow_private'] )
+		     || ( isset( $_SERVER['HTTP_USER_AGENT'] ) && strpos( sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ), "Weglot Visual Editor" ) !== false ) //phpcs:ignore
 		) {
 			return true;
 		}
+
 		return false;
 	}
 }

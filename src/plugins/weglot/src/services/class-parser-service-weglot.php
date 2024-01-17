@@ -51,7 +51,7 @@ class Parser_Service_Weglot {
 		$api_key            = $this->option_services->get_api_key( true );
 		$version            = $this->option_services->get_version();
 		$translation_engine = $this->option_services->get_translation_engine();
-		if ( ! $translation_engine || empty( $translation_engine ) ) {
+		if ( empty( $translation_engine ) ) {
 			$translation_engine = 2;
 		}
 
@@ -77,6 +77,10 @@ class Parser_Service_Weglot {
 	public function get_parser() {
 
 		$exclude_blocks   = $this->option_services->get_exclude_blocks();
+		$whitelist_blocks = apply_filters(
+			'weglot_parser_whitelist',
+			array()
+		);
 		$custom_switchers = $this->option_services->get_switchers_editor_button();
 		$config           = apply_filters( 'weglot_parser_config_provider', new ServerConfigProvider() );
 		if ( ! ( $config instanceof ConfigProviderInterface ) ) {
@@ -88,12 +92,30 @@ class Parser_Service_Weglot {
 		}
 
 		$client = $this->get_client();
-		$parser = new Parser( $client, $config, $exclude_blocks, $custom_switchers );
+		$parser = new Parser( $client, $config, $exclude_blocks, $custom_switchers, $whitelist_blocks );
 
 		$parser->getDomCheckerProvider()->addCheckers( $this->dom_checkers_services->get_dom_checkers() );
 		$parser->getRegexCheckerProvider()->addCheckers( $this->regex_checkers_services->get_regex_checkers() );
 		$ignored_nodes = apply_filters( 'weglot_get_parser_ignored_nodes', $parser->getIgnoredNodesFormatter()->getIgnoredNodes() );
 		$parser->getIgnoredNodesFormatter()->setIgnoredNodes( $ignored_nodes );
+
+		$media_enabled    = $this->option_services->get_option_button( 'media_enabled' );
+		$external_enabled = $this->option_services->get_option_button( 'external_enabled' );
+
+		// remove media and/or externalLink checker if not enable.
+		$remove_checker = array();
+		if ( ! $external_enabled ) {
+			$remove_checker[] = '\Weglot\Parser\Check\Dom\ExternalLinkHref';
+		}
+
+		if ( ! $media_enabled ) {
+			$remove_checker[] = '\Weglot\Parser\Check\Dom\ImageDataSource';
+			$remove_checker[] = '\Weglot\Parser\Check\Dom\ImageSource';
+		}
+
+		if ( ! empty( $remove_checker ) ) {
+			$parser->getDomCheckerProvider()->removeCheckers( $remove_checker );
+		}
 
 		return $parser;
 	}

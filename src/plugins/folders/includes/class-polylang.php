@@ -54,7 +54,6 @@ class WCP_Folder_PolyLang
     {
         $this->active = false;
         $this->total  = 0;
-        $this->delete_process_id = null;
         add_action("admin_init", [$this, 'init']);
 
     }//end __construct()
@@ -69,12 +68,16 @@ class WCP_Folder_PolyLang
      */
     public function init()
     {
-        global $wpdb, $polylang;
-        $this->active = function_exists("pll_get_post_translations");
+        global $wpdb, $polylang, $typenow;
+        $this->active = function_exists("pll_get_post_translations") && function_exists("pll_is_translated_post_type");
 
         if ($this->active) {
             if (isset($polylang->curlang) && is_object($polylang->curlang)) {
-                $this->poly_lang_term_taxonomy_id = $polylang->curlang->term_taxonomy_id;
+                if(method_exists($polylang->curlang, 'get_tax_prop')) {
+                    $this->poly_lang_term_taxonomy_id = $polylang->curlang->get_tax_prop('language', 'term_taxonomy_id');
+                } else {
+                    $this->poly_lang_term_taxonomy_id = $polylang->curlang->term_taxonomy_id;
+                }
 
                 add_filter('premio_folder_item_in_taxonomy', [$this, 'items_in_taxonomy'], 10, 2);
                 add_filter('premio_folder_un_categorized_items', [$this, 'un_categorized_items'], 10, 2);

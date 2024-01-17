@@ -1,5 +1,9 @@
 <?php
 namespace ShortPixel;
+
+if ( ! defined( 'ABSPATH' ) ) {
+ exit; // Exit if accessed directly.
+}
 ?>
 
 <section class="panel summary" data-panel="summary">
@@ -82,7 +86,7 @@ namespace ShortPixel;
     <div class="credits">
       <p class='heading'><span><?php esc_html_e('Your ShortPixel Credits Available', 'shortpixel-image-optimiser'); ?></span>
         <span><?php echo esc_html($this->formatNumber($quotaData->total->remaining, 0)) ?></span>
-				<span><a href="<?php echo esc_url($this->view->buyMoreHref) ?>" target="_new" class='button button-primary'><?php esc_html_e('Buy more credits','shortpixel-image-optimiser'); ?></a></span>
+				<span><a href="<?php echo esc_url($this->view->buyMoreHref) ?>" target="_new" class='button button-primary'><?php esc_html_e('Buy unlimited credits','shortpixel-image-optimiser'); ?></a></span>
       </p>
 
       <p><span><?php esc_html_e('Your monthly plan','shortpixel-image-optimiser'); ?></span>

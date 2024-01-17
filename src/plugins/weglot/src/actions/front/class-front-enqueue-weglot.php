@@ -42,23 +42,22 @@ class Front_Enqueue_Weglot implements Hooks_Interface_Weglot {
 
 	/**
 	 *
-	 * @return string
+	 * @return void
 	 * @since 2.0
 	 */
 	public function weglot_pageviews_script() {
 		$options = $this->option_services->get_options();
-		if ( $options['page_views_enabled'] ) {
-			?>
+		if ( $options['page_views_enabled'] ) { ?>
 			<script>
-				var request = new XMLHttpRequest();
-				var url = 'ht' + 'tps:' + '//' + 'cdn-api.weglot.com/' + 'pageviews?api_key=' + '<?php echo esc_js( $options['api_key'] )?>';
-				var data = JSON.stringify({
+				let request = new XMLHttpRequest();
+				let url = 'ht' + 'tps:' + '//' + 'api.weglot.com/' + 'pageviews?api_key=' + '<?= esc_js( $options['api_key'] ); ?>';
+				let data = JSON.stringify({
 						url: location.protocol + '//' + location.host + location.pathname,
 						language: document.getElementsByTagName('html')[0].getAttribute('lang'),
 						browser_language: (navigator.language || navigator.userLanguage)
 					}
 				);
-				request.open('POST', url , true);
+				request.open('POST', url, true);
 				request.send(data);
 			</script>
 		<?php }
@@ -71,15 +70,15 @@ class Front_Enqueue_Weglot implements Hooks_Interface_Weglot {
 	 * @see wp_enqueue_scripts
 	 */
 	public function weglot_wp_enqueue_scripts() {
-		// Add JS
+// Add JS.
 		wp_register_script( 'wp-weglot-js', WEGLOT_URL_DIST . '/front-js.js', false, WEGLOT_VERSION, false );
 		wp_enqueue_script( 'wp-weglot-js' );
 
-		// Add CSS
+// Add CSS
 		wp_register_style( 'weglot-css', WEGLOT_URL_DIST . '/css/front-css.css', false, WEGLOT_VERSION, false );
 		wp_enqueue_style( 'weglot-css' );
 
-		//display new flags
+//display new flags
 		if ( empty( $this->option_services->get_option( 'flag_css' ) )
 		     && strpos( $this->option_services->get_css_custom_inline(), 'background-position' ) == false
 		     && strpos( $this->option_services->get_css_custom_inline(), 'background-image' ) == false ) {

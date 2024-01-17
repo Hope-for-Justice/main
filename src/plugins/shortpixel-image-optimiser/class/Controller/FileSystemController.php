@@ -1,6 +1,11 @@
 <?php
 namespace ShortPixel\Controller;
-use ShortPixel\ShortpixelLogger\ShortPixelLogger as Log;
+
+if ( ! defined( 'ABSPATH' ) ) {
+ exit; // Exit if accessed directly.
+}
+
+use ShortPixel\ShortPixelLogger\ShortPixelLogger as Log;
 
 use ShortPixel\Model\File\DirectoryModel as DirectoryModel;
 use ShortPixel\Model\File\FileModel as FileModel;
@@ -38,13 +43,18 @@ Class FileSystemController extends \ShortPixel\Controller
 
     /** Get MediaLibraryModel for a Post_id
 		* @param int $id
+		* @param bool $useCache  If false then it will require a fresh copt from database. Use when meta has changed / saved
+		* @param bool $cacheOnly Prevent fetching from Database. Used for checkLegacy and other places where conflicts with mainFile arise, checking for backups.
 		*/
-    public function getMediaImage($id, $useCache = true)
+    public function getMediaImage($id, $useCache = true, $cacheOnly = false)
     {
 				if ($useCache === true && isset(self::$mediaItems[$id]))
 				{
 					 return self::$mediaItems[$id];
 				}
+
+				if (true === $cacheOnly)
+					return false;
 
         $filepath = get_attached_file($id);
         $filepath = apply_filters('shortpixel_get_attached_file', $filepath, $id);
@@ -89,6 +99,23 @@ Class FileSystemController extends \ShortPixel\Controller
 		{
 					 self::$mediaItems = array();
 					 self::$customItems = array();
+					 MediaLibraryModel::onFlushImageCache();
+		}
+
+		public function flushImage($imageObj)
+		{
+				$id = $imageObj->get('id');
+				 $type = $imageObj->get('type');
+
+				if ('media' == $type && isset(self::$mediaItems[$id]))
+				{
+					 unset(self::$mediaItems[$id]);
+					 MediaLibraryModel::onFlushImageCache();
+				}
+				if ('custom' == $type && isset(self::$customItems[$id]))
+				{
+					 unset(self::$customItems[$id]);
+				}
 		}
 
     /** Gets a custom Image Model without being in the database. This is used to check if path is a proper customModel path ( not mediaLibrary ) and see if the file should be included per excusion rules */
@@ -109,12 +136,17 @@ Class FileSystemController extends \ShortPixel\Controller
       $imageObj = false;
 
       if ($type == 'media')
+      {
         $imageObj = $this->getMediaImage($id, $useCache);
+      }
       elseif($type == 'custom')
+      {
         $imageObj = $this->getCustomImage($id, $useCache);
+      }
       else
+      {
         Log::addError('FileSystemController GetImage - no correct type given: ' . $type);
-
+      }
       return $imageObj;
     }
 
@@ -224,22 +256,34 @@ Class FileSystemController extends \ShortPixel\Controller
 
     /** This function returns the Absolute Path of the WordPress installation where the **CONTENT** directory is located.
     * Normally this would be the same as ABSPATH, but there are installations out there with -cough- alternative approaches
+		* The Abspath is uses to replace against the domain URL ( home_url ).
     * @returns DirectoryModel  Either the ABSPATH or where the WP_CONTENT_DIR is located
     */
     public function getWPAbsPath()
     {
-        $wpContentAbs = str_replace( 'wp-content', '', WP_CONTENT_DIR);
+
+				$wpContentPos = strpos(WP_CONTENT_DIR, 'wp-content');
+        // Check if Content DIR actually has wp-content in it.
+        if (false !== $wpContentPos)
+        {
+          $wpContentAbs = substr(WP_CONTENT_DIR, 0, $wpContentPos); //str_replace( 'wp-content', '', WP_CONTENT_DIR);
+        }
+        else {
+          $wpContentAbs = WP_CONTENT_DIR;
+        }
+
         if (ABSPATH == $wpContentAbs)
           $abspath = ABSPATH;
         else
           $abspath = $wpContentAbs;
 
-				if (defined('UPLOADS')) // if this is set, lead.
-					$abspath = trailingslashit(ABSPATH) . UPLOADS;
+				// If constants UPLOADS is defined -AND- there is a blogs.dir in it, add it like this. UPLOAD constant alone is not enough since it can cause ugly doublures in the path if there is another style config.
+				if (defined('UPLOADS') && strpos(UPLOADS, 'blogs.dir') !== false)
+        {
+          $abspath = trailingslashit(ABSPATH) . UPLOADS;
+        }
 
-//	$abspath = wp_normalize_path($abspath);
         $abspath = apply_filters('shortpixel/filesystem/abspath', $abspath );
-
 
         return $this->getDirectory($abspath);
     }
@@ -404,8 +448,11 @@ Class FileSystemController extends \ShortPixel\Controller
 
     }
 
+		// @todo Deprecate this, move some functs perhaps to DownloadHelper.
+    // @todo Should not be in use anymore. Remove on next update / annoyance
     public function downloadFile($url, $destinationPath)
     {
+      Log::addWarn('Deprecated DownloadFile function invoked (FileSystemController)');
       $downloadTimeout = max(SHORTPIXEL_MAX_EXECUTION_TIME - 10, 15);
       $fs = \wpSPIO()->filesystem(); // @todo change this all to $this
     //  $fs = \wpSPIO()->fileSystem();
@@ -414,6 +461,7 @@ Class FileSystemController extends \ShortPixel\Controller
       $args_for_get = array(
         'stream' => true,
         'filename' => $destinationPath,
+				'timeout' => $downloadTimeout,
       );
 
       $response = wp_remote_get( $url, $args_for_get );
@@ -493,6 +541,27 @@ Class FileSystemController extends \ShortPixel\Controller
 				return false;
 			}
 
+		}
+
+		/** Any files / directories loaded while this is active will not check for exists or other filesystem operations
+		*
+		*/
+		public function startTrustedMode()
+		{
+				if (\wpSPIO()->env()->useTrustedMode())
+				{
+			 		FileModel::$TRUSTED_MODE = true;
+					DirectoryModel::$TRUSTED_MODE = true;
+				}
+		}
+
+		public function endTrustedMode()
+		{
+			if (\wpSPIO()->env()->useTrustedMode())
+			{
+				FileModel::$TRUSTED_MODE = false;
+				DirectoryModel::$TRUSTED_MODE = false;
+			}
 		}
 
     /** Old method of getting a subDir. This is messy and hopefully should not be used anymore. It's added here for backward compat in case of exceptions */

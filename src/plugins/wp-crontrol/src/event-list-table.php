@@ -107,7 +107,7 @@ class Table extends \WP_List_Table {
 		$this->set_pagination_args( array(
 			'total_items' => $count,
 			'per_page'    => $per_page,
-			'total_pages' => ceil( $count / $per_page ),
+			'total_pages' => (int) ceil( $count / $per_page ),
 		) );
 	}
 
@@ -182,12 +182,20 @@ class Table extends \WP_List_Table {
 	/**
 	 * Columns to make sortable.
 	 *
-	 * @return array<string,array<int,(string|bool)>>
+	 * @return array<string,array<int,mixed>>
+	 * @phpstan-return array<string,array{
+	 *   0: string,
+	 *   1: bool,
+	 *   2?: ?string,
+	 *   3?: ?string,
+	 *   4?: 'asc'|'desc',
+	 * }>
 	 */
 	public function get_sortable_columns() {
 		return array(
-			'crontrol_hook' => array( 'crontrol_hook', true ),
-			'crontrol_next' => array( 'crontrol_next', false ),
+			'crontrol_hook' => array( 'crontrol_hook', false ),
+			'crontrol_next' => array( 'crontrol_next', false, null, null, 'asc' ),
+			'crontrol_recurrence' => array( 'crontrol_recurrence', false ),
 		);
 	}
 
@@ -197,7 +205,7 @@ class Table extends \WP_List_Table {
 	 * @return array<int,string> Array of class names.
 	 */
 	protected function get_table_classes() {
-		return array( 'widefat', 'striped', $this->_args['plural'] );
+		return array( 'widefat', 'striped', 'table-view-list', $this->_args['plural'] );
 	}
 
 	/**
@@ -380,7 +388,7 @@ class Table extends \WP_List_Table {
 			$link = add_query_arg( $link, admin_url( 'tools.php' ) );
 			$link = wp_nonce_url( $link, "crontrol-run-cron_{$event->hook}_{$event->sig}" );
 
-			$links[] = "<a href='" . esc_url( $link ) . "'>" . esc_html__( 'Run Now', 'wp-crontrol' ) . '</a>';
+			$links[] = "<a href='" . esc_url( $link ) . "'>" . esc_html__( 'Run now', 'wp-crontrol' ) . '</a>';
 		}
 
 		if ( is_paused( $event ) ) {
@@ -392,8 +400,8 @@ class Table extends \WP_List_Table {
 			$link = add_query_arg( $link, admin_url( 'tools.php' ) );
 			$link = wp_nonce_url( $link, "crontrol-resume-hook_{$event->hook}" );
 
-			/* translators: Verb */
-			$links[] = "<a href='" . esc_url( $link ) . "'>" . esc_html__( 'Resume', 'wp-crontrol' ) . '</a>';
+			/* translators: Resume is a verb */
+			$links[] = "<a href='" . esc_url( $link ) . "'>" . esc_html__( 'Resume this hook', 'wp-crontrol' ) . '</a>';
 		} elseif ( 'crontrol_cron_job' !== $event->hook ) {
 			$link = array(
 				'page'            => 'crontrol_admin_manage_page',
@@ -403,8 +411,8 @@ class Table extends \WP_List_Table {
 			$link = add_query_arg( $link, admin_url( 'tools.php' ) );
 			$link = wp_nonce_url( $link, "crontrol-pause-hook_{$event->hook}" );
 
-			/* translators: Verb */
-			$links[] = "<a href='" . esc_url( $link ) . "'>" . esc_html__( 'Pause', 'wp-crontrol' ) . '</a>';
+			/* translators: Pause is a verb */
+			$links[] = "<a href='" . esc_url( $link ) . "'>" . esc_html__( 'Pause this hook', 'wp-crontrol' ) . '</a>';
 		}
 
 		if ( ! in_array( $event->hook, self::$persistent_core_hooks, true ) && ( ( 'crontrol_cron_job' !== $event->hook ) || self::$can_manage_php_crons ) ) {
@@ -421,7 +429,7 @@ class Table extends \WP_List_Table {
 			$links[] = "<span class='delete'><a href='" . esc_url( $link ) . "'>" . esc_html__( 'Delete', 'wp-crontrol' ) . '</a></span>';
 		}
 
-		if ( function_exists( 'wp_unschedule_hook' ) && ! in_array( $event->hook, self::$persistent_core_hooks, true ) && ( 'crontrol_cron_job' !== $event->hook ) ) {
+		if ( function_exists( 'wp_unschedule_hook' ) && ( 'crontrol_cron_job' !== $event->hook ) ) {
 			if ( self::$count_by_hook[ $event->hook ] > 1 ) {
 				$link = array(
 					'page'            => 'crontrol_admin_manage_page',
@@ -429,14 +437,24 @@ class Table extends \WP_List_Table {
 					'crontrol_id'     => rawurlencode( $event->hook ),
 				);
 				$link = add_query_arg( $link, admin_url( 'tools.php' ) );
-				$link = wp_nonce_url( $link, "crontrol-delete-hook_{$event->hook}" );
-
+				$link = wp_nonce_url(
+					$link,
+					sprintf(
+						'crontrol-delete-hook_%1$s',
+						$event->hook
+					)
+				);
 				$text = sprintf(
-					/* translators: %s: Number of events with a given name */
-					_n( 'Delete All %s', 'Delete All %s', self::$count_by_hook[ $event->hook ], 'wp-crontrol' ),
+					/* translators: %s: The number of events with this hook */
+					__( 'Delete all events with this hook (%s)', 'wp-crontrol' ),
 					number_format_i18n( self::$count_by_hook[ $event->hook ] )
 				);
-				$links[] = "<span class='delete'><a href='" . esc_url( $link ) . "'>" . esc_html( $text ) . '</a></span>';
+
+				$links[] = sprintf(
+					'<span class="delete"><a href="%1$s">%2$s</a></span>',
+					esc_url( $link ),
+					esc_html( $text )
+				);
 			}
 		}
 

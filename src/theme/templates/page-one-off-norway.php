@@ -55,7 +55,7 @@ endif;
                 <form id="formOne">
 
                     <div class="donorfy-donate__giving-text">
-                    Du gir <span id="textAmount"><?php echo $_GET['Amount'] ?></span> kr
+                        Du gir <span id="textAmount"><?php echo $_GET['Amount'] ?></span> kr
                         <a id="changeAmount">Endre beløp</a>
                     </div>
                     <h2 class="font-canela">Dine detaljer</h2>
@@ -466,7 +466,7 @@ endif;
                             <p class="donorfy-donate__select-text">Post:</p>
                             <div class="donorfy-donate__select donorfy-donate__select--preference">
                                 <select id="postSelect" class="required" name="postSelect">
-                                <option value="">Velg</option>
+                                    <option value="">Velg</option>
                                     <option value="true">Ja</option>
                                     <option value="false">Nei</option>
                                 </select>
@@ -477,7 +477,7 @@ endif;
                             <p class="donorfy-donate__select-text">SMS:</p>
                             <div class="donorfy-donate__select donorfy-donate__select--preference">
                                 <select id="smsSelect" class="required" name="smsSelect">
-                                <option value="">Velg</option>
+                                    <option value="">Velg</option>
                                     <option value="true">Ja</option>
                                     <option value="false">Nei</option>
                                 </select>
@@ -488,7 +488,7 @@ endif;
                             <p class="donorfy-donate__select-text">Telefon:</p>
                             <div class="donorfy-donate__select donorfy-donate__select--preference">
                                 <select id="phoneSelect" class="required" name="phoneSelect">
-                                <option value="">Velg</option>
+                                    <option value="">Velg</option>
                                     <option value="true">Ja</option>
                                     <option value="false">Nei</option>
                                 </select>
@@ -497,9 +497,9 @@ endif;
                     </div>
 
                     <p class="donorfy-donate__small-text">
-                    Velg “ja” dersom du ønsker at Hope for Justice skal kontakte deg i henhold til dine preferanser: for å holde deg informert om våre pågående aktiviteter, nyheter og kampanjer, og for å invitere deg til relevante arrangementer. Du kan når som helst endre dine preferanser eller melde deg av fra å motta kommunikasjon fra oss på: <a href="https://hopeforjustice.org/manage-your-preferences">hopeforjustice.org/manage-your-preferences</a>
-                    <br><br>
-                    Vi lagrer dine personopplysninger sikkert. Vi vil bruke den til å tilby tjenesten(e) du har bedt om, og kommunisere med deg på den måten(e) du har samtykket til. Vi vil kun tillate at informasjonen din brukes av tredjeparter som jobber på våre vegne. Vi deler informasjonen din hvis det er påkrevd i henhold til loven. For detaljer, se vår <a href="/privacy-policy">personvernerklæring</a>
+                        Velg “ja” dersom du ønsker at Hope for Justice skal kontakte deg i henhold til dine preferanser: for å holde deg informert om våre pågående aktiviteter, nyheter og kampanjer, og for å invitere deg til relevante arrangementer. Du kan når som helst endre dine preferanser eller melde deg av fra å motta kommunikasjon fra oss på: <a href="https://hopeforjustice.org/manage-your-preferences">hopeforjustice.org/manage-your-preferences</a>
+                        <br><br>
+                        Vi lagrer dine personopplysninger sikkert. Vi vil bruke den til å tilby tjenesten(e) du har bedt om, og kommunisere med deg på den måten(e) du har samtykket til. Vi vil kun tillate at informasjonen din brukes av tredjeparter som jobber på våre vegne. Vi deler informasjonen din hvis det er påkrevd i henhold til loven. For detaljer, se vår <a href="/privacy-policy">personvernerklæring</a>
                     </p>
 
                     <div class="donorfy-donate__buttons">
@@ -524,11 +524,11 @@ endif;
                     </div>
 
                     <div id="payment-request-button" class="donorfy-donate__apple-google-pay">
-                    <!-- Target for apple & google pay -->
-                    </div> 
-                    
+                        <!-- Target for apple & google pay -->
+                    </div>
+
                     <div id="paypal-button-container">
-                    <!-- Target for PayPal buttons -->
+                        <!-- Target for PayPal buttons -->
                     </div>
 
                     <!--<label class="donorfy-donate__hidden" for="inspiration_question">What inspired you to give?</label>

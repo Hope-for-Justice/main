@@ -105,30 +105,33 @@ class JsonChecker
 
     public function findWords($json, $currentKey, &$paths) {
 
-        foreach ($json as $key => $value) {
-            if(is_array($value)) {
-                $this->findWords($value, ltrim($currentKey.JsonUtil::SEPARATOR.$key, JsonUtil::SEPARATOR), $paths);
-            }
-            else {
-                $k = ltrim($currentKey.JsonUtil::SEPARATOR.$key, JsonUtil::SEPARATOR);
-                if(Text::isJSON($value)) {
-                    $parsed = $this->getParser()->parseJSON($value, $this->getExtraKeys());
-                    array_push($paths, array( "key" => $k, "parsed" => $parsed));
+        if( !empty($json)){
+            foreach ($json as $key => $value) {
+                if(is_array($value)) {
+                    $this->findWords($value, ltrim($currentKey.JsonUtil::SEPARATOR.$key, JsonUtil::SEPARATOR), $paths);
                 }
-                elseif(Text::isHTML($value)) {
-                    $parsed = $this->getParser()->parseHTML($value);
-                    array_push($paths, array( "key" => $k , "parsed" => $parsed));
+                else {
+                    $k = ltrim($currentKey.JsonUtil::SEPARATOR.$key, JsonUtil::SEPARATOR);
+                    if(Text::isJSON($value)) {
+                        $parsed = $this->getParser()->parseJSON($value, $this->getExtraKeys());
+                        array_push($paths, array( "key" => $k, "parsed" => $parsed));
+                    }
+                    elseif(Text::isHTML($value)) {
+                        $parsed = $this->getParser()->parseHTML($value);
+                        array_push($paths, array( "key" => $k , "parsed" => $parsed));
 
-                }
-                elseif(
-                    (!is_int($key) && in_array($key, array_unique(array_merge($this->default_keys , $this->getExtraKeys())) , true))
-                    || (is_int($key) && in_array(substr($currentKey, (strrpos($currentKey, JsonUtil::SEPARATOR) ?: -strlen(JsonUtil::SEPARATOR)) +strlen(JsonUtil::SEPARATOR)), array_unique(array_merge($this->default_keys , $this->getExtraKeys())) , true))
+                    }
+                    elseif(
+                        (!is_int($key) && in_array($key, array_unique(array_merge($this->default_keys , $this->getExtraKeys())) , true))
+                        || (is_int($key) && in_array(substr($currentKey, (strrpos($currentKey, JsonUtil::SEPARATOR) ?: -strlen(JsonUtil::SEPARATOR)) +strlen(JsonUtil::SEPARATOR)), array_unique(array_merge($this->default_keys , $this->getExtraKeys())) , true))
 
-                ) {
-                    $parsed = $this->getParser()->parseText($value);
-                    array_push($paths, array( "key" => $k , "parsed" => $parsed));
+                    ) {
+                        $parsed = $this->getParser()->parseText($value);
+                        array_push($paths, array( "key" => $k , "parsed" => $parsed));
+                    }
                 }
             }
         }
+
     }
 }

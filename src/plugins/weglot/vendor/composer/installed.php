@@ -1,69 +1,68 @@
-<?php return array (
-  'root' => 
-  array (
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
-    'aliases' => 
-    array (
+<?php return array(
+    'root' => array(
+        'name' => 'weglot/translate-wordpress',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => 'beeaa6310aec69cdab20150be24b0ca67d43879f',
+        'type' => 'project',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => false,
     ),
-    'reference' => '87d16fb87bfae52d0a3617e676624943372f1fb7',
-    'name' => 'weglot/translate-wordpress',
-  ),
-  'versions' => 
-  array (
-    'gmulti/morphism-php' => 
-    array (
-      'pretty_version' => '0.3.0',
-      'version' => '0.3.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '0b4cc4e604452a724124b8d342635c4b0b0e9809',
+    'versions' => array(
+        'gmulti/morphism-php' => array(
+            'pretty_version' => 'dev-dev-bugfix',
+            'version' => 'dev-dev-bugfix',
+            'reference' => '578752d5a21b57dd6e6cf4c04f12c96c3df42372',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../gmulti/morphism-php',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'psr/cache' => array(
+            'pretty_version' => '1.0.1',
+            'version' => '1.0.1.0',
+            'reference' => 'd11b50ad223250cf17b86e38383413f5a6764bf8',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/cache',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'weglot/simplehtmldom' => array(
+            'pretty_version' => '0.8',
+            'version' => '0.8.0.0',
+            'reference' => 'bc37c23550025c59849f0f0e8c332d6e7c2385ee',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../weglot/simplehtmldom',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'weglot/translate-wordpress' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'beeaa6310aec69cdab20150be24b0ca67d43879f',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'weglot/translation-definitions' => array(
+            'pretty_version' => 'v2.3.4',
+            'version' => '2.3.4.0',
+            'reference' => 'f54b91a863e529f3efbc0c68acde7731a57176de',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../weglot/translation-definitions',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'weglot/weglot-php' => array(
+            'pretty_version' => '1.7.0',
+            'version' => '1.7.0.0',
+            'reference' => '37baab6613b61a42568c7b4d62fe6b23be08c53e',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../weglot/weglot-php',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
     ),
-    'psr/cache' => 
-    array (
-      'pretty_version' => '1.0.1',
-      'version' => '1.0.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'd11b50ad223250cf17b86e38383413f5a6764bf8',
-    ),
-    'weglot/simplehtmldom' => 
-    array (
-      'pretty_version' => '0.7',
-      'version' => '0.7.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '020aac0f37d5cf1ebfde62aa67cb2a6cc3914f41',
-    ),
-    'weglot/translate-wordpress' => 
-    array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '87d16fb87bfae52d0a3617e676624943372f1fb7',
-    ),
-    'weglot/translation-definitions' => 
-    array (
-      'pretty_version' => 'v2.3.4',
-      'version' => '2.3.4.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'f54b91a863e529f3efbc0c68acde7731a57176de',
-    ),
-    'weglot/weglot-php' => 
-    array (
-      'pretty_version' => '1.6.1',
-      'version' => '1.6.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '6cfd2582ecbccd2705a19aae7a1cb541ed86ed5c',
-    ),
-  ),
 );

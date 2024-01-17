@@ -1,6 +1,11 @@
 <?php
 namespace ShortPixel\Controller;
-use ShortPixel\ShortpixelLogger\ShortPixelLogger as Log;
+
+if ( ! defined( 'ABSPATH' ) ) {
+ exit; // Exit if accessed directly.
+}
+
+use ShortPixel\ShortPixelLogger\ShortPixelLogger as Log;
 
 use ShortPixel\Model\ResponseModel as ResponseModel;
 use ShortPixel\Model\Image\ImageModel as ImageModel;
@@ -23,6 +28,8 @@ class ResponseController
 		const ISSUE_OPTIMIZED_NOFILE = 12; // Issues with missing files
 		const ISSUE_QUEUE_FAILED = 13;  // Issues with enqueueing items ( Queue )
 		const ISSUE_FILE_NOTWRITABLE = 20; // Issues with file writing
+		const ISSUE_DIRECTORY_NOTWRITABLE = 30; // Issues with directory writing
+
 
 		const ISSUE_API = 50; // Issues with API - general
 		const ISSUE_QUOTA = 100; // Issues with Quota.
@@ -108,7 +115,7 @@ class ResponseController
 			{
 					if (property_exists($resp, $prop))
 					{
-						 
+
 						 $resp->$prop = $val;
 					}
 					else {
@@ -188,15 +195,20 @@ class ResponseController
 					 case ApiController::ERR_TIMEOUT:
 						 if (self::$screenOutput < self::OUTPUT_CLI)
 						 {
-							// 		$text .= ' ' . sprintf(__('in %s', 'shortpixel_image_optimiser'), $item->fileName);
 						 }
 					 break;
+           case ApiController::STATUS_NOT_API:
+              $action = (property_exists($item, 'action')) ? ucfirst($item->action) : __('Action', 'shortpixel-image-optimiser');
+              $filename = (property_exists($item, 'fileName')) ? $item->fileName : '';
+              $text = sprintf(__('%s completed for %s'), $action, $item->fileName);
+           break;
 				}
 
 				if (self::$screenOutput == self::OUTPUT_CLI)
 				{
 					 $text = '(' . self::$queueName . ' : ' . $item->fileName . ') ' . $text . ' ';
-					 $text .= sprintf(__('(cycle %d)', 'shortpixel-image-optimiser'), intval($item->tries) );
+           if ($item->tries > 0)
+					      $text .= sprintf(__('(cycle %d)', 'shortpixel-image-optimiser'), intval($item->tries) );
 				}
 
 				return $text;

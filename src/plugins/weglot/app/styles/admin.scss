@@ -314,6 +314,9 @@ $wp-color-green: #46b450; // RGB(70, 180, 80)
 
 	.wrap {
 		flex: 4;
+		&.wrap-left{
+			flex: 2;
+		}
 	}
 
 	input[type="text"]:not(#destination_language-selectized),
@@ -368,6 +371,28 @@ $wp-color-green: #46b450; // RGB(70, 180, 80)
 	}
 
 	.weglot-infobox {
+
+		&.weglot-info-translation-box{
+			position: sticky;
+			top: 275px;
+		}
+		&.weglot-wp-menu{
+			position: sticky;
+			top: 40px;
+			a{
+				text-decoration: none;
+				&:focus{
+					font-weight: bold;
+					text-decoration: underline;
+					outline: 0;
+					box-shadow: none;
+				}
+			}
+
+			blockquote{
+				text-align: center;
+			}
+		}
 		flex: 2;
 		align-self: start;
 		margin: 10px 20px 0 2px;
@@ -386,7 +411,7 @@ $wp-color-green: #46b450; // RGB(70, 180, 80)
 		}
 
 		div {
-			padding: 15px 30px 30px 30px;
+			padding: 15px 30px 5px 30px;
 		}
 
 		.weglot-editbtn {

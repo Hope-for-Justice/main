@@ -3,10 +3,9 @@ const init_admin_select = function(){
     const $ = jQuery
     const generate_destination_language = () => {
         return weglot_languages.available.filter(itm => {
-            return itm.internal_code !== weglot_languages.original
+            return itm.internal_code !== $("#original_language").val()
         });
     }
-
 
     let destination_selectize
 
@@ -33,6 +32,7 @@ const init_admin_select = function(){
 			})
 			.on("change", (value) => {
 				const code_languages = destination_selectize[0].selectize.getValue()
+
 				const template = $("#li-button-tpl");
 
 				if (template.length  === 0){
@@ -76,6 +76,7 @@ const init_admin_select = function(){
 						.replace("{CLASSES}", classes)
 				});
 				$(".country-selector ul").html(new_dest_language) //phpcs:ignore
+
 			});
     }
 

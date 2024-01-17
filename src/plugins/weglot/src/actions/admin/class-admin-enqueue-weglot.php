@@ -68,7 +68,7 @@ class Admin_Enqueue_Weglot implements Hooks_Interface_Weglot {
 	 * @see admin_enqueue_scripts
 	 */
 	public function weglot_admin_enqueue_scripts( $page ) {
-		if ( ! in_array( $page, array( 'toplevel_page_' . Helper_Pages_Weglot::SETTINGS ), true ) ) {
+		if ( ! in_array( $page, array( 'toplevel_page_' . Helper_Pages_Weglot::SETTINGS, 'edit.php' ), true ) ) {
 			return;
 		}
 
@@ -144,7 +144,12 @@ class Admin_Enqueue_Weglot implements Hooks_Interface_Weglot {
 				background-repeat: no-repeat !important;
 				background-position: 4px 5px !important;
 				padding-left: 30px !important;
-			}</style>
+			}
+			.weglot-error-plugin{
+				clear: both;
+				margin-top: 10px;
+			}
+		</style>
 		<?php
 	}
 }

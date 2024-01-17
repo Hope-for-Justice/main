@@ -94,7 +94,8 @@
             $(".donate-block__top-text--once").hide();
             $(".donate-block__title").show();
             $(".donate-block__title--once").hide();
-            $(".donate-block__button-freq").text(freq);
+            if (currency == 'NOK') { $(".donate-block__button-freq").text('månedlig'); } else { $(".donate-block__button-freq").text(freq); }
+
         } else {
             $("#reason").text(reason);
             amount = $(".donate-block__options-option--active").data("amount");
@@ -129,10 +130,13 @@
             $(this).addClass("donate-block__freq-option--active");
             freq = $(this).data("freq");
 
-            if (currency == 'NOK' && freq == 'monthly') {
-                const link = $(this).data("link");
-                window.location.assign(link);
-            }
+            //no longer needed - stripe regular implemented
+            // if (currency == 'NOK' && freq == 'monthly') {
+            //     const link = $(this).data("link");
+            //     window.location.assign(link);
+            // }
+
+
             if (freq == "monthly") {
                 $(".picture-description").hide();
                 $(".donate-new__hero-image--main").show();
@@ -328,7 +332,11 @@
                     url += '/donate-USD-once/'
                 }
             } else if (currency == 'NOK') {
-                url += '/donate-NOK-once/'
+                if (freq == 'monthly') {
+                    url += '/donate-NOK-regular/'
+                } else {
+                    url += '/donate-NOK-once/'
+                }
                 urlAmount = urlAmount.replace(".", ",");
             } else if (currency == 'AUD') {
                 if (freq == 'monthly') {

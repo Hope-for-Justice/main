@@ -9,7 +9,16 @@ use Weglot\Util\Regex\RegexEnum;
  * @package Weglot\Util
  */
 class Regex {
-	/**
+    /**
+     * @var string
+     */
+    private $type;
+    /**
+     * @var string
+     */
+    private $value;
+
+    /**
 	 * @param string $type
 	 * @param string $value
 	 */
@@ -27,14 +36,26 @@ class Regex {
 			case RegexEnum::START_WITH:
 				$str = sprintf('^%s', $this->value);
 				break;
+            case RegexEnum::NOT_START_WITH:
+				$str = sprintf('^(?!%s)', $this->value);
+				break;
 			case RegexEnum::END_WITH:
 				$str = sprintf('%s$', $this->value);
+				break;
+			case RegexEnum::NOT_END_WITH:
+				$str = sprintf('(?<!%s)$', $this->value);
 				break;
 			case RegexEnum::CONTAIN:
 				$str = sprintf('%s', $this->value);
 				break;
+			case RegexEnum::NOT_CONTAIN:
+				$str = sprintf('^((?!%s).)*$', $this->value);
+				break;
 			case RegexEnum::IS_EXACTLY:
 				$str = sprintf('^%s$', $this->value);
+				break;
+			case RegexEnum::NOT_IS_EXACTLY:
+				$str = sprintf('^(?!%s$)', $this->value);
 				break;
 			case RegexEnum::MATCH_REGEX:
 				return $this->value;

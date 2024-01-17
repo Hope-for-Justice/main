@@ -40,6 +40,17 @@ if (! defined('ABSPATH')) {
             <?php if ($setting_page == "folder-settings") { ?>
                 $(".select2-box").select2();
             <?php } ?>
+            <?php
+            if(isset($_GET['focus']) && $_GET['focus'] == "icon-color") {
+                $hide_folder_color_pop_up = get_option("hide_folder_color_pop_up");
+                if(!($hide_folder_color_pop_up)) {
+                    add_option("hide_folder_color_pop_up", "yes");
+                } else {
+                    update_option("hide_folder_color_pop_up", "yes");
+                }
+                ?>
+                $(".default-icon-color").addClass("add-focus-animate");
+            <?php } ?>
             $(document).on("click",".form-cancel-btn, .close-popup-button, .folder-popup-form",function(){
                 if($(this).hasClass("cancel-folders") || $(this).hasClass("remove-folders-box") || $(this).hasClass("close-remove-folders")) {
                     $("#remove_folders_when_removed").prop("checked", false);
@@ -111,6 +122,9 @@ if (! defined('ABSPATH')) {
                 } else {
                     $(".media-setting-box").removeClass("active");
                 }
+            });
+            $(document).on("change", "input[name='customize_folders[default_icon_color]']:checked", function(){
+                setCSSProperties();
             });
             setCSSProperties();
             $('.color-field').spectrum({
@@ -219,6 +233,13 @@ if (! defined('ABSPATH')) {
             });
             $(document).on("click", "#import-folder-button", function(e){
                 importPluginData();
+            });
+            $(document).on("click", "#folders_by_user_roles", function(e){
+                if($(this).is(":checked")) {
+                    $(".folder-user-settings").addClass("active");
+                } else {
+                    $(".folder-user-settings").removeClass("active");
+                }
             });
             $(document).on("click", ".remove-folder-data", function(e){
                 selectedItem = $(this).closest("tr").data("plugin");
@@ -421,6 +442,12 @@ if (! defined('ABSPATH')) {
             } else {
                 $(".folder-list li a span, .header-posts a, .un-categorised-items a").css("font-size", "14px");
             }
+
+            var folderColor = "#334155";
+            if($("input[name='customize_folders[default_icon_color]']:checked").length) {
+                folderColor = $("input[name='customize_folders[default_icon_color]']:checked").val();
+            }
+            $(".folder-list i").css("color", folderColor);
         }
 
         $(window).on("scroll", function(){
@@ -576,7 +603,8 @@ if ($wp_status == "yes") {
                             <table class="form-table">
                                 <tboby>
                                     <?php
-                                    $post_types = get_post_types( array( ), 'objects' );
+                                    $post_setting = apply_filters("check_for_folders_post_args", ["show_in_menu" => 1]);
+                                    $post_types = get_post_types( $post_setting, 'objects' );
                                     $post_array = array("page", "post", "attachment");
                                     foreach ( $post_types as $post_type ) {
                                         if ( ! $post_type->show_ui) continue;
@@ -617,7 +645,22 @@ if ($wp_status == "yes") {
                                                     </select>
                                                 </td>
                                             </tr>
-                                            <?php
+                                            <?php if($post_type->name == "attachment") { ?>
+                                                <tr>
+                                                    <td style="padding: 15px 10px 15px 0px" colspan="4">
+                                                        <a class="upgrade-box-link" target="_blank" href="<?php echo esc_url($this->getFoldersUpgradeURL()) ?>" >
+                                                            <label for="" class="custom-checkbox send-user-to-pro">
+                                                                <input disabled type="checkbox" class="sr-only" name="customize_folders[show_media_details]" id="show_media_details" value="on" >
+                                                                <span></span>
+                                                            </label>
+                                                            <label for="" class="send-user-to-pro">
+                                                                <?php esc_html_e( 'Use Folders with: Plugins', 'folders'); ?>
+                                                                <button type="button" class="upgrade-link" ><?php esc_html_e("Upgrade to Pro", 'folders'); ?></button>
+                                                            </label>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php }
                                         } else {
                                             $show_media_details = "off";
                                             ?>
@@ -640,6 +683,7 @@ if ($wp_status == "yes") {
                                     <?php
                                     $show_in_page = !isset($customize_folders['use_shortcuts']) ? "yes" : $customize_folders['use_shortcuts'];
                                     ?>
+
                                     <tr>
                                         <td class="no-padding">
                                             <input type="hidden" name="customize_folders[use_shortcuts]" value="no">
@@ -687,7 +731,16 @@ if ($wp_status == "yes") {
                                             </label>
                                         </td>
                                         <td colspan="3">
-                                            <label for="use_folder_undo" ><?php esc_html_e('Use folders with Undo action after performing tasks', 'folders'); ?> <span class="recommanded"><?php esc_html_e("Recommended", "folders") ?></span></label>
+                                            <label for="use_folder_undo" ><?php esc_html_e('Use folders with Undo action after performing tasks', 'folders'); ?>
+                                                <span class="html-tooltip">
+                                                        <span class="dashicons dashicons-editor-help"></span>
+                                                        <span class="tooltip-text top height-auto" style="height:auto">
+                                                            <?php esc_html_e("Undo any action on Folders. Undo move, copy, rename etc actions with this feature", "folders") ?>
+                                                            <img src="<?php echo esc_url(WCP_FOLDER_URL."assets/images/undo-feature-folders.gif") ?>">
+                                                        </span>
+                                                    </span>
+                                                <span class="recommanded"><?php esc_html_e("Recommended", "folders") ?></span>
+                                            </label>
                                         </td>
                                     </tr>
                                     <?php
@@ -871,6 +924,9 @@ if ($wp_status == "yes") {
                                         </td>
                                         <td colspan="3">
                                             <label for="show_folder_in_settings" ><?php esc_html_e('Place the Folders settings page nested under "Settings"', 'folders'); ?></label>
+                                            <span class="folder-tooltip" data-title="<?php esc_html_e("When this setting is enabled, you will be able to access the Folders settings page by clicking on 'Settings' in the WordPress dashboard and then selecting 'Folders' from the submenu.", "folders") ?>">
+                                                <span class="dashicons dashicons-editor-help"></span>
+                                            </span>
                                         </td>
                                     </tr>
                                     <?php $val = get_option("folders_show_in_menu"); ?>
@@ -884,6 +940,13 @@ if ($wp_status == "yes") {
                                         </td>
                                         <td colspan="3">
                                             <label for="folders_show_in_menu" ><?php esc_html_e('Show the folders also in WordPress menu', 'folders'); ?></label>
+                                            <span class="html-tooltip bottom">
+                                                <span class="dashicons dashicons-editor-help"></span>
+                                                <span class="tooltip-text top tooltip-image-height" style="">
+                                                    <?php esc_html_e("Show folders separately on your WordPress sidebar for quick and easy access to folders of Media, Posts, Pages etc", "folders"); ?>
+                                                    <img style="width: auto; margin: 0 auto" src="<?php echo esc_url(WCP_FOLDER_URL."assets/images/page-folders.png") ?>">
+                                                </span>
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -896,8 +959,8 @@ if ($wp_status == "yes") {
                                                 </label>
                                                 <label for="" class="send-user-to-pro">
                                                     <?php esc_html_e("Auto Rename file based on title", "folders"); ?>
-                                                    <span class="folder-tooltip" data-title="<?php esc_html_e("Replace the actual file name of media files with the title from the WordPress editor.", "folders") ?>"><span class="dashicons dashicons-editor-help"></span></span></label>
-                                                <button type="button" class="upgrade-link" href="<?php echo esc_url($this->getFoldersUpgradeURL()) ?>"><?php esc_html_e("Upgrade to Pro", 'folders') ?></button>
+                                                    <span class="folder-tooltip" data-title="<?php esc_html_e("Replace the actual file name of media files with the title from the WordPress editor.", "folders") ?>"><span class="dashicons dashicons-editor-help"></span></span>
+                                                    <button type="button" class="upgrade-link" ><?php esc_html_e("Upgrade to Pro", 'folders') ?></button>
                                                 </label>
                                             </a>
                                         </td>
@@ -1132,6 +1195,33 @@ if ($wp_status == "yes") {
                                         </ul>
                                     </td>
                                 </tr>
+                                <tr class="default-icon-color">
+                                    <td class="no-padding">
+                                        <label for="enable_horizontal_scroll" >
+                                            <?php esc_html_e("Default icon color", 'folders'); ?>
+                                            <span class="folder-tooltip" data-title="<?php esc_html_e("You can set the default icon color for Folders from here. Each folder and subfolder can have a different color, which you can change in the folder settings.", "folders"); ?>"><span class="dashicons dashicons-editor-help"></span></span>
+                                        </label>
+                                    </td>
+                                    <?php
+                                    $default_icon_color = isset($customize_folders['default_icon_color'])?$customize_folders['default_icon_color']:"#334155";
+                                    $colors = ["#334155", "#86cd91", "#1E88E5", "#ff6060"];
+                                    ?>
+                                    <td colspan="2">
+                                        <div class="folder-colors">
+                                            <div class="folder-default-colors">
+                                                <?php foreach($colors as $key=>$color) {
+                                                    ?>
+                                                    <div class="folder-default-color" id="default-color-<?php echo esc_attr($key) ?>" data-id="<?php echo esc_attr($key) ?>">
+                                                        <input <?php checked($color, $default_icon_color) ?> id="icon-color-<?php echo esc_attr($key) ?>" name="customize_folders[default_icon_color]" class="sr-only" value="<?php echo esc_attr($color) ?>" type="radio" />
+                                                        <label for="icon-color-<?php echo esc_attr($key) ?>" style="background: <?php echo esc_attr($color) ?>"></label>
+                                                    </div>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <a href="<?php echo esc_url($this->getFoldersUpgradeURL()) ?>" class="custom-icon-color-link"><?php esc_html_e("Add more colors (Pro)", "folders"); ?></a>
+                                    </td>
+                                </tr>
                                 <?php
                                 $font         = !isset($customize_folders['folder_font'])||empty($customize_folders['folder_font']) ? "" : $customize_folders['folder_font'];
                                 $setting_font = WCP_Folders::check_for_setting("folder_font", "customize_folders");
@@ -1252,6 +1342,9 @@ if ($wp_status == "yes") {
                                                 </label>
                                                 <label for="" class="send-user-to-pro">
                                                     <?php esc_html_e("Show Folders in upper position", "folders"); ?>
+                                                    <span class="folder-tooltip" data-title="<?php esc_html_e("The list of your folders will also appear at the top of the page, e.g. under 'Media library'.", "folders"); ?>">
+                                                        <span class="dashicons dashicons-editor-help"></span>
+                                                    </span>
                                                     <button type="button" class="upgrade-link" href="<?php echo esc_url($this->getFoldersUpgradeURL()) ?>"><?php esc_html_e("Upgrade to Pro", 'folders'); ?></button>
                                                 </label>
                                             </a>
@@ -1260,7 +1353,12 @@ if ($wp_status == "yes") {
                                                 <input id="show_folders" class="sr-only" <?php checked($show_in_page, "show") ?> type="checkbox" name="customize_folders[show_in_page]" value="show">
                                                 <span></span>
                                             </div>
-                                            <label for="show_folders"><?php esc_html_e("Show Folders in upper position", 'folders'); ?></label>
+                                            <label for="show_folders">
+                                                <?php esc_html_e("Show Folders in upper position", 'folders'); ?>
+                                                <span class="folder-tooltip" data-title="<?php esc_html_e("The list of your folders will also appear at the top of the page, e.g. under 'Media library'.", "folders"); ?>">
+                                                    <span class="dashicons dashicons-editor-help"></span>
+                                                </span>
+                                            </label>
                                         <?php } ?>
                                     </td>
                                 </tr>
@@ -1348,7 +1446,7 @@ if ($wp_status == "yes") {
                             <?php if ($is_plugin_exists) { ?>
                                 <tr class="has-other-plugins">
                                     <td>
-                                        <span class="folder-info"><span class="dashicons dashicons-admin-generic"></span> <?php esc_html_e("Export/Import", "folders"); ?></span>
+                                        <span class="folder-info"><span class="dashicons dashicons-admin-generic"></span> <?php esc_html_e("Import", "folders"); ?></span>
                                         <span class="folder-text"><span><?php esc_html_e("External folders found.", "folders"); ?></span> <?php esc_html_e("Click import to start importing external folders.", "folders"); ?></span>
                                     </td>
                                     <td class="last-td">
@@ -1358,7 +1456,7 @@ if ($wp_status == "yes") {
                             <?php } ?>
                             <tr class="no-more-plugins <?php echo (!$is_plugin_exists) ? "active" : "" ?>">
                                 <td>
-                                    <span class="folder-info"><span class="dashicons dashicons-admin-generic"></span> <?php esc_html_e("Export/Import", "folders"); ?></span>
+                                    <span class="folder-info"><span class="dashicons dashicons-admin-generic"></span> <?php esc_html_e("Import", "folders"); ?></span>
                                     <span class="folder-text"><?php esc_html_e("Couldn't detect any external folders that can be imported. Please contact us if you have external folders that were not detected", "folders"); ?></span>
                                 </td>
                                 <td class="last-td">
@@ -1406,63 +1504,9 @@ if ($wp_status == "yes") {
                     $folders_by_users = !isset($customize_folders['folders_by_users']) ? "off" : $customize_folders['folders_by_users'];
                     $dynamic_folders_for_admin_only = !isset($customize_folders['dynamic_folders_for_admin_only']) ? "off" : $customize_folders['dynamic_folders_for_admin_only'];
                     ?>
-                    <?php if ($setting_page == "folders-by-user") { ?>
-                        <div class="folders-by-user">
-                            <div class="send-user-to-pro">
-                                <div class="normal-box">
-                                    <table class="import-export-table">
-                                        <tr>
-                                            <td>
-                                                <span class="danger-info"><?php esc_html_e("Restrict users to their folders only", "folders"); ?></span>
-                                                <span class="danger-data"><?php esc_html_e("Users will only be able to access their folders and media. Only Admin users will be able to view all folders", "folders"); ?>
-                                            </td>
-                                            <td class="last-td" >
-                                                <a class="upgrade-box-link" target="_blank" href="<?php echo esc_url($this->getFoldersUpgradeURL()) ?>" >
-                                                    <span>
-                                                        <label class="folder-switch send-user-to-pro" for="dynamic_folders_for_admin_only">
-                                                            <input type="hidden">
-                                                            <div class="folder-slider round"></div>
-                                                        </label>
-                                                    </span>
-                                                    <button type="button" class="upgrade-link" ><?php esc_html_e("Upgrade to Pro", 'folders') ?></button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <a class="upgrade-box" target="_blank" href="<?php echo esc_url($this->getFoldersUpgradeURL()) ?>" >
-                                    <button type="button"><?php esc_html_e("Upgrade to Pro", 'folders'); ?></button>
-                                </a>
-                            </div>
-                            <div class="send-user-to-pro">
-                                <div class="normal-box">
-                                    <table class="import-export-table">
-                                        <tr>
-                                            <td>
-                                                <span class="danger-info"><?php esc_html_e("Restrict access to dynamic folders", "folders"); ?></span>
-                                                <span class="danger-data"><?php esc_html_e("Regular users will not access dynamic folders.", "folders"); ?></span>
-                                                <span class="danger-data"><?php esc_html_e("Only Admin users will be able to view dynamic folders.", "folders"); ?></span>
-                                            </td>
-                                            <td class="last-td" >
-                                                <a class="upgrade-box-link" target="_blank" href="<?php echo esc_url($this->getFoldersUpgradeURL()) ?>" >
-                                                    <span>
-                                                        <label class="folder-switch send-user-to-pro" for="folders_by_users">
-                                                            <input type="hidden">
-                                                            <div class="folder-slider round"></div>
-                                                        </label>
-                                                    </span>
-                                                    <button type="button" class="upgrade-link" ><?php esc_html_e("Upgrade to Pro", 'folders') ?></button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <a class="upgrade-box" target="_blank" href="<?php echo esc_url($this->getFoldersUpgradeURL()) ?>" >
-                                    <button type="button"><?php esc_html_e("Upgrade to Pro", 'folders'); ?></button>
-                                </a>
-                            </div>
-                        </div>
-                    <?php }//end if
+                    <?php if ($setting_page == "folders-by-user") {
+                        include "folder-user-settings.php";
+                    }//end if
                     ?>
                 </div>
 

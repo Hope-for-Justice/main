@@ -1,7 +1,12 @@
 <?php
 namespace ShortPixel;
+
+if ( ! defined( 'ABSPATH' ) ) {
+ exit; // Exit if accessed directly.
+}
+
 use ShortPixel\Notices\NoticeController as Notice;
-use ShortPixel\ShortpixelLogger\ShortPixelLogger as Log;
+use ShortPixel\ShortPixelLogger\ShortPixelLogger as Log;
 
 use ShortPixel\Model\File\DirectoryOtherMediaModel as DirectoryOtherMediaModel;
 use ShortPixel\Controller\OtherMediaController as OtherMediaController;
@@ -27,23 +32,25 @@ class NextGenController
 
   public function hooks()
   {
-		$this->view = new NextGenViewController();
+		$controller = new NextGenViewController();
 
     if ($this->optimizeNextGen()) // if optimization is on, hook.
     {
       add_action('ngg_update_addgallery_page', array( $this, 'addNextGenGalleriesToCustom'));
       add_action('ngg_added_new_image', array($this,'handleImageUpload'));
-      add_action('ngg_delete_image', array($this, 'OnDeleteImage'),10, 2); // this works only on single images!
     }
 
     if ($this->has_nextgen())
     {
-      add_action('shortpixel/othermedia/folder/load', array($this, 'loadFolder'), 10, 2);
-			add_action('shortpixel/othermedia/addfiles', array($this, 'checkAddFiles'), 10, 3);
+			add_action('ngg_delete_image', array($this, 'OnDeleteImage'),10, 2); // this works only on single images!
 
-      add_filter( 'ngg_manage_images_columns', array( $this->view, 'nggColumns' ) );
-      add_filter( 'ngg_manage_images_number_of_columns', array( $this->view, 'nggCountColumns' ) );
-      add_filter( 'ngg_manage_images_column_7_header', array( $this->view, 'nggColumnHeader' ) );
+      add_action('shortpixel/othermedia/folder/load', array($this, 'loadFolder'), 10, 2);
+      // Off because this causes bad UX ( refresh folder but no images added)
+			//add_action('shortpixel/othermedia/addfiles', array($this, 'checkAddFiles'), 10, 3);
+
+      add_filter( 'ngg_manage_images_columns', array( $controller, 'nggColumns' ) );
+      add_filter( 'ngg_manage_images_number_of_columns', array( $controller, 'nggCountColumns' ) );
+      add_filter( 'ngg_manage_images_column_7_header', array( $controller, 'nggColumnHeader' ) );
       add_filter( 'ngg_manage_images_column_7_content', array( $this, 'loadNextGenItem' ), 10,2 );
 			add_filter('ngg_manage_gallery_fields', array($this, 'refreshFolderOnLoad'), 10, 2);
 
@@ -70,18 +77,12 @@ class NextGenController
 
   public function optimizeNextGen()
   {
-		 if ($this->enableOverride === true)
+		 if (true === $this->enableOverride || \wpSPIO()->settings()->includeNextGen == 1)
 		 {
 		 	 return true;
 		 }
-     elseif (\wpSPIO()->settings()->includeNextGen == 1)
-    {
-			 return true;
-		}
-    else
-		{
-      return false;
-		}
+
+     return false;
   }
 
   public function isNextGenScreen()
@@ -235,7 +236,7 @@ class NextGenController
    public function addNextGenGalleriesToCustom($silent = true) {
       $fs = \wpSPIO()->filesystem();
       $homepath = $fs->getWPFileBase();
-      $folderMsg = "";
+
       //add the NextGen galleries to custom folders
       $ngGalleries = $this->getGalleries(); // DirectoryModel return.
 
@@ -256,18 +257,24 @@ class NextGenController
           }
 					else
 					{
+						// Try to silently fail this if directory is not allowed.
+						if (false === $folder->checkDirectory(true))
+						{
+							continue;
+						}
           	$directory = $otherMedia->addDirectory($gallery->getPath());
+						if (! $directory)
+						{
+							Log::addWarn('Could not add this directory' . $gallery->getPath() );
+						}
+						else
+						{
+							 $directory->set('status', DirectoryOtherMediaModel::DIRECTORY_STATUS_NEXTGEN);
+							 $directory->save();
+						}
 					}
 
-          if (! $directory)
-					{
-            Log::addWarn('Could not add this directory' . $gallery->getPath() );
-					}
-          else
-          {
-             $directory->set('status', DirectoryOtherMediaModel::DIRECTORY_STATUS_NEXTGEN);
-             $directory->save();
-          }
+
       }
 
       if (count($ngGalleries) > 0)
@@ -276,10 +283,7 @@ class NextGenController
         $settings = \wpSPIO()->settings();
         $settings->hasCustomFolders = time();
       }
-      if (! $silent && (strlen(trim($folderMsg)) > 0 && $folderMsg !== false))
-      {
-          Notice::addNormal($folderMsg);
-      }
+
 
   }
 
@@ -290,20 +294,45 @@ class NextGenController
 
     if ($this->optimizeNextGen() === true) {
           $imageFsPath = $this->getImageAbspath($image);
+
           $otherMedia->addImage($imageFsPath, array('is_nextgen' => true));
       }
   }
 
   public function resetNotification()
   {
-    Notice::removeNoticeByID(AdminNoticesController::MSG_INTEGRATION_NGGALLERY);
+    Notice::removeNoticeByID('MSG_INTEGRATION_NGGALLERY');
   }
 
   public function onDeleteImage($nggId, $size)
   {
-      $image = $this->getNGImageByID($nggId);
-      $path  = $this->getImageAbspath($image);
+
+	  	$image = $this->getNGImageByID($nggId);
+
+			$paths = array();
+
+			if ($size === false)
+			{
+				$imageSizes = $this->getImageSizes($image);
+				foreach($imageSizes as $size)
+				{
+					$paths[] = $this->getImageAbspath($image, $size);
+
+				}
+			}
+			else {
+				$paths = array_merge($paths, $this->getImageAbspath($image, $size));
+			}
+
+			foreach($paths as $path)
+			{
+				$otherMediaController = OtherMediaController::getInstance();
+				$mediaItem = $otherMediaController->getCustomImageByPath($path);
+				$mediaItem->onDelete();
+			}
   }
+
+
 
   public function updateImageSize($nggId, $path) {
 
@@ -332,8 +361,15 @@ class NextGenController
 
   protected function getImageAbspath($image, $size = 'full') {
       $storage = \C_Gallery_Storage::get_instance();
-      return $storage->get_image_abspath($image);
+      return $storage->get_image_abspath($image, $size);
   }
+
+  protected function getImageSizes($image)
+	{
+		 $storage = \C_Gallery_Storage::get_instance();
+
+		 return $storage->get_image_sizes($image);
+	}
 
 } // class.
 

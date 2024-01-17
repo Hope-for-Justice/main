@@ -36,6 +36,9 @@ class LanguagesList extends Endpoint
             if($external_code == 'br') {
                 $external_code = 'pt-br';
             }
+            if($external_code == 'sa') {
+                $external_code = 'sr-lt';
+            }
 
             return array(
                 'internal_code' => $data['code'],

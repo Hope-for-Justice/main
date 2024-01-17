@@ -1,36 +1,47 @@
-import {__} from "@wordpress/i18n";
-import {ListTableApi, ListTablePage} from "@givewp/components";
-import {donorsColumns} from "./DonorsColumns";
-import {DonorsRowActions} from "./DonorsRowActions";
-import {BulkActionsConfig, FilterConfig} from "@givewp/components/ListTable";
-import styles from "@givewp/components/ListTable/ListTablePage.module.scss";
+import {__} from '@wordpress/i18n';
+import {ListTableApi, ListTablePage} from '@givewp/components';
+import {DonorsRowActions} from './DonorsRowActions';
+import {BulkActionsConfig, FilterConfig} from '@givewp/components/ListTable/ListTablePage';
+import styles from '@givewp/components/ListTable/ListTablePage/ListTablePage.module.scss';
+import {Interweave} from 'interweave';
+import './style.scss';
+import BlankSlate from '@givewp/components/ListTable/BlankSlate';
+import ProductRecommendations from '@givewp/components/ListTable/ProductRecommendations';
 
 declare global {
     interface Window {
-        GiveDonors;
+        GiveDonors: {
+            apiNonce: string;
+            apiRoot: string;
+            forms: Array<{value: string; text: string}>;
+            table: {columns: Array<object>};
+            adminUrl: string;
+            pluginUrl: string;
+            dissedRecommendations: Array<string>;
+        };
     }
 }
 
 const API = new ListTableApi(window.GiveDonors);
 
-const donorsFilters:Array<FilterConfig> = [
+const donorsFilters: Array<FilterConfig> = [
     {
         name: 'search',
         type: 'search',
         inlineSize: '14rem',
         text: __('Name, Email, or Donor ID', 'give'),
-        ariaLabel: __('Search donors', 'give')
+        ariaLabel: __('Search donors', 'give'),
     },
     {
         name: 'form',
         type: 'formselect',
         text: __('All Donation Forms', 'give'),
         ariaLabel: __('Filter donation forms by status', 'give'),
-        options: window.GiveDonors.forms
-    }
-]
+        options: window.GiveDonors.forms,
+    },
+];
 
-const donorsBulkActions:Array<BulkActionsConfig> = [
+const donorsBulkActions: Array<BulkActionsConfig> = [
     {
         label: __('Delete', 'give'),
         value: 'delete',
@@ -43,36 +54,69 @@ const donorsBulkActions:Array<BulkActionsConfig> = [
         },
         confirm: (selected, names) => (
             <>
-                <p>
-                    {__('Really delete the following donors?', 'give')}
-                </p>
-                <ul role='document' tabIndex={0}>
+                <p>{__('Really delete the following donors?', 'give')}</p>
+                <ul role="document" tabIndex={0}>
                     {selected.map((id, index) => (
-                        <li key={id}>{names[index]}</li>
+                        <li key={id}>
+                            <Interweave attributes={{className: 'donorBulkModalContent'}} content={names[index]} />
+                        </li>
                     ))}
                 </ul>
                 <div>
-                    <input id='giveDonorsTableDeleteDonations' type='checkbox' defaultChecked={true}/>
-                    <label htmlFor='giveDonorsTableDeleteDonations'>
+                    <input id="giveDonorsTableDeleteDonations" type="checkbox" defaultChecked={true} />
+                    <label htmlFor="giveDonorsTableDeleteDonations">
                         {__('Delete all associated donations and records', 'give')}
                     </label>
                 </div>
             </>
-        )
-    }
+        ),
+    },
 ];
 
-export default function DonorsListTable(){
+/**
+ * Displays a blank slate for the Donors table.
+ * @since 2.27.0
+ */
+const ListTableBlankSlate = (
+    <BlankSlate
+        imagePath={`${window.GiveDonors.pluginUrl}assets/dist/images/list-table/blank-slate-donor-icon.svg`}
+        description={__('No donors found', 'give')}
+        href={'https://docs.givewp.com/donors'}
+        linkText={__('GiveWP Donors.', 'give')}
+    />
+);
+
+/**
+ * @since 2.27.1
+ */
+const RecommendationConfig: any = {
+    feeRecovery: {
+        enum: 'givewp_donors_fee_recovery_recommendation_dismissed',
+        documentationPage: 'https://docs.givewp.com/feerecovery-donors-list',
+        message: __(
+            ' 90% of donors opt to give more to help cover transaction fees when given the opportunity. Give donors that opportunity.',
+            'give'
+        ),
+        innerHtml: __('Get the Fee Recovery add-on today', 'give'),
+    },
+};
+
+const recommendation = (
+    <ProductRecommendations options={[RecommendationConfig.feeRecovery]} apiSettings={window.GiveDonors} />
+);
+
+export default function DonorsListTable() {
     return (
         <ListTablePage
             title={__('Donors', 'give')}
             singleName={__('donors', 'give')}
             pluralName={__('donors', 'give')}
-            columns={donorsColumns}
             rowActions={DonorsRowActions}
             bulkActions={donorsBulkActions}
             apiSettings={window.GiveDonors}
             filterSettings={donorsFilters}
+            listTableBlankSlate={ListTableBlankSlate}
+            productRecommendation={recommendation}
         >
             <button className={styles.addFormButton} onClick={showLegacyDonors}>
                 {__('Switch to Legacy View', 'give')}
@@ -84,4 +128,4 @@ export default function DonorsListTable(){
 const showLegacyDonors = async (event) => {
     await API.fetchWithArgs('/view', {isLegacy: 1});
     window.location.reload();
-}
+};

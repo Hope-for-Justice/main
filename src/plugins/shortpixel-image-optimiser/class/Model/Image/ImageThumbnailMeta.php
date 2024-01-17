@@ -1,32 +1,49 @@
 <?php
 namespace ShortPixel\Model\Image;
 
+if ( ! defined( 'ABSPATH' ) ) {
+ exit; // Exit if accessed directly.
+}
+
+use ShortPixel\ShortPixelLogger\ShortPixelLogger as Log;
+
 class ImageThumbnailMeta
 {
+	/** @var int */
 	public $databaseID = null;
+	/** @var int */
   public $status = 0;
+	/** @var int */
   public $compressionType;
+	/** @var int */
   public $compressedSize;
+	/** @var int */
   public $originalSize;
 //  public $improvement;
 
+	/** @var boolean */
   public $did_keepExif  = false;
-  public $did_cmyk2rgb = false;
-  public $did_png2jpg = false; // Was this replaced?
-	public $tried_png2jpg = false; // Tried it, might not have working.
 
+	/** @var boolean */
+  public $did_cmyk2rgb = false;
+
+	/** @var int */
   public $resize;
+	/** @var int */
   public $resizeWidth;
+	/** @var int */
   public $resizeHeight;
+	/** @var int */
 	public $resizeType;
+	/** @var int  */
   public $originalWidth;
+	/** @var int */
   public $originalHeight;
 
   public $tsAdded;
   public $tsOptimized;
   public $webp;
   public $avif;
-
 
   public $file; // **Only for unlisted images. This defines an unlisted image */
 
@@ -39,13 +56,16 @@ class ImageThumbnailMeta
      $this->tsAdded = time(); // default
   }
 
+
   /** Load data from basic class to prevent issues when class definitions changes over time */
   public function fromClass($object)
   {
+
      foreach($object as $property => $value)
      {
         if ($property == 'customImprovement')
         {  continue;  }
+
 
         if (property_exists($this, $property))
         {
@@ -53,6 +73,7 @@ class ImageThumbnailMeta
         }
      }
   }
+
 
   /** Save data as basic class to prevent issues when class definitions changes over time */
   public function toClass()
@@ -65,6 +86,14 @@ class ImageThumbnailMeta
        if ($property == 'customImprovement')
        {  continue;  }
 
+			 if ($property == 'convertMeta' && is_null($this->convertMeta))
+			 {
+				 	continue;
+			 }
+			 elseif ($property == 'convertMeta') {
+			 		$class->$property = $this->$property->toClass();
+					continue;
+			 }
       // if (is_null($value)) // don't save default / values without init.
        //   continue;
 

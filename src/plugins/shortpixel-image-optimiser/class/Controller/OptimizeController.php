@@ -1,6 +1,10 @@
 <?php
 namespace ShortPixel\Controller;
 
+if ( ! defined( 'ABSPATH' ) ) {
+ exit; // Exit if accessed directly.
+}
+
 use ShortPixel\Controller\ApiKeyController as ApiKeyController;
 use ShortPixel\Controller\Queue\MediaLibraryQueue as MediaLibraryQueue;
 use ShortPixel\Controller\Queue\CustomQueue as CustomQueue;
@@ -10,12 +14,15 @@ use ShortPixel\Controller\AjaxController as AjaxController;
 use ShortPixel\Controller\QuotaController as QuotaController;
 use ShortPixel\Controller\StatsController as StatsController;
 
-use ShortPixel\ShortpixelLogger\ShortPixelLogger as Log;
+use ShortPixel\ShortPixelLogger\ShortPixelLogger as Log;
 use ShortPixel\Controller\ResponseController as ResponseController;
 
 use ShortPixel\Model\Image\ImageModel as ImageModel;
 use ShortPixel\Helper\UiHelper as UiHelper;
 
+use ShortPixel\Helper\DownloadHelper as DownloadHelper;
+
+use ShortPixel\Model\Converter\Converter as Converter;
 
 class OptimizeController
 {
@@ -23,6 +30,8 @@ class OptimizeController
     protected static $results;
 
     protected $isBulk = false; // if queueSystem should run on BulkQueues;
+
+		protected static $lastId; // Last item_id received / send. For catching errors.
 
     public function __construct()
     {
@@ -72,8 +81,13 @@ class OptimizeController
 		* @param Object $mediaItem
     @return int Number of Items added
     */
-    public function addItemToQueue($mediaItem)
+    public function addItemToQueue($mediaItem, $args = array())
     {
+        $defaults = array(
+            'forceExclusion' => false,
+        );
+        $args = wp_parse_args($args, $defaults);
+
         $fs = \wpSPIO()->filesystem();
 
 				$json = $this->getJsonResponse();
@@ -93,10 +107,8 @@ class OptimizeController
 					ResponseController::addData($item->item_id, 'message', $item->result->message);
 
 					Log::addWarn('Item with id ' . $json->result->item_id . ' is not restorable,');
-
 					 return $json;
 				}
-
 
         $id = $mediaItem->get('id');
         $type = $mediaItem->get('type');
@@ -105,7 +117,9 @@ class OptimizeController
 
         // Manual Optimization order should always go trough
         if ($mediaItem->isOptimizePrevented() !== false)
+        {
             $mediaItem->resetPrevent();
+        }
 
         $queue = $this->getQueue($mediaItem->get('type'));
 
@@ -116,13 +130,21 @@ class OptimizeController
           $json->result->is_done = true;
           $json->result->message = __('Error - item could not be found', 'shortpixel-image-optimiser');
           $json->result->fileStatus = ImageModel::FILE_STATUS_ERROR;
-          //return $json;
         }
 
-        if (! $mediaItem->isProcessable())
+        $is_processable = $mediaItem->isProcessable();
+        // Allow processable to be overridden when using the manual optimize button
+        if (false === $is_processable && true === $mediaItem->isUserExcluded() && true === $args['forceExclusion'] )
+        {
+          $mediaItem->cancelUserExclusions();
+          $is_processable = true;
+        }
+
+        // If is not processable and not user excluded (user via this way can force an optimize if needed) then don't do it!
+        if (false === $is_processable)
         {
           $json->result->message = $mediaItem->getProcessableReason();
-          $json->result->is_error = true;
+          $json->result->is_error = false;
           $json->result->is_done = true;
           $json->result->fileStatus = ImageModel::FILE_STATUS_ERROR;
         }
@@ -135,12 +157,11 @@ class OptimizeController
 				}
         else
         {
-          $result = $queue->addSingleItem($mediaItem); // 1 if ok, 0 if not found, false is not processable
+          $result = $queue->addSingleItem($mediaItem, $args); // 1 if ok, 0 if not found, false is not processable
           if ($result->numitems > 0)
           {
             $json->result->message = sprintf(__('Item %s added to Queue. %d items in Queue', 'shortpixel-image-optimiser'), $mediaItem->getFileName(), $result->numitems);
             $json->status = 1;
-
           }
           else
           {
@@ -151,7 +172,7 @@ class OptimizeController
             $json->qstatus = $result->qstatus;
             $json->result->fileStatus = ImageModel::FILE_STATUS_PENDING;
             $json->result->is_error = false;
-            $json->result->message = __('Item added to queue and will be optimized on the next run', 'shortpixel-image-optimiser');
+            $json->result->message = __('Item has been added to the queue and will be optimized on the next run', 'shortpixel-image-optimiser');
         }
 
         return $json;
@@ -235,7 +256,7 @@ class OptimizeController
 				$now = function_exists('wp_date') ? wp_date( 'U', time() ) : time();
 
 				// Reset the whole thing after that.
-				$mediaItem = $fs->getImage($item_id, $mediaItem->get('type'));
+				$mediaItem = $fs->getImage($item_id, $mediaItem->get('type'), false);
 
 				// Dump this item from server if optimized in the last hour, since it can still be server-side cached.
 				if ( ( $now   - $optimized) < HOUR_IN_SECONDS )
@@ -265,7 +286,6 @@ class OptimizeController
 
         }
 
-
         return $json;
     }
 
@@ -273,7 +293,7 @@ class OptimizeController
 		*
 		* @param Object $mediaItem
 		*/
-		public function reOptimizeItem($mediaItem, $compressionType)
+		public function reOptimizeItem($mediaItem, $compressionType, $args = array())
     {
       $json = $this->restoreItem($mediaItem);
 
@@ -283,10 +303,23 @@ class OptimizeController
 					$fs->flushImageCache();
 
           // Hard reload since metadata probably removed / changed but still loaded, which might enqueue wrong files.
-            $mediaItem = $fs->getImage($mediaItem->get('id'), $mediaItem->get('type'));
-
+            $mediaItem = $fs->getImage($mediaItem->get('id'), $mediaItem->get('type'), false);
             $mediaItem->setMeta('compressionType', $compressionType);
-            $json = $this->addItemToQueue($mediaItem);
+
+						if (isset($args['smartcrop']))
+						{
+							 $mediaItem->doSetting('smartcrop', $args['smartcrop']);
+						}
+
+            // This is a user triggered thing. If the whole thing is user excluxed, but one ones this, then ok.
+            $args = array();
+            if (false === $mediaItem->isProcessable() && true === $mediaItem->isUserExcluded())
+            {
+               $args['forceExclusion'] = true;
+            }
+
+
+            $json = $this->addItemToQueue($mediaItem, $args);
             return $json;
       }
 
@@ -297,8 +330,13 @@ class OptimizeController
     /** Returns the state of the queue so the startup JS can decide if something is going on and what.  **/
     public function getStartupData()
     {
+
         $mediaQ = $this->getQueue('media');
         $customQ = $this->getQueue('custom');
+
+				// Clean queue upon starting a load.
+				//$mediaQ->cleanQueue();
+			  //$customQ->cleanQueue();
 
         $data = new \stdClass;
         $data->media = new \stdClass;
@@ -326,6 +364,7 @@ class OptimizeController
     */
     public function processQueue($queueTypes = array())
     {
+
         $keyControl = ApiKeyController::getInstance();
 
         if ($keyControl->keyIsVerified() === false)
@@ -382,8 +421,6 @@ class OptimizeController
         $results->total = $this->calculateStatsTotals($results);
 				$results = $this->numberFormatStats($results);
 
-    //    $this->checkCleanQueue($results);
-
         return $results;
     }
 
@@ -424,30 +461,39 @@ class OptimizeController
 		*/
     public function sendToProcessing($item, $q)
     {
-
       $api = $this->getAPI();
+			$this->setLastID($item->item_id);
 
 			$fs = \wpSPIO()->filesystem();
 			$qtype = $q->getType();
 			$qtype = strtolower($qtype);
 
+      // Options contained in the queue item for extra uh options
+      $options = (property_exists($item, 'options')) ? $item->options : array();
+
 			$imageObj = $fs->getImage($item->item_id, $qtype);
+
 			if (is_object($imageObj))
 			{
 				ResponseController::addData($item->item_id, 'fileName', $imageObj->getFileName());
+			}
+      else {
+         // If image doesn't produce object, bail out.
+         return $this->handleAPIResult($item, $q);
+      }
 
-			}
-			// @todo Figure out why this isn't just on action regime as well.
-			if (property_exists($item, 'png2jpg'))
+			// If item is blocked (handling success), skip over. This can happen if internet is slow or process too fast.
+			if (property_exists($item, 'blocked') && true === $item->blocked )
 			{
-				 $item->action = 'png2jpg';
+					$item = $this->handleAPIResult($item, $q);
 			}
-      if (property_exists($item, 'action'))
+      elseif (property_exists($item, 'action')) // ResultMessages in ResponseController
       {
             $item->result = new \stdClass;
             $item->result->is_done = true; // always done
             $item->result->is_error = false; // for now
             $item->result->apiStatus = ApiController::STATUS_NOT_API;
+            ResponseController::addData($item->item_id, 'action', $item->action);
 
 					 if ($imageObj === false) // not exist error.
 					 {
@@ -473,6 +519,18 @@ class OptimizeController
       }
       else // as normal
       {
+        $is_processable = $imageObj->isProcessable();
+        // Allow processable to be overridden when using the manual optimize button - ignore when this happens already to be in queue.
+
+        if (false === $is_processable )
+        {
+          if (is_object($options) && property_exists($options,'forceExclusion') && true == $options->forceExclusion)
+          {
+            $imageObj->cancelUserExclusions();
+          }
+
+        }
+
 				$item = $api->processMediaItem($item, $imageObj);
 
       }
@@ -481,6 +539,9 @@ class OptimizeController
 
     protected function convertPNG($item, $mediaQ)
     {
+			$item->blocked = true;
+			$mediaQ->updateItem($item);
+
       $settings = \wpSPIO()->settings();
       $fs = \wpSPIO()->filesystem();
 
@@ -488,10 +549,23 @@ class OptimizeController
 
 			 if ($imageObj === false) // not exist error.
 			 {
+				 $item->blocked = false;
+				 $q->updateItem($item);
+
 			 	 return $item; //$this->handleAPIResult($item, $mediaQ);
 			 }
 
-      $bool = $imageObj->convertPNG();
+				$converter = Converter::getConverter($imageObj, true);
+				$bool = false; // init
+				if (false === $converter)
+				{
+					 Log::addError('Converter on Convert function returned false ' . $imageObj->get('id'));
+					 $bool = false;
+				}
+				elseif ($converter->isConvertable())
+				{
+					$bool = $converter->convert();
+				}
 
 			if ($bool)
 			{
@@ -507,6 +581,10 @@ class OptimizeController
 			// Keep compressiontype from object, set in queue, imageModelToQueue
 			$imageObj->setMeta('compressionType', $item->compressionType);
 
+			$item->blocked = false;
+			$mediaQ->updateItem($item);
+
+// @todo Turn this back on!
       $this->addItemToQueue($imageObj);
 
       return $item;
@@ -537,6 +615,15 @@ class OptimizeController
 
 				ResponseController::addData($item->item_id, 'message', $item->result->message);
       }
+			elseif(property_exists($item, 'blocked') && true === $item->blocked)
+			{
+				$item->result = new \stdClass;
+				$item->result->apiStatus = ApiController::STATUS_UNCHANGED;
+				$item->result->message = __('Item is waiting (blocked)', 'shortpixel-image-optimiser');
+				$item->result->is_done = false;
+				$item->result->is_error = false;
+				Log::addWarn('Encountered blocked item, processing success? ', $item->item_id);
+			}
       else
 			{
 				// This used in bulk preview for formatting filename.
@@ -592,8 +679,9 @@ class OptimizeController
       }
       elseif ($result->is_done)
       {
-         if ($result->apiStatus == ApiController::STATUS_SUCCESS )
+         if ($result->apiStatus == ApiController::STATUS_SUCCESS ) // Is done and with success
          {
+
            $tempFiles = array();
 
            // Set the metadata decided on APItime.
@@ -604,17 +692,13 @@ class OptimizeController
 
 					 if (count($result->files) > 0 )
            {
-						 	// Dump Stats, Dump Quota. Refresh
-							$quotaController->forceCheckRemoteQuota();
-							$statsController->reset();
+              //$optimizeResult = $imageItem->handleOptimized($result->files); // returns boolean or null
 
-              $optimizeResult = $imageItem->handleOptimized($result->files); // returns boolean or null
+							$status = $this->handleOptimizedItem($q, $item, $imageItem, $result->files);
+
               $item->result->improvements = $imageItem->getImprovements();
 
-
-
-
-              if ($optimizeResult)
+              if (ApiController::STATUS_SUCCESS == $status)
               {
                  $item->result->apiStatus = ApiController::STATUS_SUCCESS;
                  $item->fileStatus = ImageModel::FILE_STATUS_SUCCESS;
@@ -622,6 +706,21 @@ class OptimizeController
                  do_action('shortpixel_image_optimised', $imageItem->get('id'));
 								 do_action('shortpixel/image/optimised', $imageItem);
                }
+							 elseif(ApiController::STATUS_CONVERTED == $status)
+							 {
+								 $item->result->apiStatus = ApiController::STATUS_CONVERTED;
+								 $item->fileStatus = ImageModel::FILE_STATUS_SUCCESS;
+
+								 $fs = \wpSPIO()->filesystem();
+		 						 $imageItem = $fs->getMediaImage($item->item_id);
+
+								 if (property_exists($item, 'compressionTypeRequested'))
+								 {
+										$item->compressionType = $item->compressionTypeRequested;
+								 }
+								 // Keep compressiontype from object, set in queue, imageModelToQueue
+								 $imageItem->setMeta('compressionType', $item->compressionType);
+							 }
                else
                {
                  $item->result->apiStatus = ApiController::STATUS_ERROR;
@@ -656,6 +755,12 @@ class OptimizeController
 								$item->result->optimized = $fs->pathToUrl($showItem);
 							}
 
+							// Dump Stats, Dump Quota. Refresh
+							//$quotaController->forceCheckRemoteQuota();
+							$statsController->reset();
+
+							$this->deleteTempFiles($item);
+
            }
            // This was not a request process, just handle it and mark it as done.
            elseif ($result->apiStatus == ApiController::STATUS_NOT_API)
@@ -672,7 +777,8 @@ class OptimizeController
               $item->result->apiStatus = ApiController::STATUS_FAIL;
            }
 
-         }
+
+         }  // Is Done / Handle Success
 
 				 // This is_error can happen not from api, but from handleOptimized
          if ($item->result->is_error)
@@ -686,12 +792,12 @@ class OptimizeController
            if ($imageItem->isProcessable() && $result->apiStatus !== ApiController::STATUS_NOT_API)
            {
               Log::addDebug('Item with ID' . $imageItem->item_id . ' still has processables (with dump)', $imageItem->getOptimizeUrls());
+
  						  $api = $this->getAPI();
 							$newItem = new \stdClass;
 							$newItem->urls = $imageItem->getOptimizeUrls();
 
 							// Add to URLs also the possiblity of images with only webp / avif needs. Otherwise URLs would end up emtpy.
-							//$newItem->urls = array_merge($newItem->urls, $webps, $avifs);
 
 							// It can happen that only webp /avifs are left for this image. This can't influence the API cache, so dump is not needed. Just don't send empty URLs for processing here.
 							if (count($newItem->urls) > 0)
@@ -701,7 +807,7 @@ class OptimizeController
 
               $this->addItemToQueue($imageItem); // requeue for further processing.
            }
-           else
+           elseif (ApiController::STATUS_CONVERTED !== $result->apiStatus)
 					 {
             $q->itemDone($item); // Unbelievable but done.
 					 }
@@ -709,22 +815,33 @@ class OptimizeController
       }
       else
       {
-          if ($result->apiStatus == ApiController::STATUS_UNCHANGED)
+          if ($result->apiStatus == ApiController::STATUS_UNCHANGED || $result->apiStatus === Apicontroller::STATUS_PARTIAL_SUCCESS)
           {
               $item->fileStatus = ImageModel::FILE_STATUS_PENDING;
 							$retry_limit = $q->getShortQ()->getOption('retry_limit');
 
+							if ($result->apiStatus === ApiController::STATUS_PARTIAL_SUCCESS)
+							{
+									if (count($result->files) > 0 )
+									{
+										 //$optimizeResult = $imageItem->handleOptimized($result->files); // returns boolean or null
+										 $this->handleOptimizedItem($q, $item, $imageItem, $result->files);
+									}
+									else {
+										Log::addWarn('Status is partial success, but no files followed. ');
+									}
 
-							// Try to replace the item ID with the filename.
-						//	$item->result->message = substr_replace( $item->result->message,  $imageItem->getFileName() . ' ', strpos($item->result->message, '#' . $item->item_id), 0);
-             // $item->result->message .= sprintf(__('(cycle %d)', 'shortpixel-image-optimiser'), intval($item->tries) );
+									// Let frontend follow unchanged / waiting procedure.
+									$result->apiStatus = ApiController::STATUS_UNCHANGED;
 
+							}
 
 							if ($retry_limit == $item->tries || $retry_limit == ($item->tries -1))
 							{
 
 									$item->result->apiStatus = ApiController::ERR_TIMEOUT;
 									$message = __('Retry Limit reached. Image might be too large, limit too low or network issues.  ', 'shortpixel-image-optimiser');
+									$item->result->message = $message;
 
 									ResponseController::addData($item->item_id, 'message', $message);
 									ResponseController::addData($item->item_id, 'is_error', true);
@@ -734,6 +851,8 @@ class OptimizeController
 									$item->result->is_done = true;
 
 									$this->HandleItemError($item, $qtype);
+
+									// @todo Remove temp files here
 							}
 							else {
 									ResponseController::addData($item->item_id, 'message', $item->result->message); // item is waiting base line here.
@@ -777,11 +896,117 @@ class OptimizeController
 			$item->result->message = ResponseController::formatItem($item->item_id);
 
 			if ($item->result->is_error)
-				$item->result->kblink = UIHelper::getKBSearchLink($item->result->message);
+				$item->result->kblink = UiHelper::getKBSearchLink($item->result->message);
 
       return $item;
 
     }
+
+
+		protected function handleOptimizedItem($q, $item, $mediaObj, $successData)
+		{
+				$imageArray = $successData['files'];
+
+				$downloadHelper = DownloadHelper::getInstance();
+				$converter = Converter::getConverter($mediaObj, true);
+
+				$item->blocked = true;
+				$q->updateItem($item);
+
+				if (! property_exists($item, 'files'))
+				{
+					$item->files = array();
+				}
+
+				foreach($imageArray as $imageName => $image)
+				{
+					 if (! isset($item->files[$imageName]))
+					 {
+						 $item->files[$imageName]  = array();
+					 }
+
+					 if (isset($item->files[$imageName]['image']) && file_exists($item->files[$imageName]['image']))
+					 {
+						  // All good.
+					 }
+					 // If status is success.  When converting (API) allow files that are bigger
+					 elseif ($image['image']['status'] == ApiController::STATUS_SUCCESS ||
+					 				($image['image']['status'] == ApiController::STATUS_OPTIMIZED_BIGGER && is_object($converter))
+									)
+					 {
+						  $tempFile = $downloadHelper->downloadFile($image['image']['url']);
+							if (is_object($tempFile))
+							{
+								$item->files[$imageName]['image'] = $tempFile->getFullPath();
+								$imageArray[$imageName]['image']['file'] = $tempFile->getFullPath();
+							}
+					 }
+
+
+					 if (! isset($item->files[$imageName]['webp']) &&  $image['webp']['status'] == ApiController::STATUS_SUCCESS)
+					 {
+						 $tempFile = $downloadHelper->downloadFile($image['webp']['url']);
+						 if (is_object($tempFile))
+						 {
+						 		$item->files[$imageName]['webp'] = $tempFile->getFullPath();
+						 		$imageArray[$imageName]['webp']['file'] = $tempFile->getFullPath();
+					 		}
+				 	 }
+					 elseif ($image['webp']['status'] == ApiController::STATUS_OPTIMIZED_BIGGER) {
+					 		$item->files[$imageName]['webp'] = ApiController::STATUS_OPTIMIZED_BIGGER;
+					 }
+
+					 if (! isset($item->files[$imageName]['avif']) && $image['avif']['status'] == ApiController::STATUS_SUCCESS)
+					 {
+						 $tempFile = $downloadHelper->downloadFile($image['avif']['url']);
+						 if (is_object($tempFile))
+						 {
+						 		$item->files[$imageName]['avif'] = $tempFile->getFullPath();
+						 		$imageArray[$imageName]['avif']['file'] = $tempFile->getFullPath();
+						 }
+					 }
+					 elseif ($image['avif']['status'] == ApiController::STATUS_OPTIMIZED_BIGGER) {
+					 		$item->files[$imageName]['avif'] = ApiController::STATUS_OPTIMIZED_BIGGER;
+
+					 }
+				}
+
+				$successData['files']  = $imageArray;
+
+				$converter = Converter::getConverter($mediaObj, true);
+				$optimizedArgs = array();
+				if (is_object($converter) && $converter->isConverterFor('heic') )
+				{
+					$optimizedResult = $converter->handleConverted($successData);
+					if (true === $optimizedResult)
+					{
+						ResponseController::addData($item->item_id, 'message', __('File Converted', 'shortpixel-image-optimiser'));
+						$status = ApiController::STATUS_CONVERTED;
+
+					}
+					else {
+						ResponseController::addData($item->item_id, 'message', __('File conversion failed.', 'shortpixel-image-optimiser'));
+						$q->itemFailed($item, true);
+            Log::addError('File conversion failed with data ', $successData);
+						$status = ApiController::STATUS_FAIL;
+					}
+
+				}
+				else
+				{
+					$optimizedResult = $mediaObj->handleOptimized($successData);
+					if (true === $optimizedResult)
+					  $status = ApiController::STATUS_SUCCESS;
+					else {
+						$status = ApiController::STATUS_FAIL;
+					}
+				}
+
+				$item->blocked = false;
+				$q->updateItem($item);
+
+				return $status;
+		}
 
 
     /**
@@ -808,6 +1033,7 @@ class OptimizeController
                 $thumb = $imageObj->getThumbnail($sizeName);
                 if ($thumb !== false)
                 {
+
                   $thumb->setMeta('status', ImageModel::FILE_STATUS_UNPROCESSED);
 									$thumb->onDelete();
 
@@ -917,6 +1143,7 @@ class OptimizeController
     // Communication Part
     protected function getJsonResponse()
     {
+
       $json = new \stdClass;
       $json->status = null;
       $json->result = null;
@@ -1020,8 +1247,7 @@ class OptimizeController
 
 		private function numberFormatStats($results) // run the whole stats thing through the numberFormat.
 		{
-//			 $run = array('media', 'custom', 'total')
-
+			//qn: array('media', 'custom', 'total')
 			 foreach($results as $qn => $item)
 			 {
 				  if (is_object($item) && property_exists($item, 'stats'))
@@ -1033,16 +1259,16 @@ class OptimizeController
 								 {
 									  foreach($value as $key2 => $val2) // embedded 'images' can happen here.
 										{
-										 $value->$key2 = UIHelper::formatNumber($val2, 0);
+										 $value->$key2 = UiHelper::formatNumber($val2, 0);
 										}
 								 }
 								 elseif (strpos($key, 'percentage') !== false)
 								 {
-								 	  $value = UIHelper::formatNumber($value, 2);
+								 	  $value = UiHelper::formatNumber($value, 2);
 								 }
-								 else
+								 elseif (is_numeric($value))
 								 {
-								 		$value = UIHelper::formatNumber($value, 0);
+								 		$value = UiHelper::formatNumber($value, 0);
 								 }
 
 								$results->$qn->stats->$key = $value;
@@ -1054,6 +1280,41 @@ class OptimizeController
 					}
 			 }
 			 return $results;
+		}
+
+		protected function deleteTempFiles($item)
+		{
+				if (! property_exists($item, 'files'))
+				{
+					return false;
+				}
+
+				$files = $item->files;
+				$fs = \wpSPIO()->filesystem();
+
+				foreach($files as $name => $data)
+				{
+						foreach($data as $tmpPath)
+						{
+							 if (is_numeric($tmpPath)) // Happens when result is bigger status is set.
+							 	continue;
+
+								$tmpFile = $fs->getFile($tmpPath);
+								if ($tmpFile->exists())
+									$tmpFile->delete();
+						}
+				}
+
+		}
+
+		protected function setLastID($item_id)
+		{
+			 self::$lastId = $item_id;
+		}
+
+		public static function getLastId()
+		{
+			 return self::$lastId;
 		}
 
     public static function resetQueues()

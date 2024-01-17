@@ -23,7 +23,6 @@ function init_hooks() {
 	add_action( 'init',                               __NAMESPACE__ . '\action_init' );
 	add_action( 'init',                               __NAMESPACE__ . '\action_handle_posts' );
 	add_action( 'admin_menu',                         __NAMESPACE__ . '\action_admin_menu' );
-	add_action( 'wp_ajax_crontrol_checkhash',         __NAMESPACE__ . '\ajax_check_events_hash' );
 	add_filter( "plugin_action_links_{$plugin_file}", __NAMESPACE__ . '\plugin_action_links', 10, 4 );
 	add_filter( "network_admin_plugin_action_links_{$plugin_file}", __NAMESPACE__ . '\network_plugin_action_links' );
 	add_filter( 'removable_query_args',               __NAMESPACE__ . '\filter_removable_query_args' );
@@ -36,6 +35,9 @@ function init_hooks() {
 	add_action( 'crontrol_cron_job',     __NAMESPACE__ . '\action_php_cron_event' );
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
 	add_action( 'crontrol/tab-header',   __NAMESPACE__ . '\show_cron_status', 20 );
+	add_action( 'activated_plugin',      __NAMESPACE__ . '\flush_status_cache', 10, 0 );
+	add_action( 'deactivated_plugin',    __NAMESPACE__ . '\flush_status_cache', 10, 0 );
+	add_action( 'switch_theme',          __NAMESPACE__ . '\flush_status_cache', 10, 0 );
 }
 
 /**
@@ -94,13 +96,20 @@ function filter_plugin_row_meta( array $plugin_meta, $plugin_file ) {
 function action_init() {
 	load_plugin_textdomain( 'wp-crontrol', false, dirname( plugin_basename( PLUGIN_FILE ) ) . '/languages' );
 
-	/** @var array<string, true>|false $paused */
-	$paused = get_option( PAUSED_OPTION, array() );
+	/** @var array<array-key, true>|false $paused */
+	$paused = get_option( PAUSED_OPTION );
 
-	if ( is_array( $paused ) ) {
-		foreach ( $paused as $hook => $value ) {
-			add_action( $hook, __NAMESPACE__ . '\\pauser', -99999 );
+	if ( ! is_array( $paused ) ) {
+		$paused = array();
+		update_option( PAUSED_OPTION, $paused, true );
+	}
+
+	foreach ( $paused as $hook => $value ) {
+		if ( ! is_string( $hook ) ) {
+			continue;
 		}
+
+		add_action( $hook, __NAMESPACE__ . '\\pauser', -99999, 0 );
 	}
 }
 
@@ -1028,7 +1037,7 @@ function admin_options_page() {
  * What on earth does this function do, and why?
  *
  * Good question. The purpose of this function is to prevent other overdue cron events from firing when an event is run
- * manually with the "Run Now" action. WP Crontrol works very hard to ensure that when cron event runs manually that it
+ * manually with the "Run now" action. WP Crontrol works very hard to ensure that when cron event runs manually that it
  * runs in the exact same way it would run as part of its schedule - via a properly spawned cron with a queued event in
  * place. It does this by queueing an event at time `1` (1 second into 1st January 1970) and then immediately spawning
  * cron (see the `Event\run()` function).
@@ -1058,25 +1067,6 @@ function maybe_clear_doing_cron( $pre ) {
 }
 
 /**
- * Ajax handler which outputs a hash of the current list of scheduled events.
- *
- * @return void
- */
-function ajax_check_events_hash() {
-	if ( ! current_user_can( 'manage_options' ) ) {
-		wp_send_json_error( null, 403 );
-	}
-
-	$data = json_encode( Event\get() );
-
-	if ( false === $data ) {
-		wp_send_json_error( null, 500 );
-	}
-
-	wp_send_json_success( md5( $data ) );
-}
-
-/**
  * Gets the status of WP-Cron functionality on the site by performing a test spawn if necessary. Cached for one hour when all is well.
  *
  * @param bool $cache Whether to use the cached result from previous calls.
@@ -1088,7 +1078,6 @@ function test_cron_spawn( $cache = true ) {
 	$cron_runner_plugins = array(
 		'\HM\Cavalcade\Plugin\Job'         => 'Cavalcade',
 		'\Automattic\WP\Cron_Control\Main' => 'Cron Control',
-		'\KMM\KRoN\Core'                   => 'KMM KRoN',
 	);
 
 	foreach ( $cron_runner_plugins as $class => $plugin ) {
@@ -1134,7 +1123,7 @@ function test_cron_spawn( $cache = true ) {
 			'blocking'  => true,
 			'sslverify' => apply_filters( 'https_local_ssl_verify', $sslverify ),
 		),
-	) );
+	), $doing_wp_cron );
 
 	$cron_request['args']['blocking'] = true;
 
@@ -1153,6 +1142,15 @@ function test_cron_spawn( $cache = true ) {
 		return true;
 	}
 
+}
+
+/**
+ * Deletes the cached value of the cron status check.
+ *
+ * @return void
+ */
+function flush_status_cache() {
+	delete_transient( 'crontrol-cron-test-ok' );
 }
 
 /**
@@ -1841,7 +1839,7 @@ function get_hook_callbacks( $name ) {
 			foreach ( $callbacks as $callback ) {
 				$callback = populate_callback( $callback );
 
-				if ( __NAMESPACE__ . '\\pauser' === $callback['function'] ) {
+				if ( __NAMESPACE__ . '\\pauser()' === $callback['name'] ) {
 					continue;
 				}
 
@@ -1973,17 +1971,17 @@ function interval( $since ) {
 	// Array of time period chunks.
 	$chunks = array(
 		/* translators: 1: The number of years in an interval of time. */
-		array( 60 * 60 * 24 * 365, _n_noop( '%s year', '%s years', 'wp-crontrol' ) ),
+		array( YEAR_IN_SECONDS, _n_noop( '%s year', '%s years', 'wp-crontrol' ) ),
 		/* translators: 1: The number of months in an interval of time. */
-		array( 60 * 60 * 24 * 30, _n_noop( '%s month', '%s months', 'wp-crontrol' ) ),
+		array( MONTH_IN_SECONDS, _n_noop( '%s month', '%s months', 'wp-crontrol' ) ),
 		/* translators: 1: The number of weeks in an interval of time. */
-		array( 60 * 60 * 24 * 7, _n_noop( '%s week', '%s weeks', 'wp-crontrol' ) ),
+		array( WEEK_IN_SECONDS, _n_noop( '%s week', '%s weeks', 'wp-crontrol' ) ),
 		/* translators: 1: The number of days in an interval of time. */
-		array( 60 * 60 * 24, _n_noop( '%s day', '%s days', 'wp-crontrol' ) ),
+		array( DAY_IN_SECONDS, _n_noop( '%s day', '%s days', 'wp-crontrol' ) ),
 		/* translators: 1: The number of hours in an interval of time. */
-		array( 60 * 60, _n_noop( '%s hour', '%s hours', 'wp-crontrol' ) ),
+		array( HOUR_IN_SECONDS, _n_noop( '%s hour', '%s hours', 'wp-crontrol' ) ),
 		/* translators: 1: The number of minutes in an interval of time. */
-		array( 60, _n_noop( '%s minute', '%s minutes', 'wp-crontrol' ) ),
+		array( MINUTE_IN_SECONDS, _n_noop( '%s minute', '%s minutes', 'wp-crontrol' ) ),
 		/* translators: 1: The number of seconds in an interval of time. */
 		array( 1, _n_noop( '%s second', '%s seconds', 'wp-crontrol' ) ),
 	);
@@ -2036,14 +2034,6 @@ function interval( $since ) {
 function setup_manage_page() {
 	// Initialise the list table
 	Event\get_list_table();
-
-	// Add the initially hidden admin notice about the out of date events list
-	add_action( 'admin_notices', function() {
-		printf(
-			'<div id="crontrol-hash-message" class="notice notice-info"><p>%s</p></div>',
-			esc_html__( 'The scheduled cron events have changed since you first opened this page. Reload the page to see the up to date list.', 'wp-crontrol' )
-		);
-	} );
 }
 
 /**
@@ -2059,22 +2049,26 @@ function enqueue_assets( $hook_suffix ) {
 		return;
 	}
 
-	$ver = (string) filemtime( plugin_dir_path( PLUGIN_FILE ) . 'css/wp-crontrol.css' );
-	wp_enqueue_style( 'wp-crontrol', plugin_dir_url( PLUGIN_FILE ) . 'css/wp-crontrol.css', array( 'dashicons' ), $ver );
-
-	$ver = (string) filemtime( plugin_dir_path( PLUGIN_FILE ) . 'js/wp-crontrol.js' );
-	wp_enqueue_script( 'wp-crontrol', plugin_dir_url( PLUGIN_FILE ) . 'js/wp-crontrol.js', array( 'jquery', 'wp-a11y' ), $ver, true );
+	wp_enqueue_style(
+		'wp-crontrol',
+		plugin_dir_url( PLUGIN_FILE ) . 'css/wp-crontrol.css',
+		array(
+			'dashicons',
+		),
+		WP_CRONTROL_VERSION
+	);
+	wp_enqueue_script(
+		'wp-crontrol',
+		plugin_dir_url( PLUGIN_FILE ) . 'js/wp-crontrol.js',
+		array(
+			'jquery',
+			'wp-a11y',
+		),
+		WP_CRONTROL_VERSION,
+		true
+	);
 
 	$vars = array();
-
-	if ( ! empty( $tab['events'] ) ) {
-		$data = json_encode( Event\get() );
-
-		if ( false !== $data ) {
-			$vars['eventsHash'] = md5( $data );
-			$vars['eventsHashInterval'] = 20;
-		}
-	}
 
 	if ( ! empty( $tab['add-event'] ) || ! empty( $tab['edit-event'] ) ) {
 		if ( function_exists( 'wp_enqueue_code_editor' ) && current_user_can( 'edit_files' ) ) {

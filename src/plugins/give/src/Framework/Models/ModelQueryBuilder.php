@@ -5,6 +5,7 @@ namespace Give\Framework\Models;
 use Give\Framework\Database\DB;
 use Give\Framework\Exceptions\Primitives\InvalidArgumentException;
 use Give\Framework\Models\Contracts\ModelCrud;
+use Give\Framework\QueryBuilder\Clauses\RawSQL;
 use Give\Framework\QueryBuilder\QueryBuilder;
 
 /**
@@ -32,11 +33,32 @@ class ModelQueryBuilder extends QueryBuilder
     }
 
     /**
+     * Returns the number of rows returned by a query
+     *
+     * @since 2.24.0
+     *
+     * @param  null|string  $column
+     */
+    public function count($column = null): int
+    {
+        $column = ( ! $column || $column === '*') ? '1' : trim($column);
+
+        if ('1' === $column) {
+            $this->selects = [];
+        }
+        $this->selects[] = new RawSQL('SELECT COUNT(%1s) AS count', $column);
+
+        return +parent::get()->count;
+    }
+
+    /**
      * Get row
      *
      * @since 2.19.6
      *
      * @return M|null
+     *
+     * @param int $output For inheritance compatibility only, unused.
      */
     public function get($output = OBJECT)
     {
@@ -55,6 +77,8 @@ class ModelQueryBuilder extends QueryBuilder
      * @since 2.19.6
      *
      * @return M[]|null
+     *
+     * @param int $output For inheritance compatibility only, unused.
      */
     public function getAll($output = OBJECT)
     {

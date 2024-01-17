@@ -31,6 +31,14 @@ class SearchWP_Live_Search_Notifications {
 	private const OPTION_NAME = 'searchwp_lite_admin_notifications';
 
 	/**
+	 * Internal constant to populate the Notifications panel bypassing all checks.
+	 * Change false to true to enable.
+	 *
+	 * @since 1.7.5
+	 */
+	private const TEST_MODE = false;
+
+	/**
 	 * Init.
 	 *
 	 * @since 1.7.3
@@ -183,18 +191,16 @@ class SearchWP_Live_Search_Notifications {
 		$notifications = self::get();
 
 		?>
-        <div class="searchwp-branding-bar__actions-button">
-			<?php if ( ! empty( $notifications ) ) : ?>
-                <div class="searchwp-branding-bar__actions-button-count"
-                     aria-label="<?php echo count( $notifications ); ?> unread notifications">
-                    <span><?php echo count( $notifications ); ?></span>
-                </div>
-			<?php endif; ?>
-            <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M15.8333 2.5H4.16667C3.25 2.5 2.5 3.25 2.5 4.16667V15.8333c0 .9167.74167 1.6667 1.66667 1.6667H15.8333c.9167 0 1.6667-.75 1.6667-1.6667V4.16667C17.5 3.25 16.75 2.5 15.8333 2.5Zm0 13.3333H4.16667v-2.5h2.96666C7.70833 14.325 8.775 15 10.0083 15c1.2334 0 2.2917-.675 2.875-1.6667h2.95v2.5Zm-4.1583-4.1666h4.1583V4.16667H4.16667v7.50003h4.175c0 .9166.75 1.6666 1.66663 1.6666.9167 0 1.6667-.75 1.6667-1.6666Z"
-                      fill="currentColor"></path>
-            </svg>
+        <div id="swp-notifications-page-header-button" class="swp-header-menu--item swp-relative" title="<?php esc_html_e( 'Notifications', 'searchwp-live-ajax-search' ); ?>">
+	        <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+		        <path fill-rule="evenodd" clip-rule="evenodd" d="M13.3333 0.5H1.66667C0.75 0.5 0 1.25 0 2.16667V13.8333C0 14.75 0.741667 15.5 1.66667 15.5H13.3333C14.25 15.5 15 14.75 15 13.8333V2.16667C15 1.25 14.25 0.5 13.3333 0.5ZM13.3333 13.8333H1.66667V11.3333H4.63333C5.20833 12.325 6.275 13 7.50833 13C8.74167 13 9.8 12.325 10.3833 11.3333H13.3333V13.8333ZM9.175 9.66667H13.3333V2.16667H1.66667V9.66667H5.84167C5.84167 10.5833 6.59167 11.3333 7.50833 11.3333C8.425 11.3333 9.175 10.5833 9.175 9.66667Z" fill="#0E2121" fill-opacity="0.6"/>
+	        </svg>
+
+	        <?php if ( ! empty( $notifications ) ) : ?>
+		        <div class="swp-badge">
+			        <span><?php echo count( $notifications ); ?></span>
+		        </div>
+	        <?php endif; ?>
         </div>
 		<?php
 	}
@@ -259,7 +265,7 @@ class SearchWP_Live_Search_Notifications {
                     </div>
                 </div>
                 <div class="searchwp-notifications-notification__content">
-                    <p><?php echo esc_html( $notification['content'] ); ?></p>
+                    <p><?php echo wp_kses_post( $notification['content'] ); ?></p>
                 </div>
                 <div class="searchwp-notifications-notification__actions">
 					<?php foreach ( $notification['actions'] as $notification_action ) : ?>
@@ -292,7 +298,7 @@ class SearchWP_Live_Search_Notifications {
 		$option = self::get_option();
 
 		// Fetch remote notifications every 12 hours.
-		if ( empty( $option['updated_at'] ) || time() > $option['updated_at'] + ( 12 * HOUR_IN_SECONDS ) ) {
+		if ( self::TEST_MODE || empty( $option['updated_at'] ) || time() > $option['updated_at'] + ( 12 * HOUR_IN_SECONDS ) ) {
 			self::save( self::fetch() );
 			$option = self::get_option( [ 'cache' => false ] ); // Make sure the notifications are available right away.
 		}
@@ -446,6 +452,10 @@ class SearchWP_Live_Search_Notifications {
 			return [];
 		}
 
+		if ( self::TEST_MODE ) {
+			return $notifications;
+		}
+
 		// Remove notifications that are not active.
 		foreach ( $notifications as $key => $notification ) {
 			if (
@@ -469,6 +479,10 @@ class SearchWP_Live_Search_Notifications {
 	 * @return bool
 	 */
 	private static function verify_single( $notification ) {
+
+		if ( self::TEST_MODE ) {
+			return true;
+		}
 
 		$option = self::get_option();
 

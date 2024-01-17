@@ -15,7 +15,6 @@ use WeglotWP\Services\Pdf_Translate_Service_Weglot;
 use WeglotWP\Services\Request_Url_Service_Weglot;
 use WeglotWP\Third\Woocommercepdf\Wcpdf_Active;
 
-
 /**
  * WC_Mail_Weglot
  *
@@ -58,22 +57,26 @@ class WCPDF_Weglot implements Hooks_Interface_Weglot {
 		if ( ! $this->wcpdf_active_services->is_active() ) {
 			return;
 		}
-		add_filter( 'wpo_wcpdf_before_dompdf_render', array( $this, 'translate_invoice_pdf' ), 10, 2 );
+
+		add_filter( 'wpo_wcpdf_before_dompdf_render', array( $this, 'translate_invoice_pdf' ), 10, 4 );
+		add_filter( 'wpo_wcpdf_after_mpdf_write', array( $this, 'translate_invoice_pdf' ), 10, 4 );
 	}
 
 	/**
-	 * @param $args
+	 * @param $engine
 	 * @param $html
+	 * @param $options
+	 * @param $document
 	 *
-	 * @return string
+	 * @return object
 	 * @since 3.7
 	 */
-	public function translate_invoice_pdf( $dompdf, $html ) {
+	public function translate_invoice_pdf( $engine, $html, $options, $document ) {
 
 		$translate_pdf = apply_filters( 'weglot_translate_pdf', false );
 
 		if ( ! $translate_pdf ) {
-			return $dompdf;
+			return $engine;
 		}
 
 		if ( ! empty( sanitize_key( $_GET['order_ids'] ) ) ) { // phpcs:ignore
@@ -81,32 +84,29 @@ class WCPDF_Weglot implements Hooks_Interface_Weglot {
 		}
 
 		if ( empty( $order_id ) ) {
-			return $dompdf;
+			return $engine;
 		}
 
 		$woocommerce_order_language = get_post_meta( $order_id, 'weglot_language', true ); // phpcs:ignore
 
 		if ( $woocommerce_order_language == weglot_get_original_language() ) {
-			return $dompdf;
+			return $engine;
 		}
 
-		$_dompdf = clone $dompdf;
-		unset( $dompdf );
-		$_dompdf_options           = $_dompdf->getOptions();
-		$_dompdf_paper_size        = $_dompdf->getPaperSize();
-		$_dompdf_paper_orientation = $_dompdf->getPaperOrientation();
-
-		$_dompdf->loadHtml( $html );
-		$_dompdf->render();
-		unset( $_dompdf );
-
-		$dompdf         = new \Dompdf\Dompdf( $_dompdf_options );
 		$translated_pdf = $this->pdf_translate_services->translate_pdf( $html, $woocommerce_order_language );
 
-		$dompdf->loadHtml( $translated_pdf['content'] );
-		$dompdf->setPaper( $_dompdf_paper_size, $_dompdf_paper_orientation );
-
-		return $dompdf;
+		switch ( true ) {
+			case $engine instanceof \Dompdf\Dompdf:
+				$engine->loadHtml( $translated_pdf['content'] );
+				return $engine;
+			case $engine instanceof \Mpdf\Mpdf:
+				$mpdf = new \Mpdf\Mpdf( $options );
+				$mpdf->WriteHTML( $translated_pdf['content'] );
+				unset( $engine );
+				return $mpdf;
+			default:
+				return $engine;
+		}
 	}
 
 }

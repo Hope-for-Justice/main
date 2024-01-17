@@ -81,14 +81,15 @@ class WordEntry extends AbstractCollectionEntry
     /**
      * @return int
      */
-    public function getType()
-    {
+    #[\ReturnTypeWillChange]
+    public function getType() {
         return $this->type;
     }
 
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return [

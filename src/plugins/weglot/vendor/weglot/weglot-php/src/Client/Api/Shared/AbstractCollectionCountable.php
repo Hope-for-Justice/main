@@ -11,8 +11,8 @@ trait AbstractCollectionCountable
     /**
      * {@inheritdoc}
      */
-    public function count()
-    {
+    #[\ReturnTypeWillChange]
+    public function count() {
         return \count($this->collection);
     }
 }

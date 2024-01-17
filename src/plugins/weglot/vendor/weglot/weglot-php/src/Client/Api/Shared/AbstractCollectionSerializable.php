@@ -11,6 +11,7 @@ trait AbstractCollectionSerializable
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         $words = [];

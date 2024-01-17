@@ -90,6 +90,7 @@ class User_Api_Service_Weglot {
 	 * @throws \Exception
 	 */
 	public function do_request( $url, $parameters ) {
+		$active_sslverify = apply_filters( 'weglot_active_sslverify', true );
 		if ( $parameters ) {
 			$payload = json_encode( $parameters ); //phpcs:ignore
 			if ( \json_last_error() === JSON_ERROR_NONE ) {
@@ -105,7 +106,7 @@ class User_Api_Service_Weglot {
 						),
 						'body'        => $payload,
 						'cookies'     => array(),
-						'sslverify'   => false,
+						'sslverify'   => $active_sslverify,
 					)
 				);
 			} else {
@@ -124,7 +125,7 @@ class User_Api_Service_Weglot {
 					),
 					'body'        => null,
 					'cookies'     => array(),
-					'sslverify'   => false,
+					'sslverify'   => $active_sslverify,
 				)
 			);
 		}

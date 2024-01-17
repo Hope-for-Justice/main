@@ -40,7 +40,7 @@ class Parser {
      * Attribute to match in DOM when we don't want to translate innertext & childs.
      */
     const ATTRIBUTE_NO_TRANSLATE = 'data-wg-notranslate';
-
+    const ATTRIBUTE_TRANSLATE = 'data-wg-translate';
 
     /**
      * @var Client
@@ -56,6 +56,11 @@ class Parser {
      * @var array
      */
     protected $excludeBlocks;
+
+    /**
+     * @var array
+     */
+    protected $whiteList;
 
     /**
      * @var array
@@ -98,13 +103,15 @@ class Parser {
      * @param Client $client
      * @param ConfigProviderInterface $config
      * @param array $excludeBlocks
+     * @param array $whiteList
      * @param array $customSwitchers
      */
-    public function __construct( Client $client, ConfigProviderInterface $config, array $excludeBlocks = [], array $customSwitchers = [] ) {
+    public function __construct( Client $client, ConfigProviderInterface $config, array $excludeBlocks = [], array $customSwitchers = [], array $whiteList = [] ) {
         $this
             ->setClient( $client )
             ->setConfigProvider( $config )
             ->setExcludeBlocks( $excludeBlocks )
+            ->setWhiteList( $whiteList )
             ->setCustomSwitchers( $customSwitchers )
             ->setWords( new WordCollection() )
             ->setDomCheckerProvider( new DomCheckerProvider( $this, $client->getProfile()->getTranslationEngine() ) )
@@ -146,6 +153,24 @@ class Parser {
      */
     public function getExcludeBlocks() {
         return $this->excludeBlocks;
+    }
+
+    /**
+     * @param array $whiteList
+     *
+     * @return $this
+     */
+    public function setWhiteList( array $whiteList ) {
+        $this->whiteList = $whiteList;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getWhiteList() {
+        return $this->whiteList;
     }
 
     /**
@@ -378,14 +403,32 @@ class Parser {
             return $source;
         }
 
-        // exclude blocks
-        if ( ! empty( $this->excludeBlocks ) ) {
-            $excludeBlocks = new ExcludeBlocksFormatter( $dom, $this->excludeBlocks );
-            $dom           = $excludeBlocks->getDom();
+        //if whiteList list is not empty we add attr wg-mode-whitelist to the body
+        if( !empty( $this->whiteList)){
+
+            foreach ($dom->find('body') as $item)
+            {
+                $item->setAttribute('wg-mode-whitelist', '');
+            }
+
+            if ( ! empty( $this->excludeBlocks ) ) {
+                $excludeBlocks = new ExcludeBlocksFormatter( $dom, $this->excludeBlocks, $this->whiteList );
+                $dom           = $excludeBlocks->getDom();
+            }
+        }else{
+            // exclude blocks
+            if ( ! empty( $this->excludeBlocks ) ) {
+                $excludeBlocks = new ExcludeBlocksFormatter( $dom, $this->excludeBlocks );
+                $dom           = $excludeBlocks->getDom();
+            }
         }
 
         // checkers
-        list( $nodes, $regexes ) = $this->checkers( $dom, $source );
+        if(!empty( $this->whiteList)){
+            list( $nodes, $regexes ) = $this->checkers( $dom, $source );
+        }else{
+            list( $nodes, $regexes ) = $this->checkers( $dom, $source );
+        }
 
         return [ 'type'    => SourceType::SOURCE_HTML,
                  'source'  => $source,

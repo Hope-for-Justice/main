@@ -50,7 +50,7 @@
   ],
   "require": {
     "php": ">=5.6",
-    "weglot/simplehtmldom": "^0.7",
+    "weglot/simplehtmldom": "^0.8",
     "psr/cache": "^1.0",
     "weglot/translation-definitions": "^2.0"
   },
@@ -62,6 +62,6 @@
   },
   "require-dev": {
     "vlucas/phpdotenv": "^2.4",
-    "codeception/codeception": "^2.4"
+    "phpstan/phpstan-deprecation-rules": "^1.1"
   }
 }

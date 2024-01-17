@@ -6,6 +6,7 @@ use Give\Framework\Support\ValueObjects\Enum;
 use Give\Framework\Support\ValueObjects\EnumInteractsWithQueryBuilder;
 
 /**
+ * @since 3.2.0 added HONORIFIC
  * @since 2.20.0 add fee amount recovered and exchange rate
  * @since 2.19.6
  *
@@ -13,6 +14,7 @@ use Give\Framework\Support\ValueObjects\EnumInteractsWithQueryBuilder;
  * @method static DonationMetaKeys CURRENCY()
  * @method static DonationMetaKeys GATEWAY()
  * @method static DonationMetaKeys DONOR_ID()
+ * @method static DonationMetaKeys HONORIFIC()
  * @method static DonationMetaKeys FIRST_NAME()
  * @method static DonationMetaKeys LAST_NAME()
  * @method static DonationMetaKeys EMAIL()
@@ -31,6 +33,7 @@ use Give\Framework\Support\ValueObjects\EnumInteractsWithQueryBuilder;
  * @method static DonationMetaKeys ANONYMOUS()
  * @method static DonationMetaKeys LEVEL_ID()
  * @method static DonationMetaKeys COMPANY()
+ * @method static DonationMetaKeys COMMENT()
  * @method static DonationMetaKeys GATEWAY_TRANSACTION_ID()
  * @method static DonationMetaKeys SUBSCRIPTION_INITIAL_DONATION()
  * @method static DonationMetaKeys IS_RECURRING()
@@ -48,6 +51,7 @@ class DonationMetaKeys extends Enum
     const FEE_AMOUNT_RECOVERED = '_give_fee_amount';
     const GATEWAY = '_give_payment_gateway';
     const DONOR_ID = '_give_payment_donor_id';
+    const HONORIFIC = '_give_donor_billing_title_prefix';
     const FIRST_NAME = '_give_donor_billing_first_name';
     const LAST_NAME = '_give_donor_billing_last_name';
     const EMAIL = '_give_payment_donor_email';
@@ -66,6 +70,7 @@ class DonationMetaKeys extends Enum
     const ANONYMOUS = '_give_anonymous_donation';
     const LEVEL_ID = '_give_payment_price_id';
     const COMPANY = '_give_donation_company';
+    const COMMENT = '_give_donation_comment';
     const GATEWAY_TRANSACTION_ID = '_give_payment_transaction_id';
     const SUBSCRIPTION_INITIAL_DONATION = '_give_subscription_payment';
     const IS_RECURRING = '_give_is_donation_recurring';

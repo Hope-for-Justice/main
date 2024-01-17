@@ -64,6 +64,32 @@
             }
         });
 
+        /** Media page grid/list view switch */
+        $(document).on("click", ".view-switch > a", function(e){
+            if(location.search != "") {
+                try {
+                    if($(this).hasClass("view-grid") || $(this).hasClass("view-list")) {
+                        var eleLink = $(this).attr("href");
+                    }
+                    e.preventDefault();
+                    var str = location.search.substring(1);
+                    const searchArray = Object.fromEntries(new URLSearchParams(str));
+                    if (Object.keys(searchArray).length) {
+                        $.each(searchArray, function (key, keyVal) {
+                            if (key != "mode" && key != "paged") {
+                                if(keyVal != "") {
+                                    eleLink += "&" + key + "=" + keyVal;
+                                }
+                            }
+                        });
+                    }
+                    window.location = eleLink;
+                } catch (exceptionVar) {
+
+                }
+            }
+        });
+
         /* check for jetpack */
         if($("body").hasClass("jetpack-connected") && !$("body").hasClass("mobile")) {
             if(!$("body").hasClass("folded")) {
@@ -291,8 +317,19 @@
             } else {
                 menuHtml += "<li class='new-folder-pro'><a target='_blank' href='javascript:;'><span class=''><i class='pfolder-add-folder'></i></span>"+wcp_settings.lang.PRO.NEW_SUB_FOLDER+"</a></li>";
             }
-            menuHtml += "<li class='rename-folder'><a href='javascript:;'><span class=''><i class='pfolder-edit'></i></span>"+wcp_settings.lang.RENAME+"</a></li>" +
-                        "<li class='default-folder'><a target='_blank' href='"+wcp_settings.upgrade_url+"'><span class=''><i class='pfolder-active-icon'></i></span>"+wcp_settings.lang.PRO.OPEN_THIS_FOLDER+"</a></li>" +
+            menuHtml += "<li class='rename-folder'><a href='javascript:;'><span class=''><i class='pfolder-edit'></i></span>"+wcp_settings.lang.RENAME+"</a></li>";
+            menuHtml += "<li class='color-folder'><a href='javascript:;'><span class=''><span class='dashicons dashicons-art'></span></span>" + wcp_settings.lang.CHANGE_COLOR + "<span class='dashicons dashicons-arrow-right-alt2'></span></a>";
+            menuHtml += "<ul class='color-selector'>";
+            menuHtml += "<li class='color-selector-ul'>";
+            $(wcp_settings.selected_colors).each(function(key,value) {
+                menuHtml += "<span class='folder-color-option' data-color='"+value+"' style='background-color:"+value+"'></span>";
+            });
+            menuHtml += "</li>";
+            menuHtml += "<li><a href='"+wcp_settings.upgrade_url+"' target='_blank' class='change-custom-color'>"+wcp_settings.lang.ADD_CUSTOM_COLORS+"</a></li>";
+            menuHtml += "<li><a href='javascript:;' class='folder-color-default'>"+wcp_settings.lang.REMOVE_COLOR+"</a></li>";
+            menuHtml += "</ul>";
+            menuHtml += "</li>";
+            menuHtml += "<li class='default-folder'><a target='_blank' href='"+wcp_settings.upgrade_url+"'><span class=''><i class='pfolder-active-icon'></i></span>"+wcp_settings.lang.PRO.OPEN_THIS_FOLDER+"</a></li>" +
                         "<li class='sticky-folder'><a target='_blank' href='"+wcp_settings.upgrade_url+"'><span class='sticky-pin'><i class='pfolder-pin'></i></span>"+wcp_settings.lang.PRO.STICKY_FOLDER+"</a></li>";
             if(hasStars) {
                 menuHtml += "<li class='mark-folder'><a href='javascript:;'><span class=''><i class='pfolder-star'></i></span>" + ((isHigh) ? wcp_settings.lang.REMOVE_STAR : wcp_settings.lang.ADD_STAR) + "</a></li>";
@@ -332,6 +369,37 @@
             if((yPosition + $(".dynamic-menu").height()) > $(window).height()) {
                 $(".dynamic-menu").css("margin-top", $(window).height() - (yPosition + $(".dynamic-menu").height()));
             }
+        });
+
+        $(document).on("click",".folder-color-option , .folder-color-default",function (e) {
+            e.stopPropagation();
+            folderID = $(this).closest(".dynamic-menu").data("id");
+            var current_color = $(this).attr("data-color");
+            if(typeof(current_color) == "undefined") {
+                current_color = "";
+            }
+
+            var folderPostId = getIndexForPostSetting(folderID);
+            folderPropertyArray[folderPostId]['has_color'] = current_color;
+            nonce = getSettingForPost(folderID, 'nonce');
+            update_custom_folder_color_css();
+            $.ajax({
+                url: wcp_settings.ajax_url,
+                data: {
+                    term_id: folderID,
+                    type: wcp_settings.post_type,
+                    action: "wcp_change_color_folder",
+                    nonce: nonce,
+                    color: current_color
+                },
+                method: 'post',
+                cache: false,
+                success: function (res) {
+                    res = $.parseJSON(res);
+                    update_custom_folder_color_css();
+                }
+            });
+
         });
 
         $(document).on("click", ".sticky-folders .sticky-fldr > a", function(e) {
@@ -429,10 +497,25 @@
             $("#sub-folder-popup").show();
         });
 
-        $(document).on("click", ".close-popup-button a", function(){
+        $(document).on("click", ".close-popup-button a:not(.hide-upgrade-modal):not(.is-modal)", function(){
             $(".folder-popup-form").hide();
             if($(".jstree-node[id='"+fileFolderID+"']").length) {
                 $(".jstree-node[id='"+fileFolderID+"'] > a.jstree-anchor").trigger("focus");
+            }
+            if($(this).hasClass("upgrade-model-button")) {
+                $("#upgrade-modal-popup").remove();
+            }
+        });
+
+        $(document).on("click", ".close-popup-button a.hide-upgrade-modal", function(){
+            if($(".rating-modal-steps#step-4").hasClass("active")) {
+                set_review_reminder(-1);
+                $(".rating-modal-popup").remove();
+            } else if($(".rating-modal-steps#step-3").hasClass("active")) {
+                set_review_reminder(14);
+            } else {
+                $(".rating-modal-steps").removeClass("active");
+                $(".rating-modal-steps#step-3").addClass("active");
             }
         });
 
@@ -554,7 +637,23 @@
         }
     }
 
+
+
+    function update_custom_folder_color_css() {
+        $("#custome_folder_color_css").remove();
+        var custom_color = "<style id='custome_folder_color_css'>"
+        $(folderPropertyArray).each(function (key,val) {
+            if(val.has_color != "") {
+                custom_color += "li.jstree-node[id='" + val.folder_id + "'] .pfolder-folder-close {color: "+val.has_color+ "!important;}";
+            }
+        });
+        custom_color += "</style>";
+        $("head").append(custom_color);
+    }
+
     function setDragAndDropElements() {
+
+        update_custom_folder_color_css();
 
         checkForCopyPaste();
 
@@ -603,6 +702,7 @@
         $(".jstree-anchor:not(.ui-droppable)").droppable({
             accept: ".wcp-move-file, .wcp-move-multiple, .attachments-browser li.attachment",
             hoverClass: 'wcp-drop-hover',
+            tolerance: "pointer",
             classes: {
                 "ui-droppable-active": "ui-state-highlight"
             },
@@ -617,7 +717,6 @@
                         nonce = getSettingForPost(folderID, 'nonce');
                         $.ajax({
                             url: wcp_settings.ajax_url,
-                            //data: "post_ids=" + chkStr + "&type=" + wcp_settings.post_type + "&action=wcp_change_multiple_post_folder&folder_id=" + folderID+"&nonce="+nonce+"&status="+wcp_settings.taxonomy_status+"&taxonomy="+activeRecordID,
                             data: {
                                 post_ids: chkStr,
                                 type: wcp_settings.post_type,
@@ -634,6 +733,7 @@
                                 if(res.status == "1") {
                                     resetMediaAndPosts();
                                     checkForUndoFunctionality();
+                                    $("#upgrade-modal-popup").show();
                                 } else {
                                     $(".folder-popup-form").hide();
                                     $(".folder-popup-form").removeClass("disabled");
@@ -654,7 +754,6 @@
                     });
                     $.ajax({
                         url: wcp_settings.ajax_url,
-                        //data: "post_ids=" + chkStr + "&type=" + wcp_settings.post_type + "&action=wcp_change_multiple_post_folder&folder_id=" + folderID+"&nonce="+nonce+"&status="+wcp_settings.taxonomy_status+"&taxonomy="+activeRecordID,
                         method: 'post',
                         data: {
                             post_ids: chkStr,
@@ -672,6 +771,7 @@
                                 // window.location.reload();
                                 resetMediaAndPosts();
                                 checkForUndoFunctionality();
+                                $("#upgrade-modal-popup").show();
                             } else {
                                 $(".folder-popup-form").hide();
                                 $(".folder-popup-form").removeClass("disabled");
@@ -705,6 +805,7 @@
                         method: 'post',
                         success: function (res) {
                             // window.location.reload();
+                            $("#upgrade-modal-popup").show();
                             resetMediaAndPosts();
                             checkForUndoFunctionality();
                         }
@@ -716,6 +817,7 @@
         $(".un-categorised-items:not(.ui-droppable)").droppable({
             accept: ".wcp-move-file, .wcp-move-multiple, .attachments-browser li.attachment",
             hoverClass: 'wcp-hover-list',
+            tolerance: "pointer",
             classes: {
                 "ui-droppable-active": "ui-state-highlight"
             },
@@ -779,6 +881,7 @@
         $(".tree-structure .folder-item:not(.ui-droppable)").droppable({
             accept: ".wcp-move-file, .wcp-move-multiple, .attachments-browser li.attachment",
             hoverClass: 'wcp-drop-hover-list',
+            tolerance: "pointer",
             classes: {
                 "ui-droppable-active": "ui-state-highlight"
             },
@@ -794,7 +897,6 @@
                         });
                         $.ajax({
                             url: wcp_settings.ajax_url,
-                            //data: "post_ids=" + chkStr + "&type=" + wcp_settings.post_type + "&action=wcp_change_multiple_post_folder&folder_id=" + folderID + "&nonce="+nonce+"&status="+wcp_settings.taxonomy_status+"&taxonomy="+activeRecordID,
                             method: 'post',
                             data: {
                                 post_ids: chkStr,
@@ -825,7 +927,6 @@
                     });
                     $.ajax({
                         url: wcp_settings.ajax_url,
-                        //data: "post_ids=" + chkStr + "&type=" + wcp_settings.post_type + "&action=wcp_change_multiple_post_folder&folder_id=" + folderID + "&nonce="+nonce+"&status="+wcp_settings.taxonomy_status+"&taxonomy="+activeRecordID,
                         method: 'post',
                         data: {
                             post_ids: chkStr,
@@ -880,6 +981,7 @@
         $(".sticky-folders li a:not(.ui-droppable)").droppable({
             accept: ".wcp-move-file, .wcp-move-multiple, .attachments-browser li.attachment",
             hoverClass: 'wcp-drop-hover',
+            tolerance: "pointer",
             classes: {
                 "ui-droppable-active": "ui-state-highlight"
             },
@@ -895,7 +997,6 @@
                         $.ajax({
                             url: wcp_settings.ajax_url,
                             method: 'post',
-                            //data: "post_ids=" + chkStr + "&type=" + wcp_settings.post_type + "&action=wcp_change_multiple_post_folder&folder_id=" + folderID+"&nonce="+nonce+"&status="+wcp_settings.taxonomy_status+"&taxonomy="+activeRecordID,
                             data: {
                                 post_ids: chkStr,
                                 type: wcp_settings.post_type,
@@ -933,7 +1034,6 @@
                     $.ajax({
                         url: wcp_settings.ajax_url,
                         method: 'post',
-                        //data: "post_ids=" + chkStr + "&type=" + wcp_settings.post_type + "&action=wcp_change_multiple_post_folder&folder_id=" + folderID+"&nonce="+nonce+"&status="+wcp_settings.taxonomy_status+"&taxonomy="+activeRecordID,
                         data: {
                             post_ids: chkStr,
                             type: wcp_settings.post_type,
@@ -971,7 +1071,6 @@
                     folderIDs = chkStr;
                     $.ajax({
                         url: wcp_settings.ajax_url,
-                        //data: "post_ids=" + chkStr + "&type=" + wcp_settings.post_type + "&action=wcp_change_multiple_post_folder&folder_id=" + folderID + "&nonce="+nonce+"&status="+wcp_settings.taxonomy_status+"&taxonomy="+activeRecordID,
                         data: {
                             post_ids: chkStr,
                             type: wcp_settings.post_type,
@@ -982,7 +1081,6 @@
                             taxonomy: activeRecordID,
                             post_status: wcp_settings.post_status
                         },
-                        //data: "post_ids=" + chkStr + "&type=" + wcp_settings.post_type + "&action=wcp_change_multiple_post_folder&folder_id=" + folderID + "&nonce="+nonce+"&status="+wcp_settings.taxonomy_status+"&taxonomy="+activeRecordID,
                         method: 'post',
                         success: function (res) {
                             // window.location.reload();
@@ -1201,6 +1299,7 @@
                     }
                 }
             });
+            update_custom_folder_color_css();
         }
 
         folderId = 0;
@@ -1416,6 +1515,20 @@
                     folderOrder = $("#js-tree-menu > ul > li.jstree-node[id='"+parentId+"'] > ul.jstree-children > li").length + 1;
                 }
 
+                var foldersList = [];
+                if(parentId == 0) {
+                    if($("#js-tree-menu > .jstree-container-ul > .jstree-node").length) {
+                        $("#js-tree-menu > .jstree-container-ul > .jstree-node").each(function(){
+                            foldersList.push($(this).attr("id"));
+                        });
+                    }
+                } else {
+                    if($("#js-tree-menu .jstree-node[id='"+parentId+"'] > ul> li.jstree-node").length) {
+                        $("#js-tree-menu .jstree-node[id='"+parentId+"'] > ul> li.jstree-node").each(function(){
+                            foldersList.push($(this).attr("id"));
+                        });
+                    }
+                }
                 $.ajax({
                     url: wcp_settings.ajax_url,
                     data: {
@@ -1426,6 +1539,7 @@
                         term_id: parentId,
                         order: folderOrder,
                         name: folderNameDynamic,
+                        folders: foldersList,
                         is_duplicate: isDuplicate,
                         duplicate_from: duplicateFolderId,
                         parent_ids: parentIds,
@@ -1453,27 +1567,32 @@
                                         'is_sticky': result.data[i]['is_sticky'],
                                         'is_high': result.data[i]['is_high'],
                                         'nonce': result.data[i]['nonce'],
+                                        'has_color': result.data[i]['has_color'],
                                         'slug': result.data[i]['slug'],
                                         'is_deleted': 0
                                     };
                                     folderPropertyArray.push(folderProperty);
+                                    var folderTitle = result.data[i]['title'];
+                                    folderTitle = folderTitle.replace(/\\/g, '');
                                     if(!creatingParentMenu) {
                                         $('#js-tree-menu').jstree().create_node(result.parent_id, {
                                             "id": result.data[i]['term_id'],
-                                            "text": " " + result.data[i]['title']
-                                        }, "last", function () {
+                                            "text": " " + folderTitle
+                                        }, i, function () {
                                             $(".jstree-node[id='" + result.data[i]['term_id'] + "']").attr("data-nonce", result.data[i]['nonce']);
                                             $(".jstree-node[id='" + result.data[i]['term_id'] + "']").attr("data-slug", result.data[i]['slug']);
-                                            $(".jstree-node[id='" + result.data[i]['term_id'] + "'] > a.jstree-anchor .premio-folder-count").text(0);
+                                            $(".jstree-node[id='" + result.data[i]['term_id'] + "']").attr("data-parent", result.parent_id);
+                                            $(".jstree-node[id='" + result.data[i]['term_id'] + "'] > a.jstree-anchor .premio-folder-count").text(result.data[i].folder_count);
                                         });
                                     } else {
-                                        $('#js-tree-menu').jstree().create_node("#", {
+                                        $('#js-tree-menu').jstree().create_node('#', {
                                             "id": result.data[i]['term_id'],
-                                            "text": " " + result.data[i]['title']
-                                        }, (folderOrder), function () {
+                                            "text": " " + folderTitle
+                                        }, i, function () {
                                             $(".jstree-node[id='" + result.data[i]['term_id'] + "']").attr("data-nonce", result.data[i]['nonce']);
                                             $(".jstree-node[id='" + result.data[i]['term_id'] + "']").attr("data-slug", result.data[i]['slug']);
-                                            $(".jstree-node[id='" + result.data[i]['term_id'] + "'] > a.jstree-anchor .premio-folder-count").text(0);
+                                            $(".jstree-node[id='" + result.data[i]['term_id'] + "']").attr("data-parent", result.parent_id);
+                                            $(".jstree-node[id='" + result.data[i]['term_id'] + "'] > a.jstree-anchor .premio-folder-count").text(result.data[i].folder_count);
                                         });
                                     }
                                     creatingParentMenu = 0;
@@ -1554,7 +1673,7 @@
         });
 
 
-        $(document).on("click", ".form-cancel-btn", function(){
+        $(document).on("click", ".form-cancel-btn:not(.avoid-cancel)", function(){
             $(".folder-popup-form").hide();
             if($(".jstree-node[id='"+fileFolderID+"']").length) {
                 $(".jstree-node[id='"+fileFolderID+"'] > a.jstree-anchor").trigger("focus");
@@ -1563,12 +1682,93 @@
             }
         });
 
-        $(document).on("click", ".folder-popup-form", function (e) {
+        if($("#folder-rating").length && typeof(pr_rating_settings) == "object") {
+            $("#rating-modal-popup").show();
+            $("#folder-rating").starRating({
+                initialRating   : 0,
+                useFullStars    : true,
+                strokeColor     : '#FDB10C',
+                ratedColor      : '#FDB10C',
+                activeColor     : '#FDB10C',
+                strokeWidth     : 0,
+                minRating       : 1,
+                starSize        : 32,
+                useGradient     : 0,
+                onLeave: function() {
+                    $(".upgrade-user-rating span").text("0/5");
+                },
+                onHover: function(currentRate) {
+                    $(".upgrade-user-rating span").text(currentRate+"/5");
+                },
+                callback: function(currentRate) {
+                    if( currentRate !== 5 ) {
+                        $(".rating-modal-steps").removeClass("active");
+                        $(".rating-modal-steps#step-2").addClass("active");
+                        $("#folder-rated-rating").html("");
+                        for(i=0; i<parseInt(currentRate); i++) {
+                            var ratingStar = '<div class="jq-star"><svg shape-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="305px" height="305px" viewBox="60 -62 309 309" style="enable-background:new 64 -59 305 305; stroke-width:0px;" xml:space="preserve"> <polygon data-side="center" className="svg-empty-28" points="281.1,129.8 364,55.7 255.5,46.8 214,-59 172.5,46.8 64,55.4 146.8,129.7 121.1,241 212.9,181.1 213.9,181 306.5,241 " style="fill: transparent; stroke: #ffa83e;"></polygon> <polygon data-side="left" className="svg-empty-28" points="281.1,129.8 364,55.7 255.5,46.8 214,-59 172.5,46.8 64,55.4 146.8,129.7 121.1,241 213.9,181.1 213.9,181 306.5,241 " style="stroke-opacity: 0;"></polygon> <polygon data-side="right" className="svg-empty-28" points="364,55.7 255.5,46.8 214,-59 213.9,181 306.5,241 281.1,129.8 " style="stroke-opacity: 0;"></polygon> </svg></div>';
+                            $("#folder-rated-rating").append(ratingStar);
+                        }
+                    } else {
+                        window.open("https://wordpress.org/support/plugin/folders/reviews/#new-post", '_blank');
+                        $(".rating-logo").remove();
+                        $(".rating-modal-steps").removeClass("active");
+                        $(".rating-modal-steps#step-4").addClass("active");
+                    }
+                }
+            })
+        }
+
+        $(document).on("keyup", "#upgrade-review-comment", function(){
+            var commentLength = 1000 - parseInt($.trim($(this).val()).length);
+            if(commentLength < 0) {
+                var userComment = $.trim($(this).val());
+                userComment = userComment.slice(0, 1000);
+                $(".upgrade-review-textarea label span").text(0);
+                $(this).val(userComment);
+            } else {
+                $(".upgrade-review-textarea label span").text(commentLength);
+            }
+        });
+
+        $(document).on("change", "#upgrade-review-comment", function(){
+            var commentLength = 1000 - parseInt($.trim($(this).val()).length);
+            if(commentLength < 0) {
+                var userComment = $.trim($(this).val());
+                userComment = userComment.slice(0, 1000);
+                $(".upgrade-review-textarea label span").text(0);
+                $(this).val(userComment);
+            } else {
+                $(".upgrade-review-textarea label span").text(commentLength);
+            }
+        });
+
+        $(document).on("click", ".hide-upgrade-popup", function(e){
+            e.preventDefault();
+            $("#upgrade-modal-popup").remove();
+        });
+
+        $(document).on("click", ".upgrade-footer .upgrade-button", function(e){
+            $("#upgrade-modal-popup").remove();
+        });
+
+        $(document).on("click", ".folder-popup-form:not(.always-show)", function (e) {
             $(".folder-popup-form").hide();
             if($(".jstree-node[id='"+fileFolderID+"']").length) {
                 $(".jstree-node[id='"+fileFolderID+"'] > a.jstree-anchor").trigger("focus");
             } else if($("#js-tree-menu .jstree-anchor.jstree-clicked").length) {
                 $("#js-tree-menu .jstree-anchor.jstree-clicked").trigger("focus");
+            }
+            if($(this).attr("id") == "rating-modal-popup") {
+                if($(".rating-modal-steps#step-4").hasClass("active")) {
+                    set_review_reminder(-1);
+                    $(".rating-modal-popup").remove();
+                } else {
+                    set_review_reminder(14);
+                }
+            }
+            if($(this).attr("id") == "upgrade-modal-popup") {
+                $("#upgrade-modal-popup").remove();
             }
         });
 
@@ -1636,7 +1836,41 @@
             }
             return false;
         });
+
+        $(document).on("click", "#upgrade-review-button", function(){
+            $("#rating-modal-popup").hide();
+            $.ajax({
+                url: wcp_settings.ajax_url,
+                data: {
+                    action: "folders_review_box_message",
+                    rating: $("#folder-rated-rating .jq-star").length,
+                    nonce: wcp_settings.review_box_nonce,
+                    message: $.trim($("#upgrade-review-comment").val())
+                },
+                type: "post",
+                success: function() {
+                    set_review_reminder(-1);
+                }
+            });
+        });
+
+        $(document).on("click", "#update-review-time", function(){
+            set_review_reminder($("#upgrade-review-reminder").val());
+        });
     });
+
+    function set_review_reminder(noOfDays) {
+        $.ajax({
+            url: wcp_settings.ajax_url,
+            data: {
+                action: "folders_review_box",
+                days: noOfDays,
+                nonce: wcp_settings.review_nonce
+            },
+            type: "post",
+        });
+        $("#rating-modal-popup").remove();
+    }
 
     function updateFolder() {
         folderName = $.trim($("#js-tree-menu").jstree(true).get_node(fileFolderID).text);
@@ -1672,24 +1906,12 @@
 
         $(document).on("click","#menu-checkbox",function(){
             if($(this).is(":checked")) {
-                $("#js-tree-menu").addClass("show-folder-checkbox");
+                $(".js-tree-data").addClass("show-folder-checkbox");
                 $("#menu-checkbox").prop("checked", true);
             } else {
                 $("#js-tree-menu input.checkbox").attr("checked", false);
-                $("#js-tree-menu").removeClass("show-folder-checkbox");
+                $(".js-tree-data").removeClass("show-folder-checkbox");
                 $("#menu-checkbox").prop("checked", false);
-            }
-        });
-
-
-        $(document).on("click", "#menu-checkbox", function(){
-            if($(this).is(":checked")) {
-                $("#menu-checkbox").prop("checked", true);
-                $("#js-tree-menu").addClass("show-folder-checkbox");
-            } else {
-                $("#menu-checkbox").prop("checked", false);
-                $("#js-tree-menu input.checkbox").attr("checked", false);
-                $("#js-tree-menu").removeClass("show-folder-checkbox");
             }
         });
 
@@ -2224,6 +2446,7 @@
             //data.text is the new name:
             setDragAndDropElements();
         })).bind("move_node.jstree", (function(t, n) {
+
             if(!hasChildren) {
                 var oldPosition = n.old_position;
                 var currentParent = n.parent;
@@ -2233,6 +2456,8 @@
                     return false;
                 }
             }
+            setActionPosition();
+            setFolderCount();
             if(n.node.parent != "#") {
                 jQuery("#js-tree-menu").jstree("open_node",n.node.parent);
             }
@@ -2248,6 +2473,7 @@
             } else {
                 parentID = 0;
             }
+            setActionPosition();
             if(orderString != "") {
                 $(".form-loader-count").css("width","100%");
                 $.ajax({
@@ -2270,6 +2496,7 @@
                             $("#error-folder-popup").show();
                             window.location.reload(true);
                         }
+                        setActionPosition();
                     }
                 });
             }
@@ -2518,6 +2745,14 @@
             $(".jstree-node[id='" + foldersArray[i].term_id + "'] > a.jstree-anchor span.premio-folder-count").text(foldersArray[i].trash_count);
             $(".sticky-folder-"+foldersArray[i].term_id+" .premio-folder-count").text(foldersArray[i].trash_count);
         }
+
+        if($(".wp-filter #media_folder").length) {
+            for (var i = 0; i < foldersArray.length; i++) {
+                if($(".wp-filter #media_folder option[value='"+foldersArray[i].slug+"']").length) {
+                    $(".wp-filter #media_folder option[value='"+foldersArray[i].slug+"']").html(foldersArray[i].name + " (" + foldersArray[i].trash_count + ")");
+                }
+            }
+        }
         $("span.premio-folder-count").each(function(){
             if($(this).text() == "") {
                 $(this).text(0);
@@ -2635,7 +2870,6 @@
                         nonce = getSettingForPost($("#bulk-select").val(), 'nonce');
                         $.ajax({
                             url: wcp_settings.ajax_url,
-                            //data: "post_ids=" + chkStr + "&type=" + wcp_settings.post_type + "&action=wcp_change_multiple_post_folder&folder_id=" + $("#bulk-select").val() + "&nonce=" + nonce + "&status=" + wcp_settings.taxonomy_status + "&taxonomy=" + activeRecordID,
                             data: {
                                 post_ids: chkStr,
                                 type: wcp_settings.post_type,
@@ -2646,7 +2880,6 @@
                                 taxonomy: activeRecordID,
                                 post_status: wcp_settings.post_status
                             },
-                            //data: "post_ids=" + chkStr + "&type=" + wcp_settings.post_type + "&action=wcp_change_multiple_post_folder&folder_id=" + $("#bulk-select").val() + "&nonce=" + nonce + "&status=" + wcp_settings.taxonomy_status + "&taxonomy=" + activeRecordID,
                             method: 'post',
                             success: function (res) {
                                 res = $.parseJSON(res);
@@ -2996,7 +3229,6 @@
                         nonce = getSettingForPost($(this).val(), 'nonce');
                         $.ajax({
                             url: wcp_settings.ajax_url,
-                            //data: "post_ids=" + checkStr + "&type=" + wcp_settings.post_type + "&action=wcp_change_multiple_post_folder&folder_id=" + $(this).val() + "&nonce=" + nonce + "&status=" + wcp_settings.taxonomy_status + "&taxonomy=" + activeRecordID,
                             data: {
                                 post_ids: chkStr,
                                 type: wcp_settings.post_type,
@@ -3007,7 +3239,6 @@
                                 taxonomy: activeRecordID,
                                 post_status: wcp_settings.post_status
                             },
-                            //data: "post_ids=" + checkStr + "&type=" + wcp_settings.post_type + "&action=wcp_change_multiple_post_folder&folder_id=" + $(this).val() + "&nonce=" + nonce + "&status=" + wcp_settings.taxonomy_status + "&taxonomy=" + activeRecordID,
                             method: 'post',
                             success: function (res) {
                                 res = $.parseJSON(res);
@@ -3042,9 +3273,9 @@
             $(document).keydown(function (e) {
                 var isCtrlPressed = (e.ctrlKey || e.metaKey) ? true : false;
 
-                // Shift + N : New Folder
+                // Alt + N : New Folder
                 if(!($("input").is(":focus") || $("textarea").is(":focus"))) {
-                    if (e.shiftKey && (e.keyCode == 78 || e.which == 78)) {
+                    if (e.altKey && (e.keyCode == 78 || e.which == 78)) {
                         e.preventDefault();
                         $("#add-new-folder").trigger("click");
                     }
@@ -3060,7 +3291,7 @@
 
                 // Ctrl+C/CMD+C: Copy Folder
                 if(isCtrlPressed && (e.keyCode == 67 || e.which == 67)) {
-                    if($("#js-tree-menu .jstree-anchor").is(":focus")) {
+                    /*if($("#js-tree-menu .jstree-anchor").is(":focus")) {
                         isFolderCopy = $("#js-tree-menu .jstree-anchor:focus").closest("li.jstree-node").attr("id");
                         CPCAction = "copy";
                         $(".folders-undo-notification").removeClass("active");
@@ -3069,12 +3300,12 @@
                             $("#copy-message").removeClass("active");
                         }, 5000);
                         checkForCopyPaste();
-                    }
+                    }*/
                 }
 
                 // Ctrl+X/CMD+X: Cut Folder
                 if(isCtrlPressed && (e.keyCode == 88 || e.which == 88)) {
-                    if($("#js-tree-menu .jstree-anchor").is(":focus")) {
+                    /*if($("#js-tree-menu .jstree-anchor").is(":focus")) {
                         e.preventDefault();
                         isFolderCopy = $("#js-tree-menu .jstree-anchor:focus").closest("li.jstree-node").attr("id");
                         CPCAction = "cut";
@@ -3084,12 +3315,12 @@
                             $("#cut-message").removeClass("active");
                         }, 5000);
                         checkForCopyPaste();
-                    }
+                    }*/
                 }
 
                 // Ctrl+V: Paste Folder
                 if(isCtrlPressed && (e.keyCode == 86 || e.which == 86)) {
-                    if($("#js-tree-menu .jstree-anchor").is(":focus")) {
+                    /*if($("#js-tree-menu .jstree-anchor").is(":focus")) {
                         e.preventDefault();
                         activeRecordID = $("#js-tree-menu .jstree-anchor:focus").closest("li.jstree-node").attr("id");
                         if(activeRecordID == "" || isNaN(activeRecordID)) {
@@ -3120,7 +3351,7 @@
                             CPCAction = "";
                             isFolderCopy = 0;
                         }
-                    }
+                    }*/
                 }
 
                 if(isCtrlPressed && (e.keyCode == 75 || e.which == 75)) {
@@ -3129,7 +3360,9 @@
 
                 // delete action
                 if((e.keyCode == 46 || e.which == 46) || (e.keyCode == 8 || e.which == 8)) {
-                    if($("#js-tree-menu .jstree-anchor").is(":focus")) {
+                    if ($("#menu-checkbox").is(":checked") && $("#js-tree-menu input.checkbox:checked").length > 0) {
+                        $(".delete-folder-action").trigger("click");
+                    } else if($("#js-tree-menu .jstree-anchor").is(":focus")) {
                         if(!$("#js-tree-menu .jstree-anchor:focus").closest("li.jstree-node").hasClass("is-locked")) {
                             fileFolderID = $("#js-tree-menu .jstree-anchor:focus").closest("li.jstree-node").attr("id");
                             removeFolderFromID(0);
@@ -3186,7 +3419,7 @@
 
                 // esc key
                 if(e.keyCode == 27 || e.which == 27) {
-                    $(".folder-popup-form").hide();
+                    $(".folder-popup-form:not(#rating-modal-popup)").hide();
                     if($(".jstree-node[id='"+fileFolderID+"']").length) {
                         $(".jstree-node[id='"+fileFolderID+"'] > a.jstree-anchor").trigger("focus");
                     } else if($("#js-tree-menu .jstree-anchor.jstree-clicked").length) {

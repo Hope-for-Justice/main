@@ -1,17 +1,22 @@
 <?php
 namespace ShortPixel;
 use ShortPixel\Notices\NoticeController as NoticeController;
-use Shortpixel\Controller\StatsController as StatsController;
-use Shortpixel\Controller\OptimizeController as OptimizeController;
+use ShortPixel\Controller\StatsController as StatsController;
+use ShortPixel\Controller\OptimizeController as OptimizeController;
 use ShortPixel\Controller\AdminNoticesController as AdminNoticesController;
+
+if ( ! defined( 'ABSPATH' ) ) {
+ exit; // Exit if accessed directly.
+}
 
 $opt = new OptimizeController();
 
 $q = $opt->getQueue('media');
 
 $env = \wpSPIO()->env();
+$fs = \wpSPIO()->filesystem();
 
-
+$debugUrl = add_query_arg(array('part' => 'debug', 'noheader' => true), $this->url);
 ?>
 
 <section id="tab-debug" class="<?php echo esc_attr(($this->display_part == 'debug') ? ' sel-tab ' :''); ?>">
@@ -31,6 +36,14 @@ $env = \wpSPIO()->env();
       <span>Constant key</span><span><?php var_export($this->is_constant_key); ?></span>
       <span>Hide Key</span><span><?php var_export($this->hide_api_key); ?></span>
       <span>Has Nextgen</span><span><?php var_export($this->has_nextgen); ?></span>
+			<span>Has Offload</span><span><?php
+        $offload = \wpSPIO()->env()->hasOffload();
+        var_export($offload);
+        if (true === $offload)
+        {
+            echo ' (' .  \wpSPIO()->env()->getOffloadName() . ') ';
+        }
+       ?></span>
 
     </div>
 		<div class='flex'>
@@ -44,9 +57,21 @@ $env = \wpSPIO()->env();
 				<span>Backup Folder</span><span><?php echo esc_html((defined('SHORTPIXEL_BACKUP_FOLDER')) ? SHORTPIXEL_BACKUP_FOLDER : 'not defined'); ?></span>
 				<span>Backup URL</span><span><?php echo esc_html((defined('SHORTPIXEL_BACKUP_URL')) ? SHORTPIXEL_BACKUP_URL : 'not defined'); ?></span>
 
+        <span>
 
 
 		</div>
+  </div> <!-- /env -->
+
+  <div class='fs'>
+    <h3><?php esc_html_e('FileSystem', 'shortpixel'); ?></h3>
+    <div class='flex'>
+       <span>WpFileBase</span><span><?php var_export($fs->getWPFileBase()); ?></span>
+       <span>Upload Base</span><span><?php var_export($fs->getWPUploadBase()); ?></span>
+       <span>WPAbspath</span><span><?php var_export($fs->getWPAbsPath()); ?></span>
+
+    </div>
+
   </div>
 
   <div class='settings'>
@@ -63,8 +88,8 @@ $env = \wpSPIO()->env();
 
 
   <div class='debug-quota'>
-    <form method="POST" action="<?php echo esc_url(add_query_arg(array('sp-action' => 'action_debug_resetquota'), $this->url)) ?>">
-
+    <form method="POST" action="<?php echo esc_url(add_query_arg(array('sp-action' => 'action_debug_resetquota'), $debugUrl)) ?>">
+			<?php wp_nonce_field($this->form_action, 'sp-nonce'); ?>
       <button class='button' type='submit'>Clear Quota Data</button>
       </form>
   </div>
@@ -103,8 +128,9 @@ $env = \wpSPIO()->env();
 	</div> <!-- stats -->
 
   <div class='debug-stats'>
-    <form method="POST" action="<?php echo esc_url(add_query_arg(array('sp-action' => 'action_debug_resetStats'), $this->url)) ?>"
+    <form method="POST" action="<?php echo esc_url(add_query_arg(array('sp-action' => 'action_debug_resetStats'), $debugUrl)) ?>"
       id="shortpixel-form-debug-stats">
+			<?php wp_nonce_field($this->form_action, 'sp-nonce'); ?>
       <button class='button' type='submit'>Clear statistics cache</button>
       </form>
   </div>
@@ -144,20 +170,21 @@ $env = \wpSPIO()->env();
   </div>
 
   <div class='debug-notices'>
-    <form method="POST" action="<?php echo esc_url(add_query_arg(array('sp-action' => 'action_debug_resetNotices'),$this->url)) ?>"
+    <form method="POST" action="<?php echo esc_url(add_query_arg(array('sp-action' => 'action_debug_resetNotices'), $debugUrl)) ?>"
       id="shortpixel-form-debug-stats">
+			<?php wp_nonce_field($this->form_action, 'sp-nonce'); ?>
       <button class='button' type='submit'>Reset Notices</button>
       </form>
   </div>
 
 	<div class='trigger-notices'>
-		<form method="POST" action="<?php echo esc_url(add_query_arg(array('sp-action' => 'action_debug_triggerNotice'), $this->url)) ?>"
+		<form method="POST" action="<?php echo esc_url(add_query_arg(array('sp-action' => 'action_debug_triggerNotice'), $debugUrl)) ?>"
       id="shortpixel-form-debug-stats">
+			<?php wp_nonce_field($this->form_action, 'sp-nonce'); ?>
 			<?php
 				$controller = AdminNoticesController::getInstance();
 				$notices = $controller->getAllNotices();
-			//	$refl = new \ReflectionClass('ShortPixel\Controller\AdminNoticesController');
-			//	$constants = $refl->getConstants();
+
 		 ?>
 				<select name="notice_constant">
 					 <option value="trigger-all">Trigger All</option>
@@ -215,8 +242,9 @@ $env = \wpSPIO()->env();
 			<?php endforeach; ?>
 
   <div class='debug-queue'>
-    <form method="POST" action="<?php echo esc_url(add_query_arg(array('sp-action' => 'action_debug_resetQueue'),$this->url)) ?>"
+    <form method="POST" action="<?php echo esc_url(add_query_arg(array('sp-action' => 'action_debug_resetQueue'),$debugUrl)) ?>"
       id="shortpixel-form-reset-queue">
+			<?php wp_nonce_field($this->form_action, 'sp-nonce'); ?>
       <button class='button' type='submit'>Reset ShortQ</button>
 			<select name="queue">
 					<option>All</option>
@@ -232,8 +260,9 @@ $env = \wpSPIO()->env();
 
 <p></p>
 <div class='debug-key'>
-	<form method="POST" action="<?php echo esc_url(add_query_arg(array('sp-action' => 'action_debug_removeProcessorKey'),$this->url)) ?>"
+	<form method="POST" action="<?php echo esc_url(add_query_arg(array('sp-action' => 'action_debug_removeProcessorKey'),$debugUrl)) ?>"
 		id="shortpixel-form-debug-stats">
+		<?php wp_nonce_field($this->form_action, 'sp-nonce'); ?>
 		<button class='button' type='submit'>Reset Processor Key</button>
 		</form>
 </div>

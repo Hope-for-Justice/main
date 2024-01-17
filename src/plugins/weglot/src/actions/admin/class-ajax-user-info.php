@@ -30,7 +30,7 @@ class Ajax_User_Info implements Hooks_Interface_Weglot {
 			return;
 		}
 
-		add_action( 'wp_ajax_get_user_info', array( $this, 'get_user_info' ) );
+		add_action( 'wp_ajax_get_user_info', array( $this, 'get_user_info' ) ); // @phpstan-ignore-line
 	}
 
 	/**

@@ -51,7 +51,7 @@ class Amp_Enqueue_Weglot implements Hooks_Interface_Weglot {
 			return;
 		}
 
-		add_action( 'weglot_render_dom', array( $this, 'weglot_amp_css' ) );
+		add_action( 'weglot_render_dom', array( $this, 'weglot_amp_css' ) ); // @phpstan-ignore-line
 	}
 
 

@@ -50,8 +50,8 @@ class WC_Mail_Weglot implements Hooks_Interface_Weglot {
 			return;
 		}
 
-		add_action( 'woocommerce_new_order', array( $this, 'save_language' ), 10, 1 );
-		add_action( 'woocommerce_mail_callback_params', array( $this, 'translate_following_mail' ), 10, 2 );
+		add_action( 'woocommerce_new_order', array( $this, 'save_language' ), 10, 1 ); // @phpstan-ignore-line
+		add_action( 'woocommerce_mail_callback_params', array( $this, 'translate_following_mail' ), 10, 2 ); // @phpstan-ignore-line
 	}
 
 	/**
@@ -73,7 +73,7 @@ class WC_Mail_Weglot implements Hooks_Interface_Weglot {
 			)
 		) {
 
-			if ( $mail->is_customer_email() ) { // If mail is for customer
+			if ( $mail->is_customer_email() ) { // If mail is for customer.
 				$woocommerce_order_language = get_post_meta( $mail->object->get_id(), 'weglot_language', true );
 				if ( ! empty( $woocommerce_order_language ) ) {
 
@@ -91,14 +91,18 @@ class WC_Mail_Weglot implements Hooks_Interface_Weglot {
 					);
 				}
 			} else { // If mail is for admin.
-				//check if send is send to customer to.
+				// check if send is send to customer to.
 				if ( $mail->object->get_billing_email() === $mail->get_recipient() ) {
 					$woocommerce_order_language               = get_post_meta( $mail->object->get_id(), 'weglot_language', true );
 					$current_and_original_language            = array(
 						'original' => $this->language_services->get_original_language()->getInternalCode(),
 						'current'  => $this->request_url_services->get_current_language()->getInternalCode(),
 					);
-					$current_and_original_language['current'] = $this->language_services->get_language_from_external( $woocommerce_order_language )->getInternalCode();
+					if( ! empty($this->language_services->get_language_from_external( $woocommerce_order_language ) ) ){
+						$current_and_original_language['current'] = $this->language_services->get_language_from_external( $woocommerce_order_language )->getInternalCode();
+					}else{
+						$current_and_original_language['current']  = $current_and_original_language['original'];
+					}
 
 				} else {
 					$current_and_original_language['original'] = $this->language_services->get_original_language()->getInternalCode();

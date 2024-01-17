@@ -33,19 +33,19 @@ $options = weglot_get_options();
 		<tbody>
 			<tr>
 				<td><?php esc_html_e( 'Home URL', 'weglot' ); ?></td>
-				<td><?php echo esc_attr( home_url() ); ?></td>
+				<td><?php echo esc_html( home_url() ); ?></td>
 			</tr>
 			<tr>
 				<td><?php esc_html_e( 'Site URL', 'weglot' ); ?></td>
-				<td><?php echo esc_attr( site_url() ); ?></td>
+				<td><?php echo esc_url( site_url() ); ?></td>
 			</tr>
 			<tr>
 				<td><?php esc_html_e( 'Weglot version', 'weglot' ); ?></td>
-				<td><?php echo esc_attr( WEGLOT_VERSION ); ?></td>
+				<td><?php echo esc_html( WEGLOT_VERSION ); ?></td>
 			</tr>
 			<tr>
 				<td><?php esc_html_e( 'WordPress version', 'weglot' ); ?></td>
-				<td><?php echo esc_attr( get_bloginfo( 'version' ) ); ?></td>
+				<td><?php echo esc_html( get_bloginfo( 'version' ) ); ?></td>
 			</tr>
 			<tr>
 				<td><?php esc_html_e( 'Is multisite', 'weglot' ); ?></td>
@@ -63,11 +63,11 @@ $options = weglot_get_options();
 			</tr>
 				<tr>
 					 <td><?php esc_html_e( 'Permalink Structure', 'weglot' ); ?></td>
-					 <td><?php echo esc_attr( get_option( 'permalink_structure' ) ); ?></td>
+					 <td><?php echo esc_html( get_option( 'permalink_structure' ) ); ?></td>
 				</tr>
 				<tr>
 					 <td><?php esc_html_e( 'Language', 'weglot' ); ?></td>
-					 <td><?php echo esc_attr( get_locale() ); ?></td>
+					 <td><?php echo esc_html( get_locale() ); ?></td>
 				</tr>
 		  </tbody>
 	 </table>
@@ -113,7 +113,7 @@ $options = weglot_get_options();
 		  <tbody>
 				<tr>
 					 <td><?php esc_html_e( 'Original Language', 'weglot' ); ?></td>
-					 <td><?php echo esc_attr( $this->language_services->get_original_language()->getInternalCode() ); ?></td>
+					 <td><?php echo esc_html( $this->language_services->get_original_language()->getInternalCode() ); ?></td>
 				</tr>
 				<tr>
 					<td><?php esc_html_e( 'Destination Language', 'weglot' ); ?></td>
@@ -145,7 +145,7 @@ $options = weglot_get_options();
 				</tr>
 				<tr>
 					 <td><?php esc_html_e( 'Exclude Blocks', 'weglot' ); ?></td>
-					 <td><?php echo esc_attr( implode( $options['exclude_blocks'], ' - ' ) ); ?></td>
+					 <td><?php echo esc_html( implode( $options['exclude_blocks'], ' - ' ) ); ?></td>
 				</tr>
 		  </tbody>
 	 </table>

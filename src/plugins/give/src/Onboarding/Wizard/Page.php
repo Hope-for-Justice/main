@@ -4,7 +4,7 @@ namespace Give\Onboarding\Wizard;
 
 defined('ABSPATH') || exit;
 
-use Give\DonationForms\DonationFormsAdminPage;
+use Give\DonationForms\V2\DonationFormsAdminPage;
 use Give\Helpers\EnqueueScript;
 use Give\Onboarding\FormRepository;
 use Give\Onboarding\Helpers\FormatList;
@@ -121,12 +121,7 @@ class Page
             null
         );
 
-        wp_enqueue_style(
-            'give-google-font-open-sans',
-            'https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap',
-            [],
-            null
-        );
+        wp_enqueue_style('givewp-admin-fonts');
 
         $formID = $this->formRepository->getDefaultFormID();
         $featureGoal = get_post_meta($formID, '_give_goal_option', true);

@@ -1,6 +1,12 @@
 <?php
 namespace ShortPixel\Model\AdminNotices;
 
+if ( ! defined( 'ABSPATH' ) ) {
+ exit; // Exit if accessed directly.
+}
+
+use ShortPixel\ShortPixelLogger\ShortPixelLogger as Log;
+
 class ListviewNotice extends \ShortPixel\Model\AdminNoticeModel
 {
 	protected $key = 'MSG_LISTVIEW_ACTIVE';
@@ -36,14 +42,12 @@ class ListviewNotice extends \ShortPixel\Model\AdminNoticeModel
 
 		}
 
-			$current_user = wp_get_current_user();
-			$currentUserID = $current_user->ID;
-			$viewMode = get_user_meta($currentUserID, "wp_media_library_mode", true);
+			$viewMode = get_user_option('media_library_mode', get_current_user_id() );
 
 			if ($viewMode === "" || strlen($viewMode) == 0)
 			{
 					// If nothing is set, set it for them.
-					update_user_meta($currentUserID, 'wp_media_library_mode', 'list');
+						update_user_option( get_current_user_id(), 'media_library_mode', 'list' );
 					return false;
 			}
 			elseif ($viewMode !== "list")
@@ -83,7 +87,7 @@ class ListviewNotice extends \ShortPixel\Model\AdminNoticeModel
 	protected function getMessage()
 	{
 
-		$message = sprintf(__('You can see the actions and data of ShortPixel Image Optimiser only through the list view. Switch to the list view to use the plugin via the media library.  Click to%s switch to the list view%s now. ', 'shortpixel-image-optimiser'), '<a href="' . admin_url('upload.php?mode=list') . '">','</a>');
+		$message = sprintf(__('Now you can see ShortPixel Image Optimizer\'s actions and optimization data in Grid view too! Click on any image below and you can see the ShortPixel actions and menus in the popup that opens. However, the list view provides a better experience. Click now to %sswitch to the list view%s. ', 'shortpixel-image-optimiser'), '<a href="' . admin_url('upload.php?mode=list') . '">','</a>');
 
 		return $message;
 

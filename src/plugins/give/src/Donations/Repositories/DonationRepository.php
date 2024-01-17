@@ -316,6 +316,7 @@ class DonationRepository
     }
 
     /**
+     * @since 3.2.0 added meta for honorific property
      * @since 2.20.0 update amount to use new type, and add currency and exchange rate
      * @since 2.19.6
      */
@@ -365,13 +366,21 @@ class DonationRepository
             $meta[DonationMetaKeys::SUBSCRIPTION_ID] = $donation->subscriptionId;
         }
 
-        if ( $donation->type->isSubscription()) {
+        if ($donation->type->isSubscription()) {
             $meta[DonationMetaKeys::SUBSCRIPTION_INITIAL_DONATION] = 1;
             $meta[DonationMetaKeys::IS_RECURRING] = 1;
         }
 
         if ($donation->company !== null) {
             $meta[DonationMetaKeys::COMPANY] = $donation->company;
+        }
+
+        if ($donation->comment !== null) {
+            $meta[DonationMetaKeys::COMMENT] = $donation->comment;
+        }
+
+        if ($donation->honorific !== null) {
+            $meta[DonationMetaKeys::HONORIFIC] = $donation->honorific;
         }
 
         return $meta;

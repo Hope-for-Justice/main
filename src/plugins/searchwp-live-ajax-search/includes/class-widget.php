@@ -252,17 +252,19 @@ class SearchWP_Live_Search_Widget extends WP_Widget {
 		$swp_uniqid = uniqid( 'swp' );
 
 		?>
-        <p><a href="#" class="button" onclick="document.getElementById('searchwp-live-search-widget-advanced-<?php echo sanitize_key( $swp_uniqid ); ?>').style.display = 'block'; this.parentNode.style.display = 'none';"><?php esc_html_e( 'Advanced', 'searchwp-live-ajax-search' ); ?></a></p>
-        <div id="searchwp-live-search-widget-advanced-<?php echo sanitize_key( $swp_uniqid ); ?>" style="display:none;">
-            <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'placeholder' ) ); ?>"><?php esc_html_e( 'Placeholder:', 'searchwp-live-ajax-search' ); ?></label>
-                <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'placeholder' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'placeholder' ) ); ?>" type="text" value="<?php echo esc_attr( $widget_placeholder ); ?>">
-            </p>
-            <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'destination' ) ); ?>"><?php esc_html_e( 'Destination fallback URL (optional):', 'searchwp-live-ajax-search' ); ?></label>
-                <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'destination' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'destination' ) ); ?>" type="text" value="<?php echo esc_attr( $widget_destination ); ?>">
-            </p>
-        </div>
+        <p>
+	        <a href="#" class="button" onclick="this.parentNode.nextElementSibling.style.display = 'block'; this.parentNode.style.display = 'none';"><?php esc_html_e( 'Advanced', 'searchwp-live-ajax-search' ); ?></a>
+	        <div id="searchwp-live-search-widget-advanced-<?php echo sanitize_key( $swp_uniqid ); ?>" style="display:none;">
+	            <p>
+	                <label for="<?php echo esc_attr( $this->get_field_id( 'placeholder' ) ); ?>"><?php esc_html_e( 'Placeholder:', 'searchwp-live-ajax-search' ); ?></label>
+	                <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'placeholder' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'placeholder' ) ); ?>" type="text" value="<?php echo esc_attr( $widget_placeholder ); ?>">
+	            </p>
+	            <p>
+	                <label for="<?php echo esc_attr( $this->get_field_id( 'destination' ) ); ?>"><?php esc_html_e( 'Destination fallback URL (optional):', 'searchwp-live-ajax-search' ); ?></label>
+	                <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'destination' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'destination' ) ); ?>" type="text" value="<?php echo esc_attr( $widget_destination ); ?>">
+	            </p>
+	        </div>
+				</p>
 		<?php
 	}
 

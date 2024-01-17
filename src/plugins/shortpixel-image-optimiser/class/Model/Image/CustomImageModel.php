@@ -1,6 +1,11 @@
 <?php
 namespace ShortPixel\Model\Image;
-use ShortPixel\ShortpixelLogger\ShortPixelLogger as Log;
+
+if ( ! defined( 'ABSPATH' ) ) {
+ exit; // Exit if accessed directly.
+}
+
+use ShortPixel\ShortPixelLogger\ShortPixelLogger as Log;
 use ShortPixel\Controller\OptimizeController as OptimizeController;
 use ShortPixel\Helper\UtilHelper as UtilHelper;
 
@@ -24,7 +29,9 @@ class CustomImageModel extends \ShortPixel\Model\Image\ImageModel
 
     protected $is_main_file = true;
 
-    const FILE_STATUS_PREVENT = -10;
+		/** @var array */
+		protected $forceSettings = array();  // option derives from setting or otherwise, request to be forced upon via UI to use specific value.
+
 
 		// @param int $id
     public function __construct($id)
@@ -34,11 +41,11 @@ class CustomImageModel extends \ShortPixel\Model\Image\ImageModel
         if ($id > 0)
 				{
           $bool = $this->loadMeta();
-					if ($bool)
+					/*if ($bool)
 					{
 				  	$this->setWebp();
 				  	$this->setAvif();
-					}
+					} */
 				}
         else
         {
@@ -66,6 +73,17 @@ class CustomImageModel extends \ShortPixel\Model\Image\ImageModel
 
     }
 
+    protected function getExcludePatterns()
+    {
+        $args = array(
+          'filter' => true,
+          'is_custom' => true,
+        );
+
+        $patterns = UtilHelper::getExclusions($args);
+        return $patterns;
+    }
+
 		public function getOptimizeData()
 		{
 				$parameters = array(
@@ -80,23 +98,48 @@ class CustomImageModel extends \ShortPixel\Model\Image\ImageModel
         else
           $url = $this->getURL();
 
+				 $settings = \wpSPIO()->settings();
+				 $isSmartCrop = ($settings->useSmartcrop == true && $this->getExtension() !== 'pdf') ? true : false;
+		 		 $paramListArgs = array(); // args for the params, yes.
+
+		 		 if (isset($this->forceSettings['smartcrop']) && $this->getExtension() !== 'pdf')
+		 		 {
+		 			  $isSmartCrop = ($this->forceSettings['smartcrop'] == ImageModel::ACTION_SMARTCROP) ? true : false;
+		 		 }
+				 $paramListArgs['smartcrop'] = $isSmartCrop;
+         $paramListArgs['main_url'] = $url;
+         $paramListArgs['url'] = $url;
+
         if ($this->isProcessable(true) || $this->isProcessableAnyFileType())
 				{
           $parameters['urls'][0] =  $url;
 					$parameters['paths'][0] = $this->getFullPath();
-					$parameters['params'][0] = $this->createParamList();
+					$parameters['params'][0] = $this->createParamList($paramListArgs);
 					$parameters['returnParams']['sizes'][0] =  $this->getFileName();
-  			}
 
+					if ($isSmartCrop )
+					{
+						 $parameters['returnParams']['fileSizes'][0] = $this->getFileSize();
+					}
+  			}
 
 				return $parameters;
 		}
 
+		public function doSetting($setting, $value)
+		{
+			  $this->forceSettings[$setting] = $value;
+		}
 
 		public function getURL()
 		{
 			  return \wpSPIO()->filesystem()->pathToUrl($this);
 		}
+
+    public function getAllUrls()
+    {
+        return array($this->getURL());
+    }
 
     public function count($type)
     {
@@ -126,13 +169,20 @@ class CustomImageModel extends \ShortPixel\Model\Image\ImageModel
     {
         $bool = parent::isProcessable();
 
+				if($strict)
+				{
+					return $bool;
+				}
+
 				// The exclude size on the  image - via regex - if fails, prevents the whole thing from optimization.
 				if ($this->processable_status == ImageModel::P_EXCLUDE_SIZE || $this->processable_status == ImageModel::P_EXCLUDE_PATH)
 				{
 					 return $bool;
 				}
 
-        if ($bool === false && $strict === false)
+
+
+      /*  if ($bool === false && $strict === false)
         {
           // Todo check if Webp / Acif is active, check for unoptimized items
           if ($this->isProcessableFileType('webp'))
@@ -144,7 +194,22 @@ class CustomImageModel extends \ShortPixel\Model\Image\ImageModel
              $bool = true;
 					}
 
-        }
+        } */
+
+				// From above to below was implemented because it could not detect file not writable / directory not writable issues if there was any option to generate webp in the settings. Should check for all those file issues first.
+
+				// First test if this file isn't unprocessable for any other reason, then check.
+				if (($this->isProcessable(true) || $this->isOptimized() ) && $this->isProcessableAnyFileType() === true)
+				{
+					if (false === $this->is_directory_writable())
+					{
+					 	$bool = false;
+					}
+					else {
+						$bool = true;
+					}
+				}
+
         return $bool;
     }
 
@@ -254,7 +319,7 @@ class CustomImageModel extends \ShortPixel\Model\Image\ImageModel
        return $return;
     }
 
-    public function handleOptimized($optimizeData)
+    public function handleOptimized($optimizeData, $args = array())
     {
 			 $bool = true;
 
@@ -282,7 +347,7 @@ class CustomImageModel extends \ShortPixel\Model\Image\ImageModel
          $this->saveMeta();
        }
 
-			 $this->deleteTempFiles($files);
+	//		 $this->deleteTempFiles($files);
 
        return $bool;
     }
@@ -405,24 +470,38 @@ class CustomImageModel extends \ShortPixel\Model\Image\ImageModel
 
     }
 
-    protected function preventNextTry($reason = '')
+    protected function preventNextTry($reason = '', $status = self::FILE_STATUS_PREVENT)
     {
         $this->setMeta('errorMessage', $reason);
-        $this->setMeta('status', SELF::FILE_STATUS_PREVENT);
+        $this->setMeta('status', $status);
         $this->saveMeta();
+    }
+
+    public function markCompleted($reason, $status)
+    {
+       return $this->preventNextTry($reason, $status);
     }
 
     public function isOptimizePrevented()
     {
          $status = $this->getMeta('status');
 
-         if ($status == self::FILE_STATUS_PREVENT )
+         if ($status == self::FILE_STATUS_PREVENT || $status == self::FILE_STATUS_MARKED_DONE )
          {
 					  $this->processable_status = self::P_OPTIMIZE_PREVENTED;
+            $this->optimizePreventedReason  = $this->getMeta('errorMessage');
+
             return $this->getMeta('errorMessage');
          }
 
+
          return false;
+    }
+
+    // Only one item for now, so it's equal
+    public function isSomethingOptimized()
+    {
+       return $this->isOptimized();
     }
 
     public function resetPrevent()

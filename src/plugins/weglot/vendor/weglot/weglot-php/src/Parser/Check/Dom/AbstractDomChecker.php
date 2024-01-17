@@ -116,10 +116,19 @@ abstract class AbstractDomChecker
     {
         $property = $this->property;
 
-        return (
-            Text::fullTrim($this->node->$property) != '' &&
-            !$this->node->hasAncestorAttribute(Parser::ATTRIBUTE_NO_TRANSLATE)
-        );
+        //we check if we're on wg-mode-whitelist
+        if( $this->node->hasAncestorAttribute('wg-mode-whitelist') ){
+            return (
+                Text::fullTrim($this->node->$property) != '' &&
+                $this->node->hasAncestorAttribute(Parser::ATTRIBUTE_TRANSLATE)
+            );
+        }else{
+            return (
+                Text::fullTrim($this->node->$property) != '' &&
+                !$this->node->hasAncestorAttribute(Parser::ATTRIBUTE_NO_TRANSLATE)
+            );
+        }
+
     }
 
     /**

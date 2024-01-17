@@ -40,6 +40,11 @@ var ShortPixelToolTip = function(reserved, processor)
 		this.InitStats = function()
 		{
 		      var processData = ShortPixelProcessorData.startData;
+					if (typeof processData !== 'object')
+					{
+						 console.error('Tooltip: No start Data found.');
+						 return false;
+					}
 					this.RefreshStats(processData.media.stats, 'media');
 					this.RefreshStats(processData.custom.stats, 'custom');
 					this.RefreshStats(processData.total.stats, 'total');
@@ -238,8 +243,9 @@ var ShortPixelToolTip = function(reserved, processor)
     {
         var tooltip = this.GetToolTip();
 				if (tooltip === null)
+				{
 					return false;
-
+				}
         tooltip.classList.add('shortpixel-hide');
         tooltip.classList.remove('shortpixel-processing');
     }

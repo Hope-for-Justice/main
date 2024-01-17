@@ -3,16 +3,33 @@
 function switcherPlacement() {
 	const button_switcher_ajax = document.querySelectorAll(".weglot-custom-switcher-ajax")
 	Array.prototype.forEach.call(button_switcher_ajax, function (el, i) {
-		let button_target = document.querySelector(el.getAttribute('data-wg-target'))
-		let button_sibling = document.querySelector(el.getAttribute('data-wg-sibling'))
+		let button_sibling = null;
+		let button_target = null;
+		let targetSelector = null;
+		let siblingSelector = null;
 
-		if (button_target && button_sibling) {
+		if (el.getAttribute('data-wg-target') !== '') {
+			targetSelector = el.getAttribute('data-wg-target');
+		}
+
+		if (el.getAttribute('data-wg-sibling') !== '') {
+			siblingSelector = el.getAttribute('data-wg-sibling');
+		}
+
+		if (targetSelector) {
+			button_target = document.querySelector(targetSelector)
+		}
+		if (siblingSelector) {
+			button_sibling = document.querySelector(siblingSelector)
+		}
+
+		if (button_target != null && button_sibling != null) {
 			button_target.insertBefore(el, button_sibling)
 			el.classList.remove("weglot-custom-switcher-ajax")
-		} else if (button_target) {
+		} else if (button_target && button_sibling == null) {
 			button_target.insertBefore(el, button_target.firstChild)
 			el.classList.remove("weglot-custom-switcher-ajax")
-		} else if (button_sibling) {
+		} else if (button_sibling && button_target == null) {
 			button_sibling.parentNode.insertBefore(el, button_sibling)
 			el.classList.remove("weglot-custom-switcher-ajax")
 		}
@@ -29,14 +46,12 @@ function inFrame() {
 }
 
 if (document.readyState === "loading") {
-	document.addEventListener("DOMContentLoaded", () =>
-		switcherPlacement()
-	);
+	document.addEventListener( "DOMContentLoaded", () => switcherPlacement() );
 } else {
 	switcherPlacement();
 }
 
-document.addEventListener("DOMContentLoaded", function (event) {
+document.addEventListener( "DOMContentLoaded", function ( event ) {
 
 	function getOffset(element) {
 		let top = 0, left = 0;
@@ -47,8 +62,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 		} while (element);
 
 		return {
-			top: top,
-			left: left
+			top: top, left: left
 		};
 	}
 
@@ -78,18 +92,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
 		}
 	}
 
+	document.addEventListener("click", (evt) => {
+		let targetEl = evt.target;
+
+		if(targetEl.closest('.country-selector.close_outside_click') == null){
+			document.querySelectorAll(".country-selector.close_outside_click.weglot-dropdown input").forEach( (node) => {
+				node.checked = false
+			})
+		}
+	});
+
 	const asides = document.getElementsByClassName("country-selector");
 	const isOpen = link => !link.className.includes("closed");
 	let focusedLang;
 	if (asides.length > 0) {
 		const selectedLang = document.getElementsByClassName("wgcurrent");
 		for (let aside of asides) {
+
 			// accessiblity button
 			const KEYCODE = {
-				ENTER: 13,
-				ESCAPE: 27,
-				ARROWUP: 38,
-				ARROWDOWN: 40,
+				ENTER: 13, ESCAPE: 27, ARROWUP: 38, ARROWDOWN: 40,
 			};
 
 			const isOpenUp = () => {
@@ -116,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 			const setAriaLabel = code => {
 				const fullNameLang = getLangNameFromCode(code);
-				aside.setAttribute("aria-activedescendant", "weglot-language-" + code);
+				//aside.setAttribute("aria-activedescendant", "weglot-language-" + code);
 				aside.setAttribute("aria-label", "Language selected: " + code);
 			};
 
@@ -132,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 				focusedLang = null;
 			};
 
-			// Toggle when focused and keydown ENTER
+			// Toggle when focused and keydown ENTER.
 			aside.addEventListener("keydown", event => {
 				if (event.keyCode === KEYCODE.ENTER) {
 					//event.preventDefault();
@@ -148,23 +170,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
 					toggleSwitcher();
 					return;
 				}
-				if (
-					event.keyCode === KEYCODE.ARROWDOWN ||
-					event.keyCode === KEYCODE.ARROWUP
-				) {
+				if (event.keyCode === KEYCODE.ARROWDOWN || event.keyCode === KEYCODE.ARROWUP) {
 					event.preventDefault();
 					moveFocus(event.keyCode);
 					return;
 				}
 				if (event.keyCode === KEYCODE.ESCAPE && isOpen(aside)) {
-					// Close switcher
+					// Close switcher.
 					event.preventDefault();
 					closeSwitcher();
 					aside.focus();
 				}
 			});
 
-			aside.addEventListener("click", event => {
+			aside.addEventListener("mousedown", event => {
 				if (focusedLang) {
 					const destinationLanguage = focusedLang.getAttribute("data-l");
 					setAriaLabel(destinationLanguage);
@@ -174,9 +193,33 @@ document.addEventListener("DOMContentLoaded", function (event) {
 				return;
 			});
 
+			if(aside.className.includes("open_hover")){
+				aside.addEventListener("mouseenter", event => {
+					if (focusedLang) {
+						const destinationLanguage = focusedLang.getAttribute("data-l");
+						setAriaLabel(destinationLanguage);
+						aside.focus();
+					}
+					toggleSwitcher();
+					aside.querySelector("input.weglot_choice").checked = true
+					return;
+				});
+
+				aside.addEventListener("mouseleave", event => {
+					if (focusedLang) {
+						const destinationLanguage = focusedLang.getAttribute("data-l");
+						setAriaLabel(destinationLanguage);
+						aside.focus();
+					}
+					toggleSwitcher();
+					aside.querySelector("input.weglot_choice").checked = false
+					return;
+				});
+			}
+
+
 			const moveFocus = keyCode => {
-				const direction =
-					keyCode === KEYCODE.ARROWDOWN ? "nextSibling" : "previousSibling";
+				const direction = keyCode === KEYCODE.ARROWDOWN ? "nextSibling" : "previousSibling";
 				const openUp = isOpenUp();
 
 				if (!focusedLang || !isOpen(aside)) {
@@ -196,9 +239,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 					focusedLang.scrollIntoView({block: "center"});
 
 					// if right direction, open it
-					const needToOpen =
-						(keyCode === KEYCODE.ARROWUP && openUp) ||
-						(keyCode === KEYCODE.ARROWDOWN && !openUp);
+					const needToOpen = (keyCode === KEYCODE.ARROWUP && openUp) || (keyCode === KEYCODE.ARROWDOWN && !openUp);
 					if (!isOpen(aside) && needToOpen) {
 						openSwitcher();
 					}
@@ -208,10 +249,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 				// Focus next or prev language, if exists
 				if (!focusedLang[direction]) {
 					// if last element, close it
-					if (
-						(keyCode === KEYCODE.ARROWUP && !openUp) ||
-						(keyCode === KEYCODE.ARROWDOWN && openUp)
-					) {
+					if ((keyCode === KEYCODE.ARROWUP && !openUp) || (keyCode === KEYCODE.ARROWDOWN && openUp)) {
 						closeSwitcher();
 						aside.focus();
 					}

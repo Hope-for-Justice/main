@@ -158,9 +158,7 @@ class LanguageEntry extends AbstractCollectionEntry
         return $this->isRtl;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return [

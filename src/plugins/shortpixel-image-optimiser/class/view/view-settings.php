@@ -1,6 +1,10 @@
 <?php
 namespace ShortPixel;
-use ShortPixel\ShortpixelLogger\ShortPixelLogger as Log;
+use ShortPixel\ShortPixelLogger\ShortPixelLogger as Log;
+
+if ( ! defined( 'ABSPATH' ) ) {
+ exit; // Exit if accessed directly.
+}
 
 // #Todo Move this to some env or more appropiate place.
 $is_unlimited= (!is_null($this->quotaData) && $this->quotaData->unlimited) ? true : false;
@@ -13,11 +17,13 @@ $is_unlimited= (!is_null($this->quotaData) && $this->quotaData->unlimited) ? tru
 <div class='top-menu'>
 
   <div class='links'>
-		<?php if (! $is_unlimited): ?> 
+
+		<?php if (! $is_unlimited): ?>
     <a href="https://shortpixel.com/<?php
-        echo esc_attr(($view->data->apiKey ? "login/". $view->data->apiKey : "pricing"));
+        echo esc_attr(($view->data->apiKey ? "login/". $view->data->apiKey . '/spio-unlimited': "pricing"));
     ?>" target="_blank"><?php esc_html_e( 'Buy credits', 'shortpixel-image-optimiser' );?></a> |
 	  <?php endif; ?>
+
     <a href="https://shortpixel.com/knowledge-base/" target="_blank"><?php esc_html_e('Knowledge Base','shortpixel-image-optimiser');?></a> |
     <a href="https://shortpixel.com/contact" target="_blank"><?php esc_html_e('Contact Support','shortpixel-image-optimiser');?></a> |
     <a href="https://shortpixel.com/<?php
@@ -40,7 +46,7 @@ $is_unlimited= (!is_null($this->quotaData) && $this->quotaData->unlimited) ? tru
                     ?>" target="_blank">
 												 <?php if ($is_unlimited)
 												 {
-													 printf(esc_html__('Shortpixel Unlimited', 'shortpixel-image-optimiser'));
+													 printf(esc_html__('ShortPixel Unlimited', 'shortpixel-image-optimiser'));
 												 }
 												 else
                          {

@@ -29,7 +29,7 @@
 	font-size: 15px;
 	font-weight: bold;
 	padding: 12px 24px;
-	background-color: #ff6b6b;
+	background-color: #437e47;
 	position: -webkit-sticky;
 	position: sticky;
 	top: 0;
@@ -129,7 +129,7 @@
 
 .components-button.is-primary {
 	white-space: nowrap;
-	background: #ff6b6b;
+	background: #437e47;
 	color: #fff;
 	text-decoration: none;
 	text-shadow: none;
@@ -164,57 +164,97 @@
 	transition: .5s;
 }
 
-@keyframes searchwp-bounce {
-	0%, 40%   { transform: scale(1,1)      translateY(0); }
-	41%  { transform: scale(1.1,.9)   translateY(0); }
-	50%  { transform: scale(.9,1.1)   translateY(-8px); }
-	56%  { transform: scale(1.05,.95) translateY(0); }
-	57%  { transform: scale(1,1)      translateY(-2px); }
-	64%, 100%  { transform: scale(1,1)      translateY(0); }
-}
-
-.searchwp-settings-header {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-}
-
-.searchwp-header-actions {
-	margin: 0;
-}
-
-.searchwp-branding-bar__actions-button {
-	color: #000;
-	cursor: pointer;
-	padding: 10px;
-	width: 40px;
-	height: 40px;
-	background-color: #fff;
-	border-radius: 50%;
-	border: 0;
-	box-shadow: none;
-	position: relative;
-	transition: background-color .2s ease;
-	box-sizing: border-box;
-	display: block;
-}
-
-.searchwp-branding-bar__actions-button-count {
-	font-weight: 600;
-	font-size: 10px;
-	line-height: 16px;
-	text-align: center;
-	color: #fff;
-	margin: 0 0 0 -8px;
-	background-color: #df2a4a;
-	border-radius: 100%;
-	width: 16px;
+#swp-notifications-page-header-button {
 	height: 16px;
+	margin-top: 5px;
+}
+
+.swp-badge {
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+	display: inline-block;
+	font-weight: 700;
+	font-size: 11px;
+	line-height: 1em;
+	min-width: 1em;
+	padding: 0.23em;
+	border-radius: 50%;
+	text-align: center;
+	background-color: #df2a4a;
+	color: #fff;
 	position: absolute;
-	top: -8px;
-	left: 50%;
+	top: -50%;
+	left: -50%;
+	-webkit-animation-duration: 4s;
 	animation-duration: 4s;
+	-webkit-animation-iteration-count: infinite;
 	animation-iteration-count: infinite;
-	animation-name: searchwp-bounce;
+	-webkit-animation-name: swp-bounce;
+	animation-name: swp-bounce;
+	-webkit-animation-timing-function: ease;
 	animation-timing-function: ease;
+}
+
+@-webkit-keyframes swp-bounce {
+	0%, 40% {
+		-webkit-transform: scale(1,1) translateY(0);
+		transform: scale(1,1) translateY(0);
+	}
+
+	41% {
+		-webkit-transform: scale(1.1,.9) translateY(0);
+		transform: scale(1.1,.9) translateY(0);
+	}
+
+	50% {
+		-webkit-transform: scale(.9,1.1) translateY(-8px);
+		transform: scale(.9,1.1) translateY(-8px);
+	}
+
+	56% {
+		-webkit-transform: scale(1.05,.95) translateY(0);
+		transform: scale(1.05,.95) translateY(0);
+	}
+
+	57% {
+		-webkit-transform: scale(1,1) translateY(-2px);
+		transform: scale(1,1) translateY(-2px);
+	}
+
+	64%, 100% {
+		-webkit-transform: scale(1,1) translateY(0);
+		transform: scale(1,1) translateY(0);
+	}
+}
+
+@keyframes swp-bounce {
+	0%, 40% {
+		-webkit-transform: scale(1,1) translateY(0);
+		transform: scale(1,1) translateY(0);
+	}
+
+	41% {
+		-webkit-transform: scale(1.1,.9) translateY(0);
+		transform: scale(1.1,.9) translateY(0);
+	}
+
+	50% {
+		-webkit-transform: scale(.9,1.1) translateY(-8px);
+		transform: scale(.9,1.1) translateY(-8px);
+	}
+
+	56% {
+		-webkit-transform: scale(1.05,.95) translateY(0);
+		transform: scale(1.05,.95) translateY(0);
+	}
+
+	57% {
+		-webkit-transform: scale(1,1) translateY(-2px);
+		transform: scale(1,1) translateY(-2px);
+	}
+
+	64%, 100% {
+		-webkit-transform: scale(1,1) translateY(0);
+		transform: scale(1,1) translateY(0);
+	}
 }

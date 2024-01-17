@@ -159,9 +159,13 @@ class RegexCheckerProvider
                     }
                     if($type === SourceType::SOURCE_HTML) {
                         $regex = $this->getParser()->parseHTML($new_match);
-                        $regex['source_before_callback'] = $match;
+                        //if(isset($regex['source_before_callback'])){
+                            $regex['source_before_callback'] = $match;
+                        //}
                     }
-                    $regex['revert_callback'] = $revert_callback;
+                    //if(isset( $regex['revert_callback'])){
+                        $regex['revert_callback'] = $revert_callback;
+                    //}
                     array_push($regexes, $regex);
                 }
             }

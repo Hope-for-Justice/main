@@ -298,7 +298,7 @@ class CurlClient implements ClientInterface
     protected function executeRequestWithRetries(array $options, $absUrl)
     {
         $numRetries = 0;
-
+        $message = '';
         while (true) {
             $rcode = $errno = 0;
 

@@ -292,7 +292,10 @@ class Url
         $urlNoPrefix = preg_replace('#' . $escapedPathPrefix . '#i', '', $this->getUrl(), 1);
 
         $uriPath = parse_url($urlNoPrefix, PHP_URL_PATH);
-        $uriSegments = explode('/', $uriPath);
+        $uriSegments = array();
+        if( !is_null($uriPath)){
+            $uriSegments = explode('/', $uriPath);
+        }
 
         if (isset($uriSegments[1]) && in_array($uriSegments[1], $this->getDestinationLanguagesExternal() ) ) {
             foreach ($this->destinationLanguages as $language) {
@@ -308,7 +311,7 @@ class Url
 
         $parsed = parse_url($urlNoPrefixNoLanguage);
 
-        if(isset($parsed['scheme'])) {
+        if(isset($parsed['scheme']) && isset($parsed['host'])) {
             $this->host = $parsed['scheme'] . '://' . $parsed['host'] . (isset($parsed['port']) ? ':'.$parsed['port'] : '');
         }
         $this->path = isset($parsed['path']) ? urldecode($parsed['path']) : '/';

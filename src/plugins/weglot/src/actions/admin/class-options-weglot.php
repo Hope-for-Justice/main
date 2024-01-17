@@ -50,7 +50,7 @@ class Options_Weglot implements Hooks_Interface_Weglot {
 		add_action( 'admin_post_weglot_save_settings', array( $this, 'weglot_save_settings' ) );
 		$api_key = $this->option_services->get_api_key( true );
 		if ( empty( $api_key ) && ( ! isset( $_GET['page'] ) || strpos( $_GET['page'], 'weglot-settings' ) === false) ) { // phpcs:ignore
-			//We don't show the notice if we are on Weglot configuration
+			// We don't show the notice if we are on Weglot configuration.
 			add_action( 'admin_notices', array( '\WeglotWP\Notices\No_Configuration_Weglot', 'admin_notice' ) );
 		}
 	}
@@ -85,13 +85,15 @@ class Options_Weglot implements Hooks_Interface_Weglot {
 		$tab = $_GET[ 'tab' ]; //phpcs:ignore
 		$options = $_POST[ WEGLOT_SLUG ]; //phpcs:ignore
 
+		// SAVE USER VERSION OF PLUGIN INTO SETTINGS.
+		$options['custom_settings']['wp_user_version'] = WEGLOT_VERSION;
 		$options_bdd = $this->option_services->get_options_bdd_v3();
 
 		switch ( $tab ) {
 			case Helper_Tabs_Admin_Weglot::SETTINGS:
 				$has_first_settings = $this->option_services->get_has_first_settings();
 				$options            = $this->sanitize_options_settings( $options, $has_first_settings );
-				$response           = $this->option_services->save_options_to_weglot( $options, $has_first_settings );
+				$response           = $this->option_services->save_options_to_weglot( $options );
 
 				if ( $response['success'] && is_array( $response['result'] ) ) {
 					delete_transient( 'weglot_cache_cdn' );
@@ -145,19 +147,6 @@ class Options_Weglot implements Hooks_Interface_Weglot {
 
 				$this->option_services->set_options( $options_bdd );
 				break;
-			case Helper_Tabs_Admin_Weglot::CUSTOM_URLS:
-				if ( null === $options_bdd ) {
-					$options_bdd['custom_urls'] = array();
-				}
-
-				if ( array_key_exists( 'custom_urls', $options ) ) {
-					$options_bdd['custom_urls'] = $options['custom_urls'];
-				} else {
-					$options_bdd['custom_urls'] = array();
-				}
-
-				$this->option_services->set_options( $options_bdd );
-				break;
 		}
 
 		wp_redirect( $redirect_url ); //phpcs:ignore
@@ -205,6 +194,7 @@ class Options_Weglot implements Hooks_Interface_Weglot {
 		$options['custom_settings']['translate_email']  = isset( $options['custom_settings']['translate_email'] );
 		$options['custom_settings']['translate_search'] = isset( $options['custom_settings']['translate_search'] );
 		$options['custom_settings']['translate_amp']    = isset( $options['custom_settings']['translate_amp'] );
+		$options['custom_settings']['wp_user_version']  = $options['custom_settings']['wp_user_version'] ?? '';
 
 		$options['auto_switch'] = isset( $options['auto_switch'] );
 
@@ -219,8 +209,10 @@ class Options_Weglot implements Hooks_Interface_Weglot {
 				}
 			);
 		}
-		foreach ( $switchers as $switcher ) {
-			$options['custom_settings']['switchers'][] = $switcher;
+		if(!empty($switchers)){
+			foreach ( $switchers as $switcher ) {
+				$options['custom_settings']['switchers'][] = $switcher;
+			}
 		}
 		return $options;
 	}

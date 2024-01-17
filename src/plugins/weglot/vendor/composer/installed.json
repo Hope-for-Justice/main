@@ -2,23 +2,23 @@
     "packages": [
         {
             "name": "gmulti/morphism-php",
-            "version": "0.3.0",
-            "version_normalized": "0.3.0.0",
+            "version": "dev-dev-bugfix",
+            "version_normalized": "dev-dev-bugfix",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Gmulti/morphism-php.git",
-                "reference": "0b4cc4e604452a724124b8d342635c4b0b0e9809"
+                "url": "https://github.com/glx77/morphism-php.git",
+                "reference": "578752d5a21b57dd6e6cf4c04f12c96c3df42372"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gmulti/morphism-php/zipball/0b4cc4e604452a724124b8d342635c4b0b0e9809",
-                "reference": "0b4cc4e604452a724124b8d342635c4b0b0e9809",
+                "url": "https://api.github.com/repos/glx77/morphism-php/zipball/578752d5a21b57dd6e6cf4c04f12c96c3df42372",
+                "reference": "578752d5a21b57dd6e6cf4c04f12c96c3df42372",
                 "shasum": ""
             },
             "require-dev": {
                 "phpunit/phpunit": "^6.5"
             },
-            "time": "2017-12-23T20:54:39+00:00",
+            "time": "2023-10-09T06:46:30+00:00",
             "type": "project",
             "installation-source": "dist",
             "autoload": {
@@ -26,7 +26,6 @@
                     "Morphism\\": "lib/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -37,8 +36,7 @@
                 }
             ],
             "support": {
-                "issues": "https://github.com/Gmulti/morphism-php/issues",
-                "source": "https://github.com/Gmulti/morphism-php/tree/0.3.0"
+                "source": "https://github.com/glx77/morphism-php/tree/dev-bugfix"
             },
             "install-path": "../gmulti/morphism-php"
         },
@@ -96,23 +94,23 @@
         },
         {
             "name": "weglot/simplehtmldom",
-            "version": "0.7",
-            "version_normalized": "0.7.0.0",
+            "version": "0.8",
+            "version_normalized": "0.8.0.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:weglot/simple_html_dom.git",
-                "reference": "020aac0f37d5cf1ebfde62aa67cb2a6cc3914f41"
+                "reference": "bc37c23550025c59849f0f0e8c332d6e7c2385ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/weglot/simple_html_dom/zipball/020aac0f37d5cf1ebfde62aa67cb2a6cc3914f41",
-                "reference": "020aac0f37d5cf1ebfde62aa67cb2a6cc3914f41",
+                "url": "https://api.github.com/repos/weglot/simple_html_dom/zipball/bc37c23550025c59849f0f0e8c332d6e7c2385ee",
+                "reference": "bc37c23550025c59849f0f0e8c332d6e7c2385ee",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2021-12-13T12:39:30+00:00",
+            "time": "2023-03-28T08:51:53+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -140,9 +138,8 @@
                 "simple"
             ],
             "support": {
-                "source": "https://github.com/weglot/simple_html_dom/tree/0.7"
+                "source": "https://github.com/weglot/simple_html_dom/tree/0.8"
             },
-            "abandoned": true,
             "install-path": "../weglot/simplehtmldom"
         },
         {
@@ -190,30 +187,30 @@
         },
         {
             "name": "weglot/weglot-php",
-            "version": "1.6.1",
-            "version_normalized": "1.6.1.0",
+            "version": "1.7.0",
+            "version_normalized": "1.7.0.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:weglot/weglot-php.git",
-                "reference": "6cfd2582ecbccd2705a19aae7a1cb541ed86ed5c"
+                "reference": "37baab6613b61a42568c7b4d62fe6b23be08c53e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/weglot/weglot-php/zipball/6cfd2582ecbccd2705a19aae7a1cb541ed86ed5c",
-                "reference": "6cfd2582ecbccd2705a19aae7a1cb541ed86ed5c",
+                "url": "https://api.github.com/repos/weglot/weglot-php/zipball/37baab6613b61a42568c7b4d62fe6b23be08c53e",
+                "reference": "37baab6613b61a42568c7b4d62fe6b23be08c53e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.6",
                 "psr/cache": "^1.0",
-                "weglot/simplehtmldom": "^0.7",
+                "weglot/simplehtmldom": "^0.8",
                 "weglot/translation-definitions": "^2.0"
             },
             "require-dev": {
-                "codeception/codeception": "^2.4",
+                "phpstan/phpstan-deprecation-rules": "^1.1",
                 "vlucas/phpdotenv": "^2.4"
             },
-            "time": "2022-11-09T13:28:54+00:00",
+            "time": "2024-01-11T16:18:20+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {

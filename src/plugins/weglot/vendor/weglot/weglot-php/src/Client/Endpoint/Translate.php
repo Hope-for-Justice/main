@@ -169,7 +169,7 @@ class Translate extends Endpoint
     {
         $beforeRequest = [];
         $asArray = $this->translateEntry->jsonSerialize();
-
+        $response = array();
         if ($this->getCache()->enabled()) {
             $beforeRequest = $this->beforeRequest();
             $asArray['words'] = $beforeRequest[0];

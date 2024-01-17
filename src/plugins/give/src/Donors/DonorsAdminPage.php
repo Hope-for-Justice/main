@@ -2,7 +2,10 @@
 
 namespace Give\Donors;
 
+use Give\Donors\ListTable\DonorsListTable;
+use Give\Framework\Database\DB;
 use Give\Helpers\EnqueueScript;
+use Give\Helpers\Utils;
 
 class DonorsAdminPage
 {
@@ -19,12 +22,18 @@ class DonorsAdminPage
     private $apiNonce;
 
     /**
+     * @var string
+     */
+    private $adminUrl;
+
+    /**
      * @since 2.20.0
      */
     public function __construct()
     {
         $this->apiRoot = esc_url_raw(rest_url('give-api/v2/admin/donors'));
         $this->apiNonce = wp_create_nonce('wp_rest');
+        $this->adminUrl = admin_url();
     }
 
     /**
@@ -43,21 +52,25 @@ class DonorsAdminPage
             esc_html__('Donors', 'give'),
             'edit_give_forms',
             'give-donors',
-            [$this, 'render'],
-            5
+            [$this, 'render']
         );
     }
 
     /**
-     * @since 2.20.0
+     * @since 2.27.1 Pass dissmissedRecommendations
+     *
+     * @since      2.20.0
      */
     public function loadScripts()
     {
         $data = [
             'apiRoot' => $this->apiRoot,
             'apiNonce' => $this->apiNonce,
-            'preload' => $this->preloadDonors(),
             'forms' => $this->getForms(),
+            'table' => give(DonorsListTable::class)->toArray(),
+            'adminUrl' => $this->adminUrl,
+            'pluginUrl' => GIVE_PLUGIN_URL,
+            'dismissedRecommendations' => $this->getDismissedRecommendations(),
         ];
 
         EnqueueScript::make('give-admin-donors', 'assets/dist/js/give-admin-donors.js')
@@ -74,63 +87,26 @@ class DonorsAdminPage
     }
 
     /**
-     * Make REST request to Donors endpoint before page load
-     * @since 2.20.0
-     */
-    public function preloadDonors(){
-        $queryParameters = [
-            'page' => 1,
-            'perPage' => 30,
-            'search' => '',
-        ];
-
-        $url = add_query_arg(
-            $queryParameters,
-            $this->apiRoot
-        );
-
-        $request = \WP_REST_Request::from_url($url);
-        $response = rest_do_request($request);
-
-        return $response->get_data();
-    }
-
-    /**
      * Preload initial table data
      * @since 2.20.0
      */
-    public function getForms(){
-        $queryParameters = [
-            'page' => 1,
-            'perPage' => 50,
-            'search' => '',
-            'status' => 'any'
-        ];
+    public function getForms()
+    {
+        $options = DB::table('posts')
+            ->select(
+                ['ID', 'value'],
+                ['post_title', 'text']
+            )
+            ->where('post_type', 'give_forms')
+            ->whereIn('post_status', ['publish', 'draft', 'pending', 'private'])
+            ->getAll(ARRAY_A);
 
-        $url = esc_url_raw(add_query_arg(
-            $queryParameters,
-            rest_url('give-api/v2/admin/forms')
-        ));
-
-        $request = \WP_REST_Request::from_url($url);
-        $response = rest_do_request($request);
-
-        $response = $response->get_data();
-        $forms = $response['items'];
-
-        $emptyOption = [
-                [
+        return array_merge([
+            [
                 'value' => '0',
                 'text' => 'Any',
-            ]
-        ];
-        $formOptions = array_map(function($form){
-            return [
-                'value' => $form['id'],
-                'text' => $form['name'],
-            ];
-        }, $forms);
-        return array_merge($emptyOption, $formOptions);
+            ],
+        ], $options);
     }
 
     /**
@@ -151,20 +127,21 @@ class DonorsAdminPage
     {
         ?>
         <script type="text/javascript">
-            function showReactTable () {
-                fetch( '<?php echo esc_url_raw(rest_url('give-api/v2/admin/donors/view?isLegacy=0')) ?>', {
+            function showReactTable() {
+                fetch('<?php echo esc_url_raw(rest_url('give-api/v2/admin/donors/view?isLegacy=0')) ?>', {
                     method: 'GET',
                     headers: {
-                        ['X-WP-Nonce']: '<?php echo wp_create_nonce('wp_rest') ?>'
-                    }
+                        ['X-WP-Nonce']: '<?php echo wp_create_nonce('wp_rest') ?>',
+                    },
                 })
                     .then((res) => {
                         window.location.reload();
                     });
             }
-            jQuery( function() {
+
+            jQuery(function () {
                 jQuery(jQuery(".wrap .wp-header-end")).before(
-                    '<button class="page-title-action" onclick="showReactTable()">Switch to New View</button>'
+                    '<button class="page-title-action" onclick="showReactTable()">Switch to New View</button>',
                 );
             });
         </script>
@@ -179,6 +156,31 @@ class DonorsAdminPage
      */
     public static function isShowing()
     {
-        return isset($_GET['page']) && $_GET['page'] === 'give-donors' && !isset($_GET['id']);
+        return isset($_GET['page']) && $_GET['page'] === 'give-donors' && ! isset($_GET['id']);
     }
+
+    /**
+     * Retrieve a list of dismissed recommendations.
+     *
+     * @since 2.27.1
+     *
+     * @return array
+     */
+    private function getDismissedRecommendations(): array
+    {
+        $dismissedRecommendations = [];
+
+        $feeRecoveryAddonIsActive = Utils::isPluginActive('give-fee-recovery/give-fee-recovery.php');
+
+        $optionName = 'givewp_donors_fee_recovery_recommendation_dismissed';
+        
+        $dismissed = get_option($optionName, false);
+
+        if ($dismissed || $feeRecoveryAddonIsActive) {
+            $dismissedRecommendations[] = $optionName;
+        }
+
+        return $dismissedRecommendations;
+    }
+
 }

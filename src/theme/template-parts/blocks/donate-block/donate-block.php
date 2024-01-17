@@ -113,7 +113,7 @@ $reason_monthly_e = $set['reason_monthly_e'];
 $reason_once_f = $set['reason_once_f'];
 $reason_monthly_f = $set['reason_monthly_f'];
 //norway link
-$link = $set['norway_link'];
+//$link = $set['norway_link'];
 //default level
 $default_level = $set['default_level'] ?: 'c';
 //default level
@@ -209,14 +209,14 @@ if ($tracked && $target) {
 
 
             <div style="<?php if ($frequency == 'once') echo 'display:none;' ?>" class="donate-block__freq">
-                <div class="donate-block__freq-option <?php if ($frequency == 'once' || $frequency_start == 'once' || $currency == 'NOK') echo 'donate-block__freq-option--active' ?>" data-freq="once">
+                <div class="donate-block__freq-option <?php if ($frequency == 'once' || $frequency_start == 'once') echo 'donate-block__freq-option--active' ?>" data-freq="once">
                     <?php if ($currency == 'NOK') { ?>
                         Gi en enkeltgave
                     <?php } else { ?>
                         &nbsp;Once
                     <?php } ?>
                 </div>
-                <div class="donate-block__freq-option <?php if ($frequency != 'once' && $frequency_start == 'monthly' && $currency != 'NOK') echo 'donate-block__freq-option--active' ?>" data-freq="monthly" data-link="<?php echo $link ?>">
+                <div class="donate-block__freq-option <?php if ($frequency != 'once' && $frequency_start == 'monthly') echo 'donate-block__freq-option--active' ?>" data-freq="monthly">
                     <?php if ($currency == 'NOK') { ?>
                         Gi månedlig
                     <?php } else { ?>
@@ -317,7 +317,13 @@ if ($tracked && $target) {
                 <span class="color-red">
                     <b><span class="donate-block__text-currency"><?php if ($currency !== 'NOK') echo $currency . ' ' ?><?php echo $symbol ?></span><span class="donate-block__text-amount"></span></b>
                 </span>
-                <span class="donate-block__text-freq">monthly</span>
+                <span class="donate-block__text-freq">
+                    <?php if ($currency == 'NOK') { ?>
+                        månedlig
+                    <?php } else { ?>
+                        monthly
+                    <?php } ?>
+                </span>
                 <span id="reason"></span>
             </p>
 

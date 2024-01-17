@@ -73,7 +73,7 @@ module.exports = function (grunt) {
   /*  Register tasks  */
 
   // Default task. 
-  grunt.registerTask('default', ['clean:all', 'symlink', 'copy:theme', 'copy:style', 'copy:img', 'copy:tmpl', 'copy:fonts', 'copy:blocks', 'sass:build', 'autoprefixer', 'uglify', 'browserSync', 'watch']);
+  grunt.registerTask('default', ['clean:all', 'symlink', 'copy:theme', 'copy:style', 'copy:img', 'copy:tmpl', 'copy:fonts', 'copy:blocks', 'sass:build', 'autoprefixer', 'uglify', 'watch']);
 
   // Specific watch-related tasks
   grunt.registerTask('theme_changed', ['copy:theme']);

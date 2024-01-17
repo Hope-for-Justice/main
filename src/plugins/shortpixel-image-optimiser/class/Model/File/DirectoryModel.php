@@ -1,6 +1,13 @@
 <?php
 namespace ShortPixel\Model\File;
-use ShortPixel\ShortpixelLogger\ShortPixelLogger as Log;
+
+if ( ! defined( 'ABSPATH' ) ) {
+ exit; // Exit if accessed directly.
+}
+
+use ShortPixel\ShortPixelLogger\ShortPixelLogger as Log;
+
+use ShortPixel\Helper\UtilHelper as UtilHelper;
 
 /* Model for Directories
 *
@@ -25,6 +32,9 @@ class DirectoryModel extends \ShortPixel\Model
 
   protected $new_directory_permission = 0755;
 
+	public static $TRUSTED_MODE = false;
+
+
   /** Creates a directory model object. DirectoryModel directories don't need to exist on FileSystem
   *
   * When a filepath is given, it  will remove the file part.
@@ -32,8 +42,13 @@ class DirectoryModel extends \ShortPixel\Model
   */
   public function __construct($path)
   {
-      //$path = wp_normalize_path($path);
       $fs = \wpSPIO()->filesystem();
+
+      // Test if path actually has someting, otherwise just bail.
+      if (strlen(trim($path)) == 0)
+      {
+         return false;
+      }
 
       if ($fs->pathIsUrl($path))
       {
@@ -48,6 +63,18 @@ class DirectoryModel extends \ShortPixel\Model
         $this->exists = true;
       }
 
+			// When in trusted mode prevent filesystem checks as much as possible.
+			if (true === self::$TRUSTED_MODE)
+			{
+					$this->exists = true;
+					$this->is_writable = true;
+					$this->is_readable = true;
+			}
+
+			// On virtual situation this would remove the slashes on :// , causing issues with offload et al.
+			if (false === $this->is_virtual)
+			 	$path = UtilHelper::spNormalizePath($path);
+
       if (! $this->is_virtual() && ! is_dir($path) ) // path is wrong, *or* simply doesn't exist.
       {
         /* Test for file input.
@@ -55,6 +82,7 @@ class DirectoryModel extends \ShortPixel\Model
         * If it's a file extension is set, then trust.
         */
         $pathinfo = pathinfo($path);
+
 
         if (isset($pathinfo['extension']))
         {
@@ -81,13 +109,6 @@ class DirectoryModel extends \ShortPixel\Model
       //basename($this->path);
       $this->name = $dir->getFileName();
 
-		// Off the keep resources  / not sure if needed.
-    //  if (file_exists($this->path))
-    //  {
-    //    $this->exists();
-    //  $this->is_writable();
-    //    $this->is_readable();
-    //  }
   }
 
   public function __toString()
@@ -272,7 +293,7 @@ class DirectoryModel extends \ShortPixel\Model
      }
      if ($this->exists() && $check_writable && ! $this->is_writable())
      {
-       chmod($this->path, $this->permission);
+       chmod($this->path, $permission);
 			 if (! $this->is_writable()) // perhaps parent permission is no good.
 			 {
 			 		chmod($this->path, $this->new_directory_permission);

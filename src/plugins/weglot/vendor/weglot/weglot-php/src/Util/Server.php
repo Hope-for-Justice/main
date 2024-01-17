@@ -119,7 +119,7 @@ class Server
      */
     public static function getProtocol(array $server)
     {
-        $protocol = strtolower($server['SERVER_PROTOCOL']);
+        $protocol = isset($server['SERVER_PROTOCOL']) ? strtolower($server['SERVER_PROTOCOL']) : 'http';
         return substr($protocol, 0, strpos($protocol, '/')) . (self::isSsl($server) ? 's' : '');
     }
 

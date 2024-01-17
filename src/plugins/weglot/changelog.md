@@ -3,6 +3,110 @@
 
 # Change Log
 
+##4.2.2 (31/10/2023) =
+* Bug: Fix deprecated issue on PHP 8.2 due to creation of dynamic property
+* Bug: Fix issue with email defer option from woocommerce
+* Improvement: Add quote about autoredirect fallback
+* Improvement: Install via wp-packagist works
+* Improvement: Add plugin version to our Weglot settings
+* Improvement: Update pageviews endpoint to enable more country stats
+
+##4.2.1 (10/10/2023) =
+* Bug: Fix deprecated issue on PHP 8.2 due to creation of dynamic property
+* Improvement: Add Negative excludedPath implementation
+* Improvement: Add feature flag
+* Improvement: Load settings on dom only if we have switchers weglot-data)
+* Bug: Get classname option from gutenberg block
+* Bug: Fix on proxify_url filter to get the domain and the path
+* Bug: Add wg choose original param on switcher links for switcher template
+
+##4.2 (04/09/2023) =
+* Improvement: API calls using sslverify setting to true by default
+* Improvement: Implement Responsive switcher option
+* Improvement: Add filter to proxify URL
+* Improvement: Add Weglot plugin version on wp admin directly
+* Bug: don't check the wordlimit during first settings on wordpress
+* Bug: Add wg choose original param on switcher links for switcher template
+
+##4.1.1 (26/07/2023) =
+* Improvement: Add access button to the visual exclusion
+* Improvement: Add option to open custom switcher on hover
+* Improvement: Add message when Word limit is reached
+* Bug: Fix a bug on JSON key translation
+
+##4.1 (18/07/2023) =
+* Update: Rework wp-admin page of weglot
+* Update: Replace sa language code by sr-lt
+* Update: Fix add_admin_bar_menu from PHP_INT_SIZE to 200
+* Update: On fetch if we can have lang from the referer we get lang from the current url
+* Update: Manage switcher location if not found. Now we place it on our default location (bottom - right)
+* Update: Translate emails sent with WP Mail SMTP : https://developers.weglot.com/wordpress/use-cases/how-to-translate-email-sending-by-plugin-wp-mail-smtp
+* Update: Improve accessibility switcher
+* Update: Add exclude block links instead
+* Update: implementation of pageviews script
+* Add: weglot_get_current_language_custom() to get custom_code from custom language
+* Bug: Fix url redirect to visual editor
+* Bug: aria-expanded not working as expected
+* Fix: Warning for exclusion_behavior and language_button_displayed
+* Fix: Fix error when url contain more than 1 parameter
+
+## 4.0.2 (30/05/2023) =
+* Update: Change PHP_INT_MAX to 200 in class-pages-weglot.php
+* Bug: Add esc_url to $_SERVER['REQUEST_URI'] on class-translate-paghe-weglot.com
+* Bug: Aria-expanded label remains true when it should say false on switcher
+
+## 4.0.1 (02/05/2023) =
+* Bug: Fix call to undefined revert_callback value on class RegexCheckerProvider
+* Update: Update message about translated url option (available with Pro plan and more)
+
+## 4.0 (25/04/2023) =
+* Add: Add switcher gallery implementation
+* Add: Add PHP 8 compatibility fix deprecated (PHPStan)
+* Add: Add external_enabled to translate external links
+* Add: Add language subdirectory to the rel=”prev” and rel=”next” links on WordPress
+* Add: Add filter to manage hreflang
+* Add: Manage media_enabled and external_enabled options
+* Add: Add compatibility with wp rentals plugin and theme
+* Add: Add mPDF Engine for translate pdf (WP Overnight)
+* Add: Don't translate link when the target is excluded
+* Update: Improve filter active translation
+* Update: Hide Language Switcher when all language pairs are set to private
+* Bug: Fix call to .json call to prevent create empty settings
+* Bug: Fix empty slug issue : prevent (do not save empty slug on transient)
+* Bug: Fix issue with Klaviyo plugin
+* Bug: Don't hide custom css block when custom switcher is added
+* Bug: getInternalCode() is called on an element that is ‘null’
+* Bug: Duplicate ID when multiple language switchers are present on the same page
+* Fix: PHP Notice on third party cache enabler
+* Fix: PHP Notice Undefined array key “SERVER_PROTOCOL” when running Cron
+* Fix: Fix accessibility issue on the switcher
+* Fix: Fix issue from wp vip go standard
+* Fix: PHP Notice Undefined property: stdClass::$post_name
+
+##3.9.2 (30/01/2023) =
+* Bug: hotfix js file
+
+##3.9.1 (30/01/2023) =
+* Bug: add english in destination language list during installation if original language is different
+* Update: Prevent using empty .json settings file during install
+
+##3.9 (17/01/2023) =
+* Update: Add whitelist mode
+* Update: Add notices messages if other translate plugin is active
+* Update: Add index text for translate ldjson
+* Update: Translate pdf from Germanized pdf plugins
+* Bug: Fix cookie issue with WP Rocket (mandatory cookies)
+* Bug: Check if index query exist before use it
+* Update: Fix wp vip code issue (wp parse url instead of native parse_url)
+* Update: Check WPLANG on first install instead of put 'en' by default
+* Bug: Add filter to prevent issue with Gform upload input ajax
+* Bug: Fix issue with FluentCRM, WP social Ninja and Fluent Support
+
+##3.8.3 (15/11/2022) =
+* Bug: Prevent Ajax call from original lang to original lang
+* Bug: Fix PHP Warning on class-replace-url-service line 192
+* Update: Add index 'text' to ld+json translated value
+
 ##3.8.2 (08/11/2022) =
 * Bug: Update cdn url for pageviews replace cdn-api-weglot.com by cdn-api.weglot.com
 

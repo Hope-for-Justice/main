@@ -122,7 +122,7 @@ class WC_Filter_Urls_Weglot implements Hooks_Interface_Weglot {
 	 * @return array
 	 */
 	public function woocommerce_filter_url_array( $result ) {
-		/** @var  $language_service Language_Service_Weglot */
+		/** @var Language_Service_Weglot $language_service */
 		$language_service = weglot_get_service( 'Language_Service_Weglot' );
 
 		$choose_current_language = $this->request_url_services->get_current_language();
@@ -133,14 +133,19 @@ class WC_Filter_Urls_Weglot implements Hooks_Interface_Weglot {
 				// Ajax
 				$url = $this->request_url_services->create_url_object( $_SERVER['HTTP_REFERER'] ); //phpcs:ignore
 				$choose_current_language = $url->getCurrentLanguage();
-				$url                     = $this->request_url_services->create_url_object( $result['redirect'] );
+				if( isset( $result['redirect'] ) ) {
+					$url = $this->request_url_services->create_url_object( $result['redirect'] );
+				}
 			}
 		}
-		if ( $this->replace_url_services->check_link( $result['redirect'] ) ) { // We must not add language code if external link
-			if ( isset( $url ) && $url ) {
-				$result['redirect'] = $url->getForLanguage( $choose_current_language );
+		if( isset( $result['redirect'] ) ){
+			if ( $this->replace_url_services->check_link( $result['redirect'] ) ) { // We must not add language code if external link
+				if ( isset( $url ) && $url ) {
+					$result['redirect'] = $url->getForLanguage( $choose_current_language );
+				}
 			}
 		}
+
 		return $result;
 	}
 
@@ -153,7 +158,7 @@ class WC_Filter_Urls_Weglot implements Hooks_Interface_Weglot {
  * @return void
 	 */
 	public function woocommerce_filter_reset_password( $url ) {
-		/** @var  $language_service Language_Service_Weglot */
+		/** @var Language_Service_Weglot $language_service */
 		$language_service = weglot_get_service( 'Language_Service_Weglot' );
 
 		if ( $this->request_url_services->get_current_language() === $language_service->get_original_language() ) {

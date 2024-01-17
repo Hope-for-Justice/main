@@ -32,7 +32,7 @@ abstract class Abstract_Notices_Weglot {
 	 * @since 2.0
 	 * @static
 	 *
-	 * @return string
+	 * @return void
 	 */
 	public static function admin_notice() {
 		$class_call = get_called_class();

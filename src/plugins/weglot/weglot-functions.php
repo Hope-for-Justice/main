@@ -63,6 +63,26 @@ function weglot_get_current_language() {
 }
 
 /**
+ * Get current language
+ * @return string
+ * @throws Exception
+ * @since 2.0
+ */
+function weglot_get_current_language_custom() {
+	return Context_Weglot::weglot_get_context()->get_service( 'Request_Url_Service_Weglot' )->get_current_language()->getExternalCode();
+}
+
+/**
+ * Get current language code from custom language
+ * @return string
+ * @throws Exception
+ * @since 2.0
+ */
+function weglot_get_current_language_code_from_custom_language() {
+	return Context_Weglot::weglot_get_context()->get_service( 'Request_Url_Service_Weglot' )->get_current_language()->getExternalCode();
+}
+
+/**
  * Get destination language with filters
  * @return string
  * @throws Exception
@@ -180,6 +200,6 @@ function weglot_get_postid_from_url() {
  */
 function weglot_get_rest_current_url_path() {
 	$prefix      = rest_get_url_prefix();
-	$current_url = wp_parse_url( add_query_arg( [] ) );
+	$current_url = wp_parse_url( add_query_arg( array() ) );
 	return apply_filters( 'weglot_get_rest_current_url_path', $current_url['path'] );
 }

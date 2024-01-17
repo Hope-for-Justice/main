@@ -31,33 +31,13 @@ class SearchWP_Live_Search_Menu {
 	 */
 	public function hooks() {
 
-        if ( Utils::is_searchwp_active() ) {
-	        add_filter( 'searchwp\options\submenu_pages', [ $this, 'add_menus_searchwp_enabled' ] );
-        } else {
-	        add_action( 'admin_menu', [ $this, 'add_menus_searchwp_disabled' ] );
-	        add_action( 'searchwp_live_search_options_submenu_pages', [ $this, 'add_upgrade_pro_link_searchwp_disabled' ] );
-	        add_action( 'admin_head', [ $this, 'style_upgrade_pro_link_searchwp_disabled' ] );
-        }
-	}
+		if ( Utils::is_searchwp_active() ) {
+			return;
+		}
 
-	/**
-	 * Add menus if SearchWP is enabled.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @param array $submenu_pages Submenu pages config.
-	 *
-	 * @return array
-	 */
-	public function add_menus_searchwp_enabled( $submenu_pages ) {
-
-		$submenu_pages['live-search'] = [
-			'menu_title' => esc_html__( 'Live Search', 'searchwp-live-ajax-search' ),
-			'menu_slug'  => self::MENU_SLUG,
-			'position'   => 40,
-		];
-
-		return $submenu_pages;
+        add_action( 'admin_menu', [ $this, 'add_menus_searchwp_disabled' ] );
+        add_action( 'searchwp_live_search_options_submenu_pages', [ $this, 'add_upgrade_pro_link_searchwp_disabled' ] );
+        add_action( 'admin_head', [ $this, 'style_upgrade_pro_link_searchwp_disabled' ] );
 	}
 
 	/**
@@ -125,7 +105,7 @@ class SearchWP_Live_Search_Menu {
 			$menu_page['menu_slug'],
 			[ $settings, 'page_searchwp_disabled' ],
 			'data:image/svg+xml;base64,' . base64_encode( $this->get_dashicon() ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
-			apply_filters( 'searchwp\admin_menu\position', '58.9' )
+			apply_filters( 'searchwp\admin_menu\position', '58.95' )
 		);
 
 		foreach ( $submenu_pages as $submenu_page ) {

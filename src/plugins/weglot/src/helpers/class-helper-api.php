@@ -17,6 +17,8 @@ abstract class Helper_API {
 	const API_CDN_BASE         = 'https://cdn-api-weglot.com';
 	const API_CDN_BASE_STAGING = 'https://cdn-api-weglot.dev';
 	const CDN_BASE         = 'https://cdn.weglot.com/projects-settings/';
+	const CDN_BASE_SWITCHERS_TPL         = 'https://cdn.weglot.com/switchers/';
+	const CDN_BASE_SWITCHERS_TPL_STAGING         = 'https://cdn-staging.weglot.com/switchers/';
 
 	/**
 	 * @since 3.0.0
@@ -40,6 +42,18 @@ abstract class Helper_API {
 		}
 
 		return self::API_BASE;
+	}
+
+	/**
+	 * @since 3.0.0
+	 * @return string
+	 */
+	public static function get_tpl_switchers_url() {
+		if ( WEGLOT_DEV ) {
+			return self::CDN_BASE_SWITCHERS_TPL_STAGING;
+		}
+
+		return self::CDN_BASE_SWITCHERS_TPL;
 	}
 }
 

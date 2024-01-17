@@ -1,10 +1,15 @@
 <?php
 namespace ShortPixel\Controller\Queue;
 
+if ( ! defined( 'ABSPATH' ) ) {
+ exit; // Exit if accessed directly.
+}
+
 use ShortPixel\Model\Image\ImageModel as ImageModel;
-use ShortPixel\ShortpixelLogger\ShortPixelLogger as Log;
+use ShortPixel\ShortPixelLogger\ShortPixelLogger as Log;
 use ShortPixel\Controller\CacheController as CacheController;
 use ShortPixel\Controller\ResponseController as ResponseController;
+use ShortPixel\Model\Converter\Converter as Converter;
 
 use ShortPixel\Helper\UiHelper as UiHelper;
 
@@ -32,9 +37,10 @@ abstract class Queue
     abstract protected function prepare();
     abstract public function getType();
 
-    public function createNewBulk($args)
+    public function createNewBulk()
     {
-        $this->resetQueue();
+				$this->resetQueue();
+
         $this->q->setStatus('preparing', true, false);
 				$this->q->setStatus('finished', false, false);
         $this->q->setStatus('bulk_running', true, true);
@@ -49,15 +55,15 @@ abstract class Queue
         $this->q->setStatus('running', true, true);
     }
 
-    public function resetQueue()
-    {
-       $this->q->resetQueue();
-    }
-
     public function cleanQueue()
     {
        $this->q->cleanQueue();
     }
+
+		public function resetQueue()
+		{
+			$this->q->resetQueue();
+		}
 
     // gateway to set custom options for queue.
     public function setOptions($options)
@@ -70,8 +76,14 @@ abstract class Queue
     * @param ImageModel $mediaItem An ImageModel (CustomImageModel or MediaLibraryModel) object
     * @return mixed
     */
-    public function addSingleItem(ImageModel $imageModel)
+    public function addSingleItem(ImageModel $imageModel, $args = array())
     {
+
+       $defaults = array(
+          'forceExclusion' => false,
+       );
+       $args = wp_parse_args($args, $defaults);
+
        $qItem = $this->imageModelToQueue($imageModel);
        $counts = $qItem->counts;
 
@@ -82,9 +94,16 @@ abstract class Queue
 				  $media_id = $imageModel->getParent();
 			 }
 
+       if (count($args) > 0)
+       {
+          $qItem->options = $args;
+       }
+
 			 $result = new \stdClass;
 
        $item = array('id' => $media_id, 'value' => $qItem, 'item_count' => $counts->creditCount);
+
+
        $this->q->addItems(array($item), false);
        $numitems = $this->q->withRemoveDuplicates()->enqueue(); // enqueue returns numitems
 
@@ -347,7 +366,11 @@ abstract class Queue
 
 			$customData = $this->getStatus('custom_data');
 
-
+			if ($this->isCustomOperation())
+			{
+					  $stats->customOperation = $this->getCustomDataItem('customOperation');
+            $stats->isCustomOperation = '10'; // numeric value for the bulk JS
+			}
 
       $stats->total = $stats->in_queue + $stats->fatal_errors + $stats->errors + $stats->done + $stats->in_process;
       if ($stats->total > 0)
@@ -437,7 +460,7 @@ abstract class Queue
     public function getCustomDataItem($name)
     {
         $customData = $this->getStatus('custom_data');
-        if (property_exists($customData, $name))
+        if (is_object($customData) && property_exists($customData, $name))
         {
            return $customData->$name;
         }
@@ -461,6 +484,11 @@ abstract class Queue
         $item->item_id = $qItem->item_id;
         $item->tries = $qItem->tries;
 
+				if (property_exists($item, 'files'))
+				{ // This must be array & shite.
+					$item->files = json_decode(json_encode($item->files), true);
+				}
+
         return $item;
     }
 
@@ -482,17 +510,12 @@ abstract class Queue
     // The 'avif / webp left imp. is commented out since both API / and OptimizeController don't play well with this.
     protected function imageModelToQueue(ImageModel $imageModel)
     {
-      //  $settings = \wpSPIO()->settings();
         $item = new \stdClass;
         $item->compressionType = \wpSPIO()->settings()->compressionType;
 
-//        $urls = $imageModel->getOptimizeUrls();
 				$data = $imageModel->getOptimizeData();
 				$urls = $data['urls'];
 				$params = $data['params'];
-
-		//		$imagePreview = UIHelper::findBestPreview($imageModel, 800, true);
-		//		$imagePreviewURL = (is_object($imagePreview)) ? $imagePreview->getURL() : false;
 
 				list($u, $baseCount) = $imageModel->getCountOptimizeData('thumbnails');
 				list($u, $webpCount) = $imageModel->getCountOptimizeData('webp');
@@ -503,10 +526,6 @@ abstract class Queue
 				$counts->baseCount = $baseCount; // count the base images.
         $counts->avifCount = $avifCount;
         $counts->webpCount = $webpCount;
-        //$creditCount = 0;
-
-      //  $webps = ($imageModel->isProcessableFileType('webp')) ? $imageModel->getOptimizeFileType('webp') : null;
-      //  $avifs = ($imageModel->isProcessableFileType('avif')) ? $imageModel->getOptimizeFileType('avif') : null;
 
 			 	$removeKeys = array('image', 'webp', 'avif'); // keys not native to API / need to be removed.
 
@@ -548,105 +567,45 @@ abstract class Queue
 						}
 				}
 
+				$converter = Converter::getConverter($imageModel, true);
 
-
-
-      /*  $hasUrls = (count($urls) > 0) ? true : false;
-        $hasWebps = (! is_null($webps) && count($webps) > 0) ? true : false;
-        $hasAvifs = (! is_null($avifs) && count($avifs) > 0) ? true : false;
-        $flags = array();
-        $items = array();
-
-        $webpLeft = $avifLeft = false; */
-
-        /*if (is_null($webps) && is_null($avifs))
-        {
-           // nothing.
-            $counts->creditCount += count($urls);
-						$counts->baseCount += count($urls);
-
-        }
-        else
-        {
-            if ($hasUrls) // if original urls needs optimizing.
-            {
-                $counts->creditCount += count($urls);
-								$counts->baseCount += count($urls);
-
-                if ($hasWebps && count($urls) == count($webps))
-                {
-                   $flags[] = '+webp'; // original + format
-                   $counts->creditCount += count($webps);
-                   $counts->webpCount += count($webps);
-                }
-                elseif($hasWebps)
+				if ($baseCount > 0 && is_object($converter) && $converter->isConvertable())
+				{
+		        if ($converter->isConverterFor('png'))  // Flag is set in Is_Processable in mediaLibraryModel, when settings are on, image is png.
+		        {
+		          $item->action = 'png2jpg';
+		        }
+						elseif($converter->isConverterFor('heic'))
+						{
+							  foreach($data['params'] as $sizeName => $sizeData)
 								{
-                  $webpLeft = true; // or indicate this should go separate ( not full )
-									$counts->creditCount += count($webps); // add count since this will be requeued when main part is done, causing more credit cost while running.
-									$counts->webpCount += count($webps);
+									 if (isset($sizeData['convertto']))
+									 {
+										  $data['params'][$sizeName]['convertto'] = 'jpg';
+									 }
 								}
 
-                if ($hasAvifs && count($urls) == count($avifs))
-                {
-                   $flags[] = '+avif';
-                   $counts->creditCount += count($avifs);
-                   $counts->avifCount += count($avifs);
-                }
-                elseif($hasAvifs)
+								// Run converter to create backup and make placeholder to block similar heics from overwriting.
+								$args = array('runReplacer' => false);
+								$converter->convert($args);
+
+								//Lossless because thumbnails will otherwise be derived of compressed image, leaving to double compr..
+								if (property_exists($item, 'compressionType'))
 								{
-                  $avifLeft = true;
-                  $counts->creditCount += count($avifs); // add counts
-                  $counts->avifCount += count($avifs);
+									 $item->compressionTypeRequested = $item->compressionType;
 								}
+								// Process Heic as Lossless so we don't have double opts.
+								$item->compressionType = ImageModel::COMPRESSION_LOSSLESS;
 
-            }
-            elseif(! $hasUrls && $hasWebps || $hasAvifs) // if only webp / avif needs doing.
-            {
-                if ($hasWebps && $hasAvifs)
-                {
-                    if (count($webps) == count($avifs))
-                    {
-                        $flags[] = 'avif';
-                        $flags[] = 'webp';
-                        $counts->creditCount += count($webps) * 2;
-                        $counts->webpCount += count($webps);
-                        $counts->avifCount += count($avifs);
-                        $urls = $webps; // Main URLS not available, but needs queuing.
-                    }
-                    else
-                    {
-                      $flags[] = 'webp';
-                      $avifLeft = true;
-                      $counts->creditCount += count($webps);
-                      $counts->webpCount += count($webps);
-                      $urls = $webps;
-                    }
-                }
-                elseif($hasWebps && ! $hasAvifs)
-                {
-                    $flags[] = 'webp';
-                    $counts->creditCount += count($webps);
-                    $counts->webpCount += count($webps);
-                    $urls = $webps;
-                }
-                elseif($hasAvifs && ! $hasWebps)
-                {
-                    $flags[] = 'avif';
-                    $counts->creditCount += count($avifs);
-                    $counts->avifCount += count($avifs);
-                    $urls = $avifs;
-                }
-            }
-
-        } */
-
-        if ($imageModel->get('do_png2jpg') && $baseCount > 0)  // Flag is set in Is_Processable in mediaLibraryModel, when settings are on, image is png.
-        {
-          $item->png2jpg = $imageModel->get('do_png2jpg');
-        }
-
+								// Reset counts
+								$counts->baseCount = 1; // count the base images.
+								$counts->avifCount = 0;
+								$counts->webpCount = 0;
+								$counts->creditCount = 1;
+						}
+				}
 				// CompressionType can be integer, but not empty string. In cases empty string might happen, causing lossless optimization, which is not correct.
-        if (! is_null($imageModel->getMeta('compressionType')) && is_int($imageModel->getMeta('compressionType')))
+        if (! is_null($imageModel->getMeta('compressionType')) && is_numeric($imageModel->getMeta('compressionType')))
 				{
           $item->compressionType = $imageModel->getMeta('compressionType');
 				}
@@ -716,6 +675,12 @@ abstract class Queue
         $this->q->itemFailed($qItem, $fatal);
         $this->q->updateItemValue($qItem);
     }
+
+		public function updateItem($item)
+		{
+			$qItem = $this->mediaItemToQueue($item); // convert again
+			$this->q->updateItemValue($qItem);
+		}
 
 		public function isDuplicateActive($mediaItem, $queue = array() )
 		{

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<p>
 		<?php
 			/* translators: 1 is a plugin name, 2 is Weglot version, 3 is current php version. */
-			echo sprintf( esc_html__( '%1$s  requires PHP %2$s minimum, your website is actually running version %3$s.', 'weglot' ), '<strong>Weglot translate</strong>', '<code>' . esc_attr( WEGLOT_PHP_MIN ) . '</code>', '<code>' . esc_attr( phpversion() ) . '</code>' );
+			echo sprintf( esc_html__( '%1$s  requires PHP %2$s minimum, your website is actually running version %3$s.', 'weglot' ), '<strong>Weglot translate</strong>', '<code>' . esc_html( WEGLOT_PHP_MIN ) . '</code>', '<code>' . esc_html( phpversion() ) . '</code>' );
 		?>
 	</p>
 	<p>
