@@ -162,6 +162,13 @@ get_header('', array('page_class' => 'site--full'));
                         </p>
 
                     <?php break;
+                    case 'Norway Guardian': ?>
+
+                        <p>
+                            Your donation of <b><?php echo $amount; ?> kr</b> a month will help end slavery and change lives. You will receive a receipt via email shortly.
+                        </p>
+
+                    <?php break;
                     default: ?>
 
                         <p>Your donation was successful</p>

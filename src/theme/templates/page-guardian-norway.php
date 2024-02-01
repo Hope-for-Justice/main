@@ -599,13 +599,13 @@ endif;
                     <input type="hidden" id="ActiveTags" value="" />
                     <input type="hidden" id="BlockedTags" value="" />
                     <!-- Do not change these values -->
-                    <input type="hidden" id="PublishableKey" value="pk_live_516S0p5DOK0OXJCvhKeBNMXaSLRz4CicqeGgZXBezPFFs0ZIOeLQ5Qvv74uQ6yI2T8AWRhyYrQ3nOQaOne3ziOZle00dp3xEgeZ" />
+                    <input type="hidden" id="PublishableKey" value="pk_live_514W8C9K2ySHtDs1HCrbmaPd0nq8Z3VCYOENd4YfkL5u9rJei4bQzrbX7TPqDFEeDYFJ6Fs3Y5bH54rojuEu4nw6g00SjtVOUha" />
                     <input type="hidden" id="TenantCode" value="N2SOZ58ZN2" />
 
                     <input type="hidden" id="WidgetId" value="<?php if ($matched_widget) {
                                                                     echo $matched_widget;
                                                                 } else {
-                                                                    echo 'f248ca1a-d8d2-ec11-bea1-0003ff443d07';
+                                                                    echo 'a162845d-52b5-ee11-a81c-000d3ada8395';
                                                                 } ?>" />
 
 
@@ -615,7 +615,7 @@ endif;
                     <input type="hidden" id="ReCaptchaAction" value="Donorfy" />
 
                     <input type="hidden" id="currency" value="NOK" />
-                    <input type="hidden" id="type" value="Norway+one-off" />
+                    <input type="hidden" id="type" value="Norway+Guardian" />
                     <input type="hidden" id="zapierUrl" value="" />
 
                     <input type="hidden" id="StripePaymentIntentId" value="" />

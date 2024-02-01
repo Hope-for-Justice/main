@@ -151,6 +151,9 @@ if (!get_field('no_email_push')) {
         <div class="footer__logos">
             <img alt="Fundraising regulator Logo" class="fr-reg" src="<?php echo get_template_directory_uri() . '/assets/img/fr-reg@2x.png'; ?>">
             <img alt="Guidestar logo" class="guidestar" src="<?php echo get_template_directory_uri() . '/assets/img/guidestar@2x.png'; ?>">
+            <?php if ($GLOBALS['userInfo'] && in_array($GLOBALS['userInfo'], $GLOBALS['uk'])) { ?>
+                <a href="https://coalitiontostopslavery.org" target="_blank"><img class="coalition-logo" src="<?php echo get_template_directory_uri() . '/assets/img/ctss-logo-footer.svg' ?>" alt="Coalition to stop slavery logo"></a>
+            <?php } ?>
         </div>
         <div class="footer__branding">
             <img alt="Hope for Justice Logo" class="footer__branding-logo" src="<?php echo get_template_directory_uri() . '/assets/img/logo-white-stack.svg'; ?>">
