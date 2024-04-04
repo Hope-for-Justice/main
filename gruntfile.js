@@ -73,15 +73,15 @@ module.exports = function (grunt) {
   /*  Register tasks  */
 
   // Default task. 
-  grunt.registerTask('default', ['clean:all', 'symlink', 'copy:theme', 'copy:style', 'copy:img', 'copy:tmpl', 'copy:fonts', 'copy:blocks', 'sass:build', 'autoprefixer', 'uglify', 'watch']);
+  grunt.registerTask('default', ['clean:all', 'symlink', 'copy:theme', 'copy:style', 'copy:img', 'copy:tmpl', 'copy:fonts', 'copy:blocks', 'sass:build', 'autoprefixer', 'uglify', 'browserSync', 'watch']);
 
   // Specific watch-related tasks
-  grunt.registerTask('theme_changed', ['copy:theme']);
-  grunt.registerTask('blocks_changed', ['copy:blocks']);
-  grunt.registerTask('fonts_changed', ['clean:fonts', 'copy:fonts']);
-  grunt.registerTask('img_changed', ['clean:img', 'copy:img']);
-  grunt.registerTask('scss_changed', ['clean:css', 'sass', 'autoprefixer']);
-  grunt.registerTask('js_changed', ['clean:js', 'copy:theme', 'copy:tmpl', 'uglify']);
+  grunt.registerTask('theme_changed', ['copy:theme', 'browserSync']);
+  grunt.registerTask('blocks_changed', ['copy:blocks', 'browserSync']);
+  grunt.registerTask('fonts_changed', ['clean:fonts', 'copy:fonts', 'browserSync']);
+  grunt.registerTask('img_changed', ['clean:img', 'copy:img', 'browserSync']);
+  grunt.registerTask('scss_changed', ['clean:css', 'sass', 'autoprefixer', 'browserSync']);
+  grunt.registerTask('js_changed', ['clean:js', 'copy:theme', 'copy:tmpl', 'uglify', 'browserSync']);
   // install Wordpress latest
 
   grunt.registerTask('wp-install', ['clean:wpTmp', 'curl', 'unzip', 'clean:install', 'copy:install', 'clean:wpTmp']);

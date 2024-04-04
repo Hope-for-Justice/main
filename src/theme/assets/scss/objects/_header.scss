@@ -4,8 +4,9 @@
 *
 */
 
-// thin 
+// thin
 ///////////////////////////////////////////////////////////////////////////
+///
 
 .header {
 	padding: 8px;
@@ -19,17 +20,17 @@
 	background-color: $white;
 	@include box-shadow;
 	min-height: 0;
-	transition: all 0.4s ease;
+	transition: all 0.3s ease;
 
 	&--slideDown {
 		animation-name: headerSlideDown;
-		animation-duration: 0.4s;
+		animation-duration: 0.3s;
 		animation-fill-mode: forwards;
 	}
 
 	&--slideUp {
 		animation-name: headerSlideUp;
-		animation-duration: 0.4s;
+		animation-duration: 0.3s;
 		animation-fill-mode: forwards;
 	}
 
@@ -75,11 +76,11 @@
 		form {
 			display: none;
 
-			input[type=submit] {
+			input[type="submit"] {
 				display: none;
 			}
 
-			input[type=search] {
+			input[type="search"] {
 				width: 100%;
 				font-size: 16px !important;
 				padding: 10px 8px !important;
@@ -102,7 +103,6 @@
 	}
 }
 
-
 @keyframes headerSlideUp {
 	from {
 		transform: translateY(0);
@@ -123,12 +123,10 @@
 	}
 }
 
-
 // mobile
 //////////////////////////////////////////////////////////////////////////////////
 
 @include mq($from: mobile) {
-
 	.header {
 		padding: 8px 12px 10px 8px;
 
@@ -136,15 +134,12 @@
 			width: 48vw;
 		}
 	}
-
 }
-
 
 // mobile medium
 //////////////////////////////////////////////////////////////////////////////////
 
 @include mq($from: mobileMedium) {
-
 	.header {
 		&__logo {
 			width: 166px;
@@ -154,14 +149,12 @@
 			display: flex;
 		}
 	}
-
 }
 
 // tablet
 //////////////////////////////////////////////////////////////////////////////////
 
 @include mq($from: tablet) {
-
 	.header {
 		padding: 10px 20px 10px 10px;
 
@@ -183,13 +176,11 @@
 			}
 
 			form {
-				input[type=search] {
+				input[type="search"] {
 					padding: 14px 12px !important;
 					padding-left: 38px !important;
 				}
-
 			}
-
 
 			&--show-form {
 				margin-left: 10px;
@@ -200,14 +191,12 @@
 			}
 		}
 	}
-
 }
 
 // desktop
 //////////////////////////////////////////////////////////////////////////////////
 
 @include mq($from: desktop) {
-
 	.header {
 		padding: 12px 24px 12px 12px;
 
@@ -219,6 +208,4 @@
 			width: 255px;
 		}
 	}
-
-
 }

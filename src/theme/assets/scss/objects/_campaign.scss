@@ -15,7 +15,11 @@
 	}
 
 	.header {
-		background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+		background: linear-gradient(
+			180deg,
+			rgb(32, 34, 33) 0%,
+			rgba(0, 0, 0, 0) 100%
+		);
 
 		g#Group_4 path,
 		g#Group_4 rect {
@@ -44,7 +48,6 @@
 }
 
 @include mq($from: tablet) {
-
 	.campaign-page {
 		.header .burger span {
 			background-color: white;
@@ -56,5 +59,4 @@
 			}
 		}
 	}
-
 }

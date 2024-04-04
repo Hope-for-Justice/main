@@ -6,31 +6,30 @@
  * @package Hope_for_Justice_2021
  */
 
-get_header('', array('page_class' => 'site--full')); ?>
+get_header("", ["page_class" => "site--full"]); ?>
 
 <?php
 $campaignPassed = $_COOKIE["wordpress_hfjcampaign"];
 $urlWidget = $_GET["wid"];
 $emailEvent = $_GET["emailEvent"];
 $tracked = $_GET["tracked"];
+$image = $_GET["image"];
 
 $matched_widget;
-if (have_rows('campaigns_and_widgets')) :
-    while (have_rows('campaigns_and_widgets')) : the_row();
-        $campaign = get_sub_field('campaign_name');
-        $widget = get_sub_field('widget_id');
+if (have_rows("campaigns_and_widgets")):
+	while (have_rows("campaigns_and_widgets")):
+		the_row();
+		$campaign = get_sub_field("campaign_name");
+		$widget = get_sub_field("widget_id");
 
-        if ($campaignPassed == $campaign) {
-            $matched_widget = $widget;
-        }
-
-
-
-    endwhile;
+		if ($campaignPassed == $campaign) {
+			$matched_widget = $widget;
+		}
+	endwhile;
 endif;
 
-if ($urlWidget) :
-    $matched_widget = $urlWidget;
+if ($urlWidget):
+	$matched_widget = $urlWidget;
 endif;
 ?>
 
@@ -56,7 +55,9 @@ endif;
                 <!-- form 1 -->
                 <form id="formOne">
                     <div class="donorfy-donate__giving-text">
-                        You’re giving USD $<span id="textAmount"><?php echo $_GET['Amount'] ?></span>
+                        You’re giving USD $<span id="textAmount"><?php echo $_GET[
+                        	"Amount"
+                        ]; ?></span>
                         <a id="changeAmount">Change amount</a>
                     </div>
 
@@ -64,7 +65,11 @@ endif;
 
                     <div class="donorfy-donate__amount donorfy-donate__input donorfy-donate__amount--usa">
                         <label class="donorfy-donate__hidden" for="Amount">Amount I would like to give each month</label>
-                        <input type="text" name="Amount" class="required numberOnly form-control" id="Amount" maxlength="10" <?php if ($_GET['Amount']) { ?> value="<?php echo $_GET['Amount'] ?>" <?php } ?>>
+                        <input type="text" name="Amount" class="required numberOnly form-control" id="Amount" maxlength="10" <?php if (
+                        	$_GET["Amount"]
+                        ) { ?> value="<?php echo $_GET[
+ 	"Amount"
+ ]; ?>" <?php } ?>>
                     </div>
 
                     <label class="donorfy-donate__hidden" for="Title">Title</label>
@@ -506,7 +511,9 @@ endif;
                         <hr>
                     </div>
                     <div class="donorfy-donate__summary-text">
-                        Donation total: <b>USD $<span id="donationTotalConfirm"><?php echo $_GET['Amount'] ?></span></b>
+                        Donation total: <b>USD $<span id="donationTotalConfirm"><?php echo $_GET[
+                        	"Amount"
+                        ]; ?></span></b>
                         <br>
                         Giving frequency: <b><span id="givingFrequencyConfirm">One-time gift</span></b>
                     </div>
@@ -553,11 +560,13 @@ endif;
                     <input type="hidden" id="PublishableKey" value="pk_live_WMJp57zos3PJGIUIaXRYMY8I002yTFVYpi" />
                     <input type="hidden" id="TenantCode" value="HM9DCVXJ56" />
 
-                    <input type="hidden" id="WidgetId" value="<?php if ($matched_widget) {
-                                                                    echo $matched_widget;
-                                                                } else {
-                                                                    echo 'd3d7824d-9733-ea11-8454-00155d5613f8';
-                                                                } ?>" />
+                    <input type="hidden" id="WidgetId" value="<?php if (
+                    	$matched_widget
+                    ) {
+                    	echo $matched_widget;
+                    } else {
+                    	echo "d3d7824d-9733-ea11-8454-00155d5613f8";
+                    } ?>" />
 
                     <!-- email select true -->
                     <input type="hidden" id="emailSelect" value="true" />
@@ -606,7 +615,11 @@ endif;
 
         </div> <!-- /inner-grid -->
 
-        <div style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2022/05/donate-pic.jpg);" class="donorfy-donate__photo">
+        <div style="background-image: url(<?php if ($image) {
+        	echo $image;
+        } else {
+        	echo "https://hopeforjustice.org/wp-content/uploads/2022/05/donate-pic.jpg";
+        } ?>);" class="donorfy-donate__photo">
             <!-- replace with responsive image markup -->
             <h3 class="donorfy-donate__photo-text font-canela">End Slavery.<br>Change Lives.</h3>
         </div>
