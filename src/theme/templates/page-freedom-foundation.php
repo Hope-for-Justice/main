@@ -192,40 +192,7 @@ if ($GLOBALS["userInfo"] && in_array($GLOBALS["userInfo"], $GLOBALS["usa"])) {
                     </div>
                 </div>
 
-                <div
-                data-image="https://hopeforjustice.org/wp-content/uploads/2024/04/ff-sodo-nosp.jpg" 
-                data-title="Safe shelter and care for children at our Lighthouse" 
-                data-description="When you fund a project through Hope for Justice’s Freedom Foundation, you know your generosity is going directly where you want it and will have an immediate impact." 
-                data-widget="<?php if (
-                	$GLOBALS["userInfo"] &&
-                	in_array($GLOBALS["userInfo"], $GLOBALS["usa"])
-                ) {
-                	echo "usatestethiopialighthouse";
-                } else {
-                	echo "uktestethiopialighthouse";
-                } ?>"
-                data-pdf="<?php if (
-                	$GLOBALS["userInfo"] &&
-                	in_array($GLOBALS["userInfo"], $GLOBALS["usa"])
-                ) {
-                	echo "https://hopeforjustice.org/wp-content/uploads/2024/04/Hope-for-Justice-Freedom-Foundation-U.S.-Ethiopia-Lighthouse.pdf";
-                } else {
-                	echo "https://hopeforjustice.org/wp-content/uploads/2024/04/Hope-for-Justice-Freedom-Foundation-UK-Ethiopia-Lighthouse.pdf";
-                } ?>"
-                class="ff-appeals__grid-item ff-gsap-group-4">
-                    <div class="ff-appeals__image" style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2024/04/ff-sodo-nosp.jpg');"></div>
-                    <div class="ff-appeals__gradient"></div>
-                    <div class="ff-appeals__content">
-                        <div class="ff-chip">ETHIOPIA, NATIONWIDE</div>
-                        <div class="ff-appeals__red-chip">Urgent appeal</div>
-                        <h3>
-                            Safe shelter and care for children at our Lighthouse <span>&nbsp;<img alt="arrow" src="<?php echo get_template_directory_uri() .
-                            	"/assets/img/link-arrow.svg"; ?>"></span>
-
-                        </h3>
-
-                    </div>
-                </div>
+                
 
                 <div
                 data-image="https://hopeforjustice.org/wp-content/uploads/2024/04/congress-2-nosp.jpg" 
@@ -276,6 +243,41 @@ if ($GLOBALS["userInfo"] && in_array($GLOBALS["userInfo"], $GLOBALS["usa"])) {
                         <div class="ff-appeals__red-chip">Urgent appeal</div>
                         <h3>
                             Outreach and protection for vulnerable youth<span>&nbsp;<img alt="arrow" src="<?php echo get_template_directory_uri() .
+                            	"/assets/img/link-arrow.svg"; ?>"></span>
+
+                        </h3>
+
+                    </div>
+            </div>
+
+            <div
+                data-image="https://hopeforjustice.org/wp-content/uploads/2024/04/ff-sodo-nosp.jpg" 
+                data-title="Safe shelter and care for children at our Lighthouse" 
+                data-description="When you fund a project through Hope for Justice’s Freedom Foundation, you know your generosity is going directly where you want it and will have an immediate impact." 
+                data-widget="<?php if (
+                	$GLOBALS["userInfo"] &&
+                	in_array($GLOBALS["userInfo"], $GLOBALS["usa"])
+                ) {
+                	echo "usatestethiopialighthouse";
+                } else {
+                	echo "uktestethiopialighthouse";
+                } ?>"
+                data-pdf="<?php if (
+                	$GLOBALS["userInfo"] &&
+                	in_array($GLOBALS["userInfo"], $GLOBALS["usa"])
+                ) {
+                	echo "https://hopeforjustice.org/wp-content/uploads/2024/04/Hope-for-Justice-Freedom-Foundation-U.S.-Ethiopia-Lighthouse.pdf";
+                } else {
+                	echo "https://hopeforjustice.org/wp-content/uploads/2024/04/Hope-for-Justice-Freedom-Foundation-UK-Ethiopia-Lighthouse.pdf";
+                } ?>"
+                class="ff-appeals__grid-item ff-gsap-group-4">
+                    <div class="ff-appeals__image" style="background-image: url('https://hopeforjustice.org/wp-content/uploads/2024/04/ff-sodo-nosp.jpg');"></div>
+                    <div class="ff-appeals__gradient"></div>
+                    <div class="ff-appeals__content">
+                        <div class="ff-chip">ETHIOPIA, NATIONWIDE</div>
+                        <div class="ff-appeals__red-chip">Urgent appeal</div>
+                        <h3>
+                            Safe shelter and care for children at our Lighthouse <span>&nbsp;<img alt="arrow" src="<?php echo get_template_directory_uri() .
                             	"/assets/img/link-arrow.svg"; ?>"></span>
 
                         </h3>
