@@ -7,7 +7,8 @@
  */
 
 get_header("", [
-	"page_class" => "site--full campaign-page freedom-foundation",
+	"page_class" =>
+		"site--full campaign-page freedom-foundation campaign-page-hide-donate",
 	"icons" => "white",
 ]);
 
@@ -364,7 +365,7 @@ if ($GLOBALS["userInfo"] && in_array($GLOBALS["userInfo"], $GLOBALS["usa"])) {
             <h3 class="ff-popup__title"></h3>
 
             <p class="ff-popup__desc">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut</p>
-            <a href="#" target="_blank" class="button ff-popup__pdf-button">View PDF information</a>
+            <a href="#" target="_blank" class="button ff-popup__pdf-button">Project details (PDF)</a>
             <div class="ff-popup__donate <?php if ($country === "USA") {
             	echo "ff-popup__donate--us";
             } ?>">

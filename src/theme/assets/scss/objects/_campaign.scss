@@ -9,6 +9,19 @@
 	padding-bottom: 20em;
 }
 
+.campaign-page-hide-donate {
+	#donate {
+		display: none;
+	}
+	.header__burger {
+		background-color: transparent;
+		padding-right: 10px;
+		span {
+			background-color: white;
+		}
+	}
+}
+
 .campaign-page {
 	.site-content {
 		margin-top: 0;
