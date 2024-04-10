@@ -6,29 +6,28 @@
  * @package Hope_for_Justice_2021
  */
 
-get_header('', array('page_class' => 'site--full')); ?>
+get_header("", ["page_class" => "site--full"]); ?>
 
 <?php
 $campaignPassed = $_COOKIE["wordpress_hfjcampaign"];
 $urlWidget = $_GET["wid"];
+$image = $_GET["image"];
 
 $matched_widget;
-if (have_rows('campaigns_and_widgets')) :
-    while (have_rows('campaigns_and_widgets')) : the_row();
-        $campaign = get_sub_field('campaign_name');
-        $widget = get_sub_field('widget_id');
+if (have_rows("campaigns_and_widgets")):
+	while (have_rows("campaigns_and_widgets")):
+		the_row();
+		$campaign = get_sub_field("campaign_name");
+		$widget = get_sub_field("widget_id");
 
-        if ($campaignPassed == $campaign) {
-            $matched_widget = $widget;
-        }
-
-
-
-    endwhile;
+		if ($campaignPassed == $campaign) {
+			$matched_widget = $widget;
+		}
+	endwhile;
 endif;
 
-if ($urlWidget) :
-    $matched_widget = $urlWidget;
+if ($urlWidget):
+	$matched_widget = $urlWidget;
 endif;
 ?>
 
@@ -55,14 +54,20 @@ endif;
                 <form id="formOne">
 
                     <div class="donorfy-donate__giving-text">
-                        Du gir <span id="textAmount"><?php echo $_GET['Amount'] ?></span> kr månedlig
+                        Du gir <span id="textAmount"><?php echo $_GET[
+                        	"Amount"
+                        ]; ?></span> kr månedlig
                         <a id="changeAmount">Endre beløp</a>
                     </div>
                     <h2 class="font-canela">Dine detaljer</h2>
 
                     <div class="donorfy-donate__amount donorfy-donate__input donorfy-donate__amount--norway">
                         <label class="donorfy-donate__hidden" for="Amount">Amount I would like to give</label>
-                        <input type="text" name="Amount" class="required" id="NorwayAmount" maxlength="10" <?php if ($_GET['Amount']) { ?> value="<?php echo $_GET['Amount'] ?>" <?php } ?>>
+                        <input type="text" name="Amount" class="required" id="NorwayAmount" maxlength="10" <?php if (
+                        	$_GET["Amount"]
+                        ) { ?> value="<?php echo $_GET[
+ 	"Amount"
+ ]; ?>" <?php } ?>>
                     </div>
 
                     <div style="display: none;">
@@ -555,7 +560,9 @@ endif;
                         <hr>
                     </div>
                     <div class="donorfy-donate__summary-text">
-                        Totalsum: <b><span id="donationTotalConfirm"><?php echo $_GET['Amount'] ?></span> kr</b>
+                        Totalsum: <b><span id="donationTotalConfirm"><?php echo $_GET[
+                        	"Amount"
+                        ]; ?></span> kr</b>
                         <br>
                         Status: <b><span id="givingFrequencyConfirm">månedlig</span></b>
                     </div>
@@ -602,11 +609,13 @@ endif;
                     <input type="hidden" id="PublishableKey" value="pk_live_514W8C9K2ySHtDs1HCrbmaPd0nq8Z3VCYOENd4YfkL5u9rJei4bQzrbX7TPqDFEeDYFJ6Fs3Y5bH54rojuEu4nw6g00SjtVOUha" />
                     <input type="hidden" id="TenantCode" value="N2SOZ58ZN2" />
 
-                    <input type="hidden" id="WidgetId" value="<?php if ($matched_widget) {
-                                                                    echo $matched_widget;
-                                                                } else {
-                                                                    echo 'a162845d-52b5-ee11-a81c-000d3ada8395';
-                                                                } ?>" />
+                    <input type="hidden" id="WidgetId" value="<?php if (
+                    	$matched_widget
+                    ) {
+                    	echo $matched_widget;
+                    } else {
+                    	echo "a162845d-52b5-ee11-a81c-000d3ada8395";
+                    } ?>" />
 
 
                     <input type="hidden" id="DonationPageId" value="" />
@@ -645,7 +654,11 @@ endif;
             </div>
         </div><!-- /inner-grid -->
 
-        <div style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2022/05/donate-pic.jpg);" class="donorfy-donate__photo">
+        <div style="background-image: url(<?php if ($image) {
+        	echo $image;
+        } else {
+        	echo "https://hopeforjustice.org/wp-content/uploads/2022/05/donate-pic.jpg";
+        } ?>);" class="donorfy-donate__photo">
             <!-- replace with responsive image markup -->
             <h3 class="donorfy-donate__photo-text font-canela">End Slavery.<br>Change Lives.</h3>
         </div>

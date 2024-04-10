@@ -6,33 +6,31 @@
  * @package Hope_for_Justice_2021
  */
 
-get_header('', array('page_class' => 'site--full')); ?>
+get_header("", ["page_class" => "site--full"]); ?>
 
 <div style="font-size:2em;">
     <?php
     $campaignPassed = $_COOKIE["wordpress_hfjcampaign"];
     $urlWidget = $_GET["wid"];
     $emailEvent = $_GET["emailEvent"];
+    $image = $_GET["image"];
 
     $matched_widget;
-    if (have_rows('campaigns_and_widgets')) :
-        while (have_rows('campaigns_and_widgets')) : the_row();
-            $campaign = get_sub_field('campaign_name');
-            $widget = get_sub_field('widget_id');
+    if (have_rows("campaigns_and_widgets")):
+    	while (have_rows("campaigns_and_widgets")):
+    		the_row();
+    		$campaign = get_sub_field("campaign_name");
+    		$widget = get_sub_field("widget_id");
 
-            if ($campaignPassed == $campaign) {
-                $matched_widget = $widget;
-            }
-
-
-
-        endwhile;
+    		if ($campaignPassed == $campaign) {
+    			$matched_widget = $widget;
+    		}
+    	endwhile;
     endif;
 
-    if ($urlWidget) :
-        $matched_widget = $urlWidget;
+    if ($urlWidget):
+    	$matched_widget = $urlWidget;
     endif;
-
     ?>
 
 
@@ -56,14 +54,20 @@ get_header('', array('page_class' => 'site--full')); ?>
                 <form id="formOne">
 
                     <div class="donorfy-donate__giving-text">
-                        You’re giving £<span id="textAmount"><?php echo $_GET['Amount'] ?></span> monthly
+                        You’re giving £<span id="textAmount"><?php echo $_GET[
+                        	"Amount"
+                        ]; ?></span> monthly
                         <a id="changeAmount">Change amount</a>
                     </div>
                     <h2 class="font-canela">Your details:</h2>
 
                     <div class="donorfy-donate__amount donorfy-donate__input donorfy-donate__amount--uk">
                         <label class="donorfy-donate__hidden" for="Amount">Amount I would like to give each month</label>
-                        <input type="text" name="Amount" class="required numberOnly" id="Amount" maxlength="10" title="Please enter the amount you want to give - don't include the pound sign" <?php if ($_GET['Amount']) { ?> value="<?php echo $_GET['Amount'] ?>" <?php } ?>>
+                        <input type="text" name="Amount" class="required numberOnly" id="Amount" maxlength="10" title="Please enter the amount you want to give - don't include the pound sign" <?php if (
+                        	$_GET["Amount"]
+                        ) { ?> value="<?php echo $_GET[
+ 	"Amount"
+ ]; ?>" <?php } ?>>
                     </div>
 
                     <label class="donorfy-donate__hidden" for="Title">Title</label>
@@ -281,7 +285,9 @@ get_header('', array('page_class' => 'site--full')); ?>
                         <hr>
                     </div>
                     <div class="donorfy-donate__summary-text">
-                        Donation total: <b>£<span id="donationTotalConfirm"><?php echo $_GET['Amount'] ?></span></b>
+                        Donation total: <b>£<span id="donationTotalConfirm"><?php echo $_GET[
+                        	"Amount"
+                        ]; ?></span></b>
                         <br>
                         Giving frequency: <b><span id="givingFrequencyConfirm">Monthly direct debit</span></b>
                         <br>
@@ -324,11 +330,13 @@ get_header('', array('page_class' => 'site--full')); ?>
 
 
 
-                    <input type="hidden" id="WidgetId" value="<?php if ($matched_widget) {
-                                                                    echo $matched_widget;
-                                                                } else {
-                                                                    echo 'e170a6bc-383e-6f05-b282-ff00004460b4';
-                                                                } ?>" />
+                    <input type="hidden" id="WidgetId" value="<?php if (
+                    	$matched_widget
+                    ) {
+                    	echo $matched_widget;
+                    } else {
+                    	echo "e170a6bc-383e-6f05-b282-ff00004460b4";
+                    } ?>" />
 
                     <div id="PaymentScheduleRow" style="display:none;">
                         <label class="" for="MonthlyPayment">I would like to donate*</label><br>
@@ -370,7 +378,11 @@ get_header('', array('page_class' => 'site--full')); ?>
             </div>
 
         </div><!-- /inner-grid -->
-        <div style="background-image: url(https://hopeforjustice.org/wp-content/uploads/2022/05/donate-pic.jpg);" class="donorfy-donate__photo">
+        <div style="background-image: url(<?php if ($image) {
+        	echo $image;
+        } else {
+        	echo "https://hopeforjustice.org/wp-content/uploads/2022/05/donate-pic.jpg";
+        } ?>);" class="donorfy-donate__photo">
             <!-- replace with responsive image markup -->
             <h3 class="donorfy-donate__photo-text font-canela">End Slavery.<br>Change Lives.</h3>
         </div>
