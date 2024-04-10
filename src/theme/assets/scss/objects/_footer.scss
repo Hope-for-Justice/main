@@ -121,7 +121,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 @include mq($from: tablet) {
-
 	.footer {
 		&__social-email {
 			flex-direction: row;
@@ -161,15 +160,12 @@
 			margin-bottom: 100px;
 		}
 	}
-
-
 }
 
 // desktop
 ///////////////////////////////////////////////////////////////////////////////
 
 @include mq($from: desktop) {
-
 	.footer {
 		&__social-email {
 			margin-top: 100px;
@@ -188,5 +184,4 @@
 			}
 		}
 	}
-
 }
