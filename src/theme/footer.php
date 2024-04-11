@@ -65,7 +65,13 @@ if (!get_field("no_news")) { ?>
         <?php if (is_page()) { ?>
             <!-- get help -->
             <div class="get-help">
-                <a href="/get-help/" class="get-help__help-button">
+                <a href="<?php if (
+                	in_array($GLOBALS["userInfo"], $GLOBALS["uk"])
+                ) {
+                	echo "/report-a-concern/";
+                } else {
+                	echo "/get-help/";
+                } ?>" class="get-help__help-button">
                     Get&nbsp;Help
                 </a>
                 <a href="http://google.com" class="get-help__quick-exit"><span>Quick&nbsp;Exit</span></a>

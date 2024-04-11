@@ -119,7 +119,7 @@
     // added this as its sometimes references as aus
     $GLOBALS["aus"] = ["AU", "NZ"];
 
-    $GLOBALS["help"] = ["US"];
+    $GLOBALS["help"] = ["US", "GB"];
 
     // lookup country code of IP
     $GLOBALS["geo"] = Wpengine\Geoip::instance();
