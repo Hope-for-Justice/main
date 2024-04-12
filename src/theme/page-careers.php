@@ -7,22 +7,24 @@
  * @package Hope_for_Justice_2021
  */
 
-get_header();
-?>
+get_header(); ?>
 
 <main id="main" class="site-main careers">
 
-	<?php while (have_posts()) : the_post(); ?>
+	<?php while (have_posts()):
+ 	the_post(); ?>
 
-		<?php $thumbnail = '';
+		<?php
+  $thumbnail = "";
 
-		// Get the ID of the post_thumbnail (if it exists)
-		$post_thumbnail_id = get_post_thumbnail_id($post->ID);
+  // Get the ID of the post_thumbnail (if it exists)
+  $post_thumbnail_id = get_post_thumbnail_id($post->ID);
 
-		// if it exists
-		if ($post_thumbnail_id) {
-			$thumbnail = wp_get_attachment_image_src($post_thumbnail_id, '', false, '');
-		} ?>
+  // if it exists
+  if ($post_thumbnail_id) {
+  	$thumbnail = wp_get_attachment_image_src($post_thumbnail_id, "", false, "");
+  }
+  ?>
 
 		<div class="grid">
 
@@ -39,7 +41,7 @@ get_header();
 				<div class="hero-split__content hero-split__content--grey">
 					<div class="hero-split__content-inner">
 						<h3>
-							<?php the_field('subtitle'); ?>
+							<?php the_field("subtitle"); ?>
 						</h3>
 						<h1 class="font-canela">
 							<?php the_title(); ?>
@@ -58,10 +60,10 @@ get_header();
 		-->
 			<div class="plain-text careers__vacancies">
 				<h2 class="font-canela">
-					<?php the_field('vacancies_title'); ?>
+					<?php the_field("vacancies_title"); ?>
 				</h2>
 				<p>
-					<?php the_field('vacancies_description'); ?>
+					<?php the_field("vacancies_description"); ?>
 				</p>
 			</div><!-- /plain-text -->
 
@@ -72,81 +74,89 @@ get_header();
 		-- 
 		-->
 			<div class="sub-grid career-cards">
-				<?php $emptyCezanne = false;
-				$get_records =  wp_remote_get('https://cezanneondemand.intervieweb.it/annunci.php?lang=en&LAC=hopeforjustice&d=hopeforjustice.org&k=c27d0f6eb2ff4684a4861d58933b8957&CodP=&nbsp;&format=json_en&utype=0');
-				// when empty show message
-				if ($get_records['body'] == '[]') {
-					$emptyCezanne = true;
-				}
-				?>
+				<?php
+    $emptyCezanne = false;
+    $get_records = wp_remote_get(
+    	"https://cezanneondemand.intervieweb.it/annunci.php?lang=en&LAC=hopeforjustice&d=hopeforjustice.org&k=c27d0f6eb2ff4684a4861d58933b8957&CodP=&nbsp;&format=json_en&utype=0"
+    );
+    // when empty show message
+    if ($get_records["body"] == "[]") {
+    	$emptyCezanne = true;
+    }
+    ?>
 
 
-				<?php foreach (json_decode($get_records['body']) as $body) {
-				?>
-
-					<div class="career-cards__card">
-						<a class="career-cards__inner" href="<?php echo $body->url; ?>">
-							<!-- Card title -->
-							<h3 class="career-cards__title font-fk">
-								<?php echo $body->title; ?>
-							</h3>
-
-							<!-- Arrow -->
-							<div class="career-cards__arrow">
-								<img src="<?php echo get_template_directory_uri() . '/assets/img/arrow.svg'; ?>" />
-							</div>
-
-							<!-- location -->
-							<div class="career-cards__location">
-								<img src="<?php echo get_template_directory_uri() . '/assets/img/balloon.svg'; ?>" />
-								<p>
-									<?php echo $body->location; ?>,&nbsp;<?php echo $body->nation; ?>
-								</p>
-							</div>
-						</a>
-					</div>
-
-				<?php } ?>
-
-				<?php if (have_rows('non_cezanne')) :
-					while (have_rows('non_cezanne')) : the_row(); ?>
-
+				<?php foreach (json_decode($get_records["body"]) as $body) { ?>
+					<?php if (strpos($body->project_label, "SFA") === false) { ?>
 						<div class="career-cards__card">
-							<a class="career-cards__inner" href="<?php echo (get_sub_field('link')) ?>">
+							<a class="career-cards__inner" href="<?php echo $body->url; ?>">
 								<!-- Card title -->
 								<h3 class="career-cards__title font-fk">
-									<?php echo (get_sub_field('title')) ?>
+									<?php echo $body->title; ?>
 								</h3>
-
-								<div class="career-cards__description">
-									<p><?php echo (get_sub_field('description')) ?></p>
-								</div>
 
 								<!-- Arrow -->
 								<div class="career-cards__arrow">
-									<img src="<?php echo get_template_directory_uri() . '/assets/img/arrow.svg'; ?>" />
+									<img src="<?php echo get_template_directory_uri() .
+         	"/assets/img/arrow.svg"; ?>" />
 								</div>
 
 								<!-- location -->
 								<div class="career-cards__location">
-									<img src="<?php echo get_template_directory_uri() . '/assets/img/balloon.svg'; ?>" />
+									<img src="<?php echo get_template_directory_uri() .
+         	"/assets/img/balloon.svg"; ?>" />
 									<p>
-										<?php echo (get_sub_field('location')) ?>
+										<?php echo $body->location; ?>,&nbsp;<?php echo $body->nation; ?>
 									</p>
 								</div>
 							</a>
 						</div>
 
-					<?php endwhile;
-				else :
-					$emptyNonCezanne = true;
+					<?php } ?>
+				<?php } ?>
 
-					if ($emptyNonCezanne == true && $emptyCezanne == true) :
-					?>
+				<?php if (have_rows("non_cezanne")):
+    	while (have_rows("non_cezanne")):
+    		the_row(); ?>
+
+						<div class="career-cards__card">
+							<a class="career-cards__inner" href="<?php echo get_sub_field("link"); ?>">
+								<!-- Card title -->
+								<h3 class="career-cards__title font-fk">
+									<?php echo get_sub_field("title"); ?>
+								</h3>
+
+								<div class="career-cards__description">
+									<p><?php echo get_sub_field("description"); ?></p>
+								</div>
+
+								<!-- Arrow -->
+								<div class="career-cards__arrow">
+									<img src="<?php echo get_template_directory_uri() .
+         	"/assets/img/arrow.svg"; ?>" />
+								</div>
+
+								<!-- location -->
+								<div class="career-cards__location">
+									<img src="<?php echo get_template_directory_uri() .
+         	"/assets/img/balloon.svg"; ?>" />
+									<p>
+										<?php echo get_sub_field("location"); ?>
+									</p>
+								</div>
+							</a>
+						</div>
+
+					<?php
+    	endwhile;
+    else:
+    	$emptyNonCezanne = true;
+
+    	if ($emptyNonCezanne == true && $emptyCezanne == true): ?>
 						<h2 style="text-align: center; grid-column: col2 / col12; opacity:0.5;" class="font-canela">No Vacancies</h2>
 
 				<?php endif;
-				endif; ?>
+    endif; ?>
 
 
 			</div><!-- /career-cards -->
@@ -158,15 +168,17 @@ get_header();
 		-->
 			<div class="plain-text">
 				<h2 class="font-canela">
-					<?php the_field('volunteering_title'); ?>
+					<?php the_field("volunteering_title"); ?>
 				</h2>
 				<p>
-					<?php the_field('volunteering_description'); ?>
+					<?php the_field("volunteering_description"); ?>
 				</p>
-				<a href="<?php the_field('volunteering_button_link'); ?>" class="button button--red">
+				<a href="<?php the_field(
+    	"volunteering_button_link"
+    ); ?>" class="button button--red">
 					<div class="button__inner">
 						<div class="button__text bold">
-							<?php the_field('volunteering_button_text'); ?>
+							<?php the_field("volunteering_button_text"); ?>
 						</div>
 					</div>
 				</a>
@@ -174,7 +186,8 @@ get_header();
 
 		</div><!-- /grid -->
 
-	<?php endwhile ?>
+	<?php
+ endwhile; ?>
 
 </main><!-- /#main -->
 
