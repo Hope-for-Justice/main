@@ -48,10 +48,11 @@ if ($get_records["body"] == "[]") {
                     <h3 class="careers-block__title">
                         <?php echo get_sub_field("title"); ?>
                     </h3>
-
-                    <div class="careers-block__description">
-                        <p><?php echo get_sub_field("description"); ?></p>
-                    </div>
+                    <?php if (get_sub_field("description")) { ?>
+                        <div class="careers-block__description">
+                            <p><?php echo get_sub_field("description"); ?></p>
+                        </div>
+                    <?php } ?>
 
                     <!-- location -->
                     <div class="careers-block__location">
