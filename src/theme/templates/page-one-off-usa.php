@@ -590,6 +590,7 @@ endif;
                     <input type="hidden" id="PayPalClientId" value="AShS208kHpcKew3sfXSca54sEvCcxDr32tmAqALIW3MIX1HI81DmcrTHY2djd01i5IL4_JW8yURzLv17" />
                     <input type="hidden" id="ExternalPaymentReference" value="" />
                     <input type="hidden" id="PayPal" value="" />
+                    <input type="hidden" id="PayPalEnabled" value="No" />
 
                     <div class="donorfy-donate__hidden">
                         <input id="GiftAid" type="checkbox" />

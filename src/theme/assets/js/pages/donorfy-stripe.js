@@ -29,19 +29,6 @@ function GetBaseServiceUrl() {
 	return "https://api.donorfy.com/api/stripe/";
 }
 
-var DonorfyWidget = {
-	Country: "GB",
-	Currency: "gbp",
-	Stripe: null,
-	Elements: null,
-	StripePaymentRequest: null,
-	StripePaymentRequestButton: null,
-	StripeStatementText: "",
-	PayPal: null,
-	PayPalStatementText: "",
-	PayPalLoaded: false,
-};
-
 function load() {
 	if (typeof jQuery.validator === "undefined") {
 		loadScript(
@@ -79,25 +66,17 @@ function load() {
 				var key = data.RequestData;
 				DonorfyWidget.Stripe = Stripe(key);
 				DonorfyWidget.Elements = DonorfyWidget.Stripe.elements();
-				DonorfyWidget.StripeStatementText = jQuery(
-					"#StripeStatementText"
-				).val();
-				DonorfyWidget.PayPalStatementText = jQuery(
-					"#PayPalStatementText"
-				).val();
+				DonorfyWidget.StripeStatementText = $("#StripeStatementText").val();
+				DonorfyWidget.PayPalStatementText = $("#PayPalStatementText").val();
 
 				var currencyCodeOverride = $("#CurrencyCode").val();
 				if (currencyCodeOverride !== undefined && currencyCodeOverride !== "") {
 					DonorfyWidget.Currency = currencyCodeOverride;
-					SetUpApplePay();
-					SetUpPayPal();
 				}
 
 				var countryCodeOverride = $("#CountryCode").val();
 				if (countryCodeOverride !== undefined && countryCodeOverride !== "") {
 					DonorfyWidget.Country = countryCodeOverride;
-					SetUpApplePay();
-					SetUpPayPal();
 				}
 
 				window.cardNumber = DonorfyWidget.Elements.create("cardNumber");
@@ -189,6 +168,19 @@ function load() {
 		});
 	return "";
 }
+
+var DonorfyWidget = {
+	Country: "GB",
+	Currency: "gbp",
+	Stripe: null,
+	Elements: null,
+	StripePaymentRequest: null,
+	StripePaymentRequestButton: null,
+	StripeStatementText: "",
+	PayPal: null,
+	PayPalStatementText: "",
+	PayPalLoaded: false,
+};
 
 function SetUpPayPal() {
 	if (jQuery("#PalPayEnabled").val() === "No") {
