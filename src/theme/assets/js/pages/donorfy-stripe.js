@@ -66,15 +66,19 @@ function load() {
 				var key = data.RequestData;
 				DonorfyWidget.Stripe = Stripe(key);
 				DonorfyWidget.Elements = DonorfyWidget.Stripe.elements();
-				DonorfyWidget.StripeStatementText = $("#StripeStatementText").val();
-				DonorfyWidget.PayPalStatementText = $("#PayPalStatementText").val();
+				DonorfyWidget.StripeStatementText = jQuery(
+					"#StripeStatementText"
+				).val();
+				DonorfyWidget.PayPalStatementText = jQuery(
+					"#PayPalStatementText"
+				).val();
 
-				var currencyCodeOverride = $("#CurrencyCode").val();
+				var currencyCodeOverride = jQuery("#CurrencyCode").val();
 				if (currencyCodeOverride !== undefined && currencyCodeOverride !== "") {
 					DonorfyWidget.Currency = currencyCodeOverride;
 				}
 
-				var countryCodeOverride = $("#CountryCode").val();
+				var countryCodeOverride = jQuery("#CountryCode").val();
 				if (countryCodeOverride !== undefined && countryCodeOverride !== "") {
 					DonorfyWidget.Country = countryCodeOverride;
 				}
@@ -198,14 +202,14 @@ function SetUpPayPal() {
 
 	var donAmt = jQuery("#Amount").val();
 	if (donAmt === undefined || donAmt === "" || donAmt === "none") {
-		if ($("#payment-request-button").length) {
+		if (jQuery("#payment-request-button").length) {
 			document.getElementById("paypal-button-container").style.display = "none";
 		}
 		return;
 	}
 
 	if (donAmt === 0) {
-		if ($("#payment-request-button").length) {
+		if (jQuery("#payment-request-button").length) {
 			document.getElementById("paypal-button-container").style.display = "none";
 		}
 		return;
@@ -217,7 +221,7 @@ function SetUpPayPal() {
 		document.getElementById("paypal-button-container").style.display = "none";
 	}
 
-	$("#paypal-button-container").html("");
+	jQuery("#paypal-button-container").html("");
 	var uCurrency = DonorfyWidget.Currency.toUpperCase();
 	try {
 		DonorfyWidget.PayPal = paypal
@@ -241,8 +245,8 @@ function SetUpPayPal() {
 				},
 				onApprove: function (data, actions) {
 					return actions.order.capture().then(function (details) {
-						$("#PayPal").val("Yes");
-						$("#ExternalPaymentReference").val(details.id);
+						jQuery("#PayPal").val("Yes");
+						jQuery("#ExternalPaymentReference").val(details.id);
 						PostPayment(details.id);
 					});
 				},
@@ -260,7 +264,7 @@ function SetUpApplePay() {
 
 	var donAmt = jQuery("#Amount").val();
 	if (donAmt === undefined || donAmt === "" || donAmt === "none") {
-		if ($("#payment-request-button").length) {
+		if (jQuery("#payment-request-button").length) {
 			document.getElementById("payment-request-button").style.display = "none";
 		}
 		return;
@@ -268,13 +272,13 @@ function SetUpApplePay() {
 
 	donAmt = Math.round(donAmt * 100);
 	if (donAmt === 0) {
-		if ($("#payment-request-button").length) {
+		if (jQuery("#payment-request-button").length) {
 			document.getElementById("payment-request-button").style.display = "none";
 		}
 		return;
 	}
 
-	if ($("#payment-request-button").length) {
+	if (jQuery("#payment-request-button").length) {
 		try {
 			// Apply pay btn
 			if (DonorfyWidget.StripePaymentRequest === null) {
@@ -333,13 +337,13 @@ function SetUpApplePay() {
 // Validates and processes Apple Pay via Stripe
 function ValidateStripeApplePayRequest(ev) {
 	if (ValidateForm()) {
-		var code = $("#TenantCode").val();
-		var email = $("#Email").val();
+		var code = jQuery("#TenantCode").val();
+		var email = jQuery("#Email").val();
 		var recurring = jQuery("#RecurringPayment").is(":checked");
 
 		var donAmt = jQuery("#Amount").val();
 		if (donAmt === undefined || donAmt === "" || donAmt === "none") {
-			if ($("#payment-request-button").length) {
+			if (jQuery("#payment-request-button").length) {
 				document.getElementById("payment-request-button").style.display =
 					"none";
 			}
@@ -348,7 +352,7 @@ function ValidateStripeApplePayRequest(ev) {
 
 		donAmt = Math.round(donAmt * 100);
 		if (donAmt === 0) {
-			if ($("#payment-request-button").length) {
+			if (jQuery("#payment-request-button").length) {
 				document.getElementById("payment-request-button").style.display =
 					"none";
 			}
@@ -397,7 +401,7 @@ function ValidateStripeApplePayRequest(ev) {
 										ev.complete("fail");
 										return false;
 									} else {
-										$("#StripePaymentIntentId").val(
+										jQuery("#StripePaymentIntentId").val(
 											confirmResult.paymentIntent.id
 										);
 										PostPayment(confirmResult.paymentIntent.id);
@@ -419,17 +423,19 @@ function ValidateStripeApplePayRequest(ev) {
 													return false;
 												} else {
 													// The payment has succeeded.
-													$("#StripePaymentIntentId").val(
+													jQuery("#StripePaymentIntentId").val(
 														result.paymentIntent.id
 													);
-													$("#PaymentMethod").val("ApplePay");
+													jQuery("#PaymentMethod").val("ApplePay");
 													PostPayment(result.paymentIntent.id);
 													return true;
 												}
 											});
 										} else {
 											// The payment has succeeded.
-											$("#StripePaymentIntentId").val(result.paymentIntent.id);
+											jQuery("#StripePaymentIntentId").val(
+												result.paymentIntent.id
+											);
 											PostPayment(result.paymentIntent.id);
 											return true;
 										}
