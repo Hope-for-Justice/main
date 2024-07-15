@@ -170,8 +170,8 @@ function load() {
 }
 
 var DonorfyWidget = {
-	Country: "GB",
-	Currency: "gbp",
+	Country: jQuery("#CountryCode").val(),
+	Currency: jQuery("#CurrencyCode").val(),
 	Stripe: null,
 	Elements: null,
 	StripePaymentRequest: null,
