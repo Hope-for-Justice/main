@@ -10,7 +10,7 @@
 
 if (!defined("_S_VERSION")) {
 	// Replace the version number of the theme on each release.
-	define("_S_VERSION", "6.2.3");
+	define("_S_VERSION", "6.2.4");
 }
 
 if (!function_exists("hope_for_justice_2021_setup")):
@@ -54,12 +54,12 @@ if (!function_exists("hope_for_justice_2021_setup")):
 
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus([
-			"uk-primary" => esc_html__("uk-primary", "hope-for-justice-2021"),
-			"uk-secondary" => esc_html__("uk-secondary", "hope-for-justice-2021"),
-			"uk-footer-a" => esc_html__("uk-footer-a", "hope-for-justice-2021"),
-			"uk-footer-b" => esc_html__("uk-footer-b", "hope-for-justice-2021"),
-			"uk-footer-c" => esc_html__("uk-footer-c", "hope-for-justice-2021"),
-			"uk-footer-d" => esc_html__("uk-footer-d", "hope-for-justice-2021"),
+			"primary" => esc_html__("primary", "hope-for-justice-2021"),
+			"secondary" => esc_html__("secondary", "hope-for-justice-2021"),
+			"footer-a" => esc_html__("footer-a", "hope-for-justice-2021"),
+			"footer-b" => esc_html__("footer-b", "hope-for-justice-2021"),
+			"footer-c" => esc_html__("footer-c", "hope-for-justice-2021"),
+			"footer-d" => esc_html__("footer-d", "hope-for-justice-2021"),
 		]);
 
 		/*
