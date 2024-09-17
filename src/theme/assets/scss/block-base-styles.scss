@@ -1,129 +1,120 @@
 .site {
-    visibility: hidden;
+	visibility: hidden;
 }
 
 @supports (display: grid) {
+	.site {
+		visibility: visible;
+	}
 
-    .site {
-        visibility: visible;
-    }
+	.upgrade-browser {
+		display: none;
+	}
 
-    .upgrade-browser {
-        display: none;
-    }
+	// base styles
+	@import "base/_variables.scss";
+	@import "base/_base.scss";
+	@import "base/_mixins.scss";
+	@import "base/_fonts.scss";
+	@import "lib/_mq.scss";
+	@import "lib/_newsticker.scss";
+	@import "lib/_bootstrap-modal.scss";
+	@import "base/_type.scss";
+	@import "better-base/_better-base.scss";
+	@import "better-base/_better-type.scss";
+	@import "better-base/_better-grid.scss";
 
-    // base styles
-    @import "base/_variables.scss";
-    @import "base/_base.scss";
-    @import "base/_mixins.scss";
-    @import "base/_fonts.scss";
-    @import "lib/_mq.scss";
-    @import "lib/_newsticker.scss";
-    @import "lib/_bootstrap-modal.scss";
-    @import "base/_type.scss";
-    @import "better-base/_better-base.scss";
-    @import "better-base/_better-type.scss";
-    @import "better-base/_better-grid.scss";
+	// layout
+	@import "base/_layout.scss";
 
-    // layout
-    @import "base/_layout.scss";
+	// global objects
+	@import "objects/_get-help.scss";
+	@import "objects/_modal.scss";
+	@import "objects/_email-push.scss";
+	@import "objects/_line.scss";
+	@import "objects/_button.scss";
+	@import "objects/_menu.scss";
+	@import "objects/_grid.scss";
+	@import "objects/_forms.scss";
+	@import "objects/_menu.scss";
+	@import "objects/_grid.scss";
+	@import "objects/_header.scss";
+	@import "objects/_publication.scss";
+	@import "objects/_search.scss";
 
-    // global objects
-    @import "objects/_get-help.scss";
-    @import "objects/_modal.scss";
-    @import "objects/_email-push.scss";
-    @import "objects/_line.scss";
-    @import "objects/_button.scss";
-    @import "objects/_menu.scss";
-    @import "objects/_grid.scss";
-    @import "objects/_forms.scss";
-    @import "objects/_menu.scss";
-    @import "objects/_grid.scss";
-    @import "objects/_header.scss";
-    @import "objects/_publication.scss";
-    @import "objects/_search.scss";
+	//annoying centering bug fix just for block template
+	.header__logo {
+		margin-top: 3px;
+	}
 
-    //annoying centering bug fix just for block template
-    .header__logo {
-        margin-top: 3px;
-    }
+	@import "objects/_burger.scss";
+	@import "objects/_cookie-notice.scss";
+	@import "objects/_footer.scss";
+	@import "objects/_breadcrumbs.scss";
 
-    @import "objects/_burger.scss";
-    @import "objects/_cookie-notice.scss";
-    @import "objects/_footer.scss";
-    @import "objects/_breadcrumbs.scss";
+	//pages
+	@import "pages/_block-post.scss";
+	@import "pages/_archive-page.scss";
 
-    //pages
-    @import "pages/_block-post.scss";
-    @import "pages/_archive-page.scss";
+	//country specifics
+	@import "other/_country-specifics.scss";
 
-    //country specifics
-    @import "other/_country-specifics.scss";
+	//blocks
+	@import "../../template-parts/blocks/accordion/accordion.scss";
+	@import "../../template-parts/blocks/btc-event-series/btc-event-series.scss";
+	@import "../../template-parts/blocks/btc-header/btc-header.scss";
+	@import "../../template-parts/blocks/careers/careers.scss";
+	@import "../../template-parts/blocks/carousel/carousel.scss";
+	@import "../../template-parts/blocks/core-blocks/core-spacer.scss";
+	@import "../../template-parts/blocks/core-blocks/group.scss";
+	@import "../../template-parts/blocks/core-blocks/heading.scss";
+	@import "../../template-parts/blocks/core-blocks/list.scss";
+	@import "../../template-parts/blocks/core-blocks/paragraph.scss";
+	@import "../../template-parts/blocks/core-blocks/pull-quote.scss";
+	@import "../../template-parts/blocks/core-blocks/social-links.scss";
+	@import "../../template-parts/blocks/cta-grid/cta-grid.scss";
+	@import "../../template-parts/blocks/donate-block/donate-block.scss";
+	@import "../../template-parts/blocks/cards/cards-half.scss";
+	@import "../../template-parts/blocks/cards/cards-quarter.scss";
+	@import "../../template-parts/blocks/cards/cards-thirds.scss";
+	@import "../../template-parts/blocks/cards/big-image-card.scss";
+	@import "../../template-parts/blocks/button/button.scss";
+	@import "../../template-parts/blocks/dropdown/dropdown.scss";
+	@import "../../template-parts/blocks/event-categories/event-categories.scss";
+	@import "../../template-parts/blocks/event-header/event-header.scss";
+	@import "../../template-parts/blocks/event-series/event-series.scss";
+	@import "../../template-parts/blocks/events/events.scss";
+	@import "../../template-parts/blocks/featured-stories/featured-stories.scss";
+	@import "../../template-parts/blocks/form-block/form-block.scss";
+	@import "../../template-parts/blocks/full-header/full-header.scss";
+	@import "../../template-parts/blocks/geo-target/geo-target.scss";
+	@import "../../template-parts/blocks/grid/grid-block.scss";
+	@import "../../template-parts/blocks/grid-break/grid-break.scss";
+	@import "../../template-parts/blocks/image/image.scss";
+	@import "../../template-parts/blocks/image-and-text/image-and-text.scss";
+	@import "../../template-parts/blocks/posts/posts.scss";
+	@import "../../template-parts/blocks/resources/resources-block.scss";
+	@import "../../template-parts/blocks/social/social.scss";
+	@import "../../template-parts/blocks/spacer/spacer.scss";
+	@import "../../template-parts/blocks/text/block-text.scss";
+	@import "../../template-parts/blocks/title/block-title.scss";
+	@import "../../template-parts/blocks/title-and-text/two-col-title-and-text.scss";
+	@import "../../template-parts/blocks/pre-donation/pre-donation.scss";
 
-    //blocks
-    @import "../../template-parts/blocks/accordion/accordion.scss";
-    @import "../../template-parts/blocks/btc-event-series/btc-event-series.scss";
-    @import "../../template-parts/blocks/btc-header/btc-header.scss";
-    @import "../../template-parts/blocks/careers/careers.scss";
-    @import "../../template-parts/blocks/carousel/carousel.scss";
-    @import "../../template-parts/blocks/core-blocks/core-spacer.scss";
-    @import "../../template-parts/blocks/core-blocks/group.scss";
-    @import "../../template-parts/blocks/core-blocks/heading.scss";
-    @import "../../template-parts/blocks/core-blocks/list.scss";
-    @import "../../template-parts/blocks/core-blocks/paragraph.scss";
-    @import "../../template-parts/blocks/core-blocks/pull-quote.scss";
-    @import "../../template-parts/blocks/core-blocks/social-links.scss";
-    @import "../../template-parts/blocks/cta-grid/cta-grid.scss";
-    @import "../../template-parts/blocks/donate-block/donate-block.scss";
-    @import "../../template-parts/blocks/cards/cards-half.scss";
-    @import "../../template-parts/blocks/cards/cards-quarter.scss";
-    @import "../../template-parts/blocks/cards/cards-thirds.scss";
-    @import "../../template-parts/blocks/cards/big-image-card.scss";
-    @import "../../template-parts/blocks/button/button.scss";
-    @import "../../template-parts/blocks/dropdown/dropdown.scss";
-    @import "../../template-parts/blocks/event-categories/event-categories.scss";
-    @import "../../template-parts/blocks/event-header/event-header.scss";
-    @import "../../template-parts/blocks/event-series/event-series.scss";
-    @import "../../template-parts/blocks/events/events.scss";
-    @import "../../template-parts/blocks/featured-stories/featured-stories.scss";
-    @import "../../template-parts/blocks/form-block/form-block.scss";
-    @import "../../template-parts/blocks/full-header/full-header.scss";
-    @import "../../template-parts/blocks/geo-target/geo-target.scss";
-    @import "../../template-parts/blocks/grid/grid-block.scss";
-    @import "../../template-parts/blocks/grid-break/grid-break.scss";
-    @import "../../template-parts/blocks/image/image.scss";
-    @import "../../template-parts/blocks/image-and-text/image-and-text.scss";
-    @import "../../template-parts/blocks/posts/posts.scss";
-    @import "../../template-parts/blocks/resources/resources-block.scss";
-    @import "../../template-parts/blocks/social/social.scss";
-    @import "../../template-parts/blocks/spacer/spacer.scss";
-    @import "../../template-parts/blocks/text/block-text.scss";
-    @import "../../template-parts/blocks/title/block-title.scss";
-    @import "../../template-parts/blocks/title-and-text/two-col-title-and-text.scss";
+	html :where(.wp-block) {
+		max-width: none;
+		margin: 0;
+		padding: 0;
+	}
 
+	.block-editor-post-preview__button-resize {
+		display: none;
+	}
 
-
-    html :where(.wp-block) {
-        max-width: none;
-        margin: 0;
-        padding: 0;
-    }
-
-
-    .block-editor-post-preview__button-resize {
-        display: none;
-    }
-
-    @media screen and (min-width: 1366px) {
-
-
-        .block-indent,
-        .block-indent-true {
-            grid-column: 1/12 !important;
-        }
-
-
-    }
-
-
+	@media screen and (min-width: 1366px) {
+		.block-indent,
+		.block-indent-true {
+			grid-column: 1/12 !important;
+		}
+	}
 }

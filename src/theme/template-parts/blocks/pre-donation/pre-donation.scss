@@ -1,0 +1,81 @@
+.pre-donation {
+	max-width: 768px;
+	margin: 0 auto;
+	margin-bottom: 20px;
+	&__logos {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 10px;
+		img {
+			height: 50px;
+			object-position: center;
+		}
+	}
+	&__partner {
+		display: flex;
+		align-items: center;
+	}
+
+	&__body {
+		margin-top: 10px;
+		background-color: var(--black);
+		color: white;
+		border-radius: 10px;
+		border: none;
+		padding: 20px;
+		p {
+			font-size: 20px;
+			text-align: center;
+			font-weight: bold;
+		}
+	}
+
+	&__line {
+		height: 1px;
+		background-color: white;
+		margin: 20px 0;
+		opacity: 0.3;
+	}
+
+	&__button {
+		border-radius: 8px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 50px;
+		margin-bottom: 10px;
+		img {
+			height: 23px;
+		}
+		&:hover {
+			cursor: pointer;
+		}
+	}
+
+	&__venmo {
+		width: 100%;
+		background-color: #1883fb;
+	}
+
+	&__paypal {
+		background-color: #febb3f;
+	}
+
+	&__card {
+		background-color: white;
+		color: var(--black);
+		font-weight: bold;
+		gap: 8px;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.pre-donation {
+		&__logos {
+			img {
+				height: 75px;
+			}
+		}
+	}
+}
