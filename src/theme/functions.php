@@ -10,7 +10,7 @@
 
 if (!defined("_S_VERSION")) {
 	// Replace the version number of the theme on each release.
-	define("_S_VERSION", "6.2.5");
+	define("_S_VERSION", "6.2.7");
 }
 
 if (!function_exists("hope_for_justice_2021_setup")):
@@ -1357,3 +1357,11 @@ require_once __DIR__ . "/acf-blocks.php";
 
 //get core block edits // using plugin setup instead
 require_once __DIR__ . "/core-block-edits.php";
+
+//remove paylater gravity forms paypal
+
+add_filter("gform_ppcp_disable_funding", function ($disabled_funding) {
+	$disabled_funding[] = "credit"; // PayPal Credit (US, UK).
+	$disabled_funding[] = "paylater"; // Pay Later (US, UK), Pay in 4 (AU), 4X PayPal (France), Später Bezahlen (Germany).
+	return $disabled_funding;
+});
