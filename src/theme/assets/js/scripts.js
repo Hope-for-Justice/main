@@ -12,7 +12,7 @@ function formatPostcode(string) {
 
 /* Page load scripts */
 jQuery(document).ready(function ($) {
-	console.log("v6.2.9");
+	console.log("v6.3.0");
 	let cookies = Cookies.get("wordpress_hfjcookies");
 
 	// cookieAccept click
