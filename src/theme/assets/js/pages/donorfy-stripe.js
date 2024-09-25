@@ -94,6 +94,7 @@ function load() {
 
 				submitButton = document.getElementById("submitButton");
 				submitButton.addEventListener("click", function (ev) {
+					console.log("submit clicked");
 					DisableSubmitButton();
 					ResetErrorMessage();
 					if (ValidateForm()) {

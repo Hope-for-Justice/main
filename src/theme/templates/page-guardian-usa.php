@@ -534,7 +534,7 @@ endif;
 
                     <div class="donorfy-donate__buttons">
                         <div id="backToStepTwo" class="button button--white button--spinner">Previous</div>
-                        <div id="submitButton" class="button button--spinner">Donate monthly</div>
+                        <button id="submitButton" class="button button--spinner">Donate Monthly</button>
                     </div>
 
 

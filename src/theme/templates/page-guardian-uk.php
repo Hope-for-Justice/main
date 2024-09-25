@@ -314,7 +314,7 @@ get_header("", ["page_class" => "site--full"]); ?>
 
                     <div class="donorfy-donate__buttons">
                         <div id="backToStepThree" class="button button--white button--spinner">Previous</div>
-                        <div id="submitButton" class="button button--spinner">Set up Direct Debit</div>
+                        <button id="submitButton" class="button button--spinner">Set up Direct Debit</button>
                     </div>
 
                     <!-- Hidden fields for tags --->

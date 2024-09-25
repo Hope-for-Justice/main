@@ -592,7 +592,7 @@ endif;
 
                     <div class="donorfy-donate__buttons">
                         <div id="backToStepFour" class="button button--white button--spinner">Previous</div>
-                        <div id="submitButton" class="button button--spinner">Donate</div>
+                        <button id="submitButton" class="button button--spinner">Donate</button>
                     </div>
 
 
