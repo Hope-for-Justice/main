@@ -207,7 +207,7 @@ if (!get_field("no_news")) { ?>
             <img alt="Fundraising regulator Logo" class="fr-reg" src="<?php echo get_template_directory_uri() .
             	"/assets/img/fr-reg@2x.png"; ?>">
             <img alt="Guidestar platinum logo" class="guidestar" src="<?php echo get_template_directory_uri() .
-            	"/assets/img/platinum.png"; ?>">
+            	"/assets/img/platinum-2024.png"; ?>">
             <?php if (
             	$GLOBALS["userInfo"] &&
             	in_array($GLOBALS["userInfo"], $GLOBALS["uk"])
