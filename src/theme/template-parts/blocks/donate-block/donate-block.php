@@ -399,6 +399,7 @@ if ($tracked && $target) {
             </p>
 
             <div class="donate-block__other-ways">
+            <?php if ($currency !== "GBP" && $currency !== "USD") { ?>
                 <a href="<?php echo $other_ways_link; ?>">
                     <?php if ($currency == "NOK") { ?>
                         Andre måter å gi
@@ -407,6 +408,7 @@ if ($tracked && $target) {
                     <?php } ?>
                 </a>
                 <div class="donate-block__other-ways-divider">|</div>
+            <?php } ?>
                 <a data-toggle="modal" data-target="#currencyModal" id="changeCurrency">
                     <?php if ($currency == "NOK") { ?>
                         Endre valuta

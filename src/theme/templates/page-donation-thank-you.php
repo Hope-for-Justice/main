@@ -8,96 +8,92 @@
  * @package Hope_for_Justice_2021
  */
 
-get_header('', array('page_class' => 'site--full'));
+get_header("", ["page_class" => "site--full"]); ?>
 
-
-
-?>
-
-<?php while (have_posts()) : the_post(); ?>
+<?php while (have_posts()):
+	the_post(); ?>
 
     <?php
+    $campaign = $_COOKIE["wordpress_hfjcampaign"];
+    $amount = $_GET["amount"];
+    $type = $_GET["type"];
+    $signup = $_GET["signup"];
+    $name = $_GET["Name"];
+    $tracked = $_GET["tracked"];
+    $currency = $_GET["currency"];
 
-    $campaign = $_COOKIE['wordpress_hfjcampaign'];
-    $amount = $_GET['amount'];
-    $type = $_GET['type'];
-    $signup = $_GET['signup'];
-    $name = $_GET['Name'];
-    $tracked = $_GET['tracked'];
-    $currency = $_GET['currency'];
-
-    $guardianAmount = $_COOKIE['wordpress_guardian_amount'];
-    $guardianName = $_COOKIE['wordpress_guardian_name'];
-    $guardianSignup = $_COOKIE['wordpress_guardian_signup'];
+    $guardianAmount = $_COOKIE["wordpress_guardian_amount"];
+    $guardianName = $_COOKIE["wordpress_guardian_name"];
+    $guardianSignup = $_COOKIE["wordpress_guardian_signup"];
 
     if ($guardianAmount) {
-        $type = 'UK Guardian';
-        $signup = $guardianSignup;
-        $name = $guardianName;
+    	$type = "UK Guardian";
+    	$signup = $guardianSignup;
+    	$name = $guardianName;
     }
 
-    if ($campaign == 'StHelens') {
-        global $wpdb;
-        $table = $wpdb->prefix . 'goats_milk';
-        $data = array('amount' => $amount);
-        $format = array('%f');
-        $wpdb->insert($table, $data, $format);
+    if ($campaign == "StHelens") {
+    	global $wpdb;
+    	$table = $wpdb->prefix . "goats_milk";
+    	$data = ["amount" => $amount];
+    	$format = ["%f"];
+    	$wpdb->insert($table, $data, $format);
     }
 
-    //exchange rate api
-    // if ($tracked !== 'false' && ($currency == 'USD' || $currency == 'GBP')) {
+    //Adding tracked donations to db
+    //only setup for USD, no exchange rate api stuff anymore
+    if ($tracked !== "false" && $currency == "USD") {
+    	// if ($currency == 'GBP') {
+    	//     $from = 'GBP';
+    	//     $to = 'USD';
+    	// } elseif ($currency == 'USD') {
+    	//     $from = 'USD';
+    	//     $to = 'GBP';
+    	// }
 
-    //     if ($currency == 'GBP') {
-    //         $from = 'GBP';
-    //         $to = 'USD';
-    //     } elseif ($currency == 'USD') {
-    //         $from = 'USD';
-    //         $to = 'GBP';
-    //     }
+    	// $URL = 'http://api.exchangeratesapi.io/v1/convert' . '?access_key=' . $exchange_key . '&from=' . $from . '&to=' . $to . '&amount=' . $amount;
 
-    //     $URL = 'http://api.exchangeratesapi.io/v1/convert' . '?access_key=' . $exchange_key . '&from=' . $from . '&to=' . $to . '&amount=' . $amount;
+    	//     https://api.exchangeratesapi.io/v1/latest
+    	// ? access_key = API_KEY
+    	// & base = USD
+    	// & symbols = GBP,JPY,EUR
 
-    //     //     https://api.exchangeratesapi.io/v1/latest
-    //     // ? access_key = API_KEY
-    //     // & base = USD
-    //     // & symbols = GBP,JPY,EUR
+    	//url-ify the data for the POST
+    	// $fields_string = http_build_query($fields);
 
-    //     //url-ify the data for the POST
-    //     // $fields_string = http_build_query($fields);
+    	// $ch = curl_init();
+    	// curl_setopt($ch, CURLOPT_URL, $URL);
+    	// curl_setopt($ch, CURLOPT_TIMEOUT, 30); //timeout after 30 seconds
+    	// curl_setopt($ch, CURLOPT_POST, true);
+    	// curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    	// curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+    	// curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+    	//curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+    	// $result = curl_exec($ch);
+    	// $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);   //get status code
+    	// curl_close($ch);
 
-    //     $ch = curl_init();
-    //     curl_setopt($ch, CURLOPT_URL, $URL);
-    //     curl_setopt($ch, CURLOPT_TIMEOUT, 30); //timeout after 30 seconds
-    //     curl_setopt($ch, CURLOPT_POST, true);
-    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    //     curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-    //     // curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
-    //     //curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
-    //     $result = curl_exec($ch);
-    //     $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);   //get status code
-    //     curl_close($ch);
+    	// $json = json_decode($result);
+    	// $converted_amount = $json->result;
+    	//echo $converted_amount;
 
-    //     $json = json_decode($result);
-    //     $converted_amount = $json->result;
-    //     //echo $converted_amount;
+    	// if ($currency == 'GBP') {
+    	//     $amount_usd = $converted_amount;
+    	//     $amount_gbp = $amount;
+    	// } elseif ($currency == 'USD') {
+    	//     $amount_usd = $amount;
+    	//     $amount_gbp = $converted_amount;
+    	// }
 
-    //     if ($currency == 'GBP') {
-    //         $amount_usd = $converted_amount;
-    //         $amount_gbp = $amount;
-    //     } elseif ($currency == 'USD') {
-    //         $amount_usd = $amount;
-    //         $amount_gbp = $converted_amount;
-    //     }
-
-    //     global $wpdb;
-    //     $table = $wpdb->prefix . $tracked;
-    //     $data = array(
-    //         'amount_usd' => $amount_usd,
-    //         'amount_gbp' => $amount_gbp
-    //     );
-    //     $format = array('%f');
-    //     $wpdb->insert($table, $data, $format);
-    // }
+    	global $wpdb;
+    	$table = $wpdb->prefix . $tracked;
+    	$data = [
+    		"amount_usd" => $amount,
+    		// 'amount_gbp' => $amount_gbp
+    	];
+    	$format = ["%f"];
+    	$wpdb->insert($table, $data, $format);
+    }
 
     $thumbnail = "";
 
@@ -105,11 +101,16 @@ get_header('', array('page_class' => 'site--full'));
     $post_thumbnail_id = get_post_thumbnail_id($post->ID); // if it exists if
 
     if ($post_thumbnail_id) {
-
-        $srcset = wp_get_attachment_image_srcset($post_thumbnail_id, "", false, "");
-        $src = wp_get_attachment_image_src($post_thumbnail_id);
-        $sizes = wp_get_attachment_image_sizes($post_thumbnail_id);
-    } ?>
+    	$srcset = wp_get_attachment_image_srcset(
+    		$post_thumbnail_id,
+    		"",
+    		false,
+    		""
+    	);
+    	$src = wp_get_attachment_image_src($post_thumbnail_id);
+    	$sizes = wp_get_attachment_image_sizes($post_thumbnail_id);
+    }
+    ?>
 
     <main id="main" class="site-main donation-thankyou" role="main">
 
@@ -117,65 +118,59 @@ get_header('', array('page_class' => 'site--full'));
         <div class="full-grid">
 
             <div class="donation-thankyou__photo">
-                <img src="<?php echo get_the_post_thumbnail_url($post->ID); ?>" srcset="<?php echo $srcset; ?>" />
+                <img src="<?php echo get_the_post_thumbnail_url(
+                	$post->ID
+                ); ?>" srcset="<?php echo $srcset; ?>" />
             </div>
 
-            <h1 class="donation-thankyou__title font-canela">Thank you <?php echo $name ?>!</h1>
+            <h1 class="donation-thankyou__title font-canela">Thank you <?php echo $name; ?>!</h1>
 
             <div class="donation-thankyou__text">
 
-                <?php
-                switch ($type) {
-                    case 'UK one-off': ?>
+                <?php switch ($type) { case "UK one-off": ?>
 
                         <p>
-                            Your donation of <b>£<?php echo $amount ?></b>
+                            Your donation of <b>£<?php echo $amount; ?></b>
                             will help end slavery and change lives. You will receive a receipt via email shortly.
                         </p>
 
-                    <?php break;
-                    case 'UK Guardian': ?>
+                    <?php break;case "UK Guardian": ?>
 
                         <p>
                             Your donation of <b>£<?php echo $guardianAmount; ?></b> a month will help end slavery and change lives. You will receive a receipt via email shortly.
                         </p>
 
-                    <?php break;
-                    case 'USA one-off': ?>
+                    <?php break;case "USA one-off": ?>
 
                         <p>
                             Your donation of <b>$<?php echo $amount; ?></b> will help end slavery and change lives. You will receive a receipt via email shortly.
                         </p>
 
-                    <?php break;
-                    case 'USA Guardian': ?>
+                    <?php break;case "USA Guardian": ?>
 
                         <p>
                             Your donation of <b>$<?php echo $amount; ?></b> a month will help end slavery and change lives. You will receive a receipt via email shortly.
                         </p>
 
-                    <?php break;
-                    case 'Norway one-off': ?>
+                    <?php break;case "Norway one-off": ?>
 
                         <p>
                             Your donation of <b><?php echo $amount; ?> kr</b> will help end slavery and change lives. You will receive a receipt via email shortly.
                         </p>
 
-                    <?php break;
-                    case 'Norway Guardian': ?>
+                    <?php break;case "Norway Guardian": ?>
 
                         <p>
                             Your donation of <b><?php echo $amount; ?> kr</b> a month will help end slavery and change lives. You will receive a receipt via email shortly.
                         </p>
 
-                    <?php break;
-                    default: ?>
+                    <?php break;default: ?>
 
                         <p>Your donation was successful</p>
 
                 <?php } ?>
 
-                <?php if ($signup == 'false') { ?>
+                <?php if ($signup == "false") { ?>
 
                     <div class="donation-thankyou__text--smaller">
                         <p>You have opted out of email communications. Press the button below to opt in and hear about how your money is helping our cause.</p>
@@ -191,23 +186,39 @@ get_header('', array('page_class' => 'site--full'));
 
                     <ul class="thankyou__socials">
                         <li class="">
-                            <a href="<?php echo the_field('linked_in_link', 'option'); ?>">
-                                <img src="<?php echo get_template_directory_uri() . '/assets/img/li-red.svg'; ?>" alt="">
+                            <a href="<?php echo the_field(
+                            	"linked_in_link",
+                            	"option"
+                            ); ?>">
+                                <img src="<?php echo get_template_directory_uri() .
+                                	"/assets/img/li-red.svg"; ?>" alt="">
                             </a>
                         </li>
                         <li class="">
-                            <a href="<?php echo the_field('instagram_link', 'option'); ?>">
-                                <img src="<?php echo get_template_directory_uri() . '/assets/img/in-red.svg'; ?>" alt="">
+                            <a href="<?php echo the_field(
+                            	"instagram_link",
+                            	"option"
+                            ); ?>">
+                                <img src="<?php echo get_template_directory_uri() .
+                                	"/assets/img/in-red.svg"; ?>" alt="">
                             </a>
                         </li>
                         <li class="">
-                            <a href="<?php echo the_field('twitter_link', 'option'); ?>">
-                                <img src="<?php echo get_template_directory_uri() . '/assets/img/tw-red.svg'; ?>" alt="">
+                            <a href="<?php echo the_field(
+                            	"twitter_link",
+                            	"option"
+                            ); ?>">
+                                <img src="<?php echo get_template_directory_uri() .
+                                	"/assets/img/tw-red.svg"; ?>" alt="">
                             </a>
                         </li>
                         <li class="">
-                            <a href="<?php echo the_field('facebook_link', 'option'); ?>">
-                                <img src="<?php echo get_template_directory_uri() . '/assets/img/fb-red.svg'; ?>" alt="">
+                            <a href="<?php echo the_field(
+                            	"facebook_link",
+                            	"option"
+                            ); ?>">
+                                <img src="<?php echo get_template_directory_uri() .
+                                	"/assets/img/fb-red.svg"; ?>" alt="">
                             </a>
                         </li>
                     </ul>
@@ -240,7 +251,9 @@ get_header('', array('page_class' => 'site--full'));
 
     </main><!-- #main -->
 
-<?php endwhile; // end of the loop. 
+<?php
+endwhile;
+// end of the loop.
 ?>
 
 <?php get_footer(); ?>

@@ -652,12 +652,23 @@ function my_acf_init_block_types()
 			"category" => "hfj-design-system",
 		]);
 
+		//register pre donation block
 		acf_register_block_type([
 			"name" => "pre-donation",
 			"title" => __("Pre Donation Block"),
 			"description" => __("Used to ask the user how they would like to donate"),
 			"render_template" =>
 				"template-parts/blocks/pre-donation/pre-donation.php",
+			"category" => "hfj-design-system",
+		]);
+
+		//register other ways to donate block
+		acf_register_block_type([
+			"name" => "other-ways-to-give",
+			"title" => __("Other ways to give block"),
+			"description" => __(""),
+			"render_template" =>
+				"template-parts/blocks/other-ways-to-give/other-ways-to-give.php",
 			"category" => "hfj-design-system",
 		]);
 	}
@@ -839,9 +850,3 @@ function register_acf_block_styles(): void
 	//     wp_enqueue_style('careers_block_styles', get_template_directory_uri() . '/template-parts/blocks/careers.css', array(), _S_VERSION);
 	// }
 }
-
-//register grid block in new way acf 6.0
-// function register_test_block() {
-//   register_block_type(get_template_directory_uri() . 'template-parts/blocks/block.json');
-// }
-// add_action('init', 'register_test_block');

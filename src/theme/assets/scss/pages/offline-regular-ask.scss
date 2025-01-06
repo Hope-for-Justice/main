@@ -1,0 +1,67 @@
+.header {
+	display: none;
+}
+// .newsticker {
+// 	display: none;
+// }
+.offline-regular-ask {
+	padding: 0 40px;
+	h3 {
+		font-size: 21px;
+		font-weight: bold;
+	}
+	max-width: 960px;
+	margin: 0 auto;
+	input {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+	label {
+		font-size: 18px;
+	}
+}
+#Amount {
+	width: 100% !important;
+}
+
+.flex {
+	display: flex;
+}
+
+.justify-center {
+	justify-content: center;
+}
+.align-center {
+	align-items: center;
+}
+#AmountPrefix {
+	font-size: 21px;
+	font-weight: bold;
+	height: 63px;
+	padding: 20px 16px !important;
+	text-align: center;
+	width: auto !important;
+	display: flex !important;
+}
+
+.gdpr {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 40px;
+	p {
+		font-size: 16px;
+	}
+	input {
+		width: auto;
+		font-size: 20px;
+		transform: scale(2);
+		margin-left: 5px;
+		margin-right: 10px;
+	}
+}
+
+.subtitle {
+	font-weight: bold;
+	font-size: 18px;
+	margin: 20px 0;
+}

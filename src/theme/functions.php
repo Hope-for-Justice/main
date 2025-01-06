@@ -10,7 +10,7 @@
 
 if (!defined("_S_VERSION")) {
 	// Replace the version number of the theme on each release.
-	define("_S_VERSION", "6.3.3");
+	define("_S_VERSION", "6.3.6");
 }
 
 if (!function_exists("hope_for_justice_2021_setup")):
@@ -460,6 +460,14 @@ function page_scripts()
 			"btc_event_series_assets",
 			get_template_directory_uri() .
 				"/template-parts/blocks/btc-event-series.css",
+			[],
+			_S_VERSION
+		);
+	}
+	if (is_page_template("templates/page-offline-regular-ask.php")) {
+		wp_enqueue_style(
+			"offline-regular-ask",
+			get_template_directory_uri() . "/offline-regular-ask.css",
 			[],
 			_S_VERSION
 		);
