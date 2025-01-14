@@ -671,6 +671,15 @@ function my_acf_init_block_types()
 				"template-parts/blocks/other-ways-to-give/other-ways-to-give.php",
 			"category" => "hfj-design-system",
 		]);
+
+		//register scroll-down block
+		acf_register_block_type([
+			"name" => "scroll-down",
+			"title" => __("Scroll down indicator block"),
+			"description" => __(""),
+			"render_template" => "template-parts/blocks/scroll-down/scroll-down.php",
+			"category" => "hfj-design-system",
+		]);
 	}
 }
 
@@ -705,6 +714,17 @@ function register_acf_block_styles(): void
 			"card_scripts",
 			get_template_directory_uri() .
 				"/template-parts/blocks/cards/cards-scripts.js",
+			[],
+			_S_VERSION
+		);
+	}
+
+	if (has_block("acf/scroll-down")) {
+		// wp_enqueue_style('card_third_styles', get_template_directory_uri() . '/template-parts/blocks/cards-thirds.css', array(), _S_VERSION);
+		wp_enqueue_script(
+			"scroll_down",
+			get_template_directory_uri() .
+				"/template-parts/blocks/scroll-down/scroll-down.js",
 			[],
 			_S_VERSION
 		);

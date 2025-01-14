@@ -20,6 +20,7 @@ get_header("", ["page_class" => "site--full"]); ?>
     $signup = $_GET["signup"];
     $name = $_GET["Name"];
     $tracked = $_GET["tracked"];
+    $tid = $_GET["tid"];
     $currency = $_GET["currency"];
 
     $guardianAmount = $_COOKIE["wordpress_guardian_amount"];
@@ -87,12 +88,24 @@ get_header("", ["page_class" => "site--full"]); ?>
 
     	global $wpdb;
     	$table = $wpdb->prefix . $tracked;
-    	$data = [
-    		"amount_usd" => $amount,
-    		// 'amount_gbp' => $amount_gbp
-    	];
-    	$format = ["%f"];
-    	$wpdb->insert($table, $data, $format);
+
+    	// Check if the tracking ID already exists
+    	$existing_tracking_id = $wpdb->get_var(
+    		$wpdb->prepare(
+    			"SELECT COUNT(*) FROM $table WHERE tracking_id = %s",
+    			$tid
+    		)
+    	);
+
+    	// only insert if unique
+    	if ($existing_tracking_id == 0) {
+    		$data = [
+    			"amount" => $amount,
+    			"tracking_id" => $tid,
+    		];
+    		$format = ["%f", "%s"];
+    		$wpdb->insert($table, $data, $format);
+    	}
     }
 
     $thumbnail = "";

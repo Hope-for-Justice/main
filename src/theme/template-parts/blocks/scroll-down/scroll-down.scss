@@ -1,0 +1,31 @@
+.scroll-down {
+	display: none;
+}
+
+@media screen and (min-width: 1024px) and (max-height: 1024px) {
+	.scroll-down {
+		animation: bounce 1s ease infinite;
+		bottom: 3.5rem;
+		height: 3.5rem;
+		left: 50%;
+		margin-left: -1.75rem;
+		position: fixed;
+		width: 3.5rem;
+		z-index: 900;
+		background-color: white;
+		border-radius: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+		svg {
+			width: 25px;
+		}
+	}
+
+	@keyframes bounce {
+		50% {
+			transform: translateY(-40%);
+		}
+	}
+}

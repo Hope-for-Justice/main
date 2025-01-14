@@ -146,14 +146,17 @@ if ($tracked && $target) {
 		{
 			$donations = $wpdb->get_results("SELECT * FROM $table");
 			$amount = 0.0;
-			if (!empty($donations)) {
-				foreach ($donations as $donation) {
-					if ($currency == "USD") {
-						$amount += $donation->amount_usd;
-					} else {
-						$amount += $donation->amount_gbp;
-					}
-				}
+			// if (!empty($donations)) {
+			// 	foreach ($donations as $donation) {
+			// 		if ($currency == "USD") {
+			// 			$amount += $donation->amount_usd;
+			// 		} else {
+			// 			$amount += $donation->amount_gbp;
+			// 		}
+			// 	}
+			// }
+			foreach ($donations as $donation) {
+				$amount += $donation->amount;
 			}
 			return $amount;
 		}
